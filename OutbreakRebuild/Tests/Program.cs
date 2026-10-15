@@ -1,0 +1,138 @@
+using System; // Run dependency-free checks with Mono or an ordinary .NET SDK.
+using System.Collections.Generic; // Inspect actual local occupancy after long simulations.
+using System.Diagnostics; // Measure only the executed movement slice, separately from rendering.
+using System.Globalization; // Keep recorded benchmark numbers stable across locales.
+using System.IO; // Exercise actual file replacement and example generation.
+using Outbreak.Contracts; // Construct malformed documents at the public persistence boundary.
+using Outbreak.Core; // Test the shipped authoritative implementation directly.
+using Outbreak.Persistence; // Round-trip the production serializer rather than a test substitute.
+public static class Program // Keep the test entry point outside Unity's Assets tree.
+{ // Begin executable foundation acceptance.
+    private static int cases, assertions; // Report the actual number of executed checks.
+    private static readonly List<string> results = new List<string>(); // Retain only this finite test report.
+    private static void Require(bool condition, string message) { assertions++; if (!condition) throw new Exception(message); } // Fail the process immediately after a violated invariant.
+    private static void Reject(Action action) { bool rejected = false; try { action(); } catch (ArgumentException) { rejected = true; } catch (System.Runtime.Serialization.SerializationException) { rejected = true; } Require(rejected, "Malformed candidate was accepted."); } // Require a genuine validation failure.
+    private static void Check(string name, Action action) { action(); cases++; results.Add("PASS " + name); Console.WriteLine(results[results.Count - 1]); } // Count only completed acceptance cases.
+    private static string State(World world) { return Documents.Encode(world.Capture()); } // Compare all authoritative state, including random state and terrain.
+    private static World Population(int size, int population = 1000) // Create a reproducible grid of explicitly placed baseline bodies.
+    { // Begin performance fixture creation.
+        World world = new World(new WorldMap(size, size, "Benchmark " + size), 942); int id; // Keep dimensions independent from population.
+        for (int i = 0; i < population; i++) Require(world.TrySpawn(i == population - 1 ? Species.Zombie : Species.Human, 1 + i % 50, 1 + i / 50, out id), "Fixture spawn failed."); return world; // Separate fixture setup from timed ticks.
+    } // Finish performance fixture creation.
+    private static void Run(World world, int count) { for (int i = 0; i < count; i++) world.Step(); } // Advance through the same production tick entry point used by Unity.
+    private static void Inspect(World world) // Check current bounds, barriers, stable IDs, and both occupancy limits.
+    { // Begin full actor invariants.
+        Dictionary<int, int> total = new Dictionary<int, int>(), humans = new Dictionary<int, int>(); int previousId = 0; // Build an independent diagnostic index.
+        for (int i = 0; i < world.Count; i++) // Inspect every authoritative body after movement.
+        { // Begin one invariant check.
+            ActorState actor = world.ActorAt(i); Require(actor.id > previousId && actor.x >= 0 && actor.y >= 0 && actor.x < world.Width && actor.y < world.Height && TerrainRules.Walkable(world.TerrainAt(actor.x, actor.y)), "Identity, boundary, or collision invariant failed."); previousId = actor.id; // Verify each actor is on a valid cell.
+            int key = actor.y * world.Width + actor.x, n; total.TryGetValue(key, out n); total[key] = n + 1; if (actor.species == Species.Human) { humans.TryGetValue(key, out n); humans[key] = n + 1; } // Count actual current occupancy independently from production buckets.
+        } // Finish one invariant check.
+        foreach (int count in total.Values) Require(count <= 8, "Body capacity exceeded."); foreach (int count in humans.Values) Require(count <= 4, "Human capacity exceeded."); Require(world.OccupiedCells == total.Count && world.OccupiedCells <= world.Count, "Spatial index leaked empty or inconsistent buckets."); // Validate the production index against actual bodies.
+    } // Finish full actor invariants.
+    public static int Main(string[] args) // Fail with a nonzero exit code and generate reviewable evidence only after success.
+    { // Begin the suite.
+        try // Report the first actual failure instead of continuing with a partial success count.
+        { // Begin acceptance cases.
+            Check("Sparse dimensions and defensive map ownership", () => // Verify scale and aliasing at the terrain boundary.
+            { // Begin sparse-map checks.
+                WorldMap map = new WorldMap(10000, 10000, "庭 / Lab", "stable", "{\"unknownFutureField\":\"preserve me\"}"); Require(map.AllocatedChunks == 0, "Empty large map allocated dense cells."); // Confirm sparse authoring storage at the declared dimension bound.
+                map.Set(9999, 9999, Terrain.GateClosed); Require(map.AllocatedChunks == 1 && map.Get(9999, 9999) == Terrain.GateClosed, "Far corner chunk failed."); // Exercise partial edge chunks at maximum size.
+                WorldMap copy = Documents.ParseMap(Documents.Encode(map.Capture())); Require(copy.Capture().authoringJson == map.Capture().authoringJson && copy.Name == map.Name, "Metadata or Unicode changed."); map.Set(9999, 9999, Terrain.Grass); Require(map.AllocatedChunks == 0 && copy.AllocatedChunks == 1, "Map snapshot aliases live storage."); // Verify the erased chunk is reclaimed and snapshots remain independent.
+                WorldMap tiny = new WorldMap(1, 1); Require(tiny.CanWalk(0, 0) && !tiny.CanWalk(-1, 0), "Minimum map bounds failed."); Reject(() => new WorldMap(0, 1)); Reject(() => new WorldMap(10001, 1)); // Exercise both size boundaries.
+            }); // Finish sparse-map acceptance.
+            Check("Map corruption and version rejection before replacement", () => // Reject malformed chunks without mutating a valid map.
+            { // Begin map validation cases.
+                WorldMap map = new WorldMap(33, 33); map.Set(32, 32, Terrain.Wall); string before = Documents.Encode(map.Capture()); MapDocument candidate = map.Capture(); candidate.schemaVersion = 2; Reject(() => WorldMap.Restore(candidate)); // Refuse future versions explicitly.
+                candidate = map.Capture(); candidate.chunks[0].cells[0] = 999; Reject(() => WorldMap.Restore(candidate)); candidate = map.Capture(); candidate.chunks[0].cells[1] = 1; Reject(() => WorldMap.Restore(candidate)); // Refuse unknown terrain and hidden nonempty edge cells.
+                candidate = map.Capture(); candidate.chunks = new[] { candidate.chunks[0], candidate.chunks[0] }; Reject(() => WorldMap.Restore(candidate)); Reject(() => Documents.ParseMap("{}")); Require(Documents.Encode(map.Capture()) == before, "Failed load mutated the active map."); // Verify duplicate and incomplete records cannot replace the current map.
+            }); // Finish map validation acceptance.
+            Check("Clock pause, exact stepping and game-time ratio", () => // Verify time controls affect every system through one tick entry point.
+            { // Begin clock checks.
+                World world = Population(100, 20); TickClock clock = new TickClock(); string before = State(world); Require(clock.Advance(100, world.Step) == 0 && State(world) == before && clock.Alpha == 1, "Paused world changed."); // Confirm paused real time does not reach simulation or interpolation.
+                clock.StepTen(world.Step); Require(world.Tick == 10 && clock.Paused, "Manual stepping did not remain paused."); clock.SetPaused(false); for (int i = 0; i < 600; i++) clock.Advance(0.2, world.Step); Require(world.Tick == 610 && world.GameSeconds == 3660, "Five TPS or game-clock ratio drifted."); // Verify exactly one game hour per six hundred ticks.
+                clock.SetPaused(true); before = State(world); clock.Advance(999, world.Step); Require(State(world) == before, "Pause altered the random stream."); // Verify all authoritative fields remain unchanged while paused.
+            }); // Finish clock acceptance.
+            Check("All speeds, frame partitioning and retained catch-up debt", () => // Compare the scheduler against exact elapsed-time expectations.
+            { // Begin scheduler checks.
+                foreach (double speed in new[] { 0.5, 1.0, 2.0, 3.0 }) { TickClock clock = new TickClock(); clock.SetSpeed(speed); clock.SetPaused(false); int ticks = 0; for (int i = 0; i < 1200; i++) clock.Advance(0.01, () => ticks++); Require(ticks == (int)(60 * speed), "Speed changed the logical tick rate."); } // Check twelve real seconds at every agreed speed.
+                TickClock debt = new TickClock(); debt.SetPaused(false); int done = 0; Require(debt.Advance(10, () => done++, 3) == 3 && debt.DebtSeconds > 9, "Catch-up budget dropped logical time."); while (debt.DebtSeconds > 0.199) debt.Advance(0, () => done++, 3); Require(done == 50, "Tick debt did not drain exactly."); // Confirm work limits never skip simulation ticks.
+                Reject(() => debt.Advance(double.NaN, () => { })); debt.SetSpeed(3); Reject(() => debt.Advance(double.MaxValue, () => { })); Reject(() => debt.SetSpeed(0)); // Reject nonfinite and unsupported scheduling inputs.
+            }); // Finish scheduler acceptance.
+            Check("Deterministic movement and exact JSON save continuation", () => // Compare uninterrupted and loaded simulations over thousands of real production ticks.
+            { // Begin determinism checks.
+                World first = Population(100, 100), second = Population(100, 100); Run(first, 2500); Run(second, 2500); Require(State(first) == State(second), "Same seed diverged."); // Verify deterministic ordering and random draws.
+                World restored = Documents.ParseSave(State(first)); Run(first, 2500); Run(restored, 2500); Require(State(first) == State(restored), "Save/load changed future state."); // Test continuation rather than a superficial immediate round trip.
+                SaveDocument detached = second.Capture(); detached.actors[0].x = 99; Require(second.ActorAt(0).x != 99, "Snapshot actors alias live state."); WorldMap source = new WorldMap(2, 2); World isolated = new World(source); source.Set(0, 0, Terrain.Wall); Require(isolated.TerrainAt(0, 0) == Terrain.Grass, "Authoring map mutated its running instance."); // Verify both map and actor ownership boundaries.
+            }); // Finish deterministic continuation acceptance.
+            Check("Spawn limits, failed-command stability and all SPECIAL bounds", () => // Exercise the public placement and saved-stat boundaries.
+            { // Begin population validation.
+                World world = new World(new WorldMap(1, 1)); int id; for (int i = 0; i < 4; i++) Require(world.TrySpawn(Species.Human, 0, 0, out id), "Valid human slot rejected."); string before = State(world); Require(!world.TrySpawn(Species.Human, 0, 0, out id) && State(world) == before, "Rejected fifth human changed state."); // Check the four-human limit without consuming randomness or identity.
+                for (int i = 0; i < 4; i++) Require(world.TrySpawn(Species.Zombie, 0, 0, out id), "Valid zombie slot rejected."); Require(!world.TrySpawn(Species.Zombie, 0, 0, out id) && !world.TrySpawn((Species)77, 0, 0, out id), "Body or species limit failed."); // Check eight bodies independently of human crowding.
+                World capped = new World(new WorldMap(4, 4), 1, 1); Require(capped.TrySpawn(Species.Human, 0, 0, out id) && !capped.TrySpawn(Species.Zombie, 1, 0, out id), "Population cap failed."); SaveDocument saved = capped.Capture(); ActorState actor = saved.actors[0]; actor.luck = 11; saved.actors[0] = actor; Reject(() => World.Restore(saved)); // Validate the last SPECIAL field as well as capacity.
+                foreach (int morality in new[] { -5, 5 }) { saved = capped.Capture(); saved.actors[0].morality = morality; Require(World.Restore(saved).ActorAt(0).morality == morality, "Signed morality boundary was lost."); } saved = capped.Capture(); saved.actors[0].morality = 6; Reject(() => World.Restore(saved)); // Preserve the recovered morality range without confusing it with signed bravery.
+            }); // Finish population validation acceptance.
+            Check("Solid barriers and diagonal corner exclusion", () => // Use a fixture that would leak diagonally if either side clearance were ignored.
+            { // Begin collision validation.
+                WorldMap map = new WorldMap(3, 3); map.Set(1, 0, Terrain.Wall); map.Set(0, 1, Terrain.Wall); map.Set(2, 1, Terrain.Wall); map.Set(1, 2, Terrain.Wall); World world = new World(map, 137); int id; Require(world.TrySpawn(Species.Human, 1, 1, out id), "Isolated fixture rejected."); Run(world, 3000); Require(world.ActorAt(0).x == 1 && world.ActorAt(0).y == 1, "Actor escaped through a solid corner."); Inspect(world); // Exercise thousands of independent diagonal attempts.
+            }); // Finish collision acceptance.
+            Check("Running-save corruption, duplicate IDs and wrong kind", () => // Refuse each corrupted authoritative field before a new world can be returned.
+            { // Begin running-save validation.
+                World world = Population(100, 2); string before = State(world); SaveDocument saved = world.Capture(); saved.actors[1].id = saved.actors[0].id; Reject(() => World.Restore(saved)); // Refuse duplicate stable identities.
+                saved = world.Capture(); saved.randomState = 0; Reject(() => World.Restore(saved)); saved = world.Capture(); saved.tick = -1; Reject(() => World.Restore(saved)); saved = world.Capture(); saved.rulesVersion = "different-behavior"; Reject(() => World.Restore(saved)); // Validate random continuation, time, and behavior compatibility.
+                Reject(() => Documents.ParseSave(Documents.Encode(world.Capture().map))); Require(State(world) == before, "Failed save load changed the active world."); // Keep reusable maps and running saves distinct.
+            }); // Finish running-save validation acceptance.
+            Check("Real UTF-8 file replacement and cleanup on failure", () => // Exercise actual filesystem writes rather than an in-memory fake.
+            { // Begin file persistence checks.
+                string folder = Path.Combine(Path.GetTempPath(), "OutbreakChecks-" + Guid.NewGuid().ToString("N")); Directory.CreateDirectory(folder); // Isolate temporary test files from project sources.
+                try { string path = Path.Combine(folder, "庭.obsave2"); World world = Population(100, 10); Documents.Write(path, State(world)); Run(world, 31); Documents.Write(path, State(world)); Require(State(Documents.ParseSave(Documents.Read(path))) == State(world), "Atomic replacement lost state."); bool failed = false; try { Documents.Write(folder, "{}"); } catch (IOException) { failed = true; } Require(failed && Directory.Exists(folder) && Directory.GetFiles(folder, "*.tmp").Length == 0, "Failed save damaged its target or leaked temporary bytes."); } finally { Directory.Delete(folder, true); } // Verify overwrite, Unicode paths, and safe failed publication.
+            }); // Finish file persistence acceptance.
+            Check("Fifteen-thousand-tick run at one thousand bodies", () => // Exercise the requested long-run foundation population.
+            { // Begin the soak test.
+                World world = Population(100); Run(world, 15000); Require(world.Tick == 15000 && world.Count == 1000 && world.AllocatedChunks == 0, "Soak run lost bodies or allocated terrain while moving."); Inspect(world); World resumed = Documents.ParseSave(State(world)); Run(world, 250); Run(resumed, 250); Require(State(world) == State(resumed), "Long-run continuation drifted."); // Check bounded spatial storage and full future-state equivalence after the soak.
+            }); // Finish soak acceptance.
+            Check("Locked baseline bravery formula", () => // Pin representative approved stat combinations.
+            { // Begin bravery cases.
+                Require(Rules.Bravery(3, 3, 3) == 0 && Rules.Bravery(5, 5, 5) == 3 && Rules.Bravery(0, 0, 0) == -3 && Rules.Bravery(4, 4, 2) == 1, "Bravery formula changed."); // Include a midpoint case to make the rounding decision reviewable.
+            }); // Finish bravery acceptance.
+            Check("Encounter pursuit and fleeing", () => // Observe production decisions on open terrain.
+            { // Begin a controlled visible-target fixture.
+                World world = new World(new WorldMap(30, 20), 7, 1000, true); int id; world.TrySpawn(Species.Human, 10, 10, out id); world.TrySpawn(Species.Zombie, 15, 10, out id); Run(world, 5); Require(world.ActorAt(0).x < 10 && world.ActorAt(1).x < 15, "Human did not flee or zombie did not pursue."); Inspect(world); // Check actual positions and authoritative crowd counts.
+            }); // Finish encounter response acceptance.
+            Check("Encounter walls and diagonal contact occlusion", () => // Ensure targets cannot be acquired or bitten through solid geometry.
+            { // Begin blocked contact fixtures.
+                WorldMap map = new WorldMap(3, 3); map.Set(1, 0, Terrain.Wall); map.Set(0, 1, Terrain.Wall); World world = new World(map, 1, 1000, true); int id; world.TrySpawn(Species.Zombie, 0, 0, out id); world.TrySpawn(Species.Human, 1, 1, out id); Run(world, 50); Require(world.ActorAt(0).x == 0 && world.ActorAt(0).y == 0 && world.ActorAt(1).turnAtTick == 0, "Zombie saw or bit through a solid corner."); // The isolated zombie cannot cross either side of its corner.
+                map = new WorldMap(5, 3); for (int y = 0; y < 3; y++) map.Set(2, y, Terrain.Wall); world = new World(map, 1, 1000, true); world.TrySpawn(Species.Zombie, 1, 1, out id); world.TrySpawn(Species.Human, 3, 1, out id); Run(world, 50); Require(world.ActorAt(0).x == 1 && world.ActorAt(1).turnAtTick == 0, "Solid wall did not block pursuit and infection."); // No global target knowledge crosses a wall.
+            }); // Finish occlusion acceptance.
+            Check("Encounter bite, pause, delayed turning and exact continuation", () => // Trap adjacent actors so fleeing cannot obscure contact timing.
+            { // Begin the deterministic conversion scenario.
+                World world = new World(new WorldMap(2, 1), 9, 1000, true); int human, zombie; world.TrySpawn(Species.Zombie, 0, 0, out zombie); world.TrySpawn(Species.Human, 1, 0, out human); Run(world, 1); ActorState bitten = world.ActorAt(1); Require(bitten.turnAtTick == 66 && bitten.health == 90 && bitten.species == Species.Human, "First bite or END-dependent delay was wrong."); // Baseline END three adds fifteen ticks to the fifty-tick delay.
+                TickClock clock = new TickClock(); string paused = State(world); clock.Advance(100, world.Step); Require(State(world) == paused, "Paused infection advanced."); Run(world, 10); Require(world.ActorAt(1).turnAtTick == 66 && world.ActorAt(1).health == 90, "Repeated contact reset infection or applied repeated damage."); // Infection is applied once per victim in this prototype.
+                World restored = Documents.ParseSave(State(world)); Run(world, 54); Run(restored, 54); Require(world.Tick == 65 && world.ActorAt(1).species == Species.Human, "Human turned before its deadline."); Run(world, 1); Run(restored, 1); ActorState turned = world.ActorAt(1); Require(turned.species == Species.Zombie && turned.id == human && turned.turnAtTick == 0 && turned.endurance == bitten.endurance && turned.charisma == 0 && turned.intelligence == 0, "Conversion lost identity, timing or inherited stats."); Require(State(world) == State(restored), "Infection continuation diverged."); Inspect(world); Require(world.TrySpawn(Species.Human, 1, 0, out human), "Conversion did not release the human occupancy count."); // Check conversion and save/resume through the actual serializer.
+            }); // Finish conversion acceptance.
+            Check("Encounter save validation and old-save compatibility", () => // Refuse silently mixed simulation rules and malformed deadlines.
+            { // Begin version validation.
+                World old = Population(100, 2); string legacy = State(old).Replace(",\"turnAtTick\":0", ""); Require(!Documents.ParseSave(legacy).Encounter, "Old save became an encounter."); SaveDocument saved = old.Capture(); saved.actors[0].turnAtTick = 5; Reject(() => World.Restore(saved)); // Original fixture rules cannot carry infection.
+                World world = new World(new WorldMap(2, 1), 1, 1000, true); int id; world.TrySpawn(Species.Human, 0, 0, out id); saved = world.Capture(); saved.actors[0].turnAtTick = 101; Reject(() => World.Restore(saved)); saved.actors[0].turnAtTick = -1; Reject(() => World.Restore(saved)); saved.actors[0].turnAtTick = 10; saved.actors[0].species = Species.Zombie; Reject(() => World.Restore(saved)); // Reject oversized, negative and wrong-species deadlines.
+            }); // Finish version validation.
+            Check("Encounter local route, sight radius and crowded conversion", () => // Exercise shortest routes, locality and independent occupancy reconstruction.
+            { // Begin controlled navigation fixtures.
+                WorldMap map = new WorldMap(5, 1); World world = new World(map, 3, 1000, true); int id; world.TrySpawn(Species.Zombie, 0, 0, out id); for (int i = 0; i < 4; i++) world.TrySpawn(Species.Human, 4, 0, out id); Run(world, 1); Require(world.ActorAt(0).x == 1, "Local shortest path did not advance toward the crowd."); // No alternative diagonal route exists in this corridor.
+                world = new World(new WorldMap(40, 1), 3, 1000, true); world.TrySpawn(Species.Zombie, 0, 0, out id); world.TrySpawn(Species.Human, 30, 0, out id); Run(world, 10); Require(world.ActorAt(0).x == 0, "Zombie acquired a target beyond sight range."); // An unseen target must not grant global knowledge.
+                world = new World(new WorldMap(1, 1), 3, 1000, true); world.TrySpawn(Species.Zombie, 0, 0, out id); for (int i = 0; i < 4; i++) world.TrySpawn(Species.Human, 0, 0, out id); Require(!world.TrySpawn(Species.Human, 0, 0, out id), "Human limit was not enforced."); Run(world, 66); Require(world.ActorAt(1).species == Species.Zombie && world.TrySpawn(Species.Human, 0, 0, out id), "Turning failed to release a human occupancy slot."); Inspect(world); // Human crowd capacity must update at conversion, not just after reload.
+            }); // Finish local navigation and capacity acceptance.
+            Check("Encounter thousand-body deterministic soak", () => // Validate bounded simulation state with the new systems enabled.
+            { // Begin the encounter performance fixture.
+                World world = new World(new WorldMap(1000, 1000), 942, 1000, true); int id; for (int i = 0; i < 1000; i++) world.TrySpawn(i % 4 == 0 ? Species.Zombie : Species.Human, 1 + i % 50, 1 + i / 50, out id); Stopwatch timer = Stopwatch.StartNew(); Run(world, 500); timer.Stop(); Inspect(world); World restored = Documents.ParseSave(State(world)); Run(world, 100); Run(restored, 100); Require(State(world) == State(restored) && world.Count == 1000, "Crowded encounter continuation diverged or lost bodies."); results.Add("ENCOUNTER BENCH 1000x1000, 1000 bodies, 500 ticks: " + timer.Elapsed.TotalMilliseconds.ToString("0.00", CultureInfo.InvariantCulture) + " ms; prototype sight, pursuit, fleeing and infection enabled; Unity rendering excluded."); // Keep encounter timings separate from movement-only benchmarks.
+            }); // Finish encounter soak acceptance.
+            foreach (int size in new[] { 100, 250, 500, 1000 }) // Record a benchmark ladder without claiming future AI or rendering performance.
+            { // Begin one measured movement run.
+                World world = Population(size); Run(world, 200); Stopwatch timer = Stopwatch.StartNew(); Run(world, 2000); timer.Stop(); Inspect(world); string measurement = "BENCH " + size + "x" + size + ", 1000 bodies, 2000 movement ticks: " + timer.Elapsed.TotalMilliseconds.ToString("0.00", CultureInfo.InvariantCulture) + " ms total, " + (timer.Elapsed.TotalMilliseconds / 2000).ToString("0.0000", CultureInfo.InvariantCulture) + " ms/tick; terrain chunks " + world.AllocatedChunks; results.Add(measurement); Console.WriteLine(measurement); // Time only production movement ticks after warm-up.
+            } // Finish one measured movement run.
+            string output = args.Length == 0 ? Directory.GetCurrentDirectory() : Path.GetFullPath(args[0]); Directory.CreateDirectory(output); // Accept an explicit report and example destination.
+            results.Insert(0, "Executed " + cases + " acceptance cases and " + assertions + " assertions."); results.Add("Scope: production C# core and persistence only. Unity import, Play mode, Windows dialogs, and Windows EXE build were not executed by this harness."); File.WriteAllLines(Path.Combine(output, "FOUNDATION_CHECKS.txt"), results); // State the exact limits beside the successful evidence.
+            World example = Population(100, 25); Documents.Write(Path.Combine(output, "FoundationArena.obmap2"), Documents.Encode(example.Capture().map)); Documents.Write(Path.Combine(output, "FoundationRun.obsave2"), State(example)); Console.WriteLine(results[0]); return 0; // Generate real loadable examples only after all checks pass.
+        } // Finish acceptance cases.
+        catch (Exception error) { Console.Error.WriteLine(error); return 1; } // Make every failed invariant visible to automation and reviewers.
+    } // Finish the suite.
+} // Finish executable foundation acceptance.

@@ -1,0 +1,80 @@
+using System; // Validate capacity, stable identities, and saved actor state.
+using System.Collections.Generic; // Index occupied cells instead of scanning the whole map.
+using Outbreak.Contracts; // Reuse portable species and actor records.
+namespace Outbreak.Core // Own simulation state independently of the Unity object lifecycle.
+{ // Begin the first executable simulation slice.
+    internal sealed class Occupancy // Track local body counts with storage proportional to active occupied cells.
+    { // Begin spatial counts.
+        private struct Counts { public int bodies, humans; } // Track the two agreed cell limits separately.
+        private readonly Dictionary<int, Counts> cells = new Dictionary<int, Counts>(); // Avoid allocating a dense index for ten-thousand-cell worlds.
+        public int Count { get { return cells.Count; } } // Expose a structural bound for long-run diagnostics.
+        public bool Allows(int key, Species species) // Check a proposed arrival against current occupancy.
+        { // Begin arrival validation.
+            Counts count; cells.TryGetValue(key, out count); return count.bodies < Rules.BodiesPerCell && (species != Species.Human || count.humans < Rules.HumansPerCell); // Permit eight bodies with at most four humans per cell.
+        } // Finish arrival validation.
+        public void Change(int key, Species species, int delta) // Update the index at the same moment as authoritative movement.
+        { // Begin one local count change.
+            Counts count; cells.TryGetValue(key, out count); count.bodies += delta; if (species == Species.Human) count.humans += delta; // Keep human and total counts in lockstep.
+            if (count.bodies == 0) cells.Remove(key); else cells[key] = count; // Drop empty cells so long runs cannot accumulate a trail of buckets.
+        } // Finish one local count change.
+    } // Finish spatial counts.
+    public sealed partial class World // Provide deterministic movement and persistence before higher-level behavior is added.
+    { // Begin the authoritative world.
+        private readonly WorldMap map; private readonly ActorState[] actors; private readonly Occupancy occupancy = new Occupancy(); private readonly RandomStream random; // Keep all mutable simulation storage in one owner.
+        private int count, nextId = 1; // Allocate stable identities monotonically.
+        private static readonly int[] dx = { 0, 1, 1, 1, 0, -1, -1, -1, 0 }, dy = { 1, 1, 0, -1, -1, -1, 0, 1, 0 }; // Support diagonal movement and a deliberate idle choice.
+        public int Count { get { return count; } } public int Capacity { get { return actors.Length; } } // Expose population metrics without exposing mutable arrays.
+        public int Width { get { return map.Width; } } public int Height { get { return map.Height; } } // Allow adapters to frame the world without owning its terrain.
+        public string Name { get { return map.Name; } } public int AllocatedChunks { get { return map.AllocatedChunks; } } public int OccupiedCells { get { return occupancy.Count; } } // Expose bounded storage diagnostics without exposing mutable indexes.
+        public long Tick { get; private set; } // Advance the only simulation clock through Step.
+        public long GameSeconds { get { return Tick * 6; } } // Derive game time from exact integer ticks.
+        public World(WorldMap source, uint seed = 1, int capacity = Rules.DefaultCapacity, bool encounter = false) // Construct an isolated scenario instance.
+        { // Begin world construction.
+            if (source == null || capacity < 1 || capacity > Rules.DefaultCapacity) throw new ArgumentException("A valid map and population cap of 1–1000 are required."); // Keep the agreed default cap explicit for this first slice.
+            Encounter = encounter; map = WorldMap.Restore(source.Capture()); actors = new ActorState[capacity]; random = new RandomStream(seed); // Detach source terrain so authoring cannot mutate a running world.
+        } // Finish world construction.
+        public Terrain TerrainAt(int x, int y) { return map.Get(x, y); } // Offer a read-only terrain query to rendering.
+        public ActorState ActorAt(int index) { if (index < 0 || index >= count) throw new ArgumentOutOfRangeException("index"); return actors[index]; } // Return a struct copy to protect authoritative state.
+        private int Key(int x, int y) { return y * map.Width + x; } // Flatten valid cells safely within the supported dimension bound.
+        public bool TrySpawn(Species species, int x, int y, out int id) // Admit a body only when all placement constraints pass.
+        { // Begin one explicit spawn command.
+            id = 0; if ((species != Species.Human && species != Species.Zombie) || count == actors.Length || !map.CanWalk(x, y) || !occupancy.Allows(Key(x, y), species)) return false; // Leave state and randomness untouched after a rejected placement.
+            ActorState actor = new ActorState { id = nextId++, x = x, y = y, species = species, strength = 3, perception = 3, endurance = 3, charisma = 3, intelligence = 3, agility = 3, luck = 3, morality = 0, bravery = 0, health = 100 }; // Use explicit baseline fixtures until weighted population generation is rebuilt.
+            actors[count++] = actor; occupancy.Change(Key(x, y), species, 1); id = actor.id; return true; // Commit identity, storage, and occupancy together.
+        } // Finish one explicit spawn command.
+        public void Step() // Execute one logical tick with no dependency on frame timing or rendering.
+        { // Begin a deterministic tick.
+            if (Tick >= long.MaxValue / 6 - 1) throw new InvalidOperationException("Simulation clock limit reached."); // Keep the derived game clock inside its integer range.
+            Tick++; // Advance time once, even when there are no active bodies.
+            if (Encounter) { StepEncounter(); return; } // Keep legacy fixture draws and movement unchanged.
+            for (int i = 0; i < count; i++) // Visit actors in stable identity order.
+            { // Begin baseline movement for one body.
+                ActorState actor = actors[i]; if (Tick % 5 != actor.id % 5) continue; int direction = random.Below(9), nx = actor.x + dx[direction], ny = actor.y + dy[direction]; // Move each fixture at one cell per second, staggered across ticks.
+                if ((nx == actor.x && ny == actor.y) || !map.CanWalk(nx, ny) || !occupancy.Allows(Key(nx, ny), actor.species)) continue; // Respect boundaries, solid terrain, and current local capacity.
+                if (nx != actor.x && ny != actor.y && (!map.CanWalk(nx, actor.y) || !map.CanWalk(actor.x, ny))) continue; // Prevent diagonal movement through the corner of two barriers.
+                occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x = nx; actor.y = ny; actors[i] = actor; occupancy.Change(Key(nx, ny), actor.species, 1); // Commit the move and spatial counts as one deterministic operation.
+            } // Finish baseline movement for one body.
+        } // Finish a deterministic tick.
+        public SaveDocument Capture() // Snapshot every authoritative value and no presentation state.
+        { // Begin world capture.
+            ActorState[] output = new ActorState[count]; Array.Copy(actors, output, count); // Give persistence an isolated actor array.
+            return new SaveDocument { rulesVersion = Encounter ? EncounterRules.Version : "foundation-1", map = map.Capture(), actors = output, tick = Tick, randomState = random.State, nextId = nextId, capacity = actors.Length }; // Preserve direct random continuation and exact future identities.
+        } // Finish world capture.
+        public static World Restore(SaveDocument source) // Build and validate a new world before any caller swaps it into the UI.
+        { // Begin transactional world restoration.
+            if (source == null || source.kind != "outbreak.save" || source.schemaVersion != 1 || (source.rulesVersion != "foundation-1" && source.rulesVersion != EncounterRules.Version) || source.tick < 0 || source.tick >= long.MaxValue / 6 || source.randomState == 0 || source.actors == null || source.nextId < 1) throw new ArgumentException("Unsupported or invalid foundation save."); // Refuse incompatible rules and impossible clocks or random states.
+            World world = new World(WorldMap.Restore(source.map), source.randomState, source.capacity, source.rulesVersion == EncounterRules.Version); // Validate map and population bounds before admitting actors.
+            if (source.actors.Length > source.capacity || source.nextId > int.MaxValue - source.capacity) throw new ArgumentException("Saved population or identity allocation exceeds capacity."); // Bound actor validation and leave enough integer space for future spawns.
+            int previousId = 0; // Require a canonical identity order so later ticks remain reproducible.
+            foreach (ActorState actor in source.actors) // Validate every actor without touching any existing live world.
+            { // Begin one actor validation.
+                if (actor.id <= previousId || actor.id >= source.nextId || (actor.species != Species.Human && actor.species != Species.Zombie) || !world.map.CanWalk(actor.x, actor.y) || !world.occupancy.Allows(world.Key(actor.x, actor.y), actor.species)) throw new ArgumentException("Invalid identity, species, placement, or crowding in save."); // Refuse duplicate IDs and inconsistent spatial state.
+                if (actor.turnAtTick < 0 || (actor.turnAtTick != 0 && (!world.Encounter || actor.species != Species.Human || actor.turnAtTick <= source.tick || actor.turnAtTick - source.tick > EncounterRules.MaxTurnDelay))) throw new ArgumentException("Invalid infection deadline."); // Refuse incompatible or already overdue infection state.
+                int[] stats = { actor.strength, actor.perception, actor.endurance, actor.charisma, actor.intelligence, actor.agility, actor.luck }; // Validate every effective SPECIAL statistic explicitly.
+                if (Array.Exists(stats, value => value < 0 || value > 10) || actor.morality < -5 || actor.morality > 5 || actor.bravery < -3 || actor.bravery > 3 || actor.health < 1 || actor.health > 100) throw new ArgumentException("Invalid actor statistics."); // Retain the source's signed morality range while applying the agreed signed bravery range.
+                world.actors[world.count++] = actor; world.occupancy.Change(world.Key(actor.x, actor.y), actor.species, 1); previousId = actor.id; // Restore a coherent occupancy index from authoritative actor state.
+            } // Finish one actor validation.
+            world.Tick = source.tick; world.nextId = source.nextId; return world; // Publish the replacement only after all validation succeeds.
+        } // Finish transactional world restoration.
+    } // Finish the authoritative world.
+} // Finish the first executable simulation slice.

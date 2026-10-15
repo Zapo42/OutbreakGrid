@@ -1,0 +1,1 @@
+{"name":"Outbreak.Editor","rootNamespace":"Outbreak.EditorAdapter","references":["Outbreak.Core","Outbreak.Unity"],"includePlatforms":["Editor"],"autoReferenced":true}

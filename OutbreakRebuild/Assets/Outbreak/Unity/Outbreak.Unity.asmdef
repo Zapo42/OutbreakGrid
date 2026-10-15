@@ -1,0 +1,1 @@
+{"name":"Outbreak.Unity","rootNamespace":"Outbreak.UnityAdapter","references":["Outbreak.Contracts","Outbreak.Core","Outbreak.Persistence"],"autoReferenced":true}

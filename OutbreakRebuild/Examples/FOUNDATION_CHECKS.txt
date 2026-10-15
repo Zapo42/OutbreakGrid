@@ -1,0 +1,20 @@
+Executed 11 acceptance cases and 18694 assertions.
+PASS Sparse dimensions and defensive map ownership
+PASS Map corruption and version rejection before replacement
+PASS Clock pause, exact stepping and game-time ratio
+PASS All speeds, frame partitioning and retained catch-up debt
+PASS Deterministic movement and exact JSON save continuation
+PASS Spawn limits, failed-command stability and all SPECIAL bounds
+PASS Solid barriers and diagonal corner exclusion
+PASS Running-save corruption, duplicate IDs and wrong kind
+PASS Real UTF-8 file replacement and cleanup on failure
+PASS Fifteen-thousand-tick run at one thousand bodies
+PASS Locked baseline bravery formula
+BENCH 100x100, 1000 bodies, 2000 movement ticks: 62.75 ms total, 0.0314 ms/tick; terrain chunks 0
+BENCH 250x250, 1000 bodies, 2000 movement ticks: 62.94 ms total, 0.0315 ms/tick; terrain chunks 0
+BENCH 500x500, 1000 bodies, 2000 movement ticks: 61.86 ms total, 0.0309 ms/tick; terrain chunks 0
+BENCH 1000x1000, 1000 bodies, 2000 movement ticks: 62.08 ms total, 0.0310 ms/tick; terrain chunks 0
+Scope: production C# core and persistence only. Unity import, Play mode, Windows dialogs, and Windows EXE build were not executed by this harness.
+PASS Windows Open/Save branch strict compilation and 64-bit OPENFILENAMEW layout. Native Windows dialogs were not executed.
+PASS UI dispatch/input-setup harness: 43 assertions. Narrow API doubles; actual Unity layout, native input and desktop dialogs remain unverified.
+PASS UI dispatch/input-setup harness: 3 assertions. Narrow API doubles; actual Unity layout, native input and desktop dialogs remain unverified.

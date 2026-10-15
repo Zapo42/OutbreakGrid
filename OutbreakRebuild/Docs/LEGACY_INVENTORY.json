@@ -1,0 +1,3206 @@
+{
+  "stage": "foundation-1",
+  "capturedUtc": "2026-10-15",
+  "originalsModified": false,
+  "sources": [
+    {
+      "archive": "DragonGlassPixelWorkshop.zip",
+      "sha256": "3bf7f35acd459f5ab466dfda572f995e646214446f11fcb2f84a0eeb666164f8",
+      "bytes": 19337301,
+      "files": [
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/ContentEditorWindow.cs",
+          "bytes": 2858,
+          "sha256": "4a71d29f16c8aca97690941aad63b65e493b1929884fe03a567e677067b4e14f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassColorPicker.cs",
+          "bytes": 11791,
+          "sha256": "0c666f91a3ed76d9461a90cfdefe767a7bfb45273c6f58ac69a8307ba45df039"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassColorUi.cs",
+          "bytes": 7162,
+          "sha256": "20d9f9243cf6a47dd47fb121ba7ee5d1f64fd73ca96f1a769658b943408cd679"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassColorWheel.cs",
+          "bytes": 6029,
+          "sha256": "539f642f0e5534442a8b0813598bbc576a3792fed85c4e4d97f11246e6c073b3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassGuiScope.cs",
+          "bytes": 7190,
+          "sha256": "365ae1d151b8e70d0e1971be78d32d93f97d811f06d2f0b6bdb6848e144b55d1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudio.cs",
+          "bytes": 33941,
+          "sha256": "c001a0ca6db55e5cc11514ba9645124dd3e6e1f772a9ca22b81532cd1a26597b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAppearance.cs",
+          "bytes": 15985,
+          "sha256": "685097e1370b5aa73f7be5fc043ec805c94d252efc935bb8b2286cc6c8bb153c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioArt.cs",
+          "bytes": 25340,
+          "sha256": "36dc670da97428f1af5cc7f5d46d23b56e4f8b672ebde02adb4608786b4a91cc"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAssetCreation.cs",
+          "bytes": 9105,
+          "sha256": "57ae61828997ae6219ac2d26bc45bab350f1402c155ea5d36c637e8dc4e8bf2a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAssetCreationChecks.cs",
+          "bytes": 15235,
+          "sha256": "37ce81fc68d8b88e4b6ca0956a1d77809828b8fe9f959b2fe530ce93cd707fae"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAuthoring.cs",
+          "bytes": 26019,
+          "sha256": "ef4a7da179e4375d3f6c72cbb0fb7bba59121f19f04f2dda2a75128f13eb040b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAuthoringChecks.cs",
+          "bytes": 13243,
+          "sha256": "1de3c1b76a1e8fc72386e1461540412ac1e7f515739a8447aed9f2af49248a39"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAuthoringOperations.cs",
+          "bytes": 25445,
+          "sha256": "befb65211dc85eac0488643b6dc71abf5945c046ef08b2f00170d57d2055cdae"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioAuthoringView.cs",
+          "bytes": 22580,
+          "sha256": "6f2d6f18e7e597ede550d59cc3919c848d83a3eda7038839b45e16d147bfea65"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBackground.cs",
+          "bytes": 6912,
+          "sha256": "3aa911e38c60c669ab1d1a657d473e6602dd288598b7a81b217ca6787cd58894"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBlankBuilding.cs",
+          "bytes": 1369,
+          "sha256": "88f5322ecbdb5313ba7a831dc4da99ac4fb453c045c9b1f171106171de77e62a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBrushPreview.cs",
+          "bytes": 11707,
+          "sha256": "b909b5059e51a9138488249c9d25f2f81b6c4447feb4eaa25fb0a74b73ac2a7c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBrushRecolorChecks.cs",
+          "bytes": 13812,
+          "sha256": "75f49048555b22e0fab8e532067213b088760c37f83ff1d67d932fcad6b4de29"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBuilding.cs",
+          "bytes": 1899,
+          "sha256": "905de30daa807d465e645bf153780aabace1b6ae6befc0e93b57d7b31ab5cc8d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioBundleChecks.cs",
+          "bytes": 14962,
+          "sha256": "c37a9a17137aea0a21e02e7fcec65cb05db9b5f37acf4dfdff5ee5a780c05810"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioCanvasChecks.cs",
+          "bytes": 16512,
+          "sha256": "d55b78157c08e3c7087e04bb11e5106d3bf69e6f44a10296d7f59561eaab0df6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioCanvasCorrectionChecks.cs",
+          "bytes": 13456,
+          "sha256": "34b774be4eeaa27ef4eba0a1b2d989c4476f9f659c14945c2157dbda48ba5460"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioCanvasTransform.cs",
+          "bytes": 16593,
+          "sha256": "f2bbe68da1be2e7ab9fefde729005a6b693770506da9e2b2f1cbf6cb3ed4535e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioChecks.cs",
+          "bytes": 14240,
+          "sha256": "66555b9033da88ed959950d5ab05b61a87b9ec1e951f3545b4e8ed15c1720d24"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioColorPicking.cs",
+          "bytes": 2771,
+          "sha256": "e730ec5aee146a502de288f27b1f1a0a80b3a734e4c763df6ae724565d97a518"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioColorReplace.cs",
+          "bytes": 6924,
+          "sha256": "8b39a9b2fb2d1f4306690bc89a815ac4906fdc708ea765b2b533abd700b7a238"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioColorSaveChecks.cs",
+          "bytes": 20268,
+          "sha256": "de36cdf28129c3e7b06e9be46786d838bc9635c5bf4467e85ed72af4ff65de05"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioContent.cs",
+          "bytes": 1530,
+          "sha256": "c79af555bed6edbe3c4861211b9ad69a7f9902b2f96ad9456737e6de722a4ac3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioContextWheel.cs",
+          "bytes": 4566,
+          "sha256": "0b7900e178aab79eb78dff962d1c00eb491e2e85df2369fc82bec752d3f87166"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioControls.cs",
+          "bytes": 34818,
+          "sha256": "3b0b0c88e29ca211c5cc0fb60c3771411cbfe5ca8bd31a7c10d11d515525e30f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioDerivedMetadata.cs",
+          "bytes": 4905,
+          "sha256": "6f829e58dba4106342b570d438ce42c561d70b6d3117e7715328b086faf08c81"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioDiscovery.cs",
+          "bytes": 28943,
+          "sha256": "6cdafd593a70eb51449517ffdac81eb7b01334b434decfe1c7e5080ea81065af"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioDragonChecks.cs",
+          "bytes": 14089,
+          "sha256": "76879acd505363f4d2f63df610808e3bd9bee8b82a7a7682ff2a42aa26cdeb56"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioExpansionChecks.cs",
+          "bytes": 23728,
+          "sha256": "e119441ebe51b1f7589f3b18cb7111b205735571d74c20713b589ffcb3b82830"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioExport.cs",
+          "bytes": 15611,
+          "sha256": "0e84f8ad372f58674d0f3609a74d4dc3bdba5dda7f3ff8bf3b5b8094995027df"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioExtraction.cs",
+          "bytes": 13953,
+          "sha256": "859a36a52f3f5be7d877b1850e84b04ce461fc66f3de48b8acfba344b0147242"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioGraphical.cs",
+          "bytes": 16027,
+          "sha256": "2ec54d332a3406cd9bb82bb34a6d77d9fa528f4de07c641e9a8821241ece3d53"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioGrass.cs",
+          "bytes": 2202,
+          "sha256": "37134175e64493e07bef56af478ef4a38cef6bb02614aa35b0b98a23897a6d82"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioLayerPanel.cs",
+          "bytes": 8198,
+          "sha256": "0fd0689b6247f556e2436f699e21d916848235e978c6dfd513d2be5e2ed2136c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioLifecycleChecks.cs",
+          "bytes": 16526,
+          "sha256": "8c08af71aa7f74e2184cc03061192a29e02c1b69724a49fcac2600bb07de6802"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioMapStampLibrary.cs",
+          "bytes": 10929,
+          "sha256": "840ad6d063df0a3acc0fc10757d39f360132afe7da9248cccf74bc30e674709e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioMetadataLoading.cs",
+          "bytes": 11873,
+          "sha256": "27cabc08b2120e3acd7a73e7c49276c50e17d865ff3130091bdf6d6febb3e8e5"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioMetadataLoadingChecks.cs",
+          "bytes": 11480,
+          "sha256": "95dd5cbb2a1f53f346117fbcc4014e199edb587b0f8c7a08df66a5f68aa28f86"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioNavigationAnimation.cs",
+          "bytes": 9367,
+          "sha256": "56cb6e6ec483b6d432f8c2a86186c920326c42b5d4f25c4ccd810c9f9320824d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPan.cs",
+          "bytes": 5372,
+          "sha256": "e83ebfe479ed9ab70809077823e27008ea3bf733f035435438e517bf5675fb45"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPatterns.cs",
+          "bytes": 24271,
+          "sha256": "66ef95ea532fb2c4e6306fdc96be33fbb6f3681cd73f92127db910942e2e9f14"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPickerPointerChecks.cs",
+          "bytes": 25333,
+          "sha256": "2268ad0ca6cbd4217034907f2a45d98388fc0a4ebe02f5f776314af9710b3ff6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPointer.cs",
+          "bytes": 1775,
+          "sha256": "38fa05a6d41af0e42a0f13cae62ad22a08442db7e8f260d8ae3df0b875e44b1f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPreload.cs",
+          "bytes": 25550,
+          "sha256": "042fa7447399055b7cd0c0e94dec564dd3b0306d6a9eff72e4ae7a3a75de8211"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioPreloadLifecycle.cs",
+          "bytes": 13512,
+          "sha256": "20bf19e4031e30eea8086d8f508b93e8779291a8be0604c17099761c4cd7c1cf"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioProjectHeader.cs",
+          "bytes": 9585,
+          "sha256": "76a98b2691d8f6620c93e302d30cefc26622b156c09f0fc6fa8b52cfb75f030f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioProjects.cs",
+          "bytes": 15059,
+          "sha256": "d306340e5d4b0fee98c55edde4c4852c68f12bc0fe7876db122205cf058561f3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioRecoveryChecks.cs",
+          "bytes": 11346,
+          "sha256": "ed1310d80b08852df4aba2780efe4742e458f1036973045ea6d439559e51d21d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioRecoveryGuard.cs",
+          "bytes": 12468,
+          "sha256": "c36afcdae5d772e711d63b34dcf07258c291fca2550325cba7f7a30b49edb8a9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioRecoveryLifecycle.cs",
+          "bytes": 7781,
+          "sha256": "d93a7a9983373c41d65ddcca218c58563466ef866963dee7719263f62b432538"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioReusable.cs",
+          "bytes": 26961,
+          "sha256": "067cef205c3ccb1a163fceace340b91c84bc45cb600a8716d6f2722d0c17d98e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioRuntime.cs",
+          "bytes": 16438,
+          "sha256": "ac5735214191d86a73c81cf569b58d5962967181e0dfe2c6f0488d84d50de4b3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSafety.cs",
+          "bytes": 5832,
+          "sha256": "5a4657f206e196b2e63f8481d61d2fb89c5e2526c3e41a1da60f9b51f8222ba9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSaveAs.cs",
+          "bytes": 5563,
+          "sha256": "e25777016c6d298c85ffe051eb3288779b55097cdc6054c3e73717013ab12d80"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSelection.cs",
+          "bytes": 29044,
+          "sha256": "057054d6a026b0a3a74fb571fddf2919d690724b5ea92b6eea6bfdf33e7ce819"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSessions.cs",
+          "bytes": 15863,
+          "sha256": "f494545706f4290c99d47174c6b56a2de2ce1f6f2ec5c819f5bf6b63430dd169"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioShapeMenu.cs",
+          "bytes": 4803,
+          "sha256": "7044bba3054aa13a8eb0bf06370b526a63f6b578b79e74200de3b19f696fd40e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioShapeMenu.cs.meta",
+          "bytes": 243,
+          "sha256": "529554b533b69d67f1bc26ebb71ab12f905e2cea3c63002c521f2c873d8a6a7a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSidebars.cs",
+          "bytes": 19305,
+          "sha256": "fe559d2606bd632c7d74abae80b128d3edfbdaf38d0d23f9365c36902ab7669b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioStockTileArtwork.cs",
+          "bytes": 1212,
+          "sha256": "66a18411c626536be6bf4f67d49d8cc4806b15c38330d16637570d09e402f99e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioStructured.cs",
+          "bytes": 22379,
+          "sha256": "b009ec1bf657677a983539a4dbe38eb9593cdaa77e0f05f8878a61d90a05572e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioSwatchWindow.cs",
+          "bytes": 4510,
+          "sha256": "972b2a44ec873963d4cb97a201ac99e8419a1b74589f7fc49418cd7e005b4a57"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTerrainChecks.cs",
+          "bytes": 16954,
+          "sha256": "770191e3cd5d5abfd601236fd083b74887e0b06c170fda4e23646adf11270ed9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTerrainPalette.cs",
+          "bytes": 6307,
+          "sha256": "bfd6db4a8c79d54be009d4c652f37a640bac04a4829ece56f50ca12d3bd7854a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTilePaintColor.cs",
+          "bytes": 10212,
+          "sha256": "6310f8fb6d0e6676812fd4b72a01dd31f5b1b93a89f5a8ba606a46e75ecbaa64"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTiles.cs",
+          "bytes": 12883,
+          "sha256": "b02f78dff5e7c01a7c1eb6cedc4616c4889a54b2ecc47f74ca27ad97753e0da7"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTimeline.cs",
+          "bytes": 24698,
+          "sha256": "ab96ca9aaa5db80e2ad5388ea107315da48dbfbbc842a8d54cadadca36e0a785"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTimelineChecks.cs",
+          "bytes": 14515,
+          "sha256": "1f7504d07c2c855346e89d063bb6b5665529fa5512cf80c7e5b83993d687267c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioToolbars.cs",
+          "bytes": 15295,
+          "sha256": "ab90e51eb7c34ac5c3d827614406dfb2049527ce6241362953fce68c8e7822c0"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTransform.cs",
+          "bytes": 22680,
+          "sha256": "6e3a0995b3758bee05daf93951ec5e12d7365d053c58adbc30c605a04c585c4b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTransformConfirmation.cs",
+          "bytes": 3272,
+          "sha256": "a92e4eb53e0e67d3aa8005791a44c4e0d715795e35771e1921bf8671d3ba840b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioTravelPreview.cs",
+          "bytes": 6276,
+          "sha256": "04db5630cf3533fc1d20ae5214a53ed3851afbc9e0429117839145a5117045e2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioUiChecks.cs",
+          "bytes": 25654,
+          "sha256": "7337a17f5992afff61c81e1e60e14e9f53d30631a51ad3a0e85e66c175145b16"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioUpdateChecks.cs",
+          "bytes": 14916,
+          "sha256": "b1ad0b11f7c4203261dd59e5fae5fd9bd8985a107067f2c7027cb69e62ebec39"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioWorkbench.cs",
+          "bytes": 22918,
+          "sha256": "8c09c76894d085aa2b959f960c5246a51743788882952b3b27a964b71572679d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioWorld.cs",
+          "bytes": 38795,
+          "sha256": "c52fb6308f8c3dbfc1e38a0766466ee9395dff8235820814222541d482326c71"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassStudioWorldMetadata.cs",
+          "bytes": 22581,
+          "sha256": "8a8d22f5de95e171c6d0d249a84ed835da3875e0af6d0bfb47577c18805b1fe2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassTerrainPreviewWindow.cs",
+          "bytes": 6670,
+          "sha256": "b8d0e372a15a043b8a1a9fc3c07177581f042726fbfaebe0bd20c1ff3d9f7685"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassTileEditor.cs",
+          "bytes": 50019,
+          "sha256": "064ff2cb39216b4da7f92fce8ad92f0f2fc45e032db113a48e06080c0aef4c44"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/DragonGlassUi.cs",
+          "bytes": 18096,
+          "sha256": "7db40e55da6c18ec0a92020e2cca29937edb4721bfa0cadb10193e1761a59c78"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/OutbreakAssetEditor.cs",
+          "bytes": 49421,
+          "sha256": "5c9640690817f20d28972d4510997ce19e157db069470d4a0eae8277070f8d1e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/OutbreakAssetWorkspaceLauncher.cs",
+          "bytes": 632,
+          "sha256": "e3cd13e135dcf685f42f547d1be2acfb68e9ff94f415357d28531fc5f49c33e8"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/OutbreakBuildingEditor.cs",
+          "bytes": 12029,
+          "sha256": "257c7de5cc01ff5cfbde22ceae091fc5561d704470b9217e44e1261c614d534a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/OutbreakSpriteEditor.cs",
+          "bytes": 13529,
+          "sha256": "3586227e9513cb2c07b51d3bc87506663fe57d949ed8cfe5c5a966f75c375f9c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/WorkshopCommands.cs",
+          "bytes": 7664,
+          "sha256": "4d7679af825717b6f9a2d226cdbb7ac06bd6d64d7a8de329ca9300ed37a06e5b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/WorkshopHelp.cs",
+          "bytes": 32587,
+          "sha256": "856230b9c28b76d769183a11d775e8f5b5e9b015cfb750220704374f8d38a860"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Editor/WorkshopTilePreview.cs",
+          "bytes": 7139,
+          "sha256": "932bd9e01507fc1307c73ab5e387c63d455c8ded7b035d0f852a3925dc9eac4c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/catalog.json",
+          "bytes": 141444,
+          "sha256": "02a5aeaebb34db5767eda1e85dd67261a7a816c845ca943241551fde66718078"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/clerk.png",
+          "bytes": 1173329,
+          "sha256": "9b0462003248ededcfc4fa8be62ee9b60f359c354710af8e0f09b0a17e044534"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/clerk_counter.png",
+          "bytes": 6315,
+          "sha256": "24b80d8186467c0511ce005a9b87a28c2fefd72893f44240752b2651ce86f7c4"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/G_3x5.png",
+          "bytes": 90,
+          "sha256": "bd3fa341af1c3aa70bca09d0f8d57dc710f3308a107fa3b0c3e8d55855e68c53"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/T_3x5.png",
+          "bytes": 86,
+          "sha256": "9e34f2e3a1e0377de1d39f5678111e4f87b7dbcaf226e39b0679d3a865235c92"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/X_3x5.png",
+          "bytes": 89,
+          "sha256": "64f3d6dc35787e15b472cd512f471f0921fc85793c0e09a2b81e725ad21ebd71"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/Y_3x5.png",
+          "bytes": 87,
+          "sha256": "e52fc6a0ee2531c8d842698fe83c35cc4ec11fe330b6e8a4daa8aed82ca03af6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/Z_3x5.png",
+          "bytes": 89,
+          "sha256": "89805da24ed186d04fcf8540d2e0276029f2483beb64f196bf30818c98c618af"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/computer_GGX_128x64.png",
+          "bytes": 3182,
+          "sha256": "cbc49d8a41c2a3f21f4363edb795959483b0334483511c949baa547ae1b43387"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/computer_GTX_128x64.png",
+          "bytes": 3180,
+          "sha256": "352bd7720711fcc954799fde9474453cb42cda1b3e20c46f633178df07b48349"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/computer_XYZ_custom_128x64.png",
+          "bytes": 3197,
+          "sha256": "270635ed1ae11ad2a3e89c8b122fa5d7ff03278bd37a2c817956cbf338e65fdd"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/computer_ZYT_128x64.png",
+          "bytes": 3177,
+          "sha256": "d2246ee9405c4268c19cde71f159177d8a757d82c54d2bece93678f81d4c6af3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/lab_computer_base_64x32.png",
+          "bytes": 2811,
+          "sha256": "130f233613ef9ac4438f261ac834058f0b235a30d786a35a44ca9abc8fe0acf1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/screen_blank_overlay_64x32.png",
+          "bytes": 117,
+          "sha256": "ea0d94308e25122e7f86dade05941463e1f4dbda543708fc2ea15ee81445d5cd"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/screen_slot_glyphs_1920x64.png",
+          "bytes": 733,
+          "sha256": "98be1ef49c45f06a0a7e1c71a93ee3ddc0b60013987439a3ff62662507e2fcac"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_1_G_128x64.png",
+          "bytes": 139,
+          "sha256": "c8b36d3dd716a444183736772eafde3d598e81e57aead49ed6450f5f6fd3eec6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_1_T_128x64.png",
+          "bytes": 133,
+          "sha256": "3e8a7e8beba289d045c3706c9f3fa92051f75ba3b7f864674e86fa8626c59df0"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_1_X_128x64.png",
+          "bytes": 131,
+          "sha256": "8ca6695c0c339b515a488aca344f3432cd3c057fa165c093843b771becf1e52f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_1_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "c6632fedaa19015c22865cc3ec0df2e3e7c65c75fe8d0bb80e430984ab12bbb6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_1_Z_128x64.png",
+          "bytes": 138,
+          "sha256": "59415b4b3bc65bd2cb76735d3b3b0817d63a65ab985b624109b033146c383d83"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_2_G_128x64.png",
+          "bytes": 138,
+          "sha256": "e2b9bf8dd860a9ce5919f6bf2c26cee214ac0a0f8b7f1aa00c005a68d1aac261"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_2_T_128x64.png",
+          "bytes": 133,
+          "sha256": "548a5a543b8271464ad34a3e470818bccae49423c2f61e9d865484c66db667b1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_2_X_128x64.png",
+          "bytes": 131,
+          "sha256": "6dc187472025db9cf63a93d3b82a92ecd27cf3a0d82284e94883fb4d6dce927b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_2_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "e1e6660b863c490b4a453d36f4b62b42f6c42e28bcc2554d218d55e2e3f5177d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_2_Z_128x64.png",
+          "bytes": 138,
+          "sha256": "8b858c2c521d585484c119df807aa77a3324bc14a2481ada400b83950a4749f4"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_3_G_128x64.png",
+          "bytes": 138,
+          "sha256": "f1138501a8b10766c97e7afd012bc06d61bbedfed2eaee2b4bb9f1ee3301f055"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_3_T_128x64.png",
+          "bytes": 133,
+          "sha256": "ad259a519df69e3b3afddf822bd110eee809f8813c33352e393135115e4b0bb7"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_3_X_128x64.png",
+          "bytes": 132,
+          "sha256": "100c3224c01d398bcd95b06413ebc5a206de98e415ad824ecea6c4565c8da5ef"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_3_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "08867c08993d3de7c1cc52d076eaf29fbe2e35650f135201748defb79505cea1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/slot_3_Z_128x64.png",
+          "bytes": 137,
+          "sha256": "770a5d76ae4236cfb7f010760e2eb7dfae785ebb4c871433190ae5e298022599"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/tube_1_tint_mask_64x32.png",
+          "bytes": 129,
+          "sha256": "a2aa01d74f70e301df73db4a25a2eff740b74ec2da88f0d52ca12aaebe472c8e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/tube_2_tint_mask_64x32.png",
+          "bytes": 125,
+          "sha256": "e58e71f08c8e851ad9c46ff78445d8e6d67428768dca57c68516dfb59e293203"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/tube_3_tint_mask_64x32.png",
+          "bytes": 135,
+          "sha256": "d2cb0fc667ce1c61cfeea8010a594bd961b24a65e7d2d7ddc40842c4c033dea2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/tube_tint_masks_192x32.png",
+          "bytes": 225,
+          "sha256": "088b8e86896e48e62acb4bedd2ea0966cfdb485026dd8d9acf8beb89e4aa93ca"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer/virus_alphabet_20x5.png",
+          "bytes": 127,
+          "sha256": "1c19fbf7a35409f8777feec0bac3ae0950496f489e601350129fc4cccad2a89c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/computer_base.png",
+          "bytes": 2811,
+          "sha256": "130f233613ef9ac4438f261ac834058f0b235a30d786a35a44ca9abc8fe0acf1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/courier.png",
+          "bytes": 1254023,
+          "sha256": "5e74fbc4d2cdf0ee31dbb8d2e398ad0942180a7be00c9fbf06f9aeae34fdfd31"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/factory_coveralls.png",
+          "bytes": 1199391,
+          "sha256": "f799540aa883ed7fc54f03fcddc58489412843d83c58ceaa33b97e5e09ef5a2c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/female_clerk_cardigan.png",
+          "bytes": 1122582,
+          "sha256": "c0899536d6c6b936b9d86ed3e3ae2d02ef39e475dd6355054f66731354498ae8"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/female_factory_headscarf.png",
+          "bytes": 1193312,
+          "sha256": "46a9af11bce0950249b8261f697ddb795b429823d09c46ecdfa727049b8267a9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/female_survivor_coat.png",
+          "bytes": 1207302,
+          "sha256": "5af93de6cf61af8b5d630318f61be5e04be8c87e359806ace3d2134ce4dbce63"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/gas_pump.png",
+          "bytes": 3392,
+          "sha256": "1b85b9f844d4567db0e8438d0c8d68f98ef9f845598dec535ec1f5e10fe7eb96"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/lab_computer.png",
+          "bytes": 15441,
+          "sha256": "88b6076ad63635311d72b0fbaff7a10925d0baeb6614ce48dc19d0f7c97be4f6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/lab_mixing.png",
+          "bytes": 4160,
+          "sha256": "be210e99bb8ee2aa84ecd9220ec89526ee2565c25b117bf8318bc7d7f9c84a0c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/lab_mixing_animated.png",
+          "bytes": 19776,
+          "sha256": "47dc433df0abc62c1259d49f2d45232aad7e9c54a0c80c2fcf61ffa8695addef"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/lab_precursor.png",
+          "bytes": 3003,
+          "sha256": "8966646d0c702a0ec39f8f0305ffedb8a4ffc275ff8d3c6f233ccc3f51324283"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/leo.png",
+          "bytes": 1201008,
+          "sha256": "0d0725102f27de7076d19a22fe44e7230e98360fd158f1ad25c609eb4eeac209"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/mechanic_knit_cap.png",
+          "bytes": 1223922,
+          "sha256": "a6b3295b10de70176342c8353c42335b31ff22fd582d1a96faaf30f0190a19f9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/medic.png",
+          "bytes": 1308300,
+          "sha256": "9714dc3af1c0b628fa799f84a8518bca8df83cad8d7af0a2bbab38a23d147953"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/owned_storage_box.png",
+          "bytes": 3656,
+          "sha256": "4822295cc80e680e70168a2b70f923422d174d27a8fdb23e2476996457b22113"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/raincoat_flat_cap.png",
+          "bytes": 1177326,
+          "sha256": "fda01f3fc893bc1ebbd65a80a080fb3486373d969eefd89211063f3d1e6a0e58"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/scientist.png",
+          "bytes": 245641,
+          "sha256": "3070b04681057b8594f5e1c3ecc5722461d53a87e5902e65be24ca96b291c027"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/searchable_large.png",
+          "bytes": 14090,
+          "sha256": "6409751f750431cc6e802d7c0e64aa9737c9f282a3889af5d98e275bca561714"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/searchable_metal.png",
+          "bytes": 4380,
+          "sha256": "33b5f486bfbb04700284f1aab543168e4d9ec9c9445ac49dcf0db02c1cf4b8fe"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/searchable_wire.png",
+          "bytes": 4422,
+          "sha256": "a2fd452dd6b395a6cd979f739b78736120acd9fcbd10f4a27048d577bd6c12d6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/searchable_wood.png",
+          "bytes": 3870,
+          "sha256": "cdacfcdccfe172893198c1ee8b605b1b2d03f4e424b4add963b67087d4549768"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/searchable_workshop.png",
+          "bytes": 3621,
+          "sha256": "344d600a4a43c11cfb302cd83f81852530c243cdc9868d89a6e93b7caf61c073"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/security_headgear.png",
+          "bytes": 1151192,
+          "sha256": "9652d3d1855c7ea0696d38e08327bc102b14c86cc473bc17460b375bfe9ced5b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/shirt_and_tie.png",
+          "bytes": 1170815,
+          "sha256": "82414f38cae28f42673e610adcde2007bcd0f00acb34c684a9fc7027ac6535d2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/store_grocery.png",
+          "bytes": 4733,
+          "sha256": "c243ec7e9b840800b3d5232efd88199bf6e64c4a34fb867c5ae1725f78bb3dad"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/store_gun.png",
+          "bytes": 3980,
+          "sha256": "def42dcfc620afb722a48ddc520fcf6c67c2b6145068195b748c2d61ee60a81a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/store_pharmacy.png",
+          "bytes": 4488,
+          "sha256": "f8cd7e76367c6d3c6063b594b9938e6a04a646c4a46d83c1e8a217a5f153d077"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/survivor_hood.png",
+          "bytes": 1231134,
+          "sha256": "0dddda3bde3c684fc26dd9697bbe3e024913a9c1969a7ed79d5818652d31fc2d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/worker_hard_hat.png",
+          "bytes": 1305537,
+          "sha256": "62d55a8572bd59f41a227ae9910be46a1a7b83e27ff32b7976eb0686c591da46"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_factory_coveralls.png",
+          "bytes": 289593,
+          "sha256": "c71feed20fb8b24a1d93b97298d391855eb83cae9955b80340d48452511b235a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_female_clerk_cardigan.png",
+          "bytes": 272109,
+          "sha256": "529121d4dd9696d4dff325a871d67f81fa7d7a74cdf3e2beb7d09cf989337af3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_female_factory_headscarf.png",
+          "bytes": 278716,
+          "sha256": "f325b0d8cce61355acde922d573937c0f86002d7a436ad50e15bc66f36019161"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_female_survivor_coat.png",
+          "bytes": 272893,
+          "sha256": "fb07924e347c8dc199a0adea84ed3e52206357a32726ef1fcfb93aace889571e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_mechanic_knit_cap.png",
+          "bytes": 282639,
+          "sha256": "5bfe5d59fff0ecbe688686bdbfc5e9f11925d412534192acd507697d9f7903e6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_raincoat_flat_cap.png",
+          "bytes": 302736,
+          "sha256": "51819e5c909ee66711ffa075eee916600bab78d9f03be76e73b57c64454f0cc1"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_security_headgear.png",
+          "bytes": 266433,
+          "sha256": "bc381c479b65a9ffb8cfbbf8333666eb9a072b88e3722cc0d46376e5556982b9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_shirt_and_tie.png",
+          "bytes": 294698,
+          "sha256": "9243b1cbb69964beea93429f93173c71704774d122d7790c8ae32d9d379dc835"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_survivor_hood.png",
+          "bytes": 281492,
+          "sha256": "d50f735e4e4b8ae9dd13a71b29f67f6e9a9f1b164555b77c7f801b592eb197a9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Resources/FunctionalAssets/zombie_worker_hard_hat.png",
+          "bytes": 340673,
+          "sha256": "e30046052aa15f17e5d54292617e9606a8fb0fb201c5c4d832ee13d39622257e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentCatalog.cs",
+          "bytes": 5074,
+          "sha256": "722c55046d221949862dea09f5c40626ef9ece0830ab3332a92b5a2da3b23a9c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentData.cs",
+          "bytes": 15040,
+          "sha256": "cac2e5723b4149099cc74152f288cb9a0d2f9be498293a48a9c01428b224cc71"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentEditing.cs",
+          "bytes": 4841,
+          "sha256": "e271655cd810203bbf47d2cd139266dcea6d1a1fe5b9ef30b4356a1a8919098d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentPaint.cs",
+          "bytes": 6046,
+          "sha256": "8994d4ed13df514bcb8270d35289341404c954efdf18522cc94b048a2450b08c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentShapeButton.cs",
+          "bytes": 4224,
+          "sha256": "9705f0b880bed1d8cb0c67513619a1679aedcd2dd74881139c8e1247d2e12e2b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentTransform.cs",
+          "bytes": 2990,
+          "sha256": "62923b81f40656f7027417ee57c623f86896277aceaf812a184e06eab8015636"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentValidation.cs",
+          "bytes": 12657,
+          "sha256": "79317353404bbba61d9ff90d3346431e20cea57fc117f6fe16293e57ce34841e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/Content/ContentWorkspace.cs",
+          "bytes": 25785,
+          "sha256": "97233e782c8f5d88ee89a688abb69f1199440f1953d01ee03a22e42fcac0afc6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassAdapters.cs",
+          "bytes": 7475,
+          "sha256": "ceaf15ca5e4a35536b0aec2ddf5c32f661ccfd5c8c699c1edda97e2251be6292"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassCanvasLimits.cs",
+          "bytes": 1613,
+          "sha256": "c1ade0c5bb2606dacdda287090aed4367b1357d5c289dba803149a85e0c7597b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassCatalog.cs",
+          "bytes": 8934,
+          "sha256": "57f6bacb24440ecb12839db8b901b97dd377f42b5fd89c6b9d2eeb5e2d461bb6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassData.cs",
+          "bytes": 16111,
+          "sha256": "dfa527ba04ec3e9d2d2c53811d9c19ca94a9aaee1f8139fae7bd907ebc93c135"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassExport.cs",
+          "bytes": 12733,
+          "sha256": "9ccafded79c3f462bfd72f594fc7f40e049fb086d6335e2ddb7f45e478d8690d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassFiles.cs",
+          "bytes": 4487,
+          "sha256": "c649bb8310e0c8a1dff3582d0e991e4a03abdf99b3bc9ac5dcf31b6e85d1eced"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassGeometry.cs",
+          "bytes": 6411,
+          "sha256": "5a6875b0b4b6af403fb0114e73c643fcd365c372f42e49ca83e621a6da54244f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassMapStamps.cs",
+          "bytes": 9921,
+          "sha256": "c4672d8aa0a12e22ee0493ee2e92735880c0173e858b21be992449932fbfb496"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassMetadataValidation.cs",
+          "bytes": 5373,
+          "sha256": "2ecfd1402be67208d42c7f1ad414149c71c10c0981d62bcc172c4ba38657f4e5"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassPixelTitle.cs",
+          "bytes": 5056,
+          "sha256": "c24d52e04cc8bf27d4b107d5619ddb705bb59a0dae3e709a2e9f4bf5946cdd43"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassPrefabMerge.cs",
+          "bytes": 7733,
+          "sha256": "44e503a5370d3708d80524326ff5f5efcd81e8d6d6fb680c8b8f4a51cd32b440"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassProjects.cs",
+          "bytes": 7761,
+          "sha256": "053ffa5510ac11defeb16749aca75f3522582575b04ba518680478421eaadfd6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassStockTiles.cs",
+          "bytes": 6435,
+          "sha256": "bf1fc6dc64a20d36aeeedd6884552145923e1e4dff8d7065ad11b0e930b033b6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassStructured.cs",
+          "bytes": 8560,
+          "sha256": "0e1c264d73253b3a866d912c70b92a0f847321f956aa1d9595579ea7bffc8614"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassTerrainStock.cs",
+          "bytes": 2290,
+          "sha256": "98e7e9b2419476c00781fb19df364eae19f585def9b390f0534613970d561e2b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassTravelRules.cs",
+          "bytes": 12258,
+          "sha256": "f7b1ba833bd40e97f05efbc1bd09990c9462396e06d41a03ff06d31a5c92916b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassVersion.cs",
+          "bytes": 659,
+          "sha256": "44578370246dc873681f2599698b1e8bf47fd085734c511398960ca51f5985ea"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassWarp.cs",
+          "bytes": 5001,
+          "sha256": "36b0737bab347b4b375fb4dd5c6c33585e506a7a4f3dccdfc9abf13f67cd534d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassWorkshopBoot.cs",
+          "bytes": 3740,
+          "sha256": "78bbcb9d717e27298b3ef3997d385f0d9bb1edca1a30f522aeb7896391f3c215"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/DragonGlassWorldAuthoring.cs",
+          "bytes": 4315,
+          "sha256": "299afe214e672f4bfc7166adcdfad919333f951c3fee2379d913c71da91f6077"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/GrassTerrain.cs",
+          "bytes": 4695,
+          "sha256": "b36abb0865827c845019260f488de069fdada23cb1fe10ccd022ab3250acc42d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/OutbreakDefinitions.cs",
+          "bytes": 20843,
+          "sha256": "bf64e283fb321f2e3d7fdbaf5c2436aff273779f4e19b7fb01a97ec74c9efb2d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/OutbreakMap.cs",
+          "bytes": 52183,
+          "sha256": "fdfd841fafdc97f3b33d3bd66c6c980927c4bf6f699b33e634cad91904a3bb33"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/OutbreakSelection.cs",
+          "bytes": 6118,
+          "sha256": "2c6fe9e30bf650d5ebac2445b07f00376c540a05b2cfe0123e920c30c94b7a5a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/OutbreakSelectionTransform.cs",
+          "bytes": 8073,
+          "sha256": "a88bc5deb8d9c6267db4efb7c4a212cfe73fac2ad07ca67a0b49cb9f8b60b0fc"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/OutbreakWorkshopDocuments.cs",
+          "bytes": 11104,
+          "sha256": "366974f951130b53899e793d7a464a1f7c708925d96755c4b04cea97ade96362"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/WorkshopAuthoringAlgorithms.cs",
+          "bytes": 8071,
+          "sha256": "ff2273ca099bc20b642995645d8601a9e43950b9c9c36fd9dc65a42942f4a8ab"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Assets/Scripts/WorkshopAuthoringData.cs",
+          "bytes": 6022,
+          "sha256": "b15bed32c681d9068937c95e6e6e5994dfc0407c4de5d0417439f7cc4bcff3c9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/CURRENT_UPDATE.md",
+          "bytes": 4113,
+          "sha256": "23ea4aaa9f106acdb63c0742abe5e8eb2a91064adedfe1f90989002b776e9005"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/APPROVED_TERRAIN_REQUEST_0_2_4.md",
+          "bytes": 2618,
+          "sha256": "f55d5fdc342f86b269328e31091b9213b0cc7d24d19d3ba196afd546620a1e25"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/CANVAS_CORRECTION_0_1_9.md",
+          "bytes": 4781,
+          "sha256": "1fa2af98c2f8d84b7d654508d1369a4abfc4eb7bac33f6a3b64a3572b11b787d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/COMMENT_CHECK_RESULT.json",
+          "bytes": 294,
+          "sha256": "9fc4a68a77c5aa077093a93f1ac97b22a5ba049b4ce0bc1330aa43af0632784c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/CONTENT_ASSET_INVENTORY.json",
+          "bytes": 161823,
+          "sha256": "563aafd9fcd0271314dfcf676cec38a085fefb73c886480141f4381d78a8dc68"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/CURRENT_HOST_LOG.txt",
+          "bytes": 6654,
+          "sha256": "e33538f2354a45d6bea0b75d8954483a710cc2e5ee8fff8de288198fedc87ab4"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/CURRENT_VALIDATION.json",
+          "bytes": 1169,
+          "sha256": "3f7e4d73c62ffc0351822ae78e7f84b4e8418495110c099d538dab6028c43f78"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/EXPORT_CONTRACT.md",
+          "bytes": 8950,
+          "sha256": "ee102c136a961f8c902316b009f3baeb99518c047cf0a16956f15ca890dc7e10"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/FEATURE_STATUS.md",
+          "bytes": 20564,
+          "sha256": "14150774ccb1b2b7d3e3da9f55daf5453800fe1c331958da4bd6a862954ad30e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/FLOOR_REGRESSION_RESULT.json",
+          "bytes": 494,
+          "sha256": "77e48c35de3471cbac20ed7f8c38f2280c57224cf3333b6ffc8dd169c792c89c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/GAME_ADAPTER.md",
+          "bytes": 3231,
+          "sha256": "5d6d0ee35ec6069a3abc06a49d1ce32cab98dc055cbf0baabf833dc5acfc5ba2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/IMPLEMENTATION_ROADMAP.md",
+          "bytes": 3310,
+          "sha256": "5c928e1d774188a987ed74586ec833e49241954389402d17968537ce6ff6f6fc"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/IMPROVED_REQUEST_0_2_0.md",
+          "bytes": 4229,
+          "sha256": "92feb6768bfd324fdef6ade487da36033a01a2066635ac6dd0c1a974ff06aea6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/LABORATORY_UPDATE_REPORT.md",
+          "bytes": 2798,
+          "sha256": "c349490dd8a7ef9656923470efbfa2f4b14e3cb1639ca18209f297321e6e0655"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/LABORATORY_VALIDATION_PREVIOUS.json",
+          "bytes": 1513,
+          "sha256": "bd9e8b2338f0fff9fdb7590ec2288cd0df7ab7da067b4302d7baf4b00c81e5a6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_BUILDINGS_0_2_3.md",
+          "bytes": 2604,
+          "sha256": "3fe8a2bec0279a9985d059709489ea89248a5cddbc8d3be9b9a850147a003c0e"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_BUILDING_REGRESSION_RESULT.json",
+          "bytes": 607,
+          "sha256": "659df37e1644fba482d2a010200ffd155c916a042e07dd4556e908b99ddc4f67"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_LOADING_0_2_2.md",
+          "bytes": 5030,
+          "sha256": "741106601ff6ad99aa8e3e34b1bf7c0a0ff19bdf3d6d1e175a04f8dd50a10796"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_PAINT_0_2_6.md",
+          "bytes": 3482,
+          "sha256": "767c80abd5b8631184afeba66941ac1794916dcc9bf86b04d85dca9b8969d827"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_PAINT_HOST_LOG.txt",
+          "bytes": 6654,
+          "sha256": "e33538f2354a45d6bea0b75d8954483a710cc2e5ee8fff8de288198fedc87ab4"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_PAINT_PACKAGE_CHECKS.json",
+          "bytes": 126,
+          "sha256": "ad65bd73eeac19f4728b5efe3f454c98dad76cc8844b1d6ebbcd19d170d9f9c2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/METADATA_REGRESSION_RESULT.json",
+          "bytes": 968,
+          "sha256": "7d60472f5a24b949fd4aaef6afaada67ad49a6725f582b262416186bd7b4a6ba"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/MIGRATION.md",
+          "bytes": 9166,
+          "sha256": "b7354720dd6522224839274b2c35ae488530661e8de7afad7ecdcba720ca9432"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/NEXT_SIMULATOR_UPDATE.md",
+          "bytes": 1874,
+          "sha256": "c86cd5e690055aff9bf10d9bd8373255896e1b90e40077c503857a2083f02e67"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/OUTBREAK_AUTOMATIC_RESEARCH_RESULTS.json",
+          "bytes": 4140,
+          "sha256": "64557a9d317e9fb83e42facef8e4621037c241b4da770ce243a87688a900a9fd"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/OUTBREAK_LAB_RESEARCH_PROFILE.md",
+          "bytes": 4180,
+          "sha256": "ae343a1edfa694c52d719c75dec34e0faa09cd5ca9ee1e0504367db56fa6c557"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/PACKAGE_CONTENT_CHECK.json",
+          "bytes": 290,
+          "sha256": "300c4aea465eae004f5ed4db48e5ecf5c1e08d7f96c975734906628c76ed43ab"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/PROJECT_RECOVERY_0_2_1.md",
+          "bytes": 4750,
+          "sha256": "c3d72075050b1c52dcad61370be5daed855c0c8bdc2f360b325b27201f67aab9"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/PROVIDER_CONTRACT.md",
+          "bytes": 2458,
+          "sha256": "aa705127e9b7ac3278092cb8ac60e0ad9e2c661cd84e20bb7d1f7fcd0aa5b774"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/RECOVERY_REGRESSION_RESULT.json",
+          "bytes": 645,
+          "sha256": "3611945307487a2beb5c10d4fd9d9a5cb71b3fd9eeae82ab8a9442670129ce40"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/SIMULATOR_INTERIOR_SYNC_0_2_7.md",
+          "bytes": 3193,
+          "sha256": "96283b04a2a51d1a0b80a3ce93abea5f4ee4fbf2db281b13fd44fedc2e4cdd59"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/SIMULATOR_PAINT_ASSET_PRESERVATION.json",
+          "bytes": 55,
+          "sha256": "f9c13eb3329289bc81eecf0d862885e2008aeb6bc0dead0cc3cb51c7ee8d508f"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/SIMULATOR_PAINT_HOST_CHECKS.log",
+          "bytes": 6914,
+          "sha256": "00e9124ab56f37f8ee60a13e2cde53cf1adf31855757d90b9df0068100bded71"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/SOURCE_CHECK_RESULT.json",
+          "bytes": 148,
+          "sha256": "c8e1a9114068b58e75846dc100055de539a31b54dc16d22b24b3a9b2e694197c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/TERRAIN_0_2_4.md",
+          "bytes": 6425,
+          "sha256": "ef64b2a048ad20f84b3160c576c314679e4659bb763d30b052eb68ec1f781d9a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/TOOLKIT_UX_SPEC.md",
+          "bytes": 26438,
+          "sha256": "86d6bebea15edceb4c7e15acd857cfb03303f4b091e101dfc93e4581a5b0f6e5"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/VALIDATION.md",
+          "bytes": 9740,
+          "sha256": "9b4b589c052ff7b3a975af8773073790f516e7ba3b83511768ef837afa6a4380"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/WORKSHOP_CHANGELOG.md",
+          "bytes": 21343,
+          "sha256": "fc67156282a03404d0cd8efd92686722dac97999daf0ad5875aea1821bda1623"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/WORKSHOP_CHECK_RESULT.txt",
+          "bytes": 6079,
+          "sha256": "3f2ee0fa8266fc7177de4cd3b038c8b747e329ba63cddd486ac49afbeff8baaa"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/WORKSHOP_EXPANSION_0_2_0.md",
+          "bytes": 9002,
+          "sha256": "efdfd433969863deec8b29442e10f832aab5be40335fc4cc3d40d36cd5f50c94"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Docs/WORKSHOP_UPDATE_0_1_8.md",
+          "bytes": 7263,
+          "sha256": "e5dfd4b14e1f027e1b10a22058d86dbdff58d24ef5f97e1b5e78a81fa2d5628b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Packages/manifest.json",
+          "bytes": 205,
+          "sha256": "823f0cd00f4f31e43dbabf3175578739dc2f82dc1891c168bd3eb1b96a84b7b3"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/ProjectSettings/ProjectVersion.txt",
+          "bytes": 28,
+          "sha256": "c52c316dbc4632a3b8c10f21f3557e95af22ec2ed5f9b3caba0315a6e3e11972"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/README.md",
+          "bytes": 10790,
+          "sha256": "15f5b5949946d9df04bd38785035770384ea8506b9051bee66fafcc2f7d34f5b"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Samples/04_AutomaticLaboratory.obmap",
+          "bytes": 34226,
+          "sha256": "7671d5dbc930d2df270a10744dec7585de647ca1313083baa3d70a9fc7ca27e2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/CanvasInteriorChecks.cs",
+          "bytes": 6439,
+          "sha256": "6baeac12db9434416cb785fb15c425fd33895f5e547c3b249b1fa5d4a0edef43"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/CanvasPixelProbe.cs",
+          "bytes": 3344,
+          "sha256": "20989293a7fc313a421309bf65853a04ce7a813c233ead5b0eea80794ac84ca6"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/ContentResourceShim.cs",
+          "bytes": 1281,
+          "sha256": "51ff07272b7caedc909cf1373d0a1ea0cb62fdd08674583b0a22e4eb0614beae"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/InteriorPaintChecks.cs",
+          "bytes": 13684,
+          "sha256": "838e9950882a0e13eff7a35d9a1e67ead9f3fa2929ff0368d419f3669e9ce79c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/LaboratoryAuthoringChecks.cs",
+          "bytes": 3661,
+          "sha256": "9c015199d40bc6f27963cfcc3fa35d4bb24a0cd586b34fa24bce8861b68da829"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/MetadataInteractionChecks.cs",
+          "bytes": 16906,
+          "sha256": "2794d0264d938af36d934bf6e144f6219ed24b23a8b3575320b76afcf4bffbd2"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/MetadataPaintShapeChecks.cs",
+          "bytes": 20217,
+          "sha256": "538f56e2ccb0f30f434e7fb5b42cd7def1c3bdbf5b6fb08533a462ce555b0f0d"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/Program.cs",
+          "bytes": 10588,
+          "sha256": "94374441c8d137b0d1c737b1a666a2b1c70f88f2b8cc68f1c662ab3478b01aa4"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/RecoveryInteractionChecks.cs",
+          "bytes": 12522,
+          "sha256": "519dc1ab831f1fa6a4ed64f790fc2dbea33b4f7a960cc385886e61cf3a46551a"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/TerrainPaletteInteractionChecks.cs",
+          "bytes": 4686,
+          "sha256": "bbdee00998038812df43ac0457c6ab71b48a914a959386585cd885910d0b342c"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/UnityEditorShim.cs",
+          "bytes": 27549,
+          "sha256": "ac9cee52847d420dce526327951adc6f7b0ab4c6cc671ee4edb23579816190c5"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tests/WorkshopHarness/UnityValueShim.cs",
+          "bytes": 11060,
+          "sha256": "b3ed6815928f1a6deb68d569b75fd8a2a08f2e44fd469cec3aac32debd7a9049"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tools/run_workshop_checks.py",
+          "bytes": 2357,
+          "sha256": "85cf04d323999764b4357c3363cc37c7cfeac0e99e87940e8c2957b2dbeee473"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tools/verify_archive.py",
+          "bytes": 7339,
+          "sha256": "893bdb89d4bc8cddc37e1e31a949725c5cbd3403415239b1ece760d5ce6326b7"
+        },
+        {
+          "path": "DragonGlassPixelWorkshop/Tools/verify_studio_source.py",
+          "bytes": 25881,
+          "sha256": "1f48f7efb9fda8c8bf9ef3bd6bf618e5857bbc91ff6bd73e32536c3b3d7dfdbd"
+        }
+      ]
+    },
+    {
+      "archive": "OutbreakSimulator_Unity_Emitter_Animations_Weapons.zip",
+      "sha256": "d949bce61ec1215bb11d10637513c51a0788263f0d9026fa05dfadabfef001de",
+      "bytes": 37606971,
+      "files": [
+        {
+          "path": "OutbreakSimulator_Unity_GGG/ACTOR_VARIANT_CHECKS.json",
+          "bytes": 11860,
+          "sha256": "b42f24c8d28c6ed5c18ef26e45106cdfa2eb3bf44d31c38371f74f43150d875b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/ANIMATION_EMITTER_WEAPONS_UPDATE.md",
+          "bytes": 2628,
+          "sha256": "19b226166d1855630e8cc75a5786b00d0f5ad824f71c1e6fa75a5eda85f94a3a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/ContentEditorWindow.cs",
+          "bytes": 2927,
+          "sha256": "aeef175461aabb132fefee3b686f4aa3c088fe56ab8ef61aefbe485db66a30a6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakAssetEditor.cs",
+          "bytes": 49195,
+          "sha256": "61b07c99221043f75ce19daf6963209db7e84e45ba090f5cb054d93a52d7086a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakAssetWorkspaceLauncher.cs",
+          "bytes": 2068,
+          "sha256": "f6588da725d99489d40efc88540c49a20612de6038e90cbf4510486d961c5d8d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakBehaviorTester.cs",
+          "bytes": 11403,
+          "sha256": "59955de7d04eef38564e69853d379644112f2367211f5cab6a50de85253052cb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakBuildingEditor.cs",
+          "bytes": 12008,
+          "sha256": "fa09aa66b6e57d57c1576c148013a8e0962a5b6d83c336fcd8a01e10a5fe6917"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakControlsWindow.cs",
+          "bytes": 2873,
+          "sha256": "94e0a663112980e6d868a966bd1b6bb3eaee888beb6af019712a99e804dd31cf"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakProjectSetup.cs",
+          "bytes": 2342,
+          "sha256": "6e9a51e4d026416be54ff9a748a480a09f01ba71e4ff1924f292b670973a804e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Editor/OutbreakSpriteEditor.cs",
+          "bytes": 13522,
+          "sha256": "ed9ac7758d8c76f5cf42e37115df036102a29bb1a5438212bb0266466d079254"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/CornerGardenWalk.dgproject",
+          "bytes": 11445,
+          "sha256": "6a7c99009a9c73d003007d746699537ef0523da465d24bcba4cc24dedd1ed900"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/CornerGardenWalk.obbuilding",
+          "bytes": 3331,
+          "sha256": "64cb56b0f814d24b05b52c54c81f0139d101a7b8cbf3a40e3bf50c1f360b5eb5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/README.md",
+          "bytes": 963,
+          "sha256": "360a0e3667e48dafaf14784aa27afcc76a0c7de3d18ff146606a002c3a6a58a7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR0.dgproject",
+          "bytes": 11430,
+          "sha256": "ffb213475e42cad3488b3c4dcc23f3566bfd25f68ed89921f6bb616083058745"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR0.obbuilding",
+          "bytes": 3314,
+          "sha256": "e3da502d12a47101b668a611c60853d2a7f08303803db41244dca0baa1335b8a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR180.dgproject",
+          "bytes": 11438,
+          "sha256": "9d1313314ed99eee7acde9f9f5f43bf127725bd74622c33f65f4094ac7ae3f50"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR180.obbuilding",
+          "bytes": 3320,
+          "sha256": "9cd04b7436e47ef33a9c9f2fc264be3a7408f8a558dc122002629d85b50f70ba"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR270.dgproject",
+          "bytes": 11436,
+          "sha256": "224fc36b3dc3edc689c044d04e197eb466e839a1e5b5c96ae77a35ed07397efc"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR270.obbuilding",
+          "bytes": 3318,
+          "sha256": "3be66656fc413addf2bae859abdeb0a1b44694588c07b8ce589c688888d943d4"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR90.dgproject",
+          "bytes": 11435,
+          "sha256": "a691047b8d13032ad683c822022f3bc9a3af41a882b8409efadf7b3b8150de9f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_MirrorR90.obbuilding",
+          "bytes": 3318,
+          "sha256": "b5281e2452c7569b2714f3d615fb63349986849f9a49c1c5d64691cbf6881b39"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR0.dgproject",
+          "bytes": 11436,
+          "sha256": "d01515abad42b918e096ba9e1c5e824f0809e16a41845e7954880e4cf3abf3a9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR0.obbuilding",
+          "bytes": 3318,
+          "sha256": "05f3a58d6dd551cb5e75d5a64cce26beea2edb36c34df879e8ccbbf4ead29091"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR180.dgproject",
+          "bytes": 11444,
+          "sha256": "71e01eeb6351735d61188f72473ba7d83a0ab8441bac0f5b3bc66d430642a2b0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR180.obbuilding",
+          "bytes": 3324,
+          "sha256": "1a61ea9b83623c206e7325a2dfbda04938852fe67d079545c5bd4be50419a96a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR270.dgproject",
+          "bytes": 11442,
+          "sha256": "e168803f9335cd4123b028edfe01b2afccc32a8dc180fd8a477c85994db673e2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR270.obbuilding",
+          "bytes": 3322,
+          "sha256": "f38015b723da3df04250d3129639dfb7bc89e02cdc92c82eaae3c2eb01b79f24"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR90.dgproject",
+          "bytes": 11441,
+          "sha256": "d7cd888f16c4175cc72cdbfe3961ed8ebffa0bc84c642f6e9df0d6cbcba93da6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadCorner_OriginalR90.obbuilding",
+          "bytes": 3322,
+          "sha256": "b68c13f401db4023ff80c9521cfc9f6adbc69f1d99968f65950868d7ac7e2872"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR0.dgproject",
+          "bytes": 26259,
+          "sha256": "a634c50d7f757578e2b21ea17920848c4b96d19495bafd203f6388033a3d1a30"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR0.obbuilding",
+          "bytes": 3363,
+          "sha256": "afb89dcb497c943643c361053766a53213ce757cb6b66ba16118a4d4f5d2d71b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR180.dgproject",
+          "bytes": 26129,
+          "sha256": "cb03898fd019fffff8ef1097029593a15091fcd89a1903c48b44c9b0c3193cc9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR180.obbuilding",
+          "bytes": 3367,
+          "sha256": "0da9bd2295c6f87bab6c21b1dc48029ec224b67f57c855055048d9a9485f8e8b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR270.dgproject",
+          "bytes": 26317,
+          "sha256": "c5098deee557fbd10f6c5f81fb2b06d19d5680a27d93d8a36038f9dec7f9e033"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR270.obbuilding",
+          "bytes": 3367,
+          "sha256": "dda57f2a9574a947a34dfc014b5134ad4d1d541c5f08e628561b306a0a2a0899"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR90.dgproject",
+          "bytes": 26074,
+          "sha256": "a821bd98877f60a0a8a078cc1d96748add662c35764db7f79b824d7e2ec6a716"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_MirrorR90.obbuilding",
+          "bytes": 3365,
+          "sha256": "a437dbbd3c592461fb68f087d02e66cb4b493e1e783de68dcbc8e4fb0bf63153"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR0.dgproject",
+          "bytes": 26317,
+          "sha256": "09a388118cea5bcb1458c121fd1fc27c18d666ffb260c0cc8fb039a8475a7973"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR0.obbuilding",
+          "bytes": 3367,
+          "sha256": "f022d799b6e87f3e24c8ab02ba29b7d257a52e0c7eb9fac5aa3f66fbcf2406a2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR180.dgproject",
+          "bytes": 26083,
+          "sha256": "1994abc4ea18c786eccb48cc99fdccd7fdcc88d0d8dc4286c75e9521604f7980"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR180.obbuilding",
+          "bytes": 3371,
+          "sha256": "1b3e38774fdf8d63e38d00c90725a91dda5c37fa6308028520b5bf77afea353f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR270.dgproject",
+          "bytes": 26271,
+          "sha256": "5363f7b4493a39c29c1fe0248fbdee5c53a6b29013e1ad5a6732aa5776e0a87c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR270.obbuilding",
+          "bytes": 3371,
+          "sha256": "746e66b4a7646da8a5a77029d85ddca6f0b0bc0f9035d4a33eaf7d6951ef3a29"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR90.dgproject",
+          "bytes": 26132,
+          "sha256": "287c63ecfe98c6204777654ee671afe739209b82fc198eb8a085e4fa7202c725"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/RoadSouth_OriginalR90.obbuilding",
+          "bytes": 3369,
+          "sha256": "dc401c043ec9d7ab6922cdd169e7ce60d3b61bfa157473b1be258054b54057f3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/SouthGardenWalk.dgproject",
+          "bytes": 26343,
+          "sha256": "0982f678575669921ddc42681bede9af27486a150a33a1d80987be06cea439f8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/BuildingTiles/SouthGardenWalk.obbuilding",
+          "bytes": 3397,
+          "sha256": "3a2f48ebbe919f4cc0c5c579a97522485963c36e863c9dec0298cc13fb50845b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Hands_I.dgproject",
+          "bytes": 241737,
+          "sha256": "3f21dcfce8eaa0d5f93356f4e8b4da177dd0de940ec0300f2463845d874d3fe2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Hands_w_Shotgun_I.dgproject",
+          "bytes": 245169,
+          "sha256": "e275ab8e4ebfdc4b81a31df409176607da57a5e93a217e47a9d9702f0e30e8e9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Hands_w_handgun_I.dgproject",
+          "bytes": 243193,
+          "sha256": "247449f0c493a80825bbb2de453ce7b7b06c8c46c77f426cf0ddd1856e4dcfa2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_I.dgproject",
+          "bytes": 384058,
+          "sha256": "964e53a0f3b62eef9da415324fcc05d9b9f08b0894a36f63035593820a98b777"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_II.dgproject",
+          "bytes": 258426,
+          "sha256": "f0d983ca7cf160dbe94f39968a6ebd57453e705777dd15c64cb6e6f02ba567d2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_III_copy.dgproject",
+          "bytes": 257658,
+          "sha256": "802699f6c42728c7a7cbb0b82c0cb4b9a91bb7dbb34fe77d545d2505065735af"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_IV_copy_copy.dgproject",
+          "bytes": 257282,
+          "sha256": "3b9970e52e8f21fca76532ec44d13818656526069c601bcd6457f435cd2fb446"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_SG_example.dgproject",
+          "bytes": 1194129,
+          "sha256": "ce390633089de8429417f1c6ab91fc4bcf6c6e1c75bf00a09c1b3258c103844a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_V.dgproject",
+          "bytes": 257388,
+          "sha256": "e185465233f3c2aae14305c2e09a65c5585cdf1841af622ca2447a5b20d0d364"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_with_handgun_example.dgproject",
+          "bytes": 390016,
+          "sha256": "80584ec0bf93ff2d855330d13deb3fb24826ab916108174f6a40eb4cc3f23356"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/Human_with_hands_example.dgproject",
+          "bytes": 387222,
+          "sha256": "109a5482bc69b75b011cfdc154ddf533ecca776b80bcd304e9ba578207fc6d2a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/ShelfSearched.dgproject",
+          "bytes": 237786,
+          "sha256": "c60efca147bac3579239837ccec0f327b2a25ba86eb43ff88d19dde359359f37"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/ShelfSearching.dgproject",
+          "bytes": 240267,
+          "sha256": "6fb35bcdf072d4d5e4b0302aa6442b29feb3dbf2c903b78cbbe094ba3432efed"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/ShelfUnsearched.dgproject",
+          "bytes": 238781,
+          "sha256": "d63e48b17ae6f6b90017c16b10e94c7a9b3051d456ee4e1fe23b02f0715734bb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/hands_handgun_i.obsprite",
+          "bytes": 120006,
+          "sha256": "18d889b9b4f297e39fd135bcaf6c6be0f79b79846c4938b3354a96a9fffa1475"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/hands_i.obsprite",
+          "bytes": 118559,
+          "sha256": "1a99e3173bdf541b3d99e9aedc9a82fb0fd6e70250df150c9424a8340ab005bb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/hands_shotgun_i.obsprite",
+          "bytes": 121982,
+          "sha256": "0d3ab23d27635445bd9546bcbfe5037d1f7e858f4dd949fdf7b07db3f1e518d3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/human_i.obsprite",
+          "bytes": 195886,
+          "sha256": "0e07e313b6485af4328c391a5ab402065ec38aa14c6bcb37869afbf80f1f7fd8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/human_ii.obsprite",
+          "bytes": 135240,
+          "sha256": "6831478a7fdb38485c04a0140462ed6244b55e81192162503717e84bd7e9160b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/human_iii.obsprite",
+          "bytes": 134467,
+          "sha256": "d713f2c9d79f7685dd5e3131217939acbdfc560304e8bd3f0e5d42b8a4a22c78"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/human_iv.obsprite",
+          "bytes": 134086,
+          "sha256": "e1f54777b682bb5b516c9802688ec5b4a147e10e6623d233f6b5aed8154a32c3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/OutbreakAssets/Sprites/human_v.obsprite",
+          "bytes": 134202,
+          "sha256": "e61765540537c23c24e0e69d2e06e25716d3b58ea5b7c82bbe3ef509c5103cab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/catalog.json",
+          "bytes": 141444,
+          "sha256": "02a5aeaebb34db5767eda1e85dd67261a7a816c845ca943241551fde66718078"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/clerk.png",
+          "bytes": 1173329,
+          "sha256": "9b0462003248ededcfc4fa8be62ee9b60f359c354710af8e0f09b0a17e044534"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/clerk_counter.png",
+          "bytes": 6315,
+          "sha256": "24b80d8186467c0511ce005a9b87a28c2fefd72893f44240752b2651ce86f7c4"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/G_3x5.png",
+          "bytes": 90,
+          "sha256": "bd3fa341af1c3aa70bca09d0f8d57dc710f3308a107fa3b0c3e8d55855e68c53"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/T_3x5.png",
+          "bytes": 86,
+          "sha256": "9e34f2e3a1e0377de1d39f5678111e4f87b7dbcaf226e39b0679d3a865235c92"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/X_3x5.png",
+          "bytes": 89,
+          "sha256": "64f3d6dc35787e15b472cd512f471f0921fc85793c0e09a2b81e725ad21ebd71"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/Y_3x5.png",
+          "bytes": 87,
+          "sha256": "e52fc6a0ee2531c8d842698fe83c35cc4ec11fe330b6e8a4daa8aed82ca03af6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/Z_3x5.png",
+          "bytes": 89,
+          "sha256": "89805da24ed186d04fcf8540d2e0276029f2483beb64f196bf30818c98c618af"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/computer_GGX_128x64.png",
+          "bytes": 3182,
+          "sha256": "cbc49d8a41c2a3f21f4363edb795959483b0334483511c949baa547ae1b43387"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/computer_GTX_128x64.png",
+          "bytes": 3180,
+          "sha256": "352bd7720711fcc954799fde9474453cb42cda1b3e20c46f633178df07b48349"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/computer_XYZ_custom_128x64.png",
+          "bytes": 3197,
+          "sha256": "270635ed1ae11ad2a3e89c8b122fa5d7ff03278bd37a2c817956cbf338e65fdd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/computer_ZYT_128x64.png",
+          "bytes": 3177,
+          "sha256": "d2246ee9405c4268c19cde71f159177d8a757d82c54d2bece93678f81d4c6af3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/lab_computer_base_64x32.png",
+          "bytes": 2811,
+          "sha256": "130f233613ef9ac4438f261ac834058f0b235a30d786a35a44ca9abc8fe0acf1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/screen_blank_overlay_64x32.png",
+          "bytes": 117,
+          "sha256": "ea0d94308e25122e7f86dade05941463e1f4dbda543708fc2ea15ee81445d5cd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/screen_slot_glyphs_1920x64.png",
+          "bytes": 733,
+          "sha256": "98be1ef49c45f06a0a7e1c71a93ee3ddc0b60013987439a3ff62662507e2fcac"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_1_G_128x64.png",
+          "bytes": 139,
+          "sha256": "c8b36d3dd716a444183736772eafde3d598e81e57aead49ed6450f5f6fd3eec6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_1_T_128x64.png",
+          "bytes": 133,
+          "sha256": "3e8a7e8beba289d045c3706c9f3fa92051f75ba3b7f864674e86fa8626c59df0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_1_X_128x64.png",
+          "bytes": 131,
+          "sha256": "8ca6695c0c339b515a488aca344f3432cd3c057fa165c093843b771becf1e52f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_1_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "c6632fedaa19015c22865cc3ec0df2e3e7c65c75fe8d0bb80e430984ab12bbb6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_1_Z_128x64.png",
+          "bytes": 138,
+          "sha256": "59415b4b3bc65bd2cb76735d3b3b0817d63a65ab985b624109b033146c383d83"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_2_G_128x64.png",
+          "bytes": 138,
+          "sha256": "e2b9bf8dd860a9ce5919f6bf2c26cee214ac0a0f8b7f1aa00c005a68d1aac261"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_2_T_128x64.png",
+          "bytes": 133,
+          "sha256": "548a5a543b8271464ad34a3e470818bccae49423c2f61e9d865484c66db667b1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_2_X_128x64.png",
+          "bytes": 131,
+          "sha256": "6dc187472025db9cf63a93d3b82a92ecd27cf3a0d82284e94883fb4d6dce927b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_2_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "e1e6660b863c490b4a453d36f4b62b42f6c42e28bcc2554d218d55e2e3f5177d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_2_Z_128x64.png",
+          "bytes": 138,
+          "sha256": "8b858c2c521d585484c119df807aa77a3324bc14a2481ada400b83950a4749f4"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_3_G_128x64.png",
+          "bytes": 138,
+          "sha256": "f1138501a8b10766c97e7afd012bc06d61bbedfed2eaee2b4bb9f1ee3301f055"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_3_T_128x64.png",
+          "bytes": 133,
+          "sha256": "ad259a519df69e3b3afddf822bd110eee809f8813c33352e393135115e4b0bb7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_3_X_128x64.png",
+          "bytes": 132,
+          "sha256": "100c3224c01d398bcd95b06413ebc5a206de98e415ad824ecea6c4565c8da5ef"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_3_Y_128x64.png",
+          "bytes": 129,
+          "sha256": "08867c08993d3de7c1cc52d076eaf29fbe2e35650f135201748defb79505cea1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/slot_3_Z_128x64.png",
+          "bytes": 137,
+          "sha256": "770a5d76ae4236cfb7f010760e2eb7dfae785ebb4c871433190ae5e298022599"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/tube_1_tint_mask_64x32.png",
+          "bytes": 129,
+          "sha256": "a2aa01d74f70e301df73db4a25a2eff740b74ec2da88f0d52ca12aaebe472c8e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/tube_2_tint_mask_64x32.png",
+          "bytes": 125,
+          "sha256": "e58e71f08c8e851ad9c46ff78445d8e6d67428768dca57c68516dfb59e293203"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/tube_3_tint_mask_64x32.png",
+          "bytes": 135,
+          "sha256": "d2cb0fc667ce1c61cfeea8010a594bd961b24a65e7d2d7ddc40842c4c033dea2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/tube_tint_masks_192x32.png",
+          "bytes": 225,
+          "sha256": "088b8e86896e48e62acb4bedd2ea0966cfdb485026dd8d9acf8beb89e4aa93ca"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer/virus_alphabet_20x5.png",
+          "bytes": 127,
+          "sha256": "1c19fbf7a35409f8777feec0bac3ae0950496f489e601350129fc4cccad2a89c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/computer_base.png",
+          "bytes": 2811,
+          "sha256": "130f233613ef9ac4438f261ac834058f0b235a30d786a35a44ca9abc8fe0acf1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/courier.png",
+          "bytes": 1254023,
+          "sha256": "5e74fbc4d2cdf0ee31dbb8d2e398ad0942180a7be00c9fbf06f9aeae34fdfd31"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/factory_coveralls.png",
+          "bytes": 1199391,
+          "sha256": "f799540aa883ed7fc54f03fcddc58489412843d83c58ceaa33b97e5e09ef5a2c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/female_clerk_cardigan.png",
+          "bytes": 1122582,
+          "sha256": "c0899536d6c6b936b9d86ed3e3ae2d02ef39e475dd6355054f66731354498ae8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/female_factory_headscarf.png",
+          "bytes": 1193312,
+          "sha256": "46a9af11bce0950249b8261f697ddb795b429823d09c46ecdfa727049b8267a9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/female_survivor_coat.png",
+          "bytes": 1207302,
+          "sha256": "5af93de6cf61af8b5d630318f61be5e04be8c87e359806ace3d2134ce4dbce63"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/gas_pump.png",
+          "bytes": 3392,
+          "sha256": "1b85b9f844d4567db0e8438d0c8d68f98ef9f845598dec535ec1f5e10fe7eb96"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/lab_computer.png",
+          "bytes": 15441,
+          "sha256": "88b6076ad63635311d72b0fbaff7a10925d0baeb6614ce48dc19d0f7c97be4f6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/lab_mixing.png",
+          "bytes": 4160,
+          "sha256": "be210e99bb8ee2aa84ecd9220ec89526ee2565c25b117bf8318bc7d7f9c84a0c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/lab_mixing_animated.png",
+          "bytes": 19776,
+          "sha256": "47dc433df0abc62c1259d49f2d45232aad7e9c54a0c80c2fcf61ffa8695addef"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/lab_precursor.png",
+          "bytes": 3003,
+          "sha256": "8966646d0c702a0ec39f8f0305ffedb8a4ffc275ff8d3c6f233ccc3f51324283"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/leo.png",
+          "bytes": 1201008,
+          "sha256": "0d0725102f27de7076d19a22fe44e7230e98360fd158f1ad25c609eb4eeac209"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/mechanic_knit_cap.png",
+          "bytes": 1223922,
+          "sha256": "a6b3295b10de70176342c8353c42335b31ff22fd582d1a96faaf30f0190a19f9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/medic.png",
+          "bytes": 1308300,
+          "sha256": "9714dc3af1c0b628fa799f84a8518bca8df83cad8d7af0a2bbab38a23d147953"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/owned_storage_box.png",
+          "bytes": 3656,
+          "sha256": "4822295cc80e680e70168a2b70f923422d174d27a8fdb23e2476996457b22113"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/raincoat_flat_cap.png",
+          "bytes": 1177326,
+          "sha256": "fda01f3fc893bc1ebbd65a80a080fb3486373d969eefd89211063f3d1e6a0e58"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/scientist.png",
+          "bytes": 245641,
+          "sha256": "3070b04681057b8594f5e1c3ecc5722461d53a87e5902e65be24ca96b291c027"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/searchable_large.png",
+          "bytes": 14090,
+          "sha256": "6409751f750431cc6e802d7c0e64aa9737c9f282a3889af5d98e275bca561714"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/searchable_metal.png",
+          "bytes": 4380,
+          "sha256": "33b5f486bfbb04700284f1aab543168e4d9ec9c9445ac49dcf0db02c1cf4b8fe"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/searchable_wire.png",
+          "bytes": 4422,
+          "sha256": "a2fd452dd6b395a6cd979f739b78736120acd9fcbd10f4a27048d577bd6c12d6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/searchable_wood.png",
+          "bytes": 3870,
+          "sha256": "cdacfcdccfe172893198c1ee8b605b1b2d03f4e424b4add963b67087d4549768"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/searchable_workshop.png",
+          "bytes": 3621,
+          "sha256": "344d600a4a43c11cfb302cd83f81852530c243cdc9868d89a6e93b7caf61c073"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/security_headgear.png",
+          "bytes": 1151192,
+          "sha256": "9652d3d1855c7ea0696d38e08327bc102b14c86cc473bc17460b375bfe9ced5b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/shirt_and_tie.png",
+          "bytes": 1170815,
+          "sha256": "82414f38cae28f42673e610adcde2007bcd0f00acb34c684a9fc7027ac6535d2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/store_grocery.png",
+          "bytes": 4733,
+          "sha256": "c243ec7e9b840800b3d5232efd88199bf6e64c4a34fb867c5ae1725f78bb3dad"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/store_gun.png",
+          "bytes": 3980,
+          "sha256": "def42dcfc620afb722a48ddc520fcf6c67c2b6145068195b748c2d61ee60a81a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/store_pharmacy.png",
+          "bytes": 4488,
+          "sha256": "f8cd7e76367c6d3c6063b594b9938e6a04a646c4a46d83c1e8a217a5f153d077"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/survivor_hood.png",
+          "bytes": 1231134,
+          "sha256": "0dddda3bde3c684fc26dd9697bbe3e024913a9c1969a7ed79d5818652d31fc2d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/worker_hard_hat.png",
+          "bytes": 1305537,
+          "sha256": "62d55a8572bd59f41a227ae9910be46a1a7b83e27ff32b7976eb0686c591da46"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_factory_coveralls.png",
+          "bytes": 289593,
+          "sha256": "c71feed20fb8b24a1d93b97298d391855eb83cae9955b80340d48452511b235a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_female_clerk_cardigan.png",
+          "bytes": 272109,
+          "sha256": "529121d4dd9696d4dff325a871d67f81fa7d7a74cdf3e2beb7d09cf989337af3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_female_factory_headscarf.png",
+          "bytes": 278716,
+          "sha256": "f325b0d8cce61355acde922d573937c0f86002d7a436ad50e15bc66f36019161"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_female_survivor_coat.png",
+          "bytes": 272893,
+          "sha256": "fb07924e347c8dc199a0adea84ed3e52206357a32726ef1fcfb93aace889571e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_mechanic_knit_cap.png",
+          "bytes": 282639,
+          "sha256": "5bfe5d59fff0ecbe688686bdbfc5e9f11925d412534192acd507697d9f7903e6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_raincoat_flat_cap.png",
+          "bytes": 302736,
+          "sha256": "51819e5c909ee66711ffa075eee916600bab78d9f03be76e73b57c64454f0cc1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_security_headgear.png",
+          "bytes": 266433,
+          "sha256": "bc381c479b65a9ffb8cfbbf8333666eb9a072b88e3722cc0d46376e5556982b9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_shirt_and_tie.png",
+          "bytes": 294698,
+          "sha256": "9243b1cbb69964beea93429f93173c71704774d122d7790c8ae32d9d379dc835"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_survivor_hood.png",
+          "bytes": 281492,
+          "sha256": "d50f735e4e4b8ae9dd13a71b29f67f6e9a9f1b164555b77c7f801b592eb197a9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/FunctionalAssets/zombie_worker_hard_hat.png",
+          "bytes": 340673,
+          "sha256": "e30046052aa15f17e5d54292617e9606a8fb0fb201c5c4d832ee13d39622257e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/CornerGardenWalk.json",
+          "bytes": 3331,
+          "sha256": "64cb56b0f814d24b05b52c54c81f0139d101a7b8cbf3a40e3bf50c1f360b5eb5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_MirrorR0.json",
+          "bytes": 3314,
+          "sha256": "e3da502d12a47101b668a611c60853d2a7f08303803db41244dca0baa1335b8a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_MirrorR180.json",
+          "bytes": 3320,
+          "sha256": "9cd04b7436e47ef33a9c9f2fc264be3a7408f8a558dc122002629d85b50f70ba"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_MirrorR270.json",
+          "bytes": 3318,
+          "sha256": "3be66656fc413addf2bae859abdeb0a1b44694588c07b8ce589c688888d943d4"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_MirrorR90.json",
+          "bytes": 3318,
+          "sha256": "b5281e2452c7569b2714f3d615fb63349986849f9a49c1c5d64691cbf6881b39"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_OriginalR0.json",
+          "bytes": 3318,
+          "sha256": "05f3a58d6dd551cb5e75d5a64cce26beea2edb36c34df879e8ccbbf4ead29091"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_OriginalR180.json",
+          "bytes": 3324,
+          "sha256": "1a61ea9b83623c206e7325a2dfbda04938852fe67d079545c5bd4be50419a96a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_OriginalR270.json",
+          "bytes": 3322,
+          "sha256": "f38015b723da3df04250d3129639dfb7bc89e02cdc92c82eaae3c2eb01b79f24"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadCorner_OriginalR90.json",
+          "bytes": 3322,
+          "sha256": "b68c13f401db4023ff80c9521cfc9f6adbc69f1d99968f65950868d7ac7e2872"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_MirrorR0.json",
+          "bytes": 3363,
+          "sha256": "afb89dcb497c943643c361053766a53213ce757cb6b66ba16118a4d4f5d2d71b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_MirrorR180.json",
+          "bytes": 3367,
+          "sha256": "0da9bd2295c6f87bab6c21b1dc48029ec224b67f57c855055048d9a9485f8e8b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_MirrorR270.json",
+          "bytes": 3367,
+          "sha256": "dda57f2a9574a947a34dfc014b5134ad4d1d541c5f08e628561b306a0a2a0899"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_MirrorR90.json",
+          "bytes": 3365,
+          "sha256": "a437dbbd3c592461fb68f087d02e66cb4b493e1e783de68dcbc8e4fb0bf63153"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_OriginalR0.json",
+          "bytes": 3367,
+          "sha256": "f022d799b6e87f3e24c8ab02ba29b7d257a52e0c7eb9fac5aa3f66fbcf2406a2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_OriginalR180.json",
+          "bytes": 3371,
+          "sha256": "1b3e38774fdf8d63e38d00c90725a91dda5c37fa6308028520b5bf77afea353f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_OriginalR270.json",
+          "bytes": 3371,
+          "sha256": "746e66b4a7646da8a5a77029d85ddca6f0b0bc0f9035d4a33eaf7d6951ef3a29"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/RoadSouth_OriginalR90.json",
+          "bytes": 3369,
+          "sha256": "dc401c043ec9d7ab6922cdd169e7ce60d3b61bfa157473b1be258054b54057f3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Buildings/SouthGardenWalk.json",
+          "bytes": 3397,
+          "sha256": "3a2f48ebbe919f4cc0c5c579a97522485963c36e863c9dec0298cc13fb50845b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/clerk.png",
+          "bytes": 1173329,
+          "sha256": "9b0462003248ededcfc4fa8be62ee9b60f359c354710af8e0f09b0a17e044534"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/clerk.png.meta",
+          "bytes": 2100,
+          "sha256": "1b60d25df68c664e4dc05902351fe231d2c53e36d4fbe684415a1c43aa2a2ee3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/courier.png",
+          "bytes": 1254023,
+          "sha256": "5e74fbc4d2cdf0ee31dbb8d2e398ad0942180a7be00c9fbf06f9aeae34fdfd31"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/courier.png.meta",
+          "bytes": 2100,
+          "sha256": "86343eacf69bbf4703dc96d25cc7caaf29efe5925b9a7e974489f507baeb6429"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/factory_coveralls.png",
+          "bytes": 1199391,
+          "sha256": "f799540aa883ed7fc54f03fcddc58489412843d83c58ceaa33b97e5e09ef5a2c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/factory_coveralls.png.meta",
+          "bytes": 2100,
+          "sha256": "412f7bd4debb58f548ce1f65488e0726fc687abaa7aab388b05fdf2d2b541499"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_clerk_cardigan.png",
+          "bytes": 1122582,
+          "sha256": "c0899536d6c6b936b9d86ed3e3ae2d02ef39e475dd6355054f66731354498ae8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_clerk_cardigan.png.meta",
+          "bytes": 2100,
+          "sha256": "3b8600eefb4fda5c4a96599848e831a60805c8eb4a524343f1a6487a1a455e6b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_factory_headscarf.png",
+          "bytes": 1193312,
+          "sha256": "46a9af11bce0950249b8261f697ddb795b429823d09c46ecdfa727049b8267a9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_factory_headscarf.png.meta",
+          "bytes": 2100,
+          "sha256": "adfad4f391aacb23678a60a6f7db7b48a68b114773a3351a0e22f9a52146c2f6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_survivor_coat.png",
+          "bytes": 1207302,
+          "sha256": "5af93de6cf61af8b5d630318f61be5e04be8c87e359806ace3d2134ce4dbce63"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/female_survivor_coat.png.meta",
+          "bytes": 2100,
+          "sha256": "d5dfeff491e1868ffaf8dd2383862e7eb22cbc253f9121f59dd357662e3f1fd7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/leo.png",
+          "bytes": 1201008,
+          "sha256": "0d0725102f27de7076d19a22fe44e7230e98360fd158f1ad25c609eb4eeac209"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/leo.png.meta",
+          "bytes": 2100,
+          "sha256": "5879cf66f5c6a7bfeb64d5fa15176c93ac3dc16c919722426e54f899411b055a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/mechanic_knit_cap.png",
+          "bytes": 1223922,
+          "sha256": "a6b3295b10de70176342c8353c42335b31ff22fd582d1a96faaf30f0190a19f9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/mechanic_knit_cap.png.meta",
+          "bytes": 2100,
+          "sha256": "94e07d7e5be11334181342a96c1b72f13c359a0f8d7e931a76d389373334a9e8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/medic.png",
+          "bytes": 1308300,
+          "sha256": "9714dc3af1c0b628fa799f84a8518bca8df83cad8d7af0a2bbab38a23d147953"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/medic.png.meta",
+          "bytes": 2100,
+          "sha256": "16aac0536ce3ef12cd2b312481a5f1361bc3f9a0973e70ccd9e1ddf9b633647f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/raincoat_flat_cap.png",
+          "bytes": 1177326,
+          "sha256": "fda01f3fc893bc1ebbd65a80a080fb3486373d969eefd89211063f3d1e6a0e58"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/raincoat_flat_cap.png.meta",
+          "bytes": 2100,
+          "sha256": "4c4b4b2ddb6c936762b8037dc4912eef492365cabed3c20cb69c6c03dc9c822f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/security_headgear.png",
+          "bytes": 1151192,
+          "sha256": "9652d3d1855c7ea0696d38e08327bc102b14c86cc473bc17460b375bfe9ced5b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/security_headgear.png.meta",
+          "bytes": 2100,
+          "sha256": "16883b03b2752d7ad62d3bc3f8e9906416f780a95d2ba140434f562e0a03eb89"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/shirt_and_tie.png",
+          "bytes": 1170815,
+          "sha256": "82414f38cae28f42673e610adcde2007bcd0f00acb34c684a9fc7027ac6535d2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/shirt_and_tie.png.meta",
+          "bytes": 2100,
+          "sha256": "77e836ab871b328fc844764bd7456d67b021bed1d8d0dd9d97fef0f251f5d820"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/survivor_hood.png",
+          "bytes": 1231134,
+          "sha256": "0dddda3bde3c684fc26dd9697bbe3e024913a9c1969a7ed79d5818652d31fc2d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/survivor_hood.png.meta",
+          "bytes": 2100,
+          "sha256": "60024e1549b4afda4b5c6c2a7df32561dfe9894691ef3cafcf7462c9a9eb2a48"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/worker_hard_hat.png",
+          "bytes": 1305537,
+          "sha256": "62d55a8572bd59f41a227ae9910be46a1a7b83e27ff32b7976eb0686c591da46"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/worker_hard_hat.png.meta",
+          "bytes": 2100,
+          "sha256": "7101bc58404c34475f5d7e72b3793210e85a45e1fc20e18b77e0e8f9b1ff36b6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_factory_coveralls.png",
+          "bytes": 289593,
+          "sha256": "c71feed20fb8b24a1d93b97298d391855eb83cae9955b80340d48452511b235a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_factory_coveralls.png.meta",
+          "bytes": 2100,
+          "sha256": "68fbcb0472d422b70f1e23b9c7e5268b6a84a658272ab775d43879ed5cd5e89b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_clerk_cardigan.png",
+          "bytes": 272109,
+          "sha256": "529121d4dd9696d4dff325a871d67f81fa7d7a74cdf3e2beb7d09cf989337af3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_clerk_cardigan.png.meta",
+          "bytes": 2100,
+          "sha256": "05c197d8b0b29238b2d5792dfc47044146c75bccd57bcf67f8f18a21e5edcbbb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_factory_headscarf.png",
+          "bytes": 278716,
+          "sha256": "f325b0d8cce61355acde922d573937c0f86002d7a436ad50e15bc66f36019161"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_factory_headscarf.png.meta",
+          "bytes": 2100,
+          "sha256": "414a00dededbcd0ada6d0be462ea28aa14f06b7555509a64fd9005f431507296"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_survivor_coat.png",
+          "bytes": 272893,
+          "sha256": "fb07924e347c8dc199a0adea84ed3e52206357a32726ef1fcfb93aace889571e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_female_survivor_coat.png.meta",
+          "bytes": 2100,
+          "sha256": "770f0b2f7f5bfe488219638c7f2173d054c9c7a3ba1b579b2eecedca52a6acf1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_mechanic_knit_cap.png",
+          "bytes": 282639,
+          "sha256": "5bfe5d59fff0ecbe688686bdbfc5e9f11925d412534192acd507697d9f7903e6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_mechanic_knit_cap.png.meta",
+          "bytes": 2100,
+          "sha256": "57fe0ff5b6db9464a6541ca633d4607d54bf955c7701f9262ac9e386e4085827"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_raincoat_flat_cap.png",
+          "bytes": 302736,
+          "sha256": "51819e5c909ee66711ffa075eee916600bab78d9f03be76e73b57c64454f0cc1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_raincoat_flat_cap.png.meta",
+          "bytes": 2100,
+          "sha256": "50c137c7f5a534724ceb63f0b9371dede0fc240ba04fa91c31c090d74876620b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_security_headgear.png",
+          "bytes": 266433,
+          "sha256": "bc381c479b65a9ffb8cfbbf8333666eb9a072b88e3722cc0d46376e5556982b9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_security_headgear.png.meta",
+          "bytes": 2100,
+          "sha256": "d03f9fd525456888d981744d7a31bd97e63331c8095c6d2e1a1aae8605ae4bab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_shirt_and_tie.png",
+          "bytes": 294698,
+          "sha256": "9243b1cbb69964beea93429f93173c71704774d122d7790c8ae32d9d379dc835"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_shirt_and_tie.png.meta",
+          "bytes": 2100,
+          "sha256": "e1499c73bd621e81be694cca7c22a55e16c2314fd4b8b02754975e8e25cc6c02"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_survivor_hood.png",
+          "bytes": 281492,
+          "sha256": "d50f735e4e4b8ae9dd13a71b29f67f6e9a9f1b164555b77c7f801b592eb197a9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_survivor_hood.png.meta",
+          "bytes": 2100,
+          "sha256": "38eda6f40fb6cb89c2ad2c48f821a689028eab783348705b665540b97aea8e0e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_worker_hard_hat.png",
+          "bytes": 340673,
+          "sha256": "e30046052aa15f17e5d54292617e9606a8fb0fb201c5c4d832ee13d39622257e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Characters/zombie_worker_hard_hat.png.meta",
+          "bytes": 2100,
+          "sha256": "1fae48487757e32e4669f1faa9b96c97902a445275cc976db7d7047124bd1fa7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfSearched.png",
+          "bytes": 223,
+          "sha256": "5d40b0b1b9b604c364f29ce20d7f5893c6f4c32ebfb4d5c2f7e8ea8774c2a09e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfSearched.png.meta",
+          "bytes": 2074,
+          "sha256": "5e3fa75718086ee24f121572b59ecfac7b81d0c167d3743947636245c3fcbf19"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfSearching.png",
+          "bytes": 223,
+          "sha256": "5d40b0b1b9b604c364f29ce20d7f5893c6f4c32ebfb4d5c2f7e8ea8774c2a09e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfSearching.png.meta",
+          "bytes": 2074,
+          "sha256": "a5673a36bd7e68caa457fab30b325d47881d830a9f08d4fb7e4ca040a506e248"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfUnsearched.png",
+          "bytes": 226,
+          "sha256": "9b39ca49a02f94095cf862253f210bb3add83ccdec8f06d64c41b9fa364cd1cd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Shelves/ShelfUnsearched.png.meta",
+          "bytes": 2074,
+          "sha256": "ed81fd0d10e28e915c0a7845988159d44b37a841f15b8308572faec0ecaae1e9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/actor_sprites.json",
+          "bytes": 1322,
+          "sha256": "128392d9096397afe31396e8718a6da22cb759ad82493312d1d6cfb958933fb2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_handgun_i.png",
+          "bytes": 379,
+          "sha256": "5105a55969ace4367aa3d253ac587bfc819d9636ba56787bc7326b85ff0f71d2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_handgun_i.png.meta",
+          "bytes": 2081,
+          "sha256": "12b6dce7419edf8c091bdc07cf2b0fb4f445bf0a3736d93f830cc1d486cfbd93"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_i.png",
+          "bytes": 296,
+          "sha256": "162f43abf3a260d97135f7d729f72a13b546c2769da5182e168f5774eb1f725c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_i.png.meta",
+          "bytes": 2093,
+          "sha256": "7d8b70accf5e1630940d07df007bf63bf4e137e0a4a9f908b7cf7420c33b05da"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_i_skin_mask.png",
+          "bytes": 168,
+          "sha256": "153a4119ecb6505b3049d46218339c1e4ff8eb06894abd3aaad599c218524080"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_i_skin_mask.png.meta",
+          "bytes": 2083,
+          "sha256": "1cf569a78f1160ecb7de7e0fb8d7de0b1fed02959dea7f54978580b735071889"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_shotgun_i.png",
+          "bytes": 550,
+          "sha256": "ce6462ba3449c86575e8a846c6584e17cfe2a9d708b916e01a2368167ffd4a41"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/hands_shotgun_i.png.meta",
+          "bytes": 2106,
+          "sha256": "8034af2e299ee8c60fe5d8c88d1a11bb4f276579b7db30394325998ae5558189"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_i.png",
+          "bytes": 672,
+          "sha256": "7428fbb5a7efd3b865c2f40ee3393dd904993b153cf796b30cb792a84fe922f3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_i.png.meta",
+          "bytes": 2102,
+          "sha256": "0249eb4ee0115aa8b590c7ce9234afcfc88664f83edc2d3a6174d8f95ae0fad3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_i_head_mask.png",
+          "bytes": 255,
+          "sha256": "6e8b2b7ed3c23861b4f53f70bcd630e855d5aba0cba99d60fe74d58660ad2cfd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_i_head_mask.png.meta",
+          "bytes": 2101,
+          "sha256": "2f8921f8d79f2227ac54d6c1e0b72cbf6e1b7ca33cd4af2cf548ec3c68467227"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_ii.png",
+          "bytes": 652,
+          "sha256": "3804ee2a45c550546d8d809ea17b39a1bcc538e62572d03b5d524fa6845a3213"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_ii.png.meta",
+          "bytes": 2074,
+          "sha256": "8c154d4a388602ddbf5d2141d29cac213aca24ebc710806d46044a7734b9564e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_ii_head_mask.png",
+          "bytes": 255,
+          "sha256": "6e8b2b7ed3c23861b4f53f70bcd630e855d5aba0cba99d60fe74d58660ad2cfd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_ii_head_mask.png.meta",
+          "bytes": 2084,
+          "sha256": "b7eded9d5bcb4f743be6322c7e028d2a8c19f428619cf4663a89b63c9d68c2ac"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iii.png",
+          "bytes": 652,
+          "sha256": "3049378f78c821278dd0268cfffc6a889ab863be8225692f2080878e60e1b3b9"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iii.png.meta",
+          "bytes": 2075,
+          "sha256": "75d0d3cbed54a8b6e93761370dc804037adaeb6a0618b08ee461458c654e0210"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iii_head_mask.png",
+          "bytes": 255,
+          "sha256": "6e8b2b7ed3c23861b4f53f70bcd630e855d5aba0cba99d60fe74d58660ad2cfd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iii_head_mask.png.meta",
+          "bytes": 2085,
+          "sha256": "ce5c1647cad4b5ef7894cc40aa9fd94e6056154832f6ad51046620550216e535"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iv.png",
+          "bytes": 660,
+          "sha256": "ee6110c3aca584cf5c14fc78767ddf4eec20d586113011463b9b394661cf7166"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iv.png.meta",
+          "bytes": 2074,
+          "sha256": "706e85518249ce1dbeedc3c962411ffd9d23187be3e5e12f506a82979dba313e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iv_head_mask.png",
+          "bytes": 255,
+          "sha256": "6e8b2b7ed3c23861b4f53f70bcd630e855d5aba0cba99d60fe74d58660ad2cfd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_iv_head_mask.png.meta",
+          "bytes": 2084,
+          "sha256": "27052a864b4a4a6664c766182829c3129f0af54b2974d52fdd1c8d060c556c67"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_v.png",
+          "bytes": 652,
+          "sha256": "8b1c9369d453ef94ce925352f7607e15f6f06531a623a489f14d45c731f1c7a5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_v.png.meta",
+          "bytes": 2073,
+          "sha256": "d90b4a8911d05a61adc6c3b8e3699c385b6fa050700a3f77b13ecadf61ddb692"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_v_head_mask.png",
+          "bytes": 255,
+          "sha256": "6e8b2b7ed3c23861b4f53f70bcd630e855d5aba0cba99d60fe74d58660ad2cfd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Resources/Outbreak/Sprites/human_v_head_mask.png.meta",
+          "bytes": 2083,
+          "sha256": "8aa0d03c2f5af00058133ceaccd9f1ac7e9332f2bf02c43830c2d4b420dd6cec"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentCatalog.cs",
+          "bytes": 5074,
+          "sha256": "722c55046d221949862dea09f5c40626ef9ece0830ab3332a92b5a2da3b23a9c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentData.cs",
+          "bytes": 15040,
+          "sha256": "cac2e5723b4149099cc74152f288cb9a0d2f9be498293a48a9c01428b224cc71"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentEditing.cs",
+          "bytes": 4841,
+          "sha256": "e271655cd810203bbf47d2cd139266dcea6d1a1fe5b9ef30b4356a1a8919098d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentPaint.cs",
+          "bytes": 6046,
+          "sha256": "8994d4ed13df514bcb8270d35289341404c954efdf18522cc94b048a2450b08c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentShapeButton.cs",
+          "bytes": 4532,
+          "sha256": "a379b05df7edcc81a10b5f319ee49f38db42adba25d5971d63ca5069f70849c7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentTransform.cs",
+          "bytes": 2990,
+          "sha256": "62923b81f40656f7027417ee57c623f86896277aceaf812a184e06eab8015636"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentValidation.cs",
+          "bytes": 12657,
+          "sha256": "79317353404bbba61d9ff90d3346431e20cea57fc117f6fe16293e57ce34841e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/Content/ContentWorkspace.cs",
+          "bytes": 26240,
+          "sha256": "c55494c466d2c4981337d3a32f48407bd0d8e30c0b609ae24aef63ca15210c3e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/DragonGlassStockTiles.cs",
+          "bytes": 6428,
+          "sha256": "ba51c277e23dd2568d47038908da25d85c914edd8e784b5d96a399e9b2a16af5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/DragonGlassTerrainStock.cs",
+          "bytes": 2283,
+          "sha256": "dead60e49736e5609b3fb815505733c751ddb76e622132d3c2f92e3c1ef062ab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/GrassTerrain.cs",
+          "bytes": 4688,
+          "sha256": "49d25e9fd55db9cbc7cf7a069f2f5f7e29c378b4abe2d08c79a2d7640db0e2ea"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakActorAppearance.cs",
+          "bytes": 5541,
+          "sha256": "e778c5db5ef8ee960b7f864fd88118edceeeb5871f302a33fc5d5692b3ade238"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakActorVariantChecks.cs",
+          "bytes": 14935,
+          "sha256": "1b52e391ecb82b4cc465d9cd7dc789c5f0efc7c5541ee55f1dd8d10359578518"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakBehaviorControls.cs",
+          "bytes": 4849,
+          "sha256": "c3e50ce1759c97f83266134603f6bcf2ce61a0a59990fafd5c47cc03a3e1a7eb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakBehaviorScenarios.cs",
+          "bytes": 60758,
+          "sha256": "03deffac3b32c2d228506548ba253fde34804a388f243ea70bea6c822238c653"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakCharacterAnimations.cs",
+          "bytes": 12387,
+          "sha256": "c5a0da971c3c5f120a7023b2247bef36b448c4ea6bf29ec3e2355de2082fd696"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentAuthoring.cs",
+          "bytes": 2609,
+          "sha256": "0ecb9ded3b91e890fc0ad15efebde4cf9f5aaeb0a801b69185b5c63c0e6a8517"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentDisplay.cs",
+          "bytes": 15838,
+          "sha256": "4646f77184aeb070248a35960819bbd61bb6b6eb173da459a72f078050784061"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentEmitters.cs",
+          "bytes": 3195,
+          "sha256": "bdf2b923df96773233661739428808ab7e24927797a12add8ceb41c35f90a3f3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentGeneration.cs",
+          "bytes": 10929,
+          "sha256": "3e0de0e6f3bcc8d197eeba4643301695290b0efd4ee95dbe19becd3a475da94b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentLaboratories.cs",
+          "bytes": 19226,
+          "sha256": "9cc54d5cf1979f2738d00ecdc671b3d8c1e0f2aa5f523bf2de0de1e7ed280b53"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentMapImport.cs",
+          "bytes": 7420,
+          "sha256": "44d664616989410716dd3e198b3ebac0c794f15e0cd094590d892b8c463a6c8d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakContentSimulation.cs",
+          "bytes": 35712,
+          "sha256": "9872c575d080a2235fb13565f1ce7c40f667bd4697856736bfdaa667338c5753"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakControls.cs",
+          "bytes": 19791,
+          "sha256": "4c493036cf124dadb04008257410fbe0361a248c024b9e3cc3397f4ccc611365"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakCustomScenario.cs",
+          "bytes": 12790,
+          "sha256": "1b74b3094d22af1289daee994c3ec99a2349a8711f02d8999bec5221cc07da8c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakDebugDisplay.cs",
+          "bytes": 4631,
+          "sha256": "bd465f008e8f92c1756b275aa3c58b4affd723f96bf862813443fdce8524b129"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakDefinitions.cs",
+          "bytes": 17125,
+          "sha256": "9c86770f64292a15ff61e71fefdcbe1305811062573006f448c54cd087685204"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakEmitterDebug.cs",
+          "bytes": 5682,
+          "sha256": "3670cc1088b76670d1363c61641f7f835156ca320eeeb39ac7cd7cbf80866059"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakHandsChecks.cs",
+          "bytes": 11614,
+          "sha256": "a22409087224d0e42e0be1115f9aa48b95e00b9ddb386afc2e393ba76dec8c30"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakHumanSprites.cs",
+          "bytes": 19551,
+          "sha256": "e542a858866040821f2688865583a4cc029c1527fa6e3c0dae26e5d6a1a09968"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakLaboratoryResearch.cs",
+          "bytes": 18284,
+          "sha256": "73a1b9cb788121c6f165e30a4b5b808d59d0eb987f6f4afecb54b1d91719ee95"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakLaboratoryResearch.cs.meta",
+          "bytes": 243,
+          "sha256": "c2c52f7009431ca5f7e70fb495dbf5b0bec8249a7252a84fc39f33e54b924eea"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakLoading.cs",
+          "bytes": 3534,
+          "sha256": "c40651a191505fbf920410216ce25549ea8655c5ca4530ee489ef78253e2cfe2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMap.cs",
+          "bytes": 56133,
+          "sha256": "c0fac01cd41fa10300587fd48d749d2c5dbb03deef4a7d96894782624514aa8e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapAuthoringControls.cs",
+          "bytes": 4667,
+          "sha256": "bd7e421528d4814334037c4528f1f412d6bb4ceac4cf73f76376b110f34034f8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapEditorDock.cs",
+          "bytes": 5348,
+          "sha256": "67a2fd7f8ab026525044bb4f7bc0721be1da85e1ae8286e8c8605337a9e9e2a2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapEditorPreview.cs",
+          "bytes": 3162,
+          "sha256": "4cd0d675a8ea1cebab60a9e1cebfc82d17cfab15c11e90cc8eca5405977cda25"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapEditorTools.cs",
+          "bytes": 19354,
+          "sha256": "9b6be65ec87978438398a78f278092a55b9273f426670b296bdba2db5ca16539"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapFilePicker.cs",
+          "bytes": 4817,
+          "sha256": "043fdfb0c8e79294261f10bbbf33f43a5672658c65c1dff2c7aa4daaa318726e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapIcons.cs",
+          "bytes": 7093,
+          "sha256": "fe8e4bae397399a2380e4946efa2bf8e0c1a592e11c9f3a0407b76df40384d93"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMapProjectBar.cs",
+          "bytes": 2520,
+          "sha256": "f2a7a897da61034d237453d3ee29e02ffaaf0b12daf54116814ad7b051bf8c51"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakMinimap.cs",
+          "bytes": 16076,
+          "sha256": "e06c94ec1c3b5efeab2b10ba702252f4e53d797f4c012b591ef82be01b9f305a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakPopulationMasses.cs",
+          "bytes": 13316,
+          "sha256": "d1229120a4050c65b656c81387c80d6413c03c587e031e90a6133335ebd8426f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakPopulationPlanning.cs",
+          "bytes": 11225,
+          "sha256": "a441de1dd6d89277ad07a4c3981b3ccf8ab95d4ecb38858262f6d92edf033a11"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakRandomEmissionChecks.cs",
+          "bytes": 13956,
+          "sha256": "7ff0624b19e47176b75797e856cf52419b7a6c79bbfe07c5a0f2f8bfbb429e7b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakRunningSave.cs",
+          "bytes": 11693,
+          "sha256": "4086e94edbda25e65d5b68bea91cfb574ffc948455ed78fba15be9e851d654e5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakRuntime.cs",
+          "bytes": 53329,
+          "sha256": "61da142aae64733806fc07f4351260fa7cbde81b2f630853e71f3f283f216c10"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakScenarioMenu.cs",
+          "bytes": 28940,
+          "sha256": "a9361d3d9a1c2c03cb284e28b5c230c5a37be21146ffbcbe57494555f08920d7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakShelfControls.cs",
+          "bytes": 5495,
+          "sha256": "8519148690ded062f34662401114ce473def3dce87e33445a8b0588cf523c0dd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakShelfDisplay.cs",
+          "bytes": 5404,
+          "sha256": "999d03bdd752cfff97271c52f62f0445bf3edec39a7e1b396231d5dd060d01b4"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakShelves.cs",
+          "bytes": 11163,
+          "sha256": "e601ceaad618bdbb9f308f4dd86ebd5ff6ed781840e1fdc8cbdbe76442ed67b2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakShoving.cs",
+          "bytes": 4455,
+          "sha256": "b9ef6027cf941e5a0de26ea7b0eeeb5a03fe75d45b9ba661177f71ac2a35cd5e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakSimulation.cs",
+          "bytes": 154455,
+          "sha256": "b96a86357a7fb82b39f52b8b29ac0e8654b095c55b791204b2b487432b3ff186"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakSkinPalette.cs",
+          "bytes": 2237,
+          "sha256": "05715ae1904e3ce90936bcf866ee03424451f422bfcdcc57220d6e6c4d3a5082"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakStatVisibility.cs",
+          "bytes": 6247,
+          "sha256": "f25cb3cc5b25dc85e0c54832dd4813a5bfa5a0d1506d67dd4fdc874d95aeb89c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakTerrainData.cs",
+          "bytes": 4175,
+          "sha256": "742d6b880d35da0cc22f9e32d73f7cdad0ceb6438b049627791fec36d98f14de"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakTerrainRendering.cs",
+          "bytes": 2892,
+          "sha256": "3383f55766b408ece7b613741b9ca78abafa641c71b11081eebd484cd8e0058a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakTerrainRules.cs",
+          "bytes": 3604,
+          "sha256": "7ad3c6563e1b0d93cab34e2319a841f25740ad600b470dc79e69a8c7b32c3ae1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakTestMaps.cs",
+          "bytes": 4789,
+          "sha256": "624dc483e5a8ce45aceeb1fcf90fe51d1457dd5616364b8d91975398b9044afc"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakToolkit.cs",
+          "bytes": 56278,
+          "sha256": "387a40fac344c8924fae9c00fcbf47b753e6fe2a3acea49a2748fe8152843232"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakToolkitTiles.cs",
+          "bytes": 8061,
+          "sha256": "b79990ad66ce6c6a0c6a2048e8ed1e4e8e55a4b2bf6dda2e104e60198b98253e"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakVirus.cs",
+          "bytes": 6464,
+          "sha256": "4bcc66731cae27215d25d6a979711532f915bc3281a981781d14535cccc0158a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakVirusControls.cs",
+          "bytes": 20020,
+          "sha256": "0549e80b7d9ac4973d7c22f6af51000827ca10889baa0b9fd779577eaaf17cb1"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Assets/Scripts/OutbreakWeaponProfile.cs",
+          "bytes": 2781,
+          "sha256": "710b5b4090990921b4fded6615e5f7ce7c8f7767e0f2155d51e254da3c4ea8ab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BEHAVIOR_RESULTS_PREVIOUS.json",
+          "bytes": 4002,
+          "sha256": "cdaa5d726393460fc823e4b0c6c03922716ecbc9f57729a66fe9e42cd3774a7f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BEHAVIOR_TEST_PLAN.md",
+          "bytes": 3895,
+          "sha256": "0d14fe99e60daaba15c5f961445497041850dfd0f80ed63788c66e329a6a9590"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_ACTOR_VARIANTS.md",
+          "bytes": 4869,
+          "sha256": "ed800192e77b240ea623ff6eee446e6e2541f29f3d8b9222eea86375dbd9614f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_COMBAT_AIM_HORDES.md",
+          "bytes": 2281,
+          "sha256": "ad8b76ffa4400adc4ad372bf23700c1d8eac285b8f7e5830b69c9098a1647393"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_COMBAT_ASSETS.md",
+          "bytes": 6248,
+          "sha256": "bcd69795d620438f91e3ee127daceddce4ec28ee460ab114e6308429324ef8e6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_COMBAT_SKILLS_SOCIAL.md",
+          "bytes": 2747,
+          "sha256": "f6728d5bbbd97dfbe2a79f22e5bbd6f0d80b2313f7c141b8756512508a4edb9c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_FEAR_WORKSHOP_FIX.md",
+          "bytes": 1491,
+          "sha256": "543bf57133602f49924d9da139c9b85300de959e09ad2f3dca3c9421b6da65ab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_HANDS_TURNING.md",
+          "bytes": 7084,
+          "sha256": "4bd8a8fab266d7805362746f3b230a63673b0965c3db980c0c863efa9d327be8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_HUMAN_RANDOM_EMISSION.md",
+          "bytes": 5929,
+          "sha256": "fc50b34439726f9393d189766ffa54d5c62bfd60d51d71d149ceaa6b51958912"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_SHOTGUN_GRAPPLE_STRESS.md",
+          "bytes": 2579,
+          "sha256": "c18ee333f7965b3f87278bff34d4fd8e15aa2ae796d99ee61fea9053430941b0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_SHOTGUN_SPRITE.md",
+          "bytes": 3741,
+          "sha256": "4b65f9b631c2bb659edf97ef4b63e13244fdfedb250d5d0c959b275cd159f896"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/BUILD_STORAGE_SHELVES_TILES_LOADING.md",
+          "bytes": 5000,
+          "sha256": "4875f66aa36b34a55c6c9cd1567c71ea8a26e77face42f0aa79b66b56c5953f0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/COMPILE_FIX.md",
+          "bytes": 581,
+          "sha256": "0a74f4cf0cc7daa956a1df32419a2eb971f6c2a705668845c5f4c81bc3d24f14"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/CONTROL_LAYOUT_TEST.md",
+          "bytes": 2179,
+          "sha256": "21a2860c6bed95da800289c56540d9fbaca2d7005c6e42ff13e8c00d057e1352"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/CURRENT_BUILD_TEST.md",
+          "bytes": 3360,
+          "sha256": "d28709acb0d6bf274b44224747227e50545190fa1186caf432459a1ed18717ed"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/CURRENT_UPDATE.md",
+          "bytes": 7457,
+          "sha256": "642a74f02ff225608c4f6819302366de7f26efdf819e1841994583790082251d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/06_Inventory_Loot_and_Weapons.md",
+          "bytes": 18627,
+          "sha256": "2531b689786dce0afe26d1c2d6e595216464620dfddfee4569c0be4ccb4d9d7f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/15_Zombie_and_Horde_Behavior.md",
+          "bytes": 5230,
+          "sha256": "1b36da5156aa0afa811d31f34da15777d73492cb24fc7dcbb54ed52bb3f118ef"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/AUTOMATIC_LABORATORY_RESEARCH.md",
+          "bytes": 8893,
+          "sha256": "fe9096fd7011519ef53ce6fa0a83113b927e83516a76384d07c83732061fe5b5"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/AUTOMATIC_RESEARCH_HOST_LOG.txt",
+          "bytes": 3348,
+          "sha256": "b42d2d5b940d46e7c9cce7349c9f394db18d22bf2964f8e5e84ce2bcc2bbe0b3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/AUTOMATIC_RESEARCH_RESULTS.json",
+          "bytes": 4140,
+          "sha256": "64557a9d317e9fb83e42facef8e4621037c241b4da770ce243a87688a900a9fd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/CONTENT_ASSET_INVENTORY.json",
+          "bytes": 161823,
+          "sha256": "563aafd9fcd0271314dfcf676cec38a085fefb73c886480141f4381d78a8dc68"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/CURRENT_BEHAVIOR_HOST_LOG.txt",
+          "bytes": 8562,
+          "sha256": "8b3dc4cfcc01701437d91d2d6e8963204775643101abcd7cb4f538ed07b684df"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/CURRENT_BEHAVIOR_RESULTS.json",
+          "bytes": 10679,
+          "sha256": "637c85620eb77c9e9850194c4d7c59e6fb62a84b7d1814c687eec909672cefcd"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/CURRENT_VALIDATION.json",
+          "bytes": 2980,
+          "sha256": "87670477a232a60c615d7792da05f7899201b083184a4f01103404b6ba713a14"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/LABORATORY_UPDATE_REPORT.md",
+          "bytes": 2798,
+          "sha256": "c349490dd8a7ef9656923470efbfa2f4b14e3cb1639ca18209f297321e6e0655"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/MAP_EDITOR_AND_LOAD_MAP.md",
+          "bytes": 7457,
+          "sha256": "642a74f02ff225608c4f6819302366de7f26efdf819e1841994583790082251d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/MAP_EDITOR_AND_LOAD_MAP_CHECKS.log",
+          "bytes": 12912,
+          "sha256": "ec22dcc6624d24470af4562a798e0a13c32a20517bf95ea0fa069fb36e2dd4db"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/MAP_EDITOR_ASSET_PRESERVATION.json",
+          "bytes": 56,
+          "sha256": "c26c5fdd339d05646168b091bbeeda337aa648847ca201484754a2f75cad2115"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/PROJECT_BIBLE.md",
+          "bytes": 37752,
+          "sha256": "be0a49b99c3ad554575eeda5bf5582c6f98dbd87dae235c2c12f34861f0afaab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/SIMULATOR_PAINT_ASSET_PRESERVATION.json",
+          "bytes": 56,
+          "sha256": "c26c5fdd339d05646168b091bbeeda337aa648847ca201484754a2f75cad2115"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/SIMULATOR_PAINT_HOST_CHECKS.log",
+          "bytes": 12410,
+          "sha256": "ff7cf8f97f6376b110fd6ddf33d682e7951d1a8a4fcbe815388acf692d02e9eb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Docs/SIMULATOR_PAINT_UPDATE.md",
+          "bytes": 3193,
+          "sha256": "96283b04a2a51d1a0b80a3ce93abea5f4ee4fbf2db281b13fd44fedc2e4cdd59"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/EDITOR_TEST.md",
+          "bytes": 2064,
+          "sha256": "7d4463436a257b49e8282093d41e774ac7bcc901455bd47675962cf79744d02a"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/EDITOR_WORKFLOW.md",
+          "bytes": 2302,
+          "sha256": "09eb0d9a8f816c7b55b697aafac3aede34d815b0aa3b0a29d8f6980e3a9fdf7c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/GPU_STABILITY.md",
+          "bytes": 2184,
+          "sha256": "8ef1acdf2f4dbcda74289580c1fcc7147c64a30df273ffae5d835b67f4641941"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/HANDS_TURNING_CHECKS.json",
+          "bytes": 6157,
+          "sha256": "e3ef22d595fa20681e6b2181c0e6b5147f9d57869338e03173dbd403b2c9dedb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/NEXT_STEP.md",
+          "bytes": 1680,
+          "sha256": "dfb4d8ccfcbe1bbd741ea249ec5e522a08a67b59dc35306beb11c857ca405ea6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/NEXT_UPDATE.md",
+          "bytes": 626,
+          "sha256": "60b2753f7287ba5f17d6b463bf6abd3d4110aae5291d3ddda36f8a8c5abab65b"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Packages/manifest.json",
+          "bytes": 205,
+          "sha256": "823f0cd00f4f31e43dbabf3175578739dc2f82dc1891c168bd3eb1b96a84b7b3"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/ProjectSettings/ProjectVersion.txt",
+          "bytes": 28,
+          "sha256": "c52c316dbc4632a3b8c10f21f3557e95af22ec2ed5f9b3caba0315a6e3e11972"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/README.md",
+          "bytes": 12663,
+          "sha256": "af2c2f7472c8db21f9b63b2a9e5414c799402b7ee364c98b36eb014eeec1ed8f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/SCENARIO_TEST.md",
+          "bytes": 1823,
+          "sha256": "89ca3ce0d271e0a9c4d57dd58a37e7a1b403f3362693c55e31613c0eb8af841d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/SHOTGUN_SPRITE_CHECKS.json",
+          "bytes": 6631,
+          "sha256": "260390700d61f7f7b027ce25d2dda932b67396596013f91fe0f992830f4a8c0f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/SOURCE_UPDATE_CHECKS.json",
+          "bytes": 14978,
+          "sha256": "dd2722b9269356841387d6cc33a74bbe7c48c5ba865a0dc83b913bb4895adc06"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/START_MENU_TEST.md",
+          "bytes": 2430,
+          "sha256": "d214b5519da0d4b736c87794c6563478ecef27268c942750c3ddfee988a7b819"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/TERRAIN_PERFORMANCE_TEST.md",
+          "bytes": 2364,
+          "sha256": "ae09196ad4fe620e1fef11600596b686ce49b9dc204dfcea39d42a973f1a97ba"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/TestMaps/01_Courtyard.obmap",
+          "bytes": 20652,
+          "sha256": "8e90ad6335150221ec268bfcb54f3f48470818e4717b759ea48da552ec825dab"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/TestMaps/02_BuildingExit.obmap",
+          "bytes": 20486,
+          "sha256": "5c2533d527a26d7f42ed9a621dfe9d9e4d33e1a4d16c951736c56032f2c5279f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/TestMaps/03_ChokePoint.obmap",
+          "bytes": 20319,
+          "sha256": "3fc8187959343e4636ba86474ebcf9a536aa810a1ed0d22b281830fa87eb8057"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/TestMaps/04_AutomaticLaboratory.obmap",
+          "bytes": 34226,
+          "sha256": "7671d5dbc930d2df270a10744dec7585de647ca1313083baa3d70a9fc7ca27e2"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/LaboratoryHarness/Program.cs",
+          "bytes": 29535,
+          "sha256": "678e3ababdd7cfcce905b7c38d9fca2b6220c7fd7235cf578183a865982d8a3d"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/LaboratoryHarness/sources.txt",
+          "bytes": 1261,
+          "sha256": "c590dbea534d95f8ea1bfc3953d237e7d97e46b07eab633258faabc3519cf7a7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/LogicHarness/Program.cs",
+          "bytes": 1224,
+          "sha256": "85efced3c4bd2246ebda4d0cee42e4d4c9d602fb354c579a302bb9ddb28153a8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/LogicHarness/UnityLogicShim.cs",
+          "bytes": 11100,
+          "sha256": "d7d9c626bef4f4efe0217683a8aeb87492dfe86e2790dbf2ae6f6bc50056ffa8"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/LogicHarness/sources.txt",
+          "bytes": 1256,
+          "sha256": "8a3e45ba84b0dfa52e204496460102402a2b49c081076e714bf6520666dd60d0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/CanvasPixelProbe.cs",
+          "bytes": 3344,
+          "sha256": "20989293a7fc313a421309bf65853a04ce7a813c233ead5b0eea80794ac84ca6"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/ContentResourceShim.cs",
+          "bytes": 1433,
+          "sha256": "7ac10a4f015e192029dea8fa06779d8a3955ee8fdff8787cc9a2fdf36d59e78f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/InteriorPaintChecks.cs",
+          "bytes": 13684,
+          "sha256": "838e9950882a0e13eff7a35d9a1e67ead9f3fa2929ff0368d419f3669e9ce79c"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/MapEditorChecks.cs",
+          "bytes": 22464,
+          "sha256": "e04e1ce5abec673f3da9eaf06cbfb043ba31ce5aec1552974686c0e65bbdfebb"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/Program.cs",
+          "bytes": 5493,
+          "sha256": "6d23a7f84fbd27954f39041d366bc185af0fbea6c0b56eb9088943e9fd467acf"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/RuntimeInputShim.cs",
+          "bytes": 3260,
+          "sha256": "5f3997982769f59ab5d57be1d4b227666a88651b2df5aa88057847366baf7111"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/UnityEditorShim.cs",
+          "bytes": 29128,
+          "sha256": "0c9a51d021b3e74e4f1186c312e7e09b9e2da7996833e7ec4fbc2f4bc658dcd7"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/UnityValueShim.cs",
+          "bytes": 11060,
+          "sha256": "b3ed6815928f1a6deb68d569b75fd8a2a08f2e44fd469cec3aac32debd7a9049"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tests/PaintHarness/sources.txt",
+          "bytes": 2101,
+          "sha256": "b5e8b68ae202aa1a72dd3b2a85e71b4c2a6fe166b0f414aef35566b5d206fb0f"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/Tools/run_logic_checks.py",
+          "bytes": 2939,
+          "sha256": "5069bb4ad1d8855045bd7f8c199b2512e715363e498b318a79797831f75842d0"
+        },
+        {
+          "path": "OutbreakSimulator_Unity_GGG/VALIDATION.md",
+          "bytes": 2671,
+          "sha256": "9fbaa7818df49886cfb6b8195b848e62fc9c04937e78d93bb7d0a3fb9b1d424c"
+        }
+      ]
+    }
+  ]
+}

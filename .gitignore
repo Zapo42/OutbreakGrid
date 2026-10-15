@@ -1,0 +1,8 @@
+# Unity and local C# build outputs.
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Ll]ogs/
+**/[Oo]bj/
+**/[Bb]in/
+**/[Uu]ser[Ss]ettings/
+**/[Bb]uilds/
