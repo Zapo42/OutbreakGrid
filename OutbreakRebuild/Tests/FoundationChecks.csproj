@@ -10,6 +10,7 @@
     <Compile Include="../Assets/Outbreak/Core/*.cs" />
     <Compile Include="../Assets/Outbreak/Persistence/*.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="HumanReactionChecks.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

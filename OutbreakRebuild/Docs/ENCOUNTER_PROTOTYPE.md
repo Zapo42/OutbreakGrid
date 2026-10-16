@@ -1,3 +1,5 @@
+> This describes the prototype-two baseline. Current human-reaction behavior and controls are documented in [HUMAN_REACTIONS.md](HUMAN_REACTIONS.md). Earlier saves keep this baseline behavior.
+
 # Encounter prototype 2
 
 This user-selected milestone adds a small playable encounter ahead of the broader content-migration stage. It is a prototype, not the complete encounter/combat scope.

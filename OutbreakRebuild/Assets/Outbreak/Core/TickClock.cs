@@ -19,9 +19,10 @@ namespace Outbreak.Core // Keep scheduling testable without running Unity.
             while (done < budget && accumulated + 1e-12 >= 1.0 / Rules.TicksPerSecond) { step(); accumulated = Math.Max(0, accumulated - 1.0 / Rules.TicksPerSecond); done++; } // Execute whole ticks and keep any remaining debt.
             return done; // Report actual work without implying a tick was skipped.
         } // Finish one frame scheduling pass.
-        public void StepTen(Action step) // Allow exact manual progress while the world remains paused.
-        { // Begin one manual stepping command.
-            if (!Paused || step == null) throw new InvalidOperationException("Pause before stepping."); for (int i = 0; i < 10; i++) step(); accumulated = 0; // Advance every system through the same tick entry point.
+        public void StepTicks(int ticks, Action step) // Offer exact bounded batches without changing playback speed.
+        { // Begin manual stepping validation.
+            if (!Paused || step == null) throw new InvalidOperationException("Pause before stepping."); if (ticks < 1 || ticks > 100) throw new ArgumentOutOfRangeException("ticks"); for (int i = 0; i < ticks; i++) step(); accumulated = 0; // Execute every requested tick and remain paused.
         } // Finish one manual stepping command.
+        public void StepTen(Action step) { StepTicks(10, step); } // Preserve existing callers of the original ten-tick control.
     } // Finish the scheduler.
 } // Finish fixed tick scheduling.

@@ -1,3 +1,5 @@
+> Latest user-selected milestone: Human reactions (prototype 3), including stress, cached local support, defensive shove, exact tick batches and a run-preserving Main Menu. See HUMAN_REACTIONS.md for provisional rules, checks and remaining work. Full Stage 2/3/4 requirements remain open.
+
 > Current user-selected work: Encounter prototype 2 (including last-seen pursuit and a controlled corner scenario) is implemented ahead of full Stage 2 migration. See ENCOUNTER_PROTOTYPE.md for exact scope and test evidence. Stage 2 and the full Stage 3/4 requirements remain pending. Native Unity acceptance remains open.
 
 # Rebuild work order

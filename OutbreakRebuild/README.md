@@ -1,3 +1,9 @@
+# Current update: Human reactions
+
+Stress, visible group support and bravery now drive **Fight / Freeze / Flight**. Fight performs defensive shoves; Freeze resolves after a saved variable delay. The simulator also has **1 / 10 / 50 / 100 tick** buttons and **Main Menu / Resume current run**. [Launch steps, exact prototype rules and validation](Docs/HUMAN_REACTIONS.md). Older saves retain their original behavior.
+
+## Previous update
+
 # Current update: Encounter prototype 2
 
 Choose **Start Encounter** for zombies pursuing visible humans, last-seen search after losing sight, prototype fleeing, contact infection and delayed turning. Choose **Inspect Corner Pursuit Paused** for a controlled obstacle scenario. Prior encounter saves retain their original behavior. The original Movement Test remains available. Read [launch instructions, provisional rules and validation](Docs/ENCOUNTER_PROTOTYPE.md).

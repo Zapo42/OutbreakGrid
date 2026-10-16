@@ -1,3 +1,5 @@
+> Prototype 3 adds persisted human reactions and a separate named random stream for freeze duration. All deadlines use World.Step; reaction state clears on turning. The menu pauses and retains the existing world. See HUMAN_REACTIONS.md.
+
 > Encounter prototype 2 extends the baseline below with opt-in pursuit memory, local sight/path queries and deadline-based infection. See ENCOUNTER_PROTOTYPE.md. Legacy rules remain available for exact save continuation.
 
 # Foundation boundaries

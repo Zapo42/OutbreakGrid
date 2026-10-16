@@ -17,6 +17,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.
     } // Finish the shared map format.
     public enum Species { Human, Zombie } // Keep species identity independent of animation and sprite color.
+    public enum HumanReaction { Calm, Aware, Fight, Freeze, Flight } // Store the actual decision separately from stress intensity.
+    public enum StressLevel { Normal, Aware, Cautious, Alarmed, Afraid, Panicked } // Give the inspector the six retained stress labels.
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
@@ -26,6 +28,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public long turnAtTick; // Zero means uninfected; otherwise retain the authoritative turning deadline.
         [DataMember] public int targetId, lastSeenX, lastSeenY; // Store only the identity and cell actually observed by a pursuing zombie.
         [DataMember] public long searchUntilTick; // Bound pursuit memory using simulation time rather than wall time.
+        [DataMember] public int stress, groupSupport, threatPressure; // Persist the bounded inputs to courage decisions and cached local support.
+        [DataMember] public HumanReaction reaction; // Resume the exact current human response.
+        [DataMember] public bool freezeResolved; // Avoid repeatedly freezing during the same stressful encounter.
+        [DataMember] public long freezeUntilTick, supportUntilTick, nextShoveTick, staggerUntilTick; // Drive reaction, support observation and contact timing from the authoritative clock.
     } // Finish a stable actor record.
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.
@@ -34,6 +40,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public string rulesVersion = "foundation-1"; // Reject saves produced by incompatible simulation rules.
         [DataMember(IsRequired = true)] public MapDocument map; // Own the exact terrain and preserved authoring payload.
         [DataMember(IsRequired = true)] public long tick; // Restore the logical clock without replaying elapsed time.
+        [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.
         [DataMember(IsRequired = true)] public int nextId, capacity; // Preserve future identity allocation and the population limit.
         [DataMember(IsRequired = true)] public ActorState[] actors = new ActorState[0]; // Preserve canonical ascending actor order.
