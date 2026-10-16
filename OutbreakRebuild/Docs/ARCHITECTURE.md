@@ -1,3 +1,5 @@
+> Encounter prototype 2 extends the baseline below with opt-in pursuit memory, local sight/path queries and deadline-based infection. See ENCOUNTER_PROTOTYPE.md. Legacy rules remain available for exact save continuation.
+
 # Foundation boundaries
 
 | Layer | Owns | Allowed dependencies |

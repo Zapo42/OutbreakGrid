@@ -4,15 +4,30 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
+        public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
     } // Finish prototype tuning.
     public sealed partial class World // Extend the same authoritative owner without adding engine dependencies.
     { // Begin encounter behavior.
         public bool Encounter { get; private set; } // Keep scenario mode immutable after construction.
+        public bool PursuitMemory { get; private set; } // Retain the old encounter behavior when continuing a prototype-one save.
         private readonly int[] routeQueue = new int[625], routeFirst = new int[625], routeSeen = new int[625]; // Bound reusable navigation storage to the local 25 by 25 sight region.
         private int routeStamp; // Reuse visited storage without retaining a history of queries.
+        private static void ClearPursuit(ref ActorState actor) // Remove stale observations without retaining diagnostic history.
+        { // Begin canonical memory cleanup.
+            actor.targetId = 0; actor.lastSeenX = 0; actor.lastSeenY = 0; actor.searchUntilTick = 0; // Keep inactive memory identical across capture and restore.
+        } // Finish memory cleanup.
+        private void ValidatePursuit() // Validate all persisted observations after every actor identity is available.
+        { // Begin transactional pursuit validation.
+            for (int i = 0; i < count; i++) // Inspect each actor before publishing a restored world.
+            { // Begin observation validation.
+                ActorState actor = actors[i]; if (actor.targetId == 0) { if (actor.lastSeenX != 0 || actor.lastSeenY != 0 || actor.searchUntilTick != 0) throw new ArgumentException("Inactive pursuit contains stale data."); continue; } // Refuse hidden state attached to an inactive observation.
+                if (!PursuitMemory || actor.species != Species.Zombie || actor.targetId == actor.id || !map.CanWalk(actor.lastSeenX, actor.lastSeenY) || actor.searchUntilTick <= Tick || actor.searchUntilTick - Tick > EncounterRules.SearchTicks) throw new ArgumentException("Invalid pursuit observation."); // Reject wrong modes, geometry, species and expired or excessive deadlines.
+                bool found = false; for (int j = 0; j < count; j++) if (actors[j].id == actor.targetId) { found = true; break; } if (!found) throw new ArgumentException("Pursuit target identity is absent."); // Permit a remembered human to have turned while unseen, without silently losing its stable identity.
+            } // Finish actor validation.
+        } // Finish pursuit validation.
         private bool ClearStep(int x, int y, int nx, int ny) // Share the same solid-corner rule between sight, pursuit and contact.
         { // Begin geometry validation.
             return map.CanWalk(nx, ny) && (nx == x || ny == y || (map.CanWalk(nx, y) && map.CanWalk(x, ny))); // Never cross a solid barrier or cut its corner.
@@ -66,7 +81,8 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         { // Begin a complete encounter tick.
             for (int i = 0; i < count; i++) // Convert every due human before movement or target selection.
             { // Begin deadline processing.
-                ActorState actor = actors[i]; if (actor.turnAtTick == 0 || actor.turnAtTick > Tick) continue; // Ignore healthy humans and future deadlines.
+                ActorState actor = actors[i]; if (PursuitMemory && actor.targetId != 0 && actor.searchUntilTick <= Tick) { ClearPursuit(ref actor); actors[i] = actor; } // Expire memory even between movement opportunities.
+                if (actor.turnAtTick == 0 || actor.turnAtTick > Tick) continue; // Ignore healthy humans and future deadlines.
                 occupancy.Change(Key(actor.x, actor.y), Species.Human, -1); actor.species = Species.Zombie; actor.turnAtTick = 0; actor.charisma = 0; actor.intelligence = 0; actor.strength = Math.Max(1, actor.strength); actor.perception = Math.Max(1, actor.perception); actors[i] = actor; occupancy.Change(Key(actor.x, actor.y), Species.Zombie, 1); // Preserve identity, position, health and inherited physical stats while updating crowd counts.
             } // Finish turning deadlines.
             for (int i = 0; i < count; i++) // Process stable identity order for reproducible encounters.
@@ -75,7 +91,8 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                 int targetIndex = NearestVisible(actor, actor.species == Species.Zombie ? Species.Human : Species.Zombie), direction = 8; // Reacquire locally rather than using global knowledge.
                 if (targetIndex >= 0) // Chase or retreat only when an opponent is visible.
                 { // Begin encounter response.
-                    ActorState target = actors[targetIndex]; int distance = Math.Max(Math.Abs(target.x - actor.x), Math.Abs(target.y - actor.y)); // Contact includes the same cell and unobstructed adjacent cells.
+                    ActorState target = actors[targetIndex]; if (PursuitMemory && actor.species == Species.Zombie) { actor.targetId = target.id; actor.lastSeenX = target.x; actor.lastSeenY = target.y; actor.searchUntilTick = Tick + EncounterRules.SearchTicks; actors[i] = actor; } // Refresh memory only from a real current sight observation.
+                    int distance = Math.Max(Math.Abs(target.x - actor.x), Math.Abs(target.y - actor.y)); // Contact includes the same cell and unobstructed adjacent cells.
                     if (actor.species == Species.Zombie && distance <= 1) // Use a deterministic contact bite until grabbing and evasion are implemented.
                     { // Begin one bite opportunity.
                         if (target.turnAtTick == 0) { target.health = Math.Max(1, target.health - EncounterRules.BiteDamage); target.turnAtTick = Tick + EncounterRules.BaseTurnDelay + target.endurance * EncounterRules.EnduranceDelay; actors[targetIndex] = target; } continue; // A later bite cannot reset an existing infection deadline.
@@ -88,7 +105,12 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                     } // Finish prototype fleeing.
                 } // Finish encounter response.
                 else if (actor.species == Species.Human) direction = random.Below(9); // Humans wander without a visible threat; zombies wait without omniscient pursuit.
-                if (direction == 8 || !MayMove(actor, direction)) continue; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; actors[i] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Commit geometry and population counts together.
+                else if (PursuitMemory && actor.targetId != 0) // Search the observed cell without querying the hidden target's current location.
+                { // Begin last-known-position search.
+                    if (actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) { ClearPursuit(ref actor); actors[i] = actor; } // An empty last-seen cell ends the search.
+                    else direction = Route(actor, new ActorState { x = actor.lastSeenX, y = actor.lastSeenY }); // Route only to remembered terrain coordinates.
+                } // Finish lost-sight search.
+                if (direction == 8 || !MayMove(actor, direction)) continue; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; if (PursuitMemory && actor.targetId != 0 && actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) ClearPursuit(ref actor); actors[i] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Commit geometry and population counts together.
             } // Finish actor decisions.
         } // Finish authoritative encounter tick.
     } // Finish the world extension.

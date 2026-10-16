@@ -1,6 +1,6 @@
-# Current update: Encounter prototype 1
+# Current update: Encounter prototype 2
 
-Choose **Start Encounter** for zombies pursuing visible humans, prototype fleeing, contact infection and delayed turning. The original Movement Test remains available. Read [launch instructions, provisional rules and validation](Docs/ENCOUNTER_PROTOTYPE.md).
+Choose **Start Encounter** for zombies pursuing visible humans, last-seen search after losing sight, prototype fleeing, contact infection and delayed turning. Choose **Inspect Corner Pursuit Paused** for a controlled obstacle scenario. Prior encounter saves retain their original behavior. The original Movement Test remains available. Read [launch instructions, provisional rules and validation](Docs/ENCOUNTER_PROTOTYPE.md).
 
 The sections below describe the original Foundation 1 baseline; their statements that encounter behavior is absent apply to that baseline.
 

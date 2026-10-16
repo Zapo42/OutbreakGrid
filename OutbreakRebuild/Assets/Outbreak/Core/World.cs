@@ -28,10 +28,10 @@ namespace Outbreak.Core // Own simulation state independently of the Unity objec
         public string Name { get { return map.Name; } } public int AllocatedChunks { get { return map.AllocatedChunks; } } public int OccupiedCells { get { return occupancy.Count; } } // Expose bounded storage diagnostics without exposing mutable indexes.
         public long Tick { get; private set; } // Advance the only simulation clock through Step.
         public long GameSeconds { get { return Tick * 6; } } // Derive game time from exact integer ticks.
-        public World(WorldMap source, uint seed = 1, int capacity = Rules.DefaultCapacity, bool encounter = false) // Construct an isolated scenario instance.
+        public World(WorldMap source, uint seed = 1, int capacity = Rules.DefaultCapacity, bool encounter = false, bool pursuitMemory = true) // Construct an isolated scenario instance.
         { // Begin world construction.
             if (source == null || capacity < 1 || capacity > Rules.DefaultCapacity) throw new ArgumentException("A valid map and population cap of 1–1000 are required."); // Keep the agreed default cap explicit for this first slice.
-            Encounter = encounter; map = WorldMap.Restore(source.Capture()); actors = new ActorState[capacity]; random = new RandomStream(seed); // Detach source terrain so authoring cannot mutate a running world.
+            Encounter = encounter; PursuitMemory = encounter && pursuitMemory; map = WorldMap.Restore(source.Capture()); actors = new ActorState[capacity]; random = new RandomStream(seed); // Detach source terrain so authoring cannot mutate a running world.
         } // Finish world construction.
         public Terrain TerrainAt(int x, int y) { return map.Get(x, y); } // Offer a read-only terrain query to rendering.
         public ActorState ActorAt(int index) { if (index < 0 || index >= count) throw new ArgumentOutOfRangeException("index"); return actors[index]; } // Return a struct copy to protect authoritative state.
@@ -58,12 +58,12 @@ namespace Outbreak.Core // Own simulation state independently of the Unity objec
         public SaveDocument Capture() // Snapshot every authoritative value and no presentation state.
         { // Begin world capture.
             ActorState[] output = new ActorState[count]; Array.Copy(actors, output, count); // Give persistence an isolated actor array.
-            return new SaveDocument { rulesVersion = Encounter ? EncounterRules.Version : "foundation-1", map = map.Capture(), actors = output, tick = Tick, randomState = random.State, nextId = nextId, capacity = actors.Length }; // Preserve direct random continuation and exact future identities.
+            return new SaveDocument { rulesVersion = Encounter ? (PursuitMemory ? EncounterRules.Version : EncounterRules.LegacyVersion) : "foundation-1", map = map.Capture(), actors = output, tick = Tick, randomState = random.State, nextId = nextId, capacity = actors.Length }; // Preserve direct random continuation and exact future identities.
         } // Finish world capture.
         public static World Restore(SaveDocument source) // Build and validate a new world before any caller swaps it into the UI.
         { // Begin transactional world restoration.
-            if (source == null || source.kind != "outbreak.save" || source.schemaVersion != 1 || (source.rulesVersion != "foundation-1" && source.rulesVersion != EncounterRules.Version) || source.tick < 0 || source.tick >= long.MaxValue / 6 || source.randomState == 0 || source.actors == null || source.nextId < 1) throw new ArgumentException("Unsupported or invalid foundation save."); // Refuse incompatible rules and impossible clocks or random states.
-            World world = new World(WorldMap.Restore(source.map), source.randomState, source.capacity, source.rulesVersion == EncounterRules.Version); // Validate map and population bounds before admitting actors.
+            if (source == null || source.kind != "outbreak.save" || source.schemaVersion != 1 || (source.rulesVersion != "foundation-1" && source.rulesVersion != EncounterRules.Version && source.rulesVersion != EncounterRules.LegacyVersion) || source.tick < 0 || source.tick >= long.MaxValue / 6 || source.randomState == 0 || source.actors == null || source.nextId < 1) throw new ArgumentException("Unsupported or invalid foundation save."); // Refuse incompatible rules and impossible clocks or random states.
+            World world = new World(WorldMap.Restore(source.map), source.randomState, source.capacity, source.rulesVersion != "foundation-1", source.rulesVersion == EncounterRules.Version); // Validate map and population bounds before admitting actors.
             if (source.actors.Length > source.capacity || source.nextId > int.MaxValue - source.capacity) throw new ArgumentException("Saved population or identity allocation exceeds capacity."); // Bound actor validation and leave enough integer space for future spawns.
             int previousId = 0; // Require a canonical identity order so later ticks remain reproducible.
             foreach (ActorState actor in source.actors) // Validate every actor without touching any existing live world.
@@ -74,7 +74,7 @@ namespace Outbreak.Core // Own simulation state independently of the Unity objec
                 if (Array.Exists(stats, value => value < 0 || value > 10) || actor.morality < -5 || actor.morality > 5 || actor.bravery < -3 || actor.bravery > 3 || actor.health < 1 || actor.health > 100) throw new ArgumentException("Invalid actor statistics."); // Retain the source's signed morality range while applying the agreed signed bravery range.
                 world.actors[world.count++] = actor; world.occupancy.Change(world.Key(actor.x, actor.y), actor.species, 1); previousId = actor.id; // Restore a coherent occupancy index from authoritative actor state.
             } // Finish one actor validation.
-            world.Tick = source.tick; world.nextId = source.nextId; return world; // Publish the replacement only after all validation succeeds.
+            world.Tick = source.tick; world.nextId = source.nextId; world.ValidatePursuit(); return world; // Publish the replacement only after all validation succeeds.
         } // Finish transactional world restoration.
     } // Finish the authoritative world.
 } // Finish the first executable simulation slice.

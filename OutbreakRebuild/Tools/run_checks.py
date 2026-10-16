@@ -19,6 +19,7 @@ with tempfile.TemporaryDirectory(prefix="OutbreakFoundation-") as folder: # Avoi
         sources = sorted(str(p) for p in (root / "Assets" / "Outbreak" / name).glob("*.cs")) # Compile the delivered source for this layer only.
         subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-target:library", "-r:System.Runtime.Serialization.dll", "-out:" + library] + ["-r:" + path for path in libraries] + sources, check=True) # Give a layer only its allowed earlier dependencies.
         libraries.append(library) # Make the successfully compiled layer available to later layers.
+    shutil.copytree(root / "Tests" / "Fixtures", Path(folder) / "Fixtures") # Supply independently recorded prior-release continuation to the same test executable.
     binary = str(Path(folder) / "FoundationChecks.exe") # Name the host test process separately from the player.
     subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-r:System.Runtime.Serialization.dll", "-out:" + binary] + ["-r:" + path for path in libraries] + [str(root / "Tests" / "Program.cs")], check=True) # Link the checks against actual production assemblies and treat all warnings as failures.
     subprocess.run([args.mono, binary, str(root / "Examples")], check=True) # Execute production logic and retain evidence with loadable sample documents.
