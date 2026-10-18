@@ -1,4 +1,4 @@
-Latest build: [Foundation 15 / warnings attract zombies](Docs/WARNING_ATTRACTION.md).
+Latest build: [Foundation 16 / door bracing](Docs/DOOR_BRACING.md).
 
 # Current update: Shelters and doors
 

@@ -1,4 +1,6 @@
-Latest build: [Foundation 15 / warnings attract zombies](WARNING_ATTRACTION.md).
+Latest build: [Foundation 16 / door bracing](DOOR_BRACING.md).
+
+> Prototype 15 saves a short-lived physical brace on each defending human. Geometry, current shelter ownership and recent hearing validate the action; damage reduction queries actual occupants and cannot stack. Opening, breaking and shelter release clear braces immediately. Door colors derive from open/closed terrain and retained health in the Unity adapter. See DOOR_BRACING.md.
 
 > Prototype 14 allows zombie listeners to retain human warning locations, using existing warning fields and acoustic buffers. Personal sight memory takes priority; otherwise the newer door-impact or warning deadline selects the investigation. Rules dispatch preserves human-only warnings in prototype-13 saves. See WARNING_ATTRACTION.md.
 

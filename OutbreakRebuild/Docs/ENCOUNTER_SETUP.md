@@ -1,4 +1,4 @@
-Latest build: [Foundation 15 / warnings attract zombies](WARNING_ATTRACTION.md).
+Latest build: [Foundation 16 / door bracing](DOOR_BRACING.md).
 
 # Encounter setup
 

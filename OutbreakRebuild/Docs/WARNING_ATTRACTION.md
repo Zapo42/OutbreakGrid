@@ -1,3 +1,5 @@
+Latest build: [Door bracing and door colors](DOOR_BRACING.md).
+
 # Human warnings attract zombies
 
 Current build: **Foundation 15 / warnings attract zombies**, rules `encounter-prototype-14`.
