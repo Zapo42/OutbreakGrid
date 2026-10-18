@@ -1,6 +1,14 @@
 # Shelters and doors
 
-Current build: **Foundation 6 / shelters and doors**, rules `encounter-prototype-6`.
+## Doorway pursuit fix — Foundation 7
+
+Fixed zombies stopping short when a fleeing human closes a door. They now approach the closed door along the route to their last sighting, stop outside it, and resume if it opens before their existing search deadline. A hidden human does not refresh their memory. Walls and diagonal collision remain solid; zombies still cannot break doors.
+
+Start a new encounter to use the fix. For a saved Foundation 6 run, load it and press **Update doorway pursuit**, then Resume. Older saves retain their original rules until upgraded; the update leaves the source save file unchanged.
+
+Use **Inspect Shelter Entry Paused** and advance with Tick buttons to see the zombie reach the closed doorway instead of stopping several cells away.
+
+Current build: **Foundation 7 / doorway pursuit fix**, rules `encounter-prototype-7`.
 
 ## Try this build
 
@@ -43,15 +51,17 @@ Earlier saves keep their original rules until explicitly upgraded. The prototype
 
 ## Executed validation
 
+Foundation 7 additionally checks the closing-door pursuit regression, reopening, memory expiry, exact resume, the explicit upgrade button and independent Foundation 6 continuation. Current evidence: [DOOR_PURSUIT_CHECKS.txt](DOOR_PURSUIT_CHECKS.txt).
+
 .NET 8.0.419, Linux:
 
 ```
-dotnet run --project Tests/FoundationChecks.csproj -- /tmp/outbreak-shelters
+dotnet run --project Tests/FoundationChecks.csproj -- /tmp/outbreak-door-pursuit
 dotnet run --project Tests/UiChecks.csproj
 dotnet run --project Tests/UiChecks.csproj -p:InputMode=NewOnly
 python3 Tools/check_project_config.py
 ```
 
-55 core acceptance cases / 22,736 assertions passed, plus 138 Legacy UI assertions and three New-only assertions (unsupported input correctly rejected). Coverage includes enclosure/scan limits, real open-enter-close behavior, occupied-door safety, room/cell reservations, unsafe-room reassessment and evacuation, malformed loads, turning cleanup and a healthy occupant witnessing another turn, pause, open-door save continuation and independently recorded prior-release behavior. A 25-body/two-room scenario ran admission, doors and reactions through save/resume; its exact timing and scope are in SHELTER_CHECKS.txt. Existing 1,000-body and movement benchmarks remain separate from this shelter-enabled measurement.
+57 core acceptance cases / 22,751 assertions passed, plus 142 Legacy UI assertions and three New-only assertions (unsupported input correctly rejected). Coverage includes enclosure/scan limits, real open-enter-close behavior, occupied-door safety, room/cell reservations, unsafe-room reassessment and evacuation, malformed loads, turning cleanup and a healthy occupant witnessing another turn, pause, open-door save continuation and independently recorded prior-release behavior. A 25-body/two-room scenario ran admission, doors and reactions through save/resume; its exact timing and scope are in SHELTER_CHECKS.txt. Existing 1,000-body and movement benchmarks remain separate from this shelter-enabled measurement.
 
 UI checks exercise both authored menu scenarios, door-triggered texture-cache invalidation, exact stepping and explicit previous-save upgrade without rewriting its source file. They compile production handlers against narrow API doubles. Native Unity import, layout, rendering/motion, mouse input, operating-system dialogs and Windows EXE behavior still need native verification.

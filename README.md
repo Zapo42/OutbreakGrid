@@ -1,5 +1,7 @@
 # OutbreakGrid
 
+Doorway pursuit fix (Foundation 7): zombies follow their last sighting up to closed doors. Load older shelter saves and press **Update doorway pursuit**, or start a new encounter. See [details](OutbreakRebuild/Docs/SHELTERS_AND_DOORS.md).
+
 Unity 6 Outbreak Simulator rebuild. Current update: **Shelters and doors**, adding reachable room goals, capacity reservations, human door opening/closing and unsafe-room reassessment. Bitten escape remains active. Stress, fight/freeze/flight, tick buttons and Main Menu remain available.
 
 ## Download and run

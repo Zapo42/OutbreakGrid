@@ -4,7 +4,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
@@ -66,7 +66,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         { // Begin deterministic neighbor preference.
             int x = actor.x + dx[direction] - target.x, y = actor.y + dy[direction] - target.y; return x * x + y * y; // Stable insertion order resolves equal scores without consuming randomness.
         } // Finish geometric ranking.
-        private int Route(ActorState actor, ActorState target) // Find a shortest eight-neighbor route within a bounded local query.
+        private int Route(ActorState actor, ActorState target, bool rememberDoors = false) // Find a shortest eight-neighbor route within a bounded local query.
         { // Begin reusable breadth-first search.
             if (routeStamp == int.MaxValue) { Array.Clear(routeSeen, 0, routeSeen.Length); routeStamp = 0; } routeStamp++; // Safely recycle the finite generation counter.
             for (int d = 0; d < 8; d++) routeOrder[d] = d; // Legacy rules retain the exact original clockwise tie order.
@@ -77,13 +77,19 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                 int cell = routeQueue[head++], x = left + cell % 25, y = top + cell / 25; if (x == target.x && y == target.y) return routeFirst[cell]; // Return the first step of the shortest discovered route.
                 for (int order = 0; order < 8; order++) // Preserve stable ties while favoring the more direct route in new runs.
                 { // Begin candidate expansion.
-                    int d = routeOrder[order], nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= 25 || ly >= 25 || !ClearStep(x, y, nx, ny)) continue; // Stay inside the bounded terrain query.
+                    int d = routeOrder[order], nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= 25 || ly >= 25 || !(rememberDoors ? RememberedDoorStep(x, y, nx, ny) : ClearStep(x, y, nx, ny))) continue; // Stay inside the bounded terrain query.
                     int next = ly * 25 + lx; if (routeSeen[next] == routeStamp || !occupancy.Allows(Key(nx, ny), actor.species)) continue; // Respect current crowd capacity on each path cell.
                     routeSeen[next] = routeStamp; routeFirst[next] = cell == start ? d : routeFirst[cell]; routeQueue[tail++] = next; // Retain only the first direction and finite frontier.
                 } // Finish candidate expansion.
             } // Finish bounded search.
             return 8; // Wait when no route is available instead of walking through a barrier.
         } // Finish navigation.
+        private bool RememberedDoorStep(int x, int y, int nx, int ny) // Plan toward remembered terrain through closed doors without granting physical passage.
+        { // Keep door planning cardinal and preserve solid diagonal corners.
+            if (!map.Contains(nx, ny) || (!map.CanWalk(nx, ny) && map.Get(nx, ny) != Terrain.DoorClosed)) return false; // Walls remain impassable even during investigation.
+            if (x != nx && y != ny) return map.Get(x, y) != Terrain.DoorClosed && map.Get(nx, ny) != Terrain.DoorClosed && map.CanWalk(x, ny) && map.CanWalk(nx, y); // Never cut a corner through a door or wall.
+            return true; // MoveActor still checks actual solidity and stops the zombie outside the first closed door.
+        } // Finish remembered-route planning.
         private void MoveActor(int index, ActorState actor, int direction) // Commit the same geometry and crowd checks for every rules version.
         { // Begin a complete neighboring move.
             if (direction == 8 || !MayMove(actor, direction)) return; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; if (PursuitMemory && actor.targetId != 0 && actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) ClearPursuit(ref actor); actors[index] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Keep stable identity, observation cleanup and occupancy atomic.
@@ -121,7 +127,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                 else if (PursuitMemory && actor.targetId != 0) // Search the observed cell without querying the hidden target's current location.
                 { // Begin last-known-position search.
                     if (actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) { ClearPursuit(ref actor); actors[i] = actor; } // An empty last-seen cell ends the search.
-                    else direction = Route(actor, new ActorState { x = actor.lastSeenX, y = actor.lastSeenY }); // Route only to remembered terrain coordinates.
+                    else direction = Route(actor, new ActorState { x = actor.lastSeenX, y = actor.lastSeenY }, DoorPursuit); // Route only to remembered terrain coordinates.
                 } // Finish lost-sight search.
                 MoveActor(i, actor, direction); // Commit geometry and population counts together.
             } // Finish actor decisions.
