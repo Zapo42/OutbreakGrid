@@ -55,6 +55,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         { // Begin a reproducible short-lived doorway sighting.
             SaveDocument saved = DoorBreach().Capture(); saved.map.name = "Door hearing test"; saved.map.id = "door-hearing-1"; saved.actors[0].stress = 0; saved.actors[0].reaction = HumanReaction.Calm; saved.actors[1].searchUntilTick = 7; return World.Restore(saved); // One strike at tick two is followed by memory expiry, five seconds of caution and eventual recovery.
         } // Finish impact hearing fixture.
+        public static World ZombieSoundInvestigation() // Show an idle zombie approaching another zombie's actual impacts.
+        { // Begin a controlled audible breach.
+            World world = DoorBreach(); int id; world.TrySpawn(Species.Zombie, 7, 2, out id); return world; // Zombie #3 hears #2's strikes, approaches the door and acquires the human only after sight opens.
+        } // Finish sound investigation fixture.
         public static World UnsafeShelter() // Make a previously selected room visibly unsafe while providing another authored destination.
         { // Begin reassessment scenario setup.
             WorldMap map = new WorldMap(16, 18, "Unsafe shelter test", "unsafe-shelter-1"); AddShelterRoom(map, 1, 2, false); AddShelterRoom(map, 7, 10, true); World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 4, 7, out id); world.TrySpawn(Species.Zombie, 2, 3, out id); SaveDocument saved = world.Capture(); saved.actors[0].bravery = -3; saved.actors[0].reaction = HumanReaction.Flight; saved.actors[0].stress = 50; saved.actors[0].shelterId = 3 * map.Width + 3; saved.actors[0].shelterX = 2; saved.actors[0].shelterY = 3; saved.actors[0].shelterState = ShelterState.Inside; return World.Restore(saved); // The room identity comes from its first row-major floor cell plus one.

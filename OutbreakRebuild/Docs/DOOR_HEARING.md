@@ -1,3 +1,5 @@
+Latest build: [Zombie sound investigation](ZOMBIE_SOUND.md).
+
 # Hearing nearby door impacts
 
 Current build: **Foundation 12 / door-impact hearing**, rules `encounter-prototype-11`.

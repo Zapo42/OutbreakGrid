@@ -1,4 +1,4 @@
-Latest build: [Hearing nearby door impacts](DOOR_HEARING.md).
+Latest build: [Zombie sound investigation](ZOMBIE_SOUND.md).
 
 # Encounter setup
 

@@ -4,7 +4,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-11", BreachVersion = "encounter-prototype-10", WanderVersion = "encounter-prototype-9", RecoveryVersion = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-12", HearingVersion = "encounter-prototype-11", BreachVersion = "encounter-prototype-10", WanderVersion = "encounter-prototype-9", RecoveryVersion = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
@@ -101,7 +101,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         } // Finish idle direction selection.
         private void MoveActor(int index, ActorState actor, int direction) // Commit the same geometry and crowd checks for every rules version.
         { // Begin a complete neighboring move.
-            if (direction == 8 || !MayMove(actor, direction)) return; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; if (PursuitMemory && actor.targetId != 0 && actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) ClearPursuit(ref actor); actors[index] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Keep stable identity, observation cleanup and occupancy atomic.
+            if (direction == 8 || !MayMove(actor, direction)) return; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; if (PursuitMemory && actor.targetId != 0 && actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) ClearPursuit(ref actor); if (ZombieSoundInvestigation && actor.species == Species.Zombie && actor.heardDoorUntilTick > Tick && actor.x == actor.heardDoorX && actor.y == actor.heardDoorY) ClearDoorHearing(ref actor); actors[index] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Keep stable identity, observation cleanup and occupancy atomic.
         } // Finish movement commitment.
         private void StepEncounter() // Keep infection, conversion, bites and movement on the same logical clock.
         { // Begin a complete encounter tick.
@@ -138,6 +138,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                     if (actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) { ClearPursuit(ref actor); actors[i] = actor; } // An empty last-seen cell ends the search.
                     else direction = Route(actor, new ActorState { x = actor.lastSeenX, y = actor.lastSeenY }, DoorPursuit); // Route only to remembered terrain coordinates.
                 } // Finish lost-sight search.
+                else if (ZombieSoundInvestigation && HasRecentDoorNoise(actor)) direction = InvestigateDoorNoise(i, ref actor); // Use an actual heard location only after sight and pursuit memory have been considered.
                 else if (ZombieWandering) direction = WanderZombie(actor); // Try a nearby shuffle only when no visible human or active remembered search takes priority.
                 if (TryAttackDoor(actor, direction)) continue; // A remembered blocking door costs an attack opportunity instead of a movement step.
                 MoveActor(i, actor, direction); // Commit geometry and population counts together.

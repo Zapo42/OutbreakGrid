@@ -14,9 +14,13 @@ namespace Outbreak.Core // Resolve local impacts through the authoritative tick 
         private int RecoveryAfterDoorNoise(ActorState actor) { return HasRecentDoorNoise(actor) ? 0 : HumanRules.Recovery; } // Resume ordinary recovery after the last actual impact becomes stale.
         private void ValidateDoorHearing() // Reject unsupported, stale or impossible heard-source records.
         { // Begin hearing validation after the rest of the actor state is restored.
-            for (int i = 0; i < count; i++) { ActorState a = actors[i]; if (a.heardDoorUntilTick == 0) { if (a.heardDoorX != 0 || a.heardDoorY != 0) throw new ArgumentException("Inactive hearing contains stale coordinates."); } else if (!DoorHearing || a.species != Species.Human || a.heardDoorUntilTick <= Tick || a.heardDoorUntilTick - Tick > DoorHearingRules.MemoryTicks || !IsDoor(a.heardDoorX, a.heardDoorY)) throw new ArgumentException("Invalid door-impact hearing."); } // Do not require listeners to remain at the position where they originally heard the event.
+            for (int i = 0; i < count; i++) { ActorState a = actors[i]; if (a.heardDoorUntilTick == 0) { if (a.heardDoorX != 0 || a.heardDoorY != 0) throw new ArgumentException("Inactive hearing contains stale coordinates."); } else if (!DoorHearing || (a.species != Species.Human && !ZombieSoundInvestigation) || a.heardDoorUntilTick <= Tick || a.heardDoorUntilTick - Tick > DoorHearingRules.MemoryTicks || !IsDoor(a.heardDoorX, a.heardDoorY)) throw new ArgumentException("Invalid door-impact hearing."); } // Do not require listeners to remain at the position where they originally heard the event.
         } // Finish hearing validation.
-        private void EmitDoorImpact(int sourceX, int sourceY) // Propagate a real strike rather than checking doors or targets globally.
+        private int InvestigateDoorNoise(int index, ref ActorState actor) // Travel to the heard door without inventing a human target.
+        { // Begin one investigation opportunity.
+            if (actor.x == actor.heardDoorX && actor.y == actor.heardDoorY) { ClearDoorHearing(ref actor); actors[index] = actor; return 8; } return Route(actor, new ActorState { x = actor.heardDoorX, y = actor.heardDoorY }, true); // A closed door remains solid and cannot be attacked from sound knowledge alone.
+        } // Finish sound investigation.
+        private void EmitDoorImpact(int sourceX, int sourceY, int emitterId) // Propagate a real strike rather than checking doors or targets globally.
         { // Begin one bounded acoustic query.
             for (int i = 0; i < soundDistance.Length; i++) soundDistance[i] = -1; int left = sourceX - 8, top = sourceY - 8, start = 144, head = 0, tail = 1; soundDistance[start] = 0; soundQueue[0] = start; // Anchor the frontier on the actual impacted door cell.
             while (head < tail) // Visit each local cell at most once, up to a fixed eight-step travel budget.
@@ -25,7 +29,7 @@ namespace Outbreak.Core // Resolve local impacts through the authoritative tick 
             } // Finish bounded propagation.
             for (int i = 0; i < count; i++) // Apply the event immediately in stable identity order, without retaining an event backlog.
             { // Begin one listener check.
-                ActorState a = actors[i]; if (a.species != Species.Human) continue; int lx = a.x - left, ly = a.y - top; if (lx < 0 || ly < 0 || lx >= 17 || ly >= 17 || soundDistance[ly * 17 + lx] < 0) continue; a.heardDoorX = sourceX; a.heardDoorY = sourceY; a.heardDoorUntilTick = Tick + DoorHearingRules.MemoryTicks; a.stress = Math.Min(100, a.stress + DoorHearingRules.StressGain); ClearShelterDeparture(ref a); if (a.reaction == HumanReaction.Calm || a.reaction == HumanReaction.Aware) a.reaction = HumanReaction.Aware; actors[i] = a; // Do not replace flight, fighting, freezing, infection or visual threat memory with an unseen attacker.
+                ActorState a = actors[i]; if (a.id == emitterId || (a.species == Species.Zombie && !ZombieSoundInvestigation)) continue; int lx = a.x - left, ly = a.y - top; if (lx < 0 || ly < 0 || lx >= 17 || ly >= 17 || soundDistance[ly * 17 + lx] < 0) continue; a.heardDoorX = sourceX; a.heardDoorY = sourceY; a.heardDoorUntilTick = Tick + DoorHearingRules.MemoryTicks; if (a.species == Species.Zombie) { actors[i] = a; continue; } a.stress = Math.Min(100, a.stress + DoorHearingRules.StressGain); ClearShelterDeparture(ref a); if (a.reaction == HumanReaction.Calm || a.reaction == HumanReaction.Aware) a.reaction = HumanReaction.Aware; actors[i] = a; // Do not replace flight, fighting, freezing, infection or visual threat memory with an unseen attacker.
             } // Finish listener reactions.
         } // Finish one impact event.
     } // Finish hearing implementation.
