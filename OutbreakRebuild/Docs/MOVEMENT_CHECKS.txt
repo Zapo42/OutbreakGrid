@@ -1,0 +1,45 @@
+Executed 37 acceptance cases and 22491 assertions.
+PASS Sparse dimensions and defensive map ownership
+PASS Map corruption and version rejection before replacement
+PASS Clock pause, exact stepping and game-time ratio
+PASS All speeds, frame partitioning and retained catch-up debt
+PASS Deterministic movement and exact JSON save continuation
+PASS Spawn limits, failed-command stability and all SPECIAL bounds
+PASS Solid barriers and diagonal corner exclusion
+PASS Running-save corruption, duplicate IDs and wrong kind
+PASS Real UTF-8 file replacement and cleanup on failure
+PASS Fifteen-thousand-tick run at one thousand bodies
+PASS Locked baseline bravery formula
+PASS Encounter pursuit and fleeing
+PASS Encounter walls and diagonal contact occlusion
+PASS Encounter bite, pause, delayed turning and exact continuation
+PASS Encounter save validation and old-save compatibility
+PASS Encounter local route, sight radius and crowded conversion
+ENCOUNTER BENCH 1000x1000, 1000 bodies, 500 ticks: 5275.09 ms; prototype sight, pursuit, fleeing and infection enabled; Unity rendering excluded.
+PASS Encounter thousand-body deterministic soak
+PASS Pursuit remembers only the observed cell after a corner escape
+PASS Pursuit expires blocked searches exactly on the simulation deadline
+PASS Pursuit switches only to a closer visible human
+PASS Pursuit memory rejects malformed and incompatible saves
+PASS Original encounter saves retain exact prototype-one continuation
+PASS Wary supported humans hold distance instead of charging
+PASS Cautious humans back away nearby and defend on contact
+PASS Direct retreat and pursuit avoid gratuitous diagonal zigzags
+PASS Visual motion spans the movement interval without wall shortcuts
+PASS Prototype-three reaction saves keep their independent continuation
+PASS Human bravery yields fight, freeze and flight
+PASS Human awareness, stress labels and recovery
+PASS Visible ally support is cached and cowards contribute at most minus one
+PASS Freeze varies, pauses, resolves once and resumes exactly
+PASS Fight shoves nonlethally with cooldown, stagger and solid collision
+PASS Infection conversion clears human reaction state
+PASS Reaction save validation rejects corrupt state without changing the live world
+PASS Prototype-two saves retain independently recorded continuation
+PASS All manual tick batches are exact and stay paused
+REACTIONS BENCH 1000x1000, 1000 bodies, 500 ticks: 6386.71 ms; stress, support, reactions, shove, pursuit and infection enabled; rendering excluded.
+PASS Human reactions thousand-body save continuation
+BENCH 100x100, 1000 bodies, 2000 movement ticks: 69.85 ms total, 0.0349 ms/tick; terrain chunks 0
+BENCH 250x250, 1000 bodies, 2000 movement ticks: 67.77 ms total, 0.0339 ms/tick; terrain chunks 0
+BENCH 500x500, 1000 bodies, 2000 movement ticks: 68.08 ms total, 0.0340 ms/tick; terrain chunks 0
+BENCH 1000x1000, 1000 bodies, 2000 movement ticks: 68.53 ms total, 0.0343 ms/tick; terrain chunks 0
+Scope: production C# core and persistence only. Unity import, Play mode, Windows dialogs, and Windows EXE build were not executed by this harness.

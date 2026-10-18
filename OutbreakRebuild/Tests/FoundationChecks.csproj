@@ -11,6 +11,8 @@
     <Compile Include="../Assets/Outbreak/Persistence/*.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="HumanReactionChecks.cs" />
+    <Compile Include="MovementChecks.cs" />
+    <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

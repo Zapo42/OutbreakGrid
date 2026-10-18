@@ -8,8 +8,9 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 3 / human reactions"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 4 / cautious movement"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
+        private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
         private bool canResume; private Action resetAction; // Preserve a menu-paused run and confirm replacements before discarding it.
@@ -72,19 +73,20 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a fully validated world and reset only presentation state.
         { // Begin one transactional screen swap.
-            canResume = false; world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
-            for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); // Prevent a visual jump from stale interpolation history.
+            canResume = false; world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
-        private void StepWorld() // Advance rendering history around the same logical tick used by tests.
-        { // Begin one presented tick.
-            for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); world.Step(); // Capture the last committed coordinates before simulation movement.
-        } // Finish one presented tick.
+        private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
+        { // Begin one complete simulation step.
+            for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); world.Step(); // Keep the previous canonical cells for corner validation.
+            for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i]; bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
+        } // Finish canonical and presentation updates.
         private void SetPaused(bool value) // Keep visual history coherent across an explicit pause boundary.
         { // Begin pause presentation synchronization.
 #if UNITY_EDITOR // A deliberate Run action must also release a host pause that would prevent all future ticks.
             if (!value && UnityEditor.EditorApplication.isPaused) UnityEditor.EditorApplication.isPaused = false; // Resume the host only when the person explicitly starts playback.
 #endif // Finish the editor-only playback action.
-            clock.SetPaused(value); for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); // Prevent stale interpolation from jumping backward when playback resumes.
+            clock.SetPaused(value); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick); } // Prevent stale interpolation from jumping backward when playback resumes.
         } // Finish pause presentation synchronization.
         private void Queue(Action action) // Keep GUI mutations outside OnGUI while allowing controls to work during host pause.
         { // Begin one deferred interface command.
@@ -155,6 +157,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Save Map", "Save terrain and preserved authoring data as .obmap2."))) Queue(() => Browse(true, false)); // Keep starting maps separate from running saves.
             if (GUILayout.Button(new GUIContent("Load Run", "Open a saved simulation and restore its exact random state."))) Queue(() => Browse(false, true)); // Restore the candidate outside the active control traversal.
             if (GUILayout.Button(new GUIContent("Save Run", "Save this tick, population, terrain and random stream as .obsave2."))) Queue(() => Browse(true, true)); // Persist the exact first-slice simulation without nesting a native dialog in OnGUI.
+            if (world.HumanReactions && !world.CautiousMovement && GUILayout.Button("Use cautious behavior")) Queue(() => { SetPaused(true); SaveDocument saved = world.Capture(); saved.rulesVersion = EncounterRules.Version; World candidate = World.Restore(saved); world = candidate; status = "Cautious behavior enabled; run remains paused. Original save file is unchanged; save to a new name to preserve it."; }); // Explicitly upgrade an older reaction run without losing actors, clocks or random state.
             if (GUILayout.Button("Main Menu")) Queue(() => { SetPaused(true); canResume = true; showStart = true; }); // Pause and retain world, camera, selection and speed while showing the menu.
             if (GUILayout.Button("New movement test")) Queue(() => { SetPaused(true); confirmReset = true; }); // Open the confirmation on the next stable GUI tree.
             if (GUILayout.Button("Zoom +")) Queue(() => { span = Math.Max(16, span / 1.25f); textureX = -1; }); if (GUILayout.Button("Zoom -")) Queue(() => { span = Math.Min(256, span * 1.25f); textureX = -1; }); // Keep rendering changes outside the current event traversal.
@@ -188,8 +191,8 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             Event input = Event.current; // Use UI events so the shell does not depend on an extra input package.
             for (int i = 0; i < world.Count; i++) // Inspect the bounded active population instead of instantiating scene objects.
             { // Begin one visible body.
-                ActorState actor = world.ActorAt(i), before = previous[i]; float x = Mathf.Lerp(before.x, actor.x, (float)clock.Alpha), y = Mathf.Lerp(before.y, actor.y, (float)clock.Alpha); // Interpolate only between committed simulation positions.
-                if (x < left || y < top || x >= left + width || y >= top + height) continue; // Cull bodies outside the camera.
+                ActorState actor = world.ActorAt(i); double time = world.Tick + clock.Alpha; float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
+                if (x < left - 0.18f || y < top - 0.18f || x >= left + width - 0.18f || y >= top + height - 0.18f) continue; // Cull bodies outside the camera.
                 Rect body = new Rect(bounds.x + (x - left + 0.18f) * cell, bounds.y + (y - top + 0.18f) * cell, cell * 0.64f, cell * 0.64f); GUI.color = selected == i ? Color.yellow : actor.species == Species.Zombie ? new Color(0.23f, 0.29f, 0.14f) : new Color(0.75f, 0.8f, 0.92f); GUI.DrawTexture(body, Texture2D.whiteTexture); // Use visibly distinct temporary debug bodies until artwork bindings return.
                 if (!confirmReset && !placing.HasValue && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => selected = chosen); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
             } // Finish one visible body.
@@ -197,7 +200,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (placing.HasValue && input.type == EventType.MouseDown && input.button == 0) // Handle manual placement only after an explicit tool choice and a map click.
             { // Begin one placement command.
                 int x = left + (int)((input.mousePosition.x - bounds.x) / cell), y = top + (int)((input.mousePosition.y - bounds.y) / cell); Species species = placing.Value; // Capture the chosen cell and species before the GUI event ends.
-                Queue(() => { int id; if (world.TrySpawn(species, x, y, out id)) { selected = world.Count - 1; previous[selected] = world.ActorAt(selected); status = "Placed " + species + " #" + id + ". Click Run to start movement."; placing = null; } else status = "Cannot place here: choose a walkable cell with space, within the population cap."; }); input.Use(); // Synchronize new body history outside OnGUI and retain invalid placement for another attempt.
+                Queue(() => { int id; if (world.TrySpawn(species, x, y, out id)) { selected = world.Count - 1; previous[selected] = world.ActorAt(selected); motion[selected].Snap(x, y, world.Tick); status = "Placed " + species + " #" + id + ". Click Run to start movement."; placing = null; } else status = "Cannot place here: choose a walkable cell with space, within the population cap."; }); input.Use(); // Synchronize new body history outside OnGUI and retain invalid placement for another attempt.
             } // Finish one placement command.
             if (input.type == EventType.MouseDrag && input.button == 2) { centerX -= input.delta.x / cell; centerY -= input.delta.y / cell; input.Use(); } // Pan the camera without moving logical bodies.
             if (input.type == EventType.ScrollWheel) { span = Mathf.Clamp(span * (input.delta.y > 0 ? 1.1f : 0.9f), 16, 256); input.Use(); } // Zoom the bounded viewport around its current camera center.

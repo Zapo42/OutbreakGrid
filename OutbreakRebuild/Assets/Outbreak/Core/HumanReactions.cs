@@ -12,6 +12,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
     public sealed partial class World // Extend the existing authoritative encounter owner.
     { // Begin human response implementation.
         public bool HumanReactions { get; private set; } // Keep old saves on their original decisions.
+        public bool CautiousMovement { get; private set; } // Keep prior reaction saves on their original pursuit and retreat choices.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
@@ -44,8 +45,8 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         } // Finish threat observation.
         private int RetreatDirection(ActorState actor, ActorState threat) // Retain collision-safe neighboring retreat until shelter planning is implemented.
         { // Begin local escape selection.
-            int direction = 8, best = (actor.x - threat.x) * (actor.x - threat.x) + (actor.y - threat.y) * (actor.y - threat.y); // Never choose a step closer merely to keep moving.
-            for (int d = 0; d < 8; d++) if (MayMove(actor, d)) { int x = actor.x + dx[d] - threat.x, y = actor.y + dy[d] - threat.y, score = x * x + y * y; if (score > best) { best = score; direction = d; } } return direction; // Keep equal-distance decisions deterministic.
+            int direction = 8, alignment = int.MinValue, best = (actor.x - threat.x) * (actor.x - threat.x) + (actor.y - threat.y) * (actor.y - threat.y); // Never choose a step closer merely to keep moving.
+            for (int d = 0; d < 8; d++) if (MayMove(actor, d)) { int x = actor.x + dx[d] - threat.x, y = actor.y + dy[d] - threat.y, score = x * x + y * y; int away = ((actor.x - threat.x) * dx[d] + (actor.y - threat.y) * dy[d]) * (dx[d] != 0 && dy[d] != 0 ? 707 : 1000); if ((!CautiousMovement && score > best) || (CautiousMovement && score > best && away > alignment)) { if (!CautiousMovement) best = score; alignment = away; direction = d; } } return direction; // Keep equal-distance decisions deterministic.
         } // Finish retreat selection.
         private void Shove(int humanIndex, int zombieIndex) // Give Fight an actual nonlethal defensive action rather than a display-only label.
         { // Begin a contact defense.
@@ -64,7 +65,9 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             else if (margin >= 1) actor.reaction = HumanReaction.Fight; else if (margin <= -2 || actor.freezeResolved) actor.reaction = HumanReaction.Flight; // Retain the agreed courage thresholds and avoid a second freeze loop.
             else { actor.reaction = HumanReaction.Freeze; actor.freezeUntilTick = Tick + HumanRules.MinFreezeTicks + reactionRandom.Below(HumanRules.MaxFreezeTicks - HumanRules.MinFreezeTicks + 1); } // Use a named saved stream for a variable one-to-three-second freeze.
             actors[index] = actor; if (actor.reaction == HumanReaction.Flight) return RetreatDirection(actor, threat); if (actor.reaction != HumanReaction.Fight) return 8; // Aware watches and Freeze stops; Flight retreats immediately.
-            if (distance <= 1) { Shove(index, threatIndex); return 8; } return Route(actor, threat); // Fight approaches visible danger and shoves on contact without inventing weapon damage.
+            if (distance <= 1) { Shove(index, threatIndex); return 8; } // Keep defensive contact available without requiring an approach.
+            if (CautiousMovement && HumanRules.Level(actor.stress) <= StressLevel.Cautious) { actor.reaction = HumanReaction.Aware; actors[index] = actor; return distance <= 3 ? RetreatDirection(actor, threat) : 8; } // Wary humans watch or back away; support cannot make them charge a visible zombie.
+            return Route(actor, threat); // Fight approaches visible danger and shoves on contact without inventing weapon damage.
         } // Finish human decisions.
     } // Finish the world extension.
 } // Finish human reaction behavior.

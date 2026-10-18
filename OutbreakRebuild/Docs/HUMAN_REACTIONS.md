@@ -1,3 +1,5 @@
+> These notes describe the prototype-three baseline. See [MOVEMENT_UPDATE.md](MOVEMENT_UPDATE.md) for current cautious behavior, presentation timing and explicit upgrade instructions. The current Fight scenario starts Alarmed; Group Support does not make a cautious human charge.
+
 # Human reactions and simulation navigation
 
 Current build label: **Foundation 3 / human reactions**. New encounter saves use `encounter-prototype-3`. Original foundation and prototype-one/two saves retain their original behavior; start a new encounter to use human reactions.

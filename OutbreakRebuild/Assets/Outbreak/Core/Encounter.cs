@@ -4,7 +4,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
@@ -14,6 +14,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         public bool Encounter { get; private set; } // Keep scenario mode immutable after construction.
         public bool PursuitMemory { get; private set; } // Retain the old encounter behavior when continuing a prototype-one save.
         private readonly int[] routeQueue = new int[625], routeFirst = new int[625], routeSeen = new int[625]; // Bound reusable navigation storage to the local 25 by 25 sight region.
+        private readonly int[] routeOrder = new int[8]; // Reuse the latest rules' direct-neighbor preference without per-query allocations.
         private int routeStamp; // Reuse visited storage without retaining a history of queries.
         private static void ClearPursuit(ref ActorState actor) // Remove stale observations without retaining diagnostic history.
         { // Begin canonical memory cleanup.
@@ -61,16 +62,22 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
             int nx = actor.x + dx[direction], ny = actor.y + dy[direction]; // Translate one neighboring step.
             return ClearStep(actor.x, actor.y, nx, ny) && occupancy.Allows(Key(nx, ny), actor.species) && (actor.species != Species.Human || !ZombieAt(nx, ny)); // Humans cannot walk through zombies.
         } // Finish candidate validation.
+        private static int RoutePreference(ActorState actor, ActorState target, int direction) // Rank equivalent route openings by directness without changing collision geometry.
+        { // Begin deterministic neighbor preference.
+            int x = actor.x + dx[direction] - target.x, y = actor.y + dy[direction] - target.y; return x * x + y * y; // Stable insertion order resolves equal scores without consuming randomness.
+        } // Finish geometric ranking.
         private int Route(ActorState actor, ActorState target) // Find a shortest eight-neighbor route within a bounded local query.
         { // Begin reusable breadth-first search.
             if (routeStamp == int.MaxValue) { Array.Clear(routeSeen, 0, routeSeen.Length); routeStamp = 0; } routeStamp++; // Safely recycle the finite generation counter.
+            for (int d = 0; d < 8; d++) routeOrder[d] = d; // Legacy rules retain the exact original clockwise tie order.
+            if (CautiousMovement) for (int i = 1; i < 8; i++) { int value = routeOrder[i], j = i - 1; while (j >= 0 && RoutePreference(actor, target, value) < RoutePreference(actor, target, routeOrder[j])) { routeOrder[j + 1] = routeOrder[j]; j--; } routeOrder[j + 1] = value; } // Prefer steps aligned with the target instead of equivalent zigzag routes.
             int left = actor.x - 12, top = actor.y - 12, start = 12 * 25 + 12, head = 0, tail = 1; routeQueue[0] = start; routeSeen[start] = routeStamp; routeFirst[start] = 8; // Anchor the search window to the moving actor.
             while (head < tail) // Never visit more than 625 cells in one query.
             { // Begin one expanded navigation cell.
                 int cell = routeQueue[head++], x = left + cell % 25, y = top + cell / 25; if (x == target.x && y == target.y) return routeFirst[cell]; // Return the first step of the shortest discovered route.
-                for (int d = 0; d < 8; d++) // Use a stable clockwise neighbor order.
+                for (int order = 0; order < 8; order++) // Preserve stable ties while favoring the more direct route in new runs.
                 { // Begin candidate expansion.
-                    int nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= 25 || ly >= 25 || !ClearStep(x, y, nx, ny)) continue; // Stay inside the bounded terrain query.
+                    int d = routeOrder[order], nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= 25 || ly >= 25 || !ClearStep(x, y, nx, ny)) continue; // Stay inside the bounded terrain query.
                     int next = ly * 25 + lx; if (routeSeen[next] == routeStamp || !occupancy.Allows(Key(nx, ny), actor.species)) continue; // Respect current crowd capacity on each path cell.
                     routeSeen[next] = routeStamp; routeFirst[next] = cell == start ? d : routeFirst[cell]; routeQueue[tail++] = next; // Retain only the first direction and finite frontier.
                 } // Finish candidate expansion.

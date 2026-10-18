@@ -1,3 +1,9 @@
+# Current update: Cautious movement
+
+Aware/Cautious humans keep their distance instead of automatically approaching on a positive courage margin. Full-interval visual motion and direct route preferences reduce stop/start movement and gratuitous zigzags. [Behavior, remaining grid limitations, old-run upgrade and validation](Docs/MOVEMENT_UPDATE.md).
+
+## Previous milestone
+
 # Current update: Human reactions
 
 Stress, visible group support and bravery now drive **Fight / Freeze / Flight**. Fight performs defensive shoves; Freeze resolves after a saved variable delay. The simulator also has **1 / 10 / 50 / 100 tick** buttons and **Main Menu / Resume current run**. [Launch steps, exact prototype rules and validation](Docs/HUMAN_REACTIONS.md). Older saves retain their original behavior.

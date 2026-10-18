@@ -16,5 +16,6 @@
     <Compile Include="../Assets/Outbreak/Editor/InputSetup.cs" />
     <Compile Include="../Assets/Outbreak/Editor/InputDiagnostics.cs" />
     <Compile Include="UiHarness.cs" />
+    <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

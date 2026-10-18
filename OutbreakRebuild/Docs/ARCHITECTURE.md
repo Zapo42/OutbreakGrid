@@ -1,3 +1,5 @@
+> Prototype 4 keeps bounded MovementPresentation segments in the Unity adapter, separate from saved actor positions. Ordinary moves blend over five ticks; unsafe compound transitions synchronize instead of cutting corners. Old prototype-three runs can explicitly upgrade rules without changing saved state. See MOVEMENT_UPDATE.md.
+
 > Prototype 3 adds persisted human reactions and a separate named random stream for freeze duration. All deadlines use World.Step; reaction state clears on turning. The menu pauses and retains the existing world. See HUMAN_REACTIONS.md.
 
 > Encounter prototype 2 extends the baseline below with opt-in pursuit memory, local sight/path queries and deadline-based infection. See ENCOUNTER_PROTOTYPE.md. Legacy rules remain available for exact save continuation.
