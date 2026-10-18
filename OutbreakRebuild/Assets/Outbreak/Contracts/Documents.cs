@@ -20,6 +20,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     public enum HumanReaction { Calm, Aware, Fight, Freeze, Flight } // Store the actual decision separately from stress intensity.
     public enum StressLevel { Normal, Aware, Cautious, Alarmed, Afraid, Panicked } // Give the inspector the six retained stress labels.
     public enum ShelterState { None, Seeking, Inside } // Separate a chosen destination from confirmed entry into its floor region.
+    public enum ShelterExitPhase { None, Approaching, Checking, Leaving } // Retain observed exit progress across saving and pausing.
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
@@ -37,6 +38,9 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public long avoidUntilTick; // Retain avoidance briefly after losing sight without reading a hidden zombie position.
         [DataMember] public int shelterId, shelterX, shelterY, rejectedShelterId; // Persist a stable room destination and one temporarily rejected room.
         [DataMember] public ShelterState shelterState; // Retain shelter progress without claiming the room is permanently safe.
+        [DataMember] public long shelterCalmSinceTick; // Require a calm interval before inspecting an exit.
+        [DataMember] public ShelterExitPhase shelterExitPhase; // Separate approaching, checking and physically leaving.
+        [DataMember] public int shelterExitDoor, shelterExitX, shelterExitY; // Save one door key plus one and its adjacent outdoor destination.
         [DataMember] public long rejectedUntilTick; // Bound unsafe-room avoidance on the same simulation clock.
     } // Finish a stable actor record.
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.

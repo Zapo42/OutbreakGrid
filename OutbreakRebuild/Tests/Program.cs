@@ -147,7 +147,7 @@ public static partial class Program // Keep the test entry point outside Unity's
             { // Begin independent legacy regression.
                 string fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures"); World world = Documents.ParseSave(File.ReadAllText(Path.Combine(fixtures, "encounter-v1-input.json"))); Require(world.Encounter && !world.PursuitMemory && world.Capture().rulesVersion == EncounterRules.LegacyVersion, "Prototype-one save silently upgraded behavior."); Run(world, 100); World expected = Documents.ParseSave(File.ReadAllText(Path.Combine(fixtures, "encounter-v1-expected.json"))); Require(State(world) == State(expected), "Prototype-one continuation changed from the previous release."); // Compare complete normalized authoritative state after one hundred ticks.
             }); // Finish independent old-rules acceptance.
-            CheckShelterCases(); // Verify real room admission, door actions, evacuation and saved destination continuity.
+            CheckShelterCases(); CheckShelterRecoveryCases(); // Verify real room admission, door actions, evacuation and saved destination continuity.
             CheckInfectedEscapeCases(); // Verify infected priority, real cover navigation and remembered avoidance.
             CheckMovementCases(); // Verify cautious distance, direct steering, full-cadence visual motion and previous-release compatibility.
             CheckHumanReactionCases(); // Verify human reactions and user-requested exact stepping before recording the benchmark ladder.

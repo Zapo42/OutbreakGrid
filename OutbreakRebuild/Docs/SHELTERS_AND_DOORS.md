@@ -1,3 +1,5 @@
+Latest build: [Shelter recovery and safe exits](SHELTER_RECOVERY.md).
+
 # Shelters and doors
 
 ## Doorway pursuit fix — Foundation 7

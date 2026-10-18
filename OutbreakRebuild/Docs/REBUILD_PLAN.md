@@ -1,3 +1,5 @@
+Latest build: [Shelter recovery and safe exits](SHELTER_RECOVERY.md).
+
 > Current milestone: prototype 6 adds small enclosed room discovery, persistent destinations/capacity, human door use, unsafe-room reassessment and evacuation. It does not complete global navigation, knowledge, building metadata or door durability/breaching. See SHELTERS_AND_DOORS.md.
 
 > Latest correction: prototype 5 makes bitten humans seek safe local cover instead of confronting zombies. Recommended next milestone is shelter destination selection and door use; that remains pending. See INFECTED_ESCAPE.md.

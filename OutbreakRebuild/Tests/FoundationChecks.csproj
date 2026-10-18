@@ -14,6 +14,7 @@
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />
     <Compile Include="ShelterChecks.cs" />
+    <Compile Include="ShelterRecoveryChecks.cs" />
     <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
