@@ -1,4 +1,4 @@
-Latest build: [Foundation 16 / door bracing](DOOR_BRACING.md).
+Latest build: [Foundation 17 / shelter after warnings](WARNING_SHELTER.md).
 
 # Encounter setup
 

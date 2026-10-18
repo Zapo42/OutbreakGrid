@@ -47,9 +47,13 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         { // Begin the fading-sighting fixture.
             SaveDocument saved = ShelterRecovery(true).Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors[0].stress = 100; saved.actors[1].targetId = saved.actors[0].id; saved.actors[1].lastSeenX = 5; saved.actors[1].lastSeenY = 5; saved.actors[1].searchUntilTick = 15; return World.Restore(saved); // Keep the hidden human sheltered while the zombie forgets the doorway after three simulation seconds.
         } // Finish idle wandering fixture.
+        public static World WarningShelter() // An outdoor listener seeks cover without personally seeing the zombie.
+        { // Begin an actual warning-triggered shelter route.
+            WorldMap map = WorldMap.Restore(WarningAttraction().Capture().map); map.Set(3, 2, Terrain.Wall); map.Set(2, 3, Terrain.DoorClosed); World world = new World(map, 214, encounter: true); int id; world.TrySpawn(Species.Human, 6, 2, out id); world.TrySpawn(Species.Zombie, 9, 2, out id); world.TrySpawn(Species.Human, 2, 4, out id); SaveDocument saved = world.Capture(); saved.map.name = "Warning shelter test"; saved.map.id = "warning-shelter-1"; saved.actors[0].bravery = 3; return World.Restore(saved); // Witness #1 warns at tick one; listener #3 hears through the partition and chooses the empty room.
+        } // Finish warning shelter fixture.
         public static World DoorBrace() // Compare active physical defense against the unchanged breach diagnostic.
         { // Begin the braced-door scenario.
-            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.Version; saved.map.name = "Door bracing test"; saved.map.id = "door-bracing-1"; return World.Restore(saved); // The human hears the first strike and begins bracing on its next opportunity.
+            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.BraceVersion; saved.map.name = "Door bracing test"; saved.map.id = "door-bracing-1"; return World.Restore(saved); // The human hears the first strike and begins bracing on its next opportunity.
         } // Finish bracing fixture.
         public static World DoorBreach() // Isolate damage, permanent opening and renewed contact in a small dead-end room.
         { // Begin a reproducible recent doorway sighting.

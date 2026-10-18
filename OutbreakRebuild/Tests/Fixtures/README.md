@@ -39,3 +39,5 @@ Prototype 12: `encounter-v12-input.json` and `encounter-v12-expected.json` were 
 Prototype 13: `encounter-v13-input.json` and `encounter-v13-expected.json` were generated independently from commit `7ca01b72b03d37e2d15eb45b939473d840a23572`: HumanWarning captured at tick 2, followed by 80 further ticks. They protect human-only warning behavior before zombie attraction.
 
 Prototype 14: `encounter-v14-input.json` and `encounter-v14-expected.json` were independently generated from commit `d8c9f027faeb0f3a34de97fbcc59deb457e9b741`: DoorBreach at tick 2 and 80 further ticks. They protect the original unbraced-door damage and pursuit behavior.
+
+Prototype 15: `encounter-v15-input.json` and `encounter-v15-expected.json` were independently generated from commit `0d3f189ec16a4d2beac689ea120283c438e3ef4e`: DoorBrace at tick 6 and 80 further ticks. They protect prior bracing behavior before heard danger could initiate shelter seeking.

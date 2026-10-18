@@ -1,4 +1,4 @@
-Latest build: [Foundation 16 / door bracing](Docs/DOOR_BRACING.md).
+Latest build: [Foundation 17 / shelter after warnings](Docs/WARNING_SHELTER.md).
 
 # Current update: Shelters and doors
 

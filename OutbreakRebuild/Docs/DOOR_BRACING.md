@@ -1,3 +1,5 @@
+Latest build: [Shelter after warnings](WARNING_SHELTER.md).
+
 # Door bracing and door colors
 
 Current build: **Foundation 16 / door bracing**, rules `encounter-prototype-15`.

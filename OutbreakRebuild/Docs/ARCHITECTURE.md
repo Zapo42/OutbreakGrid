@@ -1,4 +1,6 @@
-Latest build: [Foundation 16 / door bracing](DOOR_BRACING.md).
+Latest build: [Foundation 17 / shelter after warnings](WARNING_SHELTER.md).
+
+> Prototype 16 lets recent warning or door-impact hearing initiate the existing shelter planner. The existing bounded room catalog, admissions, routes and saved goals remain authoritative. No new actor fields or random streams are needed; rules dispatch preserves earlier behavior. See WARNING_SHELTER.md.
 
 > Prototype 15 saves a short-lived physical brace on each defending human. Geometry, current shelter ownership and recent hearing validate the action; damage reduction queries actual occupants and cannot stack. Opening, breaking and shelter release clear braces immediately. Door colors derive from open/closed terrain and retained health in the Unity adapter. See DOOR_BRACING.md.
 
