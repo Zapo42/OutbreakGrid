@@ -1,3 +1,5 @@
+Latest build: [Warnings attract zombies](WARNING_ATTRACTION.md).
+
 # Nearby human warnings
 
 Current build: **Foundation 14 / human warnings**, rules `encounter-prototype-13`.

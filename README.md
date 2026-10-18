@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 14 / human warnings**. Humans who see zombies warn nearby people, delaying shelter exits without revealing hidden zombie locations. See [test and update instructions](OutbreakRebuild/Docs/HUMAN_WARNINGS.md).
+Current build: **Foundation 15 / warnings attract zombies**. Nearby zombies investigate human warnings without tracking hidden speakers. See [test and update instructions](OutbreakRebuild/Docs/WARNING_ATTRACTION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

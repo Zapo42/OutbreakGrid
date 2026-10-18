@@ -1,4 +1,4 @@
-Latest build: [Nearby human warnings](HUMAN_WARNINGS.md).
+Latest build: [Foundation 15 / warnings attract zombies](WARNING_ATTRACTION.md).
 
 # Encounter setup
 

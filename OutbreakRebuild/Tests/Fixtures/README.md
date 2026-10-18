@@ -35,3 +35,5 @@ Prototype-ten traces were independently executed from commit `e605a6d`: DoorBrea
 Prototype-eleven traces were independently executed from commit `18248f7`: DoorBreach with an additional idle zombie at (7,2), captured after tick 2 and 80 more ticks. This protects the earlier human-only hearing behavior.
 
 Prototype 12: `encounter-v12-input.json` and `encounter-v12-expected.json` were independently generated from commit `a4bd4f8339eca6db6a70224559983c62f8d538f0`: ShelterArena, seed as authored, seven ticks before capture, eighty further ticks for the expected state. They verify pre-warning save continuation.
+
+Prototype 13: `encounter-v13-input.json` and `encounter-v13-expected.json` were generated independently from commit `7ca01b72b03d37e2d15eb45b939473d840a23572`: HumanWarning captured at tick 2, followed by 80 further ticks. They protect human-only warning behavior before zombie attraction.

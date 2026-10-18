@@ -1,4 +1,4 @@
-Latest build: [Foundation 14 / human warnings](Docs/HUMAN_WARNINGS.md).
+Latest build: [Foundation 15 / warnings attract zombies](Docs/WARNING_ATTRACTION.md).
 
 # Current update: Shelters and doors
 

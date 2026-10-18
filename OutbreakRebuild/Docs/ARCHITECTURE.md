@@ -1,4 +1,6 @@
-Latest build: [Nearby human warnings](HUMAN_WARNINGS.md).
+Latest build: [Foundation 15 / warnings attract zombies](WARNING_ATTRACTION.md).
+
+> Prototype 14 allows zombie listeners to retain human warning locations, using existing warning fields and acoustic buffers. Personal sight memory takes priority; otherwise the newer door-impact or warning deadline selects the investigation. Rules dispatch preserves human-only warnings in prototype-13 saves. See WARNING_ATTRACTION.md.
 
 > Prototype 13 adds human warnings from current personal sight. Warning memory and cooldowns are saved separately from visual avoidance; acoustic delivery reuses the bounded door-impact frontier without random draws. Old prototype-12 runs retain their original behavior until explicitly upgraded. See HUMAN_WARNINGS.md.
 
