@@ -1,3 +1,9 @@
+# Current update: Bitten escape
+
+Infected humans now prioritize escape over courage, freezing and wandering. They seek local obstacle cover or an observed human screen without approaching a visible zombie. [Rules, controlled scenario, existing-run update and validation](Docs/INFECTED_ESCAPE.md).
+
+## Previous milestone
+
 # Current update: Cautious movement
 
 Aware/Cautious humans keep their distance instead of automatically approaching on a positive courage margin. Full-interval visual motion and direct route preferences reduce stop/start movement and gratuitous zigzags. [Behavior, remaining grid limitations, old-run upgrade and validation](Docs/MOVEMENT_UPDATE.md).

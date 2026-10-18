@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Unity 6 Outbreak Simulator rebuild. Current update: **Cautious movement**, keeping wary humans at a safe distance and reducing movement pauses and unnecessary zigzags. Stress, fight/freeze/flight, tick buttons and Main Menu remain available.
+Unity 6 Outbreak Simulator rebuild. Current update: **Bitten escape**, making infected humans avoid zombies and seek reachable obstacle or human screens instead of fighting. Stress, fight/freeze/flight, tick buttons and Main Menu remain available.
 
 ## Download and run
 
@@ -13,6 +13,6 @@ Unity 6 Outbreak Simulator rebuild. Current update: **Cautious movement**, keepi
 
 If buttons draw but do not respond, stop Play mode, set Active Input Handling to **Both** in Player settings, then restart Unity when prompted.
 
-[Full launch instructions, provisional rules and validation](OutbreakRebuild/Docs/MOVEMENT_UPDATE.md)
+[Full launch instructions, provisional rules and validation](OutbreakRebuild/Docs/INFECTED_ESCAPE.md)
 
-New saves retain reactions, stress, support, freeze timing and pursuit memory. Older saves keep their rules; prototype-three reaction saves can explicitly opt into the correction using **Use cautious behavior**. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain reactions, stress, support, freeze timing and pursuit memory. Older saves keep their rules; prototype-four runs can opt in with **Update escape behavior**, while prototype-three runs use **Use cautious behavior**. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.

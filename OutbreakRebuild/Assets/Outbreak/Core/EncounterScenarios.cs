@@ -18,5 +18,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 5, 5, out id); if (group) { world.TrySpawn(Species.Human, 4, 4, out id); world.TrySpawn(Species.Human, 4, 6, out id); } world.TrySpawn(Species.Zombie, 9, 5, out id); // Observe a single threat from four cells away before contact.
             SaveDocument saved = world.Capture(); if (reaction == HumanReaction.Fight && !group) saved.actors[0].stress = 41; for (int i = 0; i < saved.actors.Length - 1; i++) { int stat = i > 0 || reaction == HumanReaction.Fight ? 5 : reaction == HumanReaction.Flight ? 1 : 3; saved.actors[i].strength = stat; saved.actors[i].perception = stat; saved.actors[i].charisma = stat; saved.actors[i].bravery = Rules.Bravery(stat, stat, stat); } return World.Restore(saved); // Derive bravery from explicit stats instead of hardcoding a displayed trait.
         } // Finish reaction scenario creation.
+        public static World BittenEscape() // Demonstrate infection overriding a brave human's approach decision.
+        { // Begin local cover scenario.
+            WorldMap map = new WorldMap(11, 9, "Bitten escape test", "bitten-escape-1"); for (int y = 0; y < map.Height; y++) for (int x = 0; x < map.Width; x++) if (x == 0 || y == 0 || x == 10 || y == 8) map.Set(x, y, Terrain.Wall); map.Set(6, 2, Terrain.Wall); map.Set(6, 3, Terrain.Wall); // Place a short wall that can be reached without approaching the zombie.
+            World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 5, 4, out id); world.TrySpawn(Species.Zombie, 8, 4, out id); SaveDocument saved = world.Capture(); saved.actors[0].bravery = 3; saved.actors[0].stress = 50; saved.actors[0].turnAtTick = 80; return World.Restore(saved); // A brave, already-bitten human should escape instead of confronting the threat.
+        } // Finish reproducible infected scenario.
     } // Finish scenario construction.
 } // Finish engine-independent fixtures.

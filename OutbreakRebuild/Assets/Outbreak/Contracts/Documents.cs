@@ -32,6 +32,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public HumanReaction reaction; // Resume the exact current human response.
         [DataMember] public bool freezeResolved; // Avoid repeatedly freezing during the same stressful encounter.
         [DataMember] public long freezeUntilTick, supportUntilTick, nextShoveTick, staggerUntilTick; // Drive reaction, support observation and contact timing from the authoritative clock.
+        [DataMember] public int avoidX, avoidY; // Remember only the zombie cell actually seen during infected escape.
+        [DataMember] public long avoidUntilTick; // Retain avoidance briefly after losing sight without reading a hidden zombie position.
     } // Finish a stable actor record.
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.

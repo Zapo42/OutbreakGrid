@@ -1,3 +1,5 @@
+> Latest correction: prototype 5 makes bitten humans seek safe local cover instead of confronting zombies. Recommended next milestone is shelter destination selection and door use; that remains pending. See INFECTED_ESCAPE.md.
+
 > Current correction: prototype 4 adds awareness-limited approach, more direct cell steering and full-cadence presentation. It is still grid-based, not continuous navigation. See MOVEMENT_UPDATE.md for exact scope and checks.
 
 > Latest user-selected milestone: Human reactions (prototype 3), including stress, cached local support, defensive shove, exact tick batches and a run-preserving Main Menu. See HUMAN_REACTIONS.md for provisional rules, checks and remaining work. Full Stage 2/3/4 requirements remain open.

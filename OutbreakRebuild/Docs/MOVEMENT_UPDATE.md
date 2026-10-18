@@ -1,3 +1,5 @@
+> The current update also fixes bitten-human behavior. See [INFECTED_ESCAPE.md](INFECTED_ESCAPE.md) for escape priority, local cover, memory and existing-run upgrade instructions.
+
 # Cautious behavior and movement update
 
 Current build label: **Foundation 4 / cautious movement**. New encounters use `encounter-prototype-4`.

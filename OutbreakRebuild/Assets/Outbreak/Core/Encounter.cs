@@ -4,7 +4,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
@@ -93,7 +93,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
             for (int i = 0; i < count; i++) // Convert every due human before movement or target selection.
             { // Begin deadline processing.
                 ActorState actor = actors[i]; if (PursuitMemory && actor.targetId != 0 && actor.searchUntilTick <= Tick) { ClearPursuit(ref actor); actors[i] = actor; } // Expire memory even between movement opportunities.
-                if (HumanReactions) { AdvanceReactionTimers(ref actor); actors[i] = actor; } // Complete every reaction deadline even between movement opportunities.
+                if (HumanReactions) { if (InfectedEscape && actor.avoidUntilTick != 0 && actor.avoidUntilTick <= Tick) ClearAvoidance(ref actor); AdvanceReactionTimers(ref actor); actors[i] = actor; } // Complete every reaction deadline even between movement opportunities.
                 if (actor.turnAtTick == 0 || actor.turnAtTick > Tick) continue; // Ignore healthy humans and future deadlines.
                 occupancy.Change(Key(actor.x, actor.y), Species.Human, -1); actor.species = Species.Zombie; actor.turnAtTick = 0; if (HumanReactions) ClearHumanReaction(ref actor); actor.charisma = 0; actor.intelligence = 0; actor.strength = Math.Max(1, actor.strength); actor.perception = Math.Max(1, actor.perception); actors[i] = actor; occupancy.Change(Key(actor.x, actor.y), Species.Zombie, 1); // Preserve identity, position, health and inherited physical stats while updating crowd counts.
             } // Finish turning deadlines.
@@ -108,7 +108,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                     int distance = Math.Max(Math.Abs(target.x - actor.x), Math.Abs(target.y - actor.y)); // Contact includes the same cell and unobstructed adjacent cells.
                     if (actor.species == Species.Zombie && distance <= 1) // Use a deterministic contact bite until grabbing and evasion are implemented.
                     { // Begin one bite opportunity.
-                        if (target.turnAtTick == 0) { target.health = Math.Max(1, target.health - EncounterRules.BiteDamage); target.turnAtTick = Tick + EncounterRules.BaseTurnDelay + target.endurance * EncounterRules.EnduranceDelay; actors[targetIndex] = target; } continue; // A later bite cannot reset an existing infection deadline.
+                        if (target.turnAtTick == 0) { target.health = Math.Max(1, target.health - EncounterRules.BiteDamage); target.turnAtTick = Tick + EncounterRules.BaseTurnDelay + target.endurance * EncounterRules.EnduranceDelay; if (InfectedEscape) { target.reaction = HumanReaction.Flight; target.freezeUntilTick = 0; target.freezeResolved = true; target.avoidX = actor.x; target.avoidY = actor.y; target.avoidUntilTick = Tick + AvoidMemoryTicks; } actors[targetIndex] = target; } continue; // A later bite cannot reset an existing infection deadline.
                     } // Finish contact handling.
                     if (actor.species == Species.Zombie) direction = Route(actor, target); // Follow a collision-safe shortest local route to the visible human.
                     else // Retreat from the nearest observed threat without granting full planned fear behavior.
