@@ -30,6 +30,10 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
             cells[(y % Rules.ChunkSize) * Rules.ChunkSize + x % Rules.ChunkSize] = (ushort)terrain; // Replace only the requested logical cell.
             if (terrain == Terrain.Grass && Array.TrueForAll(cells, value => value == 0)) chunks.Remove(key); // Reclaim a chunk when its last authored tile is erased.
         } // Finish a terrain write.
+        internal int[] ShelterFloorCells(int limit) // Discover authored floors without scanning every empty cell of a sparse map.
+        { // Begin bounded floor collection.
+            List<int> result = new List<int>(); foreach (KeyValuePair<int, ushort[]> chunk in chunks) for (int i = 0; i < chunk.Value.Length; i++) if (chunk.Value[i] == (ushort)Terrain.Floor) { if (result.Count == limit) return null; int x = chunk.Key % columns * 32 + i % 32, y = chunk.Key / columns * 32 + i / 32; result.Add(y * Width + x); } result.Sort(); return result.ToArray(); // Canonical floor order gives stable room identities after save/load.
+        } // Finish floor discovery.
         public MapDocument Capture() // Produce a defensive and canonically ordered map document.
         { // Begin map capture.
             List<int> keys = new List<int>(chunks.Keys); keys.Sort(); ChunkDocument[] output = new ChunkDocument[keys.Count]; // Make dictionary insertion order irrelevant to saved bytes.

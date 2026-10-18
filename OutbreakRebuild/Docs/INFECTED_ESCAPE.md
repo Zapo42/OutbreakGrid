@@ -1,3 +1,5 @@
+> The recommended shelter milestone is now implemented in bounded prototype form. See [SHELTERS_AND_DOORS.md](SHELTERS_AND_DOORS.md) for the current build, room recognition, door actions, limits and native verification boundary.
+
 # Bitten-human escape update
 
 Current build: **Foundation 5 / bitten escape**, rules `encounter-prototype-5`.

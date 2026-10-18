@@ -1,0 +1,104 @@
+using System; // Validate bounded room state and persisted destinations.
+using System.Collections.Generic; // Discover connected authored floor regions once per world.
+using Outbreak.Contracts; // Keep shelter progress portable across saves and adapters.
+namespace Outbreak.Core // Own shelter and door actions on the authoritative simulation clock.
+{ // Begin the shelter milestone.
+    public static class ShelterRules // Publish provisional capacity and bounded-query limits.
+    { // Begin explicit prototype limits.
+        public const int MaxFloors = 8192, MaxRooms = 64, MaxRoomCells = 256, MaxDoors = 4, RouteRadius = 16, RejectTicks = 50, ComfortCells = 2; // Keep discovery, planning and rejected-room memory finite.
+    } // Finish tuning limits.
+    public sealed partial class World // Extend the same world owner without engine dependencies.
+    { // Begin room discovery and authoritative door actions.
+        private sealed class Room // Cache immutable room geometry independently of door open state.
+        { // Begin one discovered floor component.
+            public int id; public int[] cells, doors; // Use a stable floor-derived identity and bounded member lists.
+            public bool Contains(int key) { return Array.BinarySearch(cells, key) >= 0; } // Query canonical sorted floor membership without allocating.
+            public int Capacity { get { return Math.Max(1, cells.Length / ShelterRules.ComfortCells); } } // Treat comfort capacity as planning admission, not a global spawn restriction.
+        } // Finish one room definition.
+        public bool SheltersEnabled { get; private set; } // Preserve earlier save behavior until an explicit upgrade.
+        public int ShelterRoomCount { get { return rooms.Length; } } public bool ShelterScanLimited { get; private set; } // Expose discovery limits rather than claiming unsupported geometry is covered.
+        public long TerrainRevision { get; private set; } // Invalidate presentation only when a real door changes state.
+        private Room[] rooms = new Room[0]; // Retain only bounded discovered room geometry.
+        private readonly int[] shelterQueue = new int[1089], shelterFirst = new int[1089], shelterSteps = new int[1089]; // Reuse a thirty-three-cell-square local routing frontier.
+        private readonly bool[] shelterSeen = new bool[1089]; // Avoid per-actor path history allocations.
+        private static void ClearShelter(ref ActorState a) { a.shelterId = 0; a.shelterX = 0; a.shelterY = 0; a.shelterState = ShelterState.None; } // Canonicalize an abandoned or converted actor's destination.
+        private Room FindRoom(int id) { for (int i = 0; i < rooms.Length; i++) if (rooms[i].id == id) return rooms[i]; return null; } // Bound room lookup by the supported catalog size.
+        private bool IsDoor(int x, int y) { if (!map.Contains(x, y)) return false; Terrain t = map.Get(x, y); return t == Terrain.DoorClosed || t == Terrain.DoorOpen; } // Keep doors distinct from windows, walls and gates.
+        private bool ValidObservedCell(int x, int y) { return map.CanWalk(x, y) || (SheltersEnabled && map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed); } // A formerly observed door cell may legitimately close after an actor leaves it.
+        private void InitializeShelters() // Derive small enclosed rooms from actual authored floor and boundary tiles.
+        { // Begin one-time discovery.
+            if (!SheltersEnabled) return; int[] floors = map.ShelterFloorCells(ShelterRules.MaxFloors); if (floors == null) { ShelterScanLimited = true; return; } HashSet<int> floorSet = new HashSet<int>(floors), visited = new HashSet<int>(); List<Room> found = new List<Room>(); // Never scan the full sparse map area or silently crop an oversized floor collection.
+            foreach (int seed in floors) // Canonical seeds produce stable identities across save/load and door changes.
+            { // Begin one connected floor region.
+                if (!visited.Add(seed)) continue; List<int> cells = new List<int> { seed }; HashSet<int> doors = new HashSet<int>(); bool enclosed = true; // Keep discovery independent of population and actor order.
+                for (int head = 0; head < cells.Count; head++) // Flood only authored floor cells, never through a door into another room.
+                { // Begin floor boundary inspection.
+                    int x = cells[head] % Width, y = cells[head] / Width; for (int d = 0; d < 8; d += 2) { int nx = x + dx[d], ny = y + dy[d]; if (!map.Contains(nx, ny)) { enclosed = false; continue; } int key = Key(nx, ny); if (floorSet.Contains(key)) { if (visited.Add(key)) cells.Add(key); } else { Terrain t = map.Get(nx, ny); if (t == Terrain.DoorClosed || t == Terrain.DoorOpen) doors.Add(key); else if (t != Terrain.Wall && t != Terrain.Window) enclosed = false; } } // Open outdoor floor borders do not become imaginary buildings.
+                } // Finish connected floor inspection.
+                if (!enclosed || doors.Count == 0) continue; if (cells.Count > ShelterRules.MaxRoomCells || doors.Count > ShelterRules.MaxDoors || found.Count == ShelterRules.MaxRooms) { ShelterScanLimited = true; continue; } cells.Sort(); int[] doorArray = new int[doors.Count]; doors.CopyTo(doorArray); Array.Sort(doorArray); found.Add(new Room { id = cells[0] + 1, cells = cells.ToArray(), doors = doorArray }); // Preserve deterministic membership and explicit bounded support.
+            } // Finish floor components.
+            rooms = found.ToArray(); // No live actor references are held by the catalog.
+        } // Finish room recognition.
+        private void ValidateShelters() // Reject malformed destinations before publishing a restored world.
+        { // Begin persisted shelter validation.
+            for (int i = 0; i < count; i++) { ActorState a = actors[i]; Room room = FindRoom(a.shelterId); if (a.shelterId == 0) { if (a.shelterX != 0 || a.shelterY != 0 || a.shelterState != ShelterState.None) throw new ArgumentException("Inactive shelter contains stale data."); } else if (!SheltersEnabled || a.species != Species.Human || room == null || !map.Contains(a.shelterX, a.shelterY) || !room.Contains(Key(a.shelterX, a.shelterY)) || (a.shelterState != ShelterState.Seeking && a.shelterState != ShelterState.Inside) || (a.shelterState == ShelterState.Inside && !room.Contains(Key(a.x, a.y)))) throw new ArgumentException("Invalid shelter destination."); if (a.rejectedShelterId == 0) { if (a.rejectedUntilTick != 0) throw new ArgumentException("Inactive shelter rejection contains a deadline."); } else if (!SheltersEnabled || a.species != Species.Human || FindRoom(a.rejectedShelterId) == null || a.rejectedUntilTick <= Tick || a.rejectedUntilTick - Tick > ShelterRules.RejectTicks) throw new ArgumentException("Invalid rejected shelter."); } // Validate identities, floor geometry, species and exact memory bounds.
+        } // Finish shelter-state validation.
+        private bool DoorOccupied(int x, int y) { for (int i = 0; i < count; i++) if (actors[i].x == x && actors[i].y == y) return true; return false; } // Never close a door on any human or zombie.
+        private void SetDoor(int x, int y, bool open) { Terrain desired = open ? Terrain.DoorOpen : Terrain.DoorClosed; if (map.Get(x, y) != desired) { map.Set(x, y, desired); TerrainRevision++; } } // Save actual door state through the world's cloned terrain.
+        private void CloseNearbyDoors(ActorState actor, Room room) // Close a reachable door only after the human has actually entered the room.
+        { // Begin safe automatic closure.
+            if (!room.Contains(Key(actor.x, actor.y))) return; foreach (int key in room.doors) { int x = key % Width, y = key / Width; if (Math.Abs(x - actor.x) + Math.Abs(y - actor.y) == 1 && map.Get(x, y) == Terrain.DoorOpen && !DoorOccupied(x, y)) SetDoor(x, y, false); } // Distant entrances are not closed magically and occupied doorways remain traversable.
+        } // Finish door closure.
+        private void FinishShelterMove(int index) // Commit entry and closing behind the actor in the same authoritative tick.
+        { // Begin post-movement entry handling.
+            ActorState actor = actors[index]; Room room = FindRoom(actor.shelterId); if (room == null) { Room rejected = FindRoom(actor.rejectedShelterId); if (rejected != null && !rejected.Contains(Key(actor.x, actor.y))) foreach (int door in rejected.doors) { int x = door % Width, y = door / Width; if (Math.Abs(x - actor.x) + Math.Abs(y - actor.y) == 1 && map.Get(x, y) == Terrain.DoorOpen && !DoorOccupied(x, y)) SetDoor(x, y, false); } return; } actor.shelterState = room.Contains(Key(actor.x, actor.y)) ? ShelterState.Inside : ShelterState.Seeking; actors[index] = actor; CloseNearbyDoors(actor, room); // Stable actor order resolves simultaneous entry deterministically.
+        } // Finish entry commitment.
+        private bool KnownRoomDanger(ActorState observer, Room room) // Reassess using a zombie the human can actually observe inside its destination.
+        { // Begin local danger observation.
+            for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && room.Contains(Key(z.x, z.y)) && DistanceSquared(observer, z) <= 144 && Visible(observer, z)) return true; } return false; // Unseen zombies are not revealed by the room catalog.
+        } // Finish room danger check.
+        private int RoomAdmissions(Room room, int self) // Reserve comfortable capacity without counting the same occupant twice.
+        { // Begin bounded population admission count.
+            int total = 0; for (int i = 0; i < count; i++) if (actors[i].id != self && actors[i].species == Species.Human && (actors[i].shelterId == room.id || room.Contains(Key(actors[i].x, actors[i].y)))) total++; return total; // Actual occupants and inbound reservations share the same planning capacity.
+        } // Finish capacity accounting.
+        private int KnownShelterThreats(ActorState actor, int threatIndex) // Reuse fixed observation buffers for route risk checks.
+        { // Begin threat collection.
+            int total = 0; for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && DistanceSquared(actor, z) <= 144 && Visible(actor, z)) escapeThreats[total++] = z; } if (total == 0 && actor.avoidUntilTick > Tick) escapeThreats[total++] = new ActorState { x = actor.avoidX, y = actor.avoidY, species = Species.Zombie }; return total; // Hidden actor positions are never used to update a remembered threat.
+        } // Finish threat collection.
+        private bool ShelterWalkable(int x, int y) { return map.CanWalk(x, y) || (map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed); } // Only humans planning shelter entry may consider opening a closed door.
+        private int ShelterRoute(ActorState actor, int goalX, int goalY, int threats, out int distance) // Find a collision-safe local path including human door actions.
+        { // Begin bounded routing.
+            Array.Clear(shelterSeen, 0, shelterSeen.Length); int left = actor.x - 16, top = actor.y - 16, head = 0, tail = 1, start = 544; shelterQueue[0] = start; shelterSeen[start] = true; shelterFirst[start] = 8; shelterSteps[start] = 0; distance = 0; // Never allocate a dense world route.
+            while (head < tail) // Expand at most 1089 local cells.
+            { // Begin one route cell.
+                int cell = shelterQueue[head++], x = left + cell % 33, y = top + cell / 33; if (x == goalX && y == goalY) { distance = shelterSteps[cell]; return shelterFirst[cell]; } // Return only the first step and route length.
+                for (int d = 0; d < 8; d++) { int nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= 33 || ly >= 33 || !ShelterWalkable(nx, ny)) continue; int next = ly * 33 + lx; if (shelterSeen[next] || !occupancy.Allows(Key(nx, ny), Species.Human) || ZombieAt(nx, ny)) continue; bool diagonal = nx != x && ny != y; if (diagonal && (IsDoor(x, y) || IsDoor(nx, ny) || !map.CanWalk(nx, y) || !map.CanWalk(x, ny))) continue; ActorState candidate = actor; candidate.x = nx; candidate.y = ny; bool safe = true; for (int j = 0; j < threats; j++) if (DistanceSquared(candidate, escapeThreats[j]) < (actor.turnAtTick > Tick ? DistanceSquared(actor, escapeThreats[j]) : Math.Min(4, DistanceSquared(actor, escapeThreats[j])))) { safe = false; break; } if (!safe) continue; shelterSeen[next] = true; shelterSteps[next] = shelterSteps[cell] + 1; shelterFirst[next] = cell == start ? d : shelterFirst[cell]; shelterQueue[tail++] = next; } // Avoid observed threats and diagonal doorway/corner shortcuts throughout the path.
+            } // Finish bounded frontier.
+            return -1; // Unreachable rooms are not chosen merely because their center is nearby.
+        } // Finish local route query.
+        private int PickShelterCell(Room room, ActorState actor) // Prefer available interior space away from openings.
+        { // Begin interior selection.
+            int best = -1, score = int.MinValue; foreach (int key in room.cells) { int x = key % Width, y = key / Width; if (!occupancy.Allows(key, Species.Human) || ZombieAt(x, y)) continue; int reservations = 0; for (int i = 0; i < count; i++) if (actors[i].id != actor.id && actors[i].species == Species.Human && (Key(actors[i].x, actors[i].y) == key || (actors[i].shelterId == room.id && Key(actors[i].shelterX, actors[i].shelterY) == key))) reservations++; if (reservations >= Rules.HumansPerCell) continue; int opening = int.MaxValue; foreach (int door in room.doors) opening = Math.Min(opening, Math.Abs(x - door % Width) + Math.Abs(y - door / Width)); int value = opening * 100 - Math.Abs(x - actor.x) - Math.Abs(y - actor.y); if (value > score) { score = value; best = key; } } return best; // Stable sorted cells resolve ties and make save continuation deterministic.
+        } // Finish goal selection.
+        private void RejectShelter(ref ActorState actor, int id) { ClearShelter(ref actor); actor.rejectedShelterId = id; actor.rejectedUntilTick = Tick + ShelterRules.RejectTicks; } // Remember a failed or observed unsafe room for ten simulation seconds.
+        private bool EvacuateRejected(int index, ref ActorState actor, int threats, int threatIndex, out int direction) // Permit opening a safe exit even when no alternative room is available.
+        { // Begin local evacuation fallback.
+            direction = 8; Room rejected = FindRoom(actor.rejectedShelterId); if (rejected == null || !rejected.Contains(Key(actor.x, actor.y))) return false; int best = int.MaxValue; // Never remain trapped merely because every other shelter is full or absent.
+            foreach (int door in rejected.doors) for (int d = 0; d < 8; d += 2) { int x = door % Width + dx[d], y = door / Width + dy[d]; if (!map.CanWalk(x, y) || rejected.Contains(Key(x, y)) || IsDoor(x, y)) continue; int distance, route = ShelterRoute(actor, x, y, threats, out distance); if (route >= 0 && distance < best) { best = distance; direction = route; } } if (best == int.MaxValue) return false; // Choose a reachable outside cell while honoring observed threat clearance.
+            actor.reaction = HumanReaction.Flight; actor.freezeUntilTick = 0; actor.freezeResolved = true; if (actor.turnAtTick > Tick && threatIndex >= 0) { actor.avoidX = actors[threatIndex].x; actor.avoidY = actors[threatIndex].y; actor.avoidUntilTick = Tick + AvoidMemoryTicks; } actors[index] = actor; if (direction != 8) { int x = actor.x + dx[direction], y = actor.y + dy[direction]; if (map.Get(x, y) == Terrain.DoorClosed) { SetDoor(x, y, true); direction = 8; } } return true; // Opening remains an explicit opportunity before movement through the exit.
+        } // Finish evacuation routing.
+        private bool TryShelter(int index, ref ActorState actor, int threatIndex, out int direction) // Choose and retain a room before falling back to local escape.
+        { // Begin destination decision.
+            direction = 8; if (rooms.Length == 0) return false; Room room = FindRoom(actor.shelterId); if (room != null && (KnownRoomDanger(actor, room) || (!room.Contains(Key(actor.x, actor.y)) && RoomAdmissions(room, actor.id) >= room.Capacity))) { RejectShelter(ref actor, room.id); room = null; } // Release unsafe or full destinations before attempting another shelter.
+            if (room == null) foreach (Room current in rooms) if (current.Contains(Key(actor.x, actor.y)) && KnownRoomDanger(actor, current)) { RejectShelter(ref actor, current.id); break; } // An occupant without a current goal can still recognize that its room needs evacuation.
+            bool wants = actor.rejectedShelterId != 0 || actor.turnAtTick > Tick || actor.reaction == HumanReaction.Flight || (threatIndex >= 0 && HumanRules.Margin(actor) <= -2); if (room == null && !wants) { actors[index] = actor; return false; } int threats = KnownShelterThreats(actor, threatIndex); // Infection and flight seek shelter without granting brave people an automatic hiding decision.
+            if (room == null) // Select a reachable destination with actual admission space.
+            { // Begin bounded room selection.
+                int score = int.MinValue; foreach (Room candidate in rooms) { if (candidate.id == actor.rejectedShelterId || RoomAdmissions(candidate, actor.id) >= candidate.Capacity || KnownRoomDanger(actor, candidate)) continue; int goal = PickShelterCell(candidate, actor); if (goal < 0 || Math.Abs(goal % Width - actor.x) > 16 || Math.Abs(goal / Width - actor.y) > 16) continue; int distance; if (ShelterRoute(actor, goal % Width, goal / Width, threats, out distance) < 0) continue; int value = 1000 + candidate.cells.Length - candidate.doors.Length * 20 - distance * 10; if (value > score) { score = value; room = candidate; actor.shelterId = candidate.id; actor.shelterX = goal % Width; actor.shelterY = goal / Width; actor.shelterState = ShelterState.Seeking; } } // Keep the previous valid destination instead of switching on small score differences.
+                if (room == null) { if (EvacuateRejected(index, ref actor, threats, threatIndex, out direction)) return true; actors[index] = actor; return false; } // Existing local cover behavior remains the fallback on maps with no usable room.
+            } // Finish admission and route selection.
+            actor.freezeUntilTick = 0; actor.freezeResolved = true; actor.reaction = actor.turnAtTick > Tick ? HumanReaction.Flight : HumanReaction.Aware; if (threatIndex >= 0) { actor.stress = Math.Min(100, actor.stress + HumanRules.StressGain); actor.threatPressure = ObservePressure(actor, actors[threatIndex]); if (actor.turnAtTick > Tick) { actor.avoidX = actors[threatIndex].x; actor.avoidY = actors[threatIndex].y; actor.avoidUntilTick = Tick + AvoidMemoryTicks; } } else { actor.stress = Math.Max(0, actor.stress - HumanRules.Recovery); actor.threatPressure = 0; if (actor.turnAtTick == 0 && actor.stress == 0) actor.reaction = HumanReaction.Calm; } // Keep infection deadlines untouched while stress can recover in cover.
+            actor.shelterState = room.Contains(Key(actor.x, actor.y)) ? ShelterState.Inside : ShelterState.Seeking; CloseNearbyDoors(actor, room); int length; direction = ShelterRoute(actor, actor.shelterX, actor.shelterY, threats, out length); if (direction < 0) { int alternate = PickShelterCell(room, actor); if (alternate >= 0 && (alternate % Width != actor.shelterX || alternate / Width != actor.shelterY)) { actor.shelterX = alternate % Width; actor.shelterY = alternate / Width; direction = ShelterRoute(actor, actor.shelterX, actor.shelterY, threats, out length); } if (direction < 0) { if (threatIndex < 0 || DistanceSquared(actor, actors[threatIndex]) >= 16) { direction = 8; actors[index] = actor; return true; } RejectShelter(ref actor, room.id); actors[index] = actor; return false; } } actors[index] = actor; if (direction != 8) { int x = actor.x + dx[direction], y = actor.y + dy[direction]; if (map.Get(x, y) == Terrain.DoorClosed) { SetDoor(x, y, true); direction = 8; } } return true; // Opening consumes the opportunity; entry and safe closing follow on later ticks.
+        } // Finish persistent shelter behavior.
+    } // Finish world extension.
+} // Finish shelter and door milestone.

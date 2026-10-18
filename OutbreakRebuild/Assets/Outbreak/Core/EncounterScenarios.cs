@@ -23,5 +23,21 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             WorldMap map = new WorldMap(11, 9, "Bitten escape test", "bitten-escape-1"); for (int y = 0; y < map.Height; y++) for (int x = 0; x < map.Width; x++) if (x == 0 || y == 0 || x == 10 || y == 8) map.Set(x, y, Terrain.Wall); map.Set(6, 2, Terrain.Wall); map.Set(6, 3, Terrain.Wall); // Place a short wall that can be reached without approaching the zombie.
             World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 5, 4, out id); world.TrySpawn(Species.Zombie, 8, 4, out id); SaveDocument saved = world.Capture(); saved.actors[0].bravery = 3; saved.actors[0].stress = 50; saved.actors[0].turnAtTick = 80; return World.Restore(saved); // A brave, already-bitten human should escape instead of confronting the threat.
         } // Finish reproducible infected scenario.
+        private static void AddShelterRoom(WorldMap map, int left, int top, bool northDoor) // Author visible floor and structural boundaries rather than invisible room metadata.
+        { // Begin a small rectangular shelter.
+            for (int y = top; y <= top + 6; y++) for (int x = left; x <= left + 4; x++) map.Set(x, y, x == left || x == left + 4 || y == top || y == top + 6 ? Terrain.Wall : Terrain.Floor); map.Set(northDoor ? left + 2 : left + 4, northDoor ? top : top + 3, Terrain.DoorClosed); // Give the room a real traversable door once a human opens it.
+        } // Finish room authoring.
+        public static WorldMap MixedShelterMap() // Add actual room choices to the ordinary mixed-population encounter.
+        { // Begin the revised default arena.
+            WorldMap map = new WorldMap(20, 16, "Mixed shelter arena", "mixed-shelter-1"); for (int y = 0; y < 16; y++) for (int x = 0; x < 20; x++) if (x == 0 || y == 0 || x == 19 || y == 15) map.Set(x, y, Terrain.Wall); AddShelterRoom(map, 1, 9, false); AddShelterRoom(map, 13, 1, false); map.Set(17, 4, Terrain.Wall); map.Set(13, 4, Terrain.DoorClosed); return map; // Place entrances toward the outdoor arena without overlapping the existing spawn fixture.
+        } // Finish mixed room authoring.
+        public static World ShelterEntry() // Observe a frightened human choosing and entering a nearby enclosed room.
+        { // Begin entry scenario setup.
+            WorldMap map = new WorldMap(16, 12, "Shelter entry test", "shelter-entry-1"); AddShelterRoom(map, 1, 2, false); World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 7, 5, out id); world.TrySpawn(Species.Zombie, 11, 5, out id); SaveDocument saved = world.Capture(); saved.actors[0].bravery = -3; saved.actors[0].stress = 50; saved.actors[0].reaction = HumanReaction.Flight; return World.Restore(saved); // The only useful room lies away from the approaching zombie.
+        } // Finish entry fixture.
+        public static World UnsafeShelter() // Make a previously selected room visibly unsafe while providing another authored destination.
+        { // Begin reassessment scenario setup.
+            WorldMap map = new WorldMap(16, 18, "Unsafe shelter test", "unsafe-shelter-1"); AddShelterRoom(map, 1, 2, false); AddShelterRoom(map, 7, 10, true); World world = new World(map, 214, 1000, true); int id; world.TrySpawn(Species.Human, 4, 7, out id); world.TrySpawn(Species.Zombie, 2, 3, out id); SaveDocument saved = world.Capture(); saved.actors[0].bravery = -3; saved.actors[0].reaction = HumanReaction.Flight; saved.actors[0].stress = 50; saved.actors[0].shelterId = 3 * map.Width + 3; saved.actors[0].shelterX = 2; saved.actors[0].shelterY = 3; saved.actors[0].shelterState = ShelterState.Inside; return World.Restore(saved); // The room identity comes from its first row-major floor cell plus one.
+        } // Finish unsafe-room fixture.
     } // Finish scenario construction.
 } // Finish engine-independent fixtures.

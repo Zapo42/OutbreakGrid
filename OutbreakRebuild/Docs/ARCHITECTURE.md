@@ -1,3 +1,5 @@
+> Prototype 6 derives a bounded room catalog once from sparse authored floor tiles. Saved actors own destinations and rejection deadlines; doors mutate only the world's cloned terrain. An ephemeral terrain revision invalidates presentation and is rebuilt on load. Rule-generation dispatch preserves all earlier independent continuations. See SHELTERS_AND_DOORS.md.
+
 > Prototype 5 adds an 81-cell local escape query and fixed-capacity observation buffers. Bitten humans override ordinary courage decisions; short-lived last-observed threat coordinates are saved and cleared on expiry/turning. No hidden actor positions or unbounded query history are retained. See INFECTED_ESCAPE.md.
 
 > Prototype 4 keeps bounded MovementPresentation segments in the Unity adapter, separate from saved actor positions. Ordinary moves blend over five ticks; unsafe compound transitions synchronize instead of cutting corners. Old prototype-three runs can explicitly upgrade rules without changing saved state. See MOVEMENT_UPDATE.md.

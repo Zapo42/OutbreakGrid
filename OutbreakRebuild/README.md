@@ -1,3 +1,9 @@
+# Current update: Shelters and doors
+
+Humans can choose enclosed floor-based rooms, reserve space, open doors, enter, close behind themselves and reassess observed internal danger. The main encounter now has two rooms. [Launch steps, exact limits, old-run upgrade and validation](Docs/SHELTERS_AND_DOORS.md). Door breaking is still pending.
+
+## Previous milestone
+
 # Current update: Bitten escape
 
 Infected humans now prioritize escape over courage, freezing and wandering. They seek local obstacle cover or an observed human screen without approaching a visible zombie. [Rules, controlled scenario, existing-run update and validation](Docs/INFECTED_ESCAPE.md).
