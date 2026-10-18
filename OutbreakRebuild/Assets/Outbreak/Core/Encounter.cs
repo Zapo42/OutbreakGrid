@@ -4,17 +4,22 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-9", RecoveryVersion = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
     } // Finish prototype tuning.
+    public static class ZombieWanderRules // Publish provisional idle movement tuning in logical actor opportunities.
+    { // Begin slow wandering tuning.
+        public const int ChanceDenominator = 4; // One-in-four chance to step on each one-second movement opportunity.
+    } // Finish idle tuning.
     public sealed partial class World // Extend the same authoritative owner without adding engine dependencies.
     { // Begin encounter behavior.
         public bool Encounter { get; private set; } // Keep scenario mode immutable after construction.
         public bool PursuitMemory { get; private set; } // Retain the old encounter behavior when continuing a prototype-one save.
         private readonly int[] routeQueue = new int[625], routeFirst = new int[625], routeSeen = new int[625]; // Bound reusable navigation storage to the local 25 by 25 sight region.
         private readonly int[] routeOrder = new int[8]; // Reuse the latest rules' direct-neighbor preference without per-query allocations.
+        private readonly int[] wanderDirections = new int[8]; // Reuse the legal local steps for an idle zombie without per-tick allocations.
         private int routeStamp; // Reuse visited storage without retaining a history of queries.
         private static void ClearPursuit(ref ActorState actor) // Remove stale observations without retaining diagnostic history.
         { // Begin canonical memory cleanup.
@@ -90,6 +95,10 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
             if (x != nx && y != ny) return map.Get(x, y) != Terrain.DoorClosed && map.Get(nx, ny) != Terrain.DoorClosed && map.CanWalk(x, ny) && map.CanWalk(nx, y); // Never cut a corner through a door or wall.
             return true; // MoveActor still checks actual solidity and stops the zombie outside the first closed door.
         } // Finish remembered-route planning.
+        private int WanderZombie(ActorState actor) // Idle zombies occasionally shuffle without consulting hidden humans or expired sightings.
+        { // Begin one slow wandering opportunity.
+            if (random.Below(ZombieWanderRules.ChanceDenominator) != 0) return 8; int available = 0; for (int d = 0; d < 8; d++) if (MayMove(actor, d)) wanderDirections[available++] = d; return available == 0 ? 8 : wanderDirections[random.Below(available)]; // Use ordinary collision and crowd rules, choosing uniformly among legal adjacent cells.
+        } // Finish idle direction selection.
         private void MoveActor(int index, ActorState actor, int direction) // Commit the same geometry and crowd checks for every rules version.
         { // Begin a complete neighboring move.
             if (direction == 8 || !MayMove(actor, direction)) return; occupancy.Change(Key(actor.x, actor.y), actor.species, -1); actor.x += dx[direction]; actor.y += dy[direction]; if (PursuitMemory && actor.targetId != 0 && actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) ClearPursuit(ref actor); actors[index] = actor; occupancy.Change(Key(actor.x, actor.y), actor.species, 1); // Keep stable identity, observation cleanup and occupancy atomic.
@@ -123,12 +132,13 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                         for (int d = 0; d < 8; d++) if (MayMove(actor, d)) { int x = actor.x + dx[d] - target.x, y = actor.y + dy[d] - target.y, score = x * x + y * y; if (score > best) { best = score; direction = d; } } // Stable ties retain the first equally safe route.
                     } // Finish prototype fleeing.
                 } // Finish encounter response.
-                else if (actor.species == Species.Human) direction = random.Below(9); // Humans wander without a visible threat; zombies wait without omniscient pursuit.
+                else if (actor.species == Species.Human) direction = random.Below(9); // Legacy humans wander without a visible threat; idle zombie behavior is selected below.
                 else if (PursuitMemory && actor.targetId != 0) // Search the observed cell without querying the hidden target's current location.
                 { // Begin last-known-position search.
                     if (actor.x == actor.lastSeenX && actor.y == actor.lastSeenY) { ClearPursuit(ref actor); actors[i] = actor; } // An empty last-seen cell ends the search.
                     else direction = Route(actor, new ActorState { x = actor.lastSeenX, y = actor.lastSeenY }, DoorPursuit); // Route only to remembered terrain coordinates.
                 } // Finish lost-sight search.
+                else if (ZombieWandering) direction = WanderZombie(actor); // Try a nearby shuffle only when no visible human or active remembered search takes priority.
                 MoveActor(i, actor, direction); // Commit geometry and population counts together.
             } // Finish actor decisions.
         } // Finish authoritative encounter tick.

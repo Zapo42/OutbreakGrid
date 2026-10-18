@@ -1,3 +1,5 @@
+Latest build: [Occasional zombie wandering](ZOMBIE_WANDERING.md).
+
 Latest build: [Encounter setup](ENCOUNTER_SETUP.md).
 
 # Shelter recovery and safe exits

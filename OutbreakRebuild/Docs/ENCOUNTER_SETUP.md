@@ -1,3 +1,5 @@
+Latest build: [Occasional zombie wandering](ZOMBIE_WANDERING.md).
+
 # Encounter setup
 
 Current build: **Foundation 9 / encounter setup**. Running simulation rules remain `encounter-prototype-8`; this update adds startup choices without changing existing saved-run behavior.
