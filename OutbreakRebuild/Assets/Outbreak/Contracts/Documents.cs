@@ -32,6 +32,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public Species species; // Store the actual biological state rather than a visual tint.
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
+        [DataMember] public int heardDoorX, heardDoorY; // Remember the impact cell rather than the hidden attacker.
+        [DataMember] public long heardDoorUntilTick; // Keep recent hearing on the authoritative clock.
         [DataMember] public long turnAtTick; // Zero means uninfected; otherwise retain the authoritative turning deadline.
         [DataMember] public int targetId, lastSeenX, lastSeenY; // Store only the identity and cell actually observed by a pursuing zombie.
         [DataMember] public long searchUntilTick; // Bound pursuit memory using simulation time rather than wall time.

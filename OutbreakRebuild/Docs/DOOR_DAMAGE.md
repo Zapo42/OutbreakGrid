@@ -1,3 +1,5 @@
+Latest build: [Hearing nearby door impacts](DOOR_HEARING.md).
+
 # Door damage and breaches
 
 Current build: **Foundation 11 / door damage and breaches**, rules `encounter-prototype-10`.

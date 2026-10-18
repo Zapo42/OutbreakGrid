@@ -31,7 +31,7 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
         } // Finish recovery validation.
         private bool TryShelterDeparture(int index, ref ActorState actor, Room room, int threatIndex, out int direction) // Replace permanent hiding with a cautious, interruptible inspection.
         { // Begin one departure decision.
-            direction = 8; bool inside = room.Contains(Key(actor.x, actor.y)); if (actor.turnAtTick != 0 || actor.stress != 0 || threatIndex >= 0 || (!inside && actor.shelterExitPhase == ShelterExitPhase.None)) { ClearShelterDeparture(ref actor); return false; } // Infection or a real sighting cancels inspection and restores the existing shelter retreat.
+            direction = 8; bool inside = room.Contains(Key(actor.x, actor.y)); if (actor.turnAtTick != 0 || actor.stress != 0 || HasRecentDoorNoise(actor) || threatIndex >= 0 || (!inside && actor.shelterExitPhase == ShelterExitPhase.None)) { ClearShelterDeparture(ref actor); return false; } // Infection or a real sighting cancels inspection and restores the existing shelter retreat.
             if (actor.shelterCalmSinceTick == 0) actor.shelterCalmSinceTick = Tick; if (Tick - actor.shelterCalmSinceTick < ShelterRecoveryRules.CalmTicks) return false; // Continue normal interior recovery during the calm interval.
             if (actor.shelterExitPhase == ShelterExitPhase.None) // Choose a reachable indoor observation position, not an unseen zombie's location.
             { // Begin bounded door selection.

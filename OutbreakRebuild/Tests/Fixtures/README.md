@@ -29,3 +29,5 @@ Prototype-seven traces were independently executed from commit `189f34d`: Shelte
 Prototype-eight traces were independently executed from commit `051d500`: ShelterEntry at tick 22, then 200 additional ticks. This protects the previous shelter-recovery and stationary idle behavior until explicitly upgraded.
 
 Prototype-nine traces were independently executed from commit `afca45e`: ShelterEntry at tick 22, then 200 additional ticks. They preserve wandering and the former indestructible doors until an explicit upgrade.
+
+Prototype-ten traces were independently executed from commit `e605a6d`: DoorBreach at tick 2, then 100 further ticks. This protects prior door damage and human behavior before impact hearing.

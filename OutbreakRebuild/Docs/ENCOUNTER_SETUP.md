@@ -1,4 +1,4 @@
-Latest build: [Door damage and breaches](DOOR_DAMAGE.md).
+Latest build: [Hearing nearby door impacts](DOOR_HEARING.md).
 
 # Encounter setup
 
