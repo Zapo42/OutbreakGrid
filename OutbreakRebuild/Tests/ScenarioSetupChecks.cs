@@ -1,0 +1,34 @@
+using System; // Reject invalid population requests at the public setup boundary.
+using Outbreak.Contracts; // Inspect the actual spawned species and saved terrain.
+using Outbreak.Core; // Exercise production scenario construction and ticking.
+using Outbreak.Persistence; // Verify repeatable starts and saved continuation.
+public static partial class Program // Integrate setup acceptance into the existing real-code runner.
+{ // Begin configured encounter acceptance.
+    private static void CheckScenarioSetupCases() // Verify completed populations rather than control labels alone.
+    { // Begin setup cases.
+        Check("Configured default preserves the quick encounter's map and starting actors", () => // Keep the established 24-human, one-zombie start available.
+        { // Begin default acceptance.
+            World world = ScenarioBuilder.Create(ScenarioMap.ShelterArena); Require(world.Count == 25 && world.Width == 20 && world.Height == 16 && world.ShelterRoomCount == 2 && world.ShelterRecovery, "Configured default lost its population, rooms or current behavior."); for (int i = 0; i < 24; i++) { ActorState a = world.ActorAt(i); Require(a.species == Species.Human && a.x == 4 + i % 6 && a.y == 5 + i / 6 && a.bravery == Rules.Bravery(a.strength, a.perception, a.charisma), "Default human placement or derived bravery changed."); } Require(world.ActorAt(24).species == Species.Zombie && world.ActorAt(24).x == 12 && world.ActorAt(24).y == 7, "Quick-start zombie position changed."); Inspect(world); // Preserve the existing diagnostic setup independently of new settings.
+        }); // Finish default acceptance.
+        Check("The district supports 1000 actual bodies in separate outdoor spawn regions", () => // A larger selected count must create every requested actor safely.
+        { // Begin maximum population acceptance.
+            World world = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 999, 1, 4294967295u); Require(world.Count == 1000 && world.Width == 100 && world.Height == 100 && world.ShelterRoomCount == 12 && !world.ShelterScanLimited, "District did not support the requested population and rooms."); for (int i = 0; i < world.Count; i++) { ActorState a = world.ActorAt(i); Require(world.TerrainAt(a.x, a.y) != Terrain.Floor && world.TerrainAt(a.x, a.y) != Terrain.DoorOpen && a.y >= 35 && a.y <= 64, "Initial actor was placed indoors or outside its authored strip."); Require(i < 999 ? a.species == Species.Human && a.x >= 35 && a.x <= 46 : a.species == Species.Zombie && a.x >= 51 && a.x <= 62, "Initial species regions overlap or requested counts changed."); } Inspect(world); Require(State(world) == State(Documents.ParseSave(State(world))), "Maximum configured start failed save/load validation."); // Capacity and sparse map rules remain authoritative.
+        }); // Finish maximum population acceptance.
+        Check("Small-map spawn limits reject requests rather than drop actors", () => // Do not display a requested population that failed placement.
+        { // Begin region capacity acceptance.
+            int humans = ScenarioBuilder.HumanLimit(ScenarioMap.ShelterArena), zombies = ScenarioBuilder.ZombieLimit(ScenarioMap.ShelterArena); World world = ScenarioBuilder.Create(ScenarioMap.ShelterArena, humans, zombies); Require(world.Count == humans + zombies && humans < 1000 && zombies < 1000, "Map-specific limits did not fill exactly."); Inspect(world); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterArena, humans + 1, 1)); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterArena, 1, zombies + 1)); Require(ScenarioBuilder.ValidationError(ScenarioMap.ShelterArena, humans + 1, 1, 214).Contains("spawn area"), "Invalid map count had no useful explanation."); // A larger map is an explicit player choice.
+        }); // Finish region capacity acceptance.
+        Check("Invalid settings reject and single-species scenarios remain playable", () => // Treat zero counts explicitly without allowing an empty start.
+        { // Begin input policy acceptance.
+            Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 0, 0)); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, -1, 1)); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, int.MaxValue, 1)); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 1000, 1)); Reject(() => ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 1, 1, 0)); Reject(() => ScenarioBuilder.Create((ScenarioMap)99)); World humans = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 1000, 0), zombies = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 0, 1000); Require(humans.Count == 1000 && humans.ActorAt(999).species == Species.Human && zombies.Count == 1000 && zombies.ActorAt(0).species == Species.Zombie, "Zero-species setup changed the requested counts."); Run(humans, 5); Run(zombies, 5); Inspect(humans); Inspect(zombies); // Both run through the same authoritative clock and occupancy boundary.
+        }); // Finish input policy acceptance.
+        Check("Configured seeds repeat exactly and district defaults begin a real encounter", () => // Avoid a bigger map that leaves the two species permanently unaware at the start.
+        { // Begin repeatability and proximity acceptance.
+            World a = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict), b = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict); Require(State(a) == State(b), "Identical settings produced different starts."); World otherSeed = ScenarioBuilder.Create(ScenarioMap.ShelterDistrict, 24, 1, 215); Require(a.Capture().randomState != otherSeed.Capture().randomState, "Seed control did not change the simulation random stream."); Run(a, 5); Run(b, 5); Require(a.ActorAt(24).targetId != 0, "District's default zombie cannot see any starting human."); Require(State(a) == State(b), "Configured scenario diverged with identical settings."); World resumed = Documents.ParseSave(State(a)); Run(a, 30); Run(b, 30); Run(resumed, 30); Require(State(a) == State(b) && State(a) == State(resumed), "Configured encounter lost exact save continuation."); Inspect(a); // Compare complete actor, terrain and random state after real behavior.
+        }); // Finish repeatability acceptance.
+        Check("Running a configured world cannot alter a later fresh start", () => // Shared setup definitions must remain private immutable templates.
+        { // Begin template ownership acceptance.
+            World world = ScenarioBuilder.Create(ScenarioMap.ShelterArena); string initial = State(world); Run(world, 200); Require(world.Tick == 200 && State(ScenarioBuilder.Create(ScenarioMap.ShelterArena)) == initial, "A running encounter mutated the cached setup template."); Inspect(world); // Repeat starts remain clean after movement, bites and door actions.
+        }); // Finish ownership acceptance.
+    } // Finish setup acceptance.
+} // Finish runner integration.

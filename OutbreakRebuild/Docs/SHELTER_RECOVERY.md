@@ -1,3 +1,5 @@
+Latest build: [Encounter setup](ENCOUNTER_SETUP.md).
+
 # Shelter recovery and safe exits
 
 Current build: **Foundation 8 / shelter recovery**, rules `encounter-prototype-8`.

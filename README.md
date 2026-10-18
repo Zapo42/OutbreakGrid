@@ -1,8 +1,8 @@
 # OutbreakGrid
 
-Current build: **Foundation 8 / shelter recovery**. Humans recover to calm, inspect a real exit and return outdoors when clear; visible danger sends them back inside. See [test scenarios and update instructions](OutbreakRebuild/Docs/SHELTER_RECOVERY.md).
+Current build: **Foundation 9 / encounter setup**. Choose a map, human and zombie counts, seed and paused start. See [simple setup instructions](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md).
 
-Unity 6 Outbreak Simulator rebuild. Current update: **Shelter recovery and safe exits**, extending room goals, capacity reservations, human door actions and unsafe-room reassessment. Bitten escape remains active. Stress, fight/freeze/flight, tick buttons and Main Menu remain available.
+Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active.
 
 ## Download and run
 
@@ -10,11 +10,11 @@ Unity 6 Outbreak Simulator rebuild. Current update: **Shelter recovery and safe 
 2. Extract into a new folder to preserve your existing projects.
 3. In Unity Hub choose **Add project from disk** and select **OutbreakRebuild**, the folder containing Assets, Packages and ProjectSettings.
 4. Open with Unity 6, then choose **Outbreak > Rebuild > Open and Run Foundation**.
-5. Choose **Inspect Shelter Recovery Paused**, then **Step 50 ticks** and **Step 10 ticks** twice to watch inspection and departure. Try **Inspect Guarded Exit Paused** to see the human refuse a guarded exit, or **Start Encounter** for the mixed arena.
+5. Choose **Set Up Encounter**, select **Shelter district (100 x 100)**, enter your human/zombie counts and click **Start configured encounter**. It starts paused by default; click **Run** or use tick buttons. **Start Encounter** remains the quick 24-human/one-zombie start.
 6. During simulation, use **Main Menu** to pause and return; **Resume current run** preserves it. Step **1, 10, 50 or 100** ticks while paused.
 
 If buttons draw but do not respond, stop Play mode, set Active Input Handling to **Both** in Player settings, then restart Unity when prompted.
 
-[Full launch instructions, provisional rules and validation](OutbreakRebuild/Docs/SHELTER_RECOVERY.md)
+[Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
 New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 7 runs can opt in with **Enable shelter recovery**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.

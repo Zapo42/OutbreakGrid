@@ -1,3 +1,5 @@
+Latest build: [Encounter setup](ENCOUNTER_SETUP.md).
+
 Latest build: [Shelter recovery and safe exits](SHELTER_RECOVERY.md).
 
 > Current milestone: prototype 6 adds small enclosed room discovery, persistent destinations/capacity, human door use, unsafe-room reassessment and evacuation. It does not complete global navigation, knowledge, building metadata or door durability/breaching. See SHELTERS_AND_DOORS.md.

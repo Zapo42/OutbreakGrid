@@ -1,4 +1,5 @@
 using System; // Keep deterministic fixtures and error messages straightforward.
+using System.Globalization; // Parse setup numbers consistently across machines.
 using System.IO; // Remember the last folder used for native browsing.
 using Outbreak.Contracts; // Inspect portable actor values without changing them.
 using Outbreak.Core; // Drive the same production world and scheduler used by headless checks.
@@ -8,11 +9,12 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 8 / shelter recovery"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 9 / encounter setup"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
+        private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214"; private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool canResume; private Action resetAction; // Preserve a menu-paused run and confirm replacements before discarding it.
         private int textureX = -1, textureY = -1, textureWidth, textureHeight; // Rebuild terrain pixels only when the viewed cell range changes.
         private Action pendingAction; // Apply interface commands after the current GUI event finishes.
@@ -65,14 +67,11 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish fixture reset.
         private void ResetEncounter() // Create a compact observable scenario without modifying legacy fixtures.
         { // Begin encounter scenario setup.
-            WorldMap map = EncounterScenarios.MixedShelterMap(); // Give the standard encounter actual enclosed room choices.
-            World next = new World(map, 214, 1000, true); int id; for (int i = 0; i < 24; i++) next.TrySpawn(Species.Human, 4 + i % 6, 5 + i / 6, out id); next.TrySpawn(Species.Zombie, 12, 7, out id); // Begin with one visible zombie and twenty-four nearby humans.
-            SaveDocument scenario = next.Capture(); for (int i = 0; i < 24; i++) { int stat = i % 3 == 0 ? 1 : i % 3 == 1 ? 3 : 5; scenario.actors[i].strength = stat; scenario.actors[i].perception = stat; scenario.actors[i].charisma = stat; scenario.actors[i].bravery = Rules.Bravery(stat, stat, stat); } // Use explicit mixed-trait fixtures rather than claiming a weighted population generator.
-            UseWorld(World.Restore(scenario)); status = "Mixed-trait encounter: stress, support, fight/freeze/flight, pursuit and infection. Fighting uses defensive shoves; full combat and senses are pending."; // State the actual implemented boundary.
+            UseWorld(ScenarioBuilder.Create(ScenarioMap.ShelterArena)); status = "Mixed-trait encounter: stress, support, fight/freeze/flight, pursuit, infection and shelter recovery. Use Set Up Encounter in the menu to choose starting counts and map."; // Keep the quick start identical to the default configurable scenario.
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a fully validated world and reset only presentation state.
         { // Begin one transactional screen swap.
-            canResume = false; world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
         private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
@@ -117,14 +116,26 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish one requested file operation.
         private void StartScenario(Action action) // Keep returning to the menu from silently replacing a live run.
         { // Begin explicit replacement handling.
-            if (canResume) { SetPaused(true); resetAction = action; confirmReset = true; showStart = false; } else action(); // Draw confirmation over the retained world before starting another scenario.
+            if (canResume) { SetPaused(true); resetAction = action; confirmReset = true; showSetup = false; showStart = false; } else action(); // Draw confirmation over the retained world before starting another scenario.
         } // Finish scenario selection.
+        private void DrawSetup() // Make population, map and repeatability choices available without source edits.
+        { // Begin a separate scrollable setup card.
+            GUI.color = new Color(0.07f, 0.08f, 0.1f); GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture); GUI.color = Color.white; float width = Math.Min(560, Screen.width - 24), height = Math.Min(620, Screen.height - 24); GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height), GUI.skin.box); menuScroll = GUILayout.BeginScrollView(menuScroll); GUILayout.Label("SET UP ENCOUNTER"); GUILayout.Label(BuildLabel); // Keep the form reachable in smaller Game views.
+            GUILayout.Label("Selected map: " + ScenarioBuilder.MapName(setupMap)); GUILayout.BeginHorizontal(); if (GUILayout.Button("Shelter arena (20 x 16)")) Queue(() => { setupMap = ScenarioMap.ShelterArena; }); if (GUILayout.Button("Shelter district (100 x 100)")) Queue(() => { setupMap = ScenarioMap.ShelterDistrict; }); GUILayout.EndHorizontal(); // Keep map changes out of the active GUI tree traversal.
+            GUILayout.Label("Humans at start"); setupHumans = GUILayout.TextField(setupHumans, 32); GUILayout.Label("Zombies at start"); setupZombies = GUILayout.TextField(setupZombies, 32); GUILayout.Label("Repeatable seed (1 to 4294967295)"); setupSeed = GUILayout.TextField(setupSeed, 32); // Leave invalid input visible so the player can correct it.
+            if (GUILayout.Button("Start paused: " + (setupPaused ? "Yes" : "No"))) Queue(() => { setupPaused = !setupPaused; }); GUILayout.Label("Maximum 1000 bodies total. This map's spawn limits: " + ScenarioBuilder.HumanLimit(setupMap) + " humans / " + ScenarioBuilder.ZombieLimit(setupMap) + " zombies."); GUILayout.Label("Species start in separate outdoor areas. Humans use the current mixed brave, average and fearful test traits."); // Explain the actual prototype placement policy.
+            int humans = 0, zombies = 0; uint seed = 0; bool parsed = int.TryParse(setupHumans, NumberStyles.None, CultureInfo.InvariantCulture, out humans) && int.TryParse(setupZombies, NumberStyles.None, CultureInfo.InvariantCulture, out zombies) && uint.TryParse(setupSeed, NumberStyles.None, CultureInfo.InvariantCulture, out seed); string error = parsed ? ScenarioBuilder.ValidationError(setupMap, humans, zombies, seed) : "Enter whole numbers for both counts and a seed from 1 to 4294967295."; GUILayout.Label(error ?? ("Ready: " + humans + " humans + " + zombies + " zombies. " + (setupPaused ? "Use Run or tick buttons after starting." : "Simulation starts running."))); // Validate before exposing a start action.
+            GUI.enabled = error == null; if (GUILayout.Button("Start configured encounter")) { ScenarioMap choice = setupMap; bool paused = setupPaused; Queue(() => StartScenario(() => { World candidate = ScenarioBuilder.Create(choice, humans, zombies, seed); UseWorld(candidate); SetPaused(paused); status = ScenarioBuilder.MapName(choice) + ": " + humans + " humans, " + zombies + " zombies; seed " + seed + ". " + (paused ? "Paused: Run or step to begin." : "Running."); })); } GUI.enabled = true; // Construct the complete candidate before replacing the retained run.
+            if (GUILayout.Button("Back to Main Menu")) Queue(() => { showSetup = false; menuScroll = new Vector2(); }); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Back preserves both settings and the menu-paused world.
+        } // Finish encounter setup.
         private void DrawStart() // Explain the available experiment before presenting an inert-looking map.
         { // Begin the start screen.
+            if (showSetup) { DrawSetup(); return; } // Keep setup separate from the diagnostic scenario list.
             GUI.color = new Color(0.07f, 0.08f, 0.1f); GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture); GUI.color = Color.white; // Keep the start screen legible against a stable background.
             float width = Math.Min(560, Screen.width - 24), height = Math.Min(690, Screen.height - 24); GUILayout.BeginArea(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height), GUI.skin.box); // Keep the choices centered in an ordinary Game view.
-            GUILayout.Label("OUTBREAK SIMULATOR"); GUILayout.Label(BuildLabel); GUILayout.Space(12); // Identify the actual source revision without implying finished outbreak behavior.
-            GUILayout.Label("Start a test with 24 humans and one zombie. Bodies wander around a room and obey walls, corners and crowd limits."); GUILayout.Label("Choose Encounter for stress, bravery, group support, fight/freeze/flight, pursuit and infection. Movement Test preserves the original diagnostic."); GUILayout.Space(12); // State what the user will see before running it.
+            GUILayout.Label("OUTBREAK SIMULATOR"); GUILayout.Label(BuildLabel); menuScroll = GUILayout.BeginScrollView(menuScroll); GUILayout.Space(12); // Identify the actual source revision without implying finished outbreak behavior.
+            GUILayout.Label("Set up your own encounter, or use the quick start with 24 humans and one zombie. Scroll for the smaller behavior tests."); GUILayout.Label("Choose Encounter for stress, bravery, group support, fight/freeze/flight, pursuit and infection. Movement Test preserves the original diagnostic."); GUILayout.Space(12); // State what the user will see before running it.
+            if (GUILayout.Button("Set Up Encounter")) Queue(() => { showSetup = true; menuScroll = new Vector2(); }); // Open custom counts without discarding the active run.
             if (canResume && GUILayout.Button("Resume current run")) Queue(() => { canResume = false; showStart = false; SetPaused(false); }); // Resume the exact retained world rather than resetting it.
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
@@ -141,7 +152,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button("Inspect Movement Test Paused")) Queue(() => StartScenario(ResetTest)); // Keep deliberate paused inspection available without replacing the active GUI tree mid-event.
             if (GUILayout.Button(new GUIContent("Load Map", "Load terrain, then place human or zombie test bodies before clicking Run."))) Queue(() => Browse(false, false)); // Open the blocking native dialog outside the active GUI layout pass.
             if (GUILayout.Button(new GUIContent("Load Run", "Load terrain and saved bodies, then click Run to continue."))) Queue(() => Browse(false, true)); // Distinguish a populated save while preserving GUI event lifetime.
-            GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
+            GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
         } // Finish the start screen.
         private void OnGUI() // Keep the first shell deliberately small and focused on inspecting the core.
         { // Begin the screen pass.
@@ -162,7 +173,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Load Run", "Open a saved simulation and restore its exact random state."))) Queue(() => Browse(false, true)); // Restore the candidate outside the active control traversal.
             if (GUILayout.Button(new GUIContent("Save Run", "Save this tick, population, terrain and random stream as .obsave2."))) Queue(() => Browse(true, true)); // Persist the exact first-slice simulation without nesting a native dialog in OnGUI.
             if (world.HumanReactions && !world.ShelterRecovery && GUILayout.Button(world.DoorPursuit ? "Enable shelter recovery" : world.SheltersEnabled ? "Update doorway pursuit" : world.InfectedEscape ? "Enable shelter behavior" : world.CautiousMovement ? "Update escape behavior" : "Use cautious behavior")) Queue(() => { SetPaused(true); SaveDocument saved = world.Capture(); saved.rulesVersion = EncounterRules.Version; World candidate = World.Restore(saved); world = candidate; status = "Updated shelter recovery, doorway pursuit and escape behavior enabled; run remains paused. Original save file is unchanged; save to a new name to preserve it."; }); // Explicitly upgrade an older reaction run without losing actors, clocks or random state.
-            if (GUILayout.Button("Main Menu")) Queue(() => { SetPaused(true); canResume = true; showStart = true; }); // Pause and retain world, camera, selection and speed while showing the menu.
+            if (GUILayout.Button("Main Menu")) Queue(() => { SetPaused(true); canResume = true; showSetup = false; menuScroll = new Vector2(); showStart = true; }); // Pause and retain world, camera, selection and speed while showing the menu.
             if (GUILayout.Button("New movement test")) Queue(() => { SetPaused(true); confirmReset = true; }); // Open the confirmation on the next stable GUI tree.
             if (GUILayout.Button("Zoom +")) Queue(() => { span = Math.Max(16, span / 1.25f); textureX = -1; }); if (GUILayout.Button("Zoom -")) Queue(() => { span = Math.Min(256, span * 1.25f); textureX = -1; }); // Keep rendering changes outside the current event traversal.
             GUILayout.EndHorizontal(); GUILayout.Label(status); GUILayout.EndArea(); // Keep implementation scope and errors readable in the shell.
