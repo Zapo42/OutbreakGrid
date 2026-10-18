@@ -27,3 +27,5 @@ Prototype-six traces come from commit `a71fc4f`: ShelterEntry at tick 17, then 1
 Prototype-seven traces were independently executed from commit `189f34d`: ShelterEntry at tick 22, then 200 additional ticks. They preserve permanent hiding until an explicit recovery upgrade.
 
 Prototype-eight traces were independently executed from commit `051d500`: ShelterEntry at tick 22, then 200 additional ticks. This protects the previous shelter-recovery and stationary idle behavior until explicitly upgraded.
+
+Prototype-nine traces were independently executed from commit `afca45e`: ShelterEntry at tick 22, then 200 additional ticks. They preserve wandering and the former indestructible doors until an explicit upgrade.

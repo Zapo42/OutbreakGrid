@@ -3,7 +3,7 @@ using System.Collections.Generic; // Allocate terrain only where authored cells 
 using Outbreak.Contracts; // Share exactly one document type with persistence and future editor tools.
 namespace Outbreak.Core // Keep the grid independent of textures, cameras, and scene objects.
 { // Begin sparse map storage.
-    public sealed class WorldMap // Bound logical dimensions without allocating every logical cell.
+    public sealed partial class WorldMap // Bound logical dimensions without allocating every logical cell.
     { // Begin the authoritative terrain owner.
         private readonly Dictionary<int, ushort[]> chunks = new Dictionary<int, ushort[]>(); // Retain only changed thirty-two-cell chunks.
         private readonly int columns; // Encode chunk coordinates without collisions.
@@ -25,6 +25,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
         public void Set(int x, int y, Terrain terrain) // Apply a terrain edit only to this independent map instance.
         { // Begin a terrain write.
             if (!Contains(x, y) || !TerrainRules.Known((ushort)terrain)) throw new ArgumentOutOfRangeException("terrain"); // Validate both address and meaning before mutation.
+            if (terrain == Terrain.DoorClosed && DoorHealthAt(x, y) == 0) throw new ArgumentException("A broken door cannot be closed."); if (terrain != Terrain.DoorClosed && terrain != Terrain.DoorOpen) doorHealth.Remove(y * Width + x); // Replacing a door removes its condition; closing a breach requires explicit repair.
             int key = (y / Rules.ChunkSize) * columns + x / Rules.ChunkSize; ushort[] cells; // Locate the owning chunk once.
             if (!chunks.TryGetValue(key, out cells)) { if (terrain == Terrain.Grass) return; cells = new ushort[Rules.ChunkSize * Rules.ChunkSize]; chunks.Add(key, cells); } // Avoid allocating an unchanged default cell.
             cells[(y % Rules.ChunkSize) * Rules.ChunkSize + x % Rules.ChunkSize] = (ushort)terrain; // Replace only the requested logical cell.
@@ -38,11 +39,11 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
         { // Begin map capture.
             List<int> keys = new List<int>(chunks.Keys); keys.Sort(); ChunkDocument[] output = new ChunkDocument[keys.Count]; // Make dictionary insertion order irrelevant to saved bytes.
             for (int i = 0; i < keys.Count; i++) output[i] = new ChunkDocument { x = keys[i] % columns, y = keys[i] / columns, cells = (ushort[])chunks[keys[i]].Clone() }; // Keep all mutable arrays detached from the live map.
-            return new MapDocument { width = Width, height = Height, id = Id, name = Name, authoringJson = AuthoringJson, chunks = output }; // Retain the unmodified authoring payload beside terrain.
+            return new MapDocument { schemaVersion = HasDoorDamage ? 2 : 1, doors = CaptureDoorConditions(), width = Width, height = Height, id = Id, name = Name, authoringJson = AuthoringJson, chunks = output }; // Retain the unmodified authoring payload beside terrain.
         } // Finish map capture.
         public static WorldMap Restore(MapDocument source) // Validate the whole replacement before returning a new map.
         { // Begin transactional map loading.
-            if (source == null || source.kind != "outbreak.map" || source.schemaVersion != 1 || source.chunkSize != Rules.ChunkSize || source.chunks == null || source.chunks.Length > 100000) throw new ArgumentException("Unsupported or invalid foundation map."); // Fail explicitly for old and future formats rather than guessing.
+            if (source == null || source.kind != "outbreak.map" || (source.schemaVersion != 1 && source.schemaVersion != 2) || source.chunkSize != Rules.ChunkSize || source.chunks == null || source.chunks.Length > 100000) throw new ArgumentException("Unsupported or invalid foundation map."); // Fail explicitly for old and future formats rather than guessing.
             WorldMap map = new WorldMap(source.width, source.height, source.name, source.id, source.authoringJson); // Validate dimensions before accepting any chunk.
             foreach (ChunkDocument chunk in source.chunks) // Validate every terrain record in the candidate document.
             { // Begin one chunk validation.
@@ -51,7 +52,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
                 for (int i = 0; i < chunk.cells.Length; i++) if (!TerrainRules.Known(chunk.cells[i]) || ((chunk.x * 32 + i % 32 >= map.Width || chunk.y * 32 + i / 32 >= map.Height) && chunk.cells[i] != 0)) throw new ArgumentException("Unknown terrain or nonempty cells outside map bounds."); // Reject hidden data beyond partial edge chunks.
                 map.chunks.Add(key, (ushort[])chunk.cells.Clone()); // Own the validated data without retaining caller aliases.
             } // Finish one chunk validation.
-            return map; // Publish the candidate only after all chunks have passed.
+            map.RestoreDoorConditions(source); return map; // Publish the candidate only after terrain and door conditions have passed.
         } // Finish transactional map loading.
     } // Finish the authoritative terrain owner.
 } // Finish sparse map storage.

@@ -1,4 +1,4 @@
-Latest build: [Occasional zombie wandering](ZOMBIE_WANDERING.md).
+Latest build: [Door damage and breaches](DOOR_DAMAGE.md).
 
 # Encounter setup
 

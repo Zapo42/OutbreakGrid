@@ -1,8 +1,4 @@
-Latest build: [Occasional zombie wandering](ZOMBIE_WANDERING.md).
-
-Latest build: [Encounter setup](ENCOUNTER_SETUP.md).
-
-Latest build: [Shelter recovery and safe exits](SHELTER_RECOVERY.md).
+Latest build: [Door damage and breaches](DOOR_DAMAGE.md).
 
 > Prototype 6 derives a bounded room catalog once from sparse authored floor tiles. Saved actors own destinations and rejection deadlines; doors mutate only the world's cloned terrain. An ephemeral terrain revision invalidates presentation and is rebuilt on load. Rule-generation dispatch preserves all earlier independent continuations. See SHELTERS_AND_DOORS.md.
 

@@ -1,3 +1,5 @@
+Latest build: [Door damage and breaches](DOOR_DAMAGE.md).
+
 # Occasional zombie wandering
 
 Current build: **Foundation 10 / zombie wandering**, rules `encounter-prototype-9`.

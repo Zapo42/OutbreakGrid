@@ -1,8 +1,8 @@
 # OutbreakGrid
 
-Current build: **Foundation 10 / zombie wandering**. Zombies occasionally shuffle when they have no visible human or active pursuit memory. See [test and update instructions](OutbreakRebuild/Docs/ZOMBIE_WANDERING.md).
+Current build: **Foundation 11 / door damage and breaches**. Pursuing zombies damage remembered blocking doors; broken doors stay open. See [test and update instructions](OutbreakRebuild/Docs/DOOR_DAMAGE.md).
 
-Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies now have a chance to wander.
+Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander and pursuing zombies can breach closed doors.
 
 ## Download and run
 
@@ -17,4 +17,4 @@ If buttons draw but do not respond, stop Play mode, set Active Input Handling to
 
 [Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
-New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 8/9 runs can opt in with **Enable zombie wandering**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 10 runs can opt in with **Enable door breaking**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
