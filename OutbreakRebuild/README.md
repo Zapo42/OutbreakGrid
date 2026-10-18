@@ -1,3 +1,5 @@
+Latest build: [Foundation 14 / human warnings](Docs/HUMAN_WARNINGS.md).
+
 # Current update: Shelters and doors
 
 Humans can choose enclosed floor-based rooms, reserve space, open doors, enter, close behind themselves and reassess observed internal danger. The main encounter now has two rooms. [Launch steps, exact limits, old-run upgrade and validation](Docs/SHELTERS_AND_DOORS.md). Door breaking is still pending.

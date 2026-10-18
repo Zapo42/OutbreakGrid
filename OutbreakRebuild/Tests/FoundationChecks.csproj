@@ -20,6 +20,7 @@
     <Compile Include="DoorDamageChecks.cs" />
     <Compile Include="DoorHearingChecks.cs" />
     <Compile Include="ZombieSoundChecks.cs" />
+    <Compile Include="HumanWarningChecks.cs" />
     <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

@@ -1,3 +1,5 @@
+Latest build: [Nearby human warnings](HUMAN_WARNINGS.md).
+
 # Zombie sound investigation
 
 Current build: **Foundation 13 / zombie sound investigation**, rules `encounter-prototype-12`.

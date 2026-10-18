@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 13 / zombie sound investigation**. Idle zombies investigate nearby door impacts, while visible and remembered humans retain priority. See [test and update instructions](OutbreakRebuild/Docs/ZOMBIE_SOUND.md).
+Current build: **Foundation 14 / human warnings**. Humans who see zombies warn nearby people, delaying shelter exits without revealing hidden zombie locations. See [test and update instructions](OutbreakRebuild/Docs/HUMAN_WARNINGS.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

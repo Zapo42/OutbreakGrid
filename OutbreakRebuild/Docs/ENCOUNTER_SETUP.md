@@ -1,4 +1,4 @@
-Latest build: [Zombie sound investigation](ZOMBIE_SOUND.md).
+Latest build: [Nearby human warnings](HUMAN_WARNINGS.md).
 
 # Encounter setup
 

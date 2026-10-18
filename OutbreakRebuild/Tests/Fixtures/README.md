@@ -33,3 +33,5 @@ Prototype-nine traces were independently executed from commit `afca45e`: Shelter
 Prototype-ten traces were independently executed from commit `e605a6d`: DoorBreach at tick 2, then 100 further ticks. This protects prior door damage and human behavior before impact hearing.
 
 Prototype-eleven traces were independently executed from commit `18248f7`: DoorBreach with an additional idle zombie at (7,2), captured after tick 2 and 80 more ticks. This protects the earlier human-only hearing behavior.
+
+Prototype 12: `encounter-v12-input.json` and `encounter-v12-expected.json` were independently generated from commit `a4bd4f8339eca6db6a70224559983c62f8d538f0`: ShelterArena, seed as authored, seven ticks before capture, eighty further ticks for the expected state. They verify pre-warning save continuation.

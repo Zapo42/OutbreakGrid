@@ -1,4 +1,6 @@
-Latest build: [Zombie sound investigation](ZOMBIE_SOUND.md).
+Latest build: [Nearby human warnings](HUMAN_WARNINGS.md).
+
+> Prototype 13 adds human warnings from current personal sight. Warning memory and cooldowns are saved separately from visual avoidance; acoustic delivery reuses the bounded door-impact frontier without random draws. Old prototype-12 runs retain their original behavior until explicitly upgraded. See HUMAN_WARNINGS.md.
 
 > Prototype 6 derives a bounded room catalog once from sparse authored floor tiles. Saved actors own destinations and rejection deadlines; doors mutate only the world's cloned terrain. An ephemeral terrain revision invalidates presentation and is rebuilt on load. Rule-generation dispatch preserves all earlier independent continuations. See SHELTERS_AND_DOORS.md.
 
