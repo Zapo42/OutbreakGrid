@@ -1,3 +1,5 @@
+Latest build: [Quiet door repair](DOOR_REPAIR.md).
+
 # Shelter after warnings
 
 Current build: **Foundation 17 / shelter after warnings**, rules `encounter-prototype-16`.

@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 17 / shelter after warnings**. Outdoor humans seek available shelter after hearing nearby warnings or door impacts. See [test and update instructions](OutbreakRebuild/Docs/WARNING_SHELTER.md).
+Current build: **Foundation 18 / quiet door repair**. Calm sheltered humans restore damaged doors from inside after danger passes; broken doors stay broken. See [test and update instructions](OutbreakRebuild/Docs/DOOR_REPAIR.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

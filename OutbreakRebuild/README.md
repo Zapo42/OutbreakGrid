@@ -1,4 +1,4 @@
-Latest build: [Foundation 17 / shelter after warnings](Docs/WARNING_SHELTER.md).
+Latest build: [Foundation 18 / quiet door repair](Docs/DOOR_REPAIR.md).
 
 # Current update: Shelters and doors
 

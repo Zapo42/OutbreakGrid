@@ -1,4 +1,6 @@
-Latest build: [Foundation 17 / shelter after warnings](WARNING_SHELTER.md).
+Latest build: [Foundation 18 / quiet door repair](DOOR_REPAIR.md).
+
+> Prototype 17 adds quiet door maintenance to normal sheltered human opportunities. It reuses sparse door health, saved shelter goals and existing hearing/stress state; repairs increment condition revision without changing collision or random streams. Earlier generations retain their original behavior. See DOOR_REPAIR.md.
 
 > Prototype 16 lets recent warning or door-impact hearing initiate the existing shelter planner. The existing bounded room catalog, admissions, routes and saved goals remain authoritative. No new actor fields or random streams are needed; rules dispatch preserves earlier behavior. See WARNING_SHELTER.md.
 

@@ -1,4 +1,4 @@
-Latest build: [Foundation 17 / shelter after warnings](WARNING_SHELTER.md).
+Latest build: [Foundation 18 / quiet door repair](DOOR_REPAIR.md).
 
 # Encounter setup
 

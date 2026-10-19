@@ -47,6 +47,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         { // Begin the fading-sighting fixture.
             SaveDocument saved = ShelterRecovery(true).Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors[0].stress = 100; saved.actors[1].targetId = saved.actors[0].id; saved.actors[1].lastSeenX = 5; saved.actors[1].lastSeenY = 5; saved.actors[1].searchUntilTick = 15; return World.Restore(saved); // Keep the hidden human sheltered while the zombie forgets the doorway after three simulation seconds.
         } // Finish idle wandering fixture.
+        public static World DoorRepairTest() // A calm occupant restores a damaged, closed door without rebuilding a breach.
+        { // Begin a quiet repair fixture.
+            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors = new[] { saved.actors[0] }; saved.actors[0].stress = 0; saved.actors[0].reaction = HumanReaction.Calm; WorldMap map = WorldMap.Restore(saved.map); map.SetDoorHealth(3, 2, 40); saved.map = map.Capture(); saved.map.name = "Quiet door repair test"; saved.map.id = "door-repair-1"; return World.Restore(saved); // The human spends its normal opportunities restoring five HP, then resumes calm shelter recovery.
+        } // Finish repair fixture.
         public static World WarningShelter() // An outdoor listener seeks cover without personally seeing the zombie.
         { // Begin an actual warning-triggered shelter route.
             WorldMap map = WorldMap.Restore(WarningAttraction().Capture().map); map.Set(3, 2, Terrain.Wall); map.Set(2, 3, Terrain.DoorClosed); World world = new World(map, 214, encounter: true); int id; world.TrySpawn(Species.Human, 6, 2, out id); world.TrySpawn(Species.Zombie, 9, 2, out id); world.TrySpawn(Species.Human, 2, 4, out id); SaveDocument saved = world.Capture(); saved.map.name = "Warning shelter test"; saved.map.id = "warning-shelter-1"; saved.actors[0].bravery = 3; return World.Restore(saved); // Witness #1 warns at tick one; listener #3 hears through the partition and chooses the empty room.
