@@ -32,12 +32,18 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     public enum StressLevel { Normal, Aware, Cautious, Alarmed, Afraid, Panicked } // Give the inspector the six retained stress labels.
     public enum ShelterState { None, Seeking, Inside } // Separate a chosen destination from confirmed entry into its floor region.
     public enum ShelterExitPhase { None, Approaching, Checking, Leaving } // Retain observed exit progress across saving and pausing.
+    [DataContract] public struct ShelfMemoryRecord // Preserve personal observations without tracking hidden stock changes.
+    {
+        [DataMember(IsRequired = true)] public int x, y, food; // Minus one means contents have not been searched or exposed.
+        [DataMember(IsRequired = true)] public long observedTick;
+    }
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
         [DataMember(IsRequired = true)] public Species species; // Store the actual biological state rather than a visual tint.
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
+        [DataMember(EmitDefaultValue = false)] public ShelfMemoryRecord[] shelfMemory; // At most eight personally observed shelves.
         [DataMember] public int hunger, carriedFood, foodX, foodY, homeShelterId; // Separate bodily need, carried inventory and a personally observed shelf.
         [DataMember] public long foodUntilTick; // Bound remembered shelf locations without tracking hidden stocks.
         [DataMember] public int bracedDoor; // Door cell key plus one; zero means no active physical brace.

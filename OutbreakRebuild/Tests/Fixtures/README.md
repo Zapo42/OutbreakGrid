@@ -47,3 +47,5 @@ Prototype 16: `encounter-v16-input.json` and `encounter-v16-expected.json` were 
 Prototype 17: `encounter-v17-input.json` and `encounter-v17-expected.json` were independently generated from commit `2da1203597dd8f1d2975d2f3b64b65e9d41a23db`: DoorRepairTest at tick 10 and 100 further ticks. They protect quiet repair and ordinary shelter departure before hunger/inventory behavior.
 
 Prototype 18: `encounter-v18-input.json` and `encounter-v18-expected.json` were generated independently from commit `8cd9960da41b6a8087d7a211bcae28157a87aa1a`: a supplied and a hungry occupant in the four-floor sharing room, captured at tick 0 and after 100 ticks. They protect independent hunger/inventories before sharing.
+
+Prototype 19: `encounter-v19-input.json` and `encounter-v19-expected.json` were independently generated from commit `a0813a3fee1f64d71eb28341f2222cd70ee4f4db`: HungerForaging at tick 41 and 150 further ticks. They protect prior food target and inventory continuation before personal shelf notebooks.

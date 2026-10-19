@@ -1,4 +1,6 @@
-Latest build: [Foundation 20 / sharing food](FOOD_SHARING.md).
+Latest build: [Foundation 21 / remembered shelves](SHELF_MEMORY.md).
+
+> Prototype 20 stores up to eight personal shelf observations per human with bounded age, stable ordering and deterministic replacement. Observation, searching and depletion update personal beliefs; hidden stocks never refresh notes. ActorAt, capture and restore detach value-record arrays to preserve world ownership. Longer remembered trips reuse bounded local routes through waypoints. Earlier rules retain single-target memory. See SHELF_MEMORY.md.
 
 > Prototype 19 resolves adjacent food transfers on normal donor opportunities. It reuses carried inventory and personal perception, selects greatest need with stable identity ties, and transfers one meal without extra random draws or new save fields. Rules dispatch preserves separate inventories in earlier food saves. See FOOD_SHARING.md.
 

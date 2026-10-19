@@ -1,3 +1,5 @@
+Latest build: [Remembered shelves](SHELF_MEMORY.md).
+
 # Sharing food
 
 Current build: **Foundation 20 / sharing food**, rules `encounter-prototype-19`.

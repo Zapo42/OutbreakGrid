@@ -1,4 +1,4 @@
-Latest build: [Foundation 20 / sharing food](Docs/FOOD_SHARING.md).
+Latest build: [Foundation 21 / remembered shelves](Docs/SHELF_MEMORY.md).
 
 # Current update: Shelters and doors
 

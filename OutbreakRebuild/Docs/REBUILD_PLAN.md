@@ -1,4 +1,4 @@
-Latest build: [Foundation 20 / sharing food](FOOD_SHARING.md).
+Latest build: [Foundation 21 / remembered shelves](SHELF_MEMORY.md).
 
 > Current milestone: prototype 6 adds small enclosed room discovery, persistent destinations/capacity, human door use, unsafe-room reassessment and evacuation. It does not complete global navigation, knowledge, building metadata or door durability/breaching. See SHELTERS_AND_DOORS.md.
 

@@ -1,4 +1,4 @@
-Latest build: [Foundation 20 / sharing food](FOOD_SHARING.md).
+Latest build: [Foundation 21 / remembered shelves](SHELF_MEMORY.md).
 
 # Encounter setup
 
