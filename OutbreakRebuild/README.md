@@ -1,4 +1,4 @@
-Latest build: [Foundation 22 / sharing shelf reports](Docs/SHELF_REPORTS.md).
+Latest build: [Foundation 23 / pantry storage](Docs/PANTRY_STORAGE.md).
 
 # Current update: Shelters and doors
 
