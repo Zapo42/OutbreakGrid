@@ -16,7 +16,7 @@ Humans now have a reason to stay in supplied rooms and leave empty ones. Hunger 
 6. Compare **Inspect Timid Forager Paused**: hunger and initial stress are identical, but lower bravery keeps this human inside at tick 50. It makes its trip later as stress falls and hunger rises.
 7. Try **Inspect Stocked Shelter Paused → Step 10 ticks**: the human searches the shelf inside its room, eats and stays sheltered.
 
-Golden blocks are solid shelves. Click one to inspect it: contents are **unknown until searched**. After a search, the inspector shows remaining meals; a searched-empty shelf becomes grey. The actual human must reach an adjacent cell and spend an action to search. Clicking furniture only inspects it.
+In Foundation 22, gold shelves contain stock and grey shelves are empty. Click a shelf to inspect its actual stock and human search state; these player diagnostics do not grant contents knowledge to humans. See [the empty-shelf display correction](SHELF_REPORTS.md). The actual human must reach an adjacent cell and spend an action to search. Clicking furniture only inspects it.
 
 ## Add shelves to a map
 

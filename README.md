@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 21 / remembered shelves**. Humans remember food and empty shelves, revisit known supplies and correct stale beliefs through personal sight. See [test and update instructions](OutbreakRebuild/Docs/SHELF_MEMORY.md).
+Current build: **Foundation 22 / sharing shelf reports**. Humans share dated food/empty-shelf discoveries with nearby people. Empty shelf placements now appear grey and explicitly show zero stock. See [test and update instructions](OutbreakRebuild/Docs/SHELF_REPORTS.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

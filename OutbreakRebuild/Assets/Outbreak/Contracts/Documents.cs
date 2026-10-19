@@ -36,6 +36,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired = true)] public int x, y, food; // Minus one means contents have not been searched or exposed.
         [DataMember(IsRequired = true)] public long observedTick;
+        [DataMember] public int reportedBy; // Zero means personal sight; a report retains its source observation age.
     }
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.

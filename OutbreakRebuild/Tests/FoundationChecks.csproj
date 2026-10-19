@@ -28,6 +28,7 @@
     <Compile Include="HungerChecks.cs" />
     <Compile Include="FoodSharingChecks.cs" />
     <Compile Include="ShelfMemoryChecks.cs" />
+    <Compile Include="ShelfReportChecks.cs" />
     <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

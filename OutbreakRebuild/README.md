@@ -1,4 +1,4 @@
-Latest build: [Foundation 21 / remembered shelves](Docs/SHELF_MEMORY.md).
+Latest build: [Foundation 22 / sharing shelf reports](Docs/SHELF_REPORTS.md).
 
 # Current update: Shelters and doors
 

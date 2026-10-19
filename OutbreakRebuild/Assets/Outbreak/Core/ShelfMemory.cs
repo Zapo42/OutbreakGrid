@@ -48,7 +48,7 @@ namespace Outbreak.Core
         }
         private void ValidateShelfMemory()
         {
-            for (int i=0;i<count;i++) { ActorState actor=actors[i]; if(actor.shelfMemory==null)continue;if(!ShelfMemoryEnabled || actor.species!=Species.Human || actor.shelfMemory.Length==0 || actor.shelfMemory.Length>ShelfMemoryRules.Limit)throw new ArgumentException("Unsupported shelf memory.");int previous=-1;foreach(ShelfMemoryRecord note in actor.shelfMemory){if(map.ShelfAt(note.x,note.y)==null || note.food < -1 || note.food>1000 || note.observedTick<0 || note.observedTick>Tick || Tick-note.observedTick>=ShelfMemoryRules.RememberTicks || Key(note.x,note.y)<=previous)throw new ArgumentException("Invalid personal shelf observation.");previous=Key(note.x,note.y);} }
+            for (int i=0;i<count;i++) { ActorState actor=actors[i]; if(actor.shelfMemory==null)continue;if(!ShelfMemoryEnabled || actor.species!=Species.Human || actor.shelfMemory.Length==0 || actor.shelfMemory.Length>ShelfMemoryRules.Limit)throw new ArgumentException("Unsupported shelf memory.");int previous=-1;foreach(ShelfMemoryRecord note in actor.shelfMemory){if(map.ShelfAt(note.x,note.y)==null || note.food < -1 || note.food>1000 || note.reportedBy<0 || (note.reportedBy>0 && (!ShelfReports || note.reportedBy==actor.id || note.reportedBy>=nextId)) || note.observedTick<0 || note.observedTick>Tick || Tick-note.observedTick>=ShelfMemoryRules.RememberTicks || Key(note.x,note.y)<=previous)throw new ArgumentException("Invalid personal shelf observation.");previous=Key(note.x,note.y);} }
         }
     }
 }

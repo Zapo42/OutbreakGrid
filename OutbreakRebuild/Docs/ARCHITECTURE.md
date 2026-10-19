@@ -1,4 +1,6 @@
-Latest build: [Foundation 21 / remembered shelves](SHELF_MEMORY.md).
+Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
+
+> Prototype 21 copies useful dated shelf facts through safe adjacent conversations. A reportedBy identity distinguishes hearsay from personal observation; original timestamps and bounded notebook replacement remain authoritative. Only direct observations can be shared, preventing relay freshness loops. Player shelf colours/counts now expose actual authoring stock while AI observations remain independent. See SHELF_REPORTS.md.
 
 > Prototype 20 stores up to eight personal shelf observations per human with bounded age, stable ordering and deterministic replacement. Observation, searching and depletion update personal beliefs; hidden stocks never refresh notes. ActorAt, capture and restore detach value-record arrays to preserve world ownership. Longer remembered trips reuse bounded local routes through waypoints. Earlier rules retain single-target memory. See SHELF_MEMORY.md.
 

@@ -47,6 +47,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         { // Begin the fading-sighting fixture.
             SaveDocument saved = ShelterRecovery(true).Capture(); saved.rulesVersion = EncounterRules.RepairVersion; saved.actors[0].stress = 100; saved.actors[1].targetId = saved.actors[0].id; saved.actors[1].lastSeenX = 5; saved.actors[1].lastSeenY = 5; saved.actors[1].searchUntilTick = 15; return World.Restore(saved); // Keep the hidden human sheltered while the zombie forgets the doorway after three simulation seconds.
         } // Finish idle wandering fixture.
+        public static World ShelfReportTest() // A fed witness points a hungry neighbor toward supplies now hidden by a door.
+        {
+            SaveDocument saved=ShelfMemoryTest().Capture(); saved.rulesVersion=EncounterRules.Version; saved.actors[0].hunger=10; saved.actors[0].carriedFood=1; World world=World.Restore(saved); int id; world.TrySpawn(Species.Human,2,5,out id); saved=world.Capture(); saved.actors[1].hunger=80; saved.actors[1].bravery=3; saved.tick=30; return World.Restore(saved); // The speaker keeps its last meal and shares dated knowledge instead.
+        }
         public static World ShelfMemoryTest() // Revisit actual earlier discoveries after the supply door has closed.
         {
             WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.

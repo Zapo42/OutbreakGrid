@@ -49,3 +49,5 @@ Prototype 17: `encounter-v17-input.json` and `encounter-v17-expected.json` were 
 Prototype 18: `encounter-v18-input.json` and `encounter-v18-expected.json` were generated independently from commit `8cd9960da41b6a8087d7a211bcae28157a87aa1a`: a supplied and a hungry occupant in the four-floor sharing room, captured at tick 0 and after 100 ticks. They protect independent hunger/inventories before sharing.
 
 Prototype 19: `encounter-v19-input.json` and `encounter-v19-expected.json` were independently generated from commit `a0813a3fee1f64d71eb28341f2222cd70ee4f4db`: HungerForaging at tick 41 and 150 further ticks. They protect prior food target and inventory continuation before personal shelf notebooks.
+
+Prototype 20: `encounter-v20-input.json` and `encounter-v20-expected.json` were independently generated from commit `6609857a90818d2c9235b71faee71f74d84495d1`: ShelfMemoryTest at tick 26 and 100 further ticks. They protect personal-only notebook behavior before conversations.

@@ -1,3 +1,5 @@
+Latest build: [Shelf reports and empty-shelf display fix](SHELF_REPORTS.md).
+
 # Remembered shelves
 
 Current build: **Foundation 21 / remembered shelves**, rules `encounter-prototype-20`.

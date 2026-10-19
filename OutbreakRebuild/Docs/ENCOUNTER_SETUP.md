@@ -1,4 +1,4 @@
-Latest build: [Foundation 21 / remembered shelves](SHELF_MEMORY.md).
+Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
 
 # Encounter setup
 
