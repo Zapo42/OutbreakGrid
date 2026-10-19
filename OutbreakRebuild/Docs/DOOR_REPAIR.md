@@ -1,3 +1,5 @@
+Latest build: [Hunger, food inventory and shelves](HUNGER_INVENTORY.md).
+
 # Quiet door repair
 
 Current build: **Foundation 18 / quiet door repair**, rules `encounter-prototype-17`.

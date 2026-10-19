@@ -1,4 +1,6 @@
-Latest build: [Foundation 18 / quiet door repair](DOOR_REPAIR.md).
+Latest build: [Foundation 19 / hunger, inventory and shelves](HUNGER_INVENTORY.md).
+
+> Prototype 18 adds bodily hunger, finite carried food, observed shelf memory and a return shelter ID to actor saves. Sparse schema-3 furniture owns finite stocks and search state; shelves participate in collision and use canonical serialization. Foraging reuses bounded shelter routes and personal perception. Configured runs enable needs explicitly, while controlled legacy diagnostics retain their earlier behavior. No new random stream or global food-location knowledge is introduced. See HUNGER_INVENTORY.md.
 
 > Prototype 17 adds quiet door maintenance to normal sheltered human opportunities. It reuses sparse door health, saved shelter goals and existing hearing/stress state; repairs increment condition revision without changing collision or random streams. Earlier generations retain their original behavior. See DOOR_REPAIR.md.
 

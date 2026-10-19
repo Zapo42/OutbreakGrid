@@ -11,6 +11,11 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     { // Begin sparse door condition.
         [DataMember(IsRequired = true)] public int x, y, health; // Zero health means a permanently open broken door.
     } // Finish door condition.
+    [DataContract] public sealed class ShelfDocument // Persist finite food stocks and whether the shelf has been searched.
+    {
+        [DataMember(IsRequired = true)] public int x, y, food;
+        [DataMember] public bool searched;
+    }
     [DataContract] public sealed class MapDocument // Separate starting terrain from an ongoing simulation save.
     { // Begin the shared map format.
         [DataMember(IsRequired = true)] public string kind = "outbreak.map"; // Refuse to interpret unrelated documents as maps.
@@ -18,6 +23,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public string id = "", name = "Untitled"; // Keep stable identity separate from a display name.
         [DataMember(IsRequired = true)] public int width, height, chunkSize = 32; // Support variable dimensions without dense world allocations.
         [DataMember(IsRequired = true)] public ChunkDocument[] chunks = new ChunkDocument[0]; // Serialize chunks in canonical coordinate order.
+        [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.
     } // Finish the shared map format.
@@ -32,6 +38,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public Species species; // Store the actual biological state rather than a visual tint.
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
+        [DataMember] public int hunger, carriedFood, foodX, foodY, homeShelterId; // Separate bodily need, carried inventory and a personally observed shelf.
+        [DataMember] public long foodUntilTick; // Bound remembered shelf locations without tracking hidden stocks.
         [DataMember] public int bracedDoor; // Door cell key plus one; zero means no active physical brace.
         [DataMember] public long braceUntilTick; // Require a fresh action every five ticks.
         [DataMember] public int heardWarningX, heardWarningY; // Remember the speaker cell rather than a hidden zombie.

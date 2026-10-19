@@ -45,11 +45,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         } // Finish recovery fixture.
         public static World ZombieWandering() // Observe a remembered doorway followed by chance-based idle movement.
         { // Begin the fading-sighting fixture.
-            SaveDocument saved = ShelterRecovery(true).Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors[0].stress = 100; saved.actors[1].targetId = saved.actors[0].id; saved.actors[1].lastSeenX = 5; saved.actors[1].lastSeenY = 5; saved.actors[1].searchUntilTick = 15; return World.Restore(saved); // Keep the hidden human sheltered while the zombie forgets the doorway after three simulation seconds.
+            SaveDocument saved = ShelterRecovery(true).Capture(); saved.rulesVersion = EncounterRules.RepairVersion; saved.actors[0].stress = 100; saved.actors[1].targetId = saved.actors[0].id; saved.actors[1].lastSeenX = 5; saved.actors[1].lastSeenY = 5; saved.actors[1].searchUntilTick = 15; return World.Restore(saved); // Keep the hidden human sheltered while the zombie forgets the doorway after three simulation seconds.
         } // Finish idle wandering fixture.
+        public static World HungerForaging(int bravery = 3, bool stockedRoom = false) // Compare risk tolerance without granting any hidden zombie knowledge.
+        { // Begin a portable supply run from an empty room.
+            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors = new[] { saved.actors[0] }; saved.actors[0].hunger = 80; saved.actors[0].stress = 35; saved.actors[0].bravery = bravery; saved.actors[0].reaction = HumanReaction.Aware; WorldMap map = WorldMap.Restore(saved.map); map.SetShelf(6, 2, 6); if (stockedRoom) { map.Set(2, 3, Terrain.Floor); map.Set(2, 4, Terrain.Wall); map.SetShelf(2, 3, 6); saved.actors[0].stress = 0; } saved.map = map.Capture(); saved.map.name = "Hunger and shelves test"; saved.map.id = "hunger-shelves-1"; return World.Restore(saved); // Shelf contents remain unsearched until a human spends an action beside them.
+        } // Finish hunger diagnostic.
         public static World DoorRepairTest() // A calm occupant restores a damaged, closed door without rebuilding a breach.
         { // Begin a quiet repair fixture.
-            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.Version; saved.actors = new[] { saved.actors[0] }; saved.actors[0].stress = 0; saved.actors[0].reaction = HumanReaction.Calm; WorldMap map = WorldMap.Restore(saved.map); map.SetDoorHealth(3, 2, 40); saved.map = map.Capture(); saved.map.name = "Quiet door repair test"; saved.map.id = "door-repair-1"; return World.Restore(saved); // The human spends its normal opportunities restoring five HP, then resumes calm shelter recovery.
+            SaveDocument saved = DoorBreach().Capture(); saved.rulesVersion = EncounterRules.RepairVersion; saved.actors = new[] { saved.actors[0] }; saved.actors[0].stress = 0; saved.actors[0].reaction = HumanReaction.Calm; WorldMap map = WorldMap.Restore(saved.map); map.SetDoorHealth(3, 2, 40); saved.map = map.Capture(); saved.map.name = "Quiet door repair test"; saved.map.id = "door-repair-1"; return World.Restore(saved); // The human spends its normal opportunities restoring five HP, then resumes calm shelter recovery.
         } // Finish repair fixture.
         public static World WarningShelter() // An outdoor listener seeks cover without personally seeing the zombie.
         { // Begin an actual warning-triggered shelter route.
@@ -73,7 +77,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         } // Finish sound investigation fixture.
         public static World WarningAttraction() // An idle zombie hears a witness through a blocking doorway.
         { // Begin a controlled sound-only approach.
-            SaveDocument saved = HumanWarning().Capture(); saved.rulesVersion = EncounterRules.Version; WorldMap map = WorldMap.Restore(saved.map); for (int y = 1; y <= 6; y++) map.Set(4, y, Terrain.Wall); map.Set(4, 4, Terrain.DoorClosed); saved.map = map.Capture(); World world = World.Restore(saved); int id; world.TrySpawn(Species.Zombie, 2, 4, out id); return world; // Zombie #4 can hear the witness at 6,2 but cannot see through the partition or attack from hearing alone.
+            SaveDocument saved = HumanWarning().Capture(); saved.rulesVersion = EncounterRules.RepairVersion; WorldMap map = WorldMap.Restore(saved.map); for (int y = 1; y <= 6; y++) map.Set(4, y, Terrain.Wall); map.Set(4, 4, Terrain.DoorClosed); saved.map = map.Capture(); World world = World.Restore(saved); int id; world.TrySpawn(Species.Zombie, 2, 4, out id); return world; // Zombie #4 can hear the witness at 6,2 but cannot see through the partition or attack from hearing alone.
         } // Finish warning-attraction fixture.
         public static World HumanWarning() // Warn a sheltered listener about a zombie seen only by a nearby witness.
         { // Begin a closed-door communication fixture.

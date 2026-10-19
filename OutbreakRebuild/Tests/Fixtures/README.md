@@ -43,3 +43,5 @@ Prototype 14: `encounter-v14-input.json` and `encounter-v14-expected.json` were 
 Prototype 15: `encounter-v15-input.json` and `encounter-v15-expected.json` were independently generated from commit `0d3f189ec16a4d2beac689ea120283c438e3ef4e`: DoorBrace at tick 6 and 80 further ticks. They protect prior bracing behavior before heard danger could initiate shelter seeking.
 
 Prototype 16: `encounter-v16-input.json` and `encounter-v16-expected.json` were generated independently from commit `103c898a0032ffe61658ee3fdef3ea19b0d6e874`: WarningShelter at tick 3 and 80 further ticks. They protect prior warning-triggered shelter behavior before maintenance was enabled.
+
+Prototype 17: `encounter-v17-input.json` and `encounter-v17-expected.json` were independently generated from commit `2da1203597dd8f1d2975d2f3b64b65e9d41a23db`: DoorRepairTest at tick 10 and 100 further ticks. They protect quiet repair and ordinary shelter departure before hunger/inventory behavior.

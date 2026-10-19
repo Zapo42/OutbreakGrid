@@ -1,4 +1,4 @@
-Latest build: [Foundation 18 / quiet door repair](Docs/DOOR_REPAIR.md).
+Latest build: [Foundation 19 / hunger, inventory and shelves](Docs/HUNGER_INVENTORY.md).
 
 # Current update: Shelters and doors
 

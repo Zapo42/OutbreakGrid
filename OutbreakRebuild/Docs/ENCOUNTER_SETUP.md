@@ -1,4 +1,4 @@
-Latest build: [Foundation 18 / quiet door repair](DOOR_REPAIR.md).
+Latest build: [Foundation 19 / hunger, inventory and shelves](HUNGER_INVENTORY.md).
 
 # Encounter setup
 

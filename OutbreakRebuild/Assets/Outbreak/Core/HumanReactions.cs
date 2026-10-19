@@ -16,7 +16,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
-            ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
+            ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
         } // Finish human-state cleanup.
         private void AdvanceReactionTimers(ref ActorState actor) // Complete deadlines even on ticks without an actor decision.
         { // Begin exact deadline handling.
@@ -58,6 +58,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
         { // Begin a complete human decision.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
+            int foodDirection; if (HungerEnabled && TryForage(index, ref actor, threatIndex, out foodDirection)) return foodDirection;
             int shelterDirection; if (SheltersEnabled && TryShelter(index, ref actor, threatIndex, out shelterDirection)) return shelterDirection; // Retain a reachable room goal before falling back to local escape.
             if (InfectedEscape && actor.turnAtTick > Tick) return ReactInfected(index, actor, threatIndex); // Infection overrides fighting, freezing and wandering before any normal courage decision.
             if (threatIndex < 0) { actor.stress = Math.Max(0, actor.stress - RecoveryAfterDoorNoise(actor)); actor.threatPressure = 0; actor.reaction = actor.stress == 0 ? HumanReaction.Calm : HumanReaction.Aware; actor.freezeUntilTick = 0; if (actor.stress == 0) actor.freezeResolved = false; actors[index] = actor; return (HasRecentDoorNoise(actor) || HasRecentWarning(actor)) ? 8 : random.Below(9); } // Recover without sight of danger; this is not yet a shelter/hiding planner.
