@@ -1,4 +1,4 @@
-Latest build: [Foundation 23 / pantry storage](Docs/PANTRY_STORAGE.md).
+Latest build: [Foundation 24 / pantry trips](Docs/PANTRY_TRIPS.md).
 
 # Current update: Shelters and doors
 
