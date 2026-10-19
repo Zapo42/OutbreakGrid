@@ -1,4 +1,4 @@
-Latest build: [Foundation 19 / hunger, inventory and shelves](HUNGER_INVENTORY.md).
+Latest build: [Foundation 20 / sharing food](FOOD_SHARING.md).
 
 # Encounter setup
 

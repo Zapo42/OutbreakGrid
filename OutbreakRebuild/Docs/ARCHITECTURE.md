@@ -1,4 +1,6 @@
-Latest build: [Foundation 19 / hunger, inventory and shelves](HUNGER_INVENTORY.md).
+Latest build: [Foundation 20 / sharing food](FOOD_SHARING.md).
+
+> Prototype 19 resolves adjacent food transfers on normal donor opportunities. It reuses carried inventory and personal perception, selects greatest need with stable identity ties, and transfers one meal without extra random draws or new save fields. Rules dispatch preserves separate inventories in earlier food saves. See FOOD_SHARING.md.
 
 > Prototype 18 adds bodily hunger, finite carried food, observed shelf memory and a return shelter ID to actor saves. Sparse schema-3 furniture owns finite stocks and search state; shelves participate in collision and use canonical serialization. Foraging reuses bounded shelter routes and personal perception. Configured runs enable needs explicitly, while controlled legacy diagnostics retain their earlier behavior. No new random stream or global food-location knowledge is introduced. See HUNGER_INVENTORY.md.
 

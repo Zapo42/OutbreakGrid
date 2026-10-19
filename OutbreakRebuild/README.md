@@ -1,4 +1,4 @@
-Latest build: [Foundation 19 / hunger, inventory and shelves](Docs/HUNGER_INVENTORY.md).
+Latest build: [Foundation 20 / sharing food](Docs/FOOD_SHARING.md).
 
 # Current update: Shelters and doors
 

@@ -58,6 +58,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
         { // Begin a complete human decision.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
+            if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.
             int foodDirection; if (HungerEnabled && TryForage(index, ref actor, threatIndex, out foodDirection)) return foodDirection;
             int shelterDirection; if (SheltersEnabled && TryShelter(index, ref actor, threatIndex, out shelterDirection)) return shelterDirection; // Retain a reachable room goal before falling back to local escape.
             if (InfectedEscape && actor.turnAtTick > Tick) return ReactInfected(index, actor, threatIndex); // Infection overrides fighting, freezing and wandering before any normal courage decision.

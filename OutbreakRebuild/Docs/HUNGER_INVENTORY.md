@@ -1,3 +1,5 @@
+Latest build: [Sharing food](FOOD_SHARING.md).
+
 # Hunger, food inventory and searchable shelves
 
 Current build: **Foundation 19 / hunger, inventory and shelves**, rules `encounter-prototype-18`.
