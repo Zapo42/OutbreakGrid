@@ -1,4 +1,4 @@
-Latest build: [Foundation 24 / pantry trips](Docs/PANTRY_TRIPS.md).
+Latest build: [Foundation 25 / food delivery](Docs/FOOD_DELIVERY.md).
 
 # Current update: Shelters and doors
 
