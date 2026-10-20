@@ -11,6 +11,7 @@ namespace Outbreak.Core
     public static class MeleeRules
     {
         public const int CooldownTicks=10, MaxPickups=4096;
+        public static int HitsPerLevel(int skill){return 3+skill;} // Successful hits needed for the next level; higher levels take more practice.
         public static int Damage(ActorState actor){return 8+2*actor.strength+2*actor.bluntSkill;}
         public static int Accuracy(ActorState actor,ActorState target){return Math.Max(10,Math.Min(95,55+2*(actor.strength+actor.perception+actor.agility)+3*actor.bluntSkill-2*target.agility-actor.stress/5));}
     }
@@ -83,6 +84,7 @@ namespace Outbreak.Core
             bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id);
             if(!hit)return; // A missed swing still consumes its action and cooldown.
             zombie.health=Math.Max(0,zombie.health-MeleeRules.Damage(human));
+            if(CombatExperience && human.bluntSkill<10){human.bluntPractice++;if(human.bluntPractice>=MeleeRules.HitsPerLevel(human.bluntSkill)){human.bluntPractice=0;human.bluntSkill++;}actors[humanIndex]=human;} // Apply learning after damage: the next swing benefits, including when this hit was fatal.
             if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;return;}
             zombie.staggerUntilTick=Tick+HumanRules.ShoveTicks;
             int x=zombie.x+Math.Sign(zombie.x-human.x),y=zombie.y+Math.Sign(zombie.y-human.y);
@@ -94,6 +96,7 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 ActorState actor=actors[i];if(actor.meleeWeapon<MeleeWeapon.None || actor.meleeWeapon>MeleeWeapon.Bat || actor.bluntSkill<0 || actor.bluntSkill>10 || (!MeleeCombat && (actor.meleeWeapon!=MeleeWeapon.None || actor.bluntSkill!=0 || actor.nextMeleeTick!=0 || actor.health==0)))throw new ArgumentException("Invalid melee equipment or skill.");
+                if(actor.bluntPractice<0 || actor.bluntPractice>=MeleeRules.HitsPerLevel(actor.bluntSkill) || (actor.bluntPractice!=0 && (!CombatExperience || actor.bluntSkill==10)))throw new ArgumentException("Invalid blunt practice progress.");
                 if(actor.nextMeleeTick<0 || (actor.nextMeleeTick!=0 && (actor.species!=Species.Human || actor.meleeWeapon!=MeleeWeapon.Bat || actor.nextMeleeTick<=Tick || actor.nextMeleeTick-Tick>MeleeRules.CooldownTicks)))throw new ArgumentException("Invalid melee cooldown.");
                 if(actor.health==0 && (actor.species!=Species.Zombie || actor.targetId!=0 || actor.staggerUntilTick!=0 || actor.heardSearchUntilTick!=0 || actor.heardDoorUntilTick!=0 || actor.heardWarningUntilTick!=0))throw new ArgumentException("Defeated zombie retained active behavior.");
             }

@@ -1,4 +1,4 @@
-Latest build: [Foundation 46 / quick swings and weapon seeking](Docs/QUICK_SWINGS_AND_WEAPON_SEEKING.md).
+Latest build: [Foundation 47 / blunt weapon experience](Docs/COMBAT_EXPERIENCE.md).
 
 # Current update: Shelters and doors
 
