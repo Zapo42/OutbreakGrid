@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 42 / deliberate food exploration"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 43 / food scarcity trial"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
@@ -143,6 +143,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
             GUILayout.EndHorizontal(); // Finish controlled reaction choices.
+            if (GUILayout.Button("Inspect Food Scarcity Trial Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.FoodScarcityTrial()); status = "Twelve humans, four rooms and 24 meals, with no zombies. Use Step 1 game hour in the food overview. Three hours consumes the starting food; keep stepping to watch the shortage develop."; }));
             if (GUILayout.Button("Inspect Food Exploration Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.FoodExplorationTest()); status = "The known outdoor shelf is empty. Step 1 tick, then Next hungry human: purple marks a room investigation. Step 100 ticks, then Step 50 ticks to watch the human check the empty left room and discover food in the right room."; }));
             if (GUILayout.Button("Inspect Food Yield Choices Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.FoodYieldChoiceTest()); status = "The closer shelf has one exposed meal; the other has six, one extra walking step away. Step 1 tick, then Next hungry human to see the choice. Step 50 ticks to see pickup and eating."; }));
             if (GUILayout.Button("Inspect Alternate Food Shelter Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.AlternateFoodShelterTest()); status = "The original shelter on the left is full. Step 1 tick, then Next hungry human: the stressed forager heads to the room on the right. Step 50 ticks to see it inside with the door closed and shelf untouched."; }));
@@ -274,9 +275,13 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUILayout.Label("Humans: " + food.Humans + " | Infected: " + food.Infected);
                 GUILayout.Label("Hungry (40+): " + food.Hungry + "\nVery hungry (80+): " + food.VeryHungry);
                 GUILayout.Label("Food trips: " + food.SeekingFood + " | Searching: " + food.Searching);
+                GUILayout.Label("Investigating rooms: " + food.InvestigatingRooms);
                 GUILayout.Label("Meals: carried " + food.CarriedMeals + " | shelves " + food.ShelfMeals);
+                GUILayout.Label(food.RemainingMeals==0?"Food supply exhausted":"Food remaining: "+food.RemainingMeals+" meals");
                 GUILayout.Label("Shelves: stocked " + food.StockedShelves + " | empty " + food.EmptyShelves + "\nUnsearched shelves: " + food.UnsearchedShelves);
-                bool overviewEnabled=GUI.enabled;GUI.enabled=overviewEnabled && food.Hungry>0;
+                bool overviewEnabled=GUI.enabled;GUI.enabled=overviewEnabled && clock.Paused && world.Count>0;
+                if(GUILayout.Button(new GUIContent("Step 1 game hour","Advance 600 ticks using ordinary simulation actions and remain paused.")))Queue(()=>clock.StepTicks(TickClock.MaxManualTicks,StepWorld));
+                GUI.enabled=overviewEnabled && food.Hungry>0;
                 if(GUILayout.Button(new GUIContent("Next hungry human","Pause and focus the next human at hunger 40+, in stable identity order.")))Queue(FocusNextHungryHuman);
                 GUI.enabled=overviewEnabled && food.StockedShelves>0;
                 if(GUILayout.Button(new GUIContent("Next stocked shelf","Pause and focus the next shelf with food, including unsearched stock in the map overview.")))Queue(FocusNextStockedShelf);

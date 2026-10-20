@@ -3,6 +3,7 @@ namespace Outbreak.Core // Keep scheduling testable without running Unity.
 { // Begin fixed tick scheduling.
     public sealed class TickClock // Convert real frame time to a bounded number of exact logical ticks.
     { // Begin the scheduler.
+        public const int MaxManualTicks=600; // One game hour, with the same authoritative tick path as ordinary playback.
         private double accumulated; // Keep unprocessed time as debt instead of silently skipping simulation ticks.
         public bool Paused { get; private set; } = true; public double Speed { get; private set; } = 1; // Start paused so fixtures can be inspected before running.
         public double DebtSeconds { get { return accumulated; } } // Make catch-up pressure visible to diagnostics.
@@ -21,7 +22,7 @@ namespace Outbreak.Core // Keep scheduling testable without running Unity.
         } // Finish one frame scheduling pass.
         public void StepTicks(int ticks, Action step) // Offer exact bounded batches without changing playback speed.
         { // Begin manual stepping validation.
-            if (!Paused || step == null) throw new InvalidOperationException("Pause before stepping."); if (ticks < 1 || ticks > 100) throw new ArgumentOutOfRangeException("ticks"); for (int i = 0; i < ticks; i++) step(); accumulated = 0; // Execute every requested tick and remain paused.
+            if (!Paused || step == null) throw new InvalidOperationException("Pause before stepping."); if (ticks < 1 || ticks > MaxManualTicks) throw new ArgumentOutOfRangeException("ticks"); for (int i = 0; i < ticks; i++) step(); accumulated = 0; // Execute every requested tick and remain paused.
         } // Finish one manual stepping command.
         public void StepTen(Action step) { StepTicks(10, step); } // Preserve existing callers of the original ten-tick control.
     } // Finish the scheduler.

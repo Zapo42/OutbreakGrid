@@ -74,6 +74,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World FoodScarcityTrial(uint seed=214)
+        {
+            WorldMap map=new WorldMap(22,23,"Food scarcity trial","food-scarcity-trial-1");
+            for(int y=0;y<23;y++)for(int x=0;x<22;x++)if(x==0 || y==0 || x==21 || y==22)map.Set(x,y,Terrain.Wall);
+            foreach(int top in new[]{2,13}){AddShelterRoom(map,1,top,false);AddShelterRoom(map,11,top,false);map.Set(15,top+3,Terrain.Wall);map.Set(11,top+3,Terrain.DoorClosed);}
+            map.SetShelf(4,3,6);map.SetShelf(13,3,6);map.SetShelf(4,14,0);map.SetShelf(13,14,6);map.SetShelf(8,7,6,true);map.SetShelf(9,9,0,true);
+            World world=new World(map,seed,encounter:true,hunger:true);int id;for(int i=0;i<12;i++)if(!world.TrySpawn(Species.Human,6+2*(i%3),9+2*(i/3),out id))throw new System.InvalidOperationException("Food scarcity trial spawn was blocked.");
+            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){saved.actors[i].hunger=60+10*(i%3);saved.actors[i].bravery=3*(i%3-1);}return World.Restore(saved);
+        }
         public static World FoodExplorationTest()
         {
             WorldMap map=new WorldMap(20,12,"Food exploration test","food-exploration-1");AddShelterRoom(map,1,2,false);AddShelterRoom(map,10,2,false);map.Set(14,5,Terrain.Wall);map.Set(10,5,Terrain.DoorClosed);map.SetShelf(7,7,0,true);map.SetShelf(12,3,6);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,7,5,out id);SaveDocument saved=world.Capture();saved.actors[0].hunger=80;saved.actors[0].bravery=3;return World.Restore(saved);

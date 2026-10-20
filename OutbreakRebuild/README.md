@@ -1,4 +1,4 @@
-Latest build: [Foundation 42 / deliberate food exploration](Docs/FOOD_EXPLORATION.md).
+Latest build: [Foundation 43 / food scarcity trial](Docs/FOOD_SCARCITY_TRIAL.md).
 
 # Current update: Shelters and doors
 
