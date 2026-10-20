@@ -1,4 +1,4 @@
-Latest build: [Foundation 60 / survivor health overview](Docs/SURVIVOR_HEALTH_OVERVIEW.md).
+Latest build: [Foundation 61 / confrontation focus](Docs/CONFRONTATION_FOCUS.md).
 
 # Current update: Shelters and doors
 

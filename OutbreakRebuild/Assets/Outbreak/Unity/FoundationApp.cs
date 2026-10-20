@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 60 / survivor health overview"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 61 / confrontation focus"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -218,6 +218,17 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Load Run", "Load terrain and saved bodies, then click Run to continue."))) Queue(() => Browse(false, true)); // Distinguish a populated save while preserving GUI event lifetime.
             GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
         } // Finish the start screen.
+        private int NextFightIndex()
+        {
+            if(world==null || !world.Encounter || world.Count==0)return -1;int start=selected>=0 && selected<world.Count?selected+1:0;
+            for(int offset=0;offset<world.Count;offset++){int index=(start+offset)%world.Count;if(world.CloseVisibleZombie(index)>=0)return index;}return -1;
+        }
+        private void FocusNextFight()
+        {
+            int index=NextFightIndex();if(index<0){status="No close confrontations remain.";return;}
+            ActorState human=world.ActorAt(index),zombie=world.ActorAt(world.CloseVisibleZombie(index));SetPaused(true);selected=index;selectedShelf=0;selectedBatCell=-1;placing=null;shelfBrush=-1;centerX=(human.x+zombie.x)/2f+0.5f;centerY=(human.y+zombie.y)/2f+0.5f;textureX=-1;
+            status="Human #"+human.id+" and zombie #"+zombie.id+" are within two cells and can see one another. Run or step to watch their response.";
+        }
         private void FocusNextHumanInNeed(bool infected)
         {
             if(world==null || world.Count==0)return;int start=selected>=0 && selected<world.Count?selected+1:0;
@@ -318,6 +329,8 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(world.Encounter)
             {
                 int injured=0,infected=0;for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species!=Species.Human || person.health<=0)continue;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
+                bool fightEnabled=GUI.enabled;GUI.enabled=fightEnabled && NextFightIndex()>=0;if(GUILayout.Button("Next active fight"))Queue(FocusNextFight);GUI.enabled=fightEnabled;
+                if(selected>=0 && selected<world.Count){int opponent=world.CloseVisibleZombie(selected);if(opponent>=0){ActorState zombie=world.ActorAt(opponent);GUILayout.Label("Nearby zombie #"+zombie.id+" | Health: "+zombie.health+"/100");}}
                 GUILayout.Label("SURVIVOR HEALTH");GUILayout.Label("Injured humans: "+injured+"\nInfected humans: "+infected);
                 bool healthEnabled=GUI.enabled;GUI.enabled=healthEnabled && injured>0;if(GUILayout.Button("Next injured human"))Queue(()=>FocusNextHumanInNeed(false));
                 GUI.enabled=healthEnabled && infected>0;if(GUILayout.Button("Next infected human"))Queue(()=>FocusNextHumanInNeed(true));GUI.enabled=healthEnabled;

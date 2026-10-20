@@ -77,6 +77,14 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
             } // Finish ray traversal.
             return true; // The destination is visible under the prototype collision model.
         } // Finish sight tracing.
+        public int CloseVisibleZombie(int humanIndex)
+        {
+            if(humanIndex<0 || humanIndex>=count)throw new ArgumentOutOfRangeException("humanIndex");
+            ActorState human=actors[humanIndex];if(!Encounter || human.species!=Species.Human || human.health<=0)return -1;
+            int best=-1,distance=int.MaxValue;
+            for(int i=0;i<count;i++){ActorState zombie=actors[i];if(zombie.species!=Species.Zombie || zombie.health<=0)continue;int x=zombie.x-human.x,y=zombie.y-human.y;if(Math.Abs(x)>2 || Math.Abs(y)>2)continue;int squared=x*x+y*y;if(squared<distance && Visible(human,zombie)){best=i;distance=squared;}}
+            return best;
+        }
         private int NearestVisible(ActorState actor, Species wanted) // Select only locally visible targets, breaking ties by stable identity.
         { // Begin a bounded-range population scan.
             int best = -1, distance = EncounterRules.SightRadius * EncounterRules.SightRadius + 1; // Use a circular twelve-cell sight region.

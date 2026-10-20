@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 60 / survivor health overview**. The sidebar counts injured and infected humans, with buttons to pause and focus on each survivor and inspect their health and infection. See [test instructions and behavior details](OutbreakRebuild/Docs/SURVIVOR_HEALTH_OVERVIEW.md).
+Current build: **Foundation 61 / confrontation focus**. **Next active fight** pauses and frames a close human–zombie confrontation, selecting the human and showing the nearby zombie’s health. See [test instructions and behavior details](OutbreakRebuild/Docs/CONFRONTATION_FOCUS.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
