@@ -1,4 +1,4 @@
-Latest build: [Foundation 25 / food delivery](Docs/FOOD_DELIVERY.md).
+Latest build: [Foundation 26 / shelf search noise](Docs/SEARCH_NOISE.md).
 
 # Current update: Shelters and doors
 

@@ -4,6 +4,15 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Shelf searches attract unseen zombies without revealing a target or damaging doors", () => {
+            World w=EncounterScenarios.SearchNoiseTest();w.Step();ActorState z=w.ActorAt(1);Require(z.heardSearchUntilTick==26 && z.heardSearchX==3 && z.heardSearchY==4 && z.targetId==0,"Search did not deliver only a dated source cell.");World copy=World.Restore(w.Capture());for(int i=0;i<25;i++){w.Step();copy.Step();}Require(w.ActorAt(1).heardSearchUntilTick==0 && w.ActorAt(1).heardSearchX==0,"Search hearing did not expire exactly.");Require(State(w)==State(copy),"Search hearing diverged after restore.");WorldMap map=WorldMap.Restore(w.Capture().map);Require(map.Get(5,4)==Terrain.DoorClosed && !map.HasDoorDamage,"Sound-only investigation damaged a door.");
+        });
+        Check("Search noise respects range, walls and explicit old-run rules", () => {
+            SaveDocument s=EncounterScenarios.SearchNoiseTest().Capture();s.actors[1].x=9;s.actors[1].y=5;World w=World.Restore(s);w.Step();Require(w.ActorAt(1).heardSearchUntilTick==0,"Distant zombie heard a quiet search.");s=EncounterScenarios.SearchNoiseTest().Capture();WorldMap map=WorldMap.Restore(s.map);map.Set(5,4,Terrain.Wall);s.map=map.Capture();w=World.Restore(s);w.Step();Require(w.ActorAt(1).heardSearchUntilTick==0,"Search sound crossed a solid wall.");s=EncounterScenarios.SearchNoiseTest().Capture();s.rulesVersion=EncounterRules.DeliveryVersion;w=World.Restore(s);w.Step();Require(!w.SearchNoise && w.FoodDelivery && w.ActorAt(1).heardSearchUntilTick==0,"Old generation silently gained search noise.");
+        });
+        Check("Search hearing rejects malformed and unsupported saved state", () => {
+            World w=EncounterScenarios.SearchNoiseTest();w.Step();SaveDocument s=w.Capture();s.actors[0].heardSearchX=3;s.actors[0].heardSearchY=4;s.actors[0].heardSearchUntilTick=26;Reject(()=>World.Restore(s));s=w.Capture();s.actors[1].heardSearchUntilTick=27;Reject(()=>World.Restore(s));s=w.Capture();s.rulesVersion=EncounterRules.DeliveryVersion;Reject(()=>World.Restore(s));
+        });
         Check("Pantry trips route inside the room, conserve food and resume exactly", () => {
             World w=EncounterScenarios.PantryTripTest();w.Step();Require(w.ActorAt(0).y<7 && w.ActorAt(0).carriedFood==3,"Human did not start walking before depositing.");World copy=World.Restore(w.Capture());for(int i=0;i<49;i++){w.Step();copy.Step();ActorState a=w.ActorAt(0);Require(a.x>=2 && a.x<=4 && a.y>=3 && a.y<=7,"Pantry route left the room.");}Require(w.ActorAt(0).carriedFood==1 && w.ShelfSites()[0].food==2,"Pantry trip failed to deposit conserved spare meals.");Require(State(w)==State(copy),"Mid-trip restore diverged.");
         });

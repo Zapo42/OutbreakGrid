@@ -49,6 +49,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public long foodUntilTick; // Bound remembered shelf locations without tracking hidden stocks.
         [DataMember] public int bracedDoor; // Door cell key plus one; zero means no active physical brace.
         [DataMember] public long braceUntilTick; // Require a fresh action every five ticks.
+        [DataMember(EmitDefaultValue=false)] public int heardSearchX, heardSearchY;
+        [DataMember(EmitDefaultValue=false)] public long heardSearchUntilTick;
         [DataMember] public int heardWarningX, heardWarningY; // Remember the speaker cell rather than a hidden zombie.
         [DataMember] public long heardWarningUntilTick, nextWarningTick; // Bound listening and repeated warnings on the simulation clock.
         [DataMember] public int heardDoorX, heardDoorY; // Remember the impact cell rather than the hidden attacker.
