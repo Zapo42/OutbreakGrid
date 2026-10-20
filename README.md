@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 40 / alternate food shelters**. Foragers aborting risky food trips can return to another reachable room when their original shelter is full, blocked or personally known to be unsafe. See [test and update instructions](OutbreakRebuild/Docs/ALTERNATE_FOOD_SHELTERS.md).
+Current build: **Foundation 41 / food yield choices**. Hungry humans can take a small detour for useful remembered stock, capped by their carrying capacity. Adjacent meals and guarded-route clearance keep priority. See [test and update instructions](OutbreakRebuild/Docs/FOOD_YIELD_CHOICES.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
@@ -17,4 +17,4 @@ If buttons draw but do not respond, stop Play mode, set Active Input Handling to
 
 [Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
-New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 39 runs can opt in with **Enable alternate shelter returns**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 40 runs can opt in with **Enable food yield choices**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.

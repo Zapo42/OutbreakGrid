@@ -1,4 +1,4 @@
-Latest build: [Foundation 40 / alternate food shelters](Docs/ALTERNATE_FOOD_SHELTERS.md).
+Latest build: [Foundation 41 / food yield choices](Docs/FOOD_YIELD_CHOICES.md).
 
 # Current update: Shelters and doors
 

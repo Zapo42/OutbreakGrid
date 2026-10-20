@@ -45,7 +45,7 @@ namespace Outbreak.Core
                 if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))))continue;
                 int priority=note.food>0?1:0,metric=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});bool reachable=false;
                 if(FoodRouteChoice){int route=FoodShelfRouteLength(actor,note);reachable=route<int.MaxValue;if(reachable)metric=route;}
-                if(rank<0 || (reachable && !bestReachable) || (reachable==bestReachable && (priority>rank || (priority==rank && metric<distance)))){best=note;rank=priority;distance=metric;bestReachable=reachable;}
+                if(rank<0 || (reachable && !bestReachable) || (reachable==bestReachable && (priority>rank || (priority==rank && BetterFoodYield(actor,note,metric,best,distance,reachable))))){best=note;rank=priority;distance=metric;bestReachable=reachable;}
             }
             if(SearchCoordination && rank>=0 && VisibleShelfSearch(actor,best.x,best.y))
             {
@@ -54,11 +54,19 @@ namespace Outbreak.Core
                 {
                     if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || (!FoodRouteChoice && !ReachableSearchAlternative(actor,note)))continue;
                     int priority=note.food>0?1:0,squared=FoodRouteChoice?FoodShelfRouteLength(actor,note):DistanceSquared(actor,new ActorState{x=note.x,y=note.y});if(squared==int.MaxValue)continue;
-                    if(priority>alternativeRank || (priority==alternativeRank && squared<alternativeDistance)){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
+                    if(priority>alternativeRank || (priority==alternativeRank && BetterFoodYield(actor,note,squared,alternative,alternativeDistance,FoodRouteChoice))){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
                 }
                 if(alternativeRank>=0)best=alternative; // With no usable alternative, retain the original choice rather than blocking access to the only supplies.
             }
             return rank<0 ? null : new ShelfDocument{x=best.x,y=best.y}; // Prefer confirmed supplies over unknown shelves; never read hidden current stock.
+        }
+        private bool BetterFoodYield(ActorState actor,ShelfMemoryRecord candidate,int route,ShelfMemoryRecord current,int currentRoute,bool reachable)
+        {
+            if(!FoodYieldChoice || !reachable || candidate.food<=0 || current.food<=0)return route<currentRoute;
+            if((route==0)!=(currentRoute==0))return route==0; // Take an available adjacent meal before making a supply detour.
+            int space=HungerRules.CarryLimit-actor.carriedFood;
+            int value=route*3-2*(Math.Min(candidate.food,space)-1),currentValue=currentRoute*3-2*(Math.Min(current.food,space)-1);
+            return value<currentValue || (value==currentValue && route<currentRoute); // At most one extra walking step for two additional portable meals; stable coordinate ties.
         }
         private int FoodShelfRouteLength(ActorState actor,ShelfMemoryRecord note)
         {
