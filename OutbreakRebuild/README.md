@@ -1,4 +1,4 @@
-Latest build: [Foundation 63 / conversion tracking](Docs/CONVERSION_TRACKING.md).
+Latest build: [Foundation 64 / outbreak history](Docs/OUTBREAK_HISTORY.md).
 
 # Current update: Shelters and doors
 
