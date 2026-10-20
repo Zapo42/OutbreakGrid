@@ -74,6 +74,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World WeaponDropTest()
+        {
+            World world=new World(new WorldMap(12,8,"Weapon drop test","weapon-drop-1"),214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,4,out id);SaveDocument saved=world.Capture();saved.actors[0].meleeWeapon=MeleeWeapon.Bat;saved.actors[0].turnAtTick=1;return World.Restore(saved);
+        }
+        public static World ShelterSpacingTest()
+        {
+            WorldMap map=new WorldMap(12,10,"Shelter spacing test","shelter-spacing-1");AddShelterRoom(map,1,1,false);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<4;i++)world.TrySpawn(Species.Human,2,2,out id);SaveDocument saved=world.Capture();for(int i=0;i<4;i++){saved.actors[i].shelterId=27;saved.actors[i].shelterX=2;saved.actors[i].shelterY=2;saved.actors[i].shelterState=ShelterState.Inside;saved.actors[i].stress=100;}return World.Restore(saved);
+        }
         public static World CombatExperienceTest()
         {
             SaveDocument saved=BluntCombatTest().Capture();saved.actors[0].bluntSkill=0;saved.actors[0].bluntPractice=2;return World.Restore(saved);

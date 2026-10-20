@@ -1,4 +1,4 @@
-Latest build: [Foundation 48 / encounter bat supplies](Docs/ENCOUNTER_BAT_SUPPLIES.md).
+Latest build: [Foundation 49 / dropped bats and shelter spacing](Docs/WEAPON_DROPS_AND_SHELTER_SPACING.md).
 
 # Current update: Shelters and doors
 

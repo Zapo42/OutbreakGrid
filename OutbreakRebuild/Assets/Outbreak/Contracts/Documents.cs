@@ -19,6 +19,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     public enum MeleeWeapon { None, Bat }
     [DataContract] public sealed class WeaponPickupDocument
     {
+        [DataMember(EmitDefaultValue=false)] public int extraBats; // Additional bats in this ground pile; absent means one bat.
+        public int Quantity { get { return 1+extraBats; } }
         [DataMember(IsRequired=true)] public int x,y;
         [DataMember(IsRequired=true)] public MeleeWeapon weapon;
     }

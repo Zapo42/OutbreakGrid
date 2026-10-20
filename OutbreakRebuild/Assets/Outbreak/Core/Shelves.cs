@@ -21,7 +21,7 @@ namespace Outbreak.Core
         private void RestoreShelves(MapDocument source)
         {
             if(source.schemaVersion<3){if(source.shelves!=null)throw new ArgumentException("Shelves require a version-three map.");return;}
-            if(source.schemaVersion==4 && source.shelves==null)return;
+            if(source.schemaVersion>=4 && source.shelves==null)return;
             if(source.shelves==null || source.shelves.Length==0 || source.shelves.Length>4096)throw new ArgumentException("Invalid shelf collection.");
             foreach(ShelfDocument s in source.shelves){if(s==null || !Contains(s.x,s.y) || shelves.ContainsKey(s.y*Width+s.x))throw new ArgumentException("Invalid or duplicate shelf.");SetShelf(s.x,s.y,s.food,s.searched);}
         }
