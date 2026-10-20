@@ -1,4 +1,4 @@
-Latest build: [Foundation 36 / considerate food pickup](Docs/CONSIDERATE_PICKUP.md).
+Latest build: [Foundation 37 / selected target markers](Docs/TARGET_MARKERS.md).
 
 # Current update: Shelters and doors
 

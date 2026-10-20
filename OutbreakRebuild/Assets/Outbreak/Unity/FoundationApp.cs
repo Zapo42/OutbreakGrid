@@ -9,12 +9,13 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 36 / considerate food pickup"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 37 / selected target markers"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214"; private Vector2 menuScroll; // Retain editable setup independently of any active run.
+        private bool showTargetMarkers=true;
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
         private int shelfBrush = -1, selectedShelf; // Keep furniture authoring and selection out of saved simulation state.
         private bool canResume; private Action resetAction; // Preserve a menu-paused run and confirm replacements before discarding it.
@@ -209,6 +210,33 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             centerX=next.x+0.5f;centerY=next.y+0.5f;textureX=-1;
             status="Selected shelf at "+next.x+", "+next.y+" ("+next.food+" meals). Click Next stocked shelf to cycle.";
         }
+        private bool SelectedTarget(out int x,out int y,out Color color,out string label)
+        {
+            x=0;y=0;color=Color.white;label="";if(world==null || selected<0 || selected>=world.Count)return false;
+            ActorState actor=world.ActorAt(selected);
+            if(actor.species==Species.Human)
+            {
+                if(world.HungerEnabled && actor.turnAtTick==0 && actor.foodUntilTick>world.Tick){x=actor.foodX;y=actor.foodY;color=new Color(0.18f,0.82f,0.75f);label="Food target";}
+                else if(world.SheltersEnabled && actor.shelterState==ShelterState.Seeking){x=actor.shelterX;y=actor.shelterY;color=new Color(0.25f,0.55f,1f);label="Shelter target";}
+                else return false;
+            }
+            else if(world.PursuitMemory && actor.targetId!=0){x=actor.lastSeenX;y=actor.lastSeenY;color=new Color(1f,0.3f,0.35f);label="Observed human";}
+            else
+            {
+                color=new Color(1f,0.72f,0.18f);
+                if(world.SearchNoise && actor.heardSearchUntilTick>world.Tick && actor.heardSearchUntilTick>=actor.heardWarningUntilTick && actor.heardSearchUntilTick>=actor.heardDoorUntilTick){x=actor.heardSearchX;y=actor.heardSearchY;label=actor.heardSearchKind==1?"Heard door movement":"Heard shelf search";}
+                else if(world.ZombieWarningInvestigation && actor.heardWarningUntilTick>world.Tick && actor.heardWarningUntilTick>=actor.heardDoorUntilTick){x=actor.heardWarningX;y=actor.heardWarningY;label="Heard warning";}
+                else if(world.ZombieSoundInvestigation && actor.heardDoorUntilTick>world.Tick){x=actor.heardDoorX;y=actor.heardDoorY;label="Heard door impact";}
+                else return false;
+            }
+            label+=": "+x+", "+y;return true;
+        }
+        private void DrawSelectedTarget(Rect bounds,int left,int top,int width,int height,float cell)
+        {
+            int x,y;Color color;string label;if(!showTargetMarkers || !SelectedTarget(out x,out y,out color,out label) || x<left || y<top || x>=left+width || y>=top+height)return;
+            float px=bounds.x+(x-left+0.07f)*cell,py=bounds.y+(y-top+0.07f)*cell,size=cell*0.86f,edge=Math.Max(1f,Math.Min(3f,cell*0.08f));
+            GUI.color=color;GUI.DrawTexture(new Rect(px,py,size,edge),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(px,py+size-edge,size,edge),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(px,py,edge,size),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(px+size-edge,py,edge,size),Texture2D.whiteTexture);GUI.color=Color.white;
+        }
         private void OnGUI() // Keep the first shell deliberately small and focused on inspecting the core.
         { // Begin the screen pass.
             guiPasses++; GUI.enabled = true; if (Event.current.type == EventType.MouseDown) mousePresses++; if (Event.current.type == EventType.MouseUp) mouseReleases++; // Record whether the actual native event stream reaches this application.
@@ -248,6 +276,10 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(GUILayout.Button(new GUIContent("Next stocked shelf","Pause and focus the next shelf with food, including unsearched stock in the map overview.")))Queue(FocusNextStockedShelf);
                 GUI.enabled=overviewEnabled;
             }
+            if(GUILayout.Button(showTargetMarkers?"Hide target markers":"Show target markers"))Queue(()=>showTargetMarkers=!showTargetMarkers);
+            int targetX,targetY;Color targetColor;string targetLabel;
+            if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Selected target: "+targetLabel);
+            if(showTargetMarkers)GUILayout.Label("Targets: teal = food | blue = shelter\nRed = sight memory | amber = sound");
             GUILayout.Label("MOVEMENT INSPECTOR"); GUILayout.Label("Middle-drag: pan\nWheel: zoom\nClick: inspect a body"); // Explain the few controls that exist in this slice.
             if (world.SheltersEnabled) GUILayout.Label("Doors: light brown = closed | dark = open\nRed tint = damage | grey = broken"); // Make actual door actions visible while the temporary debug tiles remain.
             if (world.Count == 0) GUILayout.Label("TERRAIN ONLY: no bodies loaded. Place test bodies below, then click Run."); // Make the empty-population state prominent beside the map.
@@ -283,6 +315,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             Rect visible = new Rect(bounds.x, bounds.y, width * cell, height * cell); GUI.DrawTexture(visible, terrain, ScaleMode.StretchToFill); // Render terrain in one texture operation.
             Event input = Event.current; // Use UI events so the shell does not depend on an extra input package.
             foreach (ShelfDocument shelf in world.ShelfSites()) { if (shelf.x < left || shelf.y < top || shelf.x >= left + width || shelf.y >= top + height) continue; Rect furniture = new Rect(bounds.x + (shelf.x - left + 0.12f) * cell, bounds.y + (shelf.y - top + 0.12f) * cell, cell * 0.76f, cell * 0.76f); GUI.color = shelf.food == 0 ? new Color(0.4f, 0.4f, 0.36f) : new Color(0.68f, 0.57f, 0.25f); GUI.DrawTexture(furniture, Texture2D.whiteTexture); if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && furniture.Contains(input.mousePosition)) { int key = shelf.y * world.Width + shelf.x + 1; Queue(() => { selectedShelf = key; selected = -1; }); input.Use(); } } // Gold means stocked and grey means empty for the player; human knowledge remains independent.
+            DrawSelectedTarget(bounds,left,top,width,height,cell);
             for (int i = 0; i < world.Count; i++) // Inspect the bounded active population instead of instantiating scene objects.
             { // Begin one visible body.
                 ActorState actor = world.ActorAt(i); double time = world.Tick + clock.Alpha; float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
