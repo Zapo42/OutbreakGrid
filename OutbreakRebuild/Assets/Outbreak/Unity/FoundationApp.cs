@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 33 / hungry human finder"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 34 / stocked shelf finder"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
@@ -193,6 +193,20 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             }
             status="No hungry humans remain.";
         }
+        private void FocusNextStockedShelf()
+        {
+            if(world==null || !world.HungerEnabled)return;
+            ShelfDocument first=null,next=null;
+            foreach(ShelfDocument shelf in world.ShelfSites())
+            {
+                if(shelf.food<=0)continue;if(first==null)first=shelf;
+                if(shelf.y*world.Width+shelf.x+1>selectedShelf){next=shelf;break;}
+            }
+            if(next==null)next=first;if(next==null){status="No stocked shelves remain.";return;}
+            SetPaused(true);selected=-1;selectedShelf=next.y*world.Width+next.x+1;placing=null;shelfBrush=-1;
+            centerX=next.x+0.5f;centerY=next.y+0.5f;textureX=-1;
+            status="Selected shelf at "+next.x+", "+next.y+" ("+next.food+" meals). Click Next stocked shelf to cycle.";
+        }
         private void OnGUI() // Keep the first shell deliberately small and focused on inspecting the core.
         { // Begin the screen pass.
             guiPasses++; GUI.enabled = true; if (Event.current.type == EventType.MouseDown) mousePresses++; if (Event.current.type == EventType.MouseUp) mouseReleases++; // Record whether the actual native event stream reaches this application.
@@ -228,6 +242,8 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUILayout.Label("Shelves: stocked " + food.StockedShelves + " | empty " + food.EmptyShelves + "\nUnsearched shelves: " + food.UnsearchedShelves);
                 bool overviewEnabled=GUI.enabled;GUI.enabled=overviewEnabled && food.Hungry>0;
                 if(GUILayout.Button(new GUIContent("Next hungry human","Pause and focus the next human at hunger 40+, in stable identity order.")))Queue(FocusNextHungryHuman);
+                GUI.enabled=overviewEnabled && food.StockedShelves>0;
+                if(GUILayout.Button(new GUIContent("Next stocked shelf","Pause and focus the next shelf with food, including unsearched stock in the map overview.")))Queue(FocusNextStockedShelf);
                 GUI.enabled=overviewEnabled;
             }
             GUILayout.Label("MOVEMENT INSPECTOR"); GUILayout.Label("Middle-drag: pan\nWheel: zoom\nClick: inspect a body"); // Explain the few controls that exist in this slice.

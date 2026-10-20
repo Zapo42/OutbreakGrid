@@ -1,4 +1,4 @@
-Latest build: [Foundation 33 / hungry human finder](Docs/HUNGRY_HUMAN_FINDER.md).
+Latest build: [Foundation 34 / stocked shelf finder](Docs/STOCKED_SHELF_FINDER.md).
 
 # Current update: Shelters and doors
 
