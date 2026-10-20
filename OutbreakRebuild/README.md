@@ -1,4 +1,4 @@
-Latest build: [Foundation 52 / combat footwork](Docs/COMBAT_FOOTWORK.md).
+Latest build: [Foundation 53 / restart and weapon replacement](Docs/RESTART_AND_WEAPON_REPLACEMENT.md).
 
 # Current update: Shelters and doors
 

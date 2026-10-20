@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Outbreak.Contracts;
 namespace Outbreak.Core
 {
-    public enum WeaponActionKind { Pickup, Swing }
+    public enum WeaponActionKind { Pickup, Swing, Swap }
     public struct WeaponAction
     {
         public int actorId,targetId,x,y;public long tick;public WeaponActionKind kind;public bool hit,broke;
     }
     public static class MeleeRules
     {
-        public const int BatHits=12;
+        public const int BatHits=12, ReplaceAtHits=3, ReplacementGain=3;
         public const int CooldownTicks=10, MaxPickups=4096, MaxBats=MaxPickups+Rules.DefaultCapacity;
         public static int HitsPerLevel(int skill){return 3+skill;} // Successful hits needed for the next level; higher levels take more practice.
         public static int Damage(ActorState actor){return 8+2*actor.strength+2*actor.bluntSkill;}
@@ -99,6 +99,17 @@ namespace Outbreak.Core
                 for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);int key=Key(x,y);if(route>=0 && length>0 && (length<bestDistance || (length==bestDistance && key<bestKey))){bestDistance=length;bestKey=key;direction=route;}}
             }
             return bestKey!=int.MaxValue;
+        }
+        private bool TryReplaceBat(int index,ref ActorState actor,int threat)
+        {
+            if(actor.meleeWeapon!=MeleeWeapon.Bat || MeleeRules.BatHits-actor.batWear>MeleeRules.ReplaceAtHits || actor.turnAtTick!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || actor.nextMeleeTick>Tick || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return false;
+            WeaponPickupDocument best=null;int bestWear=int.MaxValue,bestDistance=2,bestKey=int.MaxValue;
+            for(int d=-1;d<8;d+=d<0?1:2)
+            {
+                int x=actor.x+(d<0?0:dx[d]),y=actor.y+(d<0?0:dy[d]);if(!map.CanWalk(x,y) || !Visible(actor,new ActorState{x=x,y=y}))continue;WeaponPickupDocument pickup=map.WeaponAt(x,y);if(pickup==null)continue;int wear=pickup.wear==null?0:pickup.wear[0],distance=d<0?0:1,key=Key(x,y);if(actor.batWear-wear<MeleeRules.ReplacementGain)continue;
+                if(wear<bestWear || (wear==bestWear && (distance<bestDistance || (distance==bestDistance && key<bestKey)))){best=pickup;bestWear=wear;bestDistance=distance;bestKey=key;}
+            }
+            if(best==null)return false;int nextWear=map.TakeWeapon(best.x,best.y);map.DropBat(actor.x,actor.y,actor.batWear);actor.batWear=nextWear;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Swap);actors[index]=actor;return true; // One action exchanges finite items; the used bat remains at the human's actual cell.
         }
         private int CombatBackstep(ActorState actor,int threatIndex)
         {
