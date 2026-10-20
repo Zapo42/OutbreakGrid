@@ -1,4 +1,4 @@
-Latest build: [Foundation 31 / door movement noise](Docs/DOOR_MOVEMENT_NOISE.md).
+Latest build: [Foundation 32 / live food overview](Docs/FOOD_OVERVIEW.md).
 
 # Current update: Shelters and doors
 

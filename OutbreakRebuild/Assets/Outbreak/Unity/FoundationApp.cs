@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 31 / door movement noise"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 32 / live food overview"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
@@ -205,6 +205,15 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.EndHorizontal(); GUILayout.Label(status); GUILayout.EndArea(); // Keep implementation scope and errors readable in the shell.
             DrawWorld(new Rect(12, 138, Math.Max(64, Screen.width - 300), Math.Max(64, Screen.height - 184))); // Cull the map through a bounded viewport.
             GUILayout.BeginArea(new Rect(Screen.width - 276, 138, 264, Screen.height - 184), GUI.skin.box); inspectorScroll = GUILayout.BeginScrollView(inspectorScroll); // Keep selection diagnostics outside the map viewport.
+            if(world.HungerEnabled)
+            {
+                FoodOverview food=world.FoodSupplies();GUILayout.Label("FOOD OVERVIEW");
+                GUILayout.Label("Humans: " + food.Humans + " | Infected: " + food.Infected);
+                GUILayout.Label("Hungry (40+): " + food.Hungry + "\nVery hungry (80+): " + food.VeryHungry);
+                GUILayout.Label("Food trips: " + food.SeekingFood + " | Searching: " + food.Searching);
+                GUILayout.Label("Meals: carried " + food.CarriedMeals + " | shelves " + food.ShelfMeals);
+                GUILayout.Label("Shelves: stocked " + food.StockedShelves + " | empty " + food.EmptyShelves + "\nUnsearched shelves: " + food.UnsearchedShelves);
+            }
             GUILayout.Label("MOVEMENT INSPECTOR"); GUILayout.Label("Middle-drag: pan\nWheel: zoom\nClick: inspect a body"); // Explain the few controls that exist in this slice.
             if (world.SheltersEnabled) GUILayout.Label("Doors: light brown = closed | dark = open\nRed tint = damage | grey = broken"); // Make actual door actions visible while the temporary debug tiles remain.
             if (world.Count == 0) GUILayout.Label("TERRAIN ONLY: no bodies loaded. Place test bodies below, then click Run."); // Make the empty-population state prominent beside the map.
