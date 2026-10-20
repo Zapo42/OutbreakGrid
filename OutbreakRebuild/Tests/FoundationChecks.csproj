@@ -35,6 +35,7 @@
     <Compile Include="FoodScarcityChecks.cs" />
     <Compile Include="MeleeChecks.cs" />
     <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
+    <Compile Include="../Assets/Outbreak/Unity/WeaponPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

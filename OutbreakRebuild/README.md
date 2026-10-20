@@ -1,4 +1,4 @@
-Latest build: [Foundation 44 / blunt melee combat](Docs/BLUNT_MELEE_COMBAT.md).
+Latest build: [Foundation 45 / swings and doorway motion](Docs/SWINGS_AND_DOORWAY_MOTION.md).
 
 # Current update: Shelters and doors
 

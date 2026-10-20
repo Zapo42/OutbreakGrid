@@ -13,6 +13,11 @@ namespace Outbreak.UnityAdapter // Keep visual motion separate from authoritativ
         private double Fraction(double tick) { return Math.Max(0, Math.Min(1, (tick - startTick) / 5.0)); } // Blend over the full five-tick movement interval with steady velocity.
         public double X(double tick) { return fromX + (targetX - fromX) * Fraction(tick); } // Keep movement progressing between authoritative opportunities.
         public double Y(double tick) { return fromY + (targetY - fromY) * Fraction(tick); } // Use the same timing for both axes.
+        public bool OverlapsCell(int x,int y,double tick,int id)
+        {
+            double left=X(tick)+OffsetX(id)+0.18,top=Y(tick)+OffsetY(id)+0.18;
+            return left<x+1 && left+0.64>x && top<y+1 && top+0.64>y;
+        }
         public static double OffsetX(int id) { return (((id % 11) * 4) % 11 - 5) * 0.018; } // Give each body a stable small within-cell offset without consuming simulation randomness.
         public static double OffsetY(int id) { return (((id % 11) * 9) % 11 - 5) * 0.018; } // Keep the debug body's full footprint inside its current cell.
     } // Finish bounded visual state.

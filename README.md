@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 44 / blunt melee combat**. Finite bat pickups give Fight decisions timed damaging strikes, accuracy, stagger and knockback. Defeated zombies retain their bodies and identity while becoming inactive. See [test and update instructions](OutbreakRebuild/Docs/BLUNT_MELEE_COMBAT.md).
+Current build: **Foundation 45 / swings and doorway motion**. Bats lift into the hand and visibly sweep with trails and hit feedback. Door changes preserve human and zombie interpolation, with visual closure delayed until a crossing body clears. See [test instructions and fix details](OutbreakRebuild/Docs/SWINGS_AND_DOORWAY_MOTION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

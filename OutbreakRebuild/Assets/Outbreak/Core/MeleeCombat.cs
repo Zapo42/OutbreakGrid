@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using Outbreak.Contracts;
 namespace Outbreak.Core
 {
+    public enum WeaponActionKind { Pickup, Swing }
+    public struct WeaponAction
+    {
+        public int actorId,x,y;public long tick;public WeaponActionKind kind;public bool hit;
+    }
     public static class MeleeRules
     {
         public const int CooldownTicks=10, MaxPickups=4096;
@@ -33,6 +38,14 @@ namespace Outbreak.Core
     }
     public sealed partial class World
     {
+        private WeaponAction[] weaponActions;private int weaponActionCount;
+        public int WeaponActionCount { get { return weaponActionCount; } }
+        public WeaponAction WeaponActionAt(int index){if(index<0 || index>=weaponActionCount)throw new ArgumentOutOfRangeException("index");return weaponActions[index];}
+        private void RecordWeaponAction(ActorState actor,int x,int y,WeaponActionKind kind,bool hit=false)
+        {
+            if(weaponActions==null)weaponActions=new WeaponAction[Capacity];
+            weaponActions[weaponActionCount++]=new WeaponAction{actorId=actor.id,x=x,y=y,tick=Tick,kind=kind,hit=hit}; // One transient record per actor action, consumed without changing saved state.
+        }
         public WeaponPickupDocument[] WeaponSites(){return map.CaptureWeapons()??new WeaponPickupDocument[0];}
         public bool TryPlaceBat(int x,int y)
         {
@@ -47,13 +60,14 @@ namespace Outbreak.Core
             {
                 int x=actor.x+(d<0?0:dx[d]),y=actor.y+(d<0?0:dy[d]);WeaponPickupDocument pickup=map.WeaponAt(x,y);if(pickup==null || !Visible(actor,new ActorState{x=x,y=y}))continue;int cost=d<0?0:1,k=Key(x,y);if(cost<distance || (cost==distance && k<key)){best=pickup;distance=cost;key=k;}
             }
-            if(best==null)return false;map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
+            if(best==null)return false;map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Pickup);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
         }
         private void SwingBat(int humanIndex,int zombieIndex)
         {
             ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if(human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;
             human.nextMeleeTick=Tick+MeleeRules.CooldownTicks;actors[humanIndex]=human;
-            if(reactionRandom.Below(100)>=MeleeRules.Accuracy(human,zombie))return; // A missed swing still consumes its action and cooldown.
+            bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit);
+            if(!hit)return; // A missed swing still consumes its action and cooldown.
             zombie.health=Math.Max(0,zombie.health-MeleeRules.Damage(human));
             if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;return;}
             zombie.staggerUntilTick=Tick+HumanRules.ShoveTicks;

@@ -9,8 +9,9 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 44 / blunt melee combat"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 45 / swings and doorway motion"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
+        private WeaponPresentation[] weaponMotion;
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
@@ -74,13 +75,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a fully validated world and reset only presentation state.
         { // Begin one transactional screen swap.
-            canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
-            for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick); } // Prevent a visual jump from stale interpolation history.
+            canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
         private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
         { // Begin one complete simulation step.
             long revision = world.TerrainRevision, condition = world.DoorConditionRevision; for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); world.Step(); if (world.TerrainRevision != revision || world.DoorConditionRevision != condition) textureX = -1; // Keep the previous canonical cells for corner validation.
-            for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i]; bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused || world.TerrainRevision != revision || (world.InfectedEscape && before.turnAtTick == 0 && actor.turnAtTick > 0)) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
+            int weaponEvent=0;
+            for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i];weaponMotion[i].Move(actor.x-before.x,actor.y-before.y);if(weaponEvent<world.WeaponActionCount && world.WeaponActionAt(weaponEvent).actorId==actor.id)weaponMotion[i].Observe(world.WeaponActionAt(weaponEvent++),actor.x,actor.y); bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused || (world.InfectedEscape && before.turnAtTick == 0 && actor.turnAtTick > 0)) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
         } // Finish canonical and presentation updates.
         private void SetPaused(bool value) // Keep visual history coherent across an explicit pause boundary.
         { // Begin pause presentation synchronization.
@@ -334,15 +336,16 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             } // Finish a bounded pixel refresh.
             Rect visible = new Rect(bounds.x, bounds.y, width * cell, height * cell); GUI.DrawTexture(visible, terrain, ScaleMode.StretchToFill); // Render terrain in one texture operation.
             Event input = Event.current; // Use UI events so the shell does not depend on an extra input package.
+            DrawDoorCrossings(bounds,left,top,width,height,cell);
             foreach (ShelfDocument shelf in world.ShelfSites()) { if (shelf.x < left || shelf.y < top || shelf.x >= left + width || shelf.y >= top + height) continue; Rect furniture = new Rect(bounds.x + (shelf.x - left + 0.12f) * cell, bounds.y + (shelf.y - top + 0.12f) * cell, cell * 0.76f, cell * 0.76f); GUI.color = shelf.food == 0 ? new Color(0.4f, 0.4f, 0.36f) : new Color(0.68f, 0.57f, 0.25f); GUI.DrawTexture(furniture, Texture2D.whiteTexture); if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && furniture.Contains(input.mousePosition)) { int key = shelf.y * world.Width + shelf.x + 1; Queue(() => { selectedShelf = key; selected = -1; }); input.Use(); } } // Gold means stocked and grey means empty for the player; human knowledge remains independent.
             foreach(WeaponPickupDocument pickup in world.WeaponSites()){if(pickup.x<left || pickup.y<top || pickup.x>=left+width || pickup.y>=top+height)continue;GUI.color=new Color(0.55f,0.34f,0.16f);GUI.DrawTexture(new Rect(bounds.x+(pickup.x-left+0.82f)*cell,bounds.y+(pickup.y-top+0.17f)*cell,cell*0.14f,cell*0.66f),Texture2D.whiteTexture);}
             DrawSelectedTarget(bounds,left,top,width,height,cell);
             for (int i = 0; i < world.Count; i++) // Inspect the bounded active population instead of instantiating scene objects.
             { // Begin one visible body.
-                ActorState actor = world.ActorAt(i); double time = world.Tick + clock.Alpha; float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
+                ActorState actor = world.ActorAt(i); double time = world.Tick + (clock.Paused?0:clock.Alpha); float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
                 if (x < left - 0.18f || y < top - 0.18f || x >= left + width - 0.18f || y >= top + height - 0.18f) continue; // Cull bodies outside the camera.
                 Rect body = new Rect(bounds.x + (x - left + 0.18f) * cell, bounds.y + (y - top + 0.18f) * cell, cell * 0.64f, cell * 0.64f); GUI.color = selected == i ? Color.yellow : actor.health==0 ? new Color(0.4f,0.4f,0.4f) : actor.species == Species.Zombie ? new Color(0.23f, 0.29f, 0.14f) : new Color(0.75f, 0.8f, 0.92f); GUI.DrawTexture(body, Texture2D.whiteTexture); // Use visibly distinct temporary debug bodies until artwork bindings return.
-                if(actor.meleeWeapon==MeleeWeapon.Bat){GUI.color=new Color(0.55f,0.34f,0.16f);GUI.DrawTexture(new Rect(body.x+body.width*0.8f,body.y,body.width*0.2f,body.height),Texture2D.whiteTexture);}
+                if(actor.meleeWeapon==MeleeWeapon.Bat)DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);
                 if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => { selected = chosen; selectedShelf = 0; }); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
             } // Finish one visible body.
             GUI.color = Color.white; if (confirmReset || !visible.Contains(input.mousePosition)) return; // Keep modal confirmation and toolbar events out of map input.
@@ -355,10 +358,32 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (input.type == EventType.MouseDrag && input.button == 2) { centerX -= input.delta.x / cell; centerY -= input.delta.y / cell; input.Use(); } // Pan the camera without moving logical bodies.
             if (input.type == EventType.ScrollWheel) { span = Mathf.Clamp(span * (input.delta.y > 0 ? 1.1f : 0.9f), 16, 256); input.Use(); } // Zoom the bounded viewport around its current camera center.
         } // Finish viewport rendering.
-        private Color ColorForCell(int x, int y) // Distinguish real door damage from ordinary open and closed terrain.
+        private void DrawDoorCrossings(Rect bounds,int left,int top,int width,int height,float cell)
+        {
+            if(clock.Paused)return;double tick=world.Tick+clock.Alpha;
+            for(int i=0;i<world.Count;i++)
+            {
+                ActorState actor=world.ActorAt(i);double x=motion[i].X(tick)+MovementPresentation.OffsetX(actor.id)+0.18,y=motion[i].Y(tick)+MovementPresentation.OffsetY(actor.id)+0.18;
+                for(int cy=(int)Math.Floor(y);cy<=(int)Math.Floor(y+0.64);cy++)for(int cx=(int)Math.Floor(x);cx<=(int)Math.Floor(x+0.64);cx++)
+                {
+                    if(cx<left || cy<top || cx>=left+width || cy>=top+height || !motion[i].OverlapsCell(cx,cy,tick,actor.id) || world.TerrainAt(cx,cy)!=Terrain.DoorClosed)continue;
+                    GUI.color=ColorForCell(cx,cy,true);GUI.DrawTexture(new Rect(bounds.x+(cx-left)*cell,bounds.y+(cy-top)*cell,cell,cell),Texture2D.whiteTexture);
+                }
+            }
+            GUI.color=Color.white; // Keep a logically closed door visually open only while the rendered body still crosses it.
+        }
+        private void DrawBat(WeaponPresentation weapon,float x,float y,double tick,Rect bounds,int left,int top,float cell,bool active)
+        {
+            WeaponPose pose=weapon.Pose(x,y,tick,active);
+            if(pose.swinging)for(int trail=1;trail<=3;trail++){WeaponPose earlier=weapon.Pose(x,y,tick-trail*0.35,active);if(!earlier.swinging)continue;GUI.color=new Color(0.8f,0.65f,0.35f);GUI.DrawTexture(new Rect(bounds.x+(float)(earlier.tipX-left)*cell-cell*0.045f,bounds.y+(float)(earlier.tipY-top)*cell-cell*0.045f,cell*0.09f,cell*0.09f),Texture2D.whiteTexture);}
+            GUI.color=new Color(0.55f,0.34f,0.16f);
+            for(int part=0;part<9;part++){double fraction=part/8.0;float size=cell*(part>=6?0.13f:0.085f);GUI.DrawTexture(new Rect(bounds.x+(float)(pose.handX+(pose.tipX-pose.handX)*fraction-left)*cell-size/2,bounds.y+(float)(pose.handY+(pose.tipY-pose.handY)*fraction-top)*cell-size/2,size,size),Texture2D.whiteTexture);}
+            if(pose.impact){float px=bounds.x+(float)(pose.impactX-left)*cell,py=bounds.y+(float)(pose.impactY-top)*cell;GUI.color=new Color(0.95f,0.8f,0.25f);GUI.DrawTexture(new Rect(px-cell*0.14f,py-cell*0.035f,cell*0.28f,cell*0.07f),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(px-cell*0.035f,py-cell*0.14f,cell*0.07f,cell*0.28f),Texture2D.whiteTexture);}
+        }
+        private Color ColorForCell(int x, int y,bool forceOpen=false) // Distinguish real door damage from ordinary open and closed terrain.
         { // Begin condition-aware debug coloring.
             int health = world.DoorHealthAt(x, y); if (health == 0) return new Color(0.46f, 0.47f, 0.48f); // Broken doors become grey, preserving their passable state.
-            if (health > 0) { bool open = world.TerrainAt(x, y) == Terrain.DoorOpen; float damage = 1 - health / (float)DoorRules.MaxHealth; return new Color(Mathf.Lerp(open ? 0.39f : 0.70f, open ? 0.47f : 0.72f, damage), Mathf.Lerp(open ? 0.33f : 0.62f, open ? 0.20f : 0.32f, damage), Mathf.Lerp(open ? 0.28f : 0.53f, open ? 0.18f : 0.30f, damage)); } return ColorFor(world.TerrainAt(x, y)); // Muted closed/open browns acquire a continuous red tint as damage accumulates.
+            if (health > 0) { bool open = forceOpen || world.TerrainAt(x, y) == Terrain.DoorOpen; float damage = 1 - health / (float)DoorRules.MaxHealth; return new Color(Mathf.Lerp(open ? 0.39f : 0.70f, open ? 0.47f : 0.72f, damage), Mathf.Lerp(open ? 0.33f : 0.62f, open ? 0.20f : 0.32f, damage), Mathf.Lerp(open ? 0.28f : 0.53f, open ? 0.18f : 0.30f, damage)); } return ColorFor(world.TerrainAt(x, y)); // Muted closed/open browns acquire a continuous red tint as damage accumulates.
         } // Finish terrain feedback.
         private static Color ColorFor(Terrain value) // Keep debug colors in presentation rather than in movement rules.
         { // Begin terrain presentation.

@@ -77,6 +77,7 @@ namespace Outbreak.Core // Own simulation state independently of the Unity objec
         public void Step() // Execute one logical tick with no dependency on frame timing or rendering.
         { // Begin a deterministic tick.
             if (Tick >= long.MaxValue / 6 - 1) throw new InvalidOperationException("Simulation clock limit reached."); // Keep the derived game clock inside its integer range.
+            weaponActionCount=0;
             Tick++; // Advance time once, even when there are no active bodies.
             if (Encounter) { StepEncounter(); return; } // Keep legacy fixture draws and movement unchanged.
             for (int i = 0; i < count; i++) // Visit actors in stable identity order.
