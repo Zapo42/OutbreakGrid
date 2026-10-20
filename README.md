@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 51 / bat durability**. Bats wear on successful hits and break after twelve. Saved condition follows equipment through drops, ground piles and recovery; the inspector shows remaining hits. See [test instructions and behavior details](OutbreakRebuild/Docs/BAT_DURABILITY.md).
+Current build: **Foundation 52 / combat footwork**. Armed fighters can step back while their swing recovers, using safe movement around visible zombies. Normal attacks resume when ready. See [test instructions and behavior details](OutbreakRebuild/Docs/COMBAT_FOOTWORK.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
@@ -17,4 +17,4 @@ If buttons draw but do not respond, stop Play mode, set Active Input Handling to
 
 [Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
-New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 50 runs offer **Enable bat durability**; Foundation 49 runs offer **Enable bite evasion**; Foundation 47/48 runs can opt in with **Enable drops and shelter spacing**; Foundation 46 runs offer **Enable combat experience**; Foundation 44/45 runs offer **Enable weapon seeking**; Foundation 42/43 runs offer **Enable melee combat**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 51 runs offer **Enable combat footwork**; Foundation 50 runs offer **Enable bat durability**; Foundation 49 runs offer **Enable bite evasion**; Foundation 47/48 runs can opt in with **Enable drops and shelter spacing**; Foundation 46 runs offer **Enable combat experience**; Foundation 44/45 runs offer **Enable weapon seeking**; Foundation 42/43 runs offer **Enable melee combat**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.

@@ -100,6 +100,19 @@ namespace Outbreak.Core
             }
             return bestKey!=int.MaxValue;
         }
+        private int CombatBackstep(ActorState actor,int threatIndex)
+        {
+            ActorState closest=actors[threatIndex];int distance=Math.Max(Math.Abs(actor.x-closest.x),Math.Abs(actor.y-closest.y));if(distance>2)return 8; // Hold useful distance while the bat is recovering; do not charge with an unavailable swing.
+            int threats=KnownShelterThreats(actor,threatIndex),before=int.MaxValue;for(int j=0;j<threats;j++)before=Math.Min(before,Math.Max(Math.Abs(actor.x-escapeThreats[j].x),Math.Abs(actor.y-escapeThreats[j].y)));
+            int direction=8,best=before,alignment=int.MinValue;
+            for(int d=0;d<8;d++)
+            {
+                if(!MayMove(actor,d))continue;int x=actor.x+dx[d],y=actor.y+dy[d];if(dx[d]!=0 && dy[d]!=0 && (IsDoor(actor.x,actor.y) || IsDoor(x,y)))continue;
+                int clearance=int.MaxValue;bool safe=true;for(int j=0;j<threats;j++){ActorState zombie=escapeThreats[j];int previous=Math.Max(Math.Abs(actor.x-zombie.x),Math.Abs(actor.y-zombie.y)),next=Math.Max(Math.Abs(x-zombie.x),Math.Abs(y-zombie.y));if(next<previous || (x-zombie.x)*(x-zombie.x)+(y-zombie.y)*(y-zombie.y)<DistanceSquared(actor,zombie)){safe=false;break;}clearance=Math.Min(clearance,next);}if(!safe || clearance<=before)continue;
+                int away=((actor.x-closest.x)*dx[d]+(actor.y-closest.y)*dy[d])*(dx[d]!=0 && dy[d]!=0?707:1000);if(clearance>best || (clearance==best && away>alignment)){direction=d;best=clearance;alignment=away;}
+            }
+            return direction; // Stable ties, visible threats only, one normal neighboring step and no random draw.
+        }
         private void SwingBat(int humanIndex,int zombieIndex)
         {
             ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if(human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;

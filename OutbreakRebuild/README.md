@@ -1,4 +1,4 @@
-Latest build: [Foundation 51 / bat durability](Docs/BAT_DURABILITY.md).
+Latest build: [Foundation 52 / combat footwork](Docs/COMBAT_FOOTWORK.md).
 
 # Current update: Shelters and doors
 
