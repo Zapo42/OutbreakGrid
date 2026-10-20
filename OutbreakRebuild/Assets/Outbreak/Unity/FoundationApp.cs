@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 32 / live food overview"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 33 / hungry human finder"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
@@ -180,6 +180,19 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Load Run", "Load terrain and saved bodies, then click Run to continue."))) Queue(() => Browse(false, true)); // Distinguish a populated save while preserving GUI event lifetime.
             GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
         } // Finish the start screen.
+        private void FocusNextHungryHuman()
+        {
+            if(world==null || !world.HungerEnabled || world.Count==0)return;
+            int start=selected>=0 && selected<world.Count?selected+1:0;
+            for(int offset=0;offset<world.Count;offset++)
+            {
+                int index=(start+offset)%world.Count;ActorState person=world.ActorAt(index);
+                if(person.species!=Species.Human || person.hunger<HungerRules.SeekAt)continue;
+                SetPaused(true);selected=index;selectedShelf=0;placing=null;shelfBrush=-1;centerX=person.x+0.5f;centerY=person.y+0.5f;textureX=-1;
+                status="Selected hungry human #"+person.id+" ("+person.hunger+"/100). Click Next hungry human to cycle.";return;
+            }
+            status="No hungry humans remain.";
+        }
         private void OnGUI() // Keep the first shell deliberately small and focused on inspecting the core.
         { // Begin the screen pass.
             guiPasses++; GUI.enabled = true; if (Event.current.type == EventType.MouseDown) mousePresses++; if (Event.current.type == EventType.MouseUp) mouseReleases++; // Record whether the actual native event stream reaches this application.
@@ -213,6 +226,9 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUILayout.Label("Food trips: " + food.SeekingFood + " | Searching: " + food.Searching);
                 GUILayout.Label("Meals: carried " + food.CarriedMeals + " | shelves " + food.ShelfMeals);
                 GUILayout.Label("Shelves: stocked " + food.StockedShelves + " | empty " + food.EmptyShelves + "\nUnsearched shelves: " + food.UnsearchedShelves);
+                bool overviewEnabled=GUI.enabled;GUI.enabled=overviewEnabled && food.Hungry>0;
+                if(GUILayout.Button(new GUIContent("Next hungry human","Pause and focus the next human at hunger 40+, in stable identity order.")))Queue(FocusNextHungryHuman);
+                GUI.enabled=overviewEnabled;
             }
             GUILayout.Label("MOVEMENT INSPECTOR"); GUILayout.Label("Middle-drag: pan\nWheel: zoom\nClick: inspect a body"); // Explain the few controls that exist in this slice.
             if (world.SheltersEnabled) GUILayout.Label("Doors: light brown = closed | dark = open\nRed tint = damage | grey = broken"); // Make actual door actions visible while the temporary debug tiles remain.
