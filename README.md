@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 57 / first weapon priority**. When equally close to a supply, humans replacing worn bats favor an alternative so an unarmed human can obtain a first weapon. See [test instructions and behavior details](OutbreakRebuild/Docs/FIRST_WEAPON_PRIORITY.md).
+Current build: **Foundation 58 / ground bat condition**. Ground bats fade with wear, and clicking a bat shows the remaining hits and quantity of every condition in its pile. See [test instructions and behavior details](OutbreakRebuild/Docs/GROUND_BAT_CONDITION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

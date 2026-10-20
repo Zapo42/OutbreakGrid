@@ -1,4 +1,4 @@
-Latest build: [Foundation 57 / first weapon priority](Docs/FIRST_WEAPON_PRIORITY.md).
+Latest build: [Foundation 58 / ground bat condition](Docs/GROUND_BAT_CONDITION.md).
 
 # Current update: Shelters and doors
 

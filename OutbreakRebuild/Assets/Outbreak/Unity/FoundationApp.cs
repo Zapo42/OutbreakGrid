@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 57 / first weapon priority"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 58 / ground bat condition"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -20,7 +20,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214", setupBats = ScenarioBuilder.DefaultBats.ToString(CultureInfo.InvariantCulture); private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool showTargetMarkers=true;
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
-        private int focusedBatCell=-1;
+        private int focusedBatCell=-1, selectedBatCell=-1;
         private int shelfBrush = -1, selectedShelf; // Keep furniture authoring and selection out of saved simulation state.
         private SaveDocument scenarioStart; private bool scenarioAdvanced;
         private bool canResume; private Action resetAction; // Preserve a menu-paused run and confirm replacements before discarding it.
@@ -79,7 +79,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            scenarioStart=next.Capture();scenarioAdvanced=false;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            scenarioStart=next.Capture();scenarioAdvanced=false;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
         private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
@@ -156,6 +156,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
             GUILayout.EndHorizontal(); // Finish controlled reaction choices.
+            if (GUILayout.Button("Inspect Bat Conditions Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.BatConditionsTest());selectedBatCell=4*world.Width+2;status="Fresh bats are brown; worn bats fade toward grey. Click a bat or Next ground bat to inspect every condition in its pile. This fixture has fresh, half-worn, nearly broken and mixed supplies."; }));
             if (GUILayout.Button("Inspect First Weapon Priority Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.FirstWeaponPriorityTest());selected=0;status="An armed and an unarmed human are equally close to one bat. Run or Step 50 ticks: the armed human favors the other supply, leaving the first weapon for the unarmed human. Restart scenario repeats the setup."; }));
             if (GUILayout.Button("Inspect First Bat Courtesy Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.UnarmedCourtesyTest());selected=0;status="Two unarmed humans can see two bats. Run or Step 50 ticks: they favor separate supplies and collect one bat each. Restart scenario repeats the setup."; }));
             if (GUILayout.Button("Inspect Supply Courtesy Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.SupplyCourtesyTest());selected=0;status="Two humans need better bats. Run or Step 50 ticks: they favor separate supplies over competing for one bat. Restart scenario repeats the setup."; }));
@@ -224,7 +225,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             {
                 int index=(start+offset)%world.Count;ActorState person=world.ActorAt(index);
                 if(person.species!=Species.Human || person.hunger<HungerRules.SeekAt)continue;
-                SetPaused(true);selected=index;selectedShelf=0;placing=null;shelfBrush=-1;centerX=person.x+0.5f;centerY=person.y+0.5f;textureX=-1;
+                SetPaused(true);selected=index;selectedShelf=0;selectedBatCell=-1;placing=null;shelfBrush=-1;centerX=person.x+0.5f;centerY=person.y+0.5f;textureX=-1;
                 status="Selected hungry human #"+person.id+" ("+person.hunger+"/100). Click Next hungry human to cycle.";return;
             }
             status="No hungry humans remain.";
@@ -232,7 +233,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private void FocusNextGroundBat()
         {
             WeaponPickupDocument[] sites=world.WeaponSites();if(sites.Length==0)return;WeaponPickupDocument chosen=sites[0];foreach(WeaponPickupDocument site in sites)if(site.y*world.Width+site.x>focusedBatCell){chosen=site;break;}
-            SetPaused(true);selected=-1;selectedShelf=0;placing=null;shelfBrush=-1;focusedBatCell=chosen.y*world.Width+chosen.x;centerX=chosen.x+0.5f;centerY=chosen.y+0.5f;textureX=-1;status="Ground bat at "+chosen.x+", "+chosen.y+" | Bats in pile: "+chosen.Quantity+(world.WeaponDurability?" | Best condition: "+(MeleeRules.BatHits-(chosen.wear==null?0:chosen.wear[0]))+"/"+MeleeRules.BatHits:"")+". Humans still need to see it and collect it when safe.";
+            SetPaused(true);selected=-1;selectedShelf=0;placing=null;shelfBrush=-1;focusedBatCell=chosen.y*world.Width+chosen.x;selectedBatCell=focusedBatCell;centerX=chosen.x+0.5f;centerY=chosen.y+0.5f;textureX=-1;status="Ground bat at "+chosen.x+", "+chosen.y+" | Bats in pile: "+chosen.Quantity+(world.WeaponDurability?" | Best condition: "+(MeleeRules.BatHits-(chosen.wear==null?0:chosen.wear[0]))+"/"+MeleeRules.BatHits:"")+". Humans still need to see it and collect it when safe.";
         }
         private void FocusNextStockedShelf()
         {
@@ -244,7 +245,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(shelf.y*world.Width+shelf.x+1>selectedShelf){next=shelf;break;}
             }
             if(next==null)next=first;if(next==null){status="No stocked shelves remain.";return;}
-            SetPaused(true);selected=-1;selectedShelf=next.y*world.Width+next.x+1;placing=null;shelfBrush=-1;
+            SetPaused(true);selected=-1;selectedBatCell=-1;selectedShelf=next.y*world.Width+next.x+1;placing=null;shelfBrush=-1;
             centerX=next.x+0.5f;centerY=next.y+0.5f;textureX=-1;
             status="Selected shelf at "+next.x+", "+next.y+" ("+next.food+" meals). Click Next stocked shelf to cycle.";
         }
@@ -340,6 +341,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUI.enabled=equipmentEnabled;
                 if(selected>=0 && selected<world.Count){ActorState fighter=world.ActorAt(selected);GUILayout.Label("Melee weapon: "+fighter.meleeWeapon+"\nBlunt skill: "+fighter.bluntSkill+"/10"+(fighter.health==0?"\nDEFEATED":fighter.species==Species.Zombie?"\nEquipment inactive after turning":fighter.nextMeleeTick>world.Tick?"\nSwing cooldown: "+(fighter.nextMeleeTick-world.Tick)+" ticks":""));}
             }
+            DrawGroundBatInspector();
             if(world.WeaponDurability && selected>=0 && selected<world.Count){ActorState owner=world.ActorAt(selected);if(owner.meleeWeapon==MeleeWeapon.Bat)GUILayout.Label("Bat condition: "+(MeleeRules.BatHits-owner.batWear)+"/"+MeleeRules.BatHits+" hits remaining");if(weaponMotion[selected].RecentlyBroken(world.Tick))GUILayout.Label("Bat broke");if(weaponMotion[selected].RecentlySwapped(world.Tick))GUILayout.Label("Bat replaced");}
             if(world.BiteEvasion && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState defender=world.ActorAt(selected);GUILayout.Label("Bite evasion: agility "+defender.agility+" | stress "+defender.stress);BiteAction outcome=biteFeedback[selected];if(outcome.targetId==defender.id && world.Tick>=outcome.tick && world.Tick-outcome.tick<BiteRules.FeedbackTicks)GUILayout.Label("Last bite attempt: "+(outcome.evaded?"DODGED":"BITTEN")+"\nZombie #"+outcome.actorId+" | evasion chance "+outcome.dodgeChance+"%");}
             if(world.CombatExperience && selected>=0 && selected<world.Count){ActorState learner=world.ActorAt(selected);if(learner.species==Species.Human)GUILayout.Label((learner.bluntSkill==10?"Blunt practice: maximum skill":"Blunt practice: "+learner.bluntPractice+"/"+MeleeRules.HitsPerLevel(learner.bluntSkill)+" hits")+(learner.meleeWeapon==MeleeWeapon.Bat?"\nBat damage: "+MeleeRules.Damage(learner):""));}
@@ -373,8 +375,16 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             Rect visible = new Rect(bounds.x, bounds.y, width * cell, height * cell); GUI.DrawTexture(visible, terrain, ScaleMode.StretchToFill); // Render terrain in one texture operation.
             Event input = Event.current; // Use UI events so the shell does not depend on an extra input package.
             DrawDoorCrossings(bounds,left,top,width,height,cell);
-            foreach (ShelfDocument shelf in world.ShelfSites()) { if (shelf.x < left || shelf.y < top || shelf.x >= left + width || shelf.y >= top + height) continue; Rect furniture = new Rect(bounds.x + (shelf.x - left + 0.12f) * cell, bounds.y + (shelf.y - top + 0.12f) * cell, cell * 0.76f, cell * 0.76f); GUI.color = shelf.food == 0 ? new Color(0.4f, 0.4f, 0.36f) : new Color(0.68f, 0.57f, 0.25f); GUI.DrawTexture(furniture, Texture2D.whiteTexture); if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && furniture.Contains(input.mousePosition)) { int key = shelf.y * world.Width + shelf.x + 1; Queue(() => { selectedShelf = key; selected = -1; }); input.Use(); } } // Gold means stocked and grey means empty for the player; human knowledge remains independent.
-            foreach(WeaponPickupDocument pickup in world.WeaponSites()){if(pickup.x<left || pickup.y<top || pickup.x>=left+width || pickup.y>=top+height)continue;GUI.color=new Color(0.55f,0.34f,0.16f);GUI.DrawTexture(new Rect(bounds.x+(pickup.x-left+0.82f)*cell,bounds.y+(pickup.y-top+0.17f)*cell,cell*0.14f,cell*0.66f),Texture2D.whiteTexture);}
+            foreach (ShelfDocument shelf in world.ShelfSites()) { if (shelf.x < left || shelf.y < top || shelf.x >= left + width || shelf.y >= top + height) continue; Rect furniture = new Rect(bounds.x + (shelf.x - left + 0.12f) * cell, bounds.y + (shelf.y - top + 0.12f) * cell, cell * 0.76f, cell * 0.76f); GUI.color = shelf.food == 0 ? new Color(0.4f, 0.4f, 0.36f) : new Color(0.68f, 0.57f, 0.25f); GUI.DrawTexture(furniture, Texture2D.whiteTexture); if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && furniture.Contains(input.mousePosition)) { int key = shelf.y * world.Width + shelf.x + 1; Queue(() => { selectedShelf = key; selected = -1; selectedBatCell=-1; }); input.Use(); } } // Gold means stocked and grey means empty for the player; human knowledge remains independent.
+            foreach(WeaponPickupDocument pickup in world.WeaponSites())
+            {
+                if(pickup.x<left || pickup.y<top || pickup.x>=left+width || pickup.y>=top+height)continue;
+                Rect bat=new Rect(bounds.x+(pickup.x-left+0.82f)*cell,bounds.y+(pickup.y-top+0.17f)*cell,cell*0.14f,cell*0.66f);
+                GUI.color=GroundBatColor(world.WeaponDurability && pickup.wear!=null?pickup.wear[0]:0);GUI.DrawTexture(bat,Texture2D.whiteTexture);
+                if(selectedBatCell==pickup.y*world.Width+pickup.x){GUI.color=Color.white;GUI.DrawTexture(new Rect(bat.x-cell*0.05f,bat.y+bat.height+cell*0.03f,cell*0.24f,cell*0.04f),Texture2D.whiteTexture);}
+                Rect target=new Rect(bat.x-cell*0.06f,bat.y-cell*0.05f,cell*0.26f,cell*0.76f);
+                if(!confirmReset && !placing.HasValue && shelfBrush<0 && input.type==EventType.MouseDown && input.button==0 && target.Contains(input.mousePosition)){int key=pickup.y*world.Width+pickup.x;Queue(()=>{SetPaused(true);selectedBatCell=key;focusedBatCell=key;selected=-1;selectedShelf=0;});input.Use();}
+            }
             DrawSelectedTarget(bounds,left,top,width,height,cell);
             for (int i = 0; i < world.Count; i++) // Inspect the bounded active population instead of instantiating scene objects.
             { // Begin one visible body.
@@ -384,14 +394,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(time<hitFlashUntil[i]){GUI.color=new Color(1f,0.75f,0.65f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
                 BiteAction bite= biteFeedback[i];if(actor.species==Species.Human && bite.targetId==actor.id && time>=bite.tick && time<bite.tick+WeaponPresentation.HitFlashTicks){GUI.color=bite.evaded?new Color(0.45f,0.8f,1f):new Color(1f,0.5f,0.5f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
                 if(actor.species==Species.Human && (actor.meleeWeapon==MeleeWeapon.Bat || weaponMotion[i].Breaking(time)))DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);
-                if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => { selected = chosen; selectedShelf = 0; }); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
+                if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => { selected = chosen; selectedShelf = 0; selectedBatCell=-1; }); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
             } // Finish one visible body.
             GUI.color = Color.white; if (confirmReset || !visible.Contains(input.mousePosition)) return; // Keep modal confirmation and toolbar events out of map input.
-            if (shelfBrush >= 0 && input.type == EventType.MouseDown && input.button == 0) { int x = left + (int)((input.mousePosition.x - bounds.x) / cell), y = top + (int)((input.mousePosition.y - bounds.y) / cell), meals = shelfBrush; Queue(() => { if (world.TryPlaceShelf(x, y, meals)) { shelfBrush = -1; textureX = -1; selectedShelf = y * world.Width + x + 1; selected = -1; status = (meals == 0 ? "Placed EMPTY shelf: 0 meals. " : "Placed STOCKED shelf: " + meals + " meals. ") + "Gold = stocked; grey = empty. Humans still need to search."; } else status = "Shelf needs a free non-door cell, away from bodies and reserved destinations."; }); input.Use(); }
+            if (shelfBrush >= 0 && input.type == EventType.MouseDown && input.button == 0) { int x = left + (int)((input.mousePosition.x - bounds.x) / cell), y = top + (int)((input.mousePosition.y - bounds.y) / cell), meals = shelfBrush; Queue(() => { if (world.TryPlaceShelf(x, y, meals)) { shelfBrush = -1; textureX = -1; selectedShelf = y * world.Width + x + 1; selected = -1; selectedBatCell=-1; status = (meals == 0 ? "Placed EMPTY shelf: 0 meals. " : "Placed STOCKED shelf: " + meals + " meals. ") + "Gold = stocked; grey = empty. Humans still need to search."; } else status = "Shelf needs a free non-door cell, away from bodies and reserved destinations."; }); input.Use(); }
             if (placing.HasValue && input.type == EventType.MouseDown && input.button == 0) // Handle manual placement only after an explicit tool choice and a map click.
             { // Begin one placement command.
                 int x = left + (int)((input.mousePosition.x - bounds.x) / cell), y = top + (int)((input.mousePosition.y - bounds.y) / cell); Species species = placing.Value; // Capture the chosen cell and species before the GUI event ends.
-                Queue(() => { int id; if (world.TrySpawn(species, x, y, out id)) { selected = world.Count - 1; previous[selected] = world.ActorAt(selected); motion[selected].Snap(x, y, world.Tick); status = "Placed " + species + " #" + id + ". Click Run to start movement."; placing = null; } else status = "Cannot place here: choose a walkable cell with space, within the population cap."; }); input.Use(); // Synchronize new body history outside OnGUI and retain invalid placement for another attempt.
+                Queue(() => { int id; if (world.TrySpawn(species, x, y, out id)) { selected = world.Count - 1; selectedShelf=0; selectedBatCell=-1; previous[selected] = world.ActorAt(selected); motion[selected].Snap(x, y, world.Tick); status = "Placed " + species + " #" + id + ". Click Run to start movement."; placing = null; } else status = "Cannot place here: choose a walkable cell with space, within the population cap."; }); input.Use(); // Synchronize new body history outside OnGUI and retain invalid placement for another attempt.
             } // Finish one placement command.
             if (input.type == EventType.MouseDrag && input.button == 2) { centerX -= input.delta.x / cell; centerY -= input.delta.y / cell; input.Use(); } // Pan the camera without moving logical bodies.
             if (input.type == EventType.ScrollWheel) { span = Mathf.Clamp(span * (input.delta.y > 0 ? 1.1f : 0.9f), 16, 256); input.Use(); } // Zoom the bounded viewport around its current camera center.
@@ -409,6 +419,21 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 }
             }
             GUI.color=Color.white; // Keep a logically closed door visually open only while the rendered body still crosses it.
+        }
+        private static Color GroundBatColor(int wear)
+        {
+            float worn=Mathf.Clamp(wear/(float)(MeleeRules.BatHits-1),0,1);
+            return new Color(Mathf.Lerp(0.55f,0.49f,worn),Mathf.Lerp(0.34f,0.48f,worn),Mathf.Lerp(0.16f,0.45f,worn));
+        }
+        private void DrawGroundBatInspector()
+        {
+            if(selectedBatCell<0)return;WeaponPickupDocument pile=null;
+            foreach(WeaponPickupDocument site in world.WeaponSites())if(site.y*world.Width+site.x==selectedBatCell){pile=site;break;}
+            if(pile==null){GUILayout.Label("Selected bat pile is gone.");return;}
+            GUILayout.Label("GROUND BATS at "+pile.x+", "+pile.y);GUILayout.Label("Bats in pile: "+pile.Quantity);
+            if(!world.WeaponDurability){GUILayout.Label("Condition: not tracked for this run");return;}
+            if(pile.wear==null){GUILayout.Label("Condition: "+MeleeRules.BatHits+"/"+MeleeRules.BatHits+" hits x "+pile.Quantity);return;}
+            int start=0;while(start<pile.wear.Length){int end=start+1;while(end<pile.wear.Length && pile.wear[end]==pile.wear[start])end++;GUILayout.Label("Condition: "+(MeleeRules.BatHits-pile.wear[start])+"/"+MeleeRules.BatHits+" hits x "+(end-start));start=end;}
         }
         private void DrawBat(WeaponPresentation weapon,float x,float y,double tick,Rect bounds,int left,int top,float cell,bool active)
         {
