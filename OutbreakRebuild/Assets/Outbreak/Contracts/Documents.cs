@@ -38,12 +38,20 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public long observedTick;
         [DataMember] public int reportedBy; // Zero means personal sight; a report retains its source observation age.
     }
+    [DataContract] public struct FoodRoomVisit
+    {
+        [DataMember(IsRequired=true)] public int roomId;
+        [DataMember(IsRequired=true)] public long observedTick;
+    }
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
         [DataMember(IsRequired = true)] public Species species; // Store the actual biological state rather than a visual tint.
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
+        [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;
+        [DataMember(EmitDefaultValue=false)] public int foodExploreRoomId;
+        [DataMember(EmitDefaultValue=false)] public long foodExploreUntilTick;
         [DataMember(EmitDefaultValue = false)] public ShelfMemoryRecord[] shelfMemory; // At most eight personally observed shelves.
         [DataMember(EmitDefaultValue=false)] public int blockedFoodX, blockedFoodY;
         [DataMember(EmitDefaultValue=false)] public long blockedFoodUntilTick;

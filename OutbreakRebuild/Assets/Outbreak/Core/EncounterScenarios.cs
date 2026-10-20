@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World FoodExplorationTest()
+        {
+            WorldMap map=new WorldMap(20,12,"Food exploration test","food-exploration-1");AddShelterRoom(map,1,2,false);AddShelterRoom(map,10,2,false);map.Set(14,5,Terrain.Wall);map.Set(10,5,Terrain.DoorClosed);map.SetShelf(7,7,0,true);map.SetShelf(12,3,6);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,7,5,out id);SaveDocument saved=world.Capture();saved.actors[0].hunger=80;saved.actors[0].bravery=3;return World.Restore(saved);
+        }
         public static World FoodYieldChoiceTest()
         {
             WorldMap map=new WorldMap(14,12,"Food yield choices test","food-yield-choice-1");map.SetShelf(5,4,1,true);map.SetShelf(2,8,6,true);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,4,out id);SaveDocument saved=world.Capture();saved.actors[0].hunger=80;saved.actors[0].bravery=3;return World.Restore(saved);

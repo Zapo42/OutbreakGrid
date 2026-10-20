@@ -1,4 +1,4 @@
-Latest build: [Foundation 41 / food yield choices](Docs/FOOD_YIELD_CHOICES.md).
+Latest build: [Foundation 42 / deliberate food exploration](Docs/FOOD_EXPLORATION.md).
 
 # Current update: Shelters and doors
 

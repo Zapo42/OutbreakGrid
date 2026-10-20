@@ -10,6 +10,7 @@ namespace Outbreak.Core
     {
         private static ActorState DetachActor(ActorState actor)
         {
+            if(actor.foodRoomVisits!=null){if(actor.foodRoomVisits.Length>FoodExplorationRules.HistoryLimit)throw new ArgumentException("Food room history exceeds its limit.");actor.foodRoomVisits=(FoodRoomVisit[])actor.foodRoomVisits.Clone();}
             if (actor.shelfMemory != null) { if (actor.shelfMemory.Length > ShelfMemoryRules.Limit) throw new ArgumentException("Shelf memory exceeds its limit."); actor.shelfMemory = (ShelfMemoryRecord[])actor.shelfMemory.Clone(); } return actor; // ActorAt, save capture and restore never retain caller-owned arrays.
         }
         private void PruneShelfMemory(ref ActorState actor)
