@@ -1,4 +1,4 @@
-Latest build: [Foundation 30 / exposed food pickup](Docs/EXPOSED_FOOD_PICKUP.md).
+Latest build: [Foundation 31 / door movement noise](Docs/DOOR_MOVEMENT_NOISE.md).
 
 # Current update: Shelters and doors
 

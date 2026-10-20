@@ -4,6 +4,15 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Closing a door attracts an unseen zombie without granting visual pursuit or door attacks", () => {
+            World w=EncounterScenarios.DoorMovementNoiseTest();w.Step();ActorState z=w.ActorAt(1);Require(w.TerrainAt(5,5)==Terrain.DoorClosed && z.heardSearchKind==1 && z.heardSearchX==5 && z.heardSearchY==5 && z.heardSearchUntilTick==26 && z.targetId==0,"Closing did not produce door-location-only hearing.");World copy=World.Restore(w.Capture());w.Step();copy.Step();Require(w.ActorAt(1).x==6 && w.ActorAt(1).y==5 && w.ActorAt(1).targetId==0,"Zombie did not investigate a closed door without visual knowledge.");for(int i=0;i<24;i++){w.Step();copy.Step();}Require(w.ActorAt(1).heardSearchUntilTick==0 && w.ActorAt(1).heardSearchKind==0 && !WorldMap.Restore(w.Capture().map).HasDoorDamage,"Door movement hearing refreshed itself, failed expiry or caused a sound-only attack.");Require(State(w)==State(copy),"Door movement hearing diverged after saving.");
+        });
+        Check("Opening a door emits one local movement cue and old rules retain quiet doors", () => {
+            World w=EncounterScenarios.DoorMovementNoiseTest(true);w.Step();Require(w.TerrainAt(5,5)==Terrain.DoorOpen && w.ActorAt(1).heardSearchKind==1 && w.ActorAt(1).heardSearchX==5 && w.ActorAt(1).heardSearchY==5,"Opening did not emit from the physical doorway.");SaveDocument s=EncounterScenarios.DoorMovementNoiseTest().Capture();s.rulesVersion=EncounterRules.PickupVersion;w=World.Restore(s);w.Step();Require(!w.DoorMovementNoise && w.QuickStockPickup && w.TerrainAt(5,5)==Terrain.DoorClosed && w.ActorAt(1).heardSearchUntilTick==0,"Old generation silently gained noisy doors.");
+        });
+        Check("Door movement hearing rejects invalid kinds, locations and incompatible versions", () => {
+            World w=EncounterScenarios.DoorMovementNoiseTest();w.Step();SaveDocument s=w.Capture();s.actors[1].heardSearchKind=2;Reject(()=>World.Restore(s));s=w.Capture();s.actors[1].heardSearchX=7;Reject(()=>World.Restore(s));s=w.Capture();s.rulesVersion=EncounterRules.PickupVersion;Reject(()=>World.Restore(s));
+        });
         Check("Exposed shelf food takes one action while unopened shelves still take three", () => {
             World w=EncounterScenarios.QuickStockPickupTest();w.Step();Require(w.ActorAt(0).carriedFood==3 && w.ActorAt(0).hunger==80 && w.ActorAt(0).shelfSearchProgress==0 && w.ShelfAt(2,3).food==3,"Exposed food was searched slowly or eaten in the pickup action.");World copy=World.Restore(w.Capture());for(int i=0;i<20;i++){w.Step();copy.Step();}Require(State(w)==State(copy),"Quick pickup diverged after saving.");w=EncounterScenarios.CarefulSearchTest();w.Step();Require(w.ActorAt(0).carriedFood==0 && w.ActorAt(0).shelfSearchProgress==1 && !w.ShelfAt(2,3).searched,"Unopened shelf incorrectly used quick pickup.");
         });

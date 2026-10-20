@@ -55,6 +55,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true,carefulSearch:false); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.
         }
+        public static World DoorMovementNoiseTest(bool opening=false)
+        {
+            WorldMap map=new WorldMap(14,12,"Door movement noise test","door-movement-noise-1");AddShelterRoom(map,1,2,false);if(!opening)map.Set(5,5,Terrain.DoorOpen);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,opening?6:4,5,out id);world.TrySpawn(Species.Zombie,opening?9:7,opening?5:6,out id);SaveDocument saved=world.Capture();saved.actors[0].shelterId=45;saved.actors[0].shelterX=4;saved.actors[0].shelterY=5;saved.actors[0].shelterState=opening?ShelterState.Seeking:ShelterState.Inside;if(opening){saved.actors[0].reaction=HumanReaction.Flight;saved.actors[0].stress=50;saved.actors[0].bravery=-3;}return World.Restore(saved);
+        }
         public static World QuickStockPickupTest()
         {
             SaveDocument saved=CarefulSearchTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetShelf(2,3,6,true);saved.map=map.Capture();saved.map.name="Exposed food pickup test";return World.Restore(saved);
