@@ -45,6 +45,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
         [DataMember(EmitDefaultValue = false)] public ShelfMemoryRecord[] shelfMemory; // At most eight personally observed shelves.
+        [DataMember(EmitDefaultValue=false)] public int blockedFoodX, blockedFoodY;
+        [DataMember(EmitDefaultValue=false)] public long blockedFoodUntilTick;
         [DataMember(EmitDefaultValue=false)] public int shelfSearchProgress;
         [DataMember] public int hunger, carriedFood, foodX, foodY, homeShelterId; // Separate bodily need, carried inventory and a personally observed shelf.
         [DataMember] public long foodUntilTick; // Bound remembered shelf locations without tracking hidden stocks.

@@ -10,10 +10,10 @@ namespace Outbreak.Core
     public sealed partial class World
     {
         private static void ClearFoodMemory(ref ActorState a){a.foodX=0;a.foodY=0;a.foodUntilTick=0;a.shelfSearchProgress=0;}
-        private static void ClearHunger(ref ActorState a){a.shelfMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
+        private static void ClearHunger(ref ActorState a){ClearBlockedFood(ref a);a.shelfMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
         private void AdvanceHunger(ref ActorState a)
         {
-            if(a.species!=Species.Human)return;if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
+            if(a.species!=Species.Human)return;if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
         }
         private void ValidateHunger()
         {
@@ -26,7 +26,7 @@ namespace Outbreak.Core
         }
         private bool KnownRoomSupplies(ActorState actor,Room room)
         {
-            if(actor.carriedFood>0)return true;if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
+            if(actor.carriedFood>0)return true;if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
         }
         public int FoodTripRisk(int actorIndex) { return PerceivedFoodRisk(actors[actorIndex],NearestVisible(actors[actorIndex],Species.Zombie)); }
         private int PerceivedFoodRisk(ActorState a,int threat)
@@ -50,7 +50,7 @@ namespace Outbreak.Core
             ShelfDocument target=map.ShelfAt(actor.foodX,actor.foodY);if(Math.Abs(actor.x-target.x)+Math.Abs(actor.y-target.y)==1){if(CarefulSearch && actor.shelfSearchProgress<2){actor.shelfSearchProgress++;actors[index]=actor;EmitSearchNoise(actor);return true;}int take=Math.Min(HungerRules.CarryLimit-actor.carriedFood,target.food);actor.carriedFood+=take;map.SetShelf(target.x,target.y,target.food-take,true);if(ShelfMemoryEnabled)RememberShelf(ref actor,new ShelfMemoryRecord{x=target.x,y=target.y,food=target.food-take,observedTick=Tick});ClearFoodMemory(ref actor);actors[index]=actor;if(SearchNoise)EmitSearchNoise(actor);return true;} // Searching costs an action even when the shelf is empty; unopened contents never drive selection.
             actor.shelfSearchProgress=0;
             int threats=KnownShelterThreats(actor,threat),length,steps=int.MaxValue;for(int d=0;d<8;d+=2){int x=target.x+dx[d],y=target.y+dy[d];if(!map.CanWalk(x,y))continue;int candidate=ShelterRoute(actor,x,y,threats,out length);if(candidate>=0 && length<steps){steps=length;direction=candidate;}}
-            if(ShelfMemoryEnabled && steps==int.MaxValue && Math.Max(Math.Abs(target.x-actor.x),Math.Abs(target.y-actor.y))>15)direction=RouteToRememberedShelf(actor,target,threats);if(direction==8){actors[index]=actor;return false;}
+            if(ShelfMemoryEnabled && steps==int.MaxValue && Math.Max(Math.Abs(target.x-actor.x),Math.Abs(target.y-actor.y))>15)direction=RouteToRememberedShelf(actor,target,threats);if(direction==8){if(FoodRouteMemory){actor.blockedFoodX=target.x;actor.blockedFoodY=target.y;actor.blockedFoodUntilTick=Tick+FoodRouteMemoryRules.RetryTicks;ClearFoodMemory(ref actor);actors[index]=actor;return true;}actors[index]=actor;return false;}
             if(!inside && actor.shelterId!=0)ClearShelter(ref actor);int nx=actor.x+dx[direction],ny=actor.y+dy[direction];if(map.Get(nx,ny)==Terrain.DoorClosed){SetDoor(nx,ny,true);direction=8;}actors[index]=actor;return true;
         }
     }

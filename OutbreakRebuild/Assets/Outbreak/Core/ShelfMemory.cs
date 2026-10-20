@@ -38,15 +38,15 @@ namespace Outbreak.Core
         private ShelfDocument ChooseRememberedShelf(ActorState actor, Room insideRoom)
         {
             if (actor.shelfMemory == null) return null;
-            if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
+            if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && !AvoidBlockedFood(actor,current.x,current.y) && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
             ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;
-            foreach (ShelfMemoryRecord note in actor.shelfMemory) { if (note.food==0 || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y)))) continue; int priority = note.food>0?1:0, squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y}); if (priority>rank || (priority==rank && squared<distance)) { best=note;rank=priority;distance=squared; } }
+            foreach (ShelfMemoryRecord note in actor.shelfMemory) { if (note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y)))) continue; int priority = note.food>0?1:0, squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y}); if (priority>rank || (priority==rank && squared<distance)) { best=note;rank=priority;distance=squared; } }
             if(SearchCoordination && rank>=0 && VisibleShelfSearch(actor,best.x,best.y))
             {
                 ShelfMemoryRecord alternative=new ShelfMemoryRecord();int alternativeRank=-1,alternativeDistance=int.MaxValue;
                 foreach(ShelfMemoryRecord note in actor.shelfMemory)
                 {
-                    if(note.food==0 || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || !ReachableSearchAlternative(actor,note))continue;
+                    if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || !ReachableSearchAlternative(actor,note))continue;
                     int priority=note.food>0?1:0,squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});
                     if(priority>alternativeRank || (priority==alternativeRank && squared<alternativeDistance)){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
                 }
