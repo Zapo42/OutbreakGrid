@@ -39,20 +39,32 @@ namespace Outbreak.Core
         {
             if (actor.shelfMemory == null) return null;
             if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && !AvoidBlockedFood(actor,current.x,current.y) && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
-            ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;
-            foreach (ShelfMemoryRecord note in actor.shelfMemory) { if (note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y)))) continue; int priority = note.food>0?1:0, squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y}); if (priority>rank || (priority==rank && squared<distance)) { best=note;rank=priority;distance=squared; } }
+            ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;bool bestReachable=false;
+            foreach(ShelfMemoryRecord note in actor.shelfMemory)
+            {
+                if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))))continue;
+                int priority=note.food>0?1:0,metric=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});bool reachable=false;
+                if(FoodRouteChoice){int route=FoodShelfRouteLength(actor,note);reachable=route<int.MaxValue;if(reachable)metric=route;}
+                if(rank<0 || (reachable && !bestReachable) || (reachable==bestReachable && (priority>rank || (priority==rank && metric<distance)))){best=note;rank=priority;distance=metric;bestReachable=reachable;}
+            }
             if(SearchCoordination && rank>=0 && VisibleShelfSearch(actor,best.x,best.y))
             {
                 ShelfMemoryRecord alternative=new ShelfMemoryRecord();int alternativeRank=-1,alternativeDistance=int.MaxValue;
                 foreach(ShelfMemoryRecord note in actor.shelfMemory)
                 {
-                    if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || !ReachableSearchAlternative(actor,note))continue;
-                    int priority=note.food>0?1:0,squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});
+                    if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || (!FoodRouteChoice && !ReachableSearchAlternative(actor,note)))continue;
+                    int priority=note.food>0?1:0,squared=FoodRouteChoice?FoodShelfRouteLength(actor,note):DistanceSquared(actor,new ActorState{x=note.x,y=note.y});if(squared==int.MaxValue)continue;
                     if(priority>alternativeRank || (priority==alternativeRank && squared<alternativeDistance)){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
                 }
                 if(alternativeRank>=0)best=alternative; // With no usable alternative, retain the original choice rather than blocking access to the only supplies.
             }
             return rank<0 ? null : new ShelfDocument{x=best.x,y=best.y}; // Prefer confirmed supplies over unknown shelves; never read hidden current stock.
+        }
+        private int FoodShelfRouteLength(ActorState actor,ShelfMemoryRecord note)
+        {
+            int threats=KnownShelterThreats(actor,NearestVisible(actor,Species.Zombie)),best=int.MaxValue;
+            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length)>=0 && length<best)best=length;}
+            return best; // Compare bounded routes to a search position, without reading unopened stock.
         }
         private bool VisibleShelfSearch(ActorState observer,int x,int y)
         {

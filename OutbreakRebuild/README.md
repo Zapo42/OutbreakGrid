@@ -1,4 +1,4 @@
-Latest build: [Foundation 34 / stocked shelf finder](Docs/STOCKED_SHELF_FINDER.md).
+Latest build: [Foundation 35 / food route choices](Docs/FOOD_ROUTE_CHOICES.md).
 
 # Current update: Shelters and doors
 

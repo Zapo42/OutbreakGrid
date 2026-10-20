@@ -4,6 +4,15 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Food choices compare walkable path lengths rather than distance across a wall", () => {
+            World w=EncounterScenarios.FoodRouteChoiceTest();w.Step();Require(w.ActorAt(0).foodX==3 && w.ActorAt(0).foodY==7,"Forager chose the physically nearer shelf with a longer detour.");World copy=World.Restore(w.Capture());for(int i=0;i<49;i++){w.Step();copy.Step();}Require(w.ShelfAt(3,7).food==3 && w.ShelfAt(8,3).food==6 && w.ActorAt(0).hunger<40 && w.ActorAt(0).carriedFood==2,"Shorter-route supply trip failed to collect and eat actual stock.");Require(State(w)==State(copy),"Path-aware food choice diverged after saving.");SaveDocument s=EncounterScenarios.FoodRouteChoiceTest().Capture();s.rulesVersion=EncounterRules.DoorNoiseVersion;w=World.Restore(s);w.Step();Require(!w.FoodRouteChoice && w.DoorMovementNoise && w.ActorAt(0).foodX==8 && w.ActorAt(0).foodY==3,"Old saves silently changed their shelf-distance preference.");
+        });
+        Check("Locally reachable unknown food outranks unreachable confirmed supplies", () => {
+            SaveDocument s=EncounterScenarios.BlockedFoodRouteTest().Capture();s.rulesVersion=EncounterRules.Version;World w=World.Restore(s);w.Step();Require(w.ActorAt(0).foodX==3 && w.ActorAt(0).foodY==6 && w.ActorAt(0).blockedFoodUntilTick==0,"Forager tried a blocked confirmed shelf before a reachable unknown option.");
+        });
+        Check("Route comparisons do not reveal unopened stock quantities", () => {
+            SaveDocument s=EncounterScenarios.FoodRouteChoiceTest().Capture();WorldMap map=WorldMap.Restore(s.map);map.SetShelf(8,3,6);map.SetShelf(3,7,6);s.map=map.Capture();for(int i=0;i<s.actors[0].shelfMemory.Length;i++)s.actors[0].shelfMemory[i].food=-1;World full=World.Restore(s);map.SetShelf(3,7,0);s.map=map.Capture();World empty=World.Restore(s);for(int i=0;i<20;i++){full.Step();empty.Step();Require(Outbreak.Persistence.Documents.Encode(full.ActorAt(0))==Outbreak.Persistence.Documents.Encode(empty.ActorAt(0)),"Unopened shelf quantity changed path choice or partial searching.");}
+        });
         Check("Closing a door attracts an unseen zombie without granting visual pursuit or door attacks", () => {
             World w=EncounterScenarios.DoorMovementNoiseTest();w.Step();ActorState z=w.ActorAt(1);Require(w.TerrainAt(5,5)==Terrain.DoorClosed && z.heardSearchKind==1 && z.heardSearchX==5 && z.heardSearchY==5 && z.heardSearchUntilTick==26 && z.targetId==0,"Closing did not produce door-location-only hearing.");World copy=World.Restore(w.Capture());w.Step();copy.Step();Require(w.ActorAt(1).x==6 && w.ActorAt(1).y==5 && w.ActorAt(1).targetId==0,"Zombie did not investigate a closed door without visual knowledge.");for(int i=0;i<24;i++){w.Step();copy.Step();}Require(w.ActorAt(1).heardSearchUntilTick==0 && w.ActorAt(1).heardSearchKind==0 && !WorldMap.Restore(w.Capture().map).HasDoorDamage,"Door movement hearing refreshed itself, failed expiry or caused a sound-only attack.");Require(State(w)==State(copy),"Door movement hearing diverged after saving.");
         });
