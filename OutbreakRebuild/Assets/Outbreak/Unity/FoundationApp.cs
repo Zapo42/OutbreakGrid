@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 61 / confrontation focus"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 62 / encounter summary"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -328,7 +328,10 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginArea(new Rect(Screen.width - 276, 138, 264, Screen.height - 184), GUI.skin.box); inspectorScroll = GUILayout.BeginScrollView(inspectorScroll); // Keep selection diagnostics outside the map viewport.
             if(world.Encounter)
             {
-                int injured=0,infected=0;for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species!=Species.Human || person.health<=0)continue;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
+                int injured=0,infected=0,humans=0,zombies=0,defeated=0;
+                for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species==Species.Zombie){if(person.health>0)zombies++;else defeated++;continue;}if(person.health<=0)continue;humans++;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
+                GUILayout.Label("ENCOUNTER SUMMARY");GUILayout.Label("Humans remaining: "+humans+"\nInfected (included): "+infected+"\nActive zombies: "+zombies+"\nDefeated zombies: "+defeated);
+                GUILayout.Label(world.Count==0?"No actors placed":humans==0?(zombies>0?"No humans remain":"No living actors remain"):zombies>0?"Outbreak ongoing":infected>0?"Infected humans may still turn":"No active zombies or infection");
                 bool fightEnabled=GUI.enabled;GUI.enabled=fightEnabled && NextFightIndex()>=0;if(GUILayout.Button("Next active fight"))Queue(FocusNextFight);GUI.enabled=fightEnabled;
                 if(selected>=0 && selected<world.Count){int opponent=world.CloseVisibleZombie(selected);if(opponent>=0){ActorState zombie=world.ActorAt(opponent);GUILayout.Label("Nearby zombie #"+zombie.id+" | Health: "+zombie.health+"/100");}}
                 GUILayout.Label("SURVIVOR HEALTH");GUILayout.Label("Injured humans: "+injured+"\nInfected humans: "+infected);

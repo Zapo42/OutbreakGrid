@@ -1,4 +1,4 @@
-Latest build: [Foundation 61 / confrontation focus](Docs/CONFRONTATION_FOCUS.md).
+Latest build: [Foundation 62 / encounter summary](Docs/ENCOUNTER_SUMMARY.md).
 
 # Current update: Shelters and doors
 
