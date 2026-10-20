@@ -21,6 +21,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(EmitDefaultValue=false)] public int extraBats; // Additional bats in this ground pile; absent means one bat.
         public int Quantity { get { return 1+extraBats; } }
+        [DataMember(EmitDefaultValue=false)] public int[] wear; // Sorted individual hit counts; absent means every bat is fresh.
         [DataMember(IsRequired=true)] public int x,y;
         [DataMember(IsRequired=true)] public MeleeWeapon weapon;
     }
@@ -60,6 +61,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int morality, bravery, health; // Keep internal health on the agreed zero-to-one-hundred scale.
         [DataMember(EmitDefaultValue=false)] public MeleeWeapon meleeWeapon;
         [DataMember(EmitDefaultValue=false)] public int bluntSkill;
+        [DataMember(EmitDefaultValue=false)] public int batWear;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
         [DataMember(EmitDefaultValue=false)] public long nextMeleeTick;
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;

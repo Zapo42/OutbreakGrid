@@ -1,4 +1,4 @@
-Latest build: [Foundation 50 / bite evasion](Docs/BITE_EVASION.md).
+Latest build: [Foundation 51 / bat durability](Docs/BAT_DURABILITY.md).
 
 # Current update: Shelters and doors
 

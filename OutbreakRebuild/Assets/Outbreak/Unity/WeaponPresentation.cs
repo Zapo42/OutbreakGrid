@@ -11,6 +11,8 @@ namespace Outbreak.UnityAdapter
     {
         public const double SwingTicks=2,PickupTicks=3,HitFlashTicks=1.5;
         private double facingX,facingY;private bool hasAction;private WeaponAction action;
+        public bool Breaking(double tick){return RecentlyBroken(tick) && tick-action.tick<SwingTicks;}
+        public bool RecentlyBroken(double tick){return hasAction && action.kind==WeaponActionKind.Swing && action.broke && tick>=action.tick && tick-action.tick<10;}
         public void Reset(){facingX=1;facingY=0;hasAction=false;action=new WeaponAction();}
         public void Move(int x,int y){if(x==0 && y==0)return;double length=Math.Sqrt(x*x+y*y);facingX=x/length;facingY=y/length;}
         public void Observe(WeaponAction next,int actorX,int actorY)

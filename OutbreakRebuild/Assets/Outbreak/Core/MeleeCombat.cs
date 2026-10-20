@@ -6,10 +6,11 @@ namespace Outbreak.Core
     public enum WeaponActionKind { Pickup, Swing }
     public struct WeaponAction
     {
-        public int actorId,targetId,x,y;public long tick;public WeaponActionKind kind;public bool hit;
+        public int actorId,targetId,x,y;public long tick;public WeaponActionKind kind;public bool hit,broke;
     }
     public static class MeleeRules
     {
+        public const int BatHits=12;
         public const int CooldownTicks=10, MaxPickups=4096, MaxBats=MaxPickups+Rules.DefaultCapacity;
         public static int HitsPerLevel(int skill){return 3+skill;} // Successful hits needed for the next level; higher levels take more practice.
         public static int Damage(ActorState actor){return 8+2*actor.strength+2*actor.bluntSkill;}
@@ -18,23 +19,31 @@ namespace Outbreak.Core
     public sealed partial class WorldMap
     {
         private readonly Dictionary<int,int> weapons=new Dictionary<int,int>();
+        private readonly Dictionary<int,List<int>> weaponWear=new Dictionary<int,List<int>>();
+        public bool HasWornWeapons { get { return weaponWear.Count!=0; } }
+        private int[] CaptureWear(int key){List<int> values;return weaponWear.TryGetValue(key,out values)?values.ToArray():null;}
         internal int GroundBatCount { get { int total=0;foreach(int quantity in weapons.Values)total+=quantity;return total; } }
         public bool HasDroppedWeapons { get { if(weapons.Count>MeleeRules.MaxPickups)return true;foreach(KeyValuePair<int,int> pile in weapons)if(pile.Value>1 || Get(pile.Key%Width,pile.Key/Width)==Terrain.DoorOpen || Get(pile.Key%Width,pile.Key/Width)==Terrain.DoorClosed)return true;return false; } }
         public bool HasWeapons { get { return weapons.Count!=0; } }
-        public WeaponPickupDocument WeaponAt(int x,int y){int quantity;return Contains(x,y) && weapons.TryGetValue(y*Width+x,out quantity)?new WeaponPickupDocument{x=x,y=y,weapon=MeleeWeapon.Bat,extraBats=quantity-1}:null;}
+        public WeaponPickupDocument WeaponAt(int x,int y){int quantity;return Contains(x,y) && weapons.TryGetValue(y*Width+x,out quantity)?new WeaponPickupDocument{x=x,y=y,weapon=MeleeWeapon.Bat,extraBats=quantity-1,wear=CaptureWear(y*Width+x)}:null;}
         public void SetWeapon(int x,int y,MeleeWeapon weapon)
         {
             if(weapon!=MeleeWeapon.Bat || !CanWalk(x,y) || Get(x,y)==Terrain.DoorOpen || Get(x,y)==Terrain.DoorClosed || (!weapons.ContainsKey(y*Width+x) && weapons.Count>=MeleeRules.MaxPickups))throw new ArgumentException("A bat needs a walkable, non-door cell and room in the pickup limit.");
-            weapons[y*Width+x]=1;
+            weapons[y*Width+x]=1;weaponWear.Remove(y*Width+x);
         }
-        internal void TakeWeapon(int x,int y){int key=y*Width+x;if(weapons[key]>1)weapons[key]--;else weapons.Remove(key);}
-        internal void DropBat(int x,int y)
+        internal int TakeWeapon(int x,int y)
         {
-            int key=y*Width+x,quantity;weapons.TryGetValue(key,out quantity);if(!Contains(x,y) || (!CanWalk(x,y) && Get(x,y)!=Terrain.DoorClosed) || ShelfAt(x,y)!=null || GroundBatCount>=MeleeRules.MaxBats)throw new ArgumentException("Invalid dropped bat cell or supply bound.");weapons[key]=quantity+1;
+            int key=y*Width+x,wear=0;List<int> values;if(weaponWear.TryGetValue(key,out values)){wear=values[0];values.RemoveAt(0);if(values.Count==0 || values[values.Count-1]==0)weaponWear.Remove(key);}
+            if(weapons[key]>1)weapons[key]--;else weapons.Remove(key);return wear;
+        }
+        internal void DropBat(int x,int y,int wear=0)
+        {
+            int key=y*Width+x,quantity;weapons.TryGetValue(key,out quantity);if(wear<0 || wear>=MeleeRules.BatHits || !Contains(x,y) || (!CanWalk(x,y) && Get(x,y)!=Terrain.DoorClosed) || ShelfAt(x,y)!=null || GroundBatCount>=MeleeRules.MaxBats)throw new ArgumentException("Invalid dropped bat cell or supply bound.");weapons[key]=quantity+1;
+            List<int> values;if(weaponWear.TryGetValue(key,out values)){values.Add(wear);values.Sort();}else if(wear!=0){values=new List<int>();for(int i=0;i<quantity;i++)values.Add(0);values.Add(wear);weaponWear[key]=values;}
         }
         internal WeaponPickupDocument[] CaptureWeapons()
         {
-            if(weapons.Count==0)return null;List<int> keys=new List<int>(weapons.Keys);keys.Sort();WeaponPickupDocument[] result=new WeaponPickupDocument[keys.Count];for(int i=0;i<keys.Count;i++)result[i]=new WeaponPickupDocument{x=keys[i]%Width,y=keys[i]/Width,weapon=MeleeWeapon.Bat,extraBats=weapons[keys[i]]-1};return result;
+            if(weapons.Count==0)return null;List<int> keys=new List<int>(weapons.Keys);keys.Sort();WeaponPickupDocument[] result=new WeaponPickupDocument[keys.Count];for(int i=0;i<keys.Count;i++)result[i]=new WeaponPickupDocument{x=keys[i]%Width,y=keys[i]/Width,weapon=MeleeWeapon.Bat,extraBats=weapons[keys[i]]-1,wear=CaptureWear(keys[i])};return result;
         }
         private void RestoreWeapons(MapDocument source)
         {
@@ -44,6 +53,10 @@ namespace Outbreak.Core
             {
                 if(pickup==null || pickup.weapon!=MeleeWeapon.Bat || pickup.extraBats<0 || pickup.extraBats>=MeleeRules.MaxBats || WeaponAt(pickup.x,pickup.y)!=null || (source.schemaVersion<5 && pickup.extraBats!=0))throw new ArgumentException("Invalid or duplicate weapon pickup.");
                 if(source.schemaVersion<5)SetWeapon(pickup.x,pickup.y,pickup.weapon);else {if(!Contains(pickup.x,pickup.y) || (!CanWalk(pickup.x,pickup.y) && Get(pickup.x,pickup.y)!=Terrain.DoorClosed) || ShelfAt(pickup.x,pickup.y)!=null || GroundBatCount+pickup.Quantity>MeleeRules.MaxBats)throw new ArgumentException("Invalid dropped weapon pile.");weapons[pickup.y*Width+pickup.x]=pickup.Quantity;}
+                if(pickup.wear!=null)
+                {
+                    if(source.schemaVersion<6 || pickup.wear.Length!=pickup.Quantity)throw new ArgumentException("Invalid weapon condition collection.");int previous=-1;foreach(int value in pickup.wear){if(value<0 || value>=MeleeRules.BatHits || value<previous)throw new ArgumentException("Invalid weapon wear.");previous=value;}if(previous==0)throw new ArgumentException("Fresh weapon piles omit condition data.");weaponWear[pickup.y*Width+pickup.x]=new List<int>(pickup.wear);
+                }
             }
         }
     }
@@ -52,10 +65,10 @@ namespace Outbreak.Core
         private WeaponAction[] weaponActions;private int weaponActionCount;
         public int WeaponActionCount { get { return weaponActionCount; } }
         public WeaponAction WeaponActionAt(int index){if(index<0 || index>=weaponActionCount)throw new ArgumentOutOfRangeException("index");return weaponActions[index];}
-        private void RecordWeaponAction(ActorState actor,int x,int y,WeaponActionKind kind,bool hit=false,int targetId=0)
+        private void RecordWeaponAction(ActorState actor,int x,int y,WeaponActionKind kind,bool hit=false,int targetId=0,bool broke=false)
         {
             if(weaponActions==null)weaponActions=new WeaponAction[Capacity];
-            weaponActions[weaponActionCount++]=new WeaponAction{actorId=actor.id,targetId=targetId,x=x,y=y,tick=Tick,kind=kind,hit=hit}; // One transient record per actor action, consumed without changing saved state.
+            weaponActions[weaponActionCount++]=new WeaponAction{actorId=actor.id,targetId=targetId,x=x,y=y,tick=Tick,kind=kind,hit=hit,broke=broke}; // One transient record per actor action, consumed without changing saved state.
         }
         public WeaponPickupDocument[] WeaponSites(){return map.CaptureWeapons()??new WeaponPickupDocument[0];}
         public bool TryPlaceBat(int x,int y)
@@ -71,7 +84,7 @@ namespace Outbreak.Core
             {
                 int x=actor.x+(d<0?0:dx[d]),y=actor.y+(d<0?0:dy[d]);WeaponPickupDocument pickup=map.WeaponAt(x,y);if(pickup==null || !map.CanWalk(x,y) || !Visible(actor,new ActorState{x=x,y=y}))continue;int cost=d<0?0:1,k=Key(x,y);if(cost<distance || (cost==distance && k<key)){best=pickup;distance=cost;key=k;}
             }
-            if(best==null)return false;map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Pickup);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
+            if(best==null)return false;actor.batWear=map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Pickup);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
         }
         private bool TrySeekBat(ActorState actor,int threat,out int direction)
         {
@@ -91,10 +104,11 @@ namespace Outbreak.Core
         {
             ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if(human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;
             human.nextMeleeTick=Tick+MeleeRules.CooldownTicks;actors[humanIndex]=human;
-            bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id);
+            bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id,WeaponDurability && hit && human.batWear==MeleeRules.BatHits-1);
             if(!hit)return; // A missed swing still consumes its action and cooldown.
             zombie.health=Math.Max(0,zombie.health-MeleeRules.Damage(human));
             if(CombatExperience && human.bluntSkill<10){human.bluntPractice++;if(human.bluntPractice>=MeleeRules.HitsPerLevel(human.bluntSkill)){human.bluntPractice=0;human.bluntSkill++;}actors[humanIndex]=human;} // Apply learning after damage: the next swing benefits, including when this hit was fatal.
+            if(WeaponDurability){human.batWear++;if(human.batWear==MeleeRules.BatHits){human.meleeWeapon=MeleeWeapon.None;human.batWear=0;}actors[humanIndex]=human;} // The final hit deals full damage; retain swing recovery even when the bat breaks.
             if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;return;}
             zombie.staggerUntilTick=Tick+HumanRules.ShoveTicks;
             int x=zombie.x+Math.Sign(zombie.x-human.x),y=zombie.y+Math.Sign(zombie.y-human.y);
@@ -104,7 +118,7 @@ namespace Outbreak.Core
         private int TotalBatCount(){int total=map.GroundBatCount;for(int i=0;i<count;i++)if(actors[i].meleeWeapon==MeleeWeapon.Bat)total++;return total;}
         private void DropZombieBat(ref ActorState actor)
         {
-            if(actor.species!=Species.Zombie || actor.meleeWeapon!=MeleeWeapon.Bat)return;map.DropBat(actor.x,actor.y);actor.meleeWeapon=MeleeWeapon.None;actor.nextMeleeTick=0; // A pile can hold multiple finite bats, including at a doorway.
+            if(actor.species!=Species.Zombie || actor.meleeWeapon!=MeleeWeapon.Bat)return;map.DropBat(actor.x,actor.y,actor.batWear);actor.meleeWeapon=MeleeWeapon.None;actor.batWear=0;actor.nextMeleeTick=0; // A pile can hold multiple finite bats, including at a doorway.
         }
         private void ValidateMelee()
         {
@@ -112,8 +126,9 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 ActorState actor=actors[i];if(actor.meleeWeapon<MeleeWeapon.None || actor.meleeWeapon>MeleeWeapon.Bat || actor.bluntSkill<0 || actor.bluntSkill>10 || (!MeleeCombat && (actor.meleeWeapon!=MeleeWeapon.None || actor.bluntSkill!=0 || actor.nextMeleeTick!=0 || actor.health==0)))throw new ArgumentException("Invalid melee equipment or skill.");
+                if(actor.batWear<0 || actor.batWear>=MeleeRules.BatHits || (actor.batWear!=0 && (!WeaponDurability || actor.meleeWeapon!=MeleeWeapon.Bat)))throw new ArgumentException("Invalid equipped bat wear.");
                 if(actor.bluntPractice<0 || actor.bluntPractice>=MeleeRules.HitsPerLevel(actor.bluntSkill) || (actor.bluntPractice!=0 && (!CombatExperience || actor.bluntSkill==10)))throw new ArgumentException("Invalid blunt practice progress.");
-                if(actor.nextMeleeTick<0 || (actor.nextMeleeTick!=0 && (actor.species!=Species.Human || actor.meleeWeapon!=MeleeWeapon.Bat || actor.nextMeleeTick<=Tick || actor.nextMeleeTick-Tick>MeleeRules.CooldownTicks)))throw new ArgumentException("Invalid melee cooldown.");
+                if(actor.nextMeleeTick<0 || (actor.nextMeleeTick!=0 && (actor.species!=Species.Human || (actor.meleeWeapon!=MeleeWeapon.Bat && !WeaponDurability) || actor.nextMeleeTick<=Tick || actor.nextMeleeTick-Tick>MeleeRules.CooldownTicks)))throw new ArgumentException("Invalid melee cooldown.");
                 if(actor.health==0 && (actor.species!=Species.Zombie || actor.targetId!=0 || actor.staggerUntilTick!=0 || actor.heardSearchUntilTick!=0 || actor.heardDoorUntilTick!=0 || actor.heardWarningUntilTick!=0))throw new ArgumentException("Defeated zombie retained active behavior.");
             }
         }
