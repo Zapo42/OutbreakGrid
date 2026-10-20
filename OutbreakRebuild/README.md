@@ -1,4 +1,4 @@
-Latest build: [Foundation 47 / blunt weapon experience](Docs/COMBAT_EXPERIENCE.md).
+Latest build: [Foundation 48 / encounter bat supplies](Docs/ENCOUNTER_BAT_SUPPLIES.md).
 
 # Current update: Shelters and doors
 
