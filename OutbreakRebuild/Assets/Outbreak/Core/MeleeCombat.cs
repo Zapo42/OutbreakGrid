@@ -92,14 +92,32 @@ namespace Outbreak.Core
             direction=8;bool replacing=ReplacementTrips && NeedsBatReplacement(actor);
             // Equipment is optional: food and shelter decisions already ran. Do not leave an assigned refuge, ignore danger, or use hidden map stock.
             if((actor.meleeWeapon!=MeleeWeapon.None && !replacing) || actor.turnAtTick!=0 || actor.shelterId!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || threat>=0)return false;
-            int bestDistance=7,bestWear=int.MaxValue,bestKey=int.MaxValue;
+            int bestDistance=7,bestWear=int.MaxValue,bestKey=int.MaxValue,bestContention=2;
             for(int y=Math.Max(0,actor.y-6);y<=Math.Min(Height-1,actor.y+6);y++)for(int x=Math.Max(0,actor.x-6);x<=Math.Min(Width-1,actor.x+6);x++)
             {
                 if(!map.CanWalk(x,y) || Math.Abs(x-actor.x)+Math.Abs(y-actor.y)<=1 || !Visible(actor,new ActorState{x=x,y=y}))continue;WeaponPickupDocument pickup=map.WeaponAt(x,y);if(pickup==null)continue;int wear=pickup.wear==null?0:pickup.wear[0];if(replacing && actor.batWear-wear<MeleeRules.ReplacementGain)continue;
-                // Route to a cardinal pickup neighbor, never onto a closed door or through a solid corner. Six steps is the maximum detour.
-                for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);int key=Key(x,y);if(route>=0 && length>0 && (!ReplacementTrips || length<=6) && (length<bestDistance || (length==bestDistance && ((replacing && wear<bestWear) || ((!replacing || wear==bestWear) && key<bestKey))))){bestDistance=length;bestWear=wear;bestKey=key;direction=route;}}
+                int distance=8,next=8;
+                for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);if(route>=0 && length>0 && (!ReplacementTrips || length<=6) && length<distance){distance=length;next=route;}}
+                if(next==8 || distance>7)continue;int key=Key(x,y),contention=SupplyCourtesy && replacing && SupplyContested(actor,pickup,distance)?1:0;
+                if(contention<bestContention || (contention==bestContention && (distance<bestDistance || (distance==bestDistance && ((replacing && wear<bestWear) || ((!replacing || wear==bestWear) && key<bestKey)))))){bestContention=contention;bestDistance=distance;bestWear=wear;bestKey=key;direction=next;}
             }
             return bestKey!=int.MaxValue;
+        }
+        private bool SupplyContested(ActorState observer,WeaponPickupDocument pickup,int ownDistance)
+        {
+            int ahead=0,available=pickup.Quantity;
+            if(pickup.wear!=null){available=0;foreach(int wear in pickup.wear)if(observer.batWear-wear>=MeleeRules.ReplacementGain)available++;}
+            for(int i=0;i<count;i++)
+            {
+                ActorState peer=actors[i];if(peer.id==observer.id || Math.Abs(peer.x-pickup.x)>6 || Math.Abs(peer.y-pickup.y)>6 || peer.species!=Species.Human || peer.turnAtTick!=0 || peer.shelterId!=0 || peer.stress!=0 || peer.freezeUntilTick>Tick || peer.reaction==HumanReaction.Flight || peer.hunger>=HungerRules.SeekAt || HasRecentWarning(peer) || HasRecentDoorNoise(peer) || !Visible(observer,peer) || !Visible(peer,new ActorState{x=pickup.x,y=pickup.y}))continue;
+                if(peer.meleeWeapon!=MeleeWeapon.None && (!NeedsBatReplacement(peer) || peer.batWear-(pickup.wear==null?0:pickup.wear[0])<MeleeRules.ReplacementGain))continue;
+                int distance=8;if(Math.Abs(peer.x-pickup.x)+Math.Abs(peer.y-pickup.y)<=1)distance=0;
+                else for(int d=0;d<8;d+=2){int gx=pickup.x+dx[d],gy=pickup.y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(peer,gx,gy,0,out length,walkOnly:true);if(route>=0 && length>0 && length<distance)distance=length;}
+                if(distance>6 || distance>ownDistance || (distance==ownDistance && peer.id>observer.id))continue;
+                // Visible nearer peers suggest competition, without reserving anything or reading hidden plans.
+                if(++ahead>=available)return true;
+            }
+            return false;
         }
         private bool TryReplaceBat(int index,ref ActorState actor,int threat)
         {

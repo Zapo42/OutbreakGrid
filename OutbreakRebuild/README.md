@@ -1,4 +1,4 @@
-Latest build: [Foundation 54 / replacement supply trips](Docs/REPLACEMENT_SUPPLY_TRIPS.md).
+Latest build: [Foundation 55 / considerate supply trips](Docs/CONSIDERATE_SUPPLY_TRIPS.md).
 
 # Current update: Shelters and doors
 
