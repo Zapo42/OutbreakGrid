@@ -1,4 +1,4 @@
-Latest build: [Foundation 39 / interrupted food trips](Docs/FOOD_TRIP_RETREAT.md).
+Latest build: [Foundation 40 / alternate food shelters](Docs/ALTERNATE_FOOD_SHELTERS.md).
 
 # Current update: Shelters and doors
 

@@ -55,6 +55,13 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true,carefulSearch:false); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.
         }
+        public static World AlternateFoodShelterTest()
+        {
+            WorldMap map=new WorldMap(20,12,"Alternate food shelter test","alternate-food-shelter-1");AddShelterRoom(map,1,2,false);AddShelterRoom(map,10,2,false);map.Set(14,5,Terrain.Wall);map.Set(10,5,Terrain.DoorClosed);map.SetShelf(8,7,6);
+            World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,7,5,out id);
+            for(int i=0;i<7;i++)world.TrySpawn(Species.Human,2+i%3,3+i/3,out id);
+            SaveDocument saved=world.Capture();saved.actors[0].hunger=80;saved.actors[0].stress=80;saved.actors[0].bravery=3;saved.actors[0].homeShelterId=63;saved.actors[0].foodX=8;saved.actors[0].foodY=7;saved.actors[0].foodUntilTick=150;return World.Restore(saved);
+        }
         public static World FoodTripRetreatTest()
         {
             SaveDocument saved=HungerForaging(3).Capture();saved.rulesVersion=EncounterRules.Version;ActorState actor=saved.actors[0];actor.x=5;actor.y=2;actor.homeShelterId=actor.shelterId;actor.shelterId=0;actor.shelterX=0;actor.shelterY=0;actor.shelterState=ShelterState.None;actor.stress=80;actor.foodX=6;actor.foodY=2;actor.foodUntilTick=150;actor.shelfSearchProgress=1;saved.actors[0]=actor;saved.map.name="Food trip retreat test";return World.Restore(saved);
