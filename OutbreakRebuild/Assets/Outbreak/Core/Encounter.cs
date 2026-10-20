@@ -4,7 +4,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
 { // Begin the explicitly versioned prototype.
     public static class EncounterRules // Expose provisional tuning rather than claiming final combat rules.
     { // Begin prototype constants measured in logical cells and ticks.
-        public const string Version = "encounter-prototype-42", DropVersion = "encounter-prototype-41", ExperienceVersion = "encounter-prototype-40", WeaponSeekingVersion = "encounter-prototype-39", MeleeVersion = "encounter-prototype-38", ExplorationVersion = "encounter-prototype-37", YieldVersion = "encounter-prototype-36", AlternateShelterVersion = "encounter-prototype-35", RetreatVersion = "encounter-prototype-34", SafeFoodVersion = "encounter-prototype-33", FairPickupVersion = "encounter-prototype-32", RouteChoiceVersion = "encounter-prototype-31", DoorNoiseVersion = "encounter-prototype-30", PickupVersion = "encounter-prototype-29", RouteMemoryVersion = "encounter-prototype-28", CoordinationVersion = "encounter-prototype-27", CarefulVersion = "encounter-prototype-26", NoiseVersion = "encounter-prototype-25", DeliveryVersion = "encounter-prototype-24", PantryTripVersion = "encounter-prototype-23", PantryVersion = "encounter-prototype-22", ReportVersion = "encounter-prototype-21", ShelfMemoryVersion = "encounter-prototype-20", SharingVersion = "encounter-prototype-19", HungerVersion = "encounter-prototype-18", RepairVersion = "encounter-prototype-17", WarningShelterVersion = "encounter-prototype-16", BraceVersion = "encounter-prototype-15", AttractionVersion = "encounter-prototype-14", WarningVersion = "encounter-prototype-13", InvestigationVersion = "encounter-prototype-12", HearingVersion = "encounter-prototype-11", BreachVersion = "encounter-prototype-10", WanderVersion = "encounter-prototype-9", RecoveryVersion = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
+        public const string Version = "encounter-prototype-43", SpacingVersion = "encounter-prototype-42", DropVersion = "encounter-prototype-41", ExperienceVersion = "encounter-prototype-40", WeaponSeekingVersion = "encounter-prototype-39", MeleeVersion = "encounter-prototype-38", ExplorationVersion = "encounter-prototype-37", YieldVersion = "encounter-prototype-36", AlternateShelterVersion = "encounter-prototype-35", RetreatVersion = "encounter-prototype-34", SafeFoodVersion = "encounter-prototype-33", FairPickupVersion = "encounter-prototype-32", RouteChoiceVersion = "encounter-prototype-31", DoorNoiseVersion = "encounter-prototype-30", PickupVersion = "encounter-prototype-29", RouteMemoryVersion = "encounter-prototype-28", CoordinationVersion = "encounter-prototype-27", CarefulVersion = "encounter-prototype-26", NoiseVersion = "encounter-prototype-25", DeliveryVersion = "encounter-prototype-24", PantryTripVersion = "encounter-prototype-23", PantryVersion = "encounter-prototype-22", ReportVersion = "encounter-prototype-21", ShelfMemoryVersion = "encounter-prototype-20", SharingVersion = "encounter-prototype-19", HungerVersion = "encounter-prototype-18", RepairVersion = "encounter-prototype-17", WarningShelterVersion = "encounter-prototype-16", BraceVersion = "encounter-prototype-15", AttractionVersion = "encounter-prototype-14", WarningVersion = "encounter-prototype-13", InvestigationVersion = "encounter-prototype-12", HearingVersion = "encounter-prototype-11", BreachVersion = "encounter-prototype-10", WanderVersion = "encounter-prototype-9", RecoveryVersion = "encounter-prototype-8", DoorVersion = "encounter-prototype-7", ShelterVersion = "encounter-prototype-6", EscapeVersion = "encounter-prototype-5", CautiousVersion = "encounter-prototype-4", ReactionVersion = "encounter-prototype-3", MemoryVersion = "encounter-prototype-2", LegacyVersion = "encounter-prototype-1"; // Separate changed behavior from foundation saves.
         public const int SightRadius = 12, MoveInterval = 5, BiteDamage = 10, BaseTurnDelay = 50, EnduranceDelay = 5; // Prototype: one move/second, bite on contact, ten seconds plus END delay.
         public const int SearchTicks = 75; // Prototype memory lasts fifteen simulation seconds after the latest observation.
         public const int MaxTurnDelay = BaseTurnDelay + 10 * EnduranceDelay; // Bound persisted infection deadlines using the supported stat range.
@@ -13,6 +13,19 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
     { // Begin slow wandering tuning.
         public const int ChanceDenominator = 4; // One-in-four chance to step on each one-second movement opportunity.
     } // Finish idle tuning.
+    public struct BiteAction
+    {
+        public int actorId,targetId,dodgeChance;public long tick;public bool evaded;
+    }
+    public static class BiteRules
+    {
+        public const int FeedbackTicks=10;
+        public static int DodgeChance(ActorState human,ActorState zombie,long tick)
+        {
+            if(human.species!=Species.Human || human.health==0 || human.turnAtTick!=0 || human.freezeUntilTick>tick)return 0;
+            return Math.Max(0,Math.Min(60,10+5*human.agility-2*zombie.agility-human.stress/4));
+        }
+    }
     public sealed partial class World // Extend the same authoritative owner without adding engine dependencies.
     { // Begin encounter behavior.
         public bool Encounter { get; private set; } // Keep scenario mode immutable after construction.
@@ -20,6 +33,22 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         private readonly int[] routeQueue = new int[625], routeFirst = new int[625], routeSeen = new int[625]; // Bound reusable navigation storage to the local 25 by 25 sight region.
         private readonly int[] routeOrder = new int[8]; // Reuse the latest rules' direct-neighbor preference without per-query allocations.
         private readonly int[] wanderDirections = new int[8]; // Reuse the legal local steps for an idle zombie without per-tick allocations.
+        private BiteAction[] biteActions;private int biteActionCount;
+        public int BiteActionCount { get { return biteActionCount; } }
+        public BiteAction BiteActionAt(int index){if(index<0 || index>=biteActionCount)throw new ArgumentOutOfRangeException("index");return biteActions[index];}
+        private void BiteHuman(ActorState attacker,int targetIndex)
+        {
+            ActorState target=actors[targetIndex];if(target.turnAtTick!=0)return; // Further contact never resets an infection or rolls for another dodge.
+            if(BiteEvasion)
+            {
+                int chance=BiteRules.DodgeChance(target,attacker,Tick);bool evaded=chance>0 && reactionRandom.Below(100)<chance;
+                if(biteActions==null)biteActions=new BiteAction[Capacity];biteActions[biteActionCount++]=new BiteAction{actorId=attacker.id,targetId=target.id,tick=Tick,dodgeChance=chance,evaded=evaded};
+                if(evaded)return; // Consume the zombie's opportunity without damage, infection, displacement or a defensive cooldown.
+            }
+            ClearDoorBrace(ref target);target.health=Math.Max(1,target.health-EncounterRules.BiteDamage);target.turnAtTick=Tick+EncounterRules.BaseTurnDelay+target.endurance*EncounterRules.EnduranceDelay;
+            if(InfectedEscape){target.reaction=HumanReaction.Flight;target.freezeUntilTick=0;target.freezeResolved=true;target.avoidX=attacker.x;target.avoidY=attacker.y;target.avoidUntilTick=Tick+AvoidMemoryTicks;}
+            actors[targetIndex]=target;
+        }
         private int routeStamp; // Reuse visited storage without retaining a history of queries.
         private static void ClearPursuit(ref ActorState actor) // Remove stale observations without retaining diagnostic history.
         { // Begin canonical memory cleanup.
@@ -121,9 +150,9 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
                 { // Begin encounter response.
                     ActorState target = actors[targetIndex]; if (PursuitMemory && actor.species == Species.Zombie) { actor.targetId = target.id; actor.lastSeenX = target.x; actor.lastSeenY = target.y; actor.searchUntilTick = Tick + EncounterRules.SearchTicks; actors[i] = actor; } // Refresh memory only from a real current sight observation.
                     int distance = Math.Max(Math.Abs(target.x - actor.x), Math.Abs(target.y - actor.y)); // Contact includes the same cell and unobstructed adjacent cells.
-                    if (actor.species == Species.Zombie && distance <= 1) // Use a deterministic contact bite until grabbing and evasion are implemented.
+                    if (actor.species == Species.Zombie && distance <= 1) // Contact uses the saved behavior generation and normal attack cadence.
                     { // Begin one bite opportunity.
-                        if (target.turnAtTick == 0) { ClearDoorBrace(ref target); target.health = Math.Max(1, target.health - EncounterRules.BiteDamage); target.turnAtTick = Tick + EncounterRules.BaseTurnDelay + target.endurance * EncounterRules.EnduranceDelay; if (InfectedEscape) { target.reaction = HumanReaction.Flight; target.freezeUntilTick = 0; target.freezeResolved = true; target.avoidX = actor.x; target.avoidY = actor.y; target.avoidUntilTick = Tick + AvoidMemoryTicks; } actors[targetIndex] = target; } continue; // A later bite cannot reset an existing infection deadline.
+                        BiteHuman(actor,targetIndex);continue; // A dodged attack still consumes this movement/attack opportunity.
                     } // Finish contact handling.
                     if (actor.species == Species.Zombie) direction = Route(actor, target); // Follow a collision-safe shortest local route to the visible human.
                     else // Retreat from the nearest observed threat without granting full planned fear behavior.

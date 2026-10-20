@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 49 / dropped bats and shelter spacing**. Turning humans leave recoverable bats, including finite piles when drops share a cell. Humans choose separate shelter destinations instead of repeatedly crowding one corner. See [test instructions and behavior details](OutbreakRebuild/Docs/WEAPON_DROPS_AND_SHELTER_SPACING.md).
+Current build: **Foundation 50 / bite evasion**. Humans can dodge contact bites based on agility and stress; successful bites retain the existing damage and infection rules. Body flashes and inspector feedback show actual outcomes. See [test instructions and behavior details](OutbreakRebuild/Docs/BITE_EVASION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
@@ -17,4 +17,4 @@ If buttons draw but do not respond, stop Play mode, set Active Input Handling to
 
 [Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
-New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 47/48 runs can opt in with **Enable drops and shelter spacing**; Foundation 46 runs offer **Enable combat experience**; Foundation 44/45 runs offer **Enable weapon seeking**; Foundation 42/43 runs offer **Enable melee combat**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 49 runs offer **Enable bite evasion**; Foundation 47/48 runs can opt in with **Enable drops and shelter spacing**; Foundation 46 runs offer **Enable combat experience**; Foundation 44/45 runs offer **Enable weapon seeking**; Foundation 42/43 runs offer **Enable melee combat**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
