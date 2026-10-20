@@ -1,4 +1,4 @@
-Latest build: [Foundation 35 / food route choices](Docs/FOOD_ROUTE_CHOICES.md).
+Latest build: [Foundation 36 / considerate food pickup](Docs/CONSIDERATE_PICKUP.md).
 
 # Current update: Shelters and doors
 
