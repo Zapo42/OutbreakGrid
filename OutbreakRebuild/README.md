@@ -1,4 +1,4 @@
-Latest build: [Foundation 29 / blocked food routes](Docs/BLOCKED_FOOD_ROUTES.md).
+Latest build: [Foundation 30 / exposed food pickup](Docs/EXPOSED_FOOD_PICKUP.md).
 
 # Current update: Shelters and doors
 

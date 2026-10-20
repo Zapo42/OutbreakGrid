@@ -4,6 +4,15 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Exposed shelf food takes one action while unopened shelves still take three", () => {
+            World w=EncounterScenarios.QuickStockPickupTest();w.Step();Require(w.ActorAt(0).carriedFood==3 && w.ActorAt(0).hunger==80 && w.ActorAt(0).shelfSearchProgress==0 && w.ShelfAt(2,3).food==3,"Exposed food was searched slowly or eaten in the pickup action.");World copy=World.Restore(w.Capture());for(int i=0;i<20;i++){w.Step();copy.Step();}Require(State(w)==State(copy),"Quick pickup diverged after saving.");w=EncounterScenarios.CarefulSearchTest();w.Step();Require(w.ActorAt(0).carriedFood==0 && w.ActorAt(0).shelfSearchProgress==1 && !w.ShelfAt(2,3).searched,"Unopened shelf incorrectly used quick pickup.");
+        });
+        Check("Newly exposed shelves finish partial work without duplicating food", () => {
+            World w=EncounterScenarios.CarefulSearchTest();w.Step();SaveDocument s=w.Capture();WorldMap map=WorldMap.Restore(s.map);map.SetShelf(2,3,4,true);s.map=map.Capture();w=World.Restore(s);for(int i=0;i<5;i++)w.Step();Require(w.ActorAt(0).carriedFood==3 && w.ActorAt(0).shelfSearchProgress==0 && w.ShelfAt(2,3).food==1,"Newly exposed stock did not finish partial searching in one action.");w=EncounterScenarios.QuickStockPickupTest();int id;w.TrySpawn(Species.Human,2,2,out id);s=w.Capture();map=WorldMap.Restore(s.map);map.SetShelf(2,3,4,true);s.map=map.Capture();s.actors[1].hunger=80;s.actors[1].bravery=3;w=World.Restore(s);for(int i=0;i<5;i++)w.Step();Require(w.ActorAt(0).carriedFood==3 && w.ActorAt(1).carriedFood==1 && w.ShelfAt(2,3).food==0,"Concurrent quick pickups duplicated stock.");
+        });
+        Check("Earlier food route generations retain three-action exposed searches", () => {
+            SaveDocument s=EncounterScenarios.QuickStockPickupTest().Capture();s.rulesVersion=EncounterRules.RouteMemoryVersion;World w=World.Restore(s);w.Step();Require(!w.QuickStockPickup && w.FoodRouteMemory && w.ActorAt(0).carriedFood==0 && w.ActorAt(0).shelfSearchProgress==1,"Old save silently gained quick pickup.");
+        });
         Check("Failed food routes yield to reachable supplies and resume exactly from saves", () => {
             World w=EncounterScenarios.BlockedFoodRouteTest();w.Step();Require(w.ActorAt(0).blockedFoodX==8 && w.ActorAt(0).blockedFoodY==3 && w.ActorAt(0).blockedFoodUntilTick==51 && w.ActorAt(0).foodUntilTick==0,"Failed food trip did not record a bounded personal rejection.");World copy=World.Restore(w.Capture());for(int i=0;i<49;i++){w.Step();copy.Step();}Require(w.ActorAt(0).hunger<40 && w.ActorAt(0).carriedFood==2 && w.ShelfAt(3,6).food==3 && w.ShelfAt(8,3).food==6,"Forager failed to switch to reachable food or changed blocked stock.");Require(State(w)==State(copy),"Blocked food memory diverged after loading.");
         });
