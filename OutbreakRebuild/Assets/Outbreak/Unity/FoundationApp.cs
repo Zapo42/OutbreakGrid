@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 58 / ground bat condition"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 59 / visible combat health"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -156,6 +156,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
             GUILayout.EndHorizontal(); // Finish controlled reaction choices.
+            if (GUILayout.Button("Inspect Health Bars Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HealthBarsTest());selected=0;status="Injured humans and zombies show a small health bar above their body. Full-health actors and defeated zombies have no bar. Select a body for exact health. Inspect Blunt Combat Paused shows bars changing during real combat."; }));
             if (GUILayout.Button("Inspect Bat Conditions Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.BatConditionsTest());selectedBatCell=4*world.Width+2;status="Fresh bats are brown; worn bats fade toward grey. Click a bat or Next ground bat to inspect every condition in its pile. This fixture has fresh, half-worn, nearly broken and mixed supplies."; }));
             if (GUILayout.Button("Inspect First Weapon Priority Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.FirstWeaponPriorityTest());selected=0;status="An armed and an unarmed human are equally close to one bat. Run or Step 50 ticks: the armed human favors the other supply, leaving the first weapon for the unarmed human. Restart scenario repeats the setup."; }));
             if (GUILayout.Button("Inspect First Bat Courtesy Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.UnarmedCourtesyTest());selected=0;status="Two unarmed humans can see two bats. Run or Step 50 ticks: they favor separate supplies and collect one bat each. Restart scenario repeats the setup."; }));
@@ -341,6 +342,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUI.enabled=equipmentEnabled;
                 if(selected>=0 && selected<world.Count){ActorState fighter=world.ActorAt(selected);GUILayout.Label("Melee weapon: "+fighter.meleeWeapon+"\nBlunt skill: "+fighter.bluntSkill+"/10"+(fighter.health==0?"\nDEFEATED":fighter.species==Species.Zombie?"\nEquipment inactive after turning":fighter.nextMeleeTick>world.Tick?"\nSwing cooldown: "+(fighter.nextMeleeTick-world.Tick)+" ticks":""));}
             }
+            if(selected>=0 && selected<world.Count)GUILayout.Label("Health: "+world.ActorAt(selected).health+"/100");
             DrawGroundBatInspector();
             if(world.WeaponDurability && selected>=0 && selected<world.Count){ActorState owner=world.ActorAt(selected);if(owner.meleeWeapon==MeleeWeapon.Bat)GUILayout.Label("Bat condition: "+(MeleeRules.BatHits-owner.batWear)+"/"+MeleeRules.BatHits+" hits remaining");if(weaponMotion[selected].RecentlyBroken(world.Tick))GUILayout.Label("Bat broke");if(weaponMotion[selected].RecentlySwapped(world.Tick))GUILayout.Label("Bat replaced");}
             if(world.BiteEvasion && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState defender=world.ActorAt(selected);GUILayout.Label("Bite evasion: agility "+defender.agility+" | stress "+defender.stress);BiteAction outcome=biteFeedback[selected];if(outcome.targetId==defender.id && world.Tick>=outcome.tick && world.Tick-outcome.tick<BiteRules.FeedbackTicks)GUILayout.Label("Last bite attempt: "+(outcome.evaded?"DODGED":"BITTEN")+"\nZombie #"+outcome.actorId+" | evasion chance "+outcome.dodgeChance+"%");}
@@ -391,6 +393,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 ActorState actor = world.ActorAt(i); double time = world.Tick + (clock.Paused?0:clock.Alpha); float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
                 if (x < left - 0.18f || y < top - 0.18f || x >= left + width - 0.18f || y >= top + height - 0.18f) continue; // Cull bodies outside the camera.
                 Rect body = new Rect(bounds.x + (x - left + 0.18f) * cell, bounds.y + (y - top + 0.18f) * cell, cell * 0.64f, cell * 0.64f); GUI.color = selected == i ? Color.yellow : actor.health==0 ? new Color(0.4f,0.4f,0.4f) : actor.species == Species.Zombie ? new Color(0.23f, 0.29f, 0.14f) : new Color(0.75f, 0.8f, 0.92f); GUI.DrawTexture(body, Texture2D.whiteTexture); // Use visibly distinct temporary debug bodies until artwork bindings return.
+                DrawHealthBar(body,actor.health,visible,cell);
                 if(time<hitFlashUntil[i]){GUI.color=new Color(1f,0.75f,0.65f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
                 BiteAction bite= biteFeedback[i];if(actor.species==Species.Human && bite.targetId==actor.id && time>=bite.tick && time<bite.tick+WeaponPresentation.HitFlashTicks){GUI.color=bite.evaded?new Color(0.45f,0.8f,1f):new Color(1f,0.5f,0.5f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
                 if(actor.species==Species.Human && (actor.meleeWeapon==MeleeWeapon.Bat || weaponMotion[i].Breaking(time)))DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);
@@ -419,6 +422,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 }
             }
             GUI.color=Color.white; // Keep a logically closed door visually open only while the rendered body still crosses it.
+        }
+        private static void DrawHealthBar(Rect body,int health,Rect viewport,float cell)
+        {
+            if(health<=0 || health>=100)return;
+            float height=Mathf.Clamp(cell*0.08f,2,4),fraction=health/100f;
+            Rect bar=new Rect(body.x,Math.Max(viewport.y,body.y-height-2),body.width,height);
+            GUI.color=new Color(0.1f,0.1f,0.12f);GUI.DrawTexture(bar,Texture2D.whiteTexture);
+            GUI.color=new Color(0.85f-0.35f*fraction,0.25f+0.4f*fraction,0.2f);GUI.DrawTexture(new Rect(bar.x,bar.y,bar.width*fraction,bar.height),Texture2D.whiteTexture);
         }
         private static Color GroundBatColor(int wear)
         {

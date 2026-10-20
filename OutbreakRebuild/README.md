@@ -1,4 +1,4 @@
-Latest build: [Foundation 58 / ground bat condition](Docs/GROUND_BAT_CONDITION.md).
+Latest build: [Foundation 59 / visible combat health](Docs/VISIBLE_COMBAT_HEALTH.md).
 
 # Current update: Shelters and doors
 

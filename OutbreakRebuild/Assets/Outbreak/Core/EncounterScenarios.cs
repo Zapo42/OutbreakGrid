@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World HealthBarsTest()
+        {
+            World world=new World(new WorldMap(12,10,"Health bars test","health-bars-1"),214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,3,out id);world.TrySpawn(Species.Zombie,6,3,out id);world.TrySpawn(Species.Human,2,6,out id);world.TrySpawn(Species.Zombie,6,6,out id);SaveDocument saved=world.Capture();saved.actors[0].health=40;saved.actors[1].health=70;saved.actors[3].health=0;return World.Restore(saved);
+        }
         public static World BatConditionsTest()
         {
             WorldMap map=new WorldMap(12,8,"Ground bat conditions test","ground-bat-conditions-1");map.SetWeapon(2,4,MeleeWeapon.Bat);map.SetWeapon(5,4,MeleeWeapon.Bat);map.SetWeapon(8,4,MeleeWeapon.Bat);map.SetWeapon(5,6,MeleeWeapon.Bat);SaveDocument saved=new World(map,214,encounter:true,hunger:true).Capture();saved.map.schemaVersion=6;saved.map.weapons[1].wear=new[]{6};saved.map.weapons[2].wear=new[]{11};saved.map.weapons[3].extraBats=2;saved.map.weapons[3].wear=new[]{0,6,11};return World.Restore(saved);
