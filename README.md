@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 62 / encounter summary**. The sidebar shows surviving humans, infected humans, active zombies and defeated zombies, with an outbreak status that updates as the simulation changes. See [test instructions and behavior details](OutbreakRebuild/Docs/ENCOUNTER_SUMMARY.md).
+Current build: **Foundation 63 / conversion tracking**. The encounter summary counts new human-to-zombie conversions since scenario start or checkpoint load, separately from starting zombies. See [test instructions and behavior details](OutbreakRebuild/Docs/CONVERSION_TRACKING.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

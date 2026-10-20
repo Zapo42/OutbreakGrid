@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 62 / encounter summary"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 63 / conversion tracking"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -22,7 +22,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
         private int focusedBatCell=-1, selectedBatCell=-1;
         private int shelfBrush = -1, selectedShelf; // Keep furniture authoring and selection out of saved simulation state.
-        private SaveDocument scenarioStart; private bool scenarioAdvanced;
+        private SaveDocument scenarioStart; private bool scenarioAdvanced; private int newConversions;
         private bool canResume; private Action resetAction; // Preserve a menu-paused run and confirm replacements before discarding it.
         private int textureX = -1, textureY = -1, textureWidth, textureHeight; // Rebuild terrain pixels only when the viewed cell range changes.
         private Action pendingAction; // Apply interface commands after the current GUI event finishes.
@@ -79,7 +79,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            scenarioStart=next.Capture();scenarioAdvanced=false;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
         private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
@@ -87,7 +87,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(!scenarioAdvanced){scenarioStart=world.Capture();scenarioAdvanced=true;} // Include authored starting bodies and supplies before the first simulation tick.
             long revision = world.TerrainRevision, condition = world.DoorConditionRevision; for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); world.Step(); if (world.TerrainRevision != revision || world.DoorConditionRevision != condition) textureX = -1; // Keep the previous canonical cells for corner validation.
             int weaponEvent=0;
-            for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i];weaponMotion[i].Move(actor.x-before.x,actor.y-before.y);if(weaponEvent<world.WeaponActionCount && world.WeaponActionAt(weaponEvent).actorId==actor.id)weaponMotion[i].Observe(world.WeaponActionAt(weaponEvent++),actor.x,actor.y); bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused || (world.InfectedEscape && before.turnAtTick == 0 && actor.turnAtTick > 0)) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
+            for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i];if(before.species==Species.Human && actor.species==Species.Zombie)newConversions++;weaponMotion[i].Move(actor.x-before.x,actor.y-before.y);if(weaponEvent<world.WeaponActionCount && world.WeaponActionAt(weaponEvent).actorId==actor.id)weaponMotion[i].Observe(world.WeaponActionAt(weaponEvent++),actor.x,actor.y); bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused || (world.InfectedEscape && before.turnAtTick == 0 && actor.turnAtTick > 0)) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
             for(int e=0;e<world.WeaponActionCount;e++){WeaponAction action=world.WeaponActionAt(e);if(!action.hit || action.kind!=WeaponActionKind.Swing)continue;for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==action.targetId){hitFlashUntil[i]=action.tick+WeaponPresentation.HitFlashTicks;break;}} // Flash the struck body, including a fatal hit, at its rendered position.
             for(int e=0;e<world.BiteActionCount;e++){BiteAction action=world.BiteActionAt(e);for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==action.targetId){biteFeedback[i]=action;break;}}
         } // Finish canonical and presentation updates.
@@ -331,6 +331,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 int injured=0,infected=0,humans=0,zombies=0,defeated=0;
                 for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species==Species.Zombie){if(person.health>0)zombies++;else defeated++;continue;}if(person.health<=0)continue;humans++;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
                 GUILayout.Label("ENCOUNTER SUMMARY");GUILayout.Label("Humans remaining: "+humans+"\nInfected (included): "+infected+"\nActive zombies: "+zombies+"\nDefeated zombies: "+defeated);
+                GUILayout.Label("New conversions: "+newConversions);
                 GUILayout.Label(world.Count==0?"No actors placed":humans==0?(zombies>0?"No humans remain":"No living actors remain"):zombies>0?"Outbreak ongoing":infected>0?"Infected humans may still turn":"No active zombies or infection");
                 bool fightEnabled=GUI.enabled;GUI.enabled=fightEnabled && NextFightIndex()>=0;if(GUILayout.Button("Next active fight"))Queue(FocusNextFight);GUI.enabled=fightEnabled;
                 if(selected>=0 && selected<world.Count){int opponent=world.CloseVisibleZombie(selected);if(opponent>=0){ActorState zombie=world.ActorAt(opponent);GUILayout.Label("Nearby zombie #"+zombie.id+" | Health: "+zombie.health+"/100");}}
