@@ -4,6 +4,7 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
 { // Begin shelter departure behavior.
     public static class ShelterRecoveryRules // Publish provisional timing in logical ticks.
     { // Begin versioned prototype tuning.
+        public const int HealPerRest=2, HungerPerRest=1;
         public const int CalmTicks = 25; // Wait five simulation seconds at zero stress before checking an exit.
     } // Finish prototype tuning.
     public sealed partial class World // Reuse the existing room catalog, collision checks and perception.
@@ -29,6 +30,11 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
                 if (a.shelterExitPhase == ShelterExitPhase.Approaching && !room.Contains(Key(a.x, a.y))) throw new ArgumentException("Exit approach is outside its room."); if (a.shelterExitPhase == ShelterExitPhase.Checking && (a.x != 2 * ((a.shelterExitDoor - 1) % Width) - a.shelterExitX || a.y != 2 * ((a.shelterExitDoor - 1) / Width) - a.shelterExitY)) throw new ArgumentException("Exit inspection is not at its indoor observation cell."); if (a.shelterExitPhase == ShelterExitPhase.Leaving && Key(a.x, a.y) != a.shelterExitDoor - 1) throw new ArgumentException("Exit crossing is not in its doorway."); // Every persisted phase must match its physically reachable position.
             } // Finish one record.
         } // Finish recovery validation.
+        private bool TryRestInShelter(int index,ref ActorState actor,Room room,int threatIndex)
+        {
+            if(actor.health<=0 || actor.health>=100 || actor.turnAtTick!=0 || actor.stress!=0 || actor.hunger>=HungerRules.SeekAt || threatIndex>=0 || HasRecentDoorNoise(actor) || HasRecentWarning(actor) || actor.shelterState!=ShelterState.Inside || actor.x!=actor.shelterX || actor.y!=actor.shelterY || !room.Contains(Key(actor.x,actor.y)))return false;
+            CloseNearbyDoors(actor,room);ClearShelterDeparture(ref actor);actor.health=Math.Min(100,actor.health+ShelterRecoveryRules.HealPerRest);actor.hunger=Math.Min(100,actor.hunger+ShelterRecoveryRules.HungerPerRest);actors[index]=actor;return true;
+        }
         private bool TryShelterDeparture(int index, ref ActorState actor, Room room, int threatIndex, out int direction) // Replace permanent hiding with a cautious, interruptible inspection.
         { // Begin one departure decision.
             direction = 8; bool inside = room.Contains(Key(actor.x, actor.y)); if ((HungerEnabled ? !HungryDepartureAllowed(actor, room, threatIndex) : actor.turnAtTick != 0 || actor.stress != 0 || HasRecentDoorNoise(actor) || HasRecentWarning(actor) || threatIndex >= 0) || (!inside && actor.shelterExitPhase == ShelterExitPhase.None)) { ClearShelterDeparture(ref actor); return false; } // Infection or a real sighting cancels inspection and restores the existing shelter retreat.

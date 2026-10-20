@@ -1,4 +1,4 @@
-Latest build: [Foundation 64 / outbreak history](Docs/OUTBREAK_HISTORY.md).
+Latest build: [Foundation 65 / shelter rest healing](Docs/SHELTER_REST_HEALING.md).
 
 # Current update: Shelters and doors
 

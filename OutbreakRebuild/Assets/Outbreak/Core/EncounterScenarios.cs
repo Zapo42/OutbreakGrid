@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World RestHealingTest()
+        {
+            WorldMap map=new WorldMap(16,12,"Shelter rest healing test","rest-healing-1");AddShelterRoom(map,1,2,false);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,3,out id);SaveDocument saved=world.Capture();saved.actors[0].health=60;saved.actors[0].hunger=10;saved.actors[0].shelterId=51;saved.actors[0].shelterX=2;saved.actors[0].shelterY=3;saved.actors[0].shelterState=ShelterState.Inside;return World.Restore(saved);
+        }
         public static World HealthBarsTest()
         {
             World world=new World(new WorldMap(12,10,"Health bars test","health-bars-1"),214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,3,out id);world.TrySpawn(Species.Zombie,6,3,out id);world.TrySpawn(Species.Human,2,6,out id);world.TrySpawn(Species.Zombie,6,6,out id);SaveDocument saved=world.Capture();saved.actors[0].health=40;saved.actors[1].health=70;saved.actors[3].health=0;return World.Restore(saved);
