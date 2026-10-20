@@ -49,15 +49,19 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         } // Finish idle wandering fixture.
         public static World ShelfReportTest() // A fed witness points a hungry neighbor toward supplies now hidden by a door.
         {
-            SaveDocument saved=ShelfMemoryTest().Capture(); saved.rulesVersion=EncounterRules.Version; saved.actors[0].hunger=10; saved.actors[0].carriedFood=1; World world=World.Restore(saved); int id; world.TrySpawn(Species.Human,2,5,out id); saved=world.Capture(); saved.actors[1].hunger=80; saved.actors[1].bravery=3; saved.tick=30; return World.Restore(saved); // The speaker keeps its last meal and shares dated knowledge instead.
+            SaveDocument saved=ShelfMemoryTest().Capture(); saved.rulesVersion=EncounterRules.NoiseVersion; saved.actors[0].hunger=10; saved.actors[0].carriedFood=1; World world=World.Restore(saved); int id; world.TrySpawn(Species.Human,2,5,out id); saved=world.Capture(); saved.actors[1].hunger=80; saved.actors[1].bravery=3; saved.tick=30; return World.Restore(saved); // The speaker keeps its last meal and shares dated knowledge instead.
         }
         public static World ShelfMemoryTest() // Revisit actual earlier discoveries after the supply door has closed.
         {
-            WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.
+            WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true,carefulSearch:false); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.
+        }
+        public static World CarefulSearchTest()
+        {
+            SaveDocument saved=HungerForaging(3,true).Capture();saved.rulesVersion=EncounterRules.Version;saved.map.name="Careful shelf search test";return World.Restore(saved);
         }
         public static World SearchNoiseTest()
         {
-            WorldMap map=new WorldMap(12,9,"Shelf search noise test","search-noise-1");for(int y=0;y<9;y++)map.Set(5,y,Terrain.Wall);map.Set(5,4,Terrain.DoorClosed);map.SetShelf(3,3,6);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,4,out id);world.TrySpawn(Species.Zombie,6,5,out id);SaveDocument saved=world.Capture();saved.actors[0].hunger=80;return World.Restore(saved);
+            WorldMap map=new WorldMap(12,9,"Shelf search noise test","search-noise-1");for(int y=0;y<9;y++)map.Set(5,y,Terrain.Wall);map.Set(5,4,Terrain.DoorClosed);map.SetShelf(3,3,6);World world=new World(map,214,encounter:true,hunger:true,carefulSearch:false);int id;world.TrySpawn(Species.Human,3,4,out id);world.TrySpawn(Species.Zombie,6,5,out id);SaveDocument saved=world.Capture();saved.actors[0].hunger=80;return World.Restore(saved);
         }
         public static World FoodDeliveryTest()
         {
@@ -65,7 +69,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         }
         public static World PantryTripTest()
         {
-            WorldMap map=new WorldMap(14,12,"Pantry trip test","pantry-trip-1");AddShelterRoom(map,1,2,false);map.SetShelf(4,3,0);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,7,out id);SaveDocument saved=world.Capture();saved.actors[0].shelterId=45;saved.actors[0].shelterX=2;saved.actors[0].shelterY=7;saved.actors[0].shelterState=ShelterState.Inside;saved.actors[0].carriedFood=3;saved.actors[0].hunger=10;return World.Restore(saved);
+            WorldMap map=new WorldMap(14,12,"Pantry trip test","pantry-trip-1");AddShelterRoom(map,1,2,false);map.SetShelf(4,3,0);World world=new World(map,214,encounter:true,hunger:true,carefulSearch:false);int id;world.TrySpawn(Species.Human,2,7,out id);SaveDocument saved=world.Capture();saved.actors[0].shelterId=45;saved.actors[0].shelterX=2;saved.actors[0].shelterY=7;saved.actors[0].shelterState=ShelterState.Inside;saved.actors[0].carriedFood=3;saved.actors[0].hunger=10;return World.Restore(saved);
         }
         public static World PantryStorageTest()
         {
@@ -73,7 +77,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         }
         public static World FoodSharingTest() // A supplied occupant helps a hungry neighbor without a supply trip.
         {
-            WorldMap map = new WorldMap(12,8,"Food sharing test","food-sharing-1"); for(int y=1;y<=4;y++)for(int x=1;x<=4;x++)map.Set(x,y,(x==1||x==4||y==1||y==4)?Terrain.Wall:Terrain.Floor);map.Set(4,2,Terrain.DoorClosed);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,2,out id);world.TrySpawn(Species.Human,2,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<2;i++){saved.actors[i].shelterId=27;saved.actors[i].shelterX=2;saved.actors[i].shelterY=2+i;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=10;saved.actors[0].carriedFood=3;saved.actors[1].hunger=80;return World.Restore(saved);
+            WorldMap map = new WorldMap(12,8,"Food sharing test","food-sharing-1"); for(int y=1;y<=4;y++)for(int x=1;x<=4;x++)map.Set(x,y,(x==1||x==4||y==1||y==4)?Terrain.Wall:Terrain.Floor);map.Set(4,2,Terrain.DoorClosed);World world=new World(map,214,encounter:true,hunger:true,carefulSearch:false);int id;world.TrySpawn(Species.Human,2,2,out id);world.TrySpawn(Species.Human,2,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<2;i++){saved.actors[i].shelterId=27;saved.actors[i].shelterX=2;saved.actors[i].shelterY=2+i;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=10;saved.actors[0].carriedFood=3;saved.actors[1].hunger=80;return World.Restore(saved);
         }
         public static World HungerForaging(int bravery = 3, bool stockedRoom = false) // Compare risk tolerance without granting any hidden zombie knowledge.
         { // Begin a portable supply run from an empty room.

@@ -1,4 +1,4 @@
-Latest build: [Foundation 26 / shelf search noise](Docs/SEARCH_NOISE.md).
+Latest build: [Foundation 27 / cautious searching](Docs/CAREFUL_SEARCH.md).
 
 # Current update: Shelters and doors
 
