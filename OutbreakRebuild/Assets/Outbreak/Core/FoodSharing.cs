@@ -3,9 +3,13 @@ namespace Outbreak.Core
 {
     public sealed partial class World
     {
+        private int FoodReserve(ActorState actor)
+        {
+            return RecoveryRations && actor.species==Species.Human && actor.turnAtTick==0 && actor.health<ShelterRecoveryRules.ExtraReserveBelowHealth?ShelterRecoveryRules.RecoveryReserveMeals:1;
+        }
         private bool TryShareFood(int index, ref ActorState donor, int threatIndex)
         {
-            if (donor.turnAtTick != 0 || donor.hunger >= HungerRules.SeekAt || donor.carriedFood < 2 || threatIndex >= 0 || HasRecentWarning(donor) || HasRecentDoorNoise(donor) || donor.freezeUntilTick > Tick || (donor.reaction != HumanReaction.Calm && donor.reaction != HumanReaction.Aware)) return false; // Eat first when hungry, keep one reserve meal and let immediate survival take priority.
+            if (donor.turnAtTick != 0 || donor.hunger >= HungerRules.SeekAt || donor.carriedFood <= FoodReserve(donor) || threatIndex >= 0 || HasRecentWarning(donor) || HasRecentDoorNoise(donor) || donor.freezeUntilTick > Tick || (donor.reaction != HumanReaction.Calm && donor.reaction != HumanReaction.Aware)) return false; // Eat first when hungry, keep the personal reserve and let immediate survival take priority.
             int recipient = -1, hungriest = -1;
             for (int i = 0; i < count; i++)
             {

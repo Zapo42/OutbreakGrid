@@ -7,7 +7,7 @@ namespace Outbreak.Core
         private bool TryDeliverFood(int index, ref ActorState donor, int threatIndex, out int direction)
         {
             direction=8;
-            if(donor.turnAtTick!=0 || donor.hunger>=HungerRules.SeekAt || donor.carriedFood<2 || donor.shelterState!=ShelterState.Inside || threatIndex>=0 || HasRecentWarning(donor) || HasRecentDoorNoise(donor) || donor.freezeUntilTick>Tick || (donor.reaction!=HumanReaction.Calm && donor.reaction!=HumanReaction.Aware))return false;
+            if(donor.turnAtTick!=0 || donor.hunger>=HungerRules.SeekAt || donor.carriedFood<=FoodReserve(donor) || donor.shelterState!=ShelterState.Inside || threatIndex>=0 || HasRecentWarning(donor) || HasRecentDoorNoise(donor) || donor.freezeUntilTick>Tick || (donor.reaction!=HumanReaction.Calm && donor.reaction!=HumanReaction.Aware))return false;
             Room room=FindRoom(donor.shelterId);if(room==null || !room.Contains(Key(donor.x,donor.y)))return false;
             int need=-1;
             for(int i=0;i<count;i++)

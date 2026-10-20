@@ -1,4 +1,4 @@
-Latest build: [Foundation 65 / shelter rest healing](Docs/SHELTER_REST_HEALING.md).
+Latest build: [Foundation 66 / recovery food reserves](Docs/RECOVERY_FOOD_RESERVES.md).
 
 # Current update: Shelters and doors
 

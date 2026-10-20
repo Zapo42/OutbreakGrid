@@ -7,7 +7,7 @@ namespace Outbreak.Core
         private bool TryStoreFood(int index, ref ActorState actor, int threatIndex, out int direction)
         {
             direction = 8;
-            if (actor.turnAtTick != 0 || actor.hunger >= HungerRules.SeekAt || actor.carriedFood < 2 || actor.shelterState != ShelterState.Inside || threatIndex >= 0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || actor.freezeUntilTick > Tick || (actor.reaction != HumanReaction.Calm && actor.reaction != HumanReaction.Aware)) return false;
+            if (actor.turnAtTick != 0 || actor.hunger >= HungerRules.SeekAt || actor.carriedFood <= FoodReserve(actor) || actor.shelterState != ShelterState.Inside || threatIndex >= 0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || actor.freezeUntilTick > Tick || (actor.reaction != HumanReaction.Calm && actor.reaction != HumanReaction.Aware)) return false;
             Room room = FindRoom(actor.shelterId); if (room == null || !room.Contains(Key(actor.x, actor.y))) return false;
             ShelfDocument chosen = null; int bestSteps=int.MaxValue, chosenDirection=8;
             foreach (ShelfDocument shelf in map.ShelfRecords)
@@ -35,10 +35,10 @@ namespace Outbreak.Core
             }
             if (chosen == null) return false;
             if(bestSteps>0) { direction=chosenDirection;ClearShelterDeparture(ref actor);actors[index]=actor;return true; } // Replan each opportunity; threats or hunger interrupt without stale task state.
-            int amount = Math.Min(actor.carriedFood-1,1000-chosen.food); int stock = chosen.food+amount;
+            int amount = Math.Min(actor.carriedFood-FoodReserve(actor),1000-chosen.food); int stock = chosen.food+amount;
             map.SetShelf(chosen.x,chosen.y,stock,true); actor.carriedFood-=amount;
             RememberShelf(ref actor,new ShelfMemoryRecord { x=chosen.x,y=chosen.y,food=stock,observedTick=Tick });
-            ClearShelterDeparture(ref actor); actors[index]=actor; return true; // Transfer finite meals, keep one reserve and record first-hand stock knowledge.
+            ClearShelterDeparture(ref actor); actors[index]=actor; return true; // Transfer finite meals, keep the personal reserve and record first-hand stock knowledge.
         }
     }
 }

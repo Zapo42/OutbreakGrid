@@ -4,7 +4,7 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
 { // Begin shelter departure behavior.
     public static class ShelterRecoveryRules // Publish provisional timing in logical ticks.
     { // Begin versioned prototype tuning.
-        public const int HealPerRest=2, HungerPerRest=1;
+        public const int HealPerRest=2, HungerPerRest=1, ExtraReserveBelowHealth=50, RecoveryReserveMeals=2;
         public const int CalmTicks = 25; // Wait five simulation seconds at zero stress before checking an exit.
     } // Finish prototype tuning.
     public sealed partial class World // Reuse the existing room catalog, collision checks and perception.
