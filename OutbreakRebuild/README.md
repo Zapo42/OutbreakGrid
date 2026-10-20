@@ -1,4 +1,4 @@
-Latest build: [Foundation 38 / guarded food routes](Docs/GUARDED_FOOD_ROUTES.md).
+Latest build: [Foundation 39 / interrupted food trips](Docs/FOOD_TRIP_RETREAT.md).
 
 # Current update: Shelters and doors
 

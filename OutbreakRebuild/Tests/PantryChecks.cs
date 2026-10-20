@@ -4,6 +4,18 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Overwhelmed food foragers return home without collecting and resume exactly after saving", () => {
+            World w=EncounterScenarios.FoodTripRetreatTest();w.Step();Require(w.ActorAt(0).shelterId==27 && w.ActorAt(0).shelterState==ShelterState.Seeking && w.ActorAt(0).foodUntilTick==0 && w.ActorAt(0).shelfSearchProgress==0 && w.ActorAt(0).x==4,"Shaken forager did not cancel searching and start a real return home.");World copy=World.Restore(w.Capture());for(int i=0;i<20;i++){w.Step();copy.Step();}Require(w.ActorAt(0).shelterState==ShelterState.Inside && w.ActorAt(0).homeShelterId==0 && w.ActorAt(0).carriedFood==0 && w.ShelfAt(6,2).food==6 && w.TerrainAt(3,2)==Terrain.DoorClosed,"Forager failed to enter and close home without taking phantom food.");Require(State(w)==State(copy),"Interrupted supply-trip return diverged after saving.");
+        });
+        Check("A committed return survives reduced stress while old rules keep the prior response", () => {
+            World w=EncounterScenarios.FoodTripRetreatTest();w.Step();SaveDocument s=w.Capture();s.actors[0].stress=0;w=World.Restore(s);for(int i=0;i<15;i++)w.Step();Require(w.ActorAt(0).shelterState==ShelterState.Inside && w.ActorAt(0).carriedFood==0 && w.ShelfAt(6,2).food==6,"Recovering during return restarted the abandoned search.");s=EncounterScenarios.FoodTripRetreatTest().Capture();s.rulesVersion=EncounterRules.SafeFoodVersion;w=World.Restore(s);w.Step();Require(!w.FoodTripRetreat && w.SafeFoodTargets && w.ActorAt(0).shelterId==0,"Old generation silently acquired explicit food-trip retreat.");
+        });
+        Check("Safe food trips still leave, collect, eat and return without premature retreat", () => {
+            SaveDocument s=EncounterScenarios.HungerForaging(3).Capture();s.rulesVersion=EncounterRules.Version;s.actors[0].stress=0;World w=World.Restore(s);for(int i=0;i<100;i++)w.Step();Require(w.ActorAt(0).shelterState==ShelterState.Inside && w.ActorAt(0).carriedFood==2 && w.ActorAt(0).hunger<40 && w.ShelfAt(6,2).food==3 && w.TerrainAt(3,2)==Terrain.DoorClosed,"Return commitment prevented a safe outgoing supply cycle.");
+        });
+        Check("Full or inaccessible homes do not receive forced food-trip returns", () => {
+            World w=EncounterScenarios.FoodTripRetreatTest();int id;w.TrySpawn(Species.Human,2,2,out id);w.Step();Require(w.ActorAt(0).shelterId!=27,"Forager reserved a full home.");SaveDocument s=EncounterScenarios.FoodTripRetreatTest().Capture();WorldMap map=WorldMap.Restore(s.map);map.Set(4,2,Terrain.Wall);map.Set(3,1,Terrain.Wall);map.Set(3,3,Terrain.Wall);s.map=map.Capture();w=World.Restore(s);w.Step();Require(w.ActorAt(0).shelterId!=27,"Forager committed to an inaccessible home.");
+        });
         Check("Food routes avoid visible zombie contact zones and preserve exact continuation", () => {
             World w=EncounterScenarios.SafeFoodTargetTest();w.Step();Require(w.ActorAt(0).foodX==3 && w.ActorAt(0).foodY==8 && System.Math.Max(System.Math.Abs(w.ActorAt(0).x-6),System.Math.Abs(w.ActorAt(0).y-4))>2,"Forager chose a guarded shelf or stepped into its observed contact zone.");World copy=World.Restore(w.Capture());for(int i=0;i<20;i++){w.Step();copy.Step();}Require(State(w)==State(copy),"Guarded food planning diverged after saving.");SaveDocument s=EncounterScenarios.SafeFoodTargetTest().Capture();s.rulesVersion=EncounterRules.FairPickupVersion;w=World.Restore(s);w.Step();Require(!w.SafeFoodTargets && w.FairFoodPickup && w.ActorAt(0).foodX==6 && w.ActorAt(0).foodY==3,"Old generation silently changed food-route clearance.");
         });

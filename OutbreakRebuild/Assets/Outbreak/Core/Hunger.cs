@@ -38,6 +38,7 @@ namespace Outbreak.Core
         private bool TryForage(int index,ref ActorState actor,int threat,out int direction)
         {
             direction=8;if(CarefulSearch && (actor.turnAtTick!=0 || actor.hunger<HungerRules.SeekAt || actor.carriedFood>0 || !CanRiskFoodTrip(actor,threat))){actor.shelfSearchProgress=0;actors[index]=actor;}if(actor.turnAtTick!=0)return false;
+            if(FoodTripRetreat && ReturnFromFoodDanger(index,ref actor,threat))return false;
             if(actor.carriedFood>0 && actor.homeShelterId!=0 && actor.hunger<HungerRules.SeekAt && actor.shelterId==0){Room home=FindRoom(actor.homeShelterId);if(home!=null && !KnownRoomDanger(actor,home) && RoomAdmissions(home,actor.id)<home.Capacity){int goal=PickShelterCell(home,actor);if(goal>=0){actor.shelterId=home.id;actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=ShelterState.Seeking;}}else{actor.homeShelterId=0;actor.reaction=HumanReaction.Flight;}actors[index]=actor;return false;}
             if(actor.hunger<HungerRules.SeekAt)return false;
             if(threat>=0 && Math.Max(Math.Abs(actor.x-actors[threat].x),Math.Abs(actor.y-actors[threat].y))<=2)return false;
