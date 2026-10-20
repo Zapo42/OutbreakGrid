@@ -6,7 +6,7 @@ namespace Outbreak.Core
     public enum WeaponActionKind { Pickup, Swing }
     public struct WeaponAction
     {
-        public int actorId,x,y;public long tick;public WeaponActionKind kind;public bool hit;
+        public int actorId,targetId,x,y;public long tick;public WeaponActionKind kind;public bool hit;
     }
     public static class MeleeRules
     {
@@ -41,10 +41,10 @@ namespace Outbreak.Core
         private WeaponAction[] weaponActions;private int weaponActionCount;
         public int WeaponActionCount { get { return weaponActionCount; } }
         public WeaponAction WeaponActionAt(int index){if(index<0 || index>=weaponActionCount)throw new ArgumentOutOfRangeException("index");return weaponActions[index];}
-        private void RecordWeaponAction(ActorState actor,int x,int y,WeaponActionKind kind,bool hit=false)
+        private void RecordWeaponAction(ActorState actor,int x,int y,WeaponActionKind kind,bool hit=false,int targetId=0)
         {
             if(weaponActions==null)weaponActions=new WeaponAction[Capacity];
-            weaponActions[weaponActionCount++]=new WeaponAction{actorId=actor.id,x=x,y=y,tick=Tick,kind=kind,hit=hit}; // One transient record per actor action, consumed without changing saved state.
+            weaponActions[weaponActionCount++]=new WeaponAction{actorId=actor.id,targetId=targetId,x=x,y=y,tick=Tick,kind=kind,hit=hit}; // One transient record per actor action, consumed without changing saved state.
         }
         public WeaponPickupDocument[] WeaponSites(){return map.CaptureWeapons()??new WeaponPickupDocument[0];}
         public bool TryPlaceBat(int x,int y)
@@ -62,11 +62,25 @@ namespace Outbreak.Core
             }
             if(best==null)return false;map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Pickup);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
         }
+        private bool TrySeekBat(ActorState actor,int threat,out int direction)
+        {
+            direction=8;
+            // Equipment is optional: food and shelter decisions already ran. Do not leave an assigned refuge, ignore danger, or use hidden map stock.
+            if(actor.meleeWeapon!=MeleeWeapon.None || actor.turnAtTick!=0 || actor.shelterId!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || threat>=0)return false;
+            int bestDistance=7,bestKey=int.MaxValue;
+            for(int y=Math.Max(0,actor.y-6);y<=Math.Min(Height-1,actor.y+6);y++)for(int x=Math.Max(0,actor.x-6);x<=Math.Min(Width-1,actor.x+6);x++)
+            {
+                if(Math.Abs(x-actor.x)+Math.Abs(y-actor.y)<=1 || !Visible(actor,new ActorState{x=x,y=y}) || map.WeaponAt(x,y)==null)continue;
+                // Route to a cardinal pickup neighbor, never onto a closed door or through a solid corner. Six steps is the maximum detour.
+                for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);int key=Key(x,y);if(route>=0 && length>0 && (length<bestDistance || (length==bestDistance && key<bestKey))){bestDistance=length;bestKey=key;direction=route;}}
+            }
+            return bestKey!=int.MaxValue;
+        }
         private void SwingBat(int humanIndex,int zombieIndex)
         {
             ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if(human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;
             human.nextMeleeTick=Tick+MeleeRules.CooldownTicks;actors[humanIndex]=human;
-            bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit);
+            bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id);
             if(!hit)return; // A missed swing still consumes its action and cooldown.
             zombie.health=Math.Max(0,zombie.health-MeleeRules.Damage(human));
             if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;return;}

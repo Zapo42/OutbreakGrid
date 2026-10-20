@@ -4,12 +4,12 @@ namespace Outbreak.UnityAdapter
 {
     public struct WeaponPose
     {
-        public double handX,handY,tipX,tipY,impactX,impactY;
-        public bool swinging,impact,pickingUp;
+        public double handX,handY,tipX,tipY;
+        public bool swinging,pickingUp;
     }
     public struct WeaponPresentation
     {
-        public const double SwingTicks=5,PickupTicks=3;
+        public const double SwingTicks=2,PickupTicks=3,HitFlashTicks=1.5;
         private double facingX,facingY;private bool hasAction;private WeaponAction action;
         public void Reset(){facingX=1;facingY=0;hasAction=false;action=new WeaponAction();}
         public void Move(int x,int y){if(x==0 && y==0)return;double length=Math.Sqrt(x*x+y*y);facingX=x/length;facingY=y/length;}
@@ -25,7 +25,7 @@ namespace Outbreak.UnityAdapter
             bool pickup=active && hasAction && action.kind==WeaponActionKind.Pickup && elapsed>=0 && elapsed<PickupTicks;
             if(swing){double phase=elapsed/SwingTicks;angle=direction+(phase<0.7?-1.4+2.8*phase/0.7:1.4-2.3*(phase-0.7)/0.3);}
             if(pickup){double phase=elapsed/PickupTicks;phase=phase*phase*(3-2*phase);handX=(action.x+0.89)*(1-phase)+handX*phase;handY=(action.y+0.2)*(1-phase)+handY*phase;angle=Math.PI/2*(1-phase)+angle*phase;}
-            return new WeaponPose{handX=handX,handY=handY,tipX=handX+Math.Cos(angle)*0.62,tipY=handY+Math.Sin(angle)*0.62,swinging=swing,pickingUp=pickup,impact=active && hasAction && action.kind==WeaponActionKind.Swing && action.hit && elapsed>=0 && elapsed<2.5,impactX=action.x+0.5,impactY=action.y+0.5};
+            return new WeaponPose{handX=handX,handY=handY,tipX=handX+Math.Cos(angle)*0.62,tipY=handY+Math.Sin(angle)*0.62,swinging=swing,pickingUp=pickup};
         }
     }
 }
