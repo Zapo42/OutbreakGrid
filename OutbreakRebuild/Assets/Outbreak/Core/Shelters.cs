@@ -56,7 +56,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         private bool KnownRoomDanger(ActorState observer, Room room) // Reassess using a zombie the human can actually observe inside its destination.
         { // Begin local danger observation.
             if (DoorBreaking) foreach (int key in room.doors) { ActorState door = new ActorState { x = key % Width, y = key / Width }; if (map.DoorHealthAt(door.x, door.y) == 0 && DistanceSquared(observer, door) <= 144 && Visible(observer, door)) return true; } // Reject a visible breach without revealing damage through walls.
-            for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && room.Contains(Key(z.x, z.y)) && DistanceSquared(observer, z) <= 144 && Visible(observer, z)) return true; } return false; // Unseen zombies are not revealed by the room catalog.
+            for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && z.health>0 && room.Contains(Key(z.x, z.y)) && DistanceSquared(observer, z) <= 144 && Visible(observer, z)) return true; } return false; // Unseen zombies are not revealed by the room catalog.
         } // Finish room danger check.
         private int RoomAdmissions(Room room, int self) // Reserve comfortable capacity without counting the same occupant twice.
         { // Begin bounded population admission count.
@@ -64,7 +64,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         } // Finish capacity accounting.
         private int KnownShelterThreats(ActorState actor, int threatIndex) // Reuse fixed observation buffers for route risk checks.
         { // Begin threat collection.
-            int total = 0; for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && DistanceSquared(actor, z) <= 144 && Visible(actor, z)) escapeThreats[total++] = z; } if (total == 0 && actor.avoidUntilTick > Tick) escapeThreats[total++] = new ActorState { x = actor.avoidX, y = actor.avoidY, species = Species.Zombie }; return total; // Hidden actor positions are never used to update a remembered threat.
+            int total = 0; for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && z.health>0 && DistanceSquared(actor, z) <= 144 && Visible(actor, z)) escapeThreats[total++] = z; } if (total == 0 && actor.avoidUntilTick > Tick) escapeThreats[total++] = new ActorState { x = actor.avoidX, y = actor.avoidY, species = Species.Zombie }; return total; // Hidden actor positions are never used to update a remembered threat.
         } // Finish threat collection.
         private bool ShelterWalkable(int x, int y) { return map.CanWalk(x, y) || (map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed); } // Only humans planning shelter entry may consider opening a closed door.
         private int ShelterRoute(ActorState actor, int goalX, int goalY, int threats, out int distance, Room confinedRoom = null, bool foodRoute = false) // Find a collision-safe local path including human door actions.

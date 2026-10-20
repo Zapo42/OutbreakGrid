@@ -16,7 +16,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
-            ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
+            actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
         } // Finish human-state cleanup.
         private void AdvanceReactionTimers(ref ActorState actor) // Complete deadlines even on ticks without an actor decision.
         { // Begin exact deadline handling.
@@ -41,7 +41,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         } // Finish support observation.
         private int ObservePressure(ActorState observer, ActorState closest) // Use locally visible zombies rather than the total world population.
         { // Begin threat observation.
-            int visible = 0; for (int i = 0; i < count; i++) { ActorState zombie = actors[i]; if (zombie.species != Species.Zombie) continue; int x = zombie.x - observer.x, y = zombie.y - observer.y; if (x * x + y * y <= EncounterRules.SightRadius * EncounterRules.SightRadius && Visible(observer, zombie)) visible++; } int distance = Math.Max(Math.Abs(closest.x - observer.x), Math.Abs(closest.y - observer.y)); return Math.Min(3, Math.Max(0, visible - 1) + (distance <= 2 ? 1 : 0)); // One distant zombie is less pressure than contact or a visible group.
+            int visible = 0; for (int i = 0; i < count; i++) { ActorState zombie = actors[i]; if (zombie.species != Species.Zombie || zombie.health==0) continue; int x = zombie.x - observer.x, y = zombie.y - observer.y; if (x * x + y * y <= EncounterRules.SightRadius * EncounterRules.SightRadius && Visible(observer, zombie)) visible++; } int distance = Math.Max(Math.Abs(closest.x - observer.x), Math.Abs(closest.y - observer.y)); return Math.Min(3, Math.Max(0, visible - 1) + (distance <= 2 ? 1 : 0)); // One distant zombie is less pressure than contact or a visible group.
         } // Finish threat observation.
         private int RetreatDirection(ActorState actor, ActorState threat) // Retain collision-safe neighboring retreat until shelter planning is implemented.
         { // Begin local escape selection.
@@ -58,6 +58,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
         { // Begin a complete human decision.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
+            if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
             if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.
             int deliveryDirection; if (FoodDelivery && TryDeliverFood(index, ref actor, threatIndex, out deliveryDirection)) return deliveryDirection;
@@ -73,7 +74,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             else if (margin >= 1) actor.reaction = HumanReaction.Fight; else if (margin <= -2 || actor.freezeResolved) actor.reaction = HumanReaction.Flight; // Retain the agreed courage thresholds and avoid a second freeze loop.
             else { actor.reaction = HumanReaction.Freeze; actor.freezeUntilTick = Tick + HumanRules.MinFreezeTicks + reactionRandom.Below(HumanRules.MaxFreezeTicks - HumanRules.MinFreezeTicks + 1); } // Use a named saved stream for a variable one-to-three-second freeze.
             actors[index] = actor; if (actor.reaction == HumanReaction.Flight) return RetreatDirection(actor, threat); if (actor.reaction != HumanReaction.Fight) return 8; // Aware watches and Freeze stops; Flight retreats immediately.
-            if (distance <= 1) { Shove(index, threatIndex); return 8; } // Keep defensive contact available without requiring an approach.
+            if (distance <= 1) { if(MeleeCombat && actor.meleeWeapon==MeleeWeapon.Bat)SwingBat(index,threatIndex);else Shove(index, threatIndex); return 8; } // Keep defensive contact available without requiring an approach.
             if (CautiousMovement && HumanRules.Level(actor.stress) <= StressLevel.Cautious) { actor.reaction = HumanReaction.Aware; actors[index] = actor; return distance <= 3 ? RetreatDirection(actor, threat) : 8; } // Wary humans watch or back away; support cannot make them charge a visible zombie.
             return Route(actor, threat); // Fight approaches visible danger and shoves on contact without inventing weapon damage.
         } // Finish human decisions.

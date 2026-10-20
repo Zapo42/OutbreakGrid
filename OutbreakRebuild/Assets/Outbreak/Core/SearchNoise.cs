@@ -13,7 +13,7 @@ namespace Outbreak.Core
             PrepareSoundReach(sourceX,sourceY);int left=sourceX-8,top=sourceY-8;
             for(int i=0;i<count;i++)
             {
-                ActorState listener=actors[i];if(listener.species!=Species.Zombie)continue;
+                ActorState listener=actors[i];if(listener.species!=Species.Zombie || listener.health==0)continue;
                 int x=listener.x-left,y=listener.y-top;if(x<0 || y<0 || x>=17 || y>=17)continue;int distance=soundDistance[y*17+x];if(distance<0 || distance>SearchNoiseRules.Radius)continue;
                 listener.heardSearchKind=kind;listener.heardSearchX=sourceX;listener.heardSearchY=sourceY;listener.heardSearchUntilTick=Tick+SearchNoiseRules.MemoryTicks;actors[i]=listener;
             }

@@ -74,6 +74,11 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World BluntCombatTest()
+        {
+            WorldMap map=new WorldMap(8,5,"Blunt combat test","blunt-combat-1");for(int y=0;y<5;y++)for(int x=0;x<8;x++)map.Set(x,y,Terrain.Wall);for(int x=2;x<=6;x++)map.Set(x,2,Terrain.Floor);map.SetWeapon(2,2,MeleeWeapon.Bat);
+            World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,2,out id);world.TrySpawn(Species.Zombie,6,2,out id);SaveDocument saved=world.Capture();saved.actors[0].strength=10;saved.actors[0].perception=8;saved.actors[0].agility=8;saved.actors[0].bravery=3;saved.actors[0].bluntSkill=5;return World.Restore(saved);
+        }
         public static World FoodScarcityTrial(uint seed=214)
         {
             WorldMap map=new WorldMap(22,23,"Food scarcity trial","food-scarcity-trial-1");

@@ -1,4 +1,4 @@
-Latest build: [Foundation 43 / food scarcity trial](Docs/FOOD_SCARCITY_TRIAL.md).
+Latest build: [Foundation 44 / blunt melee combat](Docs/BLUNT_MELEE_COMBAT.md).
 
 # Current update: Shelters and doors
 

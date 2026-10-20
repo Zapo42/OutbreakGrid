@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 43 / food scarcity trial**. A twelve-human, four-room scenario tests finite supplies through a prolonged shortage. The food overview shows remaining meals and investigations, with a paused one-game-hour step. See [test instructions and measured results](OutbreakRebuild/Docs/FOOD_SCARCITY_TRIAL.md).
+Current build: **Foundation 44 / blunt melee combat**. Finite bat pickups give Fight decisions timed damaging strikes, accuracy, stagger and knockback. Defeated zombies retain their bodies and identity while becoming inactive. See [test and update instructions](OutbreakRebuild/Docs/BLUNT_MELEE_COMBAT.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
@@ -17,4 +17,4 @@ If buttons draw but do not respond, stop Play mode, set Active Input Handling to
 
 [Full launch instructions, setup limits and validation](OutbreakRebuild/Docs/ENCOUNTER_SETUP.md)
 
-New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 41 runs can opt in with **Enable food exploration**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
+New saves retain room goals, recovery/exit progress, door states, reactions, infection and pursuit memory. Older saves keep their rules; Foundation 42/43 runs can opt in with **Enable melee combat**. Existing open maps need authored room geometry; the new encounter includes it. Collision remains grid-based. Automated C# checks pass, including save/resume and prior-release compatibility. Native Unity rendering and Windows builds are not verified by those checks.
