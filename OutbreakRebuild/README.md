@@ -1,4 +1,4 @@
-Latest build: [Foundation 59 / visible combat health](Docs/VISIBLE_COMBAT_HEALTH.md).
+Latest build: [Foundation 60 / survivor health overview](Docs/SURVIVOR_HEALTH_OVERVIEW.md).
 
 # Current update: Shelters and doors
 

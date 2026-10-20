@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 59 / visible combat health"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 60 / survivor health overview"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -218,6 +218,18 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Load Run", "Load terrain and saved bodies, then click Run to continue."))) Queue(() => Browse(false, true)); // Distinguish a populated save while preserving GUI event lifetime.
             GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
         } // Finish the start screen.
+        private void FocusNextHumanInNeed(bool infected)
+        {
+            if(world==null || world.Count==0)return;int start=selected>=0 && selected<world.Count?selected+1:0;
+            for(int offset=0;offset<world.Count;offset++)
+            {
+                int index=(start+offset)%world.Count;ActorState person=world.ActorAt(index);
+                if(person.species!=Species.Human || person.health<=0 || (infected?person.turnAtTick==0:person.health>=100))continue;
+                SetPaused(true);selected=index;selectedShelf=0;selectedBatCell=-1;placing=null;shelfBrush=-1;centerX=person.x+0.5f;centerY=person.y+0.5f;textureX=-1;
+                status="Selected "+(infected?"infected":"injured")+" human #"+person.id+" ("+person.health+"/100 health).";return;
+            }
+            status="No "+(infected?"infected":"injured")+" humans remain.";
+        }
         private void FocusNextHungryHuman()
         {
             if(world==null || !world.HungerEnabled || world.Count==0)return;
@@ -303,6 +315,13 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.EndHorizontal(); GUILayout.Label(status); GUILayout.EndArea(); // Keep implementation scope and errors readable in the shell.
             DrawWorld(new Rect(12, 138, Math.Max(64, Screen.width - 300), Math.Max(64, Screen.height - 184))); // Cull the map through a bounded viewport.
             GUILayout.BeginArea(new Rect(Screen.width - 276, 138, 264, Screen.height - 184), GUI.skin.box); inspectorScroll = GUILayout.BeginScrollView(inspectorScroll); // Keep selection diagnostics outside the map viewport.
+            if(world.Encounter)
+            {
+                int injured=0,infected=0;for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species!=Species.Human || person.health<=0)continue;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
+                GUILayout.Label("SURVIVOR HEALTH");GUILayout.Label("Injured humans: "+injured+"\nInfected humans: "+infected);
+                bool healthEnabled=GUI.enabled;GUI.enabled=healthEnabled && injured>0;if(GUILayout.Button("Next injured human"))Queue(()=>FocusNextHumanInNeed(false));
+                GUI.enabled=healthEnabled && infected>0;if(GUILayout.Button("Next infected human"))Queue(()=>FocusNextHumanInNeed(true));GUI.enabled=healthEnabled;
+            }
             if(world.HungerEnabled)
             {
                 FoodOverview food=world.FoodSupplies();GUILayout.Label("FOOD OVERVIEW");
@@ -343,6 +362,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(selected>=0 && selected<world.Count){ActorState fighter=world.ActorAt(selected);GUILayout.Label("Melee weapon: "+fighter.meleeWeapon+"\nBlunt skill: "+fighter.bluntSkill+"/10"+(fighter.health==0?"\nDEFEATED":fighter.species==Species.Zombie?"\nEquipment inactive after turning":fighter.nextMeleeTick>world.Tick?"\nSwing cooldown: "+(fighter.nextMeleeTick-world.Tick)+" ticks":""));}
             }
             if(selected>=0 && selected<world.Count)GUILayout.Label("Health: "+world.ActorAt(selected).health+"/100");
+            if(world.Encounter && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState person=world.ActorAt(selected);GUILayout.Label(person.turnAtTick==0?"Infection: not infected":"Infection: turning in "+(Math.Max(0,person.turnAtTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s");}
             DrawGroundBatInspector();
             if(world.WeaponDurability && selected>=0 && selected<world.Count){ActorState owner=world.ActorAt(selected);if(owner.meleeWeapon==MeleeWeapon.Bat)GUILayout.Label("Bat condition: "+(MeleeRules.BatHits-owner.batWear)+"/"+MeleeRules.BatHits+" hits remaining");if(weaponMotion[selected].RecentlyBroken(world.Tick))GUILayout.Label("Bat broke");if(weaponMotion[selected].RecentlySwapped(world.Tick))GUILayout.Label("Bat replaced");}
             if(world.BiteEvasion && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState defender=world.ActorAt(selected);GUILayout.Label("Bite evasion: agility "+defender.agility+" | stress "+defender.stress);BiteAction outcome=biteFeedback[selected];if(outcome.targetId==defender.id && world.Tick>=outcome.tick && world.Tick-outcome.tick<BiteRules.FeedbackTicks)GUILayout.Label("Last bite attempt: "+(outcome.evaded?"DODGED":"BITTEN")+"\nZombie #"+outcome.actorId+" | evasion chance "+outcome.dodgeChance+"%");}
