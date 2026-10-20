@@ -15,6 +15,15 @@ public static partial class Program
     }
     private static void CheckMeleeCases()
     {
+        Check("Unarmed humans favor separate first bats and resume exactly after saving", () => {
+            World world=EncounterScenarios.UnarmedCourtesyTest();world.Step();Require(world.UnarmedCourtesy && world.ActorAt(0).y>4 && world.ActorAt(0).meleeWeapon==MeleeWeapon.None,"Unarmed human failed to seek the separate supply.");World copy=Documents.ParseSave(State(world));Run(world,25);Run(copy,25);Require(State(world)==State(copy) && world.ActorAt(0).meleeWeapon==MeleeWeapon.Bat && world.ActorAt(1).meleeWeapon==MeleeWeapon.Bat && world.WeaponSites().Length==0 && world.ActorAt(0).batWear==0 && world.ActorAt(1).batWear==0,"First bat trips lost, duplicated or damaged equipment, or diverged after saving.");
+        });
+        Check("Unarmed courtesy accepts worn stock, sufficient piles and the only available bat", () => {
+            SaveDocument baseline=EncounterScenarios.UnarmedCourtesyTest().Capture();for(int mode=0;mode<3;mode++){SaveDocument saved=World.Restore(baseline).Capture();if(mode==0){saved.map.schemaVersion=6;saved.map.weapons[0].extraBats=1;saved.map.weapons[0].wear=new[]{10,11};}if(mode==1)saved.map.weapons=new[]{saved.map.weapons[0]};if(mode==2)saved.actors[1].stress=10;World world=World.Restore(saved);world.Step();Require(world.ActorAt(0).x==4,"First bat courtesy rejected sufficient worn stock, the only supply or an ineligible peer.");}
+        });
+        Check("Foundation 55 retains unarmed seeking while preserving armed courtesy", () => {
+            SaveDocument saved=EncounterScenarios.UnarmedCourtesyTest().Capture();saved.rulesVersion=EncounterRules.SupplyCourtesyVersion;World world=World.Restore(saved);world.Step();Require(world.SupplyCourtesy && !world.UnarmedCourtesy && world.ActorAt(0).x==4 && world.Capture().rulesVersion==EncounterRules.SupplyCourtesyVersion,"Previous courtesy rules acquired first bat coordination.");saved=EncounterScenarios.SupplyCourtesyTest().Capture();saved.rulesVersion=EncounterRules.SupplyCourtesyVersion;world=World.Restore(saved);world.Step();Require(world.ActorAt(0).y>4,"Previous replacement courtesy changed.");
+        });
         Check("Replacement trips favor separate supplies and preserve finite equipment through save continuation", () => {
             World world=EncounterScenarios.SupplyCourtesyTest();world.Step();Require(world.SupplyCourtesy && world.ActorAt(0).x<4 && world.ActorAt(0).y>4,"Replacement human approached a contested supply instead of its alternative.");World copy=Documents.ParseSave(State(world));Run(world,25);Run(copy,25);Require(State(world)==State(copy) && world.ActorAt(0).batWear==0 && world.ActorAt(1).batWear==0 && world.WeaponSites().Length==2 && world.WeaponSites()[0].wear[0]==10 && world.WeaponSites()[1].wear[0]==10,"Separate supply trips lost bats or diverged after saving.");
         });
