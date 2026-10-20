@@ -1,4 +1,4 @@
-Latest build: [Foundation 56 / first bat courtesy](Docs/FIRST_BAT_COURTESY.md).
+Latest build: [Foundation 57 / first weapon priority](Docs/FIRST_WEAPON_PRIORITY.md).
 
 # Current update: Shelters and doors
 

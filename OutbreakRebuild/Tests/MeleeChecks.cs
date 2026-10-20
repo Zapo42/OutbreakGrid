@@ -15,6 +15,12 @@ public static partial class Program
     }
     private static void CheckMeleeCases()
     {
+        Check("Equally close unarmed humans get supply preference over replacement seekers", () => {
+            World world=EncounterScenarios.FirstWeaponPriorityTest();world.Step();Require(world.FirstWeaponPriority && world.ActorAt(0).y>5 && world.ActorAt(0).batWear==10,"Replacement seeker did not favor the other supply for an equally close unarmed peer.");World copy=Documents.ParseSave(State(world));Run(world,30);Run(copy,30);Require(State(world)==State(copy) && world.ActorAt(0).batWear==0 && world.ActorAt(1).meleeWeapon==MeleeWeapon.Bat && world.WeaponSites().Length==1 && world.WeaponSites()[0].wear[0]==10,"Need-based tie preference lost equipment or diverged after saving.");
+        });
+        Check("First weapon preference preserves previous rules, same-need ordering and only-supply fallback", () => {
+            SaveDocument baseline=EncounterScenarios.FirstWeaponPriorityTest().Capture();for(int mode=0;mode<4;mode++){SaveDocument saved=World.Restore(baseline).Capture();if(mode==0)saved.rulesVersion=EncounterRules.UnarmedCourtesyVersion;if(mode==1){saved.actors[1].meleeWeapon=MeleeWeapon.Bat;saved.actors[1].batWear=10;}if(mode==2)saved.map.weapons=new[]{saved.map.weapons[0]};if(mode==3){saved.map.schemaVersion=5;saved.map.weapons[0].extraBats=1;}World world=World.Restore(saved);world.Step();Require(world.ActorAt(0).y<=5,"Preference overrode older rules, same-need ordering, only stock or sufficient quantity: "+mode);if(mode==0)Require(!world.FirstWeaponPriority && world.UnarmedCourtesy && world.Capture().rulesVersion==EncounterRules.UnarmedCourtesyVersion,"Older first bat rules silently acquired priority.");}
+        });
         Check("Unarmed humans favor separate first bats and resume exactly after saving", () => {
             World world=EncounterScenarios.UnarmedCourtesyTest();world.Step();Require(world.UnarmedCourtesy && world.ActorAt(0).y>4 && world.ActorAt(0).meleeWeapon==MeleeWeapon.None,"Unarmed human failed to seek the separate supply.");World copy=Documents.ParseSave(State(world));Run(world,25);Run(copy,25);Require(State(world)==State(copy) && world.ActorAt(0).meleeWeapon==MeleeWeapon.Bat && world.ActorAt(1).meleeWeapon==MeleeWeapon.Bat && world.WeaponSites().Length==0 && world.ActorAt(0).batWear==0 && world.ActorAt(1).batWear==0,"First bat trips lost, duplicated or damaged equipment, or diverged after saving.");
         });

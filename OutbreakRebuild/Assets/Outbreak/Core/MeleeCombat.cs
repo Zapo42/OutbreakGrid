@@ -113,7 +113,9 @@ namespace Outbreak.Core
                 if(peer.meleeWeapon!=MeleeWeapon.None && (!NeedsBatReplacement(peer) || peer.batWear-(pickup.wear==null?0:pickup.wear[0])<MeleeRules.ReplacementGain))continue;
                 int distance=8;if(Math.Abs(peer.x-pickup.x)+Math.Abs(peer.y-pickup.y)<=1)distance=0;
                 else for(int d=0;d<8;d+=2){int gx=pickup.x+dx[d],gy=pickup.y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(peer,gx,gy,0,out length,walkOnly:true);if(route>=0 && length>0 && length<distance)distance=length;}
-                if(distance>6 || distance>ownDistance || (distance==ownDistance && peer.id>observer.id))continue;
+                bool differentNeed=FirstWeaponPriority && (peer.meleeWeapon==MeleeWeapon.None)!=(observer.meleeWeapon==MeleeWeapon.None);
+                bool peerWinsTie=differentNeed?peer.meleeWeapon==MeleeWeapon.None:peer.id<observer.id;
+                if(distance>6 || distance>ownDistance || (distance==ownDistance && !peerWinsTie))continue;
                 // Visible nearer peers suggest competition, without reserving anything or reading hidden plans.
                 if(++ahead>=available)return true;
             }
