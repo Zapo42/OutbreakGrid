@@ -63,7 +63,7 @@ namespace Outbreak.Core
         private int FoodShelfRouteLength(ActorState actor,ShelfMemoryRecord note)
         {
             int threats=KnownShelterThreats(actor,NearestVisible(actor,Species.Zombie)),best=int.MaxValue;
-            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length)>=0 && length<best)best=length;}
+            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length,foodRoute:true)>=0 && length<best)best=length;}
             return best; // Compare bounded routes to a search position, without reading unopened stock.
         }
         private bool VisibleShelfSearch(ActorState observer,int x,int y)
@@ -74,13 +74,13 @@ namespace Outbreak.Core
         private bool ReachableSearchAlternative(ActorState actor,ShelfMemoryRecord note)
         {
             int threats=KnownShelterThreats(actor,NearestVisible(actor,Species.Zombie));
-            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length)>=0)return true;}
+            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length,foodRoute:true)>=0)return true;}
             return false; // Prefer alternatives with a complete local route; do not abandon reachable food for an inaccessible or distant remembered shelf.
         }
         private int RouteToRememberedShelf(ActorState actor, ShelfDocument target, int threats)
         {
             int x=actor.x+Math.Max(-12,Math.Min(12,target.x-actor.x)), y=actor.y+Math.Max(-12,Math.Min(12,target.y-actor.y)), best=DistanceSquared(actor,new ActorState{x=target.x,y=target.y}), direction=8;
-            for (int d=0;d<8;d+=2) { int wx=x+dx[d],wy=y+dy[d];if(!ShelterWalkable(wx,wy))continue;int distance=DistanceSquared(new ActorState{x=wx,y=wy},new ActorState{x=target.x,y=target.y});if(distance>=best)continue;int length, candidate=ShelterRoute(actor,wx,wy,threats,out length);if(candidate>=0){best=distance;direction=candidate;} } return direction; // Bounded local waypoints allow a longer remembered trip without a world-sized path query.
+            for (int d=0;d<8;d+=2) { int wx=x+dx[d],wy=y+dy[d];if(!ShelterWalkable(wx,wy))continue;int distance=DistanceSquared(new ActorState{x=wx,y=wy},new ActorState{x=target.x,y=target.y});if(distance>=best)continue;int length, candidate=ShelterRoute(actor,wx,wy,threats,out length,foodRoute:true);if(candidate>=0){best=distance;direction=candidate;} } return direction; // Bounded local waypoints allow a longer remembered trip without a world-sized path query.
         }
         private void ValidateShelfMemory()
         {

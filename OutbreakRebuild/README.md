@@ -1,4 +1,4 @@
-Latest build: [Foundation 37 / selected target markers](Docs/TARGET_MARKERS.md).
+Latest build: [Foundation 38 / guarded food routes](Docs/GUARDED_FOOD_ROUTES.md).
 
 # Current update: Shelters and doors
 

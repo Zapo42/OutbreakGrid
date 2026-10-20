@@ -4,6 +4,15 @@ public static partial class Program
 {
     private static void CheckPantryCases()
     {
+        Check("Food routes avoid visible zombie contact zones and preserve exact continuation", () => {
+            World w=EncounterScenarios.SafeFoodTargetTest();w.Step();Require(w.ActorAt(0).foodX==3 && w.ActorAt(0).foodY==8 && System.Math.Max(System.Math.Abs(w.ActorAt(0).x-6),System.Math.Abs(w.ActorAt(0).y-4))>2,"Forager chose a guarded shelf or stepped into its observed contact zone.");World copy=World.Restore(w.Capture());for(int i=0;i<20;i++){w.Step();copy.Step();}Require(State(w)==State(copy),"Guarded food planning diverged after saving.");SaveDocument s=EncounterScenarios.SafeFoodTargetTest().Capture();s.rulesVersion=EncounterRules.FairPickupVersion;w=World.Restore(s);w.Step();Require(!w.SafeFoodTargets && w.FairFoodPickup && w.ActorAt(0).foodX==6 && w.ActorAt(0).foodY==3,"Old generation silently changed food-route clearance.");
+        });
+        Check("A newly guarded committed destination can be replaced before the next move", () => {
+            SaveDocument s=EncounterScenarios.SafeFoodTargetTest().Capture();s.actors[0].foodX=6;s.actors[0].foodY=3;s.actors[0].foodUntilTick=150;World w=World.Restore(s);w.Step();Require(w.ActorAt(0).foodX==3 && w.ActorAt(0).foodY==8,"Commitment to a shelf overrode newly observed danger.");s=EncounterScenarios.SafeFoodTargetTest().Capture();s.actors[0].x=4;s.actors[0].y=4;s.actors[0].carriedFood=1;w=World.Restore(s);w.Step();Require(w.ActorAt(0).carriedFood==1 && w.ShelfAt(6,3).food==6,"Immediate danger allowed eating or shelf collection.");
+        });
+        Check("Unseen zombies do not create global shelf danger knowledge", () => {
+            SaveDocument s=EncounterScenarios.SafeFoodTargetTest().Capture();WorldMap map=WorldMap.Restore(s.map);map.Set(4,3,Terrain.Wall);s.map=map.Capture();World w=World.Restore(s);w.Step();Require(w.ActorAt(0).foodX==6 && w.ActorAt(0).foodY==3,"Hidden guard globally contaminated food-target selection.");
+        });
         Check("Scarce shelf food is left for visible hungry neighbors and all transfers conserve stock", () => {
             World w=EncounterScenarios.FairFoodPickupTest();w.Step();Require(w.ActorAt(0).carriedFood==1 && w.ShelfAt(4,3).food==2 && w.ActorAt(0).hunger==80,"First forager hoarded scarce food or ate during pickup.");World copy=World.Restore(w.Capture());for(int i=0;i<9;i++){w.Step();copy.Step();}for(int i=0;i<3;i++)Require(w.ActorAt(i).hunger==30 && w.ActorAt(i).carriedFood==0,"Visible hungry neighbor missed its real meal.");Require(w.ShelfAt(4,3).food==0 && State(w)==State(copy),"Considerate pickup duplicated stock or diverged after saving.");
         });
