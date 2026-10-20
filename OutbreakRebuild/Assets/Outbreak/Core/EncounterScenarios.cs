@@ -55,6 +55,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map = new WorldMap(16,10,"Shelf memory test","shelf-memory-1"); for (int y=0;y<10;y++) map.Set(5,y,Terrain.Wall); map.Set(5,4,Terrain.DoorOpen); map.SetShelf(2,3,0); map.SetShelf(7,4,6); World world = new World(map,214,encounter:true,hunger:true,carefulSearch:false); int id; world.TrySpawn(Species.Human,2,4,out id); SaveDocument saved=world.Capture(); saved.actors[0].hunger=80; saved.actors[0].bravery=3; world=World.Restore(saved); for(int tick=0;tick<26;tick++)world.Step(); saved=world.Capture(); saved.actors[0].x=2; saved.actors[0].y=4; saved.actors[0].carriedFood=0; saved.actors[0].hunger=80; map=WorldMap.Restore(saved.map); map.Set(5,4,Terrain.DoorClosed); saved.map=map.Capture(); return World.Restore(saved); // The prior search left three meals at 7,4; this paused continuation returns after using its carried supplies.
         }
+        public static World SearchCoordinationTest()
+        {
+            WorldMap map=new WorldMap(12,9,"Coordinated shelf search test","search-coordination-1");map.SetShelf(4,3,6);map.SetShelf(4,5,6);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,3,out id);world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<2;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
+        }
         public static World CarefulSearchTest()
         {
             SaveDocument saved=HungerForaging(3,true).Capture();saved.rulesVersion=EncounterRules.Version;saved.map.name="Careful shelf search test";return World.Restore(saved);

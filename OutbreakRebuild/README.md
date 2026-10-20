@@ -1,4 +1,4 @@
-Latest build: [Foundation 27 / cautious searching](Docs/CAREFUL_SEARCH.md).
+Latest build: [Foundation 28 / coordinated searches](Docs/SEARCH_COORDINATION.md).
 
 # Current update: Shelters and doors
 

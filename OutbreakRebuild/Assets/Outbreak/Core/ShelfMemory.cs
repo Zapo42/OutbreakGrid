@@ -37,9 +37,33 @@ namespace Outbreak.Core
         }
         private ShelfDocument ChooseRememberedShelf(ActorState actor, Room insideRoom)
         {
-            if (actor.shelfMemory == null) return null; ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;
+            if (actor.shelfMemory == null) return null;
+            if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
+            ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;
             foreach (ShelfMemoryRecord note in actor.shelfMemory) { if (note.food==0 || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y)))) continue; int priority = note.food>0?1:0, squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y}); if (priority>rank || (priority==rank && squared<distance)) { best=note;rank=priority;distance=squared; } }
+            if(SearchCoordination && rank>=0 && VisibleShelfSearch(actor,best.x,best.y))
+            {
+                ShelfMemoryRecord alternative=new ShelfMemoryRecord();int alternativeRank=-1,alternativeDistance=int.MaxValue;
+                foreach(ShelfMemoryRecord note in actor.shelfMemory)
+                {
+                    if(note.food==0 || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || !ReachableSearchAlternative(actor,note))continue;
+                    int priority=note.food>0?1:0,squared=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});
+                    if(priority>alternativeRank || (priority==alternativeRank && squared<alternativeDistance)){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
+                }
+                if(alternativeRank>=0)best=alternative; // With no usable alternative, retain the original choice rather than blocking access to the only supplies.
+            }
             return rank<0 ? null : new ShelfDocument{x=best.x,y=best.y}; // Prefer confirmed supplies over unknown shelves; never read hidden current stock.
+        }
+        private bool VisibleShelfSearch(ActorState observer,int x,int y)
+        {
+            for(int i=0;i<count;i++){ActorState other=actors[i];if(other.id!=observer.id && other.species==Species.Human && other.turnAtTick==0 && other.shelfSearchProgress>0 && other.foodUntilTick>Tick && other.foodX==x && other.foodY==y && DistanceSquared(observer,other)<=EncounterRules.SightRadius*EncounterRules.SightRadius && Visible(observer,other))return true;}
+            return false; // Visible active work is the only coordination signal; hidden humans never reserve shelves globally.
+        }
+        private bool ReachableSearchAlternative(ActorState actor,ShelfMemoryRecord note)
+        {
+            int threats=KnownShelterThreats(actor,NearestVisible(actor,Species.Zombie));
+            for(int d=0;d<8;d+=2){int x=note.x+dx[d],y=note.y+dy[d],length;if(map.CanWalk(x,y) && ShelterRoute(actor,x,y,threats,out length)>=0)return true;}
+            return false; // Prefer alternatives with a complete local route; do not abandon reachable food for an inaccessible or distant remembered shelf.
         }
         private int RouteToRememberedShelf(ActorState actor, ShelfDocument target, int threats)
         {
