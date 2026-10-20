@@ -1,4 +1,4 @@
-Latest build: [Foundation 53 / restart and weapon replacement](Docs/RESTART_AND_WEAPON_REPLACEMENT.md).
+Latest build: [Foundation 54 / replacement supply trips](Docs/REPLACEMENT_SUPPLY_TRIPS.md).
 
 # Current update: Shelters and doors
 

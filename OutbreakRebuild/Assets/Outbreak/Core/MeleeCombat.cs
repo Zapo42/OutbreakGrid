@@ -86,23 +86,24 @@ namespace Outbreak.Core
             }
             if(best==null)return false;actor.batWear=map.TakeWeapon(best.x,best.y);actor.meleeWeapon=best.weapon;RecordWeaponAction(actor,best.x,best.y,WeaponActionKind.Pickup);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // One physical, finite pickup consumes the opportunity.
         }
+        private bool NeedsBatReplacement(ActorState actor){return actor.meleeWeapon==MeleeWeapon.Bat && MeleeRules.BatHits-actor.batWear<=MeleeRules.ReplaceAtHits && actor.nextMeleeTick<=Tick;}
         private bool TrySeekBat(ActorState actor,int threat,out int direction)
         {
-            direction=8;
+            direction=8;bool replacing=ReplacementTrips && NeedsBatReplacement(actor);
             // Equipment is optional: food and shelter decisions already ran. Do not leave an assigned refuge, ignore danger, or use hidden map stock.
-            if(actor.meleeWeapon!=MeleeWeapon.None || actor.turnAtTick!=0 || actor.shelterId!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || threat>=0)return false;
-            int bestDistance=7,bestKey=int.MaxValue;
+            if((actor.meleeWeapon!=MeleeWeapon.None && !replacing) || actor.turnAtTick!=0 || actor.shelterId!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || threat>=0)return false;
+            int bestDistance=7,bestWear=int.MaxValue,bestKey=int.MaxValue;
             for(int y=Math.Max(0,actor.y-6);y<=Math.Min(Height-1,actor.y+6);y++)for(int x=Math.Max(0,actor.x-6);x<=Math.Min(Width-1,actor.x+6);x++)
             {
-                if(!map.CanWalk(x,y) || Math.Abs(x-actor.x)+Math.Abs(y-actor.y)<=1 || !Visible(actor,new ActorState{x=x,y=y}) || map.WeaponAt(x,y)==null)continue;
+                if(!map.CanWalk(x,y) || Math.Abs(x-actor.x)+Math.Abs(y-actor.y)<=1 || !Visible(actor,new ActorState{x=x,y=y}))continue;WeaponPickupDocument pickup=map.WeaponAt(x,y);if(pickup==null)continue;int wear=pickup.wear==null?0:pickup.wear[0];if(replacing && actor.batWear-wear<MeleeRules.ReplacementGain)continue;
                 // Route to a cardinal pickup neighbor, never onto a closed door or through a solid corner. Six steps is the maximum detour.
-                for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);int key=Key(x,y);if(route>=0 && length>0 && (length<bestDistance || (length==bestDistance && key<bestKey))){bestDistance=length;bestKey=key;direction=route;}}
+                for(int d=0;d<8;d+=2){int gx=x+dx[d],gy=y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(actor,gx,gy,0,out length,walkOnly:true);int key=Key(x,y);if(route>=0 && length>0 && (!ReplacementTrips || length<=6) && (length<bestDistance || (length==bestDistance && ((replacing && wear<bestWear) || ((!replacing || wear==bestWear) && key<bestKey))))){bestDistance=length;bestWear=wear;bestKey=key;direction=route;}}
             }
             return bestKey!=int.MaxValue;
         }
         private bool TryReplaceBat(int index,ref ActorState actor,int threat)
         {
-            if(actor.meleeWeapon!=MeleeWeapon.Bat || MeleeRules.BatHits-actor.batWear>MeleeRules.ReplaceAtHits || actor.turnAtTick!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || actor.nextMeleeTick>Tick || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return false;
+            if(!NeedsBatReplacement(actor) || actor.turnAtTick!=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || actor.reaction==HumanReaction.Flight || actor.nextMeleeTick>Tick || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return false;
             WeaponPickupDocument best=null;int bestWear=int.MaxValue,bestDistance=2,bestKey=int.MaxValue;
             for(int d=-1;d<8;d+=d<0?1:2)
             {

@@ -74,6 +74,11 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World ReplacementTripTest()
+        {
+            WorldMap map=new WorldMap(12,7,"Replacement trip test","replacement-trip-1");for(int y=0;y<7;y++)for(int x=0;x<12;x++)map.Set(x,y,Terrain.Wall);for(int x=2;x<=9;x++)map.Set(x,3,Terrain.Grass);map.SetWeapon(8,3,MeleeWeapon.Bat);
+            World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,3,out id);SaveDocument saved=world.Capture();saved.actors[0].meleeWeapon=MeleeWeapon.Bat;saved.actors[0].batWear=10;saved.actors[0].bluntSkill=2;saved.actors[0].bluntPractice=1;return World.Restore(saved);
+        }
         public static World WeaponReplacementTest()
         {
             WorldMap map=new WorldMap(12,8,"Weapon replacement test","weapon-replacement-1");map.SetWeapon(3,4,MeleeWeapon.Bat);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,4,out id);SaveDocument saved=world.Capture();saved.actors[0].meleeWeapon=MeleeWeapon.Bat;saved.actors[0].batWear=10;saved.actors[0].bluntSkill=2;saved.actors[0].bluntPractice=1;return World.Restore(saved);
