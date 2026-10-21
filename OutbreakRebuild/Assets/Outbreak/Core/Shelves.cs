@@ -11,7 +11,7 @@ namespace Outbreak.Core
         public ShelfDocument ShelfAt(int x, int y) { ShelfDocument s; return Contains(x,y) && shelves.TryGetValue(y*Width+x,out s) ? new ShelfDocument { x=s.x,y=s.y,food=s.food,searched=s.searched } : null; } // Return detached data, never a mutable live container.
         public void SetShelf(int x, int y, int food, bool searched = false)
         {
-            if (!Contains(x,y) || !TerrainRules.Walkable(Get(x,y)) || Get(x,y)==Terrain.DoorOpen || WeaponAt(x,y)!=null || food<0 || food>1000 || (!shelves.ContainsKey(y*Width+x) && shelves.Count>=4096)) throw new ArgumentException("Shelf needs a non-door walkable terrain cell, 0–1000 food and room in the 4096-shelf limit.");
+            if (!Contains(x,y) || !TerrainRules.Walkable(Get(x,y)) || Get(x,y)==Terrain.DoorOpen || RestSpotAt(x,y) || WeaponAt(x,y)!=null || food<0 || food>1000 || (!shelves.ContainsKey(y*Width+x) && shelves.Count>=4096)) throw new ArgumentException("Shelf needs a non-door walkable terrain cell, 0–1000 food and room in the 4096-shelf limit.");
             shelves[y*Width+x]=new ShelfDocument { x=x,y=y,food=food,searched=searched };
         }
         internal ShelfDocument[] CaptureShelves()
@@ -32,7 +32,7 @@ namespace Outbreak.Core
         public ShelfDocument ShelfAt(int x,int y) { return map.ShelfAt(x,y); }
         public bool TryPlaceShelf(int x,int y,int food)
         {
-            if(!HungerEnabled || map.WeaponAt(x,y)!=null || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || food<0 || food>1000)return false;
+            if(!HungerEnabled || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || food<0 || food>1000)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             if(ShelfSites().Length>=4096)return false;map.SetShelf(x,y,food);TerrainRevision++;return true; // Furniture is solid and cannot be placed through a body or reserved destination.
         }

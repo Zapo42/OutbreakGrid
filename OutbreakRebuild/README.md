@@ -1,4 +1,4 @@
-Latest build: [Foundation 71 / energy and shelter rest](Docs/ENERGY_AND_REST.md).
+Latest build: [Foundation 72 / beds and resting](Docs/BEDS_AND_RESTING.md).
 
 # Current update: Shelters and doors
 

@@ -34,7 +34,7 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
         {
             bool recoverEnergy=EnergyEnabled && actor.energySpent>0 && actor.nextShoveTick==0 && actor.nextMeleeTick==0;
             if(actor.health<=0 || (actor.health>=100 && !recoverEnergy) || actor.turnAtTick!=0 || actor.stress!=0 || actor.hunger>=HungerRules.SeekAt || threatIndex>=0 || HasRecentDoorNoise(actor) || HasRecentWarning(actor) || actor.shelterState!=ShelterState.Inside || actor.x!=actor.shelterX || actor.y!=actor.shelterY || !room.Contains(Key(actor.x,actor.y)))return false;
-            CloseNearbyDoors(actor,room);ClearShelterDeparture(ref actor);actor.health=Math.Min(100,actor.health+ShelterRecoveryRules.HealPerRest);if(recoverEnergy)actor.energySpent=Math.Max(0,actor.energySpent-EnergyRules.RestGain);actor.hunger=Math.Min(100,actor.hunger+ShelterRecoveryRules.HungerPerRest);actors[index]=actor;return true;
+            CloseNearbyDoors(actor,room);ClearShelterDeparture(ref actor);actor.health=Math.Min(100,actor.health+ShelterRecoveryRules.HealPerRest);if(recoverEnergy)actor.energySpent=Math.Max(0,actor.energySpent-(RestSpotsEnabled && map.RestSpotAt(actor.x,actor.y)?EnergyRules.RestGain*2:EnergyRules.RestGain));actor.hunger=Math.Min(100,actor.hunger+ShelterRecoveryRules.HungerPerRest);actors[index]=actor;return true;
         }
         private bool TryShelterDeparture(int index, ref ActorState actor, Room room, int threatIndex, out int direction) // Replace permanent hiding with a cautious, interruptible inspection.
         { // Begin one departure decision.

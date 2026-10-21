@@ -48,6 +48,7 @@ namespace Outbreak.Core
         private void RestoreWeapons(MapDocument source)
         {
             if(source.schemaVersion<4){if(source.weapons!=null)throw new ArgumentException("Weapon pickups require a version-four map.");return;}
+            if(source.schemaVersion>=7 && source.weapons==null)return;
             if(source.weapons==null || source.weapons.Length==0 || source.weapons.Length>(source.schemaVersion>=5?MeleeRules.MaxBats:MeleeRules.MaxPickups))throw new ArgumentException("Invalid weapon pickup collection.");
             foreach(WeaponPickupDocument pickup in source.weapons)
             {
