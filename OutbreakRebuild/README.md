@@ -1,4 +1,4 @@
-Latest build: [Foundation 72 / beds and resting](Docs/BEDS_AND_RESTING.md).
+Latest build: [Foundation 73 / rest before foraging](Docs/REST_BEFORE_FORAGING.md).
 
 # Current update: Shelters and doors
 

@@ -36,10 +36,11 @@ namespace Outbreak.Core
         public bool TryRemoveRestSpot(int x,int y){if(!RestSpotsEnabled || !map.RemoveRestSpot(x,y))return false;TerrainRevision++;return true;}
         private void PreferRestSpot(ref ActorState actor,Room room,int threat)
         {
-            if(!RestSpotsEnabled || actor.turnAtTick!=0 || actor.hunger>=HungerRules.SeekAt || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return;
+            bool preparingFood=ShouldRestBeforeFood(actor,threat);
+            if(!RestSpotsEnabled || actor.turnAtTick!=0 || (actor.hunger>=HungerRules.SeekAt && !preparingFood) || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return;
             bool assigned=map.RestSpotAt(actor.shelterX,actor.shelterY);
             if(actor.energySpent==0 && assigned){int normal=PickShelterCell(room,actor);if(normal>=0){actor.shelterX=normal%Width;actor.shelterY=normal/Width;}return;}
-            if(EnergyRules.Remaining(actor)>EnergyRules.SeekRestAt && !assigned)return;
+            if(EnergyRules.Remaining(actor)>EnergyRules.SeekRestAt && !assigned && !preparingFood)return;
             int best=-1,distance=int.MaxValue;foreach(RestSpotDocument spot in RestSpotSites())
             {
                 int key=Key(spot.x,spot.y);if(!room.Contains(key) || !Visible(actor,new ActorState{x=spot.x,y=spot.y}))continue;bool occupied=false;
