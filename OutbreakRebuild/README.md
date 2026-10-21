@@ -1,4 +1,4 @@
-Latest build: [Foundation 69 / physical shove motion](Docs/PHYSICAL_SHOVE_MOTION.md).
+Latest build: [Foundation 70 / shove fatigue](Docs/SHOVE_FATIGUE.md).
 
 # Current update: Shelters and doors
 
