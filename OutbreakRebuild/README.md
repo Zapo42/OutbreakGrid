@@ -1,4 +1,4 @@
-Latest build: [Foundation 68 / unarmed spacing](Docs/UNARMED_SPACING.md).
+Latest build: [Foundation 69 / physical shove motion](Docs/PHYSICAL_SHOVE_MOTION.md).
 
 # Current update: Shelters and doors
 

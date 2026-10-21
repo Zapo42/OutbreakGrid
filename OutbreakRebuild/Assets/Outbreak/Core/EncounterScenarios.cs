@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World ShoveContactTest()
+        {
+            SaveDocument saved=UnarmedSpacingTest().Capture();saved.map.name="Shove contact test";saved.map.id="shove-contact-1";saved.actors[3].x=5;return World.Restore(saved);
+        }
         public static World UnarmedSpacingTest()
         {
             WorldMap map=new WorldMap(12,7,"Unarmed spacing test","unarmed-spacing-1");for(int y=0;y<7;y++)for(int x=0;x<12;x++)map.Set(x,y,Terrain.Wall);for(int x=1;x<=9;x++)map.Set(x,3,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,4,3,out id);world.TrySpawn(Species.Human,2,3,out id);world.TrySpawn(Species.Human,2,3,out id);world.TrySpawn(Species.Zombie,6,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++)saved.actors[i].bravery=3;saved.actors[0].stress=45;return World.Restore(saved);

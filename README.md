@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 68 / unarmed spacing**. Unarmed fighters create space from close zombies and during shove recovery, while retaining ready defensive shoves. See [test instructions and behavior details](OutbreakRebuild/Docs/UNARMED_SPACING.md).
+Current build: **Foundation 69 / physical shove motion**. Humans lean into two-handed shoves, with visible contact before a fast zombie recoil. See [test instructions and behavior details](OutbreakRebuild/Docs/PHYSICAL_SHOVE_MOTION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 

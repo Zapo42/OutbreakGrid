@@ -9,11 +9,12 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 68 / unarmed spacing"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 69 / physical shove motion"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
         private BiteAction[] biteFeedback;
+        private ShovePresentation[] shoveMotion;private double[] beforeRenderX,beforeRenderY;
         private MovementPresentation[] motion; // Blend ordinary moves over their full cadence without changing collision cells.
         private string status = "Foundation 1: movement, clock and persistence only.", folder = ""; // Make implemented scope visible in the application itself.
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
@@ -83,17 +84,25 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock(); previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             ResetPopulationHistory();
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
         private void StepWorld() // Advance authoritative ticks and capture safe presentation targets.
         { // Begin one complete simulation step.
             if(!scenarioAdvanced){scenarioStart=world.Capture();ResetPopulationHistory();scenarioAdvanced=true;} // Include authored starting bodies and supplies before the first simulation tick.
-            long revision = world.TerrainRevision, condition = world.DoorConditionRevision; for (int i = 0; i < world.Count; i++) previous[i] = world.ActorAt(i); world.Step(); if (world.TerrainRevision != revision || world.DoorConditionRevision != condition) textureX = -1; // Keep the previous canonical cells for corner validation.
+            long revision = world.TerrainRevision, condition = world.DoorConditionRevision; for (int i = 0; i < world.Count; i++){previous[i] = world.ActorAt(i);beforeRenderX[i]=motion[i].X(world.Tick+1);beforeRenderY[i]=motion[i].Y(world.Tick+1);} world.Step(); if (world.TerrainRevision != revision || world.DoorConditionRevision != condition) textureX = -1; // Keep the previous canonical cells for corner validation.
             RecordPopulationHistory();
             int weaponEvent=0;
             for (int i = 0; i < world.Count; i++) { ActorState actor = world.ActorAt(i), before = previous[i];if(before.species==Species.Human && actor.species==Species.Zombie)newConversions++;weaponMotion[i].Move(actor.x-before.x,actor.y-before.y);if(weaponEvent<world.WeaponActionCount && world.WeaponActionAt(weaponEvent).actorId==actor.id)weaponMotion[i].Observe(world.WeaponActionAt(weaponEvent++),actor.x,actor.y); bool diagonal = actor.x != before.x && actor.y != before.y; bool safe = !diagonal || (TerrainRules.Walkable(world.TerrainAt(actor.x, before.y)) && TerrainRules.Walkable(world.TerrainAt(before.x, actor.y))); if (clock.Paused || (world.InfectedEscape && before.turnAtTick == 0 && actor.turnAtTick > 0)) motion[i].Snap(actor.x, actor.y, world.Tick); else motion[i].Observe(actor.x, actor.y, world.Tick, safe); } // Do not smooth a compound move across a solid corner.
+            if(!clock.Paused)for(int e=0;e<world.ShoveActionCount;e++)
+            {
+                ShoveAction action=world.ShoveActionAt(e);int human=-1,zombie=-1;for(int i=0;i<world.Count;i++){int id=world.ActorAt(i).id;if(id==action.actorId)human=i;if(id==action.targetId)zombie=i;}if(human<0 || zombie<0)continue;
+                int dx=Math.Sign(action.fromX-action.humanX),dy=Math.Sign(action.fromY-action.humanY);shoveMotion[human].Observe(dx,dy,action.tick);
+                double touchX=beforeRenderX[human]+MovementPresentation.OffsetX(action.actorId)+0.84*dx-MovementPresentation.OffsetX(action.targetId),touchY=beforeRenderY[human]+MovementPresentation.OffsetY(action.actorId)+0.84*dy-MovementPresentation.OffsetY(action.targetId);
+                // Blocked pushes keep the target on its verified cell; the human's lean and hands still show the shove.
+                if((action.fromX!=action.toX || action.fromY!=action.toY) && previous[zombie].x==action.fromX && previous[zombie].y==action.fromY)motion[zombie].Push(beforeRenderX[zombie],beforeRenderY[zombie],touchX,touchY,action.toX,action.toY,action.tick);
+            }
             for(int e=0;e<world.WeaponActionCount;e++){WeaponAction action=world.WeaponActionAt(e);if(!action.hit || action.kind!=WeaponActionKind.Swing)continue;for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==action.targetId){hitFlashUntil[i]=action.tick+WeaponPresentation.HitFlashTicks;break;}} // Flash the struck body, including a fatal hit, at its rendered position.
             for(int e=0;e<world.BiteActionCount;e++){BiteAction action=world.BiteActionAt(e);for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==action.targetId){biteFeedback[i]=action;break;}}
         } // Finish canonical and presentation updates.
@@ -130,7 +139,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 #if UNITY_EDITOR // A deliberate Run action must also release a host pause that would prevent all future ticks.
             if (!value && UnityEditor.EditorApplication.isPaused) UnityEditor.EditorApplication.isPaused = false; // Resume the host only when the person explicitly starts playback.
 #endif // Finish the editor-only playback action.
-            clock.SetPaused(value); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick); } // Prevent stale interpolation from jumping backward when playback resumes.
+            clock.SetPaused(value); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);shoveMotion[i].Reset(); } // Prevent stale interpolation from jumping backward when playback resumes.
         } // Finish pause presentation synchronization.
         private void Queue(Action action) // Keep GUI mutations outside OnGUI while allowing controls to work during host pause.
         { // Begin one deferred interface command.
@@ -186,6 +195,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
             GUILayout.EndHorizontal(); // Finish controlled reaction choices.
+            if (GUILayout.Button("Inspect Shove Contact Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.ShoveContactTest());selected=0;status="Click Run to watch the shove: the human leans in with both hands, contact happens first, then the zombie recoils quickly. Pause and manual steps show exact simulation cells. Shoves remain nonlethal."; }));
             if (GUILayout.Button("Inspect Unarmed Spacing Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.UnarmedSpacingTest());selected=0;status="This alarmed, supported human is willing to fight but has no bat. Step 1 tick: it backs away instead of charging. Contact still allows a defensive shove; while that shove recovers, it tries to create space."; }));
             if (GUILayout.Button("Inspect Combat Noise Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.CombatNoiseTest());selected=2;status="Step 1 tick: a bat impact attracts the zombie behind the closed door. Step 10 ticks: it approaches the sound without knowing the human's position or breaking the door. Missed swings are quiet."; }));
             if (GUILayout.Button("Inspect Recovery Rations Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.RecoveryRationsTest());selected=0;status="This badly injured human keeps two meals rather than storing one in the empty shelf. Step 50 ticks: it rests, eats one meal when hungry and continues healing. At 50 health, the usual one-meal reserve resumes."; }));
@@ -464,10 +474,12 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             { // Begin one visible body.
                 ActorState actor = world.ActorAt(i); double time = world.Tick + (clock.Paused?0:clock.Alpha); float x = (float)((clock.Paused ? actor.x : motion[i].X(time)) + MovementPresentation.OffsetX(actor.id)), y = (float)((clock.Paused ? actor.y : motion[i].Y(time)) + MovementPresentation.OffsetY(actor.id)); // Interpolate only between committed simulation positions.
                 if (x < left - 0.18f || y < top - 0.18f || x >= left + width - 0.18f || y >= top + height - 0.18f) continue; // Cull bodies outside the camera.
+                if(!clock.Paused && actor.species==Species.Human){x+=(float)shoveMotion[i].X(time);y+=(float)shoveMotion[i].Y(time);}
                 Rect body = new Rect(bounds.x + (x - left + 0.18f) * cell, bounds.y + (y - top + 0.18f) * cell, cell * 0.64f, cell * 0.64f); GUI.color = selected == i ? Color.yellow : actor.health==0 ? new Color(0.4f,0.4f,0.4f) : actor.species == Species.Zombie ? new Color(0.23f, 0.29f, 0.14f) : new Color(0.75f, 0.8f, 0.92f); GUI.DrawTexture(body, Texture2D.whiteTexture); // Use visibly distinct temporary debug bodies until artwork bindings return.
                 DrawHealthBar(body,actor.health,visible,cell);
                 if(time<hitFlashUntil[i]){GUI.color=new Color(1f,0.75f,0.65f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
                 BiteAction bite= biteFeedback[i];if(actor.species==Species.Human && bite.targetId==actor.id && time>=bite.tick && time<bite.tick+WeaponPresentation.HitFlashTicks){GUI.color=bite.evaded?new Color(0.45f,0.8f,1f):new Color(1f,0.5f,0.5f);GUI.DrawTexture(new Rect(body.x+cell*0.06f,body.y+cell*0.06f,body.width-cell*0.12f,body.height-cell*0.12f),Texture2D.whiteTexture);}
+                if(!clock.Paused && actor.species==Species.Human && shoveMotion[i].Strength(time)>0)DrawShoveHands(shoveMotion[i],x,y,time,bounds,left,top,cell);
                 if(actor.species==Species.Human && (actor.meleeWeapon==MeleeWeapon.Bat || weaponMotion[i].Breaking(time)))DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);
                 if (!confirmReset && !placing.HasValue && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => { selected = chosen; selectedShelf = 0; selectedBatCell=-1; }); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
             } // Finish one visible body.
@@ -494,6 +506,11 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 }
             }
             GUI.color=Color.white; // Keep a logically closed door visually open only while the rendered body still crosses it.
+        }
+        private static void DrawShoveHands(ShovePresentation pose,float x,float y,double tick,Rect bounds,int left,int top,float cell)
+        {
+            float dx=pose.DX,dy=pose.DY,reach=(float)(0.26+0.16*pose.Strength(tick));GUI.color=new Color(0.88f,0.76f,0.62f);
+            for(int side=-1;side<=1;side+=2)for(int part=0;part<4;part++){float along=0.16f+(reach-0.16f)*part/3f,px=x+0.5f+dx*along-dy*side*0.14f,py=y+0.5f+dy*along+dx*side*0.14f;GUI.DrawTexture(new Rect(bounds.x+(px-left-0.06f)*cell,bounds.y+(py-top-0.06f)*cell,cell*0.12f,cell*0.12f),Texture2D.whiteTexture);}
         }
         private static void DrawHealthBar(Rect body,int health,Rect viewport,float cell)
         {

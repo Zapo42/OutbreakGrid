@@ -2,6 +2,10 @@ using System; // Validate portable reaction state and bound prototype tuning.
 using Outbreak.Contracts; // Use saved actor values without engine objects.
 namespace Outbreak.Core // Keep human decisions on the simulation clock.
 { // Begin reaction rules and implementation.
+    public struct ShoveAction
+    {
+        public int actorId,targetId,humanX,humanY,fromX,fromY,toX,toY;public long tick;
+    }
     public static class HumanRules // Publish provisional tuning separately from the retained courage formula.
     { // Begin explicit cell and tick units.
         public const int SupportRadius = 4, SupportTicks = 10, MinSupport = -3, MaxSupport = 6; // Sample visible nearby contributions every two simulation seconds and bound their total.
@@ -11,6 +15,9 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
     } // Finish prototype tuning.
     public sealed partial class World // Extend the existing authoritative encounter owner.
     { // Begin human response implementation.
+        private ShoveAction[] shoveActions;private int shoveActionCount;
+        public int ShoveActionCount { get { return shoveActionCount; } }
+        public ShoveAction ShoveActionAt(int index){if(index<0 || index>=shoveActionCount)throw new ArgumentOutOfRangeException("index");return shoveActions[index];}
         public bool HumanReactions { get; private set; } // Keep old saves on their original decisions.
         public bool CautiousMovement { get; private set; } // Keep prior reaction saves on their original pursuit and retreat choices.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
@@ -51,8 +58,10 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private void Shove(int humanIndex, int zombieIndex) // Give Fight an actual nonlethal defensive action rather than a display-only label.
         { // Begin a contact defense.
             ActorState human = actors[humanIndex], zombie = actors[zombieIndex]; if (human.nextShoveTick > Tick || zombie.staggerUntilTick > Tick) return; human.nextShoveTick = Tick + HumanRules.ShoveCooldown; zombie.staggerUntilTick = Tick + HumanRules.ShoveTicks; // A cooldown prevents each human from continuously renewing stagger.
+            int fromX=zombie.x,fromY=zombie.y;
             int nx = zombie.x + Math.Sign(zombie.x - human.x), ny = zombie.y + Math.Sign(zombie.y - human.y); // Push directly away from the human when a distinct neighboring cell exists.
             if ((nx != zombie.x || ny != zombie.y) && ClearStep(zombie.x, zombie.y, nx, ny) && occupancy.Allows(Key(nx, ny), Species.Zombie)) { occupancy.Change(Key(zombie.x, zombie.y), Species.Zombie, -1); zombie.x = nx; zombie.y = ny; occupancy.Change(Key(nx, ny), Species.Zombie, 1); } // A wall or full destination prevents displacement while retaining the brief stagger.
+            if(shoveActions==null)shoveActions=new ShoveAction[Capacity];shoveActions[shoveActionCount++]=new ShoveAction{actorId=human.id,targetId=zombie.id,humanX=human.x,humanY=human.y,fromX=fromX,fromY=fromY,toX=zombie.x,toY=zombie.y,tick=Tick};
             actors[humanIndex] = human; actors[zombieIndex] = zombie; // Preserve both stable identities and the zombie's health.
         } // Finish nonlethal defense.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
