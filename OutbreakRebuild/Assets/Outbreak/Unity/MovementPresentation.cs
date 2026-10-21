@@ -14,12 +14,15 @@ namespace Outbreak.UnityAdapter // Keep visual motion separate from authoritativ
     public struct MovementPresentation // Retain one bounded visual segment per actor rather than a movement history.
     { // Begin a single safe cell transition.
         private bool shove;private double contactX,contactY;
+        private double duration,viaX,viaY,viaFraction;
         private double fromX, fromY, targetX, targetY, startTick; // Store only the latest rendered segment in simulation tick units.
-        public void Snap(int x, int y, double tick) { shove=false;fromX = targetX = x; fromY = targetY = y; startTick = tick; } // Synchronize exact positions on load, pause and manual stepping.
-        public void Observe(int x, int y, double tick, bool safe = true) // Register a committed move without animating across unverified terrain.
+        public void Snap(int x, int y, double tick) { shove=false;fromX = targetX = x; fromY = targetY = y; startTick = tick;duration=5;viaFraction=0; } // Synchronize exact positions on load, pause and manual stepping.
+        public void Observe(int x, int y, double tick, bool safe = true, double interval = 5, bool continuous = false) // Register a committed move without animating across unverified terrain.
         { // Begin one visual update.
             if (x == targetX && y == targetY) return; if (!safe || Math.Abs(x - targetX) > 1 || Math.Abs(y - targetY) > 1) { Snap(x, y, tick); return; } // Snap compound pushes and unsafe corners instead of drawing through walls.
-            shove=false;fromX = targetX; fromY = targetY; targetX = x; targetY = y; startTick = tick; // Finish any interrupted segment at its canonical endpoint before blending the new adjacent step.
+            double currentX=continuous?X(tick):targetX,currentY=continuous?Y(tick):targetY;
+            viaX=targetX;viaY=targetY;double remaining=Math.Sqrt((viaX-currentX)*(viaX-currentX)+(viaY-currentY)*(viaY-currentY)),next=Math.Sqrt((x-viaX)*(x-viaX)+(y-viaY)*(y-viaY));viaFraction=remaining==0?0:remaining/(remaining+next);
+            shove=false;fromX=currentX;fromY=currentY;targetX=x;targetY=y;startTick=tick;duration=Math.Max(0.1,interval); // Retain the old waypoint when a faster step interrupts the visible segment.
         } // Finish segment registration.
         public void Push(double x,double y,double touchX,double touchY,int endX,int endY,double tick)
         {
@@ -30,9 +33,10 @@ namespace Outbreak.UnityAdapter // Keep visual motion separate from authoritativ
             double elapsed=Math.Max(0,tick-startTick);if(elapsed<0.6)return from+(contact-from)*(elapsed/0.6);
             double fraction=Math.Min(1,(elapsed-0.6)/1.2);return contact+(target-contact)*fraction;
         }
-        private double Fraction(double tick) { return Math.Max(0, Math.Min(1, (tick - startTick) / 5.0)); } // Blend over the full five-tick movement interval with steady velocity.
-        public double X(double tick) { return shove?Pushed(fromX,contactX,targetX,tick):fromX + (targetX - fromX) * Fraction(tick); } // Keep movement progressing between authoritative opportunities.
-        public double Y(double tick) { return shove?Pushed(fromY,contactY,targetY,tick):fromY + (targetY - fromY) * Fraction(tick); } // Use the same timing for both axes.
+        private double Along(double from,double via,double target,double fraction){if(viaFraction<=0)return from+(target-from)*fraction;return fraction<viaFraction?from+(via-from)*fraction/viaFraction:via+(target-via)*(fraction-viaFraction)/(1-viaFraction);}
+        private double Fraction(double tick) { return Math.Max(0, Math.Min(1, (tick - startTick) / (duration>0?duration:5))); } // Blend over the supplied interval; ordinary walking retains five ticks.
+        public double X(double tick) { return shove?Pushed(fromX,contactX,targetX,tick):Along(fromX,viaX,targetX,Fraction(tick)); } // Keep movement progressing between authoritative opportunities.
+        public double Y(double tick) { return shove?Pushed(fromY,contactY,targetY,tick):Along(fromY,viaY,targetY,Fraction(tick)); } // Use the same timing for both axes.
         public bool OverlapsCell(int x,int y,double tick,int id)
         {
             double left=X(tick)+OffsetX(id)+0.18,top=Y(tick)+OffsetY(id)+0.18;
