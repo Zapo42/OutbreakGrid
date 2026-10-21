@@ -2,6 +2,11 @@ using System; // Validate portable reaction state and bound prototype tuning.
 using Outbreak.Contracts; // Use saved actor values without engine objects.
 namespace Outbreak.Core // Keep human decisions on the simulation clock.
 { // Begin reaction rules and implementation.
+    public static class EnergyRules
+    {
+        public const int Maximum=100,ShoveCost=30,SwingCost=10,MoveCost=1,RestGain=10,SeekRestAt=40;
+        public static int Remaining(ActorState actor){return Maximum-actor.energySpent;}
+    }
     public struct ShoveAction
     {
         public int actorId,targetId,humanX,humanY,fromX,fromY,toX,toY;public long tick;
@@ -24,7 +29,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
-            actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
+            actor.energySpent=0;actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
         } // Finish human-state cleanup.
         private void AdvanceReactionTimers(ref ActorState actor) // Complete deadlines even on ticks without an actor decision.
         { // Begin exact deadline handling.
@@ -35,11 +40,12 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         { // Begin portable-state validation.
             for (int i = 0; i < count; i++) // Inspect every record while preserving the current live world.
             { // Begin one actor validation.
-                ActorState a = actors[i]; bool hasHumanState = a.stress != 0 || a.groupSupport != 0 || a.threatPressure != 0 || a.reaction != HumanReaction.Calm || a.freezeResolved || a.freezeUntilTick != 0 || a.supportUntilTick != 0 || a.nextShoveTick != 0 || a.shoveFatigue!=0; // Identify state incompatible with old rules or zombie species.
+                ActorState a = actors[i]; bool hasHumanState = a.stress != 0 || a.groupSupport != 0 || a.threatPressure != 0 || a.reaction != HumanReaction.Calm || a.freezeResolved || a.freezeUntilTick != 0 || a.supportUntilTick != 0 || a.nextShoveTick != 0 || a.shoveFatigue!=0 || a.energySpent!=0; // Identify state incompatible with old rules or zombie species.
                 if ((!HumanReactions && (hasHumanState || a.staggerUntilTick != 0)) || (a.species == Species.Zombie && hasHumanState)) throw new ArgumentException("Reaction state is incompatible with these rules or species."); // Keep older releases and conversion state explicit.
                 if (a.stress < 0 || a.stress > 100 || a.groupSupport < HumanRules.MinSupport || a.groupSupport > HumanRules.MaxSupport || a.threatPressure < 0 || a.threatPressure > 3 || a.reaction < HumanReaction.Calm || a.reaction > HumanReaction.Flight) throw new ArgumentException("Invalid human reaction values."); // Bound inputs before any future arithmetic.
                 if (a.freezeUntilTick < 0 || (a.freezeUntilTick != 0 && (a.freezeUntilTick <= Tick || a.freezeUntilTick - Tick > HumanRules.MaxFreezeTicks || a.reaction != HumanReaction.Freeze || a.freezeResolved)) || (a.reaction == HumanReaction.Freeze && a.freezeUntilTick == 0)) throw new ArgumentException("Invalid freeze deadline."); // Require a future deadline for an unresolved freeze.
-                if(a.shoveFatigue<0 || a.shoveFatigue>HumanRules.MaxShoveFatigue || (!ShoveFatigueEnabled && a.shoveFatigue!=0))throw new ArgumentException("Invalid shove fatigue for these rules.");
+                if(a.shoveFatigue<0 || a.shoveFatigue>HumanRules.MaxShoveFatigue || ((!ShoveFatigueEnabled || EnergyEnabled) && a.shoveFatigue!=0))throw new ArgumentException("Invalid shove fatigue for these rules.");
+                if(a.energySpent<0 || a.energySpent>EnergyRules.Maximum || (!EnergyEnabled && a.energySpent!=0))throw new ArgumentException("Invalid energy for these rules.");
                 if (a.supportUntilTick < 0 || a.supportUntilTick > Tick + HumanRules.SupportTicks || a.nextShoveTick < 0 || (a.nextShoveTick != 0 && (a.nextShoveTick <= Tick || a.nextShoveTick - Tick > HumanRules.ShoveCooldown))) throw new ArgumentException("Invalid support or shove timing."); // Support may be overdue until the next staggered observation opportunity.
                 if (a.staggerUntilTick < 0 || (a.staggerUntilTick != 0 && (a.species != Species.Zombie || a.staggerUntilTick <= Tick || a.staggerUntilTick - Tick > HumanRules.ShoveTicks))) throw new ArgumentException("Invalid zombie stagger."); // Humans have no stagger mechanic in this slice.
             } // Finish actor validation.
@@ -59,8 +65,8 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         } // Finish retreat selection.
         private void Shove(int humanIndex, int zombieIndex) // Give Fight an actual nonlethal defensive action rather than a display-only label.
         { // Begin a contact defense.
-            ActorState human = actors[humanIndex], zombie = actors[zombieIndex]; if (human.nextShoveTick > Tick || zombie.staggerUntilTick > Tick || (ShoveFatigueEnabled && human.shoveFatigue>=HumanRules.MaxShoveFatigue)) return; human.nextShoveTick = Tick + HumanRules.ShoveCooldown; zombie.staggerUntilTick = Tick + HumanRules.ShoveTicks; // A cooldown prevents each human from continuously renewing stagger.
-            if(ShoveFatigueEnabled)human.shoveFatigue++;
+            ActorState human = actors[humanIndex], zombie = actors[zombieIndex]; if (human.nextShoveTick > Tick || zombie.staggerUntilTick > Tick || (EnergyEnabled?EnergyRules.Remaining(human)<EnergyRules.ShoveCost:ShoveFatigueEnabled && human.shoveFatigue>=HumanRules.MaxShoveFatigue)) return; human.nextShoveTick = Tick + HumanRules.ShoveCooldown; zombie.staggerUntilTick = Tick + HumanRules.ShoveTicks; // A cooldown prevents each human from continuously renewing stagger.
+            if(EnergyEnabled)human.energySpent+=EnergyRules.ShoveCost;else if(ShoveFatigueEnabled)human.shoveFatigue++;
             int fromX=zombie.x,fromY=zombie.y;
             int nx = zombie.x + Math.Sign(zombie.x - human.x), ny = zombie.y + Math.Sign(zombie.y - human.y); // Push directly away from the human when a distinct neighboring cell exists.
             if ((nx != zombie.x || ny != zombie.y) && ClearStep(zombie.x, zombie.y, nx, ny) && occupancy.Allows(Key(nx, ny), Species.Zombie)) { occupancy.Change(Key(zombie.x, zombie.y), Species.Zombie, -1); zombie.x = nx; zombie.y = ny; occupancy.Change(Key(nx, ny), Species.Zombie, 1); } // A wall or full destination prevents displacement while retaining the brief stagger.
@@ -70,7 +76,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
         { // Begin a complete human decision.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
-            if(ShoveFatigueEnabled && actor.shoveFatigue>0 && actor.turnAtTick==0 && actor.nextShoveTick==0 && threatIndex<0 && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor)){actor.shoveFatigue--;actors[index]=actor;}
+            if(ShoveFatigueEnabled && !EnergyEnabled && actor.shoveFatigue>0 && actor.turnAtTick==0 && actor.nextShoveTick==0 && threatIndex<0 && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor)){actor.shoveFatigue--;actors[index]=actor;}
             if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
             if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.
@@ -85,7 +91,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             if (threatIndex < 0) { actor.stress = Math.Max(0, actor.stress - RecoveryAfterDoorNoise(actor)); actor.threatPressure = 0; actor.reaction = actor.stress == 0 ? HumanReaction.Calm : HumanReaction.Aware; actor.freezeUntilTick = 0; if (actor.stress == 0) actor.freezeResolved = false; actors[index] = actor; return (HasRecentDoorNoise(actor) || HasRecentWarning(actor)) ? 8 : random.Below(9); } // Recover without sight of danger; this is not yet a shelter/hiding planner.
             ActorState threat = actors[threatIndex]; int distance = Math.Max(Math.Abs(threat.x - actor.x), Math.Abs(threat.y - actor.y)); actor.threatPressure = ObservePressure(actor, threat); actor.stress = Math.Min(100, actor.stress + (distance <= 2 ? HumanRules.CloseStressGain : HumanRules.StressGain)); // Seeing danger raises stress while close contact raises it faster.
             if (actor.freezeUntilTick > Tick) { actors[index] = actor; return 8; } // Respect the originally chosen freeze duration without rerolling it.
-            if(ShoveFatigueEnabled && actor.meleeWeapon==MeleeWeapon.None && actor.shoveFatigue>=HumanRules.MaxShoveFatigue){actor.reaction=HumanReaction.Flight;actors[index]=actor;return RetreatDirection(actor,threat);}
+            if((EnergyEnabled && EnergyRules.Remaining(actor)<(actor.meleeWeapon==MeleeWeapon.Bat?EnergyRules.SwingCost:EnergyRules.ShoveCost)) || (!EnergyEnabled && ShoveFatigueEnabled && actor.meleeWeapon==MeleeWeapon.None && actor.shoveFatigue>=HumanRules.MaxShoveFatigue)){actor.reaction=HumanReaction.Flight;actors[index]=actor;return RetreatDirection(actor,threat);}
             int margin = HumanRules.Margin(actor); if (distance > 6 && actor.stress < 20) actor.reaction = HumanReaction.Aware; // Observe a distant threat before automatically running or charging it.
             else if (margin >= 1) actor.reaction = HumanReaction.Fight; else if (margin <= -2 || actor.freezeResolved) actor.reaction = HumanReaction.Flight; // Retain the agreed courage thresholds and avoid a second freeze loop.
             else { actor.reaction = HumanReaction.Freeze; actor.freezeUntilTick = Tick + HumanRules.MinFreezeTicks + reactionRandom.Below(HumanRules.MaxFreezeTicks - HumanRules.MinFreezeTicks + 1); } // Use a named saved stream for a variable one-to-three-second freeze.

@@ -63,6 +63,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int bluntSkill;
         [DataMember(EmitDefaultValue=false)] public int batWear;
         [DataMember(EmitDefaultValue=false)] public int shoveFatigue;
+        [DataMember(EmitDefaultValue=false)] public int energySpent;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
         [DataMember(EmitDefaultValue=false)] public long nextMeleeTick;
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;

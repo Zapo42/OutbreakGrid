@@ -1,4 +1,4 @@
-Latest build: [Foundation 70 / shove fatigue](Docs/SHOVE_FATIGUE.md).
+Latest build: [Foundation 71 / energy and shelter rest](Docs/ENERGY_AND_REST.md).
 
 # Current update: Shelters and doors
 

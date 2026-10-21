@@ -147,7 +147,8 @@ namespace Outbreak.Core
         }
         private void SwingBat(int humanIndex,int zombieIndex)
         {
-            ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if(human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;
+            ActorState human=actors[humanIndex],zombie=actors[zombieIndex];if((EnergyEnabled && EnergyRules.Remaining(human)<EnergyRules.SwingCost) || human.nextMeleeTick>Tick || human.turnAtTick!=0 || human.meleeWeapon!=MeleeWeapon.Bat || zombie.species!=Species.Zombie || zombie.health==0 || Math.Max(Math.Abs(human.x-zombie.x),Math.Abs(human.y-zombie.y))>1 || !Visible(human,zombie))return;
+            if(EnergyEnabled)human.energySpent+=EnergyRules.SwingCost;
             human.nextMeleeTick=Tick+MeleeRules.CooldownTicks;actors[humanIndex]=human;
             bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id,WeaponDurability && hit && human.batWear==MeleeRules.BatHits-1);
             if(!hit)return; // A missed swing still consumes its action and cooldown.
