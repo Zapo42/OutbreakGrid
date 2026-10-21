@@ -1,4 +1,4 @@
-Latest build: [Foundation 74 / energy and food-trip risk](Docs/ENERGY_AND_FOOD_RISK.md).
+Latest build: [Foundation 75 / return before exhaustion](Docs/LOW_ENERGY_RETURNS.md).
 
 # Current update: Shelters and doors
 

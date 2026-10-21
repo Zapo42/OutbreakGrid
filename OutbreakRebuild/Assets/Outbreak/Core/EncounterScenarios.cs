@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World EnergyReturnTest()
+        {
+            SaveDocument saved=HungerForaging(0).Capture();saved.rulesVersion=EncounterRules.Version;saved.actors[0].x=4;saved.actors[0].homeShelterId=saved.actors[0].shelterId;saved.actors[0].shelterId=0;saved.actors[0].shelterX=0;saved.actors[0].shelterY=0;saved.actors[0].shelterState=ShelterState.None;saved.actors[0].stress=0;saved.actors[0].hunger=50;saved.actors[0].energySpent=82;saved.map.name="Low-energy food return test";saved.map.id="energy-return-1";return World.Restore(saved);
+        }
         public static World TiredForagerTest()
         {
             SaveDocument saved=HungerForaging(0).Capture();saved.rulesVersion=EncounterRules.Version;saved.actors[0].energySpent=80;saved.map.name="Tired forager risk test";saved.map.id="energy-risk-1";return World.Restore(saved);

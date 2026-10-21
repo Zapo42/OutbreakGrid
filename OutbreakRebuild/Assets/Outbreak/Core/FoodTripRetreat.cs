@@ -1,6 +1,12 @@
+using System;
 using Outbreak.Contracts;
 namespace Outbreak.Core
 {
+    public static class FoodReturnRules
+    {
+        public const int MinimumReserve=20,MaximumReserve=40,Buffer=10;
+        public static int ReserveForRoute(int steps){return Math.Min(MaximumReserve,Math.Max(MinimumReserve,steps*2+Buffer));}
+    }
     public sealed partial class World
     {
         private bool ReturnFromFoodDanger(int index,ref ActorState actor,int threat)
@@ -10,7 +16,9 @@ namespace Outbreak.Core
             bool returning=home!=null && actor.shelterId==home.id && actor.shelterState==ShelterState.Seeking;
             // A human still crossing out through its original doorway must finish the existing departure.
             if(returning && (!FoodRetreatFallback || actor.shelterExitPhase!=ShelterExitPhase.None))return true;
-            if(!returning && (actor.shelterId!=0 || actor.hunger<HungerRules.SeekAt || CanRiskFoodTrip(actor,threat)))return false;
+            bool dangerReturn=actor.hunger>=HungerRules.SeekAt && !CanRiskFoodTrip(actor,threat);
+            bool energyReturn=CanReturnForEnergy(actor);
+            if(!returning && (actor.shelterId!=0 || (!dangerReturn && !energyReturn)))return false;
             int threats=KnownShelterThreats(actor,threat),goal,length;
             if(returning)
             {
@@ -29,11 +37,24 @@ namespace Outbreak.Core
                     if(candidate==home || !FoodReturnGoal(actor,candidate,threats,out candidateGoal,out candidateLength) || candidateLength>=best)continue;
                     destination=candidate;goal=candidateGoal;best=candidateLength;
                 }
-                if(destination==null)return false;
+                if(destination==null)return false;length=best;
             }
+            if(!returning && !dangerReturn && EnergyRules.Remaining(actor)>FoodReturnRules.ReserveForRoute(length))return false;
             actor.homeShelterId=destination.id;actor.shelterId=destination.id;
             actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=ShelterState.Seeking;
             ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);actors[index]=actor;return true;
+        }
+        private bool CanReturnForEnergy(ActorState actor)
+        {
+            if(!EnergyReturnEnabled || actor.species!=Species.Human || actor.turnAtTick!=0 || actor.homeShelterId==0 || EnergyRules.Remaining(actor)>FoodReturnRules.MaximumReserve || (actor.carriedFood==0 && actor.hunger>=FoodRestRules.UrgentHunger(actor)) || (actor.carriedFood>0 && actor.hunger>=HungerRules.SeekAt))return false;
+            // Do not walk away from personally known food already within reach.
+            if(actor.hunger>=HungerRules.SeekAt && actor.shelfMemory!=null)foreach(ShelfMemoryRecord shelf in actor.shelfMemory)if(shelf.food!=0 && !AvoidBlockedFood(actor,shelf.x,shelf.y) && Math.Abs(actor.x-shelf.x)+Math.Abs(actor.y-shelf.y)==1)return false;
+            return true;
+        }
+        public bool ReturningWithLowEnergy(int index)
+        {
+            ActorState actor=ActorAt(index);Room home=FindRoom(actor.homeShelterId);
+            return EnergyReturnEnabled && actor.species==Species.Human && actor.turnAtTick==0 && home!=null && actor.shelterId==home.id && actor.shelterState==ShelterState.Seeking && actor.shelterExitPhase==ShelterExitPhase.None && !home.Contains(Key(actor.x,actor.y)) && EnergyRules.Remaining(actor)<=FoodReturnRules.MaximumReserve;
         }
         private bool FoodReturnGoal(ActorState actor,Room room,int threats,out int goal,out int length)
         {

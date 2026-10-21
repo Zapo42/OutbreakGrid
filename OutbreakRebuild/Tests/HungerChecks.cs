@@ -11,6 +11,21 @@ public static partial class Program
     }
     private static void CheckHungerCases()
     {
+        Check("Tired foragers return physically, save their route and recover before exhaustion", () => {
+            World world=EncounterScenarios.EnergyReturnTest();world.Step();Require(world.ReturningWithLowEnergy(0) && world.ActorAt(0).shelterId==27 && world.ActorAt(0).x==4,"Low energy did not commit a physical home return.");World copy=Documents.ParseSave(State(world));Run(world,15);Run(copy,15);Require(State(world)==State(copy),"Low-energy return diverged across a saved doorway approach.");Require(world.ActorAt(0).shelterState==ShelterState.Inside && world.ActorAt(0).homeShelterId==0 && EnergyRules.Remaining(world.ActorAt(0))==26 && world.ActorAt(0).hunger==51 && world.TerrainAt(3,2)==Terrain.DoorClosed,"Return failed entry, energy accounting, recovery or door closure.");
+        });
+        Check("Longer home routes trigger an earlier energy return", () => {
+            SaveDocument saved=EncounterScenarios.EnergyReturnTest().Capture();saved.actors[0].energySpent=75;World near=World.Restore(saved);near.Step();Require(near.ActorAt(0).shelterId==0 && near.ActorAt(0).x==5,"Short route triggered an unnecessarily early return.");saved.actors[0].x=10;saved.actors[0].y=5;World far=World.Restore(saved);far.Step();Require(far.ActorAt(0).shelterId==27 && far.ReturningWithLowEnergy(0),"Longer route did not increase the return reserve.");
+        });
+        Check("Urgent hunger and food within reach take priority over energy returns", () => {
+            SaveDocument saved=EncounterScenarios.EnergyReturnTest().Capture();saved.actors[0].hunger=90;World urgent=World.Restore(saved);urgent.Step();Require(urgent.ActorAt(0).shelterId==0 && urgent.ActorAt(0).x==5,"Urgently hungry empty-handed human gave up food seeking.");saved=EncounterScenarios.EnergyReturnTest().Capture();saved.actors[0].carriedFood=1;World meal=World.Restore(saved);meal.Step();Require(meal.ActorAt(0).carriedFood==0 && meal.ActorAt(0).hunger==0 && meal.ActorAt(0).energySpent==82,"Energy return delayed a carried meal.");saved=EncounterScenarios.EnergyReturnTest().Capture();saved.actors[0].x=5;World shelf=World.Restore(saved);shelf.Step();Require(shelf.ActorAt(0).shelterId==0 && shelf.ActorAt(0).shelfSearchProgress==1,"Energy return ignored personally observed food within reach.");
+        });
+        Check("Low-energy returns reuse a guarded alternative when home is full", () => {
+            SaveDocument saved=EncounterScenarios.AlternateFoodShelterTest().Capture();saved.actors[0].hunger=50;saved.actors[0].stress=0;saved.actors[0].energySpent=82;World world=World.Restore(saved);world.Step();Require(world.ActorAt(0).shelterId==72 && world.ActorAt(0).homeShelterId==72 && world.ReturningWithLowEnergy(0),"Low energy failed to use the existing alternative shelter return.");
+        });
+        Check("Previous energy-risk rules do not silently gain energy returns", () => {
+            SaveDocument saved=EncounterScenarios.EnergyReturnTest().Capture();saved.rulesVersion=EncounterRules.EnergyRiskVersion;World prior=World.Restore(saved);Require(prior.EnergyRiskEnabled && !prior.EnergyReturnEnabled,"Earlier energy-risk save silently upgraded.");prior.Step();Require(prior.ActorAt(0).shelterId==0 && prior.ActorAt(0).x==5,"Prior forager gained an energy return.");World copy=Documents.ParseSave(State(prior));Run(prior,40);Run(copy,40);Require(State(prior)==State(copy),"Prior energy-risk save failed exact continuation.");
+        });
         Check("Low energy delays risky food departures until stress subsides", () => {
             World tired=EncounterScenarios.TiredForagerTest();SaveDocument saved=tired.Capture();saved.actors[0].energySpent=0;World rested=World.Restore(saved);Require(tired.FoodTripRisk(0)==55 && tired.FoodEnergyRiskPenalty(0)==20 && rested.FoodTripRisk(0)==35,"Energy did not affect perceived food risk.");Run(tired,45);Run(rested,45);Require(tired.ActorAt(0).shelterState==ShelterState.Inside && rested.ActorAt(0).shelterId==0,"Low energy failed to delay the actual departure.");World copy=Documents.ParseSave(State(tired));Run(tired,40);Run(copy,40);Require(State(tired)==State(copy) && tired.ActorAt(0).shelterId==0,"Tired forager did not reconsider or continue exactly after saving.");
         });
