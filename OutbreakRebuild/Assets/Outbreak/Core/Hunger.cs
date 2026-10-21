@@ -29,7 +29,20 @@ namespace Outbreak.Core
             if(actor.carriedFood>0)return true;if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
         }
         public int FoodTripRisk(int actorIndex) { return PerceivedFoodRisk(actors[actorIndex],NearestVisible(actors[actorIndex],Species.Zombie)); }
-        private int PerceivedFoodRisk(ActorState a,int threat)
+        public int FoodEnergyRiskPenalty(int actorIndex)
+        {
+            ActorState actor=ActorAt(actorIndex);return EnergyFoodRiskPenalty(actor,ObservedFoodRisk(actor,NearestVisible(actor,Species.Zombie)));
+        }
+        private int EnergyFoodRiskPenalty(ActorState actor,int observedRisk)
+        {
+            // Low energy raises the cost of observed danger, without inventing danger on a clear route.
+            return EnergyRiskEnabled && observedRisk>0 && observedRisk<1000 ? Math.Max(0,(FoodRestRules.DepartureEnergy-EnergyRules.Remaining(actor)+1)/2) : 0;
+        }
+        private int PerceivedFoodRisk(ActorState actor,int threat)
+        {
+            int observed=ObservedFoodRisk(actor,threat);return observed+EnergyFoodRiskPenalty(actor,observed);
+        }
+        private int ObservedFoodRisk(ActorState a,int threat)
         {
             int risk=a.stress+(HasRecentWarning(a)?10:0)+(HasRecentDoorNoise(a)?20:0);if(threat>=0){if(Math.Max(Math.Abs(a.x-actors[threat].x),Math.Abs(a.y-actors[threat].y))<=2)return 1000;risk+=30+ObservePressure(a,actors[threat])*10;}return risk;
         }

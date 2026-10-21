@@ -5,8 +5,21 @@ using Outbreak.Core; // Execute actual searching, eating, travel and risk decisi
 using Outbreak.Persistence; // Verify complete saves, maps and continuation.
 public static partial class Program
 {
+    private static bool AcceptFoodRisk(World world,int threat=-1)
+    {
+        return (bool)typeof(World).GetMethod("CanRiskFoodTrip",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(world,new object[]{world.ActorAt(0),threat});
+    }
     private static void CheckHungerCases()
     {
+        Check("Low energy delays risky food departures until stress subsides", () => {
+            World tired=EncounterScenarios.TiredForagerTest();SaveDocument saved=tired.Capture();saved.actors[0].energySpent=0;World rested=World.Restore(saved);Require(tired.FoodTripRisk(0)==55 && tired.FoodEnergyRiskPenalty(0)==20 && rested.FoodTripRisk(0)==35,"Energy did not affect perceived food risk.");Run(tired,45);Run(rested,45);Require(tired.ActorAt(0).shelterState==ShelterState.Inside && rested.ActorAt(0).shelterId==0,"Low energy failed to delay the actual departure.");World copy=Documents.ParseSave(State(tired));Run(tired,40);Run(copy,40);Require(State(tired)==State(copy) && tired.ActorAt(0).shelterId==0,"Tired forager did not reconsider or continue exactly after saving.");
+        });
+        Check("Energy changes observed danger tolerance without inventing danger on clear routes", () => {
+            SaveDocument saved=EncounterScenarios.TiredForagerTest().Capture();saved.actors[0].stress=0;saved.actors[0].energySpent=100;World clear=World.Restore(saved);Require(clear.FoodTripRisk(0)==0 && clear.FoodEnergyRiskPenalty(0)==0 && AcceptFoodRisk(clear),"Exhaustion invented danger on a clear route.");WorldMap map=WorldMap.Restore(saved.map);map.Set(3,2,Terrain.DoorOpen);saved.map=map.Capture();saved.actors[0].energySpent=80;World tired=World.Restore(saved);int id;Require(tired.TrySpawn(Species.Zombie,5,2,out id),"Could not place visible danger.");Require(tired.FoodTripRisk(0)==50 && !AcceptFoodRisk(tired,1),"Tired human accepted visible danger beyond its tolerance.");SaveDocument enough=tired.Capture();enough.actors[0].energySpent=0;World rested=World.Restore(enough);Require(rested.FoodTripRisk(0)==30 && AcceptFoodRisk(rested,1),"Rested human rejected the same manageable danger.");enough.actors[0].energySpent=80;enough.actors[0].hunger=100;World urgent=World.Restore(enough);Require(AcceptFoodRisk(urgent,1),"Urgent hunger could not overcome the energy risk penalty.");enough.actors[1].x=4;World contact=World.Restore(enough);Require(contact.FoodTripRisk(0)==1000 && !AcceptFoodRisk(contact,1),"Energy or hunger bypassed immediate contact danger.");
+        });
+        Check("Prior food-rest rules retain their original risk and continuation", () => {
+            SaveDocument saved=EncounterScenarios.TiredForagerTest().Capture();saved.rulesVersion=EncounterRules.FoodRestVersion;World prior=World.Restore(saved);Require(prior.FoodRestEnabled && !prior.EnergyRiskEnabled && prior.FoodTripRisk(0)==35 && prior.FoodEnergyRiskPenalty(0)==0,"Prior food-rest save silently acquired energy risk.");World copy=Documents.ParseSave(State(prior));Run(prior,45);Run(copy,45);Require(State(prior)==State(copy) && prior.ActorAt(0).shelterId==0,"Prior food risk failed exact continuation.");
+        });
         Check("Hunger advances on exact simulation ticks, pauses and caps at one hundred", () => {
             SaveDocument s=EncounterScenarios.HungerForaging().Capture();s.actors[0].hunger=0;s.actors[0].stress=0;World w=World.Restore(s);Run(w,29);Require(w.ActorAt(0).hunger==0 && w.ActorAt(0).shelterState==ShelterState.Inside,"Fed occupant left or hunger advanced early.");string before=State(w);new TickClock().Advance(100,w.Step);Require(State(w)==before,"Paused hunger advanced.");w.Step();Require(w.ActorAt(0).hunger==1,"Hunger missed its exact thirtieth tick.");s=w.Capture();s.actors[0].hunger=100;w=World.Restore(s);Run(w,30);Require(w.ActorAt(0).hunger==100,"Hunger exceeded its cap.");
         });

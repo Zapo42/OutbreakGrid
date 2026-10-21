@@ -1,4 +1,4 @@
-Latest build: [Foundation 73 / rest before foraging](Docs/REST_BEFORE_FORAGING.md).
+Latest build: [Foundation 74 / energy and food-trip risk](Docs/ENERGY_AND_FOOD_RISK.md).
 
 # Current update: Shelters and doors
 
