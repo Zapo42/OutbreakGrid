@@ -77,8 +77,10 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             else { actor.reaction = HumanReaction.Freeze; actor.freezeUntilTick = Tick + HumanRules.MinFreezeTicks + reactionRandom.Below(HumanRules.MaxFreezeTicks - HumanRules.MinFreezeTicks + 1); } // Use a named saved stream for a variable one-to-three-second freeze.
             actors[index] = actor; if (actor.reaction == HumanReaction.Flight) return RetreatDirection(actor, threat); if (actor.reaction != HumanReaction.Fight) return 8; // Aware watches and Freeze stops; Flight retreats immediately.
             if(CombatFootwork && actor.meleeWeapon==MeleeWeapon.Bat && actor.nextMeleeTick>Tick)return CombatBackstep(actor,threatIndex);
+            if(UnarmedSpacing && actor.meleeWeapon==MeleeWeapon.None && actor.nextShoveTick>Tick)return CombatBackstep(actor,threatIndex);
             if (distance <= 1) { if(MeleeCombat && actor.meleeWeapon==MeleeWeapon.Bat)SwingBat(index,threatIndex);else Shove(index, threatIndex); return 8; } // Keep defensive contact available without requiring an approach.
             if (CautiousMovement && HumanRules.Level(actor.stress) <= StressLevel.Cautious) { actor.reaction = HumanReaction.Aware; actors[index] = actor; return distance <= 3 ? RetreatDirection(actor, threat) : 8; } // Wary humans watch or back away; support cannot make them charge a visible zombie.
+            if(UnarmedSpacing && actor.meleeWeapon==MeleeWeapon.None)return CombatBackstep(actor,threatIndex);
             return Route(actor, threat); // Fight approaches visible danger and shoves on contact without inventing weapon damage.
         } // Finish human decisions.
     } // Finish the world extension.

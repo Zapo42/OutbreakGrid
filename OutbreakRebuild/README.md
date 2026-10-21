@@ -1,4 +1,4 @@
-Latest build: [Foundation 67 / combat noise](Docs/COMBAT_NOISE.md).
+Latest build: [Foundation 68 / unarmed spacing](Docs/UNARMED_SPACING.md).
 
 # Current update: Shelters and doors
 
