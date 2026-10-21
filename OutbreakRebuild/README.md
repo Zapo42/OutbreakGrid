@@ -1,4 +1,4 @@
-Latest build: [Foundation 66 / recovery food reserves](Docs/RECOVERY_FOOD_RESERVES.md).
+Latest build: [Foundation 67 / combat noise](Docs/COMBAT_NOISE.md).
 
 # Current update: Shelters and doors
 

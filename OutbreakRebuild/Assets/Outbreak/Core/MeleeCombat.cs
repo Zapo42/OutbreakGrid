@@ -151,14 +151,16 @@ namespace Outbreak.Core
             human.nextMeleeTick=Tick+MeleeRules.CooldownTicks;actors[humanIndex]=human;
             bool hit=reactionRandom.Below(100)<MeleeRules.Accuracy(human,zombie);RecordWeaponAction(human,zombie.x,zombie.y,WeaponActionKind.Swing,hit,zombie.id,WeaponDurability && hit && human.batWear==MeleeRules.BatHits-1);
             if(!hit)return; // A missed swing still consumes its action and cooldown.
+            int impactX=zombie.x,impactY=zombie.y;
             zombie.health=Math.Max(0,zombie.health-MeleeRules.Damage(human));
             if(CombatExperience && human.bluntSkill<10){human.bluntPractice++;if(human.bluntPractice>=MeleeRules.HitsPerLevel(human.bluntSkill)){human.bluntPractice=0;human.bluntSkill++;}actors[humanIndex]=human;} // Apply learning after damage: the next swing benefits, including when this hit was fatal.
             if(WeaponDurability){human.batWear++;if(human.batWear==MeleeRules.BatHits){human.meleeWeapon=MeleeWeapon.None;human.batWear=0;}actors[humanIndex]=human;} // The final hit deals full damage; retain swing recovery even when the bat breaks.
-            if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;return;}
+            if(zombie.health==0){ClearPursuit(ref zombie);ClearHumanReaction(ref zombie);ClearSearchHearing(ref zombie);actors[zombieIndex]=zombie;if(CombatNoise)EmitLocalInvestigationNoise(impactX,impactY,2);return;}
             zombie.staggerUntilTick=Tick+HumanRules.ShoveTicks;
             int x=zombie.x+Math.Sign(zombie.x-human.x),y=zombie.y+Math.Sign(zombie.y-human.y);
             if((x!=zombie.x || y!=zombie.y) && ClearStep(zombie.x,zombie.y,x,y) && occupancy.Allows(Key(x,y),Species.Zombie)){occupancy.Change(Key(zombie.x,zombie.y),Species.Zombie,-1);zombie.x=x;zombie.y=y;occupancy.Change(Key(x,y),Species.Zombie,1);}
             actors[zombieIndex]=zombie;
+            if(CombatNoise)EmitLocalInvestigationNoise(impactX,impactY,2);
         }
         private int TotalBatCount(){int total=map.GroundBatCount;for(int i=0;i<count;i++)if(actors[i].meleeWeapon==MeleeWeapon.Bat)total++;return total;}
         private void DropZombieBat(ref ActorState actor)

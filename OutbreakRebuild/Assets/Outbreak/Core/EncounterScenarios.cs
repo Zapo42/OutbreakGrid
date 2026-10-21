@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World CombatNoiseTest()
+        {
+            WorldMap map=new WorldMap(12,9,"Combat noise test","combat-noise-1");for(int y=0;y<9;y++)map.Set(5,y,Terrain.Wall);map.Set(5,4,Terrain.DoorClosed);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,4,out id);world.TrySpawn(Species.Zombie,4,4,out id);world.TrySpawn(Species.Zombie,7,4,out id);SaveDocument saved=world.Capture();saved.actors[0].meleeWeapon=MeleeWeapon.Bat;saved.actors[0].strength=10;saved.actors[0].perception=8;saved.actors[0].agility=8;saved.actors[0].bravery=3;saved.actors[0].bluntSkill=5;saved.actors[1].health=10;saved.reactionRandomState=1;return World.Restore(saved);
+        }
         public static World RecoveryRationsTest()
         {
             SaveDocument saved=RestHealingTest().Capture();saved.map.name="Recovery rations test";saved.map.id="recovery-rations-1";WorldMap map=WorldMap.Restore(saved.map);map.SetShelf(3,3,0,true);saved.map=map.Capture();saved.actors[0].health=30;saved.actors[0].hunger=35;saved.actors[0].carriedFood=2;return World.Restore(saved);
