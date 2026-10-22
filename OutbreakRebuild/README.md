@@ -1,4 +1,4 @@
-Latest build: [Foundation 76 / escape sprints](Docs/ESCAPE_SPRINTS.md).
+Latest build: [Foundation 77 / sprint footsteps](Docs/SPRINT_FOOTSTEPS.md).
 
 # Current update: Shelters and doors
 

@@ -15,7 +15,7 @@ namespace Outbreak.Core
             {
                 ActorState listener=actors[i];if(listener.species!=Species.Zombie || listener.health==0)continue;
                 int x=listener.x-left,y=listener.y-top;if(x<0 || y<0 || x>=17 || y>=17)continue;int distance=soundDistance[y*17+x];if(distance<0 || distance>SearchNoiseRules.Radius)continue;
-                if(kind==2 && NearestVisible(listener,Species.Human)>=0)continue; // Sight already gives an immediate target; combat noise guides unseen listeners.
+                if(kind>=2 && NearestVisible(listener,Species.Human)>=0)continue; // Sight already gives an immediate target; combat and footstep noise guide unseen listeners.
                 listener.heardSearchKind=kind;listener.heardSearchX=sourceX;listener.heardSearchY=sourceY;listener.heardSearchUntilTick=Tick+SearchNoiseRules.MemoryTicks;actors[i]=listener;
             }
         }
@@ -29,7 +29,7 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 ActorState actor=actors[i];if(actor.heardSearchUntilTick==0){if(actor.heardSearchX!=0 || actor.heardSearchY!=0 || actor.heardSearchKind!=0)throw new ArgumentException("Inactive shelf search hearing contains coordinates.");}
-                else if(actor.heardSearchKind<0 || actor.heardSearchKind>2 || (actor.heardSearchKind==2 && !CombatNoise) || (actor.heardSearchKind==1 && (!DoorMovementNoise || !IsDoor(actor.heardSearchX,actor.heardSearchY))) || !SearchNoise || actor.species!=Species.Zombie || actor.heardSearchUntilTick<=Tick || actor.heardSearchUntilTick-Tick>SearchNoiseRules.MemoryTicks || !ValidObservedCell(actor.heardSearchX,actor.heardSearchY))throw new ArgumentException("Invalid shelf search hearing.");
+                else if(actor.heardSearchKind<0 || actor.heardSearchKind>3 || (actor.heardSearchKind==3 && (!SprintNoiseEnabled || IsDoor(actor.heardSearchX,actor.heardSearchY))) || (actor.heardSearchKind==2 && !CombatNoise) || (actor.heardSearchKind==1 && (!DoorMovementNoise || !IsDoor(actor.heardSearchX,actor.heardSearchY))) || !SearchNoise || actor.species!=Species.Zombie || actor.heardSearchUntilTick<=Tick || actor.heardSearchUntilTick-Tick>SearchNoiseRules.MemoryTicks || !ValidObservedCell(actor.heardSearchX,actor.heardSearchY))throw new ArgumentException("Invalid shelf search hearing.");
             }
         }
     }

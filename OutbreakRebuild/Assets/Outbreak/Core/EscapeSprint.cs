@@ -32,7 +32,7 @@ namespace Outbreak.Core
             else direction=actor.turnAtTick!=0?EscapeDirection(actor,actors[threat],true):RetreatDirection(actor,actors[threat]);
             if(direction<0 || direction==8 || !MayMove(actor,direction) || IsDoor(actor.x+dx[direction],actor.y+dy[direction]))return;
             ActorState next=actor;next.x+=dx[direction];next.y+=dy[direction];if(DistanceSquared(next,actors[threat])<DistanceSquared(actor,actors[threat]))return;
-            MoveActor(index,actor,direction,true);if(SheltersEnabled)FinishShelterMove(index);
+            MoveActor(index,actor,direction,true);if(SprintNoiseEnabled && SprintMovedThisTick(index))EmitLocalInvestigationNoise(actors[index].x,actors[index].y,3);if(SheltersEnabled)FinishShelterMove(index);
         }
     }
 }
