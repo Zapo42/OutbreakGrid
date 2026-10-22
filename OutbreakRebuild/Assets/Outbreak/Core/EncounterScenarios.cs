@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World CorneredShoveTest()
+        {
+            WorldMap map=new WorldMap(10,7,"Cornered defensive shove test","cornered-shove-1");for(int y=0;y<7;y++)for(int x=0;x<10;x++)map.Set(x,y,Terrain.Wall);for(int x=1;x<=8;x++)map.Set(x,3,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,1,3,out id);world.TrySpawn(Species.Zombie,2,3,out id);SaveDocument saved=world.Capture();saved.actors[0].bravery=-3;saved.actors[0].stress=80;return World.Restore(saved);
+        }
         public static World SprintNoiseTest()
         {
             WorldMap map=new WorldMap(16,12,"Sprint footsteps test","sprint-noise-1");for(int y=0;y<12;y++)for(int x=0;x<16;x++)map.Set(x,y,Terrain.Wall);for(int x=1;x<15;x++)map.Set(x,4,Terrain.Grass);map.Set(6,5,Terrain.DoorClosed);map.Set(6,6,Terrain.Grass);map.Set(6,7,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,8,4,out id);world.TrySpawn(Species.Zombie,12,4,out id);world.TrySpawn(Species.Zombie,6,7,out id);SaveDocument saved=world.Capture();saved.actors[0].bravery=-3;saved.actors[0].stress=80;return World.Restore(saved);

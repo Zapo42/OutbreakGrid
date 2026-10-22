@@ -1,4 +1,4 @@
-Latest build: [Foundation 77 / sprint footsteps](Docs/SPRINT_FOOTSTEPS.md).
+Latest build: [Foundation 78 / cornered defensive shoves](Docs/CORNERED_SHOVES.md).
 
 # Current update: Shelters and doors
 
