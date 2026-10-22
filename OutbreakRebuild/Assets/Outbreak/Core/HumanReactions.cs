@@ -85,6 +85,11 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
             if(ShoveFatigueEnabled && !EnergyEnabled && actor.shoveFatigue>0 && actor.turnAtTick==0 && actor.nextShoveTick==0 && threatIndex<0 && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor)){actor.shoveFatigue--;actors[index]=actor;}
             if(MaulingEnabled && actor.turnAtTick>Tick && threatIndex>=0 && Math.Max(Math.Abs(actor.x-actors[threatIndex].x),Math.Abs(actor.y-actors[threatIndex].y))<=2)return ReactInfected(index,actor,threatIndex);
+            // A visible rising corpse is an immediate spacing priority for mobile, unarmed survivors.
+            if(RiseAwareness && threatIndex>=0 && actors[threatIndex].riseUntilTick>Tick && actor.meleeWeapon==MeleeWeapon.None && actor.freezeUntilTick<=Tick && Math.Max(Math.Abs(actor.x-actors[threatIndex].x),Math.Abs(actor.y-actors[threatIndex].y))<=3)
+            {
+                actor.stress=Math.Min(100,actor.stress+HumanRules.CloseStressGain);actor.threatPressure=ObservePressure(actor,actors[threatIndex]);actor.reaction=HumanReaction.Flight;actors[index]=actor;return FleeOrShove(index,actor,threatIndex);
+            }
             if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
             if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.

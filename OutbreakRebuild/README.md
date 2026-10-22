@@ -1,4 +1,4 @@
-Latest build: [Foundation 81 / reanimation color transition](Docs/REANIMATION_TRANSITION.md).
+Latest build: [Foundation 82 / reanimation awareness](Docs/REANIMATION_AWARENESS.md).
 
 # Current update: Shelters and doors
 
