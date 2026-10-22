@@ -23,7 +23,7 @@ namespace Outbreak.Core
             int recipient=-1, need=-1, rank=-1; ShelfMemoryRecord chosen=new ShelfMemoryRecord();
             for (int i=0;i<count;i++)
             {
-                ActorState other=actors[i]; if(i==index || other.species!=Species.Human || other.turnAtTick!=0 || Math.Abs(other.x-speaker.x)+Math.Abs(other.y-speaker.y)>1 || !Visible(speaker,other) || HasRecentWarning(other) || HasRecentDoorNoise(other) || NearestVisible(other,Species.Zombie)>=0)continue;
+                ActorState other=actors[i]; if(i==index || other.health==0 || other.species!=Species.Human || other.turnAtTick!=0 || Math.Abs(other.x-speaker.x)+Math.Abs(other.y-speaker.y)>1 || !Visible(speaker,other) || HasRecentWarning(other) || HasRecentDoorNoise(other) || NearestVisible(other,Species.Zombie)>=0)continue;
                 foreach (ShelfMemoryRecord note in speaker.shelfMemory)
                 {
                     if(note.reportedBy!=0 || note.food<0 || !UsefulShelfReport(other,note))continue;int priority=note.food>0?1:0;

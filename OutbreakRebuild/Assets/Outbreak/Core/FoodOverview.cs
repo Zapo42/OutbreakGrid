@@ -13,7 +13,7 @@ namespace Outbreak.Core
             FoodOverview result=new FoodOverview();
             for(int i=0;i<count;i++)
             {
-                var actor=actors[i];if(actor.species!=Outbreak.Contracts.Species.Human)continue;
+                var actor=actors[i];if(actor.species!=Outbreak.Contracts.Species.Human || actor.health==0)continue;
                 result.Humans++;result.CarriedMeals+=actor.carriedFood;
                 if(actor.hunger>=HungerRules.SeekAt)result.Hungry++;
                 if(actor.hunger>=FoodOverview.VeryHungryAt)result.VeryHungry++;

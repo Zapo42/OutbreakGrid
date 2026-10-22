@@ -1,4 +1,4 @@
-Latest build: [Foundation 78 / cornered defensive shoves](Docs/CORNERED_SHOVES.md).
+Latest build: [Foundation 79 / grapples, mauling and infection](Docs/GRAPPLES_MAULING_AND_INFECTION.md).
 
 # Current update: Shelters and doors
 

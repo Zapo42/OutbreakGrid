@@ -110,7 +110,7 @@ namespace Outbreak.Core
             if(observer.meleeWeapon==MeleeWeapon.Bat && pickup.wear!=null){available=0;foreach(int wear in pickup.wear)if(observer.batWear-wear>=MeleeRules.ReplacementGain)available++;}
             for(int i=0;i<count;i++)
             {
-                ActorState peer=actors[i];if(peer.id==observer.id || Math.Abs(peer.x-pickup.x)>6 || Math.Abs(peer.y-pickup.y)>6 || peer.species!=Species.Human || peer.turnAtTick!=0 || peer.shelterId!=0 || peer.stress!=0 || peer.freezeUntilTick>Tick || peer.reaction==HumanReaction.Flight || peer.hunger>=HungerRules.SeekAt || HasRecentWarning(peer) || HasRecentDoorNoise(peer) || !Visible(observer,peer) || !Visible(peer,new ActorState{x=pickup.x,y=pickup.y}))continue;
+                ActorState peer=actors[i];if(peer.id==observer.id || peer.health==0 || Math.Abs(peer.x-pickup.x)>6 || Math.Abs(peer.y-pickup.y)>6 || peer.species!=Species.Human || peer.turnAtTick!=0 || peer.shelterId!=0 || peer.stress!=0 || peer.freezeUntilTick>Tick || peer.reaction==HumanReaction.Flight || peer.hunger>=HungerRules.SeekAt || HasRecentWarning(peer) || HasRecentDoorNoise(peer) || !Visible(observer,peer) || !Visible(peer,new ActorState{x=pickup.x,y=pickup.y}))continue;
                 if(peer.meleeWeapon!=MeleeWeapon.None && (!NeedsBatReplacement(peer) || peer.batWear-(pickup.wear==null?0:pickup.wear[0])<MeleeRules.ReplacementGain))continue;
                 int distance=8;if(Math.Abs(peer.x-pickup.x)+Math.Abs(peer.y-pickup.y)<=1)distance=0;
                 else for(int d=0;d<8;d+=2){int gx=pickup.x+dx[d],gy=pickup.y+dy[d];if(!map.CanWalk(gx,gy))continue;int length,route=ShelterRoute(peer,gx,gy,0,out length,walkOnly:true);if(route>=0 && length>0 && length<distance)distance=length;}
@@ -178,7 +178,7 @@ namespace Outbreak.Core
                 if(actor.batWear<0 || actor.batWear>=MeleeRules.BatHits || (actor.batWear!=0 && (!WeaponDurability || actor.meleeWeapon!=MeleeWeapon.Bat)))throw new ArgumentException("Invalid equipped bat wear.");
                 if(actor.bluntPractice<0 || actor.bluntPractice>=MeleeRules.HitsPerLevel(actor.bluntSkill) || (actor.bluntPractice!=0 && (!CombatExperience || actor.bluntSkill==10)))throw new ArgumentException("Invalid blunt practice progress.");
                 if(actor.nextMeleeTick<0 || (actor.nextMeleeTick!=0 && (actor.species!=Species.Human || (actor.meleeWeapon!=MeleeWeapon.Bat && !WeaponDurability) || actor.nextMeleeTick<=Tick || actor.nextMeleeTick-Tick>MeleeRules.CooldownTicks)))throw new ArgumentException("Invalid melee cooldown.");
-                if(actor.health==0 && (actor.species!=Species.Zombie || actor.targetId!=0 || actor.staggerUntilTick!=0 || actor.heardSearchUntilTick!=0 || actor.heardDoorUntilTick!=0 || actor.heardWarningUntilTick!=0))throw new ArgumentException("Defeated zombie retained active behavior.");
+                if(actor.health==0 && ((actor.species!=Species.Zombie && !(MaulingEnabled && actor.species==Species.Human)) || actor.targetId!=0 || actor.staggerUntilTick!=0 || actor.heardSearchUntilTick!=0 || actor.heardDoorUntilTick!=0 || actor.heardWarningUntilTick!=0))throw new ArgumentException("Defeated zombie retained active behavior.");
             }
         }
     }

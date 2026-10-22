@@ -12,7 +12,7 @@ namespace Outbreak.Core
         private bool CanEscapeSprint(ActorState actor,out int threat)
         {
             threat=-1;
-            if(!SprintEnabled || actor.species!=Species.Human || actor.health<=0 || actor.reaction!=HumanReaction.Flight || EnergyRules.Remaining(actor)<SprintRules.MinimumEnergy || actor.freezeUntilTick>Tick || actor.staggerUntilTick>Tick || actor.bracedDoor!=0 || actor.nextShoveTick!=0 || actor.nextMeleeTick!=0 || IsDoor(actor.x,actor.y))return false;
+            if(!SprintEnabled || actor.species!=Species.Human || actor.health<=0 || actor.grappleUntilTick>Tick || actor.reaction!=HumanReaction.Flight || EnergyRules.Remaining(actor)<SprintRules.MinimumEnergy || actor.freezeUntilTick>Tick || actor.staggerUntilTick>Tick || actor.bracedDoor!=0 || actor.nextShoveTick!=0 || actor.nextMeleeTick!=0 || IsDoor(actor.x,actor.y))return false;
             threat=NearestVisible(actor,Species.Zombie);
             return threat>=0 && Math.Max(Math.Abs(actor.x-actors[threat].x),Math.Abs(actor.y-actors[threat].y))<=SprintRules.ThreatDistance;
         }

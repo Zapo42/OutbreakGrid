@@ -69,6 +69,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int batWear;
         [DataMember(EmitDefaultValue=false)] public int shoveFatigue;
         [DataMember(EmitDefaultValue=false)] public int energySpent;
+        [DataMember(EmitDefaultValue=false)] public int grappledById;
+        [DataMember(EmitDefaultValue=false)] public long grappleUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
         [DataMember(EmitDefaultValue=false)] public long nextMeleeTick;
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;
@@ -112,6 +114,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public string rulesVersion = "foundation-1"; // Reject saves produced by incompatible simulation rules.
         [DataMember(IsRequired = true)] public MapDocument map; // Own the exact terrain and preserved authoring payload.
         [DataMember(IsRequired = true)] public long tick; // Restore the logical clock without replaying elapsed time.
+        [DataMember(EmitDefaultValue=false)] public int infectionTimeScale;
         [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.
         [DataMember(IsRequired = true)] public int nextId, capacity; // Preserve future identity allocation and the population limit.
