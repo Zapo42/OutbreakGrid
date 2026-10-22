@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World RisingZombieTest()
+        {
+            WorldMap map=new WorldMap(8,5,"Rising zombie test","rise-1");for(int y=0;y<5;y++)for(int x=0;x<8;x++)map.Set(x,y,Terrain.Wall);map.Set(2,2,Terrain.Grass);map.Set(3,2,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,2,out id);world.TrySpawn(Species.Human,3,2,out id);SaveDocument saved=world.Capture();saved.actors[0].health=0;saved.actors[0].turnAtTick=1;saved.actors[1].reaction=HumanReaction.Freeze;saved.actors[1].freezeUntilTick=10;saved.actors[1].stress=30;return World.Restore(saved);
+        }
         public static World ReanimationTest()
         {
             SaveDocument saved=MaulingTest().Capture();saved.actors[0].health=10;saved.actors[0].turnAtTick=20;saved.map.name="Corpse reanimation test";saved.map.id="reanimation-1";return World.Restore(saved);

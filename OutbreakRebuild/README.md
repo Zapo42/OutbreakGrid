@@ -1,4 +1,4 @@
-Latest build: [Foundation 80 / corpse reanimation](Docs/CORPSE_REANIMATION.md).
+Latest build: [Foundation 81 / reanimation color transition](Docs/REANIMATION_TRANSITION.md).
 
 # Current update: Shelters and doors
 

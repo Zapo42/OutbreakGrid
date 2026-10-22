@@ -29,10 +29,11 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
-            ClearGrapple(ref actor);actor.energySpent=0;actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
+            actor.riseUntilTick=0;ClearGrapple(ref actor);actor.energySpent=0;actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
         } // Finish human-state cleanup.
         private void AdvanceReactionTimers(ref ActorState actor) // Complete deadlines even on ticks without an actor decision.
         { // Begin exact deadline handling.
+            if(actor.riseUntilTick!=0 && actor.riseUntilTick<=Tick)actor.riseUntilTick=0;
             if (actor.staggerUntilTick != 0 && actor.staggerUntilTick <= Tick) actor.staggerUntilTick = 0; if (actor.nextShoveTick != 0 && actor.nextShoveTick <= Tick) actor.nextShoveTick = 0; // Release stagger and defensive cooldown at their exact clock boundary.
             if (actor.freezeUntilTick != 0 && actor.freezeUntilTick <= Tick) { actor.freezeUntilTick = 0; actor.freezeResolved = true; actor.reaction = HumanRules.Margin(actor) >= 1 ? HumanReaction.Fight : HumanReaction.Flight; } // A freeze resolves once rather than renewing indefinitely.
         } // Finish timer advancement.
