@@ -74,6 +74,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             WorldMap map=new WorldMap(12,9,"Considerate food pickup test","fair-food-pickup-1");map.SetShelf(4,3,3,true);World world=new World(map,214,encounter:true,hunger:true);int id;for(int i=0;i<3;i++)world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].hunger=80;saved.actors[i].bravery=3;}return World.Restore(saved);
         }
+        public static World ReanimationTest()
+        {
+            SaveDocument saved=MaulingTest().Capture();saved.actors[0].health=10;saved.actors[0].turnAtTick=20;saved.map.name="Corpse reanimation test";saved.map.id="reanimation-1";return World.Restore(saved);
+        }
         public static World MaulingTest()
         {
             SaveDocument saved=CorneredShoveTest().Capture();saved.actors[0].turnAtTick=100;saved.actors[0].health=45;saved.map.name="Trapped infected mauling test";saved.map.id="mauling-1";return World.Restore(saved);

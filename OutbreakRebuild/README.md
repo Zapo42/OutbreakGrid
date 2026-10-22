@@ -1,4 +1,4 @@
-Latest build: [Foundation 79 / grapples, mauling and infection](Docs/GRAPPLES_MAULING_AND_INFECTION.md).
+Latest build: [Foundation 80 / corpse reanimation](Docs/CORPSE_REANIMATION.md).
 
 # Current update: Shelters and doors
 
