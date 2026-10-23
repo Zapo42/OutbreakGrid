@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 90 / shared box locations**. Nearby humans share dated firsthand box observations so allies can find food without learning hidden stock changes. See [behavior and test instructions](OutbreakRebuild/Docs/SHARED_BOX_LOCATIONS.md).
+Current build: **Foundation 91 / shelter shortage overview**. Inspect each shelter’s occupants, hunger, actual food, reserve deficit and restocking trips; pause and focus the next shortage. See [status definitions and controls](OutbreakRebuild/Docs/SHELTER_SHORTAGE_OVERVIEW.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 90 / shared box locations"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 91 / shelter shortage overview"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -22,6 +22,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214", setupBats = ScenarioBuilder.DefaultBats.ToString(CultureInfo.InvariantCulture); private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool showTargetMarkers=true;
+        private int focusedSupplyRoom;private bool showAllShelterSupplies;
         private bool showInfectionMarkers=true;
         private bool watchNextTurn;
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
@@ -91,7 +92,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            reserveInputBox=-1;reserveInputValue=-1;watchNextTurn=false;scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false;boxBrush=false; selectedShelf = 0;selectedStorageBox=0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            focusedSupplyRoom=0;reserveInputBox=-1;reserveInputValue=-1;watchNextTurn=false;scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false;boxBrush=false; selectedShelf = 0;selectedStorageBox=0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             ResetPopulationHistory();
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
@@ -214,6 +215,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginHorizontal(); // Keep the three controlled reaction choices together.
             foreach (HumanReaction response in new[] { HumanReaction.Fight, HumanReaction.Freeze, HumanReaction.Flight }) if (GUILayout.Button("Inspect " + response + " Paused")) Queue(() => StartScenario(() => { UseWorld(EncounterScenarios.HumanResponse(response)); status = "Select human #1, then step ticks to inspect " + response + ". Prototype defensive fighting uses shoves."; })); // Use the same authored fixtures as the acceptance suite.
             GUILayout.EndHorizontal(); // Finish controlled reaction choices.
+            if(GUILayout.Button("Inspect Shelter Shortages Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.ShelterShortageTest());status="The first room has hungry occupants and no food; a restocker is collecting supplies. The second is supplied and the third is unoccupied. Use Next shelter shortage or Show all shelters.";}));
             if(GUILayout.Button("Inspect Box Sharing Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxReportTest());selected=1;status="Step one tick: human #1 tells hungry human #2 about a remembered box behind the wall. Run or step to watch #2 find food using that report.";}));
             if(GUILayout.Button("Inspect Box Memory Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxMemoryTest());selected=0;status="This hungry human previously saw the box on the other side of the wall. Run or step to watch it walk around the corner, check current stock and collect food.";}));
             if(GUILayout.Button("Inspect Restocking Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageRestockTest());selected=0;status="Run or step: the fed human checks the door, collects from its remembered outdoor shelf, returns and stocks the box toward a six-meal reserve.";}));
@@ -374,6 +376,37 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button("Fill to capacity"))Queue(()=>SetStorageReserve(key,box.capacity));
             GUILayout.Label(current==0?"Restocking off; surplus deposits and meals still allowed.":"Restockers aim for this reserve. Capacity remains "+box.capacity+" items.");
         }
+        private void FocusShelterSupply(int roomId)
+        {
+            foreach(ShelterSupplyOverview supply in world.ShelterSupplies())if(supply.RoomId==roomId)
+            {
+                SetPaused(true);focusedSupplyRoom=roomId;selected=-1;selectedShelf=0;selectedStorageBox=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;centerX=supply.FocusX+0.5f;centerY=supply.FocusY+0.5f;span=Math.Min(span,16);textureX=-1;status="Supply view: room #"+roomId+" | "+supply.Status+". "+supply.Meals+" meals for "+supply.Occupants+" occupants; "+supply.RestockingTrips+" restocking trips.";return;
+            }
+        }
+        private void FocusNextShelterShortage()
+        {
+            ShelterSupplyOverview[] supplies=world.ShelterSupplies();int first=0;
+            foreach(ShelterSupplyOverview supply in supplies)if(supply.NeedsAttention){if(first==0)first=supply.RoomId;if(supply.RoomId>focusedSupplyRoom){FocusShelterSupply(supply.RoomId);return;}}
+            if(first!=0)FocusShelterSupply(first);else status="No occupied shelter shortages.";
+        }
+        private void DrawShelterSupplies()
+        {
+            ShelterSupplyOverview[] supplies=world.ShelterSupplies();int shortages=0;foreach(ShelterSupplyOverview supply in supplies)if(supply.NeedsAttention)shortages++;
+            GUILayout.Label("SHELTER SUPPLIES");GUILayout.Label("Shelters needing supplies: "+shortages+"/"+supplies.Length);
+            bool enabled=GUI.enabled;GUI.enabled=enabled && shortages>0;if(GUILayout.Button("Next shelter shortage"))Queue(FocusNextShelterShortage);GUI.enabled=enabled;
+            if(supplies.Length==0){GUILayout.Label("No shelter rooms available.");return;}
+            if(GUILayout.Button(showAllShelterSupplies?"Show shortages only":"Show all shelters"))Queue(()=>showAllShelterSupplies=!showAllShelterSupplies);
+            if(shortages==0)GUILayout.Label("No occupied shelter shortages.");
+            GUILayout.Label("Player totals; humans use their own observations.");
+            foreach(ShelterSupplyOverview supply in supplies)
+            {
+                if(!showAllShelterSupplies && !supply.NeedsAttention && supply.RoomId!=focusedSupplyRoom)continue;
+                GUILayout.Label("Room #"+supply.RoomId+": "+supply.Status+(supply.RoomId==focusedSupplyRoom?" (focused)":""));
+                GUILayout.Label("Occupants: "+supply.Occupants+" | Hungry: "+supply.Hungry+"\nVery hungry: "+supply.VeryHungry+"\nFood: "+supply.Meals+" meals\nCarried: "+supply.CarriedMeals+" | Boxes: "+supply.BoxMeals+"\nShelves: "+supply.ShelfMeals+"\nReserve deficit: "+supply.ReserveDeficit+" meals\nRestocking trips: "+supply.RestockingTrips);
+                int roomId=supply.RoomId;if(GUILayout.Button("Focus shelter #"+roomId))Queue(()=>FocusShelterSupply(roomId));
+            }
+            if(world.ShelterScanLimited)GUILayout.Label("Some room geometry exceeds shelter scan limits.");
+        }
         private void FocusNextStorageBox()
         {
             StorageBoxDocument[] boxes=world.StorageBoxSites();if(boxes.Length==0)return;StorageBoxDocument next=boxes[0];foreach(StorageBoxDocument box in boxes)if(box.y*world.Width+box.x+1>selectedStorageBox){next=box;break;}
@@ -504,6 +537,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(GUILayout.Button(new GUIContent("Next stocked shelf","Pause and focus the next shelf with food, including unsearched stock in the map overview.")))Queue(FocusNextStockedShelf);
                 GUI.enabled=overviewEnabled;
             }
+            if(world.HungerEnabled)DrawShelterSupplies();
             if(GUILayout.Button(showTargetMarkers?"Hide target markers":"Show target markers"))Queue(()=>showTargetMarkers=!showTargetMarkers);
             int targetX,targetY;Color targetColor;string targetLabel;
             if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Selected target: "+targetLabel);

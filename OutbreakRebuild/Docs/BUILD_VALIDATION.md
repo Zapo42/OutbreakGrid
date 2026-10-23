@@ -24,5 +24,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 88 | Per-box food reserve settings, zero/off, presets, persisted targets and trip interruption | Core: 401 cases / 321565 assertions; UI: 1397 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 89 | Personal box-location and stock memory, remembered food/deposit routing, bounded saved observations | Core: 407 cases / 321651 assertions; UI: 1409 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 90 | Shared firsthand box observations, report provenance and source-age preservation | Core: 414 cases / 321677 assertions; UI: 1421 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
+| 91 | Read-only shelter food census, shortage filters, camera focus and assigned-trip counts | Core: 420 cases / 321702 assertions; UI: 1446 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

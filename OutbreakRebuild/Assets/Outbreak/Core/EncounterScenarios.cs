@@ -267,6 +267,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=PantryTripTest().Capture();World world=World.Restore(saved);int id;world.TrySpawn(Species.Human,2,3,out id);saved=world.Capture();saved.actors[1].hunger=80;saved.actors[1].shelterId=45;saved.actors[1].shelterX=2;saved.actors[1].shelterY=3;saved.actors[1].shelterState=ShelterState.Inside;saved.actors[1].stress=20;saved.map.name="Food delivery test";return World.Restore(saved);
         }
+        public static World ShelterShortageTest()
+        {
+            WorldMap map=new WorldMap(26,12,"Shelter shortages test","shelter-shortages-1");foreach(int left in new[]{1,10,19})AddShelterRoom(map,left,2,false);
+            foreach(int x in new[]{4,13,22})map.SetStorageBox(new StorageBoxDocument{x=x,y=3,capacity=30,items=x==13?new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}:new ItemStackDocument[0]});
+            map.SetShelf(12,5,4);map.SetShelf(8,9,12,true);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,2,4,out id);world.TrySpawn(Species.Human,3,5,out id);world.TrySpawn(Species.Human,11,4,out id);world.TrySpawn(Species.Human,7,5,out id);
+            SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
+            saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
+        }
         public static World BoxReportTest()
         {
             World world=BoxMemoryTest();int id;world.TrySpawn(Species.Human,6,4,out id);SaveDocument saved=world.Capture();saved.tick=5;saved.actors[0].hunger=10;saved.actors[1].hunger=80;saved.map.name="Shared box location test";return World.Restore(saved);
