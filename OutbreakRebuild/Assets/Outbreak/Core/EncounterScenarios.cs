@@ -267,6 +267,12 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=PantryTripTest().Capture();World world=World.Restore(saved);int id;world.TrySpawn(Species.Human,2,3,out id);saved=world.Capture();saved.actors[1].hunger=80;saved.actors[1].shelterId=45;saved.actors[1].shelterX=2;saved.actors[1].shelterY=3;saved.actors[1].shelterState=ShelterState.Inside;saved.actors[1].stress=20;saved.map.name="Food delivery test";return World.Restore(saved);
         }
+        public static World StorageSupplyTest(bool hungry=false)
+        {
+            WorldMap map=new WorldMap(12,9,"Storage box supplies test","storage-supplies-1");for(int y=1;y<=6;y++)for(int x=1;x<=6;x++)map.Set(x,y,(x==1 || x==6 || y==1 || y==6)?Terrain.Wall:Terrain.Floor);map.Set(6,3,Terrain.DoorClosed);
+            map.SetStorageBox(new StorageBoxDocument{x=4,y=3,capacity=StorageRules.DefaultCapacity,items=hungry?new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}:new ItemStackDocument[0]});
+            World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,3,out id);SaveDocument saved=world.Capture();saved.actors[0].shelterId=27;saved.actors[0].shelterX=3;saved.actors[0].shelterY=3;saved.actors[0].shelterState=ShelterState.Inside;saved.actors[0].hunger=hungry?80:10;saved.actors[0].carriedFood=hungry?0:3;return World.Restore(saved);
+        }
         public static World PantryTripTest()
         {
             WorldMap map=new WorldMap(14,12,"Pantry trip test","pantry-trip-1");AddShelterRoom(map,1,2,false);map.SetShelf(4,3,0);World world=new World(map,214,encounter:true,hunger:true,carefulSearch:false);int id;world.TrySpawn(Species.Human,2,7,out id);SaveDocument saved=world.Capture();saved.actors[0].shelterId=45;saved.actors[0].shelterX=2;saved.actors[0].shelterY=7;saved.actors[0].shelterState=ShelterState.Inside;saved.actors[0].carriedFood=3;saved.actors[0].hunger=10;return World.Restore(saved);

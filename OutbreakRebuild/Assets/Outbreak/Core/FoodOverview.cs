@@ -4,7 +4,8 @@ namespace Outbreak.Core
     {
         public const int VeryHungryAt=80;
         public int Humans,Hungry,VeryHungry,Infected,SeekingFood,Searching,InvestigatingRooms,CarriedMeals,ShelfMeals,StockedShelves,EmptyShelves,UnsearchedShelves;
-        public int RemainingMeals { get { return CarriedMeals+ShelfMeals; } }
+        public int StorageMeals,StorageBoxes;
+        public int RemainingMeals { get { return CarriedMeals+ShelfMeals+StorageMeals; } }
     }
     public sealed partial class World
     {
@@ -21,6 +22,7 @@ namespace Outbreak.Core
                 else {if(actor.foodExploreRoomId!=0)result.InvestigatingRooms++;if(actor.hunger>=HungerRules.SeekAt && actor.carriedFood==0 && actor.foodUntilTick>Tick)result.SeekingFood++;if(actor.shelfSearchProgress>0)result.Searching++;}
             }
             foreach(var shelf in map.ShelfRecords){result.ShelfMeals+=shelf.food;if(shelf.food>0)result.StockedShelves++;else result.EmptyShelves++;if(!shelf.searched)result.UnsearchedShelves++;}
+            foreach(var box in map.StorageRecords){result.StorageBoxes++;result.StorageMeals+=StorageRules.Count(box,Outbreak.Contracts.InventoryItem.Food);}
             return result; // Read-only player totals; never update personal knowledge, stock, clocks or random streams.
         }
     }

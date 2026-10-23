@@ -16,6 +16,17 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int x, y, food;
         [DataMember] public bool searched;
     }
+    public enum InventoryItem { Food }
+    [DataContract] public sealed class ItemStackDocument
+    {
+        [DataMember(IsRequired=true)] public InventoryItem item;
+        [DataMember(IsRequired=true)] public int quantity;
+    }
+    [DataContract] public sealed class StorageBoxDocument
+    {
+        [DataMember(IsRequired=true)] public int x,y,capacity;
+        [DataMember(IsRequired=true)] public ItemStackDocument[] items;
+    }
     public enum MeleeWeapon { None, Bat }
     [DataContract] public sealed class WeaponPickupDocument
     {
@@ -37,6 +48,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int width, height, chunkSize = 32; // Support variable dimensions without dense world allocations.
         [DataMember(IsRequired = true)] public ChunkDocument[] chunks = new ChunkDocument[0]; // Serialize chunks in canonical coordinate order.
         [DataMember(EmitDefaultValue=false)] public WeaponPickupDocument[] weapons;
+        [DataMember(EmitDefaultValue=false)] public StorageBoxDocument[] storageBoxes;
         [DataMember(EmitDefaultValue=false)] public RestSpotDocument[] restSpots;
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.

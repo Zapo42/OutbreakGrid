@@ -19,5 +19,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 83 | Pending-turn focus, corpse and get-up counts, outbreak summary correction | UI harness: 1306 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 84 | Visible infection and pending corpse markers, display toggle and legend | UI harness: 1317 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 85 | Pending-turn countdown, imminent warning and one-shot pause before conversion | UI harness: 1335 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
+| 86 | Independent storage-box inventories, placement, shelter food deposits and withdrawals | Core: 387 cases / 321153 assertions; UI: 1359 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

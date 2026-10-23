@@ -30,6 +30,7 @@
     <Compile Include="ShelfMemoryChecks.cs" />
     <Compile Include="ShelfReportChecks.cs" />
     <Compile Include="PantryChecks.cs" />
+    <Compile Include="StorageChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />
     <Compile Include="FoodExplorationChecks.cs" />
     <Compile Include="FoodScarcityChecks.cs" />

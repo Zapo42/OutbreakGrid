@@ -26,7 +26,7 @@ namespace Outbreak.Core
         }
         private bool KnownRoomSupplies(ActorState actor,Room room)
         {
-            if(actor.carriedFood>0)return true;if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
+            if(actor.carriedFood>0)return true;if(StorageEnabled)foreach(StorageBoxDocument box in map.StorageRecords)if(room.Contains(Key(box.x,box.y)) && StorageRules.Count(box,InventoryItem.Food)>0 && StorageVisible(actor,box))return true;if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
         }
         public int FoodTripRisk(int actorIndex) { return PerceivedFoodRisk(actors[actorIndex],NearestVisible(actors[actorIndex],Species.Zombie)); }
         public int FoodEnergyRiskPenalty(int actorIndex)
@@ -60,6 +60,7 @@ namespace Outbreak.Core
             if(ShouldRestBeforeFood(actor,threat)){actor.shelfSearchProgress=0;ClearShelterDeparture(ref actor);actors[index]=actor;return false;}
             if(!CanRiskFoodTrip(actor,threat))return false;
             Room room=FindRoom(actor.shelterId);bool inside=room!=null && room.Contains(Key(actor.x,actor.y));if(!inside && actor.shelterExitPhase!=ShelterExitPhase.None)return false;
+            if(StorageEnabled && TryUseStorage(index,ref actor,threat,inside?room:null,false,out direction))return true;
             ShelfDocument closest=null;int best=int.MaxValue;if(ShelfMemoryEnabled)closest=ChooseRememberedShelf(actor,inside?room:null);else foreach(ShelfDocument s in map.ShelfRecords){if((s.searched && s.food==0) || !ShelfVisible(actor,s) || (inside && !room.Contains(Key(s.x,s.y))))continue;int distance=DistanceSquared(actor,new ActorState{x=s.x,y=s.y});if(distance<best || (distance==best && Key(s.x,s.y)<Key(closest.x,closest.y))){closest=s;best=distance;}}
             if(FoodExploration)
             {
