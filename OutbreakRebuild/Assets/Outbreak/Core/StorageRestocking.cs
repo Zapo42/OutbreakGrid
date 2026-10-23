@@ -50,13 +50,18 @@ namespace Outbreak.Core
                 Room current=FindRoom(actor.shelterId);
                 if(!map.HasStorageBoxes || current==null || actor.shelterState!=ShelterState.Inside || !current.Contains(Key(actor.x,actor.y)) || !SafeRestock(actor,threat) || actor.carriedFood>FoodReserve(actor) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.homeShelterId!=0 || actor.foodExploreRoomId!=0 || ChooseRestockShelf(actor,current)==null)return false;
                 StorageBoxDocument chosen=null;
-                foreach(StorageBoxDocument box in map.StorageRecords)if(current.Contains(Key(box.x,box.y)) && StorageVisible(actor,box) && StorageRules.Count(box,InventoryItem.Food)<Math.Min(RestockRules.ReserveMeals,box.capacity) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}
+                foreach(StorageBoxDocument box in map.StorageRecords)if(current.Contains(Key(box.x,box.y)) && StorageVisible(actor,box) && StorageRules.Count(box,InventoryItem.Food)<StorageRules.FoodReserve(box) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}
                 if(chosen==null)return false;
                 actor.restockBox=Key(chosen.x,chosen.y)+1;actor.restockHomeId=current.id;actor.restockPhase=RestockPhase.Collecting;actor.restockUntilTick=Tick+RestockRules.TaskTicks;actors[index]=actor;
             }
             Room home=FindRoom(actor.restockHomeId);StorageBoxDocument target=map.StorageBoxAt((actor.restockBox-1)%Width,(actor.restockBox-1)/Width);
             if(home==null || target==null){ClearRestocking(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
             if(actor.turnAtTick!=0){ClearRestocking(ref actor);actors[index]=actor;return false;}
+            if(ReserveTargetsEnabled && actor.restockPhase==RestockPhase.Collecting && (StorageRules.FoodReserve(target)==0 || (StorageVisible(actor,target) && StorageRules.Count(target,InventoryItem.Food)>=StorageRules.FoodReserve(target))))
+            {
+                if(home.Contains(Key(actor.x,actor.y))){ClearRestocking(ref actor);ClearShelterDeparture(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
+                return BeginRestockReturn(index,ref actor,home,threat);
+            }
             if(actor.restockPhase==RestockPhase.Returning)
             {
                 if(!home.Contains(Key(actor.x,actor.y)))return BeginRestockReturn(index,ref actor,home,threat);

@@ -1,6 +1,6 @@
 # Foundation 87: shelter restocking trips
 
-Fed, calm shelter occupants can now collect food specifically to refill a storage box. The provisional reserve target is **six meals per box**, capped by its capacity. A box's capacity remains 30 items by default; reserve target and capacity are different limits. Configurable targets are a later increment.
+Fed, calm shelter occupants can now collect food specifically to refill a storage box. The provisional reserve target is **six meals per box**, capped by its capacity. A box's capacity remains 30 items by default; reserve target and capacity are different limits. [Foundation 88](STORAGE_RESERVE_TARGETS.md) adds per-box configurable targets.
 
 ## Starting a trip
 

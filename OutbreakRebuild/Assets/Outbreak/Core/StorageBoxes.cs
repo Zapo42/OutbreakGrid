@@ -6,6 +6,10 @@ namespace Outbreak.Core
     public static class StorageRules
     {
         public const int DefaultCapacity=30,MaxCapacity=1000,MaxBoxes=4096;
+        public static int FoodReserve(StorageBoxDocument box)
+        {
+            return box.foodReserve ?? Math.Min(RestockRules.ReserveMeals,box.capacity);
+        }
         public static int Count(StorageBoxDocument box,InventoryItem item)
         {
             int total=0;if(box!=null && box.items!=null)foreach(ItemStackDocument stack in box.items)if(stack.item==item)total+=stack.quantity;return total;
@@ -16,7 +20,7 @@ namespace Outbreak.Core
         }
         internal static StorageBoxDocument Copy(StorageBoxDocument box)
         {
-            ItemStackDocument[] items=new ItemStackDocument[box.items.Length];for(int i=0;i<items.Length;i++)items[i]=new ItemStackDocument{item=box.items[i].item,quantity=box.items[i].quantity};return new StorageBoxDocument{x=box.x,y=box.y,capacity=box.capacity,items=items};
+            ItemStackDocument[] items=new ItemStackDocument[box.items.Length];for(int i=0;i<items.Length;i++)items[i]=new ItemStackDocument{item=box.items[i].item,quantity=box.items[i].quantity};return new StorageBoxDocument{x=box.x,y=box.y,capacity=box.capacity,foodReserve=box.foodReserve,items=items};
         }
         internal static void ChangeFood(StorageBoxDocument box,int delta)
         {
@@ -26,6 +30,7 @@ namespace Outbreak.Core
     public sealed partial class WorldMap
     {
         private readonly SortedDictionary<int,StorageBoxDocument> storageBoxes=new SortedDictionary<int,StorageBoxDocument>();
+        public bool HasStorageReserveTargets { get { foreach(StorageBoxDocument box in storageBoxes.Values)if(box.foodReserve.HasValue)return true;return false; } }
         public bool HasStorageBoxes { get { return storageBoxes.Count>0; } }
         internal IEnumerable<StorageBoxDocument> StorageRecords { get { return storageBoxes.Values; } }
         public StorageBoxDocument StorageBoxAt(int x,int y)
@@ -34,7 +39,7 @@ namespace Outbreak.Core
         }
         public void SetStorageBox(StorageBoxDocument box)
         {
-            if(box==null || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
+            if(box==null || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || (box.foodReserve.HasValue && (box.foodReserve.Value<0 || box.foodReserve.Value>box.capacity)) || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
             int used=0;foreach(ItemStackDocument stack in box.items){if(stack==null || stack.item!=InventoryItem.Food || stack.quantity<1 || stack.quantity>StorageRules.MaxCapacity)throw new ArgumentException("Invalid storage item stack.");used+=stack.quantity;}
             if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);
         }
@@ -45,7 +50,7 @@ namespace Outbreak.Core
         private void RestoreStorageBoxes(MapDocument source)
         {
             if(source.storageBoxes==null)return;if(source.schemaVersion<8 || source.storageBoxes.Length==0 || source.storageBoxes.Length>StorageRules.MaxBoxes)throw new ArgumentException("Unsupported storage boxes.");
-            foreach(StorageBoxDocument box in source.storageBoxes){if(box==null || StorageBoxAt(box.x,box.y)!=null)throw new ArgumentException("Invalid or duplicate storage box.");SetStorageBox(box);}
+            foreach(StorageBoxDocument box in source.storageBoxes){if(box==null || (source.schemaVersion<9 && box.foodReserve.HasValue) || StorageBoxAt(box.x,box.y)!=null)throw new ArgumentException("Invalid or duplicate storage box.");SetStorageBox(box);}
         }
     }
     public sealed partial class World
@@ -57,6 +62,12 @@ namespace Outbreak.Core
             if(!StorageEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || StorageBoxSites().Length>=StorageRules.MaxBoxes)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             map.SetStorageBox(new StorageBoxDocument{x=x,y=y,capacity=StorageRules.DefaultCapacity,items=new ItemStackDocument[0]});TerrainRevision++;return true;
+        }
+        public bool TrySetStorageFoodReserve(int x,int y,int target)
+        {
+            if(!ReserveTargetsEnabled)return false;StorageBoxDocument box=map.StorageBoxAt(x,y);
+            if(box==null || target<0 || target>box.capacity)return false;
+            box.foodReserve=target==Math.Min(RestockRules.ReserveMeals,box.capacity)?(int?)null:target;map.SetStorageBox(box);return true;
         }
         private bool StorageVisible(ActorState actor,StorageBoxDocument box)
         {

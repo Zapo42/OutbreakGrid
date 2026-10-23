@@ -1,4 +1,4 @@
-Latest build: [Foundation 87 / shelter restocking trips](Docs/STORAGE_RESTOCKING.md).
+Latest build: [Foundation 88 / storage reserve targets](Docs/STORAGE_RESERVE_TARGETS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
