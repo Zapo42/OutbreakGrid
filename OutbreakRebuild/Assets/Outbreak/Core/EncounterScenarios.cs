@@ -267,6 +267,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=PantryTripTest().Capture();World world=World.Restore(saved);int id;world.TrySpawn(Species.Human,2,3,out id);saved=world.Capture();saved.actors[1].hunger=80;saved.actors[1].shelterId=45;saved.actors[1].shelterX=2;saved.actors[1].shelterY=3;saved.actors[1].shelterState=ShelterState.Inside;saved.actors[1].stress=20;saved.map.name="Food delivery test";return World.Restore(saved);
         }
+        public static World StorageRestockTest()
+        {
+            SaveDocument saved=StorageSupplyTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetShelf(9,3,12,true);saved.map=map.Capture();saved.map.name="Storage restocking test";saved.actors[0].carriedFood=1;saved.actors[0].shelfMemory=new[]{new ShelfMemoryRecord{x=9,y=3,food=12,observedTick=0}};return World.Restore(saved);
+        }
         public static World StorageSupplyTest(bool hungry=false)
         {
             WorldMap map=new WorldMap(12,9,"Storage box supplies test","storage-supplies-1");for(int y=1;y<=6;y++)for(int x=1;x<=6;x++)map.Set(x,y,(x==1 || x==6 || y==1 || y==6)?Terrain.Wall:Terrain.Floor);map.Set(6,3,Terrain.DoorClosed);

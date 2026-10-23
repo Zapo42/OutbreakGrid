@@ -29,7 +29,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private RandomStream reactionRandom; // Isolate variable freeze durations from movement randomness.
         private static void ClearHumanReaction(ref ActorState actor) // Drop human-only state when infection changes species.
         { // Begin canonical conversion cleanup.
-            actor.riseUntilTick=0;ClearGrapple(ref actor);actor.energySpent=0;actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
+            ClearRestocking(ref actor);actor.riseUntilTick=0;ClearGrapple(ref actor);actor.energySpent=0;actor.shoveFatigue=0;actor.nextMeleeTick=0; ClearHunger(ref actor); ClearHumanWarnings(ref actor); ClearDoorHearing(ref actor); ClearShelter(ref actor); actor.rejectedShelterId = 0; actor.rejectedUntilTick = 0; ClearAvoidance(ref actor); actor.stress = 0; actor.groupSupport = 0; actor.threatPressure = 0; actor.reaction = HumanReaction.Calm; actor.freezeResolved = false; actor.freezeUntilTick = 0; actor.supportUntilTick = 0; actor.nextShoveTick = 0; actor.staggerUntilTick = 0; // Retain no stale human decisions on a zombie.
         } // Finish human-state cleanup.
         private void AdvanceReactionTimers(ref ActorState actor) // Complete deadlines even on ticks without an actor decision.
         { // Begin exact deadline handling.
@@ -92,6 +92,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             }
             if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
+            int restockDirection;if(RestockingEnabled && TryRestock(index,ref actor,threatIndex,out restockDirection))return restockDirection;
             if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.
             int deliveryDirection; if (FoodDelivery && TryDeliverFood(index, ref actor, threatIndex, out deliveryDirection)) return deliveryDirection;
             int pantryDirection; if (PantryStorage && TryStoreFood(index, ref actor, threatIndex, out pantryDirection)) return pantryDirection; // Stock nearby shelter furniture using a normal action.

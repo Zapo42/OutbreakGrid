@@ -16,6 +16,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int x, y, food;
         [DataMember] public bool searched;
     }
+    public enum RestockPhase { None, Collecting, Returning }
     public enum InventoryItem { Food }
     [DataContract] public sealed class ItemStackDocument
     {
@@ -84,6 +85,9 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int grappledById;
         [DataMember(EmitDefaultValue=false)] public long grappleUntilTick;
         [DataMember(EmitDefaultValue=false)] public long riseUntilTick;
+        [DataMember(EmitDefaultValue=false)] public int restockBox,restockHomeId;
+        [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
+        [DataMember(EmitDefaultValue=false)] public long restockUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
         [DataMember(EmitDefaultValue=false)] public long nextMeleeTick;
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;

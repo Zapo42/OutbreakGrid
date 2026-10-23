@@ -13,7 +13,7 @@ namespace Outbreak.Core
         private static void ClearHunger(ref ActorState a){ClearBlockedFood(ref a);ClearFoodExploration(ref a);a.foodRoomVisits=null;a.shelfMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
         private void AdvanceHunger(ref ActorState a)
         {
-            if(a.species!=Species.Human)return;if(FoodExploration)AdvanceFoodExploration(ref a);if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
+            if(a.species!=Species.Human)return;if(RestockingEnabled && a.restockPhase!=RestockPhase.None && (a.turnAtTick!=0 || a.restockUntilTick<=Tick))ClearRestocking(ref a);if(FoodExploration)AdvanceFoodExploration(ref a);if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
         }
         private void ValidateHunger()
         {
@@ -47,7 +47,7 @@ namespace Outbreak.Core
             int risk=a.stress+(HasRecentWarning(a)?10:0)+(HasRecentDoorNoise(a)?20:0);if(threat>=0){if(Math.Max(Math.Abs(a.x-actors[threat].x),Math.Abs(a.y-actors[threat].y))<=2)return 1000;risk+=30+ObservePressure(a,actors[threat])*10;}return risk;
         }
         private bool CanRiskFoodTrip(ActorState actor,int threat){return actor.turnAtTick==0 && actor.hunger>=HungerRules.SeekAt && PerceivedFoodRisk(actor,threat)<=HungerRules.RiskBudget(actor);}
-        private bool HungryDepartureAllowed(ActorState actor,Room room,int threat){return CanRiskFoodTrip(actor,threat) && !ShouldRestBeforeFood(actor,threat) && !KnownRoomSupplies(actor,room);}
+        private bool HungryDepartureAllowed(ActorState actor,Room room,int threat){return RestockDepartureAllowed(actor,room,threat) || CanRiskFoodTrip(actor,threat) && !ShouldRestBeforeFood(actor,threat) && !KnownRoomSupplies(actor,room);}
         private bool TryForage(int index,ref ActorState actor,int threat,out int direction)
         {
             direction=8;if(CarefulSearch && (actor.turnAtTick!=0 || actor.hunger<HungerRules.SeekAt || actor.carriedFood>0 || !CanRiskFoodTrip(actor,threat))){actor.shelfSearchProgress=0;actors[index]=actor;}if(actor.turnAtTick!=0)return false;
@@ -61,10 +61,15 @@ namespace Outbreak.Core
             if(!CanRiskFoodTrip(actor,threat))return false;
             Room room=FindRoom(actor.shelterId);bool inside=room!=null && room.Contains(Key(actor.x,actor.y));if(!inside && actor.shelterExitPhase!=ShelterExitPhase.None)return false;
             if(StorageEnabled && TryUseStorage(index,ref actor,threat,inside?room:null,false,out direction))return true;
-            ShelfDocument closest=null;int best=int.MaxValue;if(ShelfMemoryEnabled)closest=ChooseRememberedShelf(actor,inside?room:null);else foreach(ShelfDocument s in map.ShelfRecords){if((s.searched && s.food==0) || !ShelfVisible(actor,s) || (inside && !room.Contains(Key(s.x,s.y))))continue;int distance=DistanceSquared(actor,new ActorState{x=s.x,y=s.y});if(distance<best || (distance==best && Key(s.x,s.y)<Key(closest.x,closest.y))){closest=s;best=distance;}}
+            return CollectShelfFood(index,ref actor,threat,room,out direction);
+        }
+        private bool CollectShelfFood(int index,ref ActorState actor,int threat,Room room,out int direction,bool restock=false)
+        {
+            direction=8;bool inside=room!=null && room.Contains(Key(actor.x,actor.y));
+            ShelfDocument closest=null;int best=int.MaxValue;if(restock)closest=ChooseRestockShelf(actor,FindRoom(actor.restockHomeId));else if(ShelfMemoryEnabled)closest=ChooseRememberedShelf(actor,inside?room:null);else foreach(ShelfDocument s in map.ShelfRecords){if((s.searched && s.food==0) || !ShelfVisible(actor,s) || (inside && !room.Contains(Key(s.x,s.y))))continue;int distance=DistanceSquared(actor,new ActorState{x=s.x,y=s.y});if(distance<best || (distance==best && Key(s.x,s.y)<Key(closest.x,closest.y))){closest=s;best=distance;}}
             if(FoodExploration)
             {
-                if(closest==null){ClearFoodMemory(ref actor);ExploreFoodRoom(index,ref actor,threat,inside?room:null);actors[index]=actor;return false;}
+                if(closest==null){ClearFoodMemory(ref actor);if(!restock)ExploreFoodRoom(index,ref actor,threat,inside?room:null);actors[index]=actor;return false;}
                 if(actor.foodExploreRoomId!=0 && inside){RememberFoodRoom(ref actor,room.id);ClearFoodExploration(ref actor);}
             }
             if(ShelfMemoryEnabled && closest==null)ClearFoodMemory(ref actor);if(closest!=null){if(actor.foodX!=closest.x || actor.foodY!=closest.y)actor.shelfSearchProgress=0;actor.foodX=closest.x;actor.foodY=closest.y;actor.foodUntilTick=Tick+HungerRules.MemoryTicks;}

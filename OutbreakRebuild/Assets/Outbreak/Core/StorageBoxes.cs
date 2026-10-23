@@ -62,12 +62,13 @@ namespace Outbreak.Core
         {
             return ShelfVisible(actor,new ShelfDocument{x=box.x,y=box.y}); // Observe the container from an accessible face, without seeing through walls.
         }
-        private bool TryUseStorage(int index,ref ActorState actor,int threat,Room room,bool deposit,out int direction)
+        private bool TryUseStorage(int index,ref ActorState actor,int threat,Room room,bool deposit,out int direction,int boxKey=0)
         {
             direction=8;if(!StorageEnabled || actor.turnAtTick!=0 || actor.freezeUntilTick>Tick || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || (actor.reaction!=HumanReaction.Calm && actor.reaction!=HumanReaction.Aware))return false;
             StorageBoxDocument chosen=null;int best=int.MaxValue,bestDirection=8;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
+                if(boxKey!=0 && Key(box.x,box.y)+1!=boxKey)continue;
                 if((room!=null && !room.Contains(Key(box.x,box.y))) || !StorageVisible(actor,box) || (deposit?StorageRules.Used(box)>=box.capacity:StorageRules.Count(box,InventoryItem.Food)==0))continue;
                 if(Math.Abs(actor.x-box.x)+Math.Abs(actor.y-box.y)==1){if(best>0){chosen=box;best=0;bestDirection=8;}continue;}
                 for(int d=0;d<8;d+=2)

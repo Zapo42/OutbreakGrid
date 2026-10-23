@@ -1,4 +1,4 @@
-Latest build: [Foundation 86 / shared storage boxes](Docs/STORAGE_BOXES.md).
+Latest build: [Foundation 87 / shelter restocking trips](Docs/STORAGE_RESTOCKING.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
