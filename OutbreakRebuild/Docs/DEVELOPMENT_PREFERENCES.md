@@ -7,3 +7,5 @@
 - Box-location sharing and a shortage overview are complete. The user then selected food deliveries between shelters. Supply priorities remain a separate possible milestone and have not been selected; player overview totals must not be disclosed to human AI.
 
 - Foundation 93: user selected per-box donation controls. Food-only storage remains in effect; supply priorities are still a possible next step.
+
+- Foundation 94: user requested couriers with assigned houses and source/destination boxes, multiple destinations and different travel distances. This build serves one destination per load in rotation; multi-stop loads remain a future extension.

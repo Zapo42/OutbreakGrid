@@ -6,7 +6,7 @@ namespace Outbreak.Core
     {
         private bool TryStoreFood(int index, ref ActorState actor, int threatIndex, out int direction)
         {
-            direction = 8;
+            direction = 8;if(CourierAssignmentsEnabled && actor.courierBoxes!=null && actor.restockPhase!=RestockPhase.None)return false;
             if (actor.turnAtTick != 0 || actor.hunger >= HungerRules.SeekAt || actor.carriedFood <= FoodReserve(actor) || actor.shelterState != ShelterState.Inside || threatIndex >= 0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || actor.freezeUntilTick > Tick || (actor.reaction != HumanReaction.Calm && actor.reaction != HumanReaction.Aware)) return false;
             Room room = FindRoom(actor.shelterId); if (room == null || !room.Contains(Key(actor.x, actor.y))) return false;
             if(StorageEnabled && TryUseStorage(index,ref actor,threatIndex,room,true,out direction))return true;

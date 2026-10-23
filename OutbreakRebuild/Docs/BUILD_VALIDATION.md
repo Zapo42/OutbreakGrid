@@ -26,7 +26,7 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 90 | Shared firsthand box observations, report provenance and source-age preservation | Core: 414 cases / 321677 assertions; UI: 1421 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 91 | Read-only shelter food census, shortage filters, camera focus and assigned-trip counts | Core: 420 cases / 321702 assertions; UI: 1446 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 92 | Box-to-box shelter deliveries, protected donor reserves, saved courier source and delivery census | Core: 428 cases / 322201 assertions; UI: 1456 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
-
 | 93 | Per-box outgoing donation controls, saved defaults, pickup cancellation and loaded-cargo preservation | Core: 431 cases / 322216 assertions; UI: 1466 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
+| 94 | Assigned courier homes, source box and rotating multi-box destinations; longer bounded routes and home return | Core: 439 cases / 323749 assertions; UI: 1488 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

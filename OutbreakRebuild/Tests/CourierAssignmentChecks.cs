@@ -1,0 +1,43 @@
+using System;
+using Outbreak.Contracts;
+using Outbreak.Core;
+using Outbreak.Persistence;
+public static partial class Program
+{
+    private static void CheckCourierAssignmentCases()
+    {
+        Check("Assigned couriers serve near and distant boxes then return to their own house",()=>{
+            World world=EncounterScenarios.AssignedCourierTest(),copy=Documents.ParseSave(State(world));int home=world.ActorAt(0).assignedHouseId,nearTick=0,farTick=0;bool outdoors=false;
+            for(int i=0;i<1100;i++)
+            {
+                world.Step();copy.Step();Require(State(world)==State(copy),"Saved courier route diverged.");ActorState actor=world.ActorAt(0);outdoors|=world.HouseAt(actor.x,actor.y)==0;
+                if(nearTick==0 && StorageRules.Count(world.StorageBoxAt(13,3),InventoryItem.Food)>0)nearTick=(int)world.Tick;
+                if(farTick==0 && StorageRules.Count(world.StorageBoxAt(42,3),InventoryItem.Food)>0)farTick=(int)world.Tick;
+                Require(StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)>=6 && actor.assignedHouseId==home,"Courier depleted reserves or changed assigned house while visiting destinations.");
+                if(nearTick>0 && farTick>0 && world.HouseAt(actor.x,actor.y)==home && actor.restockPhase==RestockPhase.None && !actor.courierReturningHome)break;
+            }
+            Require(outdoors && nearTick>0 && farTick>nearTick && StorageRules.Count(world.StorageBoxAt(13,3),InventoryItem.Food)==2 && StorageRules.Count(world.StorageBoxAt(42,3),InventoryItem.Food)==2,"Courier failed physical deliveries at different distances.");Require(world.HouseAt(world.ActorAt(0).x,world.ActorAt(0).y)==home && world.ActorAt(0).restockPhase==RestockPhase.None,"Courier did not return to assigned home.");Require(StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)==26 && world.FoodSupplies().RemainingMeals<=31,"Box-to-box route created meals or failed to remove donor cargo.");
+        });
+        Check("Courier assignments are detached editable bounded and persisted",()=>{
+            World world=EncounterScenarios.AssignedCourierTest();ActorState detached=world.ActorAt(0);detached.courierBoxes[0]=1;SaveDocument saved=world.Capture();saved.actors[0].courierBoxes[0]=1;Require(world.ActorAt(0).courierBoxes[0]==194,"Assignment arrays escaped by reference.");Require(!world.TryAssignHouse(-1,3,5) && !world.TryAssignHouse(0,0,0) && !world.TrySetCourierSource(0,13,3) && !world.TryToggleCourierDestination(0,4,3),"Invalid assignment accepted.");Require(world.TryToggleCourierDestination(0,42,3) && world.ActorAt(0).courierBoxes.Length==1 && world.TryToggleCourierDestination(0,42,3),"Destination removal/addition failed.");Require(State(Documents.ParseSave(State(world)))==State(world),"Assignment save changed route.");world.Step();string before=State(world);Require(!world.TryAssignHouse(0,13,5) && !world.TrySetCourierSource(0,13,3) && !world.TryToggleCourierDestination(0,13,3) && !world.TryClearCourierRoute(0) && State(world)==before,"Editing an active courier changed its task or inventory.");
+        });
+        Check("Explicit box assignments give locations without revealing remote inventories",()=>{
+            World empty=EncounterScenarios.AssignedCourierTest();empty.TryToggleCourierDestination(0,13,3);SaveDocument saved=empty.Capture();saved.map.storageBoxes[2].items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=30}};World full=World.Restore(saved);Run(empty,40);Run(full,40);Require(Documents.Encode(empty.ActorAt(0))==Documents.Encode(full.ActorAt(0)),"Courier knew hidden remote stock before seeing it.");Require(empty.ActorAt(0).restockBox==223,"Assigned far destination needed omniscient memory to start.");
+        });
+        Check("Courier destination lists support multiple boxes in the same house",()=>{
+            SaveDocument saved=EncounterScenarios.AssignedCourierTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetStorageBox(new StorageBoxDocument{x=12,y=7,capacity=30,foodReserve=2,items=new ItemStackDocument[0]});saved.map=map.Capture();World world=World.Restore(saved);world.TryToggleCourierDestination(0,42,3);Require(world.TryToggleCourierDestination(0,12,7),"Could not assign a second box in the same house.");for(int i=0;i<1000 && StorageRules.Count(world.StorageBoxAt(12,7),InventoryItem.Food)<2;i++)world.Step();Require(StorageRules.Count(world.StorageBoxAt(13,3),InventoryItem.Food)==2 && StorageRules.Count(world.StorageBoxAt(12,7),InventoryItem.Food)==2,"Multiple boxes in one house were collapsed into one destination.");
+        });
+        Check("Courier source and destination may share a house without moving food magically",()=>{
+            SaveDocument saved=EncounterScenarios.AssignedCourierTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetStorageBox(new StorageBoxDocument{x=2,y=6,capacity=30,foodReserve=2,items=new ItemStackDocument[0]});saved.map=map.Capture();World world=World.Restore(saved);world.TryToggleCourierDestination(0,13,3);world.TryToggleCourierDestination(0,42,3);Require(world.TryToggleCourierDestination(0,2,6),"Same-house destination rejected.");for(int i=0;i<100 && StorageRules.Count(world.StorageBoxAt(2,6),InventoryItem.Food)<2;i++){world.Step();world=Documents.ParseSave(State(world));}Require(StorageRules.Count(world.StorageBoxAt(2,6),InventoryItem.Food)==2 && StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)==28,"Same-house courier failed physical finite transfer.");
+        });
+        Check("Assigned couriers respect donation blocks both before and after pickup",()=>{
+            World world=EncounterScenarios.AssignedCourierTest();world.TrySetStorageDonations(4,3,false);Run(world,30);Require(world.ActorAt(0).restockPhase==RestockPhase.None,"Blocked source started an assigned job.");world.TrySetStorageDonations(4,3,true);for(int i=0;i<100 && world.ActorAt(0).restockPhase!=RestockPhase.Returning;i++)world.Step();Require(world.ActorAt(0).carriedFood==3,"Courier did not load cargo.");world.TrySetStorageDonations(4,3,false);for(int i=0;i<220 && StorageRules.Count(world.StorageBoxAt(13,3),InventoryItem.Food)<2;i++)world.Step();Require(StorageRules.Count(world.StorageBoxAt(13,3),InventoryItem.Food)==2 && StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)==28,"Blocking assigned source lost loaded cargo.");
+        });
+        Check("A home assignment alone preserves ordinary shelter restocking",()=>{
+            World world=EncounterScenarios.StorageRestockTest();ActorState actor=world.ActorAt(0);Require(world.TryAssignHouse(0,actor.x,actor.y),"Could not assign resident home.");SaveDocument arrived=world.Capture();arrived.actors[0].courierReturningHome=true;world=World.Restore(arrived);world.Step();Require(world.ActorAt(0).restockPhase==RestockPhase.Collecting && world.ActorAt(0).restockSourceBox==0 && world.ActorAt(0).courierBoxes==null && !world.ActorAt(0).courierReturningHome,"Assigning home disabled ordinary shelf restocking or invented a courier route.");world=Documents.ParseSave(State(world));for(int i=0;i<550 && StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)<2;i++)world.Step();Require(StorageRules.Count(world.StorageBoxAt(4,3),InventoryItem.Food)>=2 && world.ActorAt(0).assignedHouseId==27,"Resident did not retain its home and normal restocking.");
+        });
+        Check("Courier safety and legacy validation keep assignments out of old rules",()=>{
+            World world=EncounterScenarios.AssignedCourierTest();Action<Action<SaveDocument>> bad=change=>{SaveDocument saved=world.Capture();change(saved);Reject(()=>World.Restore(saved));};bad(s=>s.rulesVersion=EncounterRules.DeliveryControlsVersion);bad(s=>s.actors[0].assignedHouseId=-1);bad(s=>s.actors[0].courierNextBox=2);bad(s=>s.actors[0].courierBoxes=new[]{194,194});bad(s=>s.actors[0].courierBoxes=new[]{185});bad(s=>s.actors[0].courierBoxes=new int[0]);bad(s=>s.actors[0].courierSourceBox=0);world.Step();bad(s=>s.actors[0].courierReturningHome=true);bad(s=>s.actors[0].restockSourceBox=194);SaveDocument infected=world.Capture();infected.actors[0].turnAtTick=infected.tick+1;world=World.Restore(infected);world.Step();Require(world.ActorAt(0).species==Species.Zombie && world.ActorAt(0).assignedHouseId==0 && world.ActorAt(0).courierBoxes==null,"Conversion retained human courier assignments.");World old=EncounterScenarios.EnergyRestTest();SaveDocument legacy=old.Capture();legacy.rulesVersion=EncounterRules.DeliveryControlsVersion;old=World.Restore(legacy);Require(!old.CourierAssignmentsEnabled && old.DeliveryControlsEnabled && !old.TryAssignHouse(0,old.ActorAt(0).x,old.ActorAt(0).y),"Older rules silently gained assignments.");
+        });
+    }
+}

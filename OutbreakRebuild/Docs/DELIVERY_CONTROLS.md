@@ -14,3 +14,5 @@ The setting is saved independently for each box, including map exports. A blocke
 4. Save and reload with a blocked donor. Confirm the setting persists. Confirm hungry residents can still withdraw meals and residents can deposit surplus locally.
 
 Automated core and UI harness checks cover these rules, saved continuation, default compatibility and upgrade/restart energy preservation. Native Unity remains untested after Foundation 82, per user instruction. The rollback checkpoint remains `foundation-82-unity-checkpoint`.
+
+Foundation 94 adds [assigned couriers and houses](ASSIGNED_COURIERS.md), retaining these donation controls.

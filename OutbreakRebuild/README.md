@@ -1,4 +1,4 @@
-Latest build: [Foundation 93 / box donation controls](Docs/DELIVERY_CONTROLS.md).
+Latest build: [Foundation 94 / assigned couriers and houses](Docs/ASSIGNED_COURIERS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
