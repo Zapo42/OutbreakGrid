@@ -80,7 +80,7 @@ namespace Outbreak.Core
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
                 if(boxKey!=0 && Key(box.x,box.y)+1!=boxKey)continue;
-                if((room!=null && !room.Contains(Key(box.x,box.y))) || !StorageVisible(actor,box) || (deposit?StorageRules.Used(box)>=box.capacity:StorageRules.Count(box,InventoryItem.Food)==0))continue;
+                int knownFood,knownSpace;if((room!=null && !room.Contains(Key(box.x,box.y))) || !KnownStorageState(actor,box,out knownFood,out knownSpace) || (deposit?knownSpace==0:knownFood<=0))continue;
                 if(Math.Abs(actor.x-box.x)+Math.Abs(actor.y-box.y)==1){if(best>0){chosen=box;best=0;bestDirection=8;}continue;}
                 for(int d=0;d<8;d+=2)
                 {
@@ -91,7 +91,7 @@ namespace Outbreak.Core
             if(chosen==null)return false;
             if(best>0){direction=bestDirection;int nx=actor.x+dx[direction],ny=actor.y+dy[direction];if(IsDoor(nx,ny) && map.Get(nx,ny)==Terrain.DoorClosed){SetDoor(nx,ny,true);direction=8;}if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true;}
             StorageBoxDocument update=StorageRules.Copy(chosen);int amount=deposit?Math.Min(actor.carriedFood-FoodReserve(actor),chosen.capacity-StorageRules.Used(chosen)):Math.Min(HungerRules.CarryLimit-actor.carriedFood,StorageRules.Count(chosen,InventoryItem.Food));if(amount<=0)return false;
-            StorageRules.ChangeFood(update,deposit?amount:-amount);map.SetStorageBox(update);actor.carriedFood+=deposit?-amount:amount;ClearFoodMemory(ref actor);if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Transfer one finite inventory into another, consuming the actor's ordinary action.
+            StorageRules.ChangeFood(update,deposit?amount:-amount);map.SetStorageBox(update);if(BoxMemoryEnabled)RememberStorage(ref actor,StorageObservation(update));actor.carriedFood+=deposit?-amount:amount;ClearFoodMemory(ref actor);if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Transfer one finite inventory into another, consuming the actor's ordinary action.
         }
     }
 }

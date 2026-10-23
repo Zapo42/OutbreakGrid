@@ -61,6 +61,11 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     public enum StressLevel { Normal, Aware, Cautious, Alarmed, Afraid, Panicked } // Give the inspector the six retained stress labels.
     public enum ShelterState { None, Seeking, Inside } // Separate a chosen destination from confirmed entry into its floor region.
     public enum ShelterExitPhase { None, Approaching, Checking, Leaving } // Retain observed exit progress across saving and pausing.
+    [DataContract] public struct StorageMemoryRecord
+    {
+        [DataMember(IsRequired=true)] public int x,y,food,space;
+        [DataMember(IsRequired=true)] public long observedTick;
+    }
     [DataContract] public struct ShelfMemoryRecord // Preserve personal observations without tracking hidden stock changes.
     {
         [DataMember(IsRequired = true)] public int x, y, food; // Minus one means contents have not been searched or exposed.
@@ -94,6 +99,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] foodRoomVisits;
         [DataMember(EmitDefaultValue=false)] public int foodExploreRoomId;
         [DataMember(EmitDefaultValue=false)] public long foodExploreUntilTick;
+        [DataMember(EmitDefaultValue=false)] public StorageMemoryRecord[] storageMemory;
         [DataMember(EmitDefaultValue = false)] public ShelfMemoryRecord[] shelfMemory; // At most eight personally observed shelves.
         [DataMember(EmitDefaultValue=false)] public int blockedFoodX, blockedFoodY;
         [DataMember(EmitDefaultValue=false)] public long blockedFoodUntilTick;

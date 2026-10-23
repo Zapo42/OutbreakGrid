@@ -50,7 +50,7 @@ namespace Outbreak.Core
                 Room current=FindRoom(actor.shelterId);
                 if(!map.HasStorageBoxes || current==null || actor.shelterState!=ShelterState.Inside || !current.Contains(Key(actor.x,actor.y)) || !SafeRestock(actor,threat) || actor.carriedFood>FoodReserve(actor) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.homeShelterId!=0 || actor.foodExploreRoomId!=0 || ChooseRestockShelf(actor,current)==null)return false;
                 StorageBoxDocument chosen=null;
-                foreach(StorageBoxDocument box in map.StorageRecords)if(current.Contains(Key(box.x,box.y)) && StorageVisible(actor,box) && StorageRules.Count(box,InventoryItem.Food)<StorageRules.FoodReserve(box) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}
+                foreach(StorageBoxDocument box in map.StorageRecords){int food,space;if(current.Contains(Key(box.x,box.y)) && KnownStorageState(actor,box,out food,out space) && food>=0 && food<StorageRules.FoodReserve(box) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}}
                 if(chosen==null)return false;
                 actor.restockBox=Key(chosen.x,chosen.y)+1;actor.restockHomeId=current.id;actor.restockPhase=RestockPhase.Collecting;actor.restockUntilTick=Tick+RestockRules.TaskTicks;actors[index]=actor;
             }
@@ -67,7 +67,7 @@ namespace Outbreak.Core
                 if(!home.Contains(Key(actor.x,actor.y)))return BeginRestockReturn(index,ref actor,home,threat);
                 actor.homeShelterId=0;
                 if(actor.hunger>=HungerRules.SeekAt){actors[index]=actor;return false;}
-                if(actor.carriedFood<=FoodReserve(actor) || StorageRules.Used(target)>=target.capacity){ClearRestocking(ref actor);actors[index]=actor;return false;}
+                if(actor.carriedFood<=FoodReserve(actor) || (BoxMemoryEnabled?KnownStorageFull(actor,target):StorageRules.Used(target)>=target.capacity)){ClearRestocking(ref actor);actors[index]=actor;return false;}
                 if(TryUseStorage(index,ref actor,threat,home,true,out direction,actor.restockBox))
                 {
                     if(actor.carriedFood<=FoodReserve(actor)){ClearRestocking(ref actor);actors[index]=actor;}return true;

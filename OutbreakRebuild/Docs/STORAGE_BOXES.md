@@ -16,7 +16,7 @@ A calm, uninfected shelter occupant carrying surplus meals walks to a visible bo
 
 Hungry humans with no carried food can walk to a visible stocked box and withdraw up to their carry limit. They eat on a later ordinary action. A shelter occupant uses boxes in the current room; a human outside a shelter can use a visible outdoor box. Boxes do not create food. Transfers use an ordinary action, movement costs normal energy, and threats, infection, unresolved freezes and recent danger warnings interrupt the work. Existing food-risk and rest checks still apply before taking food.
 
-This increment uses locally visible boxes. Persistent box-location memory is a later milestone. [Foundation 87](STORAGE_RESTOCKING.md) adds deliberate supply runs to refill low reserves. Seeing a box does not reveal containers through walls. Empty boxes are not searchable loot sources.
+This increment uses locally visible boxes. [Foundation 89](BOX_MEMORY.md) adds personal box-location memory. [Foundation 87](STORAGE_RESTOCKING.md) adds deliberate supply runs to refill low reserves. Seeing a box does not reveal containers through walls. Empty boxes are not searchable loot sources.
 
 ## Controlled examples
 

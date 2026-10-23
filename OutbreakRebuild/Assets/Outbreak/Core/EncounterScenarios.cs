@@ -267,6 +267,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=PantryTripTest().Capture();World world=World.Restore(saved);int id;world.TrySpawn(Species.Human,2,3,out id);saved=world.Capture();saved.actors[1].hunger=80;saved.actors[1].shelterId=45;saved.actors[1].shelterX=2;saved.actors[1].shelterY=3;saved.actors[1].shelterState=ShelterState.Inside;saved.actors[1].stress=20;saved.map.name="Food delivery test";return World.Restore(saved);
         }
+        public static World BoxMemoryTest()
+        {
+            WorldMap map=new WorldMap(10,9,"Box memory test","box-memory-1");for(int y=0;y<=5;y++)map.Set(4,y,Terrain.Wall);map.SetStorageBox(new StorageBoxDocument{x=2,y=3,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,3,3,out id);world.Step();SaveDocument saved=world.Capture();saved.actors[0].x=6;saved.actors[0].y=3;saved.actors[0].hunger=80;saved.actors[0].energySpent=0;return World.Restore(saved); // Begin after a real observation, with the observer now around the solid corner.
+        }
         public static World StorageRestockTest()
         {
             SaveDocument saved=StorageSupplyTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetShelf(9,3,12,true);saved.map=map.Capture();saved.map.name="Storage restocking test";saved.actors[0].carriedFood=1;saved.actors[0].shelfMemory=new[]{new ShelfMemoryRecord{x=9,y=3,food=12,observedTick=0}};return World.Restore(saved);
