@@ -10,7 +10,7 @@ Knowledge changes only through sight or the observer's own transfers. A hidden b
 
 A returning restocker keeps its assigned box destination even if other observations displaced the box's memory entry. That task does not reveal its hidden stock. Player reserve settings remain explicit orders; setting zero can still stop deliberate collection. Personal stock memory does not override capacity or create food.
 
-Memory expires on simulation ticks and pauses with the simulation. Saving retains exact observations and age. Conversion and death clear human box memory. Restart restores the scenario's original knowledge and inventory state. Box locations are not shared with other humans in this increment.
+Memory expires on simulation ticks and pauses with the simulation. Saving retains exact observations and age. Conversion and death clear human box memory. Restart restores the scenario's original knowledge and inventory state. Box locations are not shared with other humans in Foundation 89. [Foundation 90](SHARED_BOX_LOCATIONS.md) adds sharing of firsthand observations.
 
 ## Inspect it
 

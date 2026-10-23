@@ -98,6 +98,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             int deliveryDirection; if (FoodDelivery && TryDeliverFood(index, ref actor, threatIndex, out deliveryDirection)) return deliveryDirection;
             int pantryDirection; if (PantryStorage && TryStoreFood(index, ref actor, threatIndex, out pantryDirection)) return pantryDirection; // Stock nearby shelter furniture using a normal action.
             if (ShelfReports && TryShareShelfReport(index, ref actor, threatIndex)) return 8; // A safe conversation is a separate action, after actual meal sharing.
+            if(BoxReportsEnabled && TryShareStorageReport(index,ref actor,threatIndex))return 8;
             int foodDirection; if (HungerEnabled && TryForage(index, ref actor, threatIndex, out foodDirection)) return foodDirection;
             int shelterDirection; if (SheltersEnabled && TryShelter(index, ref actor, threatIndex, out shelterDirection)) return shelterDirection; // Retain a reachable room goal before falling back to local escape.
             if (InfectedEscape && actor.turnAtTick > Tick) return ReactInfected(index, actor, threatIndex); // Infection overrides fighting, freezing and wandering before any normal courage decision.

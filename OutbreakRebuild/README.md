@@ -1,4 +1,4 @@
-Latest build: [Foundation 89 / box memory](Docs/BOX_MEMORY.md).
+Latest build: [Foundation 90 / shared box locations](Docs/SHARED_BOX_LOCATIONS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

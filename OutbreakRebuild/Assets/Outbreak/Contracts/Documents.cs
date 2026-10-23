@@ -63,6 +63,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     public enum ShelterExitPhase { None, Approaching, Checking, Leaving } // Retain observed exit progress across saving and pausing.
     [DataContract] public struct StorageMemoryRecord
     {
+        [DataMember(EmitDefaultValue=false)] public int reportedBy;
         [DataMember(IsRequired=true)] public int x,y,food,space;
         [DataMember(IsRequired=true)] public long observedTick;
     }

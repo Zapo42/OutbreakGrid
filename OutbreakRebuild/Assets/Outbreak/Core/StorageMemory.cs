@@ -12,6 +12,11 @@ namespace Outbreak.Core
         {
             return new StorageMemoryRecord{x=box.x,y=box.y,food=StorageRules.Count(box,InventoryItem.Food),space=box.capacity-StorageRules.Used(box),observedTick=Tick};
         }
+        private bool LessUsefulStorage(ActorState actor,StorageMemoryRecord a,StorageMemoryRecord b)
+        {
+            if(a.observedTick!=b.observedTick)return a.observedTick<b.observedTick;
+            int distance=DistanceSquared(actor,new ActorState{x=a.x,y=a.y}),other=DistanceSquared(actor,new ActorState{x=b.x,y=b.y});return distance!=other?distance>other:Key(a.x,a.y)>Key(b.x,b.y);
+        }
         private void RememberStorage(ref ActorState actor,StorageMemoryRecord observation)
         {
             StorageMemoryRecord[] notes=actor.storageMemory;
@@ -20,14 +25,8 @@ namespace Outbreak.Core
             if(notes.Length<StorageMemoryRules.Limit){Array.Resize(ref notes,notes.Length+1);notes[notes.Length-1]=observation;}
             else
             {
-                int worst=0;
-                for(int i=1;i<notes.Length;i++)
-                {
-                    int distance=DistanceSquared(actor,new ActorState{x=notes[i].x,y=notes[i].y}),previous=DistanceSquared(actor,new ActorState{x=notes[worst].x,y=notes[worst].y});
-                    if(notes[i].observedTick<notes[worst].observedTick || (notes[i].observedTick==notes[worst].observedTick && (distance>previous || (distance==previous && Key(notes[i].x,notes[i].y)>Key(notes[worst].x,notes[worst].y)))))worst=i;
-                }
-                int incoming=DistanceSquared(actor,new ActorState{x=observation.x,y=observation.y}),old=DistanceSquared(actor,new ActorState{x=notes[worst].x,y=notes[worst].y});
-                if(observation.observedTick<notes[worst].observedTick || (observation.observedTick==notes[worst].observedTick && (incoming>old || (incoming==old && Key(observation.x,observation.y)>Key(notes[worst].x,notes[worst].y)))))return;
+                int worst=0;for(int i=1;i<notes.Length;i++)if(LessUsefulStorage(actor,notes[i],notes[worst]))worst=i;
+                if(!LessUsefulStorage(actor,notes[worst],observation))return;
                 notes[worst]=observation;
             }
             Array.Sort(notes,(a,b)=>Key(a.x,a.y).CompareTo(Key(b.x,b.y)));actor.storageMemory=notes;
@@ -65,7 +64,7 @@ namespace Outbreak.Core
                 foreach(StorageMemoryRecord note in actor.storageMemory)
                 {
                     StorageBoxDocument box=map.StorageBoxAt(note.x,note.y);
-                    if(box==null || note.food<0 || note.food>box.capacity || note.space<0 || note.space>box.capacity || note.food+note.space>box.capacity || note.observedTick<0 || note.observedTick>Tick || Tick-note.observedTick>=StorageMemoryRules.RememberTicks || Key(note.x,note.y)<=previous)throw new ArgumentException("Invalid storage observation.");previous=Key(note.x,note.y);
+                    if(note.reportedBy<0 || (note.reportedBy>0 && (!BoxReportsEnabled || note.reportedBy==actor.id || note.reportedBy>=nextId)) || box==null || note.food<0 || note.food>box.capacity || note.space<0 || note.space>box.capacity || note.food+note.space>box.capacity || note.observedTick<0 || note.observedTick>Tick || Tick-note.observedTick>=StorageMemoryRules.RememberTicks || Key(note.x,note.y)<=previous)throw new ArgumentException("Invalid storage observation.");previous=Key(note.x,note.y);
                 }
             }
         }

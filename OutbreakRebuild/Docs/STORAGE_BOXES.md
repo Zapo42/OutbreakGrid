@@ -1,6 +1,6 @@
 # Foundation 86: shared storage boxes
 
-Storage boxes are separate from searchable shelves. Each box owns its own saved inventory of typed item stacks and a capacity. This first build supports food; the container contract is independent of room type so other buildings can use it later. Other item types and equipment storage are future work.
+Storage boxes are separate from searchable shelves. Each box owns its own saved inventory of typed item stacks and a capacity. This first build supports food; the container contract is independent of room type so other buildings can use it later. Additional item types are not implemented. Weapon storage is excluded at the user’s request.
 
 ## Using a box
 
