@@ -4,7 +4,7 @@ namespace Outbreak.Core
 {
     public struct ShelterSupplyOverview
     {
-        public int RoomId,FocusX,FocusY,Occupants,Hungry,VeryHungry,CarriedMeals,BoxMeals,ShelfMeals,Boxes,BoxesBelowTarget,ReserveDeficit,RestockingTrips;
+        public int RoomId,FocusX,FocusY,Occupants,Hungry,VeryHungry,CarriedMeals,BoxMeals,ShelfMeals,Boxes,BoxesBelowTarget,ReserveDeficit,RestockingTrips,IncomingDeliveries,OutgoingDeliveries;
         public int Meals { get { return CarriedMeals+BoxMeals+ShelfMeals; } }
         public bool ShortOnMeals { get { return Occupants>0 && Meals<Occupants; } }
         public bool NeedsAttention { get { return ShortOnMeals || ((Occupants>0 || RestockingTrips>0) && ReserveDeficit>0); } }
@@ -32,7 +32,8 @@ namespace Outbreak.Core
                 for(int i=0;i<count;i++)
                 {
                     ActorState actor=actors[i];if(actor.species!=Species.Human || actor.health<=0)continue;
-                    if(actor.restockHomeId==room.id && actor.restockPhase!=RestockPhase.None)supply.RestockingTrips++;
+                    if(actor.restockHomeId==room.id && actor.restockPhase!=RestockPhase.None){supply.RestockingTrips++;if(actor.restockSourceBox!=0)supply.IncomingDeliveries++;}
+                    if(actor.restockSourceBox>0 && actor.restockPhase!=RestockPhase.None && room.Contains(actor.restockSourceBox-1))supply.OutgoingDeliveries++;
                     if(!room.Contains(Key(actor.x,actor.y)))continue;
                     supply.Occupants++;supply.CarriedMeals+=actor.carriedFood;
                     if(actor.hunger>=HungerRules.SeekAt)supply.Hungry++;

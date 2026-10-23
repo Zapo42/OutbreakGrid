@@ -93,6 +93,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public long grappleUntilTick;
         [DataMember(EmitDefaultValue=false)] public long riseUntilTick;
         [DataMember(EmitDefaultValue=false)] public int restockBox,restockHomeId;
+        [DataMember(EmitDefaultValue=false)] public int restockSourceBox;
         [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
         [DataMember(EmitDefaultValue=false)] public long restockUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;

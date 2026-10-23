@@ -1,4 +1,4 @@
-Latest build: [Foundation 91 / shelter shortage overview](Docs/SHELTER_SHORTAGE_OVERVIEW.md).
+Latest build: [Foundation 92 / shelter supply deliveries](Docs/SHELTER_SUPPLY_DELIVERIES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

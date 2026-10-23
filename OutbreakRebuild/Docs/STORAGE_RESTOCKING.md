@@ -16,7 +16,7 @@ After collecting, the human returns to the original room and deposits into the a
 
 Stress, observed danger, significant hunger, or energy falling to 40 ends optional collection and requests a return. If the home cannot be safely reached or admitted, the claim is released and normal survival decisions resume. Infection and conversion release claims. A 600-tick task deadline also releases abandoned claims. Existing hungry humans continue their personal food behavior independently.
 
-This increment restocks shelter boxes from remembered, locally reachable shelves outside that room. It does not discover unknown supplies, transport between buildings' boxes, or assign arbitrary buildings as home bases.
+This increment restocks shelter boxes from remembered, locally reachable shelves outside that room. It does not discover unknown supplies, transport between buildings' boxes, or assign arbitrary buildings as home bases. [Foundation 92](SHELTER_SUPPLY_DELIVERIES.md) subsequently adds deliveries between known shelter boxes.
 
 ## Inspect it
 

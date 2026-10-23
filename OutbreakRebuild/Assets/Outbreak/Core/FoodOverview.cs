@@ -4,7 +4,7 @@ namespace Outbreak.Core
     {
         public const int VeryHungryAt=80;
         public int Humans,Hungry,VeryHungry,Infected,SeekingFood,Searching,InvestigatingRooms,CarriedMeals,ShelfMeals,StockedShelves,EmptyShelves,UnsearchedShelves;
-        public int StorageMeals,StorageBoxes,RestockingTrips;
+        public int StorageMeals,StorageBoxes,RestockingTrips,SupplyDeliveries;
         public int RemainingMeals { get { return CarriedMeals+ShelfMeals+StorageMeals; } }
     }
     public sealed partial class World
@@ -15,7 +15,7 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 var actor=actors[i];if(actor.species!=Outbreak.Contracts.Species.Human || actor.health==0)continue;
-                if(actor.restockPhase!=Outbreak.Contracts.RestockPhase.None)result.RestockingTrips++;
+                if(actor.restockPhase!=Outbreak.Contracts.RestockPhase.None){result.RestockingTrips++;if(actor.restockSourceBox!=0)result.SupplyDeliveries++;}
                 result.Humans++;result.CarriedMeals+=actor.carriedFood;
                 if(actor.hunger>=HungerRules.SeekAt)result.Hungry++;
                 if(actor.hunger>=FoodOverview.VeryHungryAt)result.VeryHungry++;
