@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 83 / pending turns overview**. **Soonest turn** focuses the next infected human or corpse to turn; pending corpses remain visible in the outbreak summary. See [details](OutbreakRebuild/Docs/PENDING_TURNS_OVERVIEW.md).
+Current build: **Foundation 84 / infection markers**. Infected humans show one orange square; corpses awaiting reanimation show two pink squares. See [details](OutbreakRebuild/Docs/INFECTION_MARKERS.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

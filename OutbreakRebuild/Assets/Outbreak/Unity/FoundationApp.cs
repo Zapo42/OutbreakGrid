@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 83 / pending turns overview"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 84 / infection markers"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -22,6 +22,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214", setupBats = ScenarioBuilder.DefaultBats.ToString(CultureInfo.InvariantCulture); private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool showTargetMarkers=true;
+        private bool showInfectionMarkers=true;
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
         private int focusedBatCell=-1, selectedBatCell=-1;
         private bool restBrush,eraseRestSpot;
@@ -313,6 +314,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             }
             status="No "+(infected?"infected":"injured")+" humans remain.";
         }
+        private void DrawInfectionMarker(Rect body,ActorState actor,float cell)
+        {
+            if(!showInfectionMarkers || actor.species!=Species.Human || actor.turnAtTick<=world.Tick || (actor.health==0 && !world.ReanimationEnabled))return;
+            bool corpse=actor.health==0;GUI.color=corpse?new Color(0.85f,0.3f,0.65f):new Color(1f,0.55f,0.1f);
+            float size=cell*0.14f,x=body.x+body.width-size-cell*0.04f,y=body.y+cell*0.04f;
+            GUI.DrawTexture(new Rect(x,y,size,size),Texture2D.whiteTexture);
+            if(corpse)GUI.DrawTexture(new Rect(x-size-cell*0.04f,y,size,size),Texture2D.whiteTexture);
+        }
         private int SoonestTurnIndex()
         {
             if(world==null || !world.Encounter)return -1;int best=-1;long deadline=long.MaxValue;
@@ -447,6 +456,8 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button(showTargetMarkers?"Hide target markers":"Show target markers"))Queue(()=>showTargetMarkers=!showTargetMarkers);
             int targetX,targetY;Color targetColor;string targetLabel;
             if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Selected target: "+targetLabel);
+            if(GUILayout.Button(showInfectionMarkers?"Hide infection markers":"Show infection markers"))Queue(()=>showInfectionMarkers=!showInfectionMarkers);
+            if(showInfectionMarkers)GUILayout.Label("Infection: orange square = infected human\nTwo pink squares = corpse awaiting reanimation");
             if(showTargetMarkers)GUILayout.Label("Targets: teal = food | blue = shelter\nRed = sight memory | amber = sound");
             GUILayout.Label("MOVEMENT INSPECTOR"); GUILayout.Label("Middle-drag: pan\nWheel: zoom\nClick: inspect a body"); // Explain the few controls that exist in this slice.
             if (world.SheltersEnabled) GUILayout.Label("Doors: light brown = closed | dark = open\nRed tint = damage | grey = broken"); // Make actual door actions visible while the temporary debug tiles remain.
@@ -536,6 +547,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(!clock.Paused && actor.species==Species.Human && shoveMotion[i].Strength(time)>0)DrawShoveHands(shoveMotion[i],x,y,time,bounds,left,top,cell);
                 if(!clock.Paused && actor.species==Species.Zombie && actor.health>0 && grabMotion[i].Strength(time)>0)DrawGrappleHands(grabMotion[i],x,y,time,bounds,left,top,cell);
                 if(actor.species==Species.Human && (actor.meleeWeapon==MeleeWeapon.Bat || weaponMotion[i].Breaking(time)))DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);
+                DrawInfectionMarker(body,actor,cell); // Overlay after contact flashes so infection remains readable.
                 if (!confirmReset && !placing.HasValue && !restBrush && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && body.Contains(input.mousePosition)) { int chosen = i; Queue(() => { selected = chosen; selectedShelf = 0; selectedBatCell=-1; }); input.Use(); } // Defer selection so the inspector cannot add layout entries midway through a mouse event.
             } // Finish one visible body.
             GUI.color = Color.white; if (confirmReset || !visible.Contains(input.mousePosition)) return; // Keep modal confirmation and toolbar events out of map input.

@@ -1,4 +1,4 @@
-Latest build: [Foundation 83 / pending turns overview](Docs/PENDING_TURNS_OVERVIEW.md).
+Latest build: [Foundation 84 / infection markers](Docs/INFECTION_MARKERS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
