@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 82 / reanimation awareness"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 83 / pending turns overview"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -313,6 +313,18 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             }
             status="No "+(infected?"infected":"injured")+" humans remain.";
         }
+        private int SoonestTurnIndex()
+        {
+            if(world==null || !world.Encounter)return -1;int best=-1;long deadline=long.MaxValue;
+            for(int i=0;i<world.Count;i++){ActorState actor=world.ActorAt(i);if(actor.species!=Species.Human || actor.turnAtTick<=world.Tick || (actor.health==0 && !world.ReanimationEnabled))continue;if(best<0 || actor.turnAtTick<deadline){best=i;deadline=actor.turnAtTick;}}
+            return best; // Stable actor order breaks equal-deadline ties without touching simulation state.
+        }
+        private void FocusSoonestTurn()
+        {
+            int index=SoonestTurnIndex();if(index<0){status="No pending turns remain.";return;}ActorState actor=world.ActorAt(index);
+            SetPaused(true);selected=index;selectedShelf=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;centerX=actor.x+0.5f;centerY=actor.y+0.5f;textureX=-1;
+            status="Soonest turn: "+(actor.health==0?"corpse":"infected human")+" #"+actor.id+" in "+((actor.turnAtTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s. Run or step to observe.";
+        }
         private void FocusNextHungryHuman()
         {
             if(world==null || !world.HungerEnabled || world.Count==0)return;
@@ -400,12 +412,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.BeginArea(new Rect(Screen.width - 276, 138, 264, Screen.height - 184), GUI.skin.box); inspectorScroll = GUILayout.BeginScrollView(inspectorScroll); // Keep selection diagnostics outside the map viewport.
             if(world.Encounter)
             {
-                int injured=0,infected=0,humans=0,zombies=0,defeated=0,humanDeaths=0;
-                for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species==Species.Zombie){if(person.health>0)zombies++;else defeated++;continue;}if(person.health<=0){humanDeaths++;continue;}humans++;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
+                int injured=0,infected=0,humans=0,zombies=0,defeated=0,humanDeaths=0,pendingCorpses=0,rising=0;
+                for(int i=0;i<world.Count;i++){ActorState person=world.ActorAt(i);if(person.species==Species.Zombie){if(person.health>0){zombies++;if(person.riseUntilTick>world.Tick)rising++;}else defeated++;continue;}if(person.health<=0){humanDeaths++;if(world.ReanimationEnabled && person.turnAtTick>world.Tick)pendingCorpses++;continue;}humans++;if(person.health<100)injured++;if(person.turnAtTick!=0)infected++;}
                 GUILayout.Label("ENCOUNTER SUMMARY");GUILayout.Label("Humans remaining: "+humans+"\nInfected (included): "+infected+"\nActive zombies: "+zombies+"\nDefeated zombies: "+defeated);
                 if(world.MaulingEnabled)GUILayout.Label("Human corpses: "+humanDeaths);GUILayout.Label("New conversions: "+newConversions);
+                if(world.ReanimationEnabled)GUILayout.Label("Pending corpse reanimations: "+pendingCorpses);if(world.RiseEnabled)GUILayout.Label("Zombies getting up: "+rising);
+                bool turnEnabled=GUI.enabled;GUI.enabled=turnEnabled && SoonestTurnIndex()>=0;if(GUILayout.Button(new GUIContent("Soonest turn","Pause and focus the earliest pending human conversion or corpse reanimation. Equal deadlines use actor identity order.")))Queue(FocusSoonestTurn);GUI.enabled=turnEnabled;
                 DrawPopulationHistory();
-                GUILayout.Label(world.Count==0?"No actors placed":humans==0?(zombies>0?"No humans remain":"No living actors remain"):zombies>0?"Outbreak ongoing":infected>0?"Infected humans may still turn":"No active zombies or infection");
+                GUILayout.Label(world.Count==0?"No actors placed":pendingCorpses>0?(humans==0?"No humans remain; corpses may still reanimate":zombies>0?"Outbreak ongoing":"Corpses may still reanimate"):humans==0?(zombies>0?"No humans remain":"No living actors remain"):zombies>0?"Outbreak ongoing":infected>0?"Infected humans may still turn":"No active zombies or infection");
                 bool fightEnabled=GUI.enabled;GUI.enabled=fightEnabled && NextFightIndex()>=0;if(GUILayout.Button("Next active fight"))Queue(FocusNextFight);GUI.enabled=fightEnabled;
                 if(selected>=0 && selected<world.Count){int opponent=world.CloseVisibleZombie(selected);if(opponent>=0){ActorState zombie=world.ActorAt(opponent);GUILayout.Label("Nearby zombie #"+zombie.id+" | Health: "+zombie.health+"/100");}}
                 GUILayout.Label("SURVIVOR HEALTH");GUILayout.Label("Injured humans: "+injured+"\nInfected humans: "+infected);

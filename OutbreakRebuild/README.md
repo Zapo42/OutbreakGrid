@@ -1,4 +1,6 @@
-Latest build: [Foundation 82 / reanimation awareness](Docs/REANIMATION_AWARENESS.md).
+Latest build: [Foundation 83 / pending turns overview](Docs/PENDING_TURNS_OVERVIEW.md).
+
+Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
 # Current update: Shelters and doors
 

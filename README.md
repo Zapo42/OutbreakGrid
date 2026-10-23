@@ -1,6 +1,8 @@
 # OutbreakGrid
 
-Current build: **Foundation 82 / reanimation awareness**. Nearby unarmed survivors prioritize making space while a visible corpse reanimates. See [test instructions and behavior details](OutbreakRebuild/Docs/REANIMATION_AWARENESS.md).
+Current build: **Foundation 83 / pending turns overview**. **Soonest turn** focuses the next infected human or corpse to turn; pending corpses remain visible in the outbreak summary. See [details](OutbreakRebuild/Docs/PENDING_TURNS_OVERVIEW.md).
+
+**Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 
 Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the small two-room arena and a 100×100 district with twelve rooms. Pursuit, infection, stress, fight/freeze/flight and shelter recovery remain active; idle zombies can wander, pursuing zombies can breach doors, and nearby humans react to heard impacts, and idle zombies investigate them.
 
