@@ -1,4 +1,4 @@
-Latest build: [Foundation 92 / shelter supply deliveries](Docs/SHELTER_SUPPLY_DELIVERIES.md).
+Latest build: [Foundation 93 / box donation controls](Docs/DELIVERY_CONTROLS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 92 / shelter supply deliveries**. Residents of understocked shelters collect surplus food from known shelter boxes and carry it home, protecting donor reserves and personal meals. See [behavior and test instructions](OutbreakRebuild/Docs/SHELTER_SUPPLY_DELIVERIES.md).
+Current build: **Foundation 93 / box donation controls**. Choose which storage boxes may donate food to other shelters. Blocking new pickups preserves loaded deliveries and local meals. See [behavior and test instructions](OutbreakRebuild/Docs/DELIVERY_CONTROLS.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

@@ -17,7 +17,7 @@ namespace Outbreak.Core
             StorageBoxDocument best=null;int steps=int.MaxValue;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
-                int food,space;if(home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=StorageRules.FoodReserve(box))continue;
+                int food,space;if((DeliveryControlsEnabled && box.blockDonations) || home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=StorageRules.FoodReserve(box))continue;
                 Room sourceRoom=null;foreach(Room room in rooms)if(room.Contains(Key(box.x,box.y))){sourceRoom=room;break;}
                 if(sourceRoom==null || sourceRoom.id==actor.rejectedShelterId || KnownRoomDanger(actor,sourceRoom) || RoomAdmissions(sourceRoom,actor.id)>=sourceRoom.Capacity)continue;
                 for(int d=0;d<8;d+=2)
@@ -31,7 +31,7 @@ namespace Outbreak.Core
         private bool TryCollectDeliveryFood(int index,ref ActorState actor,Room home,int threat,out int direction)
         {
             direction=8;int key=actor.restockSourceBox-1;StorageBoxDocument box=map.StorageBoxAt(key%Width,key/Width);Room room=DeliverySourceRoom(actor);
-            if(box==null || room==null || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || (!room.Contains(Key(actor.x,actor.y)) && RoomAdmissions(room,actor.id)>=room.Capacity))return false;
+            if(box==null || (DeliveryControlsEnabled && box.blockDonations) || room==null || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || (!room.Contains(Key(actor.x,actor.y)) && RoomAdmissions(room,actor.id)>=room.Capacity))return false;
             int knownFood,knownSpace;if(KnownStorageState(actor,box,out knownFood,out knownSpace) && knownFood>=0 && knownFood<=StorageRules.FoodReserve(box))return false;
             int best=int.MaxValue,goal=-1;
             for(int d=0;d<8;d+=2)

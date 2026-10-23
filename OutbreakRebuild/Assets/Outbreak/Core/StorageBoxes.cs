@@ -20,7 +20,7 @@ namespace Outbreak.Core
         }
         internal static StorageBoxDocument Copy(StorageBoxDocument box)
         {
-            ItemStackDocument[] items=new ItemStackDocument[box.items.Length];for(int i=0;i<items.Length;i++)items[i]=new ItemStackDocument{item=box.items[i].item,quantity=box.items[i].quantity};return new StorageBoxDocument{x=box.x,y=box.y,capacity=box.capacity,foodReserve=box.foodReserve,items=items};
+            ItemStackDocument[] items=new ItemStackDocument[box.items.Length];for(int i=0;i<items.Length;i++)items[i]=new ItemStackDocument{item=box.items[i].item,quantity=box.items[i].quantity};return new StorageBoxDocument{x=box.x,y=box.y,capacity=box.capacity,foodReserve=box.foodReserve,blockDonations=box.blockDonations,items=items};
         }
         internal static void ChangeFood(StorageBoxDocument box,int delta)
         {
@@ -30,6 +30,7 @@ namespace Outbreak.Core
     public sealed partial class WorldMap
     {
         private readonly SortedDictionary<int,StorageBoxDocument> storageBoxes=new SortedDictionary<int,StorageBoxDocument>();
+        public bool HasBlockedDonations { get { foreach(StorageBoxDocument box in storageBoxes.Values)if(box.blockDonations)return true;return false; } }
         public bool HasStorageReserveTargets { get { foreach(StorageBoxDocument box in storageBoxes.Values)if(box.foodReserve.HasValue)return true;return false; } }
         public bool HasStorageBoxes { get { return storageBoxes.Count>0; } }
         internal IEnumerable<StorageBoxDocument> StorageRecords { get { return storageBoxes.Values; } }
@@ -50,7 +51,7 @@ namespace Outbreak.Core
         private void RestoreStorageBoxes(MapDocument source)
         {
             if(source.storageBoxes==null)return;if(source.schemaVersion<8 || source.storageBoxes.Length==0 || source.storageBoxes.Length>StorageRules.MaxBoxes)throw new ArgumentException("Unsupported storage boxes.");
-            foreach(StorageBoxDocument box in source.storageBoxes){if(box==null || (source.schemaVersion<9 && box.foodReserve.HasValue) || StorageBoxAt(box.x,box.y)!=null)throw new ArgumentException("Invalid or duplicate storage box.");SetStorageBox(box);}
+            foreach(StorageBoxDocument box in source.storageBoxes){if(box==null || (source.schemaVersion<9 && box.foodReserve.HasValue) || (source.schemaVersion<10 && box.blockDonations) || StorageBoxAt(box.x,box.y)!=null)throw new ArgumentException("Invalid or duplicate storage box.");SetStorageBox(box);}
         }
     }
     public sealed partial class World
@@ -68,6 +69,11 @@ namespace Outbreak.Core
             if(!ReserveTargetsEnabled)return false;StorageBoxDocument box=map.StorageBoxAt(x,y);
             if(box==null || target<0 || target>box.capacity)return false;
             box.foodReserve=target==Math.Min(RestockRules.ReserveMeals,box.capacity)?(int?)null:target;map.SetStorageBox(box);return true;
+        }
+        public bool TrySetStorageDonations(int x,int y,bool allowed)
+        {
+            if(!DeliveryControlsEnabled)return false;StorageBoxDocument box=map.StorageBoxAt(x,y);if(box==null)return false;
+            box.blockDonations=!allowed;map.SetStorageBox(box);return true;
         }
         private bool StorageVisible(ActorState actor,StorageBoxDocument box)
         {

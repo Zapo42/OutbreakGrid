@@ -33,3 +33,5 @@ Foundation 90–91 saves retain prior behavior until **Enable supply deliveries*
 Automated checks cover complete round trips and door closure, movement energy, conservation and personal reserves, saved collection and return, known-surplus eligibility, hidden donor stock changes, depleted and concurrent donors, target cancellation, newly revealed zombies, hungry loaded couriers, malformed source state, infection cleanup, old rules, UI counters/inspection, upgrade and restart.
 
 **Unity validation: untested.** Foundation 82 remains the [last user-tested checkpoint](BUILD_VALIDATION.md).
+
+Foundation 93 adds [per-box donation controls](DELIVERY_CONTROLS.md) while preserving local transfers and already collected cargo.

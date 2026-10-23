@@ -27,7 +27,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int x,y,capacity;
         [DataMember(IsRequired=true)] public ItemStackDocument[] items;
-        [DataMember(EmitDefaultValue=false)] public int? foodReserve; // Absent preserves the original six-meal default; zero explicitly disables trips.
+        [DataMember(EmitDefaultValue=false)] public int? foodReserve; // Absent uses the six-meal default; zero disables restocking trips.
+        [DataMember(EmitDefaultValue=false)] public bool blockDonations; // Absent allows outgoing supply deliveries.
     }
     public enum MeleeWeapon { None, Bat }
     [DataContract] public sealed class WeaponPickupDocument
