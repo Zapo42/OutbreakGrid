@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 84 / infection markers"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 85 / turn watch"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -23,6 +23,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214", setupBats = ScenarioBuilder.DefaultBats.ToString(CultureInfo.InvariantCulture); private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool showTargetMarkers=true;
         private bool showInfectionMarkers=true;
+        private bool watchNextTurn;
         private Vector2 inspectorScroll; // Let inventory and detailed diagnostics remain reachable in smaller Game views.
         private int focusedBatCell=-1, selectedBatCell=-1;
         private bool restBrush,eraseRestSpot;
@@ -88,7 +89,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            watchNextTurn=false;scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false; selectedShelf = 0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             ResetPopulationHistory();
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
@@ -109,6 +110,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             }
             for(int e=0;e<world.WeaponActionCount;e++){WeaponAction action=world.WeaponActionAt(e);if(!action.hit || action.kind!=WeaponActionKind.Swing)continue;for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==action.targetId){hitFlashUntil[i]=action.tick+WeaponPresentation.HitFlashTicks;break;}} // Flash the struck body, including a fatal hit, at its rendered position.
             for(int e=0;e<world.BiteActionCount;e++){BiteAction action=world.BiteActionAt(e);int victim=-1,attacker=-1;for(int i=0;i<world.Count;i++){int id=world.ActorAt(i).id;if(id==action.targetId){victim=i;biteFeedback[i]=action;}if(id==action.actorId)attacker=i;}if(world.MaulingEnabled && !clock.Paused && !action.evaded && victim>=0 && attacker>=0){int dx=Math.Sign(previous[victim].x-previous[attacker].x),dy=Math.Sign(previous[victim].y-previous[attacker].y);grabMotion[attacker].Observe(dx,dy,action.tick);struggleMotion[victim].Observe(-dx,-dy,action.tick);}}
+            CheckTurnWatch();
         } // Finish canonical and presentation updates.
         private void ResetPopulationHistory()
         {
@@ -152,6 +154,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 #if UNITY_EDITOR // A deliberate Run action must also release a host pause that would prevent all future ticks.
             if (!value && UnityEditor.EditorApplication.isPaused) UnityEditor.EditorApplication.isPaused = false; // Resume the host only when the person explicitly starts playback.
 #endif // Finish the editor-only playback action.
+            if(value)watchNextTurn=false;
             clock.SetPaused(value); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);shoveMotion[i].Reset();grabMotion[i].Reset();struggleMotion[i].Reset(); } // Prevent stale interpolation from jumping backward when playback resumes.
         } // Finish pause presentation synchronization.
         private void Queue(Action action) // Keep GUI mutations outside OnGUI while allowing controls to work during host pause.
@@ -334,6 +337,18 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             SetPaused(true);selected=index;selectedShelf=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;centerX=actor.x+0.5f;centerY=actor.y+0.5f;textureX=-1;
             status="Soonest turn: "+(actor.health==0?"corpse":"infected human")+" #"+actor.id+" in "+((actor.turnAtTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s. Run or step to observe.";
         }
+        private void StartTurnWatch()
+        {
+            int index=SoonestTurnIndex();if(index<0){status="No pending turns remain.";return;}
+            FocusSoonestTurn();if(world.ActorAt(index).turnAtTick-world.Tick<=1){status="Next turn is one tick away. Step 1 tick to observe it.";return;}
+            watchNextTurn=true;SetPaused(false);status="Watching the next pending turn. Playback will pause one tick before it.";
+        }
+        private void CheckTurnWatch()
+        {
+            if(!watchNextTurn || clock.Paused)return;int index=SoonestTurnIndex();
+            if(index<0){watchNextTurn=false;status="Turn watch ended: no pending turns remain.";return;}
+            if(world.ActorAt(index).turnAtTick-world.Tick<=1){FocusSoonestTurn();status="Turn watch paused one tick before the next turn. Step 1 tick to observe it.";}
+        }
         private void FocusNextHungryHuman()
         {
             if(world==null || !world.HungerEnabled || world.Count==0)return;
@@ -427,6 +442,10 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if(world.MaulingEnabled)GUILayout.Label("Human corpses: "+humanDeaths);GUILayout.Label("New conversions: "+newConversions);
                 if(world.ReanimationEnabled)GUILayout.Label("Pending corpse reanimations: "+pendingCorpses);if(world.RiseEnabled)GUILayout.Label("Zombies getting up: "+rising);
                 bool turnEnabled=GUI.enabled;GUI.enabled=turnEnabled && SoonestTurnIndex()>=0;if(GUILayout.Button(new GUIContent("Soonest turn","Pause and focus the earliest pending human conversion or corpse reanimation. Equal deadlines use actor identity order.")))Queue(FocusSoonestTurn);GUI.enabled=turnEnabled;
+                int pendingTurn=SoonestTurnIndex();
+                if(pendingTurn>=0){ActorState next=world.ActorAt(pendingTurn);long remaining=next.turnAtTick-world.Tick;GUILayout.Label((remaining<=5*Rules.TicksPerSecond?"Turning soon: #":"Next turn: #")+next.id+" in "+(remaining/(double)Rules.TicksPerSecond).ToString("0.0")+"s");}
+                if(watchNextTurn){GUILayout.Label("Turn watch active: pauses one tick before the next turn");if(GUILayout.Button("Cancel turn watch"))Queue(()=>{watchNextTurn=false;status="Turn watch cancelled; playback continues.";});}
+                else {bool watchEnabled=GUI.enabled;GUI.enabled=watchEnabled && pendingTurn>=0;if(GUILayout.Button(new GUIContent("Watch next turn","Run at the current speed and pause one tick before the earliest pending turn. No ticks are skipped.")))Queue(StartTurnWatch);GUI.enabled=watchEnabled;}
                 DrawPopulationHistory();
                 GUILayout.Label(world.Count==0?"No actors placed":pendingCorpses>0?(humans==0?"No humans remain; corpses may still reanimate":zombies>0?"Outbreak ongoing":"Corpses may still reanimate"):humans==0?(zombies>0?"No humans remain":"No living actors remain"):zombies>0?"Outbreak ongoing":infected>0?"Infected humans may still turn":"No active zombies or infection");
                 bool fightEnabled=GUI.enabled;GUI.enabled=fightEnabled && NextFightIndex()>=0;if(GUILayout.Button("Next active fight"))Queue(FocusNextFight);GUI.enabled=fightEnabled;

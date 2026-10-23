@@ -1,4 +1,4 @@
-Latest build: [Foundation 84 / infection markers](Docs/INFECTION_MARKERS.md).
+Latest build: [Foundation 85 / turn watch](Docs/TURN_WATCH.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

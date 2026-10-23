@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 84 / infection markers**. Infected humans show one orange square; corpses awaiting reanimation show two pink squares. See [details](OutbreakRebuild/Docs/INFECTION_MARKERS.md).
+Current build: **Foundation 85 / turn watch**. Watch the next pending turn and automatically pause one tick before it; the summary flags imminent conversions. See [details](OutbreakRebuild/Docs/TURN_WATCH.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 
