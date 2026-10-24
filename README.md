@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 108 / worker shifts and commutes**. Targets **Unity 6000.6.3f1**. Clerk schedules, home/work travel, off-duty shopping, occupation outlines and natural idle weight shifts without energy use. [Guide and limits](OutbreakRebuild/Docs/WORKER_SHIFTS.md).
+Current build: **Foundation 109 / larger home supply district**. Targets **Unity 6000.6.3f1**. Three assigned homes, three stores, two couriers and longer supply routes on a 64 × 36 map with finite food. [Guide and limits](OutbreakRebuild/Docs/LARGER_DISTRICT.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

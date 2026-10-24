@@ -44,3 +44,5 @@ Headless core checks and UI API doubles can verify classification, finite initia
 Foundation 107: [store discovery and alternatives](STORE_DISCOVERY.md) now completes the local consumer discovery leg without preseeded shelf memories. Foundation 108 adds worker shifts, commutes and occupation outlines. Larger-map/distance testing remains the next requested milestone.
 
 Foundation 108: [worker shifts and natural idle motion](WORKER_SHIFTS.md) adds clerk schedules, work/home commutes, off-duty shopping, occupation colors and energy-free within-cell weight shifts. Next extend the tested district and travel distances before store specialization.
+
+Foundation 109: [larger district trial](LARGER_DISTRICT.md) exercises three separate households, three stores and near/far courier trips on a 64 × 36 map. This tests the integrated finite-food chain within existing routing bounds. Arbitrary city-distance routing and vehicles remain future work; store specialization is the next planned gameplay expansion.

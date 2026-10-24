@@ -280,6 +280,39 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World LargerDistrictTrial(uint seed=214)
+        {
+            WorldMap map=new WorldMap(64,36,"Larger home supply district","larger-district-1");
+            for(int y=0;y<36;y++)for(int x=0;x<64;x++)
+                if(x==0 || y==0 || x==63 || y==35)map.Set(x,y,Terrain.Wall);
+            for(int x=1;x<63;x++){map.Set(x,20,Terrain.Road);map.Set(x,21,Terrain.Sidewalk);}
+            int[] storeX={14,34,54},storeY={3,9,3},homeX={14,34,54};
+            AddShelterRoom(map,2,14,false);map.SetStorageBox(new StorageBoxDocument{x=5,y=15,capacity=100,foodReserve=6,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=80}}});map.SetRestSpot(3,19);
+            for(int i=0;i<3;i++)
+            {
+                int x=storeX[i],y=storeY[i];AddShelterRoom(map,x,y,false);map.Set(x+4,y+3,Terrain.Wall);map.Set(x,y+3,Terrain.DoorClosed);
+                map.SetStorageBox(new StorageBoxDocument{x=x+3,y=y+1,capacity=6,foodReserve=4,items=new ItemStackDocument[0]});map.SetShelf(x+2,y+5,6,true);map.SetPhone(x+3,y+4);map.SetRestSpot(x+1,y+4);
+                x=homeX[i];AddShelterRoom(map,x,25,false);map.SetStorageBox(new StorageBoxDocument{x=x+3,y=26,capacity=12,foodReserve=4,items=new ItemStackDocument[0]});map.SetRestSpot(x+1,30);map.SetRestSpot(x+2,30);
+            }
+            World world=new World(map,seed,1000,true,hunger:true);int id;
+            world.TrySpawn(Species.Human,4,17,out id);world.TrySpawn(Species.Human,4,18,out id);
+            world.TryConfigureDistributionCenter(5,15);
+            for(int i=0;i<2;i++){world.TryAssignHouse(i,homeX[i]+2,28);world.TryAssignDistributionCourier(i,world.HouseAt(5,15));world.TrySetCourierSchedule(i,7,12);}
+            for(int i=0;i<3;i++)
+            {
+                int clerk=world.Count;world.TrySpawn(Species.Human,storeX[i]+1,storeY[i]+3,out id);world.TryConfigureStore(storeX[i]+3,storeY[i]+1);world.TryAssignClerk(clerk,world.HouseAt(storeX[i]+1,storeY[i]+3));world.TryAssignHouse(clerk,homeX[i]+2,28);world.TrySetClerkSchedule(clerk,7,12);
+                for(int n=0;n<2;n++){int consumer=world.Count;world.TrySpawn(Species.Human,homeX[i]+1+n,28,out id);world.TryAssignHouse(consumer,homeX[i]+2,28);}
+            }
+            SaveDocument saved=world.Capture();
+            for(int i=0;i<saved.actors.Length;i++)
+            {
+                ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;
+                // Residents already know their neighborhood shop; discovery has its own separate preview.
+                if(i>=2 && (i-2)%3!=0){int shop=(i-2)/3;actor.shelfMemory=new[]{new ShelfMemoryRecord{x=storeX[shop]+2,y=storeY[shop]+5,food=6,observedTick=0}};}
+                saved.actors[i]=actor;
+            }
+            return World.Restore(saved);
+        }
         public static World WorkerShiftTest(bool starting=false)
         {
             WorldMap map=new WorldMap(32,20,starting?"Worker shift start":"Worker shift end","worker-shift-1");AddShelterRoom(map,1,6,false);AddShelterRoom(map,11,2,false);map.Set(15,5,Terrain.Wall);map.Set(11,5,Terrain.DoorClosed);AddShelterRoom(map,21,6,false);map.Set(25,9,Terrain.Wall);map.Set(21,9,Terrain.DoorClosed);

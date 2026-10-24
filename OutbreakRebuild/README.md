@@ -1,4 +1,4 @@
-Current build: **Foundation 108 / worker shifts and commutes**. Targets **Unity 6000.6.3f1**. Clerk schedules, home/work travel, off-duty shopping, occupation outlines and natural idle weight shifts without energy use. [Guide and limits](Docs/WORKER_SHIFTS.md).
+Current build: **Foundation 109 / larger home supply district**. Targets **Unity 6000.6.3f1**. Three assigned homes, three stores, two couriers and longer supply routes on a 64 × 36 map with finite food. [Guide and limits](Docs/LARGER_DISTRICT.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

@@ -7,6 +7,28 @@ public static partial class Program
 {
     private static void CheckMultiStoreCases()
     {
+        Check("Larger district serves three separate homes and near/far stores without creating food",()=>{
+            World world=EncounterScenarios.LargerDistrictTrial();
+            Require(world.Width==64 && world.Height==36 && world.Count==11 && world.ShelterRoomCount==7 && world.StoreSupplies().Length==3,"Larger district geometry/population missing.");
+            Require(world.FoodSupplies().RemainingMeals==109 && world.DistributionCenters()[0].Couriers==2,"Finite starting stock or courier roles missing.");
+            Require(State(world)==State(EncounterScenarios.LargerDistrictTrial()),"District seed did not repeat.");
+            HashSet<int> homes=new HashSet<int>();for(int i=0;i<world.Count;i++){ActorState actor=world.ActorAt(i);homes.Add(actor.assignedHouseId);Require(actor.assignedHouseId!=0 && world.BuildingUseAt((actor.assignedHouseId-1)%world.Width,(actor.assignedHouseId-1)/world.Width)==BuildingUse.Home,"Resident assigned to workplace instead of home.");}
+            Require(homes.Count==3,"Assigned homes were not distinct.");
+            ActorState[] previous=world.Capture().actors;int eaten=0;HashSet<int> supplied=new HashSet<int>(),stockedHomes=new HashSet<int>();bool concurrent=false;World copy=null;
+            for(int t=1;t<=2400;t++)
+            {
+                world.Step();if(copy!=null){copy.Step();Require(State(world)==State(copy),"Long-route saved continuation diverged.");}
+                for(int i=0;i<world.Count;i++){ActorState actor=world.ActorAt(i);Require(actor.health>0,"District resident died during controlled supply trial.");if(actor.hunger<previous[i].hunger)eaten++;previous[i]=actor;}
+                Require(world.FoodSupplies().RemainingMeals+eaten==109,"Long trips duplicated or lost food.");
+                concurrent|=world.ActorAt(0).courierOrderId!=0 && world.ActorAt(1).courierOrderId!=0;
+                foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.deliveredMeals>0)supplied.Add(order.storeId);
+                foreach(SupplyOrderDocument order in world.CompletedSupplyOrders())supplied.Add(order.storeId);
+                foreach(int home in homes)if(world.HouseholdFoodSupplies(home).BoxMeals>0)stockedHomes.Add(home);
+                if(t==800)world=Documents.ParseSave(State(world));
+                if(t==2360)copy=Documents.ParseSave(State(world));
+            }
+            Require(concurrent && supplied.Count==3 && stockedHomes.Count==3 && world.CompletedSupplyOrders().Length>0,"Long routes failed parallel courier service, all-store delivery or all-home groceries.");
+        });
         Check("Supply chain visual preview separates assigned home from work without changing saved food",()=>{
             World world=EncounterScenarios.SupplyChainIdentityTest();int home=world.HouseAt(4,19);Require(world.Count==8 && world.ShelterRoomCount==5 && world.FoodSupplies().RemainingMeals==40,"Preview omitted the separate home or finite supplies.");
             for(int i=0;i<world.Count;i++)Require(world.ActorAt(i).assignedHouseId==home,"Worker or consumer lacked the separate assigned home.");
