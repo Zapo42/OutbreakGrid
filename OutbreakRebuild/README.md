@@ -1,4 +1,4 @@
-Current build: **Foundation 106 / home store shopping**. Targets **Unity 6000.6.3f1**. Consumers plan trips from observed home shortages, collect finite food from known store shelves and bring it home; intelligence affects how early they restock. [Guide and limits](Docs/STORE_SHOPPING.md).
+Current build: **Foundation 107 / store discovery and alternatives**. Targets **Unity 6000.6.3f1**. Consumers discover visible entrances without seeded store memories, investigate shelves and try another known shop after an unsuccessful visit. [Guide and limits](Docs/STORE_DISCOVERY.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

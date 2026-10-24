@@ -93,6 +93,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
             if(BoxMemoryEnabled){ObserveStorageBoxes(ref actor);actors[index]=actor;}
+            if(StoreDiscoveryEnabled){ObserveStoreEntrances(ref actor);actors[index]=actor;}
             int homeDirection;if(TryInspectHomeSupplies(index,ref actor,threatIndex,out homeDirection))return homeDirection;
             int clerkDirection;if(StoresEnabled && TryClerkWork(index,ref actor,threatIndex,out clerkDirection))return clerkDirection;
             int restockDirection;if(RestockingEnabled && TryRestock(index,ref actor,threatIndex,out restockDirection))return restockDirection;

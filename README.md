@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 106 / home store shopping**. Targets **Unity 6000.6.3f1**. Consumers plan trips from observed home shortages, collect finite food from known store shelves and bring it home; intelligence affects how early they restock. [Guide and limits](OutbreakRebuild/Docs/STORE_SHOPPING.md).
+Current build: **Foundation 107 / store discovery and alternatives**. Targets **Unity 6000.6.3f1**. Consumers discover visible entrances without seeded store memories, investigate shelves and try another known shop after an unsuccessful visit. [Guide and limits](OutbreakRebuild/Docs/STORE_DISCOVERY.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

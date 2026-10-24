@@ -280,6 +280,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World StoreDiscoveryTest()
+        {
+            WorldMap map=new WorldMap(26,20,"Unfamiliar and empty stores","store-discovery-1");AddShelterRoom(map,1,6,false);AddShelterRoom(map,9,2,false);map.Set(13,5,Terrain.Wall);map.Set(9,5,Terrain.DoorClosed);AddShelterRoom(map,16,9,false);map.Set(20,12,Terrain.Wall);map.Set(16,12,Terrain.DoorClosed);
+            map.SetStorageBox(new StorageBoxDocument{x=4,y=7,capacity=6,foodReserve=2,items=new ItemStackDocument[0]});map.SetRestSpot(2,11);
+            map.SetStorageBox(new StorageBoxDocument{x=12,y=3,capacity=30,items=new ItemStackDocument[0]});map.SetShelf(11,7,0,false);
+            map.SetStorageBox(new StorageBoxDocument{x=19,y=10,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=8}}});map.SetShelf(18,14,6,true);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,3,9,out id);world.TryAssignHouse(0,3,9);world.TryConfigureStore(12,3);world.TryConfigureStore(19,10);
+            SaveDocument saved=world.Capture();saved.actors[0].hunger=10;saved.actors[0].carriedFood=1;saved.actors[0].intelligence=8;saved.actors[0].shelterId=world.HouseAt(3,9);saved.actors[0].shelterX=3;saved.actors[0].shelterY=9;saved.actors[0].shelterState=ShelterState.Inside;return World.Restore(saved);
+        }
         public static World StoreShoppingTest()
         {
             WorldMap map=new WorldMap(22,12,"Home store shopping","store-shopping-1");AddShelterRoom(map,1,2,false);AddShelterRoom(map,11,2,false);map.Set(15,5,Terrain.Wall);map.Set(11,5,Terrain.DoorClosed);

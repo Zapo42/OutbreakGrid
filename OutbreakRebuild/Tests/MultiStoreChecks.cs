@@ -18,7 +18,7 @@ public static partial class Program
             World world=EncounterScenarios.MultiStoreSupplyTrial();world.TrySetCourierSchedule(0,19,12);world.TrySetCourierSchedule(1,19,12);Run(world,50);
             SaveDocument saved=world.Capture();Require(saved.supplyOrders.Length==3,"Clerks did not report all three shortages.");
             SupplyOrderDocument oldest=saved.supplyOrders[0];foreach(SupplyOrderDocument order in saved.supplyOrders)if(order.createdTick<oldest.createdTick || (order.createdTick==oldest.createdTick && order.id<oldest.id))oldest=order;
-            oldest.deliveredMeals=3;World current=World.Restore(saved);SaveDocument oldSave=World.Restore(saved).Capture();oldSave.rulesVersion=EncounterRules.SurvivalDamageVersion;World legacy=World.Restore(oldSave);
+            oldest.deliveredMeals=3;World current=World.Restore(saved);SaveDocument oldSave=World.Restore(saved).Capture();oldSave.rulesVersion=EncounterRules.SurvivalDamageVersion;for(int i=0;i<oldSave.actors.Length;i++){oldSave.actors[i].storeMemory=null;oldSave.actors[i].storeFailures=null;}World legacy=World.Restore(oldSave);
             SupplyOrderDocument next=null;foreach(SupplyOrderDocument order in saved.supplyOrders)if(order.id!=oldest.id && (next==null || current.CompareSupplyOrderPriority(order,next)<0))next=order;
             Require(current.ShortagePrioritiesEnabled && !legacy.ShortagePrioritiesEnabled && legacy.Capture().rulesVersion==EncounterRules.SurvivalDamageVersion,"Legacy rules silently changed.");
             Require(current.CompareSupplyOrderPriority(next,oldest)<0 && legacy.CompareSupplyOrderPriority(oldest,next)<0,"Dispatch ignored reported shortage or old order age.");
