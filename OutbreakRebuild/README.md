@@ -1,4 +1,4 @@
-Latest build: [Foundation 94 / assigned couriers and houses](Docs/ASSIGNED_COURIERS.md).
+Latest build: [Foundation 95 / household management](Docs/HOUSEHOLD_MANAGEMENT.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

@@ -33,6 +33,7 @@
     <Compile Include="StorageChecks.cs" />
     <Compile Include="SupplyDeliveryChecks.cs" />
     <Compile Include="CourierAssignmentChecks.cs" />
+    <Compile Include="HouseholdChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />
     <Compile Include="ShelterSupplyChecks.cs" />
     <Compile Include="FoodExplorationChecks.cs" />

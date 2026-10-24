@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 94 / assigned couriers and houses"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 95 / household management"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -22,6 +22,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private float centerX, centerY, span = 48; private int selected = -1; private bool confirmReset, showStart = true; private Species? placing; // Keep camera, start flow and manual placement outside running saves.
         private bool showSetup, setupPaused = true; private ScenarioMap setupMap = ScenarioMap.ShelterArena; private string setupHumans = "24", setupZombies = "1", setupSeed = "214", setupBats = ScenarioBuilder.DefaultBats.ToString(CultureInfo.InvariantCulture); private Vector2 menuScroll; // Retain editable setup independently of any active run.
         private bool showTargetMarkers=true;
+        private bool showHouseholds;private int householdHouse;
         private int focusedSupplyRoom;private bool showAllShelterSupplies;
         private bool showInfectionMarkers=true;
         private bool watchNextTurn;
@@ -92,7 +93,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish encounter scenario setup.
         private void UseWorld(World next) // Swap in a validated world and capture its restart baseline.
         { // Begin one transactional screen swap.
-            courierEditor=-1;focusedSupplyRoom=0;reserveInputBox=-1;reserveInputValue=-1;watchNextTurn=false;scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false;boxBrush=false; selectedShelf = 0;selectedStorageBox=0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
+            showHouseholds=false;householdHouse=0;courierEditor=-1;focusedSupplyRoom=0;reserveInputBox=-1;reserveInputValue=-1;watchNextTurn=false;scenarioStart=next.Capture();scenarioAdvanced=false;newConversions=0;canResume = false; showSetup = false; menuScroll = new Vector2(); world = next; clock = new TickClock();shoveMotion=new ShovePresentation[world.Capacity];beforeRenderX=new double[world.Capacity];beforeRenderY=new double[world.Capacity]; previous = new ActorState[world.Capacity]; motion = new MovementPresentation[world.Capacity]; weaponMotion=new WeaponPresentation[world.Capacity]; hitFlashUntil=new double[world.Capacity]; biteFeedback=new BiteAction[world.Capacity];grabMotion=new ShovePresentation[world.Capacity];struggleMotion=new ShovePresentation[world.Capacity]; centerX = world.Width / 2f; centerY = world.Height / 2f; span = Math.Min(128, Math.Max(16, world.Width)); selected = -1; textureX = -1; placing = null; shelfBrush = -1;restBrush=false;boxBrush=false; selectedShelf = 0;selectedStorageBox=0; focusedBatCell=-1; selectedBatCell=-1; showStart = false; // Begin loaded simulations paused, clear stale actions and retain their authoritative tick.
             ResetPopulationHistory();
             for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);weaponMotion[i].Reset(); } // Prevent a visual jump from stale interpolation history.
         } // Finish one transactional screen swap.
@@ -220,6 +221,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button("Inspect Box Sharing Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxReportTest());selected=1;status="Step one tick: human #1 tells hungry human #2 about a remembered box behind the wall. Run or step to watch #2 find food using that report.";}));
             if(GUILayout.Button("Inspect Box Memory Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxMemoryTest());selected=0;status="This hungry human previously saw the box on the other side of the wall. Run or step to watch it walk around the corner, check current stock and collect food.";}));
             if(GUILayout.Button("Inspect Restocking Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageRestockTest());selected=0;status="Run or step: the fed human checks the door, collects from its remembered outdoor shelf, returns and stocks the box toward a six-meal reserve.";}));
+            if(GUILayout.Button("Inspect Households Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.HouseholdManagementTest());showHouseholds=true;householdHouse=183;status="House #183 has one resident at home and one courier visiting house #192. Select a resident to change their assigned house.";}));
             if(GUILayout.Button("Inspect Assigned Courier Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.AssignedCourierTest());selected=0;status="Assigned courier: source box 4, 3; near destination 13, 3 and far destination 42, 3. Run or step to deliver.";}));
             if(GUILayout.Button("Inspect Storage Deposit Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageSupplyTest());selectedStorageBox=3*world.Width+4+1;status="Step one tick: the human deposits two surplus meals and keeps one. Select the blue-grey box to inspect its inventory.";}));
             if(GUILayout.Button("Inspect Storage Meal Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageSupplyTest(true));selectedStorageBox=3*world.Width+4+1;status="Step one tick: the hungry human takes three meals from the box. Step five more ticks: it eats one.";}));
@@ -415,6 +417,61 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             }
             if(GUILayout.Button("Finish courier editing"))Queue(()=>{selected=courierEditor;selectedStorageBox=0;courierEditor=-1;});
         }
+        private void SelectHouseholdResident(int index)
+        {
+            if(index<0 || index>=world.Count)return;ActorState person=world.ActorAt(index);
+            if(person.species!=Species.Human || person.health<=0)return;
+            SetPaused(true);selected=index;selectedShelf=0;selectedStorageBox=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;
+            centerX=person.x+0.5f;centerY=person.y+0.5f;textureX=-1;status="Selected resident #"+person.id+". Choose a house below to change their home.";
+        }
+        private void NextUnassignedResident()
+        {
+            int start=selected>=0?selected+1:0;
+            for(int n=0;n<world.Count;n++){int index=(start+n)%world.Count;ActorState actor=world.ActorAt(index);if(actor.species==Species.Human && actor.health>0 && actor.assignedHouseId==0){SelectHouseholdResident(index);return;}}
+            status="No unassigned living humans.";
+        }
+        private void DrawHouseholds()
+        {
+            if(!world.CourierAssignmentsEnabled)return;
+            if(GUILayout.Button(showHouseholds?"Hide household management":"Household management"))Queue(()=>{SetPaused(true);showHouseholds=!showHouseholds;});
+            if(!showHouseholds)return;
+            HouseholdOverview[] houses=world.Households();int unassigned=0;
+            for(int i=0;i<world.Count;i++){ActorState actor=world.ActorAt(i);if(actor.species==Species.Human && actor.health>0 && actor.assignedHouseId==0)unassigned++;}
+            GUILayout.Label("HOUSEHOLDS");GUILayout.Label("Unassigned residents: "+unassigned);
+            if(GUILayout.Button("Next unassigned resident"))Queue(NextUnassignedResident);
+            if(houses.Length==0){GUILayout.Label("No discovered houses.");return;}
+            if(householdHouse==0)householdHouse=houses[0].HouseId;
+            bool hasSelected=selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human && world.ActorAt(selected).health>0;
+            if(hasSelected)GUILayout.Label("Selected resident: #"+world.ActorAt(selected).id+". Home changes keep courier routes.");
+            else GUILayout.Label("Select a resident or use Next unassigned resident to assign a home.");
+            foreach(HouseholdOverview house in houses)
+            {
+                GUILayout.Label("House #"+house.HouseId+": assigned "+house.Residents.Length+" | home "+house.AtHome+" | away "+house.Away);
+                GUILayout.Label("Visitors: "+house.Visitors+" | Boxes: "+house.Boxes+" | Shelter capacity: "+house.Capacity);
+                int houseId=house.HouseId,x=house.FocusX,y=house.FocusY;
+                if(GUILayout.Button("Manage house #"+houseId))Queue(()=>{SetPaused(true);householdHouse=houseId;centerX=x+0.5f;centerY=y+0.5f;textureX=-1;});
+                if(hasSelected)
+                {
+                    int index=selected;
+                    if(GUILayout.Button("Assign selected resident to house #"+houseId))Queue(()=>{SetPaused(true);status=world.TryAssignHouse(index,x,y)?"Resident assigned to house #"+houseId+". They travel normally when safe; no inventory moved.":"Finish the current delivery or restocking task first. Infected residents cannot be reassigned.";});
+                }
+            }
+            if(hasSelected && GUILayout.Button("Unassign selected resident"))
+            {
+                int index=selected;Queue(()=>{SetPaused(true);status=world.TryUnassignHouse(index)?"Home assignment removed.":"Clear the courier route and finish any active task first. Infected residents cannot be reassigned.";});
+            }
+            foreach(HouseholdOverview house in houses)if(house.HouseId==householdHouse)
+            {
+                GUILayout.Label("RESIDENTS OF HOUSE #"+house.HouseId);
+                if(house.Residents.Length==0)GUILayout.Label("No assigned residents.");
+                foreach(HouseholdResident resident in house.Residents)
+                {
+                    GUILayout.Label("Resident #"+resident.Id+": "+(resident.AtHome?"at home":resident.CurrentHouseId==0?"away outdoors":"visiting house #"+resident.CurrentHouseId)+(resident.Courier?" | courier":"")+(resident.Busy?" | active supply task":"")+(resident.Infected?" | infected":""));
+                    int index=resident.ActorIndex;if(GUILayout.Button("Select resident #"+resident.Id))Queue(()=>SelectHouseholdResident(index));
+                }
+            }
+            GUILayout.Label("Assigned residents and visitors are separate. Shelter capacity is admission guidance, not an assignment limit.");
+        }
         private void FocusShelterSupply(int roomId)
         {
             foreach(ShelterSupplyOverview supply in world.ShelterSupplies())if(supply.RoomId==roomId)
@@ -578,6 +635,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 GUI.enabled=overviewEnabled;
             }
             if(world.HungerEnabled)DrawShelterSupplies();
+            DrawHouseholds();
             if(GUILayout.Button(showTargetMarkers?"Hide target markers":"Show target markers"))Queue(()=>showTargetMarkers=!showTargetMarkers);
             int targetX,targetY;Color targetColor;string targetLabel;
             if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Selected target: "+targetLabel);

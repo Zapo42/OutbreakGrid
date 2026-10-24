@@ -29,3 +29,5 @@ Assigned humans use a bounded routing radius of 64 cells instead of the ordinary
 Open **Inspect Assigned Courier Paused**. The courier starts in the source house with a stocked source at **(4, 3)** and destinations at **(13, 3)** and **(42, 3)**. Run or step: the near box receives two meals, then the far box receives two meals, and the courier returns to its assigned house. Select the human to inspect their assignments. Each destination starts with a two-meal target; source food starts at 30 with its usual six-meal reserve.
 
 Automated checks cover physical near/far deliveries and return home, exact saved continuation, separate boxes in one house, same-house transfers, hidden-stock privacy, defensive copies, editing restrictions, donation controls, malformed/legacy saves, conversion cleanup, and the UI assignment/upgrade/restart paths. Native Unity testing remains paused after Foundation 82; `foundation-82-unity-checkpoint` remains unchanged.
+
+Foundation 95 adds [household rosters and resident reassignment](HOUSEHOLD_MANAGEMENT.md) while preserving courier source/destination routes.

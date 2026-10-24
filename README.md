@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 94 / assigned couriers and houses**. Assign a human a home house, source box and multiple destination boxes. Couriers carry food between boxes, serve destinations in rotation and return home. See [setup and behavior](OutbreakRebuild/Docs/ASSIGNED_COURIERS.md).
+Current build: **Foundation 95 / household management**. Inspect each house’s assigned residents, distinguish home/away residents and visitors, and move residents between houses while preserving courier routes. See [setup and behavior](OutbreakRebuild/Docs/HOUSEHOLD_MANAGEMENT.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

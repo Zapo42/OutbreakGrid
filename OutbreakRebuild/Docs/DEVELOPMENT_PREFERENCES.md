@@ -9,3 +9,5 @@
 - Foundation 93: user selected per-box donation controls. Food-only storage remains in effect; supply priorities are still a possible next step.
 
 - Foundation 94: user requested couriers with assigned houses and source/destination boxes, multiple destinations and different travel distances. This build serves one destination per load in rotation; multi-stop loads remain a future extension.
+
+- Foundation 95: user selected household management to inspect and change assigned residents. Keep permanent household membership distinct from physical visitors and courier delivery destinations.
