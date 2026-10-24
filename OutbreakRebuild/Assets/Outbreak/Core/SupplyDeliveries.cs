@@ -17,7 +17,7 @@ namespace Outbreak.Core
             StorageBoxDocument best=null;int steps=int.MaxValue;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
-                int food,space;if(IsStoreSupplyBox(box) || (DeliveryControlsEnabled && box.blockDonations) || home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=EffectiveFoodReserve(box))continue;
+                int food,space;if(IsRestrictedSupplyBox(box) || (DeliveryControlsEnabled && box.blockDonations) || home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=EffectiveFoodReserve(box))continue;
                 Room sourceRoom=null;foreach(Room room in rooms)if(room.Contains(Key(box.x,box.y))){sourceRoom=room;break;}
                 if(sourceRoom==null || sourceRoom.id==actor.rejectedShelterId || KnownRoomDanger(actor,sourceRoom) || RoomAdmissions(sourceRoom,actor.id)>=sourceRoom.Capacity)continue;
                 for(int d=0;d<8;d+=2)

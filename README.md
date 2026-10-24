@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 98 / store clerks and shelves**. Consumers take food from store shelves; assigned clerks physically replenish them from a finite secondary supply crate. Empty crates show a supply shortage. See [setup, behavior and next supply-chain stages](OutbreakRebuild/Docs/STORE_CLERKS.md).
+Current build: **Foundation 99 / distribution centers**. Designate finite stock boxes, assign center couriers and preserve their homes, destinations and shifts. The prepared demo delivers center stock to a store crate, then a clerk replenishes the shelf. See [setup and behavior](OutbreakRebuild/Docs/DISTRIBUTION_CENTERS.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

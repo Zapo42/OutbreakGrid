@@ -17,7 +17,7 @@ namespace Outbreak.Core
         private static StoreDocument CopyStore(StoreDocument store){return new StoreDocument{storeId=store.storeId,supplyBox=store.supplyBox,shelfTarget=store.shelfTarget};}
         public bool TryConfigureStore(int x,int y,int shelfTarget=StoreRules.ShelfTarget)
         {
-            int id=HouseAt(x,y);if(!StoresEnabled || id==0 || map.StorageBoxAt(x,y)==null || shelfTarget<1 || shelfTarget>StoreRules.MaxShelfTarget)return false;
+            int id=HouseAt(x,y);if(!StoresEnabled || id==0 || IsDistributionSupplyBox(x,y) || map.StorageBoxAt(x,y)==null || shelfTarget<1 || shelfTarget>StoreRules.MaxShelfTarget)return false;
             stores[id]=new StoreDocument{storeId=id,supplyBox=Key(x,y)+1,shelfTarget=shelfTarget};return true;
         }
         public bool TryAssignClerk(int index,int storeId)

@@ -46,7 +46,7 @@ namespace Outbreak.Core
         {
             direction=8;if(StoresEnabled && actor.clerkStoreId!=0)return false;
             bool hasHouse=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
-            bool assigned=hasHouse && actor.courierBoxes!=null;
+            bool assigned=hasHouse && (actor.courierBoxes!=null || (DistributionCentersEnabled && actor.distributionCenterId!=0));
             if(hasHouse && actor.restockPhase==RestockPhase.None)
             {
                 if(actor.courierReturningHome && HouseAt(actor.x,actor.y)==actor.assignedHouseId){actor.courierReturningHome=false;actors[index]=actor;}
@@ -59,7 +59,7 @@ namespace Outbreak.Core
                 if(!map.HasStorageBoxes || current==null || actor.shelterState!=ShelterState.Inside || !current.Contains(Key(actor.x,actor.y)) || !SafeRestock(actor,threat) || actor.carriedFood>FoodReserve(actor) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.homeShelterId!=0 || actor.foodExploreRoomId!=0)return false;
                 StorageBoxDocument donor=SupplyDeliveriesEnabled?ChooseDeliverySource(actor,current):null;if(donor==null && ChooseRestockShelf(actor,current)==null)return false;
                 StorageBoxDocument chosen=null;
-                foreach(StorageBoxDocument box in map.StorageRecords){int food,space;if(!IsStoreSupplyBox(box) && current.Contains(Key(box.x,box.y)) && KnownStorageState(actor,box,out food,out space) && food>=0 && food<EffectiveFoodReserve(box) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}}
+                foreach(StorageBoxDocument box in map.StorageRecords){int food,space;if(!IsRestrictedSupplyBox(box) && current.Contains(Key(box.x,box.y)) && KnownStorageState(actor,box,out food,out space) && food>=0 && food<EffectiveFoodReserve(box) && !RestockClaimed(Key(box.x,box.y)+1,actor.id)){chosen=box;break;}}
                 if(chosen==null)return false;
                 actor.restockSourceBox=donor==null?0:Key(donor.x,donor.y)+1;actor.restockBox=Key(chosen.x,chosen.y)+1;actor.restockHomeId=current.id;actor.restockPhase=RestockPhase.Collecting;actor.restockUntilTick=Tick+RestockRules.TaskTicks;actors[index]=actor;
             }

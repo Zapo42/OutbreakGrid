@@ -32,3 +32,5 @@ Open **Inspect Store Clerk Paused**. The store has one shelf with one meal, a ba
 Stores, their supply crates, shelf targets, clerk assignments and current shelf tasks persist in running saves under encounter rules 78. Older saves require **Enable store clerks**. Scenario restart retains its existing checkpoint behavior. Store/clerk assignments are scenario state rather than reusable terrain-map metadata.
 
 Automated checks cover consumption and physical replenishment, exact saved continuation, empty crates, consumer access restrictions, competing clerks, role edits and retained cargo, conflicting courier roles, malformed/legacy records, conversion cleanup and UI setup/upgrade/restart paths. Native Unity remains untested after Foundation 82; `foundation-82-unity-checkpoint` remains unchanged.
+
+Foundation 99 adds [distribution-center stock and assigned couriers](DISTRIBUTION_CENTERS.md). Persistent store requests and automatic fulfillment remain the next supply-chain stages.

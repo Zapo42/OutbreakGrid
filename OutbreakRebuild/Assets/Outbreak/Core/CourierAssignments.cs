@@ -24,7 +24,7 @@ namespace Outbreak.Core
         public bool TrySetCourierSource(int index,int x,int y)
         {
             if(!CanEditCourier(index) || actors[index].clerkStoreId!=0 || actors[index].assignedHouseId==0 || map.StorageBoxAt(x,y)==null || HouseAt(x,y)==0)return false;
-            ActorState actor=actors[index];int key=Key(x,y)+1;if(actor.courierBoxes!=null && Array.IndexOf(actor.courierBoxes,key)>=0)return false;
+            ActorState actor=actors[index];int key=Key(x,y)+1;if(!DistributionSourceAllowed(actor,key))return false;if(actor.courierBoxes!=null && Array.IndexOf(actor.courierBoxes,key)>=0)return false;
             actor.courierSourceBox=key;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
         public bool TryToggleCourierDestination(int index,int x,int y)
@@ -38,11 +38,11 @@ namespace Outbreak.Core
         }
         public bool TryClearCourierRoute(int index)
         {
-            if(!CanEditCourier(index))return false;ActorState actor=actors[index];ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
+            if(!CanEditCourier(index))return false;ActorState actor=actors[index];actor.distributionCenterId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
         private static void ClearCourierAssignment(ref ActorState actor)
         {
-            actor.assignedHouseId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
+            actor.assignedHouseId=0;actor.distributionCenterId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
         }
         private bool AssignedCourierDepartureAllowed(ActorState actor,Room room,int threat)
         {
