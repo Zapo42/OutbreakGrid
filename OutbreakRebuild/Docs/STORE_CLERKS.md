@@ -34,3 +34,5 @@ Stores, their supply crates, shelf targets, clerk assignments and current shelf 
 Automated checks cover consumption and physical replenishment, exact saved continuation, empty crates, consumer access restrictions, competing clerks, role edits and retained cargo, conflicting courier roles, malformed/legacy records, conversion cleanup and UI setup/upgrade/restart paths. Native Unity remains untested after Foundation 82; `foundation-82-unity-checkpoint` remains unchanged.
 
 Foundation 99 adds [distribution-center stock and assigned couriers](DISTRIBUTION_CENTERS.md). Persistent store requests and automatic fulfillment remain the next supply-chain stages.
+
+Foundation 100 adds [phone-based replenishment orders](PHONE_SUPPLY_ORDERS.md) and [collapsible encounter navigation](ENCOUNTER_NAVIGATION.md). Courier acceptance and fulfillment remain the next supply-chain stage.

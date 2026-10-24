@@ -43,6 +43,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int x,y;
     }
+    [DataContract] public sealed class PhoneBlockDocument
+    {
+        [DataMember(IsRequired=true)] public int x,y;
+    }
     [DataContract] public sealed class MapDocument // Separate starting terrain from an ongoing simulation save.
     { // Begin the shared map format.
         [DataMember(IsRequired = true)] public string kind = "outbreak.map"; // Refuse to interpret unrelated documents as maps.
@@ -53,6 +57,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public WeaponPickupDocument[] weapons;
         [DataMember(EmitDefaultValue=false)] public StorageBoxDocument[] storageBoxes;
         [DataMember(EmitDefaultValue=false)] public RestSpotDocument[] restSpots;
+        [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.
@@ -101,6 +106,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int courierShiftStartHour,courierShiftHours;
         [DataMember(EmitDefaultValue=false)] public int clerkStoreId,clerkShelf;
         [DataMember(EmitDefaultValue=false)] public int distributionCenterId;
+        [DataMember(EmitDefaultValue=false)] public bool clerkNeedsSupplies;
+        [DataMember(EmitDefaultValue=false)] public int clerkPhone,clerkCallProgress;
         [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
         [DataMember(EmitDefaultValue=false)] public long restockUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
@@ -152,6 +159,11 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int centerId,supplyBox;
     }
+    [DataContract] public sealed class SupplyOrderDocument
+    {
+        [DataMember(IsRequired=true)] public int id,storeId,supplyBox,requestedMeals,requestedBy,phone;
+        [DataMember(IsRequired=true)] public long createdTick;
+    }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.
         [DataMember(IsRequired = true)] public string kind = "outbreak.save"; // Keep a running save distinct from a reusable map.
@@ -163,6 +175,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public HouseholdFoodTargetDocument[] householdFoodTargets;
         [DataMember(EmitDefaultValue=false)] public StoreDocument[] stores;
         [DataMember(EmitDefaultValue=false)] public DistributionCenterDocument[] distributionCenters;
+        [DataMember(EmitDefaultValue=false)] public SupplyOrderDocument[] supplyOrders;
+        [DataMember(EmitDefaultValue=false)] public int nextSupplyOrderId;
         [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.
         [DataMember(IsRequired = true)] public int nextId, capacity; // Preserve future identity allocation and the population limit.

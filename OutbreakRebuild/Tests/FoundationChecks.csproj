@@ -38,6 +38,7 @@
     <Compile Include="CourierScheduleChecks.cs" />
     <Compile Include="StoreClerkChecks.cs" />
     <Compile Include="DistributionCenterChecks.cs" />
+    <Compile Include="PhoneOrderChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />
     <Compile Include="ShelterSupplyChecks.cs" />
     <Compile Include="FoodExplorationChecks.cs" />

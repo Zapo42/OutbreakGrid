@@ -19,3 +19,5 @@
 - Foundation 98: user requested incremental store clerks → consumer shelves → secondary supply crate → requests to distribution-center couriers. First increment implements finite crate-to-shelf replenishment and consumer access; empty-crate requests and distribution-center dispatch are the next requested stages. Keep next-step options aligned with this supply chain.
 
 - Foundation 99: user selected distribution centers before supply requests. Implemented stock-box designation and courier membership with a manual-route center → store → shelf demo. Store requests and automatic fulfillment remain outstanding requested supply-chain stages.
+
+- Foundation 100: user requested empty-crate replenishment orders made by clerks at a phone block, plus collapsible encounter options and clearer inspection of clicked items/events. Keep clicked details first and observation tools easy to find. Courier request acceptance/fulfillment remains outstanding.
