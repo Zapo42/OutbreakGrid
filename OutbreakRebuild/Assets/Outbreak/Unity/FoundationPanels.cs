@@ -47,7 +47,7 @@ namespace Outbreak.UnityAdapter
             if(Section("Placement tools"))DrawPlacementPanel();
             DrawCancelPlacement();
             if(Section("Weapon supplies"))DrawWeaponSupplyPanel();
-            if(Section("Map markers & navigation"))DrawMapMarkerPanel();
+            if(Section("Map markers & navigation")){GUILayout.Label("Building floors: tan = home / shelter; blue = store; green = distribution center.");GUILayout.Label("Storage: chest = home / shelter; cabinet = store; braced crate = distribution.");DrawMapMarkerPanel();}
             if(Section("Technical details"))DrawTechnicalPanel();
         }
         private void DrawClickedItem()
@@ -66,7 +66,7 @@ namespace Outbreak.UnityAdapter
                 if(person.turnAtTick>world.Tick)GUILayout.Label("Turning in "+((person.turnAtTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s");
             }
             else if(selectedStorageBox==0 && selectedShelf==0 && selectedPhone==0 && selectedBatCell<0)GUILayout.Label("Click a human, zombie, shelf, crate or phone to inspect it.");
-            if(selectedStorageBox>0){StorageBoxDocument box=world.StorageBoxAt((selectedStorageBox-1)%world.Width,(selectedStorageBox-1)/world.Width);if(box!=null){GUILayout.Label("STORAGE BOX at "+box.x+", "+box.y);GUILayout.Label("Inventory: "+StorageRules.Used(box)+"/"+box.capacity+" items");if(world.RestockingEnabled)GUILayout.Label("Restock reserve: "+world.EffectiveFoodReserve(box)+" meals");if(world.ReserveTargetsEnabled)DrawStorageReserveControls(box);if(box.items.Length==0)GUILayout.Label("Empty");foreach(ItemStackDocument stack in box.items)GUILayout.Label(stack.item+": "+stack.quantity);}}
+            if(selectedStorageBox>0){StorageBoxDocument box=world.StorageBoxAt((selectedStorageBox-1)%world.Width,(selectedStorageBox-1)/world.Width);if(box!=null){GUILayout.Label("STORAGE BOX at "+box.x+", "+box.y);GUILayout.Label("Building: "+BuildingUseLabel(world.BuildingUseAt(box.x,box.y)));GUILayout.Label("Inventory: "+StorageRules.Used(box)+"/"+box.capacity+" items");if(world.RestockingEnabled)GUILayout.Label("Restock reserve: "+world.EffectiveFoodReserve(box)+" meals");if(world.ReserveTargetsEnabled)DrawStorageReserveControls(box);if(box.items.Length==0)GUILayout.Label("Empty");foreach(ItemStackDocument stack in box.items)GUILayout.Label(stack.item+": "+stack.quantity);}}
             if (selectedShelf > 0) { ShelfDocument shelf = world.ShelfAt((selectedShelf - 1) % world.Width, (selectedShelf - 1) / world.Width); if (shelf != null) GUILayout.Label("Shelf at " + shelf.x + ", " + shelf.y + "\nStock: " + shelf.food + " meals\n" + (shelf.searched ? "Searched: " + shelf.food + " meals remain" : "Unsearched: contents unknown to humans")); }
             if(selectedPhone>0 && selected<0 && selectedStorageBox==0 && selectedShelf==0)GUILayout.Label("PHONE BLOCK at "+((selectedPhone-1)%world.Width)+", "+((selectedPhone-1)/world.Width)+"\nStore clerks use an adjacent cell to call for supplies.");
             if(selectedPhone>0 && selected<0 && selectedStorageBox==0 && selectedShelf==0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.phone==selectedPhone)GUILayout.Label("Order #"+order.id+" | Store #"+order.storeId+"\nRequested: "+order.requestedMeals+" food\nCaller #"+order.requestedBy+" | Awaiting courier");

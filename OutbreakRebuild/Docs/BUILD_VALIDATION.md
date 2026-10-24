@@ -39,4 +39,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 103 | Least-fulfilled request dispatch, age/ID ties, visible policy and preserved rules-82 dispatch | Core: 489 cases / 380966 assertions; UI: 1661 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 
+| 104 | Unity 6000.6.3f1 target, distinct building floors/storage/phones and separate-home visual preview | Core: 490 cases / 380980 assertions; UI: 1676 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

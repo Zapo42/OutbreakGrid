@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 103 / shortage priorities"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 104 / supply-chain building identity"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -225,6 +225,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button("Inspect Box Sharing Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxReportTest());selected=1;status="Step one tick: human #1 tells hungry human #2 about a remembered box behind the wall. Run or step to watch #2 find food using that report.";}));
             if(GUILayout.Button("Inspect Box Memory Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxMemoryTest());selected=0;status="This hungry human previously saw the box on the other side of the wall. Run or step to watch it walk around the corner, check current stock and collect food.";}));
             if(GUILayout.Button("Inspect Restocking Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageRestockTest());selected=0;status="Run or step: the fed human checks the door, collects from its remembered outdoor shelf, returns and stocks the box toward a six-meal reserve.";}));
+            if(GUILayout.Button("Inspect Supply Chain Visuals Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.SupplyChainIdentityTest());showStores=true;showCenters=true;status="Visual preview: tan home at lower left, blue stores, green distribution center. Eight humans have a separate assigned home with six meals. Home shopping is the next increment.";}));
             if(GUILayout.Button("Inspect Multi-Store Supply Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.MultiStoreSupplyTrial());showCenters=true;showStores=true;status="Three stores, two center couriers and eight humans share 34 total meals. The center starts with 26 meals. Run or step game hours to observe competing phone orders, deliveries and shortages.";}));
             if(GUILayout.Button("Inspect Hunger Damage Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.HungerDamageTest());selected=0;status="Maximum hunger and zero energy: Step 50 ticks to see health loss. Food or recovered energy stops the deterioration.";}));
             if(GUILayout.Button("Inspect Courier Fulfillment Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.CourierFulfillmentTest());selected=0;showCenters=true;showStores=true;status="The clerk calls for four meals. A center courier with no manual destinations accepts the order, makes two deliveries and records completion.";}));
@@ -750,6 +751,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish the screen pass.
         private void DrawWorld(Rect bounds) // Draw a bounded terrain texture and only bodies inside its camera range.
         { // Begin viewport rendering.
+            RefreshBuildingPalette();
             float cell = bounds.width / span; int width = Math.Min(world.Width, Math.Max(1, (int)Math.Ceiling(span))), height = Math.Min(world.Height, Math.Max(1, Math.Min(256, (int)Math.Ceiling(bounds.height / cell)))); // Bound texture memory independently from world dimensions.
             int left = Math.Max(0, Math.Min(world.Width - width, (int)(centerX - width / 2f))), top = Math.Max(0, Math.Min(world.Height - height, (int)(centerY - height / 2f))); // Clamp the camera to real logical cells.
             if (terrain == null || textureWidth != width || textureHeight != height) { if (terrain != null) Destroy(terrain); terrain = new Texture2D(width, height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point }; textureWidth = width; textureHeight = height; textureX = -1; } // Reuse one small GPU texture until its dimensions change.
@@ -764,13 +766,13 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             foreach(StorageBoxDocument box in world.StorageBoxSites())
             {
                 if(box.x<left || box.y<top || box.x>=left+width || box.y>=top+height)continue;
-                Rect furniture=new Rect(bounds.x+(box.x-left+0.12f)*cell,bounds.y+(box.y-top+0.12f)*cell,cell*0.76f,cell*0.76f);GUI.color=selectedStorageBox==box.y*world.Width+box.x+1?Color.yellow:new Color(0.32f,0.43f,0.5f);GUI.DrawTexture(furniture,Texture2D.whiteTexture);GUI.color=StorageRules.Used(box)>0?new Color(0.7f,0.85f,0.85f):new Color(0.2f,0.27f,0.3f);GUI.DrawTexture(new Rect(furniture.x+cell*0.09f,furniture.y+cell*0.3f,furniture.width-cell*0.18f,cell*0.1f),Texture2D.whiteTexture);
+                Rect furniture=new Rect(bounds.x+(box.x-left+0.12f)*cell,bounds.y+(box.y-top+0.12f)*cell,cell*0.76f,cell*0.76f);DrawStorageIcon(furniture,world.BuildingUseAt(box.x,box.y),StorageRules.Used(box)>0,selectedStorageBox==box.y*world.Width+box.x+1);
                 if(!confirmReset && !placing.HasValue && !restBrush && !boxBrush && !phoneBrush && shelfBrush<0 && input.type==EventType.MouseDown && input.button==0 && furniture.Contains(input.mousePosition)){int key=box.y*world.Width+box.x+1;Queue(()=>{SetPaused(true);selected=-1;selectedShelf=0;selectedBatCell=-1;selectedStorageBox=key;});input.Use();}
             }
             foreach(PhoneBlockDocument phone in world.PhoneBlocks())
             {
                 if(phone.x<left || phone.y<top || phone.x>=left+width || phone.y>=top+height)continue;
-                Rect block=new Rect(bounds.x+(phone.x-left+0.15f)*cell,bounds.y+(phone.y-top+0.15f)*cell,cell*0.7f,cell*0.7f);GUI.color=new Color(0.18f,0.7f,0.75f);GUI.DrawTexture(block,Texture2D.whiteTexture);GUI.color=Color.white;GUI.DrawTexture(new Rect(block.x+cell*0.12f,block.y+cell*0.22f,cell*0.4f,cell*0.12f),Texture2D.whiteTexture);
+                Rect block=new Rect(bounds.x+(phone.x-left+0.15f)*cell,bounds.y+(phone.y-top+0.15f)*cell,cell*0.7f,cell*0.7f);DrawPhoneIcon(block,selectedPhone==phone.y*world.Width+phone.x+1);
                 if(!confirmReset && !placing.HasValue && !restBrush && !boxBrush && !phoneBrush && shelfBrush<0 && input.type==EventType.MouseDown && input.button==0 && block.Contains(input.mousePosition)){int key=phone.y*world.Width+phone.x+1;Queue(()=>{SetPaused(true);selected=-1;selectedShelf=0;selectedStorageBox=0;selectedBatCell=-1;selectedPhone=key;});input.Use();}
             }
             foreach (ShelfDocument shelf in world.ShelfSites()) { if (shelf.x < left || shelf.y < top || shelf.x >= left + width || shelf.y >= top + height) continue; Rect furniture = new Rect(bounds.x + (shelf.x - left + 0.12f) * cell, bounds.y + (shelf.y - top + 0.12f) * cell, cell * 0.76f, cell * 0.76f); GUI.color = shelf.food == 0 ? new Color(0.4f, 0.4f, 0.36f) : new Color(0.68f, 0.57f, 0.25f); GUI.DrawTexture(furniture, Texture2D.whiteTexture); if (!confirmReset && !placing.HasValue && !restBrush && !boxBrush && !phoneBrush && shelfBrush < 0 && input.type == EventType.MouseDown && input.button == 0 && furniture.Contains(input.mousePosition)) { int key = shelf.y * world.Width + shelf.x + 1; Queue(() => { selectedShelf = key; selectedStorageBox=0;selectedPhone=0;selected = -1; selectedBatCell=-1; }); input.Use(); } } // Gold means stocked and grey means empty for the player; human knowledge remains independent.
@@ -869,7 +871,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private Color ColorForCell(int x, int y,bool forceOpen=false) // Distinguish real door damage from ordinary open and closed terrain.
         { // Begin condition-aware debug coloring.
             int health = world.DoorHealthAt(x, y); if (health == 0) return new Color(0.46f, 0.47f, 0.48f); // Broken doors become grey, preserving their passable state.
-            if (health > 0) { bool open = forceOpen || world.TerrainAt(x, y) == Terrain.DoorOpen; float damage = 1 - health / (float)DoorRules.MaxHealth; return new Color(Mathf.Lerp(open ? 0.39f : 0.70f, open ? 0.47f : 0.72f, damage), Mathf.Lerp(open ? 0.33f : 0.62f, open ? 0.20f : 0.32f, damage), Mathf.Lerp(open ? 0.28f : 0.53f, open ? 0.18f : 0.30f, damage)); } return ColorFor(world.TerrainAt(x, y)); // Muted closed/open browns acquire a continuous red tint as damage accumulates.
+            if (health > 0) { bool open = forceOpen || world.TerrainAt(x, y) == Terrain.DoorOpen; float damage = 1 - health / (float)DoorRules.MaxHealth; return new Color(Mathf.Lerp(open ? 0.39f : 0.70f, open ? 0.47f : 0.72f, damage), Mathf.Lerp(open ? 0.33f : 0.62f, open ? 0.20f : 0.32f, damage), Mathf.Lerp(open ? 0.28f : 0.53f, open ? 0.18f : 0.30f, damage)); } if(world.TerrainAt(x,y)==Terrain.Floor)return BuildingFloorColor(world.BuildingUseAt(x,y));return ColorFor(world.TerrainAt(x, y)); // Muted closed/open browns acquire a continuous red tint as damage accumulates.
         } // Finish terrain feedback.
         private static Color ColorFor(Terrain value) // Keep debug colors in presentation rather than in movement rules.
         { // Begin terrain presentation.

@@ -7,6 +7,13 @@ public static partial class Program
 {
     private static void CheckMultiStoreCases()
     {
+        Check("Supply chain visual preview separates assigned home from work without changing saved food",()=>{
+            World world=EncounterScenarios.SupplyChainIdentityTest();int home=world.HouseAt(4,19);Require(world.Count==8 && world.ShelterRoomCount==5 && world.FoodSupplies().RemainingMeals==40,"Preview omitted the separate home or finite supplies.");
+            for(int i=0;i<world.Count;i++)Require(world.ActorAt(i).assignedHouseId==home,"Worker or consumer lacked the separate assigned home.");
+            Require(world.BuildingUseAt(4,19)==BuildingUse.Home && world.BuildingUseAt(17,3)==BuildingUse.Store && world.BuildingUseAt(5,9)==BuildingUse.DistributionCenter && world.BuildingUseAt(0,0)==BuildingUse.None,"Building metadata confused work, residence or outdoors.");
+            var uses=world.BuildingUses();uses.Clear();Require(world.BuildingUses().Count==5,"Building metadata escaped by reference.");Require(world.HouseholdFoodSupplies(home).Residents==8 && world.HouseholdFoodSupplies(home).BoxMeals==6,"Home food/resident overview was wrong.");Require(world.ActorAt(0).distributionCenterId==319 && world.ActorAt(2).clerkStoreId==121,"Assigning home erased work roles.");
+            Require(State(world)==State(Documents.ParseSave(State(world))) && State(world)==State(EncounterScenarios.SupplyChainIdentityTest()),"Preview did not repeat or save exactly.");
+        });
         Check("Shortage dispatch serves the least fulfilled reported share and preserves legacy order",()=>{
             World world=EncounterScenarios.MultiStoreSupplyTrial();world.TrySetCourierSchedule(0,19,12);world.TrySetCourierSchedule(1,19,12);Run(world,50);
             SaveDocument saved=world.Capture();Require(saved.supplyOrders.Length==3,"Clerks did not report all three shortages.");

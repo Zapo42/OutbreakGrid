@@ -1,4 +1,4 @@
-Current build: **Foundation 103 / shortage priorities**. Couriers prioritize the least fulfilled share of reported store requests, with oldest-first ties and uninterrupted active trips. [Details and upgrade instructions](Docs/SHORTAGE_PRIORITIES.md).
+Current build: **Foundation 104 / supply-chain building identity**. Targets **Unity 6000.6.3f1**. Distinct home/store/distribution floors and storage, a recognizable phone, and a paused preview with a separate assigned home. [Incremental development brief and guide](Docs/HOME_STORE_DISTRIBUTION_PLAN.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
@@ -64,7 +64,7 @@ Humans and the zombie currently perform the same **movement fixture behavior**. 
 
 ## Open the source
 
-1. Extract this folder into a new empty location and add it as a project in Unity Hub using Unity 6. The version marker matches the recovered project's Unity 6.0 baseline; allow your installed Unity 6 editor to perform its normal import. The user's exact installed patch remains unknown.
+1. Extract this folder into a new empty location and add it as a project in Unity Hub using **6000.6.3f1**. This is the required editor target for current and future builds; native import/compilation remains unverified while Unity testing is paused.
 2. Choose **Outbreak → Rebuild → Open and Run Foundation**. This explicitly creates and opens the entry scene and enters Play mode after checking input compatibility. After scene creation you can open `Assets/Scenes/Foundation.unity` and press Play directly. The Game tab shows the runtime interface.
 3. The start screen offers **Start Movement Test**, which begins a fixed 24-human/one-zombie fixture, and **Inspect Movement Test Paused** for deliberate inspection. Middle-drag pans, the wheel zooms, and clicking a body opens its values.
 4. **Outbreak → Rebuild → Build Windows player** builds this foundation when the Windows build module is available. Its actual Unity compilation, dialogs, rendering and EXE behavior still require native verification.

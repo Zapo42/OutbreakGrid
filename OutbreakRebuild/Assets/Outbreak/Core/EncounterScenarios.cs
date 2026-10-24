@@ -280,6 +280,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World SupplyChainIdentityTest()
+        {
+            SaveDocument saved=MultiStoreSupplyTrial().Capture();WorldMap map=WorldMap.Restore(saved.map);
+            AddShelterRoom(map,2,16,false);map.SetStorageBox(new StorageBoxDocument{x=5,y=17,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});map.SetRestSpot(3,21);
+            saved.map=map.Capture();saved.map.name="Home store distribution visual preview";World world=World.Restore(saved);
+            for(int i=0;i<world.Count;i++)world.TryAssignHouse(i,4,19);
+            world.TrySetHouseholdMealsPerResident(world.HouseAt(4,19),HouseholdFoodRules.DefaultMealsPerResident);return world;
+        }
         public static World MultiStoreSupplyTrial(uint seed=214)
         {
             WorldMap map=new WorldMap(35,24,"Multi-store supply district","multi-store-supply-1");

@@ -1,5 +1,7 @@
 # Current development preferences
 
+- Target **Unity 6000.6.3f1** for every future build. Preserve this exact ProjectVersion target and run the configuration check; never claim native compatibility without actual Unity validation.
+- Follow [the home/store/distribution plan](HOME_STORE_DISTRIBUTION_PLAN.md): home supplies and consumer shopping first, occupation shifts/outlines next, then scale and store specialization. Build incrementally.
 - Continue incremental builds and publish each completed build to GitHub with its ZIP download link.
 - Include a few options for the next task after completing a build.
 - Unity testing is paused. Foundation 82 remains the last user-reported working Unity checkpoint until the user explicitly resumes native testing and identifies a newer tested build. Routine acknowledgements do not change this status. Maintain [the validation record](BUILD_VALIDATION.md) and run appropriate automated checks.
@@ -27,3 +29,5 @@
 - Foundation 102: user selected a multi-store scenario with several stores/couriers sharing finite stock. Added three stores, two couriers and eight humans, and corrected the order-list status/remaining quantity display. Existing survival damage and collapsible inspection remain active.
 
 - Foundation 103: user selected shortage priorities. Dispatch compares the fulfilled fraction of reported requests, then age/ID; active trips and legacy rules remain unchanged. This does not use hidden live stock or guarantee equal lifetime allocations.
+
+- Foundation 104: user requested a refined prompt before execution, Unity 6000.6.3f1, distinct building/storage/phone visuals, assigned-home food checks and intelligence-led shopping/return deposits, occupation outlines and off-duty home routines. First increment pins the editor target and adds visual distinctions/separate-home preview. Routine distribution-center wandering, shopping and new shifts are still upcoming; do not present them as fixed.

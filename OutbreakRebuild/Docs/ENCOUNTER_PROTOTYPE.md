@@ -8,7 +8,7 @@ This user-selected milestone adds a small playable encounter ahead of the broade
 
 1. Extract the delivered ZIP into a new folder; preserve your existing projects.
 2. In Unity Hub, choose Add > Add project from disk and select `OutbreakRebuild` (the folder containing Assets, Packages and ProjectSettings).
-3. Open using Unity 6. The project records 6000.0.0f1; native import with your installed patch still needs verification.
+3. Open using Unity **6000.6.3f1**, the required editor target from Foundation 104 onward. Native import still needs verification.
 4. Choose Outbreak > Rebuild > Open and Run Foundation.
 5. In the Game view choose **Start Encounter** for the 24-human arena, or **Inspect Corner Pursuit Paused** for the new two-actor obstacle scenario.
 6. In the corner scenario select zombie #1, then use Step 10 ticks. After the first step its remembered cell is (5, 3), while the human has rounded the wall. After the next step it has reached the corner and reacquired the human through actual sight.

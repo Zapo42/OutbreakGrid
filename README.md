@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 103 / shortage priorities**. Couriers prioritize the least fulfilled share of reported store requests, with oldest-first ties and uninterrupted active trips. [Details and upgrade instructions](OutbreakRebuild/Docs/SHORTAGE_PRIORITIES.md).
+Current build: **Foundation 104 / supply-chain building identity**. Targets **Unity 6000.6.3f1**. Distinct home/store/distribution floors and storage, a recognizable phone, and a paused preview with a separate assigned home. [Incremental development brief and guide](OutbreakRebuild/Docs/HOME_STORE_DISTRIBUTION_PLAN.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 
@@ -13,7 +13,7 @@ Unity 6 Outbreak Simulator rebuild. The configurable encounter includes the smal
 1. Click the green **Code** button above, then **Download ZIP**.
 2. Extract into a new folder to preserve your existing projects.
 3. In Unity Hub choose **Add project from disk** and select **OutbreakRebuild**, the folder containing Assets, Packages and ProjectSettings.
-4. Open with Unity 6, then choose **Outbreak > Rebuild > Open and Run Foundation**.
+4. Open with Unity **6000.6.3f1**, then choose **Outbreak > Rebuild > Open and Run Foundation**.
 5. Choose **Set Up Encounter**, select **Shelter district (100 x 100)**, enter your human/zombie counts and **Bats at start** (six by default, zero for unarmed) and click **Start configured encounter**. It starts paused by default; click **Run** or use tick buttons. **Start Encounter** remains the quick 24-human/one-zombie start.
 6. During simulation, use **Main Menu** to pause and return; **Resume current run** preserves it. Use **Restart scenario** beside Main Menu to return to the same starting setup, paused. Step **1, 10, 50 or 100** ticks while paused. Food-enabled runs also offer **Step 1 game hour** in the food overview.
 
