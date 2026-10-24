@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 96 / household food targets**. Set meals per assigned resident and share the resulting reserve across household boxes. Away residents count; visitors do not. Restockers and couriers use the targets while preserving manual overrides. See [setup and behavior](OutbreakRebuild/Docs/HOUSEHOLD_FOOD_TARGETS.md).
+Current build: **Foundation 97 / courier schedules**. Configure daily work shifts, including overnight shifts. Couriers finish active trips when a shift ends, then return home without starting another delivery. See [setup and behavior](OutbreakRebuild/Docs/COURIER_SCHEDULES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

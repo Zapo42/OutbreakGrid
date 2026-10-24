@@ -98,6 +98,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int assignedHouseId,courierSourceBox,courierNextBox;
         [DataMember(EmitDefaultValue=false)] public int[] courierBoxes;
         [DataMember(EmitDefaultValue=false)] public bool courierReturningHome;
+        [DataMember(EmitDefaultValue=false)] public int courierShiftStartHour,courierShiftHours;
         [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
         [DataMember(EmitDefaultValue=false)] public long restockUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;

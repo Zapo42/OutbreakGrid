@@ -34,15 +34,15 @@ namespace Outbreak.Core
             int[] old=actor.courierBoxes??new int[0];int existing=Array.IndexOf(old,key);
             if(existing<0 && old.Length>=CourierRules.MaxDestinations)return false;
             int[] next=new int[old.Length+(existing<0?1:-1)];int n=0;for(int i=0;i<old.Length;i++)if(i!=existing)next[n++]=old[i];if(existing<0)next[n]=key;
-            actor.courierBoxes=next.Length==0?null:next;actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
+            actor.courierBoxes=next.Length==0?null:next;if(actor.courierBoxes==null)ClearCourierSchedule(ref actor);actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
         public bool TryClearCourierRoute(int index)
         {
-            if(!CanEditCourier(index))return false;ActorState actor=actors[index];actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
+            if(!CanEditCourier(index))return false;ActorState actor=actors[index];ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
         private static void ClearCourierAssignment(ref ActorState actor)
         {
-            actor.assignedHouseId=0;actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
+            actor.assignedHouseId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
         }
         private bool AssignedCourierDepartureAllowed(ActorState actor,Room room,int threat)
         {
@@ -54,7 +54,7 @@ namespace Outbreak.Core
         }
         private bool StartAssignedCourierJob(int index,ref ActorState actor,int threat)
         {
-            if(actor.courierBoxes==null || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
+            if(!CourierWorkingNow(actor) || actor.courierBoxes==null || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
             Room current=FindRoom(actor.shelterId);if(current==null || !current.Contains(Key(actor.x,actor.y)))return false;
             int sourceKey=actor.courierSourceBox-1;StorageBoxDocument source=map.StorageBoxAt(sourceKey%Width,sourceKey/Width);int food,space;
             if(source==null || source.blockDonations || (KnownStorageState(actor,source,out food,out space) && food>=0 && food<=EffectiveFoodReserve(source)))return false;

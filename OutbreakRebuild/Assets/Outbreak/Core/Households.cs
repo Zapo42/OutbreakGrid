@@ -7,6 +7,7 @@ namespace Outbreak.Core
     {
         public int ActorIndex,Id,CurrentHouseId;
         public bool AtHome,Courier,Infected,Busy;
+        public string CourierStatus;
     }
     public sealed class HouseholdOverview
     {
@@ -31,7 +32,7 @@ namespace Outbreak.Core
                     bool inside=room.Contains(Key(actor.x,actor.y));
                     if(actor.assignedHouseId!=room.id){if(inside)row.Visitors++;continue;}
                     if(inside)row.AtHome++;
-                    residents.Add(new HouseholdResident{ActorIndex=i,Id=actor.id,CurrentHouseId=HouseAt(actor.x,actor.y),AtHome=inside,Courier=actor.courierBoxes!=null,Infected=actor.turnAtTick!=0,Busy=actor.restockPhase!=RestockPhase.None});
+                    residents.Add(new HouseholdResident{ActorIndex=i,Id=actor.id,CurrentHouseId=HouseAt(actor.x,actor.y),AtHome=inside,Courier=actor.courierBoxes!=null,Infected=actor.turnAtTick!=0,Busy=actor.restockPhase!=RestockPhase.None,CourierStatus=actor.courierBoxes==null?null:CourierScheduleStatus(i)});
                 }
                 row.Residents=residents.ToArray();result[r]=row;
             }

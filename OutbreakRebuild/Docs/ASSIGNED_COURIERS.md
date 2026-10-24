@@ -31,3 +31,5 @@ Open **Inspect Assigned Courier Paused**. The courier starts in the source house
 Automated checks cover physical near/far deliveries and return home, exact saved continuation, separate boxes in one house, same-house transfers, hidden-stock privacy, defensive copies, editing restrictions, donation controls, malformed/legacy saves, conversion cleanup, and the UI assignment/upgrade/restart paths. Native Unity testing remains paused after Foundation 82; `foundation-82-unity-checkpoint` remains unchanged.
 
 Foundation 95 adds [household rosters and resident reassignment](HOUSEHOLD_MANAGEMENT.md) while preserving courier source/destination routes.
+
+Foundation 97 adds optional [daily courier work/rest schedules](COURIER_SCHEDULES.md), preserving active trips at shift end.

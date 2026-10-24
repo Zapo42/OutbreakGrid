@@ -280,6 +280,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World CourierScheduleTest()
+        {
+            SaveDocument saved=AssignedCourierTest().Capture();saved.tick=11*Rules.TicksPerGameHour+540;saved.map.name="Courier shift-end test";World world=World.Restore(saved);world.TrySetCourierSchedule(0,7,12);return world;
+        }
         public static World HouseholdFoodTargetsTest()
         {
             SaveDocument saved=HouseholdManagementTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetStorageBox(new StorageBoxDocument{x=2,y=7,capacity=30,items=new ItemStackDocument[0]});saved.map=map.Capture();saved.map.name="Household food targets test";World world=World.Restore(saved);
