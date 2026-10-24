@@ -68,7 +68,7 @@ namespace Outbreak.Core
         {
             if(!ReserveTargetsEnabled)return false;StorageBoxDocument box=map.StorageBoxAt(x,y);
             if(box==null || target<0 || target>box.capacity)return false;
-            box.foodReserve=target==Math.Min(RestockRules.ReserveMeals,box.capacity)?(int?)null:target;map.SetStorageBox(box);return true;
+            box.foodReserve=target==Math.Min(RestockRules.ReserveMeals,box.capacity) && HouseholdMealsPerResident(HouseAt(x,y))==0?(int?)null:target;map.SetStorageBox(box);return true;
         }
         public bool TrySetStorageDonations(int x,int y,bool allowed)
         {

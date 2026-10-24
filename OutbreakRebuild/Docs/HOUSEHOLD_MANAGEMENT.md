@@ -23,3 +23,5 @@ Open **Inspect Households Paused**. House **#183** has two assigned residents: o
 Try moving the courier to house #222: their source and two destination boxes remain intact, and their body stays where it is. Try selecting an unassigned resident and assigning a home. Save/reload, step, and restart to inspect checkpoint behavior. Completed tasks are required before further home changes.
 
 Automated checks cover roster membership, home/away/visitor counts, independent snapshots, preserved cargo and routes, saved continuation, home removal, busy/infected editing restrictions, conversion cleanup, legacy rules and UI controls. Native Unity remains untested after Foundation 82; `foundation-82-unity-checkpoint` is unchanged.
+
+Foundation 96 adds opt-in [food reserves per assigned resident](HOUSEHOLD_FOOD_TARGETS.md), shared across household storage boxes.

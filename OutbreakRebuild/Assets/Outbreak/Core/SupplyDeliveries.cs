@@ -17,7 +17,7 @@ namespace Outbreak.Core
             StorageBoxDocument best=null;int steps=int.MaxValue;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
-                int food,space;if((DeliveryControlsEnabled && box.blockDonations) || home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=StorageRules.FoodReserve(box))continue;
+                int food,space;if((DeliveryControlsEnabled && box.blockDonations) || home.Contains(Key(box.x,box.y)) || !KnownStorageState(actor,box,out food,out space) || food<=EffectiveFoodReserve(box))continue;
                 Room sourceRoom=null;foreach(Room room in rooms)if(room.Contains(Key(box.x,box.y))){sourceRoom=room;break;}
                 if(sourceRoom==null || sourceRoom.id==actor.rejectedShelterId || KnownRoomDanger(actor,sourceRoom) || RoomAdmissions(sourceRoom,actor.id)>=sourceRoom.Capacity)continue;
                 for(int d=0;d<8;d+=2)
@@ -32,7 +32,7 @@ namespace Outbreak.Core
         {
             direction=8;int key=actor.restockSourceBox-1;StorageBoxDocument box=map.StorageBoxAt(key%Width,key/Width);Room room=DeliverySourceRoom(actor);
             if(box==null || (DeliveryControlsEnabled && box.blockDonations) || room==null || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || (!room.Contains(Key(actor.x,actor.y)) && RoomAdmissions(room,actor.id)>=room.Capacity))return false;
-            int knownFood,knownSpace;if(KnownStorageState(actor,box,out knownFood,out knownSpace) && knownFood>=0 && knownFood<=StorageRules.FoodReserve(box))return false;
+            int knownFood,knownSpace;if(KnownStorageState(actor,box,out knownFood,out knownSpace) && knownFood>=0 && knownFood<=EffectiveFoodReserve(box))return false;
             int best=int.MaxValue,goal=-1;
             for(int d=0;d<8;d+=2)
             {
@@ -53,7 +53,7 @@ namespace Outbreak.Core
                 }
                 actors[index]=actor;return true;
             }
-            int take=Math.Min(HungerRules.CarryLimit-actor.carriedFood,Math.Max(0,StorageRules.Count(box,InventoryItem.Food)-StorageRules.FoodReserve(box)));
+            int take=Math.Min(HungerRules.CarryLimit-actor.carriedFood,Math.Max(0,StorageRules.Count(box,InventoryItem.Food)-EffectiveFoodReserve(box)));
             if(take<=0){RememberStorage(ref actor,StorageObservation(box));actors[index]=actor;return false;}
             StorageBoxDocument updated=StorageRules.Copy(box);StorageRules.ChangeFood(updated,-take);map.SetStorageBox(updated);RememberStorage(ref actor,StorageObservation(updated));actor.carriedFood+=take;actor.restockPhase=RestockPhase.Returning;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Recheck actual surplus for each pickup, protecting the donor even under concurrent visits.
         }

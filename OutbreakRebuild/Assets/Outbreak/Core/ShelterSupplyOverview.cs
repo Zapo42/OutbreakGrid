@@ -4,17 +4,17 @@ namespace Outbreak.Core
 {
     public struct ShelterSupplyOverview
     {
-        public int RoomId,FocusX,FocusY,Occupants,Hungry,VeryHungry,CarriedMeals,BoxMeals,ShelfMeals,Boxes,BoxesBelowTarget,ReserveDeficit,RestockingTrips,IncomingDeliveries,OutgoingDeliveries;
+        public int UnallocatedMeals,AssignedResidents,RoomId,FocusX,FocusY,Occupants,Hungry,VeryHungry,CarriedMeals,BoxMeals,ShelfMeals,Boxes,BoxesBelowTarget,ReserveDeficit,RestockingTrips,IncomingDeliveries,OutgoingDeliveries;
         public int Meals { get { return CarriedMeals+BoxMeals+ShelfMeals; } }
         public bool ShortOnMeals { get { return Occupants>0 && Meals<Occupants; } }
-        public bool NeedsAttention { get { return ShortOnMeals || ((Occupants>0 || RestockingTrips>0) && ReserveDeficit>0); } }
+        public bool NeedsAttention { get { return ShortOnMeals || ((Occupants>0 || AssignedResidents>0 || RestockingTrips>0) && (ReserveDeficit>0 || UnallocatedMeals>0)); } }
         public string Status
         {
             get
             {
-                if(Occupants==0 && RestockingTrips==0)return "UNOCCUPIED";
+                if(Occupants==0 && AssignedResidents==0 && RestockingTrips==0)return "UNOCCUPIED";
                 if(ShortOnMeals)return Meals==0?"NO FOOD":"LOW FOOD";
-                return ReserveDeficit>0?"BELOW RESERVE":"SUPPLIED";
+                return ReserveDeficit>0 || UnallocatedMeals>0?"BELOW RESERVE":"SUPPLIED";
             }
         }
     }
@@ -28,6 +28,7 @@ namespace Outbreak.Core
                 Room room=rooms[r];ShelterSupplyOverview supply=new ShelterSupplyOverview{RoomId=room.id};
                 int minX=Width,minY=Height,maxX=0,maxY=0;
                 foreach(int key in room.cells){int x=key%Width,y=key/Width;minX=Math.Min(minX,x);maxX=Math.Max(maxX,x);minY=Math.Min(minY,y);maxY=Math.Max(maxY,y);}
+                if(HouseholdMealsPerResident(room.id)>0){HouseholdFoodSupply household=HouseholdFoodSupplies(room.id);supply.AssignedResidents=household.Residents;supply.UnallocatedMeals=household.UnallocatedMeals;}
                 supply.FocusX=(minX+maxX)/2;supply.FocusY=(minY+maxY)/2;
                 for(int i=0;i<count;i++)
                 {
@@ -43,7 +44,7 @@ namespace Outbreak.Core
                 {
                     if(!room.Contains(Key(box.x,box.y)))continue;
                     int food=StorageRules.Count(box,InventoryItem.Food);supply.Boxes++;supply.BoxMeals+=food;
-                    int deficit=RestockingEnabled?Math.Max(0,StorageRules.FoodReserve(box)-food):0;
+                    int deficit=RestockingEnabled?Math.Max(0,EffectiveFoodReserve(box)-food):0;
                     supply.ReserveDeficit+=deficit;if(deficit>0)supply.BoxesBelowTarget++;
                 }
                 foreach(ShelfDocument shelf in map.ShelfRecords)if(room.Contains(Key(shelf.x,shelf.y)))supply.ShelfMeals+=shelf.food;

@@ -1,4 +1,4 @@
-Latest build: [Foundation 95 / household management](Docs/HOUSEHOLD_MANAGEMENT.md).
+Latest build: [Foundation 96 / household food targets](Docs/HOUSEHOLD_FOOD_TARGETS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

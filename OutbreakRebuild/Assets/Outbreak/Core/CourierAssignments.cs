@@ -57,12 +57,12 @@ namespace Outbreak.Core
             if(actor.courierBoxes==null || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
             Room current=FindRoom(actor.shelterId);if(current==null || !current.Contains(Key(actor.x,actor.y)))return false;
             int sourceKey=actor.courierSourceBox-1;StorageBoxDocument source=map.StorageBoxAt(sourceKey%Width,sourceKey/Width);int food,space;
-            if(source==null || source.blockDonations || (KnownStorageState(actor,source,out food,out space) && food>=0 && food<=StorageRules.FoodReserve(source)))return false;
+            if(source==null || source.blockDonations || (KnownStorageState(actor,source,out food,out space) && food>=0 && food<=EffectiveFoodReserve(source)))return false;
             for(int n=0;n<actor.courierBoxes.Length;n++)
             {
                 int cursor=(actor.courierNextBox+n)%actor.courierBoxes.Length,key=actor.courierBoxes[cursor]-1;
                 StorageBoxDocument target=map.StorageBoxAt(key%Width,key/Width);Room destination=FindRoom(HouseAt(key%Width,key/Width));int goal,length;
-                if(target==null || StorageRules.FoodReserve(target)==0 || RestockClaimed(key+1,actor.id) || (KnownStorageState(actor,target,out food,out space) && (space==0 || food>=StorageRules.FoodReserve(target))) || !FoodReturnGoal(actor,destination,0,out goal,out length))continue;
+                if(target==null || EffectiveFoodReserve(target)==0 || RestockClaimed(key+1,actor.id) || (KnownStorageState(actor,target,out food,out space) && (space==0 || food>=EffectiveFoodReserve(target))) || !FoodReturnGoal(actor,destination,0,out goal,out length))continue;
                 actor.courierNextBox=(cursor+1)%actor.courierBoxes.Length;actor.courierReturningHome=false;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);
                 actor.restockSourceBox=actor.courierSourceBox;actor.restockBox=key+1;actor.restockHomeId=destination.id;actor.restockPhase=RestockPhase.Collecting;actor.restockUntilTick=Tick+CourierRules.TaskTicks;actors[index]=actor;return true;
             }

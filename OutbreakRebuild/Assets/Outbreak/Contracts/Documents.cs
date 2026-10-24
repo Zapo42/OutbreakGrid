@@ -137,6 +137,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public int shelterExitDoor, shelterExitX, shelterExitY; // Save one door key plus one and its adjacent outdoor destination.
         [DataMember] public long rejectedUntilTick; // Bound unsafe-room avoidance on the same simulation clock.
     } // Finish a stable actor record.
+    [DataContract] public sealed class HouseholdFoodTargetDocument
+    {
+        [DataMember(IsRequired=true)] public int houseId,mealsPerResident;
+    }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.
         [DataMember(IsRequired = true)] public string kind = "outbreak.save"; // Keep a running save distinct from a reusable map.
@@ -145,6 +149,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public MapDocument map; // Own the exact terrain and preserved authoring payload.
         [DataMember(IsRequired = true)] public long tick; // Restore the logical clock without replaying elapsed time.
         [DataMember(EmitDefaultValue=false)] public int infectionTimeScale;
+        [DataMember(EmitDefaultValue=false)] public HouseholdFoodTargetDocument[] householdFoodTargets;
         [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.
         [DataMember(IsRequired = true)] public int nextId, capacity; // Preserve future identity allocation and the population limit.
