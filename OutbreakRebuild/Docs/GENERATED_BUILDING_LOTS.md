@@ -1,0 +1,17 @@
+# Foundation 112 — generated building lots and entrance paths
+
+Choose **Inspect Generated Buildings Paused** or **Inspect Generated Buildings Alternate Seed Paused** from the main menu. The previews use seeds 214 and 999. Run or step to observe the existing supply chain; click humans, chests, store crates or the distribution box for details. Restart restores the original geometry, roles, inventory and clock.
+
+Each of the eight street blocks gets one generated building. The seed varies its position and its 7–10-cell width/height. Every building is enclosed, has a south-facing door, and has an uninterrupted sidewalk path from the doorway to the block's existing sidewalk. Construction preserves all roads, intersection crosswalks, perimeter sidewalks and map borders. Footprints stay inside their blocks and do not overlap.
+
+The preview designates five homes, two stores and one distribution center. All five humans have different assigned homes. One courier starts at the center and two clerks start at their stores, with 07–19 shifts; two consumers start at home. Existing floor colors and storage shapes identify building use. Homes have a chest and bed; stores have a supply crate, shelf, phone and bed; the center has stock storage and a bed. The role pattern is deliberately fixed for this first lot-generation step, while geometry changes with the seed.
+
+Starting food is finite: 40 center meals, four meals on each store shelf, two meals in each of five homes, and one carried ration per human: **63 meals total**. Store crates start empty, so clerks can make phone requests and the courier can begin existing replenishment work. This scenario does not generate food as time passes. Routine consumers still use their personal observations and memories; generation does not give them global shop-stock knowledge.
+
+`CityGenerator.BuildingLots(seed, columns, rows)` supports 1–6 blocks on each axis, within the existing room discovery limits. This geometry API returns a detached map and building records. The playable previews use four by two blocks and a small authored population. Population size, room furnishing, resident/job counts and role distribution are not yet a general city-population generator. Buildings currently use simple rectangles and one entrance; irregular lots, multi-room buildings, multiple entrances, driveways, parking and vehicles remain later work.
+
+Terrain, furniture, assignments and jobs save through existing documents. Loading a save restores actual generated terrain and current inventory; it does not regenerate or replenish the city. No simulation-rule change or save upgrade is required: current new scenarios still use encounter-prototype-89. Safe sidewalk/crosswalk preferences and the corrected final doorway approach remain active.
+
+Checks cover multiple seeds at 1×1, 4×4 and 6×6 blocks, room enclosure/discovery, direct door-path reachability, exact preservation of existing street tiles, reproducible geometry, finite initial stock, separate homes and jobs, phone orders and saved continuation. UI API doubles cover both seed buttons, paused startup and restart. Native Unity 6000.6.3f1 rendering, input and performance remain unverified; the Foundation 82 testing checkpoint stays unchanged.
+
+Future inventory categories remain **supplies**, **medical** and **ammo**. This increment retains existing food-only storage and does not add weapon storage.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Outbreak.Core
 {
     // First generation stage: deterministic connected street blocks; no population or hidden supplies.
-    public static class CityGenerator
+    public static partial class CityGenerator
     {
         public static WorldMap Streets(uint seed,int columns=4,int rows=2)
         {

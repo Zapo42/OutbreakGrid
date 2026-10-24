@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 111 / pedestrian street routes**. Targets **Unity 6000.6.3f1**. Safe walking plans favor sidewalks and crosswalks, with ordinary crossings available when needed. [Guide and limits](OutbreakRebuild/Docs/PEDESTRIAN_STREET_ROUTES.md).
+Current build: **Foundation 112 / generated building lots**. Targets **Unity 6000.6.3f1**. Seeded buildings with connected sidewalk entrances, five assigned homes, two stores and one distribution center. [Guide and limits](OutbreakRebuild/Docs/GENERATED_BUILDING_LOTS.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

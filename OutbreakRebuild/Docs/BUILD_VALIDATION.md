@@ -55,4 +55,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 111 | Safe sidewalk/crosswalk preference, fallback road crossings, straight final approaches and Generated City doorway-arc fix | Core: 527 cases / 432319 assertions; focused pedestrian/doorway checks: 5 cases / 868 assertions; UI: 1891 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 112 | Seeded building lots, connected entrance paths, preserved street tiles and configured homes/stores/center previews | Core: 529 cases / 496291 assertions; UI: 1899 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

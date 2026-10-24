@@ -47,3 +47,5 @@
 - Foundation 111: user selected pedestrian sidewalk/crosswalk preference. Safe route planning favors those tiles while allowing fallback road crossings; threat-aware routes preserve escape choices and actual travel still costs energy. Existing saves retain old rules until explicitly upgraded. Continue toward generated building lots/entrances; future item categories remain supplies/medical/ammo.
 
 - During Foundation 111 development the user reported a sideways deviation before a Generated City doorway. Reproduced the old local-search arc and retained A* scoring through the final approach; cover both that doorway trace and a clear straight approach in regression checks.
+
+- Foundation 112: user selected generated building lots and sidewalk entrance connections. Geometry generation varies building footprints/placement by seed, preserves streets/crosswalks and supports 1–6 blocks per axis. The playable preview uses five separate homes, two stores, one center and five assigned humans; no generalized population or zoning model is claimed. Preserve the corrected approach routing, future supplies/medical/ammo categories and existing food-only storage.

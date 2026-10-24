@@ -1,4 +1,4 @@
-Current build: **Foundation 111 / pedestrian street routes**. Targets **Unity 6000.6.3f1**. Safe walking plans favor sidewalks and crosswalks, with ordinary crossings available when needed. [Guide and limits](Docs/PEDESTRIAN_STREET_ROUTES.md).
+Current build: **Foundation 112 / generated building lots**. Targets **Unity 6000.6.3f1**. Seeded buildings with connected sidewalk entrances, five assigned homes, two stores and one distribution center. [Guide and limits](Docs/GENERATED_BUILDING_LOTS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

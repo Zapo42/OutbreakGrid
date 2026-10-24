@@ -280,6 +280,28 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World GeneratedBuildingTrial(uint seed=214)
+        {
+            GeneratedDistrict district=CityGenerator.BuildingLots(seed);WorldMap map=district.Map;
+            var homes=new System.Collections.Generic.List<GeneratedBuilding>();var jobs=new System.Collections.Generic.List<GeneratedBuilding>();
+            foreach(GeneratedBuilding building in district.Buildings)
+            {
+                int food=building.Use==BuildingUse.DistributionCenter?40:building.Use==BuildingUse.Home?2:0;
+                map.SetStorageBox(new StorageBoxDocument{x=building.BoxX,y=building.BoxY,capacity=building.Use==BuildingUse.DistributionCenter?60:12,foodReserve=building.Use==BuildingUse.Home?2:4,items=food==0?new ItemStackDocument[0]:new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=food}}});
+                map.SetRestSpot(building.Left+1,building.Top+building.Height-2);
+                if(building.Use==BuildingUse.Store){map.SetShelf(building.Left+2,building.Top+2,4,true);map.SetPhone(building.Left+3,building.Top+2);}
+                if(building.Use==BuildingUse.Home)homes.Add(building);else jobs.Add(building);
+            }
+            World world=new World(map,seed,1000,true,hunger:true);int id;
+            foreach(GeneratedBuilding building in jobs)
+            {
+                if(building.Use==BuildingUse.DistributionCenter)world.TryConfigureDistributionCenter(building.BoxX,building.BoxY);else world.TryConfigureStore(building.BoxX,building.BoxY);
+                int index=world.Count;world.TrySpawn(Species.Human,building.Left+1,building.Top+2,out id);GeneratedBuilding home=homes[index];world.TryAssignHouse(index,home.Left+1,home.Top+1);
+                if(building.Use==BuildingUse.DistributionCenter){world.TryAssignDistributionCourier(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetCourierSchedule(index,7,12);}else{world.TryAssignClerk(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetClerkSchedule(index,7,12);}
+            }
+            for(int i=jobs.Count;i<homes.Count;i++){GeneratedBuilding home=homes[i];int index=world.Count;world.TrySpawn(Species.Human,home.Left+1,home.Top+2,out id);world.TryAssignHouse(index,home.Left+1,home.Top+1);}
+            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}return World.Restore(saved);
+        }
         public static World PedestrianCrossingTrial()
         {
             WorldMap map=new WorldMap(34,20,"Pedestrian crossing trial","pedestrian-crossing-1");
