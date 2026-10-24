@@ -41,11 +41,11 @@ namespace Outbreak.Core
         private ShelfDocument ChooseRememberedShelf(ActorState actor, Room insideRoom)
         {
             if (actor.shelfMemory == null) return null;
-            if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && !AvoidBlockedFood(actor,current.x,current.y) && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
+            if(SearchCoordination && actor.foodUntilTick>Tick)foreach(ShelfMemoryRecord current in actor.shelfMemory)if(current.x==actor.foodX && current.y==actor.foodY && current.food!=0 && RoutineFoodSiteAllowed(actor,current.x,current.y) && !AvoidBlockedFood(actor,current.x,current.y) && (insideRoom==null || insideRoom.Contains(Key(current.x,current.y))) && (actor.shelfSearchProgress>0 || (!VisibleShelfSearch(actor,current.x,current.y) && ReachableSearchAlternative(actor,current))))return new ShelfDocument{x=current.x,y=current.y}; // Keep a reachable chosen task during travel and search instead of switching when another shelf becomes free.
             ShelfMemoryRecord best = new ShelfMemoryRecord(); int rank = -1, distance = int.MaxValue;bool bestReachable=false;
             foreach(ShelfMemoryRecord note in actor.shelfMemory)
             {
-                if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))))continue;
+                if(!RoutineFoodSiteAllowed(actor,note.x,note.y) || note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))))continue;
                 int priority=note.food>0?1:0,metric=DistanceSquared(actor,new ActorState{x=note.x,y=note.y});bool reachable=false;
                 if(FoodRouteChoice){int route=FoodShelfRouteLength(actor,note);reachable=route<int.MaxValue;if(reachable)metric=route;}
                 if(rank<0 || (reachable && !bestReachable) || (reachable==bestReachable && (priority>rank || (priority==rank && BetterFoodYield(actor,note,metric,best,distance,reachable))))){best=note;rank=priority;distance=metric;bestReachable=reachable;}
@@ -55,7 +55,7 @@ namespace Outbreak.Core
                 ShelfMemoryRecord alternative=new ShelfMemoryRecord();int alternativeRank=-1,alternativeDistance=int.MaxValue;
                 foreach(ShelfMemoryRecord note in actor.shelfMemory)
                 {
-                    if(note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || (!FoodRouteChoice && !ReachableSearchAlternative(actor,note)))continue;
+                    if(!RoutineFoodSiteAllowed(actor,note.x,note.y) || note.food==0 || AvoidBlockedFood(actor,note.x,note.y) || (insideRoom!=null && !insideRoom.Contains(Key(note.x,note.y))) || VisibleShelfSearch(actor,note.x,note.y) || (!FoodRouteChoice && !ReachableSearchAlternative(actor,note)))continue;
                     int priority=note.food>0?1:0,squared=FoodRouteChoice?FoodShelfRouteLength(actor,note):DistanceSquared(actor,new ActorState{x=note.x,y=note.y});if(squared==int.MaxValue)continue;
                     if(priority>alternativeRank || (priority==alternativeRank && BetterFoodYield(actor,note,squared,alternative,alternativeDistance,FoodRouteChoice))){alternative=note;alternativeRank=priority;alternativeDistance=squared;}
                 }

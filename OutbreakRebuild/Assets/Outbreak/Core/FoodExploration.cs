@@ -56,7 +56,7 @@ namespace Outbreak.Core
             if(actor.foodExploreRoomId!=0)
             {
                 Room current=FindRoom(actor.foodExploreRoomId);
-                if(current==null || current.id!=actor.shelterId){ClearFoodExploration(ref actor);return;}
+                if(current==null || !RoutineFoodSiteAllowed(actor,current.cells[0]%Width,current.cells[0]/Width) || current.id!=actor.shelterId){ClearFoodExploration(ref actor);return;}
                 if(KnownRoomDanger(actor,current) || (inside==null && RoomAdmissions(current,actor.id)>=current.Capacity) || ShelterRoute(actor,actor.shelterX,actor.shelterY,threats,out length,foodRoute:true)<0){CancelFoodExploration(index,ref actor);return;}
                 if(actor.x==actor.shelterX && actor.y==actor.shelterY){RememberFoodRoom(ref actor,current.id);ClearFoodExploration(ref actor);}
                 return; // Ordinary shelter movement performs entry and closure, without starting a hungry departure mid-investigation.
@@ -64,7 +64,7 @@ namespace Outbreak.Core
             if(actor.shelterId!=0 && inside==null)return;Room best=null;int bestGoal=-1,bestLength=int.MaxValue;
             foreach(Room room in rooms)
             {
-                if((inside!=null && room!=inside) || RecentlyInvestigated(actor,room.id) || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || RoomAdmissions(room,actor.id)>=room.Capacity || !SeenFoodEntrance(actor,room))continue;
+                if(!RoutineFoodSiteAllowed(actor,room.cells[0]%Width,room.cells[0]/Width) || (inside!=null && room!=inside) || RecentlyInvestigated(actor,room.id) || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || RoomAdmissions(room,actor.id)>=room.Capacity || !SeenFoodEntrance(actor,room))continue;
                 int goal=PickShelterCell(room,actor);if(goal<0 || ShelterRoute(actor,goal%Width,goal/Width,threats,out length,foodRoute:true)<0 || length>=bestLength)continue;
                 best=room;bestGoal=goal;bestLength=length;
             }

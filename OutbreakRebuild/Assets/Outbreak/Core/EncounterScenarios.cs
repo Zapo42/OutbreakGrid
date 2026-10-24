@@ -280,6 +280,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World HomeSupplyInspectionTest()
+        {
+            WorldMap map=new WorldMap(32,18,"Assigned home supply inspection","home-supply-inspection-1");
+            for(int y=1;y<=14;y++)for(int x=1;x<=14;x++)map.Set(x,y,x==1 || x==14 || y==1 || y==14?Terrain.Wall:Terrain.Floor);
+            map.Set(14,7,Terrain.DoorClosed);map.SetStorageBox(new StorageBoxDocument{x=12,y=12,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});
+            AddShelterRoom(map,21,2,false);map.SetStorageBox(new StorageBoxDocument{x=24,y=3,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=20}}});map.SetShelf(23,7,5,true);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,2,2,out id);world.TryAssignHouse(0,2,2);world.TryConfigureDistributionCenter(24,3);world.TrySetHouseholdMealsPerResident(world.HouseAt(2,2),3);
+            SaveDocument saved=world.Capture();saved.actors[0].hunger=10;saved.actors[0].carriedFood=1;saved.actors[0].shelterId=world.HouseAt(2,2);saved.actors[0].shelterX=2;saved.actors[0].shelterY=2;saved.actors[0].shelterState=ShelterState.Inside;return World.Restore(saved);
+        }
         public static World SupplyChainIdentityTest()
         {
             SaveDocument saved=MultiStoreSupplyTrial().Capture();WorldMap map=WorldMap.Restore(saved.map);

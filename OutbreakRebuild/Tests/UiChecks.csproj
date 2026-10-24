@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <UseAppHost>false</UseAppHost> <!-- Launch the intended DLL; these harnesses otherwise share an apphost in obj. -->
     <TargetFramework>net8.0</TargetFramework>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

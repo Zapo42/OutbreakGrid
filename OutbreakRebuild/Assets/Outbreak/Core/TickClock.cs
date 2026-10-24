@@ -9,9 +9,9 @@ namespace Outbreak.Core // Keep scheduling testable without running Unity.
         public double DebtSeconds { get { return accumulated; } } // Make catch-up pressure visible to diagnostics.
         public double Alpha { get { return Paused ? 1 : Math.Min(1, accumulated * Rules.TicksPerSecond); } } // Freeze interpolation immediately when paused.
         public void SetPaused(bool value) { if (Paused != value) { Paused = value; accumulated = 0; } } // Remove stale fractional time at an explicit pause boundary.
-        public void SetSpeed(double value) // Offer only the agreed half, normal, double, and triple rates.
+        public void SetSpeed(double value) // Offer ordinary playback and the requested accelerated testing rates.
         { // Begin speed validation.
-            if (value != 0.5 && value != 1 && value != 2 && value != 3) throw new ArgumentOutOfRangeException("value"); Speed = value; // Keep all behavioral time in ticks rather than changing the tick size.
+            if (value != 0.5 && value != 1 && value != 2 && value != 3 && value != 5 && value != 10 && value != 20 && value != 50) throw new ArgumentOutOfRangeException("value"); Speed = value; // Keep all behavioral time in ticks rather than changing the tick size.
         } // Finish speed validation.
         public int Advance(double realSeconds, Action step, int budget = 10) // Bound work per rendered frame while retaining unfinished tick debt.
         { // Begin one frame scheduling pass.

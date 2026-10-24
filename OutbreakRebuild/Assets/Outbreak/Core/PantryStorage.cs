@@ -9,6 +9,7 @@ namespace Outbreak.Core
             direction = 8;if(StoresEnabled && actor.clerkStoreId!=0)return false;if(CourierAssignmentsEnabled && actor.courierBoxes!=null && actor.restockPhase!=RestockPhase.None)return false;
             if (actor.turnAtTick != 0 || actor.hunger >= HungerRules.SeekAt || actor.carriedFood <= FoodReserve(actor) || actor.shelterState != ShelterState.Inside || threatIndex >= 0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || actor.freezeUntilTick > Tick || (actor.reaction != HumanReaction.Calm && actor.reaction != HumanReaction.Aware)) return false;
             Room room = FindRoom(actor.shelterId); if (room == null || !room.Contains(Key(actor.x, actor.y))) return false;
+            if(HomeSuppliesEnabled && actor.assignedHouseId!=0 && room.id!=actor.assignedHouseId)return false;
             if(StorageEnabled && TryUseStorage(index,ref actor,threatIndex,room,true,out direction))return true;
             ShelfDocument chosen = null; int bestSteps=int.MaxValue, chosenDirection=8;
             foreach (ShelfDocument shelf in map.ShelfRecords)

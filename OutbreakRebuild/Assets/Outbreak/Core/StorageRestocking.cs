@@ -25,7 +25,7 @@ namespace Outbreak.Core
             if(home==null || actor.shelfMemory==null)return null;ShelfMemoryRecord best=new ShelfMemoryRecord();int rank=-1,steps=int.MaxValue;
             foreach(ShelfMemoryRecord note in actor.shelfMemory)
             {
-                if(note.food==0 || home.Contains(Key(note.x,note.y)) || AvoidBlockedFood(actor,note.x,note.y))continue;
+                if(!RoutineFoodSiteAllowed(actor,note.x,note.y) || note.food==0 || home.Contains(Key(note.x,note.y)) || AvoidBlockedFood(actor,note.x,note.y))continue;
                 int length=FoodShelfRouteLength(actor,note),priority=note.food>0?1:0;
                 if(length==int.MaxValue)continue;
                 if(priority>rank || (priority==rank && length<steps)){best=note;rank=priority;steps=length;}

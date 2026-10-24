@@ -58,6 +58,20 @@ namespace Outbreak.UnityAdapter
                 ActorState person=world.ActorAt(selected);GUILayout.Label("#"+person.id+" "+person.species+" at "+person.x+", "+person.y);
                 int targetX,targetY;Color targetColor;string targetLabel;if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Current target: "+targetLabel);
                 GUILayout.Label("Health: "+person.health+"/100"+(person.species==Species.Human && person.health>0?" | Energy: "+EnergyRules.Remaining(person)+"/100":""));
+                if(world.HomeSuppliesEnabled && person.species==Species.Human && person.health>0)
+                {
+                    HomeSupplyKnowledge home=world.HomeSuppliesKnownBy(selected);
+                    if(home.HouseId==0)GUILayout.Label("Home supplies: no assigned home");
+                    else
+                    {
+                        GUILayout.Label("Assigned home: #"+home.HouseId+(world.HouseAt(person.x,person.y)==home.HouseId?" | At home":" | Away"));
+                        GUILayout.Label("Home supplies: "+home.KnownBoxes+"/"+home.Boxes+" boxes recently checked | Known food: "+home.KnownMeals+" meals");
+                        GUILayout.Label("Unknown: "+home.UnknownBoxes+" | Stale: "+home.StaleBoxes+" | Reported, not checked: "+home.ReportedBoxes);
+                        if(home.Boxes==0)GUILayout.Label("No residential storage in assigned home");
+                        else if(home.KnownBoxes==home.Boxes)GUILayout.Label(home.KnownMeals==0?"Home food: last checked empty":"Home food: observed supplies available");
+                        else GUILayout.Label("Home food: inspection needed when safe");
+                    }
+                }
                 if(person.clerkStoreId!=0)GUILayout.Label("Store clerk #"+person.clerkStoreId+(person.clerkPhone!=0?" | "+(person.clerkCallProgress>0?"Calling for supplies":"Walking to phone"):person.clerkNeedsSupplies?" | Needs supply call":person.clerkShelf!=0?" | Stocking shelves":" | Waiting"));
                 if(person.clerkStoreId!=0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.storeId==person.clerkStoreId)GUILayout.Label("Pending replenishment order #"+order.id);
                 if(person.courierOrderId!=0)GUILayout.Label("Fulfilling order #"+person.courierOrderId);
@@ -79,7 +93,7 @@ namespace Outbreak.UnityAdapter
         }
         private void DrawSelectedVitals()
         {
-            if(selected>=0 && selected<world.Count)GUILayout.Label("Health: "+world.ActorAt(selected).health+"/100");
+            if(selected>=0 && selected<world.Count)DrawNeedStat("Health: "+world.ActorAt(selected).health+"/100","health",showHealthBar,()=>showHealthBar=!showHealthBar);
             if(world.Encounter && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState person=world.ActorAt(selected);GUILayout.Label(person.turnAtTick==0?"Infection: not infected":"Infection: turning in "+(Math.Max(0,person.turnAtTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s");}
             if(world.ShoveFatigueEnabled && !world.EnergyEnabled && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human)GUILayout.Label("Shove fatigue: "+world.ActorAt(selected).shoveFatigue+"/"+HumanRules.MaxShoveFatigue);
             if(world.RiseEnabled && selected>=0 && selected<world.Count && world.ActorAt(selected).riseUntilTick>world.Tick)GUILayout.Label("Reanimating: getting up ("+((world.ActorAt(selected).riseUntilTick-world.Tick)/(double)Rules.TicksPerSecond).ToString("0.0")+"s)");
@@ -89,10 +103,10 @@ namespace Outbreak.UnityAdapter
             if(world.EnergyReturnEnabled && selected>=0 && selected<world.Count && world.ReturningWithLowEnergy(selected))GUILayout.Label("Returning to shelter with low energy.");
             if(world.EnergyRiskEnabled && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human)GUILayout.Label("Low-energy food risk: +"+world.FoodEnergyRiskPenalty(selected));
             if(world.FoodRestEnabled && selected>=0 && selected<world.Count && world.PreparingFoodTrip(selected))GUILayout.Label("Preparing food trip: rest to "+FoodRestRules.DepartureEnergy+" energy (hunger cost).");
-            if(selected>=0 && selected<world.Count && world.SurvivalDamageEnabled && world.ActorAt(selected).health>0 && world.ActorAt(selected).species==Species.Human && world.ActorAt(selected).hunger==100 && EnergyRules.Remaining(world.ActorAt(selected))==0)GUILayout.Label("Deteriorating: maximum hunger and no energy. Health decreases over time.");
-            if(world.EnergyEnabled && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human && world.ActorAt(selected).health>0)GUILayout.Label("Energy: "+EnergyRules.Remaining(world.ActorAt(selected))+"/"+EnergyRules.Maximum);
+            if(selected>=0 && selected<world.Count && world.SurvivalDamageEnabled && world.ActorAt(selected).health>0 && world.ActorAt(selected).species==Species.Human && world.ActorAt(selected).hunger==100 && EnergyRules.Remaining(world.ActorAt(selected))==0)GUILayout.Label("Deteriorating: hunger and energy are empty. Health decreases over time.");
+            if(world.EnergyEnabled && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human && world.ActorAt(selected).health>0)DrawNeedStat("Energy: "+EnergyRules.Remaining(world.ActorAt(selected))+"/"+EnergyRules.Maximum,"energy",showEnergyBar,()=>showEnergyBar=!showEnergyBar);
             if(world.FoodExploration && selected>=0 && selected<world.Count && world.ActorAt(selected).species==Species.Human){ActorState explorer=world.ActorAt(selected);GUILayout.Label("Recently investigated rooms: "+(explorer.foodRoomVisits==null?0:explorer.foodRoomVisits.Length)+(explorer.foodExploreRoomId!=0?"\nInvestigating room "+explorer.foodExploreRoomId:""));}
-            if (world.HungerEnabled && selected >= 0 && selected < world.Count && world.ActorAt(selected).species == Species.Human && world.ActorAt(selected).health>0) { ActorState person = world.ActorAt(selected); GUILayout.Label("Hunger " + person.hunger + "/100\nFood inventory " + person.carriedFood + "/" + HungerRules.CarryLimit + " meals\nFood-trip risk " + world.FoodTripRisk(selected) + " / tolerance " + HungerRules.RiskBudget(person) + (person.foodUntilTick > world.Tick ? "\nKnown shelf at " + person.foodX + ", " + person.foodY : "") + (person.homeShelterId != 0 ? "\nSupply trip: return to room " + person.homeShelterId : "")); }
+            if (world.HungerEnabled && selected >= 0 && selected < world.Count && world.ActorAt(selected).species == Species.Human && world.ActorAt(selected).health>0) { ActorState person = world.ActorAt(selected);DrawNeedStat("Hunger: "+(100-person.hunger)+"/100 (100 fed, 0 starving)","hunger",showHungerBar,()=>showHungerBar=!showHungerBar); GUILayout.Label("Food inventory " + person.carriedFood + "/" + HungerRules.CarryLimit + " meals\nFood-trip risk " + world.FoodTripRisk(selected) + " / tolerance " + HungerRules.RiskBudget(person) + (person.foodUntilTick > world.Tick ? "\nKnown shelf at " + person.foodX + ", " + person.foodY : "") + (person.homeShelterId != 0 ? "\nSupply trip: return to room " + person.homeShelterId : "")); }
         }
         private void DrawSelectedCombat()
         {
