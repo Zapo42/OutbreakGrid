@@ -37,4 +37,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 101 | Automatic phone-order claims, partial delivery/completion history, route/door safeguards and hunger/exhaustion health loss/death | Core: 485 cases / 325818 assertions; UI: 1645 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 102 | Multi-store shared-center scenario, three-seed four-hour conservation trials, accurate order status and contextual stock-site focus | Core: 488 cases / 379294 assertions; UI: 1660 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 
+| 103 | Least-fulfilled request dispatch, age/ID ties, visible policy and preserved rules-82 dispatch | Core: 489 cases / 380966 assertions; UI: 1661 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

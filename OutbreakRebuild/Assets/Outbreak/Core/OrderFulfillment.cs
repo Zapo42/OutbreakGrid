@@ -15,6 +15,18 @@ namespace Outbreak.Core
         {
             for(int i=0;i<count;i++)if(actors[i].species==Species.Human && actors[i].health>0 && actors[i].courierOrderId==orderId && actors[i].restockPhase!=RestockPhase.None)return actors[i].id;return 0;
         }
+        // Only reported request quantities and actual credited deliveries affect dispatch.
+        // Cross multiplication compares fractions exactly, including different crate sizes.
+        public int CompareSupplyOrderPriority(SupplyOrderDocument a,SupplyOrderDocument b)
+        {
+            if(a==null || b==null || a.requestedMeals<1 || b.requestedMeals<1)throw new ArgumentException("Valid supply orders are required.");
+            if(ShortagePrioritiesEnabled)
+            {
+                int share=((long)a.deliveredMeals*b.requestedMeals).CompareTo((long)b.deliveredMeals*a.requestedMeals);
+                if(share!=0)return share;
+            }
+            int age=a.createdTick.CompareTo(b.createdTick);return age!=0?age:a.id.CompareTo(b.id);
+        }
         private bool StartSupplyOrderTrip(int index,ref ActorState actor,int threat)
         {
             if(!OrderFulfillmentEnabled || actor.distributionCenterId==0 || !CourierWorkingNow(actor) || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
@@ -27,7 +39,7 @@ namespace Outbreak.Core
                 if(order.supplyBox==actor.courierSourceBox || SupplyOrderCourier(order.id)!=0 || RestockClaimed(order.supplyBox,actor.id))continue;
                 int target=order.supplyBox-1,goal,length;Room room=FindRoom(order.storeId);StorageBoxDocument box=map.StorageBoxAt(target%Width,target/Width);
                 if(box==null || (KnownStorageState(actor,box,out food,out space) && space==0) || !FoodReturnGoal(actor,room,KnownShelterThreats(actor,threat),out goal,out length))continue;
-                if(chosen==null || order.createdTick<chosen.createdTick || (order.createdTick==chosen.createdTick && order.id<chosen.id))chosen=order;
+                if(chosen==null || CompareSupplyOrderPriority(order,chosen)<0)chosen=order;
             }
             if(chosen==null)return false;
             actor.courierOrderId=chosen.id;actor.courierReturningHome=false;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);

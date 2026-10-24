@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 102 / multi-store supply district**. Three stores, two couriers and eight humans share finite center stock. The scenario exercises competing phone orders, partial deliveries and shortages, with improved store/center focus and truthful order status. See [scenario and observation guide](OutbreakRebuild/Docs/MULTI_STORE_SUPPLY_DISTRICT.md).
+Current build: **Foundation 103 / shortage priorities**. Couriers prioritize the least fulfilled share of reported store requests, with oldest-first ties and uninterrupted active trips. [Details and upgrade instructions](OutbreakRebuild/Docs/SHORTAGE_PRIORITIES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

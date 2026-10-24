@@ -1,4 +1,4 @@
-Latest build: [Foundation 102 / multi-store supply district](Docs/MULTI_STORE_SUPPLY_DISTRICT.md).
+Current build: **Foundation 103 / shortage priorities**. Couriers prioritize the least fulfilled share of reported store requests, with oldest-first ties and uninterrupted active trips. [Details and upgrade instructions](Docs/SHORTAGE_PRIORITIES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
