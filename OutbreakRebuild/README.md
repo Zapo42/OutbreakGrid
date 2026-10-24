@@ -1,4 +1,4 @@
-Current build: **Foundation 107 / store discovery and alternatives**. Targets **Unity 6000.6.3f1**. Consumers discover visible entrances without seeded store memories, investigate shelves and try another known shop after an unsuccessful visit. [Guide and limits](Docs/STORE_DISCOVERY.md).
+Current build: **Foundation 108 / worker shifts and commutes**. Targets **Unity 6000.6.3f1**. Clerk schedules, home/work travel, off-duty shopping, occupation outlines and natural idle weight shifts without energy use. [Guide and limits](Docs/WORKER_SHIFTS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

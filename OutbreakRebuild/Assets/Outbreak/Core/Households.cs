@@ -32,7 +32,7 @@ namespace Outbreak.Core
                     bool inside=room.Contains(Key(actor.x,actor.y));
                     if(actor.assignedHouseId!=room.id){if(inside)row.Visitors++;continue;}
                     if(inside)row.AtHome++;
-                    residents.Add(new HouseholdResident{ActorIndex=i,Id=actor.id,CurrentHouseId=HouseAt(actor.x,actor.y),AtHome=inside,Courier=actor.courierBoxes!=null,Infected=actor.turnAtTick!=0,Busy=actor.restockPhase!=RestockPhase.None,CourierStatus=actor.courierBoxes==null?null:CourierScheduleStatus(i)});
+                    residents.Add(new HouseholdResident{ActorIndex=i,Id=actor.id,CurrentHouseId=HouseAt(actor.x,actor.y),AtHome=inside,Courier=OccupationOf(actor)==HumanOccupation.Courier,Infected=actor.turnAtTick!=0,Busy=actor.restockPhase!=RestockPhase.None || actor.workerCommuteId!=0,CourierStatus=OccupationOf(actor)==HumanOccupation.Courier?CourierScheduleStatus(i):null});
                 }
                 row.Residents=residents.ToArray();result[r]=row;
             }
@@ -41,7 +41,7 @@ namespace Outbreak.Core
         public bool TryUnassignHouse(int index)
         {
             if(!CanEditCourier(index))return false;ActorState actor=actors[index];
-            if(actor.assignedHouseId==0 || actor.courierSourceBox!=0 || actor.courierBoxes!=null)return false;
+            if(actor.assignedHouseId==0 || actor.courierSourceBox!=0 || actor.courierBoxes!=null || (WorkerShiftsEnabled && actor.clerkShiftHours>0))return false;
             if(actor.courierReturningHome)
             {
                 actor.homeShelterId=0;

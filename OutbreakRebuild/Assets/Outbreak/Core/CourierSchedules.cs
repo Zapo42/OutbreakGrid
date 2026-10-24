@@ -26,6 +26,7 @@ namespace Outbreak.Core
         public string CourierScheduleStatus(int index)
         {
             ActorState actor=ActorAt(index);if(actor.species!=Species.Human || actor.health<=0 || (actor.courierBoxes==null && !(OrderFulfillmentEnabled && actor.distributionCenterId!=0)))return "No courier route";
+            if(WorkerShiftsEnabled && IsShopping(actor))return "Personal shopping";
             if(CourierWorkingNow(actor))return "On duty";
             if(actor.restockPhase!=RestockPhase.None)return "Finishing current delivery";
             return HouseAt(actor.x,actor.y)==actor.assignedHouseId?"Off duty: home/rest":"Off duty: return home when safe";

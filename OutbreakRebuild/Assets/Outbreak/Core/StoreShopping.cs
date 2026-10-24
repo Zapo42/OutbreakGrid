@@ -11,7 +11,7 @@ namespace Outbreak.Core
         private static bool IsShopping(ActorState actor){return actor.shoppingMeals>0;}
         private bool IsStoreShopper(ActorState actor)
         {
-            return StoreShoppingEnabled && stores.Count>0 && actor.assignedHouseId!=0 && actor.clerkStoreId==0 && actor.courierSourceBox==0 && BuildingUseForHouse(actor.assignedHouseId)==BuildingUse.Home;
+            return StoreShoppingEnabled && stores.Count>0 && actor.assignedHouseId!=0 && ((actor.clerkStoreId==0 && actor.courierSourceBox==0) || WorkerMayShopOffDuty(actor)) && BuildingUseForHouse(actor.assignedHouseId)==BuildingUse.Home;
         }
         private bool ShoppingDepartureAllowed(ActorState actor,Room room,int threat)
         {
@@ -71,7 +71,7 @@ namespace Outbreak.Core
             {
                 ActorState actor=actors[i];if(!IsShopping(actor)){if(actor.shoppingShelf!=0 || actor.shoppingMeals!=0)throw new ArgumentException("Inactive shopping contains state.");continue;}
                 int key=actor.shoppingShelf-1;
-                if(!StoreShoppingEnabled || actor.species!=Species.Human || actor.health<=0 || actor.clerkStoreId!=0 || actor.courierSourceBox!=0 || actor.courierOrderId!=0 || actor.restockPhase==RestockPhase.None || actor.assignedHouseId!=actor.restockHomeId || actor.restockSourceBox!=0 || actor.shoppingMeals<1 || actor.shoppingMeals>=HungerRules.CarryLimit || (actor.shoppingShelf==0 ? !StoreDiscoveryEnabled : key<0 || !map.Contains(key%Width,key/Width) || map.ShelfAt(key%Width,key/Width)==null || !stores.ContainsKey(HouseAt(key%Width,key/Width))))throw new ArgumentException("Invalid store shopping trip.");
+                if(!StoreShoppingEnabled || actor.species!=Species.Human || actor.health<=0 || ((actor.clerkStoreId!=0 || actor.courierSourceBox!=0) && !WorkerShiftsEnabled) || actor.courierOrderId!=0 || actor.restockPhase==RestockPhase.None || actor.assignedHouseId!=actor.restockHomeId || actor.restockSourceBox!=0 || actor.shoppingMeals<1 || actor.shoppingMeals>=HungerRules.CarryLimit || (actor.shoppingShelf==0 ? !StoreDiscoveryEnabled : key<0 || !map.Contains(key%Width,key/Width) || map.ShelfAt(key%Width,key/Width)==null || !stores.ContainsKey(HouseAt(key%Width,key/Width))))throw new ArgumentException("Invalid store shopping trip.");
             }
         }
     }

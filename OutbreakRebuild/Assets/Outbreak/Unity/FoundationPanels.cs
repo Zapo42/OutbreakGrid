@@ -47,7 +47,7 @@ namespace Outbreak.UnityAdapter
             if(Section("Placement tools"))DrawPlacementPanel();
             DrawCancelPlacement();
             if(Section("Weapon supplies"))DrawWeaponSupplyPanel();
-            if(Section("Map markers & navigation")){GUILayout.Label("Building floors: tan = home / shelter; blue = store; green = distribution center.");GUILayout.Label("Storage: chest = home / shelter; cabinet = store; braced crate = distribution.");DrawMapMarkerPanel();}
+            if(Section("Map markers & navigation")){GUILayout.Label("Occupation outlines: brown = courier; yellow above blue = clerk; gray = off duty; white = consumer.\nBuilding floors: tan = home / shelter; blue = store; green = distribution center.");GUILayout.Label("Storage: chest = home / shelter; cabinet = store; braced crate = distribution.");DrawMapMarkerPanel();}
             if(Section("Technical details"))DrawTechnicalPanel();
         }
         private void DrawClickedItem()
@@ -72,6 +72,7 @@ namespace Outbreak.UnityAdapter
                         else GUILayout.Label("Home food: inspection needed when safe");
                     }
                 }
+                if(person.species==Species.Human && person.health>0)GUILayout.Label("Occupation: "+world.Occupation(selected)+" | "+world.WorkerStatus(selected));
                 if(person.clerkStoreId!=0)GUILayout.Label("Store clerk #"+person.clerkStoreId+(person.clerkPhone!=0?" | "+(person.clerkCallProgress>0?"Calling for supplies":"Walking to phone"):person.clerkNeedsSupplies?" | Needs supply call":person.clerkShelf!=0?" | Stocking shelves":" | Waiting"));
                 if(person.clerkStoreId!=0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.storeId==person.clerkStoreId)GUILayout.Label("Pending replenishment order #"+order.id);
                 if(person.shoppingMeals>0)GUILayout.Label("Shopping: "+(person.restockPhase==RestockPhase.Returning?"Returning food home":person.shoppingShelf!=0?"Collecting from store shelf":person.shoppingStoreId!=0?"Investigating store #"+person.shoppingStoreId:"Looking for store entrances")+" | Planned: "+person.shoppingMeals+" meals\nHome box: "+((person.restockBox-1)%world.Width)+", "+((person.restockBox-1)/world.Width));
@@ -119,6 +120,7 @@ namespace Outbreak.UnityAdapter
         }
         private void DrawSelectedAssignments()
         {
+            DrawClerkScheduleControls();
             if(world.RestockingEnabled && selected>=0 && selected<world.Count){ActorState restocker=world.ActorAt(selected);if(restocker.restockPhase!=RestockPhase.None)GUILayout.Label((restocker.restockSourceBox==0?"Restocking: ":"Supply delivery: ")+restocker.restockPhase+"\nStorage box: "+((restocker.restockBox-1)%world.Width)+", "+((restocker.restockBox-1)/world.Width)+"\nHome room: "+restocker.restockHomeId+(restocker.restockSourceBox==0?"":"\nDonor box: "+((restocker.restockSourceBox-1)%world.Width)+", "+((restocker.restockSourceBox-1)/world.Width)));}
             DrawSelectedDistributionActions();DrawSelectedStoreActions();DrawCourierAssignmentControls();
         }

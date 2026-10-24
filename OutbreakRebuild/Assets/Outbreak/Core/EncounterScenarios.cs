@@ -280,6 +280,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World WorkerShiftTest(bool starting=false)
+        {
+            WorldMap map=new WorldMap(32,20,starting?"Worker shift start":"Worker shift end","worker-shift-1");AddShelterRoom(map,1,6,false);AddShelterRoom(map,11,2,false);map.Set(15,5,Terrain.Wall);map.Set(11,5,Terrain.DoorClosed);AddShelterRoom(map,21,6,false);map.Set(25,9,Terrain.Wall);map.Set(21,9,Terrain.DoorClosed);
+            map.SetStorageBox(new StorageBoxDocument{x=4,y=7,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});map.SetRestSpot(2,11);map.SetRestSpot(3,11);
+            map.SetStorageBox(new StorageBoxDocument{x=14,y=3,capacity=6,foodReserve=4,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=4}}});map.SetShelf(13,7,0,true);map.SetPhone(14,6);
+            map.SetStorageBox(new StorageBoxDocument{x=24,y=7,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=20}}});map.SetRestSpot(22,11);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,23,9,out id);world.TrySpawn(Species.Human,12,5,out id);world.TrySpawn(Species.Human,4,9,out id);for(int i=0;i<3;i++)world.TryAssignHouse(i,3,9);world.TryConfigureStore(14,3);world.TryAssignClerk(1,world.HouseAt(12,5));world.TryConfigureDistributionCenter(24,7);world.TryAssignDistributionCourier(0,world.HouseAt(23,9));world.TryToggleCourierDestination(0,14,3);world.TrySetCourierSchedule(0,starting?8:7,1);world.TrySetClerkSchedule(1,starting?8:7,1);
+            SaveDocument saved=world.Capture();saved.tick=540;for(int i=0;i<3;i++){ActorState actor=saved.actors[i];if(starting && i<2){actor.x=2+i;actor.y=9;}actor.hunger=10;actor.carriedFood=1;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}return World.Restore(saved);
+        }
         public static World StoreDiscoveryTest()
         {
             WorldMap map=new WorldMap(26,20,"Unfamiliar and empty stores","store-discovery-1");AddShelterRoom(map,1,6,false);AddShelterRoom(map,9,2,false);map.Set(13,5,Terrain.Wall);map.Set(9,5,Terrain.DoorClosed);AddShelterRoom(map,16,9,false);map.Set(20,12,Terrain.Wall);map.Set(16,12,Terrain.DoorClosed);

@@ -37,6 +37,9 @@ namespace Outbreak.UnityAdapter // Keep visual motion separate from authoritativ
         private double Fraction(double tick) { return Math.Max(0, Math.Min(1, (tick - startTick) / (duration>0?duration:5))); } // Blend over the supplied interval; ordinary walking retains five ticks.
         public double X(double tick) { return shove?Pushed(fromX,contactX,targetX,tick):Along(fromX,viaX,targetX,Fraction(tick)); } // Keep movement progressing between authoritative opportunities.
         public double Y(double tick) { return shove?Pushed(fromY,contactY,targetY,tick):Along(fromY,viaY,targetY,Fraction(tick)); } // Use the same timing for both axes.
+        private double IdleStrength(double tick){return Math.Max(0,Math.Min(1,(tick-startTick-Math.Max(10,duration))/10));}
+        public double IdleX(double tick,int id){return IdleStrength(tick)*(0.045*Math.Sin(tick*0.18+id*1.71)+0.012*Math.Sin(tick*0.071+id));}
+        public double IdleY(double tick,int id){return IdleStrength(tick)*(0.032*Math.Sin(tick*0.14+id*2.13)+0.01*Math.Sin(tick*0.057+id*0.7));}
         public bool OverlapsCell(int x,int y,double tick,int id)
         {
             double left=X(tick)+OffsetX(id)+0.18,top=Y(tick)+OffsetY(id)+0.18;

@@ -18,7 +18,7 @@ namespace Outbreak.Core
         }
         private bool RestockDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
+            return WorkerDepartureAllowed(actor,room,threat) || ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
         }
         private ShelfDocument ChooseRestockShelf(ActorState actor,Room home)
         {
@@ -44,21 +44,23 @@ namespace Outbreak.Core
         }
         private bool TryRestock(int index,ref ActorState actor,int threat,out int direction)
         {
-            direction=8;if(StoresEnabled && actor.clerkStoreId!=0)return false;
+            direction=8;if(WorkerShiftsEnabled && actor.workerCommuteId!=0)return false;
+            if(StoresEnabled && actor.clerkStoreId!=0 && !(WorkerShiftsEnabled && (WorkerMayShopOffDuty(actor) || IsShopping(actor))))return false;
             if(StoreShoppingEnabled && IsShopping(actor) && actor.turnAtTick==0 && actor.hunger>=HungerRules.SeekAt && actor.carriedFood>0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor))
             {
                 actor.carriedFood--;actor.hunger=Math.Max(0,actor.hunger-HungerRules.MealRelief);ClearFoodMemory(ref actor);actors[index]=actor;return true;
             }
             if(actor.courierOrderId!=0 && ActiveSupplyOrder(actor)==null){ClearRestocking(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;}
             bool hasHouse=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
-            bool assigned=hasHouse && (actor.courierBoxes!=null || (DistributionCentersEnabled && actor.distributionCenterId!=0));
+            bool assigned=hasHouse && (actor.courierBoxes!=null || (DistributionCentersEnabled && actor.distributionCenterId!=0)) && !(WorkerShiftsEnabled && (IsShopping(actor) || (!CourierWorkingNow(actor) && actor.restockPhase==RestockPhase.None)));
             if(hasHouse && actor.restockPhase==RestockPhase.None)
             {
                 if(actor.courierReturningHome && HouseAt(actor.x,actor.y)==actor.assignedHouseId){actor.courierReturningHome=false;actors[index]=actor;}
-                if(assigned){if(!StartSupplyOrderTrip(index,ref actor,threat) && !StartAssignedCourierJob(index,ref actor,threat))return TryReturnToAssignedHouse(index,ref actor,threat,out direction);}
+                if(assigned){if(!StartSupplyOrderTrip(index,ref actor,threat) && !StartAssignedCourierJob(index,ref actor,threat)){if(WorkerShiftsEnabled && CourierWorkingNow(actor) && HouseAt(actor.x,actor.y)==Workplace(actor))return false;return TryReturnToAssignedHouse(index,ref actor,threat,out direction);}}
                 else if(HouseAt(actor.x,actor.y)!=actor.assignedHouseId)return TryReturnToAssignedHouse(index,ref actor,threat,out direction);
             }
             if(actor.restockPhase==RestockPhase.None && IsStoreShopper(actor) && !StartStoreShopping(index,ref actor,threat))return false;
+            if(WorkerMayShopOffDuty(actor) && actor.restockPhase==RestockPhase.None)return false;
             if(actor.restockPhase==RestockPhase.None)
             {
                 Room current=FindRoom(actor.shelterId);

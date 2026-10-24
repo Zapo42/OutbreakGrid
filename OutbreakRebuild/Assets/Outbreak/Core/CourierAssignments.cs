@@ -14,7 +14,7 @@ namespace Outbreak.Core
         }
         private bool CanEditCourier(int index)
         {
-            return CourierAssignmentsEnabled && index>=0 && index<count && actors[index].species==Species.Human && actors[index].health>0 && actors[index].turnAtTick==0 && actors[index].restockPhase==RestockPhase.None;
+            return CourierAssignmentsEnabled && index>=0 && index<count && actors[index].species==Species.Human && actors[index].health>0 && actors[index].turnAtTick==0 && actors[index].restockPhase==RestockPhase.None && actors[index].workerCommuteId==0;
         }
         public bool TryAssignHouse(int index,int x,int y)
         {
@@ -42,7 +42,7 @@ namespace Outbreak.Core
         }
         private static void ClearCourierAssignment(ref ActorState actor)
         {
-            actor.assignedHouseId=0;actor.distributionCenterId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
+            actor.workerCommuteId=0;actor.assignedHouseId=0;actor.distributionCenterId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
         }
         private bool AssignedCourierDepartureAllowed(ActorState actor,Room room,int threat)
         {
@@ -93,7 +93,7 @@ namespace Outbreak.Core
                     int key=actor.courierBoxes[j]-1;if(key<0 || key==source || map.StorageBoxAt(key%Width,key/Width)==null || HouseAt(key%Width,key/Width)==0)throw new ArgumentException("Invalid courier destination.");
                     for(int k=0;k<j;k++)if(actor.courierBoxes[k]==key+1)throw new ArgumentException("Duplicate courier destination.");
                 }
-                if(actor.courierOrderId==0 && actor.restockPhase!=RestockPhase.None && (actor.restockSourceBox!=actor.courierSourceBox || Array.IndexOf(actor.courierBoxes,actor.restockBox)<0))throw new ArgumentException("Courier task differs from assignment.");
+                if(actor.courierOrderId==0 && !(WorkerShiftsEnabled && IsShopping(actor)) && actor.restockPhase!=RestockPhase.None && (actor.restockSourceBox!=actor.courierSourceBox || Array.IndexOf(actor.courierBoxes,actor.restockBox)<0))throw new ArgumentException("Courier task differs from assignment.");
             }
         }
     }

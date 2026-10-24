@@ -44,7 +44,7 @@ namespace Outbreak.Core
         public bool TryUnassignDistributionCourier(int index)
         {
             if(!DistributionCentersEnabled || !CanEditCourier(index) || actors[index].distributionCenterId==0)return false;
-            ActorState actor=actors[index];actor.distributionCenterId=0;actors[index]=actor;return true;
+            ActorState actor=actors[index];actor.distributionCenterId=0;if(actor.courierBoxes==null)ClearCourierSchedule(ref actor);actors[index]=actor;return true;
         }
         public DistributionCenterOverview[] DistributionCenters()
         {

@@ -48,7 +48,14 @@ namespace Outbreak.Core
         private bool OrderCourierWaitingAtDoor(Room room,int door)
         {
             if(!OrderFulfillmentEnabled || room==null)return false;
-            for(int i=0;i<count;i++){ActorState courier=actors[i];if(courier.health>0 && courier.species==Species.Human && ((courier.courierOrderId!=0 && courier.restockPhase==RestockPhase.Returning && courier.restockHomeId==room.id) || (StoreShoppingEnabled && IsShopping(courier) && ((courier.restockPhase==RestockPhase.Collecting && courier.shelterId==room.id) || (courier.restockPhase==RestockPhase.Returning && courier.restockHomeId==room.id)))) && !room.Contains(Key(courier.x,courier.y)) && Math.Abs(courier.x-door%Width)+Math.Abs(courier.y-door/Width)<=1)return true;}
+            for(int i=0;i<count;i++)
+            {
+                ActorState visitor=actors[i];
+                bool delivery=visitor.courierOrderId!=0 && visitor.restockPhase==RestockPhase.Returning && visitor.restockHomeId==room.id;
+                bool shopping=StoreShoppingEnabled && IsShopping(visitor) && ((visitor.restockPhase==RestockPhase.Collecting && visitor.shelterId==room.id) || (visitor.restockPhase==RestockPhase.Returning && visitor.restockHomeId==room.id));
+                bool commute=WorkerShiftsEnabled && visitor.workerCommuteId==room.id && visitor.shelterId==room.id;
+                if(visitor.health>0 && visitor.species==Species.Human && (delivery || shopping || commute) && !room.Contains(Key(visitor.x,visitor.y)) && Math.Abs(visitor.x-door%Width)+Math.Abs(visitor.y-door/Width)<=1)return true;
+            }
             return false;
         }
         private void CreditSupplyDelivery(ActorState actor,int box,int amount)

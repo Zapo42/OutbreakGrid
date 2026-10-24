@@ -32,7 +32,7 @@ namespace Outbreak.Core
             if(!StoresEnabled || !CanEditCourier(index) || actors[index].clerkStoreId==0)return false;
             ActorState actor=actors[index];ClearClerkAssignment(ref actor);actors[index]=actor;return true;
         }
-        private static void ClearClerkAssignment(ref ActorState actor){ResetClerkCall(ref actor);actor.clerkNeedsSupplies=false;actor.clerkStoreId=0;actor.clerkShelf=0;}
+        private static void ClearClerkAssignment(ref ActorState actor){ResetClerkCall(ref actor);actor.clerkNeedsSupplies=false;actor.clerkShiftStartHour=0;actor.clerkShiftHours=0;actor.workerCommuteId=0;actor.clerkStoreId=0;actor.clerkShelf=0;}
         private bool IsStoreSupplyBox(StorageBoxDocument box)
         {
             if(!StoresEnabled || stores.Count==0)return false;int key=Key(box.x,box.y)+1;foreach(StoreDocument store in stores.Values)if(store.supplyBox==key)return true;return false;
@@ -53,15 +53,24 @@ namespace Outbreak.Core
         }
         private bool TryClerkWork(int index,ref ActorState actor,int threat,out int direction)
         {
-            direction=8;if(actor.clerkStoreId==0)return false;StoreDocument store;Room room=FindRoom(actor.clerkStoreId);
+            direction=8;if(actor.clerkStoreId==0 || (WorkerShiftsEnabled && IsShopping(actor)))return false;StoreDocument store;Room room=FindRoom(actor.clerkStoreId);
             if(!stores.TryGetValue(actor.clerkStoreId,out store) || room==null)return false;
             if(!SafeRestock(actor,threat) || !room.Contains(Key(actor.x,actor.y)) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy)
             {
                 ResetClerkCall(ref actor);actor.clerkShelf=0;actors[index]=actor;return false;
             }
-            if(SupplyRequestsEnabled){UpdateClerkSupplyKnowledge(ref actor,store);actors[index]=actor;if(actor.carriedFood<=FoodReserve(actor) && TryClerkPhoneCall(index,ref actor,store,room,out direction))return true;}
+            if(WorkerShiftsEnabled && !ClerkWorkingNow(actor))
+            {
+                ResetClerkCall(ref actor);
+                if(actor.clerkShelf==0 || actor.carriedFood<=FoodReserve(actor))
+                {
+                    actor.clerkShelf=0;actors[index]=actor;return false;
+                }
+            }
+            if(SupplyRequestsEnabled && (!WorkerShiftsEnabled || ClerkWorkingNow(actor))){UpdateClerkSupplyKnowledge(ref actor,store);actors[index]=actor;if(actor.carriedFood<=FoodReserve(actor) && TryClerkPhoneCall(index,ref actor,store,room,out direction))return true;}
             ShelfDocument target=actor.clerkShelf==0?null:map.ShelfAt((actor.clerkShelf-1)%Width,(actor.clerkShelf-1)/Width);
             if(target!=null && ShelfVisible(actor,target) && target.food>=store.shelfTarget){actor.clerkShelf=0;target=null;}
+            if(target==null && WorkerShiftsEnabled && !ClerkWorkingNow(actor)){actor.clerkShelf=0;actors[index]=actor;return false;}
             if(target==null)
             {
                 int best=int.MaxValue,key=int.MaxValue;
@@ -87,6 +96,7 @@ namespace Outbreak.Core
                 if(amount>0){map.SetShelf(target.x,target.y,target.food+amount,true);actor.carriedFood-=amount;RememberShelf(ref actor,new ShelfMemoryRecord{x=target.x,y=target.y,food=target.food+amount,observedTick=Tick});}
                 actor.clerkShelf=0;actors[index]=actor;return amount>0;
             }
+            if(WorkerShiftsEnabled && !ClerkWorkingNow(actor)){actor.clerkShelf=0;actors[index]=actor;return false;}
             StorageBoxDocument crate=map.StorageBoxAt(x,y);int take=Math.Min(HungerRules.CarryLimit-actor.carriedFood,StorageRules.Count(crate,InventoryItem.Food));
             if(take<=0){if(SupplyRequestsEnabled)actor.clerkNeedsSupplies=!supplyOrders.ContainsKey(store.storeId);RememberStorage(ref actor,StorageObservation(crate));actor.clerkShelf=0;actors[index]=actor;return false;}
             StorageRules.ChangeFood(crate,-take);if(SupplyRequestsEnabled && StorageRules.Count(crate,InventoryItem.Food)==0)actor.clerkNeedsSupplies=!supplyOrders.ContainsKey(store.storeId);map.SetStorageBox(crate);RememberStorage(ref actor,StorageObservation(crate));actor.carriedFood+=take;actors[index]=actor;return true;
@@ -122,7 +132,7 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 ActorState actor=actors[i];if(actor.clerkStoreId==0){if(actor.clerkShelf!=0)throw new ArgumentException("Unassigned clerk has a shelf task.");continue;}
-                if(!StoresEnabled || actor.species!=Species.Human || actor.health<=0 || !stores.ContainsKey(actor.clerkStoreId) || actor.courierSourceBox!=0 || actor.restockPhase!=RestockPhase.None)throw new ArgumentException("Invalid clerk assignment.");
+                if(!StoresEnabled || actor.species!=Species.Human || actor.health<=0 || !stores.ContainsKey(actor.clerkStoreId) || actor.courierSourceBox!=0 || (actor.restockPhase!=RestockPhase.None && !(WorkerShiftsEnabled && IsShopping(actor))))throw new ArgumentException("Invalid clerk assignment.");
                 if(actor.clerkShelf!=0){int key=actor.clerkShelf-1;if(key<0 || !FindRoom(actor.clerkStoreId).Contains(key) || map.ShelfAt(key%Width,key/Width)==null)throw new ArgumentException("Invalid clerk shelf target.");}
             }
         }

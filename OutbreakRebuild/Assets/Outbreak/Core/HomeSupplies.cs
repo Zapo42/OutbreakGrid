@@ -12,7 +12,7 @@ namespace Outbreak.Core
     {
         private bool HasCenterBusiness(ActorState actor,int id)
         {
-            if(actor.distributionCenterId==id || actor.assignedHouseId==id)return true;
+            if((actor.distributionCenterId==id && (!WorkerShiftsEnabled || CourierWorkingNow(actor) || (actor.restockPhase!=RestockPhase.None && !IsShopping(actor)))) || actor.assignedHouseId==id)return true;
             Room room=FindRoom(id);return room!=null && actor.restockPhase!=RestockPhase.None && (actor.restockHomeId==id || (actor.restockSourceBox>0 && room.Contains(actor.restockSourceBox-1)));
         }
         private bool RoutineFoodSiteAllowed(ActorState actor,int x,int y)
