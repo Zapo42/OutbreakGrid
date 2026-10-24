@@ -99,6 +99,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int[] courierBoxes;
         [DataMember(EmitDefaultValue=false)] public bool courierReturningHome;
         [DataMember(EmitDefaultValue=false)] public int courierShiftStartHour,courierShiftHours;
+        [DataMember(EmitDefaultValue=false)] public int clerkStoreId,clerkShelf;
         [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
         [DataMember(EmitDefaultValue=false)] public long restockUntilTick;
         [DataMember(EmitDefaultValue=false)] public int bluntPractice;
@@ -142,6 +143,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int houseId,mealsPerResident;
     }
+    [DataContract] public sealed class StoreDocument
+    {
+        [DataMember(IsRequired=true)] public int storeId,supplyBox,shelfTarget;
+    }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.
         [DataMember(IsRequired = true)] public string kind = "outbreak.save"; // Keep a running save distinct from a reusable map.
@@ -151,6 +156,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public long tick; // Restore the logical clock without replaying elapsed time.
         [DataMember(EmitDefaultValue=false)] public int infectionTimeScale;
         [DataMember(EmitDefaultValue=false)] public HouseholdFoodTargetDocument[] householdFoodTargets;
+        [DataMember(EmitDefaultValue=false)] public StoreDocument[] stores;
         [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.
         [DataMember(IsRequired = true)] public int nextId, capacity; // Preserve future identity allocation and the population limit.

@@ -1,4 +1,4 @@
-Latest build: [Foundation 97 / courier schedules](Docs/COURIER_SCHEDULES.md).
+Latest build: [Foundation 98 / store clerks and shelves](Docs/STORE_CLERKS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

@@ -36,6 +36,7 @@
     <Compile Include="HouseholdChecks.cs" />
     <Compile Include="HouseholdFoodChecks.cs" />
     <Compile Include="CourierScheduleChecks.cs" />
+    <Compile Include="StoreClerkChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />
     <Compile Include="ShelterSupplyChecks.cs" />
     <Compile Include="FoodExplorationChecks.cs" />

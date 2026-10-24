@@ -280,6 +280,11 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World StoreClerkTest()
+        {
+            SaveDocument saved=StorageSupplyTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.SetShelf(4,5,1,true);StorageBoxDocument crate=map.StorageBoxAt(4,3);crate.items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=12}};map.SetStorageBox(crate);saved.map=map.Capture();saved.map.name="Store clerk and consumer test";saved.actors[0].carriedFood=1;
+            World world=World.Restore(saved);int id;world.TrySpawn(Species.Human,3,5,out id);saved=world.Capture();saved.actors[1].hunger=80;saved.actors[1].shelterId=27;saved.actors[1].shelterX=3;saved.actors[1].shelterY=5;saved.actors[1].shelterState=ShelterState.Inside;world=World.Restore(saved);world.TryConfigureStore(4,3);world.TryAssignClerk(0,27);return world;
+        }
         public static World CourierScheduleTest()
         {
             SaveDocument saved=AssignedCourierTest().Capture();saved.tick=11*Rules.TicksPerGameHour+540;saved.map.name="Courier shift-end test";World world=World.Restore(saved);world.TrySetCourierSchedule(0,7,12);return world;

@@ -23,7 +23,7 @@ namespace Outbreak.Core
         }
         public bool TrySetCourierSource(int index,int x,int y)
         {
-            if(!CanEditCourier(index) || actors[index].assignedHouseId==0 || map.StorageBoxAt(x,y)==null || HouseAt(x,y)==0)return false;
+            if(!CanEditCourier(index) || actors[index].clerkStoreId!=0 || actors[index].assignedHouseId==0 || map.StorageBoxAt(x,y)==null || HouseAt(x,y)==0)return false;
             ActorState actor=actors[index];int key=Key(x,y)+1;if(actor.courierBoxes!=null && Array.IndexOf(actor.courierBoxes,key)>=0)return false;
             actor.courierSourceBox=key;actor.courierReturningHome=false;actors[index]=actor;return true;
         }

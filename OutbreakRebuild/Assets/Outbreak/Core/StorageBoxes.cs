@@ -86,6 +86,7 @@ namespace Outbreak.Core
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
                 if(boxKey!=0 && Key(box.x,box.y)+1!=boxKey)continue;
+                if(boxKey==0 && IsStoreSupplyBox(box) && !ClerkUsesSupply(actor,box))continue;
                 int knownFood,knownSpace;if((room!=null && !room.Contains(Key(box.x,box.y))) || !KnownStorageState(actor,box,out knownFood,out knownSpace) || (deposit?knownSpace==0:knownFood<=0))continue;
                 if(Math.Abs(actor.x-box.x)+Math.Abs(actor.y-box.y)==1){if(best>0){chosen=box;best=0;bestDirection=8;}continue;}
                 for(int d=0;d<8;d+=2)

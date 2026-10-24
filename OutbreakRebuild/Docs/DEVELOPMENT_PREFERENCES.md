@@ -15,3 +15,5 @@
 - Foundation 96: user selected household food targets based on assigned residents. Away residents count toward their own household; visitors do not. Policies are opt-in and manual box overrides remain supported.
 
 - Foundation 97: user selected courier schedules. Shifts are opt-in, follow the game clock and preserve active collection/delivery tasks at shift end. Existing hunger, energy, shelter and danger rules remain active.
+
+- Foundation 98: user requested incremental store clerks → consumer shelves → secondary supply crate → requests to distribution-center couriers. First increment implements finite crate-to-shelf replenishment and consumer access; empty-crate requests and distribution-center dispatch are the next requested stages. Keep next-step options aligned with this supply chain.

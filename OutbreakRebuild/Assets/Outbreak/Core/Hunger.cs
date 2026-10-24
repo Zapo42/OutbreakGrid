@@ -10,7 +10,7 @@ namespace Outbreak.Core
     public sealed partial class World
     {
         private static void ClearFoodMemory(ref ActorState a){a.foodX=0;a.foodY=0;a.foodUntilTick=0;a.shelfSearchProgress=0;}
-        private static void ClearHunger(ref ActorState a){ClearCourierAssignment(ref a);ClearBlockedFood(ref a);ClearFoodExploration(ref a);a.foodRoomVisits=null;a.shelfMemory=null;a.storageMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
+        private static void ClearHunger(ref ActorState a){ClearClerkAssignment(ref a);ClearCourierAssignment(ref a);ClearBlockedFood(ref a);ClearFoodExploration(ref a);a.foodRoomVisits=null;a.shelfMemory=null;a.storageMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
         private void AdvanceHunger(ref ActorState a)
         {
             if(a.species!=Species.Human)return;if(BoxMemoryEnabled)PruneStorageMemory(ref a);if(RestockingEnabled && a.restockPhase!=RestockPhase.None && (a.turnAtTick!=0 || a.restockUntilTick<=Tick))ClearRestocking(ref a);if(FoodExploration)AdvanceFoodExploration(ref a);if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
@@ -26,7 +26,7 @@ namespace Outbreak.Core
         }
         private bool KnownRoomSupplies(ActorState actor,Room room)
         {
-            if(actor.carriedFood>0)return true;if(StorageEnabled)foreach(StorageBoxDocument box in map.StorageRecords){int food,space;if(room.Contains(Key(box.x,box.y)) && KnownStorageState(actor,box,out food,out space) && food>0)return true;}if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
+            if(actor.carriedFood>0)return true;if(StorageEnabled)foreach(StorageBoxDocument box in map.StorageRecords){int food,space;if((!IsStoreSupplyBox(box) || ClerkUsesSupply(actor,box)) && room.Contains(Key(box.x,box.y)) && KnownStorageState(actor,box,out food,out space) && food>0)return true;}if(ShelfMemoryEnabled){if(actor.shelfMemory!=null)foreach(ShelfMemoryRecord known in actor.shelfMemory)if(known.food!=0 && !AvoidBlockedFood(actor,known.x,known.y) && room.Contains(Key(known.x,known.y)))return true;return false;}foreach(ShelfDocument s in map.ShelfRecords)if(room.Contains(Key(s.x,s.y)) && (!s.searched || s.food>0) && ShelfVisible(actor,s))return true;return false; // Unsearched shelves are possibilities; contents are revealed only by searching.
         }
         public int FoodTripRisk(int actorIndex) { return PerceivedFoodRisk(actors[actorIndex],NearestVisible(actors[actorIndex],Species.Zombie)); }
         public int FoodEnergyRiskPenalty(int actorIndex)
