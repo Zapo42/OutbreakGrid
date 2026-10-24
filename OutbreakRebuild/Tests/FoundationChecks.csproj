@@ -43,6 +43,7 @@
     <Compile Include="OrderFulfillmentChecks.cs" />
     <Compile Include="DeprivationChecks.cs" />
     <Compile Include="MultiStoreChecks.cs" />
+    <Compile Include="CityRoutingChecks.cs" />
     <Compile Include="HomeSupplyChecks.cs" />
     <Compile Include="StoreShoppingChecks.cs" />
     <Compile Include="StoreDiscoveryChecks.cs" />

@@ -280,6 +280,17 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World GeneratedCityTrial(uint seed=214)
+        {
+            WorldMap map=CityGenerator.Streets(seed);int far=73;
+            AddShelterRoom(map,7,7,false);map.SetStorageBox(new StorageBoxDocument{x=10,y=8,capacity=40,foodReserve=6,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=30}}});map.SetRestSpot(8,12);
+            AddShelterRoom(map,far,7,false);map.Set(far+4,10,Terrain.Wall);map.Set(far,10,Terrain.DoorClosed);map.SetStorageBox(new StorageBoxDocument{x=far+3,y=8,capacity=4,items=new ItemStackDocument[0]});map.SetShelf(far+2,12,0,true);map.SetPhone(far+3,11);map.SetRestSpot(far+1,11);
+            AddShelterRoom(map,far,42,false);map.SetStorageBox(new StorageBoxDocument{x=far+3,y=43,capacity=12,foodReserve=4,items=new ItemStackDocument[0]});map.SetRestSpot(far+1,47);
+            World world=new World(map,seed,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,9,10,out id);world.TrySpawn(Species.Human,far+1,10,out id);
+            for(int i=0;i<2;i++)world.TryAssignHouse(i,far+2,45);
+            world.TryConfigureDistributionCenter(10,8);world.TryAssignDistributionCourier(0,world.HouseAt(10,8));world.TryConfigureStore(far+3,8);world.TryAssignClerk(1,world.HouseAt(far+1,10));
+            SaveDocument saved=world.Capture();for(int i=0;i<2;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}return World.Restore(saved);
+        }
         public static World LargerDistrictTrial(uint seed=214)
         {
             WorldMap map=new WorldMap(64,36,"Larger home supply district","larger-district-1");

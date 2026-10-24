@@ -1,4 +1,4 @@
-Current build: **Foundation 109 / larger home supply district**. Targets **Unity 6000.6.3f1**. Three assigned homes, three stores, two couriers and longer supply routes on a 64 × 36 map with finite food. [Guide and limits](Docs/LARGER_DISTRICT.md).
+Current build: **Foundation 110 / city streets and longer routes**. Targets **Unity 6000.6.3f1**. Bounded routes beyond 64 cells and seeded street layouts with sidewalks/crosswalks. [Guide and limits](Docs/CITY_STREETS_AND_ROUTES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

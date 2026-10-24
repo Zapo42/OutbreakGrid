@@ -72,6 +72,8 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         private int ShelterRoute(ActorState actor, int goalX, int goalY, int threats, out int distance, Room confinedRoom = null, bool foodRoute = false, bool walkOnly = false) // Find a collision-safe local path including human door actions.
         { // Begin bounded routing.
             bool courier=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
+            bool extended=LongRoutesEnabled && courier && threats==0 && confinedRoom==null;
+            if(extended && Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>ShelterRules.RouteRadius)return LongRoute(actor,goalX,goalY,walkOnly,out distance);
             int side=courier?CourierRules.RouteRadius*2+1:33,radius=side/2;
             if(courier && courierQueue==null){courierQueue=new int[side*side];courierFirst=new int[side*side];courierSteps=new int[side*side];courierSeen=new bool[side*side];}
             int[] queue=courier?courierQueue:shelterQueue,first=courier?courierFirst:shelterFirst,steps=courier?courierSteps:shelterSteps;bool[] seen=courier?courierSeen:shelterSeen;
@@ -81,7 +83,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
                 int cell = queue[head++], x = left + cell % side, y = top + cell / side; if (x == goalX && y == goalY) { distance = steps[cell]; return first[cell]; } // Return only the first step and route length.
                 for (int d = 0; d < 8; d++) { int nx = x + dx[d], ny = y + dy[d], lx = nx - left, ly = ny - top; if (lx < 0 || ly < 0 || lx >= side || ly >= side || !ShelterWalkable(nx, ny) || (threats==0 && !RoutineDistributionStepAllowed(actor,nx,ny)) || (walkOnly && !map.CanWalk(nx,ny)) || (confinedRoom != null && !confinedRoom.Contains(Key(nx,ny)))) continue; int next = ly * side + lx; if (seen[next] || !occupancy.Allows(Key(nx, ny), Species.Human) || ZombieAt(nx, ny)) continue; bool diagonal = nx != x && ny != y; if (diagonal && (IsDoor(x, y) || IsDoor(nx, ny) || !map.CanWalk(nx, y) || !map.CanWalk(x, ny) || (confinedRoom != null && (!confinedRoom.Contains(Key(nx,y)) || !confinedRoom.Contains(Key(x,ny)))))) continue; ActorState candidate = actor; candidate.x = nx; candidate.y = ny; bool safe = true; for (int j = 0; j < threats; j++) if ((foodRoute && SafeFoodTargets && Math.Max(Math.Abs(nx-escapeThreats[j].x),Math.Abs(ny-escapeThreats[j].y))<=2) || DistanceSquared(candidate, escapeThreats[j]) < (actor.turnAtTick > Tick ? DistanceSquared(actor, escapeThreats[j]) : Math.Min(4, DistanceSquared(actor, escapeThreats[j])))) { safe = false; break; } if (!safe) continue; seen[next] = true; steps[next] = steps[cell] + 1; first[next] = cell == start ? d : first[cell]; queue[tail++] = next; } // Avoid observed threats and diagonal doorway/corner shortcuts throughout the path.
             } // Finish bounded frontier.
-            return -1; // Unreachable rooms are not chosen merely because their center is nearby.
+            return extended?LongRoute(actor,goalX,goalY,walkOnly,out distance):-1; // Bounded long search can also find detours outside the local square.
         } // Finish local route query.
         private int PickShelterCell(Room room, ActorState actor) // Prefer available interior space away from openings.
         { // Begin interior selection.
