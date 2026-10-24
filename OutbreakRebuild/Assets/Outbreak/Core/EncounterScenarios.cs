@@ -280,6 +280,19 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World PedestrianCrossingTrial()
+        {
+            WorldMap map=new WorldMap(34,20,"Pedestrian crossing trial","pedestrian-crossing-1");
+            for(int y=0;y<20;y++)for(int x=0;x<34;x++)
+                if(x==0 || y==0 || x==33 || y==19)map.Set(x,y,Terrain.Wall);
+            for(int y=1;y<19;y++){map.Set(14,y,Terrain.Road);map.Set(15,y,Terrain.Road);map.Set(13,y,Terrain.Sidewalk);map.Set(16,y,Terrain.Sidewalk);}
+            for(int x=5;x<=26;x++)map.Set(x,10,Terrain.Sidewalk);
+            map.Set(14,10,Terrain.Crosswalk);map.Set(15,10,Terrain.Crosswalk);
+            AddShelterRoom(map,1,3,false);map.SetStorageBox(new StorageBoxDocument{x=4,y=4,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=12}}});
+            AddShelterRoom(map,26,3,false);map.Set(30,6,Terrain.Wall);map.Set(26,6,Terrain.DoorClosed);map.SetStorageBox(new StorageBoxDocument{x=29,y=4,capacity=12,foodReserve=4,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=4}}});map.SetRestSpot(27,8);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,3,6,out id);world.TryAssignHouse(0,28,6);world.TryConfigureDistributionCenter(4,4);world.TryAssignDistributionCourier(0,world.HouseAt(4,4));world.TrySetCourierSchedule(0,19,12);
+            SaveDocument saved=world.Capture();saved.actors[0].hunger=10;saved.actors[0].carriedFood=1;saved.actors[0].shelterId=world.HouseAt(3,6);saved.actors[0].shelterX=3;saved.actors[0].shelterY=6;saved.actors[0].shelterState=ShelterState.Inside;return World.Restore(saved);
+        }
         public static World GeneratedCityTrial(uint seed=214)
         {
             WorldMap map=CityGenerator.Streets(seed);int far=73;

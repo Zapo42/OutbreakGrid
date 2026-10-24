@@ -43,3 +43,7 @@
 - Foundation 109: user selected the larger district milestone. Added a 64 × 36 controlled district with three separately assigned homes, three familiar stores and two center couriers; longer near/far deliveries and resident groceries remain physical and finite. Keep city-wide routing and vehicles separate from this bounded scenario. Next planned gameplay stage is specialized stores and household shopping priorities.
 
 - Foundation 110: user selected longer-distance routing and requested the start of procedural city generation (streets, sidewalks, crosswalks). Added bounded extended A* for safe assigned-human trips and seeded connected street geometry, retaining old saved rules. Future item/store categories are explicitly **supplies**, **medical**, **ammo**; do not substitute food subtypes. Street geometry comes before generated building lots/population and traffic.
+
+- Foundation 111: user selected pedestrian sidewalk/crosswalk preference. Safe route planning favors those tiles while allowing fallback road crossings; threat-aware routes preserve escape choices and actual travel still costs energy. Existing saves retain old rules until explicitly upgraded. Continue toward generated building lots/entrances; future item categories remain supplies/medical/ammo.
+
+- During Foundation 111 development the user reported a sideways deviation before a Generated City doorway. Reproduced the old local-search arc and retained A* scoring through the final approach; cover both that doorway trace and a clear straight approach in regression checks.

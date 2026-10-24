@@ -72,7 +72,9 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         private int ShelterRoute(ActorState actor, int goalX, int goalY, int threats, out int distance, Room confinedRoom = null, bool foodRoute = false, bool walkOnly = false) // Find a collision-safe local path including human door actions.
         { // Begin bounded routing.
             bool courier=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
-            bool extended=LongRoutesEnabled && courier && threats==0 && confinedRoom==null;
+            bool pedestrian=PedestrianRoutesEnabled && streetTerrain && threats==0 && confinedRoom==null;
+            bool extended=LongRoutesEnabled && (courier || pedestrian) && threats==0 && confinedRoom==null;
+            if(pedestrian || (PedestrianRoutesEnabled && extended))return LongRoute(actor,goalX,goalY,walkOnly,out distance,courier?CityRouteRules.Radius:ShelterRules.RouteRadius);
             if(extended && Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>ShelterRules.RouteRadius)return LongRoute(actor,goalX,goalY,walkOnly,out distance);
             int side=courier?CourierRules.RouteRadius*2+1:33,radius=side/2;
             if(courier && courierQueue==null){courierQueue=new int[side*side];courierFirst=new int[side*side];courierSteps=new int[side*side];courierSeen=new bool[side*side];}

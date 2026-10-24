@@ -15,6 +15,10 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
             if (width < 1 || height < 1 || width > Rules.MaxDimension || height > Rules.MaxDimension) throw new ArgumentOutOfRangeException("width", "Map dimensions must be between 1 and 10000."); // Reject invalid bounds before multiplication or allocation.
             Width = width; Height = height; columns = (width + Rules.ChunkSize - 1) / Rules.ChunkSize; Name = name ?? "Untitled"; Id = id ?? ""; AuthoringJson = authoringJson ?? ""; // Keep metadata usable even for newly created documents.
         } // Finish map construction.
+        internal bool HasStreetTerrain
+        {
+            get { foreach(ushort[] cells in chunks.Values)foreach(ushort tile in cells)if(tile==(ushort)Terrain.Road || tile==(ushort)Terrain.Sidewalk || tile==(ushort)Terrain.Crosswalk)return true;return false; }
+        }
         public bool Contains(int x, int y) { return x >= 0 && y >= 0 && x < Width && y < Height; } // Use the same boundary test everywhere.
         public Terrain Get(int x, int y) // Read absent chunks as ordinary grass without allocating them.
         { // Begin a terrain read.

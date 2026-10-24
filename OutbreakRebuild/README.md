@@ -1,4 +1,4 @@
-Current build: **Foundation 110 / city streets and longer routes**. Targets **Unity 6000.6.3f1**. Bounded routes beyond 64 cells and seeded street layouts with sidewalks/crosswalks. [Guide and limits](Docs/CITY_STREETS_AND_ROUTES.md).
+Current build: **Foundation 111 / pedestrian street routes**. Targets **Unity 6000.6.3f1**. Safe walking plans favor sidewalks and crosswalks, with ordinary crossings available when needed. [Guide and limits](Docs/PEDESTRIAN_STREET_ROUTES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

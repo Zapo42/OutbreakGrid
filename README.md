@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 110 / city streets and longer routes**. Targets **Unity 6000.6.3f1**. Bounded routes beyond 64 cells and seeded street layouts with sidewalks/crosswalks. [Guide and limits](OutbreakRebuild/Docs/CITY_STREETS_AND_ROUTES.md).
+Current build: **Foundation 111 / pedestrian street routes**. Targets **Unity 6000.6.3f1**. Safe walking plans favor sidewalks and crosswalks, with ordinary crossings available when needed. [Guide and limits](OutbreakRebuild/Docs/PEDESTRIAN_STREET_ROUTES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

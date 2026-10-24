@@ -48,7 +48,7 @@ public static partial class Program
             saved.map=map.Capture();world=World.Restore(saved);Require(CityRoute(world,world.ActorAt(0),world.ActorAt(1).x,10,out distance)<0,"Long route crossed sealed wall.");
         });
         Check("Generated city courier completes physical long deliveries and resumes deterministically",()=>{
-            World world=EncounterScenarios.GeneratedCityTrial();ActorState[] previous=world.Capture().actors;int eaten=0;bool travelled=false,delivered=false;World copy=null;
+            SaveDocument fixture=EncounterScenarios.GeneratedCityTrial().Capture();fixture.rulesVersion=EncounterRules.LongRoutesVersion;World world=World.Restore(fixture);ActorState[] previous=world.Capture().actors;int eaten=0;bool travelled=false,delivered=false;World copy=null;
             for(int tick=1;tick<=4800;tick++)
             {
                 world.Step();if(copy!=null){copy.Step();Require(State(world)==State(copy),"Long courier save continuation diverged.");}

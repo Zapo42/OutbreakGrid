@@ -53,4 +53,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 110 | Bounded extended A* routes, preserved legacy routing, seeded connected roads/sidewalks/crosswalks and distant courier previews | Core: 522 cases / 431189 assertions; UI: 1883 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 111 | Safe sidewalk/crosswalk preference, fallback road crossings, straight final approaches and Generated City doorway-arc fix | Core: 527 cases / 432319 assertions; focused pedestrian/doorway checks: 5 cases / 868 assertions; UI: 1891 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.
