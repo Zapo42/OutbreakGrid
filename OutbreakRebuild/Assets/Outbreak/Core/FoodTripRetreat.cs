@@ -61,7 +61,10 @@ namespace Outbreak.Core
             goal=-1;length=0;
             if(room==null || room.id==actor.rejectedShelterId || KnownRoomDanger(actor,room) || RoomAdmissions(room,actor.id)>=room.Capacity)return false;
             goal=PickShelterCell(room,actor);
-            return goal>=0 && ShelterRoute(actor,goal%Width,goal/Width,threats,out length,foodRoute:true)>=0;
+            if(goal>=0 && ShelterRoute(actor,goal%Width,goal/Width,threats,out length,foodRoute:true)>=0)return true;
+            if(!OrderFulfillmentEnabled || actor.distributionCenterId==0)return false;
+            int best=int.MaxValue;goal=-1;foreach(int cell in room.cells){int steps;if(!map.CanWalk(cell%Width,cell/Width))continue;if(ShelterRoute(actor,cell%Width,cell/Width,threats,out steps,foodRoute:true)>=0 && steps<best){best=steps;goal=cell;}}
+            length=goal<0?0:best;return goal>=0;
         }
     }
 }

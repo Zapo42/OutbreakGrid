@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 100 / phone orders and encounter navigation**. Clerks walk to phone blocks to place saved replenishment orders for empty store crates. The encounter sidebar now has collapsible sections and clicked-item inspection first. See [phone orders](OutbreakRebuild/Docs/PHONE_SUPPLY_ORDERS.md) and [navigation](OutbreakRebuild/Docs/ENCOUNTER_NAVIGATION.md).
+Current build: **Foundation 101 / courier order fulfillment**. Center couriers accept phone orders, deliver partial loads and record completed requests. Humans at maximum hunger with no energy now lose health and can die. See [fulfillment](OutbreakRebuild/Docs/COURIER_ORDER_FULFILLMENT.md) and [survival damage](OutbreakRebuild/Docs/SURVIVAL_DAMAGE.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

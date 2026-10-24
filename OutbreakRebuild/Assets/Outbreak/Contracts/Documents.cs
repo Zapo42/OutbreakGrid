@@ -106,6 +106,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int courierShiftStartHour,courierShiftHours;
         [DataMember(EmitDefaultValue=false)] public int clerkStoreId,clerkShelf;
         [DataMember(EmitDefaultValue=false)] public int distributionCenterId;
+        [DataMember(EmitDefaultValue=false)] public int courierOrderId;
+        [DataMember(EmitDefaultValue=false)] public bool diedFromDeprivation;
         [DataMember(EmitDefaultValue=false)] public bool clerkNeedsSupplies;
         [DataMember(EmitDefaultValue=false)] public int clerkPhone,clerkCallProgress;
         [DataMember(EmitDefaultValue=false)] public RestockPhase restockPhase;
@@ -163,6 +165,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int id,storeId,supplyBox,requestedMeals,requestedBy,phone;
         [DataMember(IsRequired=true)] public long createdTick;
+        [DataMember(EmitDefaultValue=false)] public int deliveredMeals;
     }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.
@@ -176,6 +179,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public StoreDocument[] stores;
         [DataMember(EmitDefaultValue=false)] public DistributionCenterDocument[] distributionCenters;
         [DataMember(EmitDefaultValue=false)] public SupplyOrderDocument[] supplyOrders;
+        [DataMember(EmitDefaultValue=false)] public SupplyOrderDocument[] completedSupplyOrders;
         [DataMember(EmitDefaultValue=false)] public int nextSupplyOrderId;
         [DataMember] public uint reactionRandomState; // Keep variable freeze durations independent of wandering draws.
         [DataMember(IsRequired = true)] public uint randomState; // Resume random draws directly rather than reseeding and replaying them.

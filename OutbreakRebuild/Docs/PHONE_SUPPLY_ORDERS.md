@@ -26,3 +26,5 @@ Older runs require **Enable phone supply requests**. Existing scenarios without 
 Open **Inspect Phone Supply Order Paused**. The supply crate is empty, and a cyan phone stands at (2, 5). **Step 10 ticks** reaches the calling phase. Continue stepping to create order #1 for thirty meals. Observe that order to inspect its phone. Continued simulation does not create duplicate orders or add food to the empty crate.
 
 Automated checks cover physical walking/calling, exact saved continuation, missing/blocked phones, competing clerks, refill/infection interruptions, finite inventories, furniture collision and map versions, malformed/legacy orders, UI placement/inspection and restart/upgrade paths. Native Unity remains untested after Foundation 82; `foundation-82-unity-checkpoint` remains unchanged.
+
+Foundation 101 adds [courier acceptance, partial delivery and completion](COURIER_ORDER_FULFILLMENT.md). Its current order views show shipment progress and the assigned courier.

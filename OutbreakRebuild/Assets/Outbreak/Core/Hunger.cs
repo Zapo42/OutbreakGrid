@@ -13,7 +13,7 @@ namespace Outbreak.Core
         private static void ClearHunger(ref ActorState a){ClearClerkAssignment(ref a);ClearCourierAssignment(ref a);ClearBlockedFood(ref a);ClearFoodExploration(ref a);a.foodRoomVisits=null;a.shelfMemory=null;a.storageMemory=null;a.hunger=0;a.carriedFood=0;a.homeShelterId=0;ClearFoodMemory(ref a);}
         private void AdvanceHunger(ref ActorState a)
         {
-            if(a.species!=Species.Human)return;if(BoxMemoryEnabled)PruneStorageMemory(ref a);if(RestockingEnabled && a.restockPhase!=RestockPhase.None && (a.turnAtTick!=0 || a.restockUntilTick<=Tick))ClearRestocking(ref a);if(FoodExploration)AdvanceFoodExploration(ref a);if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);
+            if(a.species!=Species.Human)return;if(BoxMemoryEnabled)PruneStorageMemory(ref a);if(RestockingEnabled && a.restockPhase!=RestockPhase.None && (a.turnAtTick!=0 || a.restockUntilTick<=Tick))ClearRestocking(ref a);if(FoodExploration)AdvanceFoodExploration(ref a);if(a.blockedFoodUntilTick!=0 && a.blockedFoodUntilTick<=Tick)ClearBlockedFood(ref a);if(ShelfMemoryEnabled)PruneShelfMemory(ref a);if(Tick%HungerRules.GainTicks==0)a.hunger=Math.Min(100,a.hunger+1);if(a.foodUntilTick!=0 && a.foodUntilTick<=Tick)ClearFoodMemory(ref a);AdvanceDeprivation(ref a);
         }
         private void ValidateHunger()
         {

@@ -48,7 +48,7 @@ namespace Outbreak.Core
         {
             if(!CourierAssignmentsEnabled || actor.assignedHouseId==0 || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy)return false;
             if(actor.courierReturningHome)return room.id!=actor.assignedHouseId;
-            if(actor.courierBoxes==null)return false;
+            if(actor.courierBoxes==null && actor.courierOrderId==0)return false;
             if(actor.restockPhase==RestockPhase.Collecting){Room source=DeliverySourceRoom(actor);return source!=null && room.id!=source.id;}
             return actor.restockPhase==RestockPhase.Returning && room.id!=actor.restockHomeId;
         }
@@ -93,7 +93,7 @@ namespace Outbreak.Core
                     int key=actor.courierBoxes[j]-1;if(key<0 || key==source || map.StorageBoxAt(key%Width,key/Width)==null || HouseAt(key%Width,key/Width)==0)throw new ArgumentException("Invalid courier destination.");
                     for(int k=0;k<j;k++)if(actor.courierBoxes[k]==key+1)throw new ArgumentException("Duplicate courier destination.");
                 }
-                if(actor.restockPhase!=RestockPhase.None && (actor.restockSourceBox!=actor.courierSourceBox || Array.IndexOf(actor.courierBoxes,actor.restockBox)<0))throw new ArgumentException("Courier task differs from assignment.");
+                if(actor.courierOrderId==0 && actor.restockPhase!=RestockPhase.None && (actor.restockSourceBox!=actor.courierSourceBox || Array.IndexOf(actor.courierBoxes,actor.restockBox)<0))throw new ArgumentException("Courier task differs from assignment.");
             }
         }
     }

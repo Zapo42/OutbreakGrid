@@ -280,6 +280,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World HungerDamageTest()
+        {
+            WorldMap map=new WorldMap(3,3,"Hunger and exhaustion damage","deprivation-1");for(int y=0;y<3;y++)for(int x=0;x<3;x++)map.Set(x,y,Terrain.Wall);map.Set(1,1,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,1,1,out id);SaveDocument saved=world.Capture();saved.actors[0].health=10;saved.actors[0].hunger=100;saved.actors[0].energySpent=100;return World.Restore(saved);
+        }
+        public static World CourierFulfillmentTest()
+        {
+            World world=DistributionCenterTest();world.TryToggleCourierDestination(0,13,3);SaveDocument saved=world.Capture();StorageBoxDocument crate=System.Array.Find(saved.map.storageBoxes,box=>box.x==13 && box.y==3);crate.capacity=4;saved.map.name="Phone order fulfillment test";world=World.Restore(saved);world.TryPlacePhone(13,6);return world;
+        }
         public static World PhoneSupplyOrderTest()
         {
             SaveDocument saved=StoreClerkTest().Capture();saved.map.storageBoxes[0].items=new ItemStackDocument[0];saved.actors[1].hunger=10;World world=World.Restore(saved);world.TryPlacePhone(2,5);return world;

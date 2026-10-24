@@ -97,8 +97,9 @@ namespace Outbreak.Core
             }
             if(chosen==null)return false;
             if(best>0){direction=bestDirection;int nx=actor.x+dx[direction],ny=actor.y+dy[direction];if(IsDoor(nx,ny) && map.Get(nx,ny)==Terrain.DoorClosed){SetDoor(nx,ny,true);direction=8;}if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true;}
-            StorageBoxDocument update=StorageRules.Copy(chosen);int amount=deposit?Math.Min(actor.carriedFood-FoodReserve(actor),chosen.capacity-StorageRules.Used(chosen)):Math.Min(HungerRules.CarryLimit-actor.carriedFood,StorageRules.Count(chosen,InventoryItem.Food));if(amount<=0)return false;
-            StorageRules.ChangeFood(update,deposit?amount:-amount);map.SetStorageBox(update);if(BoxMemoryEnabled)RememberStorage(ref actor,StorageObservation(update));actor.carriedFood+=deposit?-amount:amount;ClearFoodMemory(ref actor);if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Transfer one finite inventory into another, consuming the actor's ordinary action.
+            StorageBoxDocument update=StorageRules.Copy(chosen);int amount=deposit?Math.Min(actor.carriedFood-FoodReserve(actor),chosen.capacity-StorageRules.Used(chosen)):Math.Min(HungerRules.CarryLimit-actor.carriedFood,StorageRules.Count(chosen,InventoryItem.Food));if(actor.courierOrderId!=0 && deposit){SupplyOrderDocument order=ActiveSupplyOrder(actor);if(order==null)return false;amount=Math.Min(amount,order.requestedMeals-order.deliveredMeals);}
+            if(amount<=0)return false;
+            StorageRules.ChangeFood(update,deposit?amount:-amount);map.SetStorageBox(update);if(deposit && actor.courierOrderId!=0)CreditSupplyDelivery(actor,Key(chosen.x,chosen.y)+1,amount);if(BoxMemoryEnabled)RememberStorage(ref actor,StorageObservation(update));actor.carriedFood+=deposit?-amount:amount;ClearFoodMemory(ref actor);if(deposit)ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Transfer one finite inventory into another, consuming the actor's ordinary action.
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Outbreak.Core
         private readonly SortedDictionary<int,SupplyOrderDocument> supplyOrders=new SortedDictionary<int,SupplyOrderDocument>();
         private int nextSupplyOrderId=1;
         private static void ResetClerkCall(ref ActorState actor){actor.clerkPhone=0;actor.clerkCallProgress=0;}
-        private static SupplyOrderDocument CopyOrder(SupplyOrderDocument order){return new SupplyOrderDocument{id=order.id,storeId=order.storeId,supplyBox=order.supplyBox,requestedMeals=order.requestedMeals,requestedBy=order.requestedBy,phone=order.phone,createdTick=order.createdTick};}
+        private static SupplyOrderDocument CopyOrder(SupplyOrderDocument order){return new SupplyOrderDocument{id=order.id,storeId=order.storeId,supplyBox=order.supplyBox,requestedMeals=order.requestedMeals,requestedBy=order.requestedBy,phone=order.phone,createdTick=order.createdTick,deliveredMeals=order.deliveredMeals};}
         public SupplyOrderDocument[] PendingSupplyOrders(){return CaptureSupplyOrders()??new SupplyOrderDocument[0];}
         private SupplyOrderDocument[] CaptureSupplyOrders()
         {
@@ -16,6 +16,7 @@ namespace Outbreak.Core
         }
         private void InvalidateStoreOrder(int storeId)
         {
+            SupplyOrderDocument cancelled;if(supplyOrders.TryGetValue(storeId,out cancelled))for(int i=0;i<count;i++)if(actors[i].courierOrderId==cancelled.id){ActorState courier=actors[i];ClearRestocking(ref courier);ClearFoodMemory(ref courier);ClearShelterDeparture(ref courier);actors[i]=courier;}
             supplyOrders.Remove(storeId);for(int i=0;i<count;i++)if(actors[i].clerkStoreId==storeId){ActorState actor=actors[i];actor.clerkNeedsSupplies=false;ResetClerkCall(ref actor);actors[i]=actor;}
         }
         private void UpdateClerkSupplyKnowledge(ref ActorState actor,StoreDocument store)
@@ -54,7 +55,7 @@ namespace Outbreak.Core
                 StoreDocument store;bool caller=false;if(order!=null)for(int i=0;i<count;i++)if(actors[i].id==order.requestedBy)caller=true;
                 int phone=order==null?-1:order.phone-1;
                 if(order==null || order.storeId<=previous || !stores.TryGetValue(order.storeId,out store) || order.supplyBox!=store.supplyBox || order.id<1 || order.id>=nextSupplyOrderId || !ids.Add(order.id) || !caller || phone<0 || !map.PhoneAt(phone%Width,phone/Width) || !FindRoom(store.storeId).Contains(phone) || order.createdTick<0 || order.createdTick>Tick)throw new ArgumentException("Invalid supply order.");
-                StorageBoxDocument box=map.StorageBoxAt((order.supplyBox-1)%Width,(order.supplyBox-1)/Width);if(order.requestedMeals<1 || order.requestedMeals>box.capacity)throw new ArgumentException("Invalid requested quantity.");supplyOrders.Add(order.storeId,CopyOrder(order));previous=order.storeId;
+                StorageBoxDocument box=map.StorageBoxAt((order.supplyBox-1)%Width,(order.supplyBox-1)/Width);if(order.requestedMeals<1 || order.requestedMeals>box.capacity || order.deliveredMeals<0 || order.deliveredMeals>=order.requestedMeals || (!OrderFulfillmentEnabled && order.deliveredMeals!=0))throw new ArgumentException("Invalid requested quantity.");supplyOrders.Add(order.storeId,CopyOrder(order));previous=order.storeId;
             }
         }
         private void ValidateClerkCalls()

@@ -21,3 +21,5 @@
 - Foundation 99: user selected distribution centers before supply requests. Implemented stock-box designation and courier membership with a manual-route center → store → shelf demo. Store requests and automatic fulfillment remain outstanding requested supply-chain stages.
 
 - Foundation 100: user requested empty-crate replenishment orders made by clerks at a phone block, plus collapsible encounter options and clearer inspection of clicked items/events. Keep clicked details first and observation tools easy to find. Courier request acceptance/fulfillment remains outstanding.
+
+- Foundation 101: user selected courier fulfillment and reported missing health loss at maximum hunger/zero energy. Added automatic center dispatch, partial deposits/completion, claim release and combined-deprivation health loss/death. Preserve the collapsible selected-item-first UI.

@@ -67,7 +67,9 @@ namespace Outbreak.Core
                 int best=int.MaxValue,key=int.MaxValue;
                 foreach(ShelfDocument shelf in map.ShelfRecords)
                 {
-                    if(!room.Contains(Key(shelf.x,shelf.y)) || !ShelfVisible(actor,shelf) || shelf.food>=store.shelfTarget)continue;
+                    if(!room.Contains(Key(shelf.x,shelf.y)))continue;
+                    int knownFood=-1;if(ShelfVisible(actor,shelf))knownFood=shelf.food;else if(OrderFulfillmentEnabled && actor.shelfMemory!=null)foreach(ShelfMemoryRecord note in actor.shelfMemory)if(note.x==shelf.x && note.y==shelf.y){knownFood=note.food;break;}
+                    if(knownFood<0 || knownFood>=store.shelfTarget)continue;
                     int goal,length;if(StoreFurnitureRoute(actor,room,shelf.x,shelf.y,out goal,out length)<0)continue;
                     int candidate=Key(shelf.x,shelf.y);if(length<best || (length==best && candidate<key)){target=shelf;best=length;key=candidate;}
                 }

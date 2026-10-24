@@ -54,6 +54,7 @@ namespace Outbreak.Core
                 actors[index]=actor;return true;
             }
             int take=Math.Min(HungerRules.CarryLimit-actor.carriedFood,Math.Max(0,StorageRules.Count(box,InventoryItem.Food)-EffectiveFoodReserve(box)));
+            if(actor.courierOrderId!=0){SupplyOrderDocument order=ActiveSupplyOrder(actor);if(order==null)return false;take=Math.Min(take,order.requestedMeals-order.deliveredMeals+Math.Max(0,FoodReserve(actor)-actor.carriedFood));}
             if(take<=0){RememberStorage(ref actor,StorageObservation(box));actors[index]=actor;return false;}
             StorageBoxDocument updated=StorageRules.Copy(box);StorageRules.ChangeFood(updated,-take);map.SetStorageBox(updated);RememberStorage(ref actor,StorageObservation(updated));actor.carriedFood+=take;actor.restockPhase=RestockPhase.Returning;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);actors[index]=actor;return true; // Recheck actual surplus for each pickup, protecting the donor even under concurrent visits.
         }

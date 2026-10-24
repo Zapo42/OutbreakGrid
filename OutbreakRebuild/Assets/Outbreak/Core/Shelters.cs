@@ -49,7 +49,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         private void SetDoor(int x, int y, bool open) { if (!open && map.DoorHealthAt(x, y) == 0) return; Terrain desired = open ? Terrain.DoorOpen : Terrain.DoorClosed; if (map.Get(x, y) != desired) { map.Set(x, y, desired); if (open) ReleaseDoorBraces(Key(x, y) + 1); TerrainRevision++; if(DoorMovementNoise)EmitLocalInvestigationNoise(x,y,1); } } // Save actual door state through the world's cloned terrain.
         private void CloseNearbyDoors(ActorState actor, Room room) // Close a reachable door only after the human has actually entered the room.
         { // Begin safe automatic closure.
-            if (!room.Contains(Key(actor.x, actor.y))) return; foreach (int key in room.doors) { int x = key % Width, y = key / Width; if (Math.Abs(x - actor.x) + Math.Abs(y - actor.y) == 1 && map.Get(x, y) == Terrain.DoorOpen && !DoorOccupied(x, y)) SetDoor(x, y, false); } // Distant entrances are not closed magically and occupied doorways remain traversable.
+            if (!room.Contains(Key(actor.x, actor.y))) return; foreach (int key in room.doors) { int x = key % Width, y = key / Width; if (Math.Abs(x - actor.x) + Math.Abs(y - actor.y) == 1 && map.Get(x, y) == Terrain.DoorOpen && !DoorOccupied(x, y) && !OrderCourierWaitingAtDoor(room,key)) SetDoor(x, y, false); } // Distant entrances are not closed magically and occupied doorways remain traversable.
         } // Finish door closure.
         private void FinishShelterMove(int index) // Commit entry and closing behind the actor in the same authoritative tick.
         { // Begin post-movement entry handling.
