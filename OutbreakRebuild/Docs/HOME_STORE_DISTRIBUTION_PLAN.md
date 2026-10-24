@@ -52,3 +52,5 @@ Foundation 110: [city streets and longer routes](CITY_STREETS_AND_ROUTES.md) add
 Foundation 111: [pedestrian street routes](PEDESTRIAN_STREET_ROUTES.md) adds safe sidewalk/crosswalk preference with bounded detours, ordinary-road fallback and unchanged danger-aware routing. Generated building lots and linked entrances are the next city groundwork step.
 
 Foundation 112: [generated building lots](GENERATED_BUILDING_LOTS.md) places seeded rectangular buildings inside street blocks and connects every door to a sidewalk. The two playable seed previews configure five assigned homes, two stores and one center with five humans and finite food. General city setup/population controls and richer zoning remain later increments.
+
+Foundation 113: [generated city setup](CITY_SETUP.md) adds seed and independent block-count controls, size presets, exact pre-start summaries and paused/running creation while retaining existing run-replacement protection. Population is still one resident per generated home with fixed staffing rules; household density and long-trip rest planning remain later work.

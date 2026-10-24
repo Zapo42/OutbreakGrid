@@ -1,4 +1,4 @@
-Current build: **Foundation 112 / generated building lots**. Targets **Unity 6000.6.3f1**. Seeded buildings with connected sidewalk entrances, five assigned homes, two stores and one distribution center. [Guide and limits](Docs/GENERATED_BUILDING_LOTS.md).
+Current build: **Foundation 113 / configurable generated cities**. Targets **Unity 6000.6.3f1**. Set the city seed and 2–6 blocks per axis, inspect exact counts, and start paused or running. [Guide and limits](Docs/CITY_SETUP.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

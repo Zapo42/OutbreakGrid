@@ -49,3 +49,5 @@
 - During Foundation 111 development the user reported a sideways deviation before a Generated City doorway. Reproduced the old local-search arc and retained A* scoring through the final approach; cover both that doorway trace and a clear straight approach in regression checks.
 
 - Foundation 112: user selected generated building lots and sidewalk entrance connections. Geometry generation varies building footprints/placement by seed, preserves streets/crosswalks and supports 1–6 blocks per axis. The playable preview uses five separate homes, two stores, one center and five assigned humans; no generalized population or zoning model is claimed. Preserve the corrected approach routing, future supplies/medical/ammo categories and existing food-only storage.
+
+- Foundation 113: user selected city setup controls for seed and map size. Add a separate generated-city form, 2–6 blocks per axis, small/standard/large presets, exact summary counts, paused/running start and existing retained-run protection. Keep population simple and explain the minimum city has workers but no pure consumers. Future supplies/medical/ammo categories and no weapon storage remain in effect.
