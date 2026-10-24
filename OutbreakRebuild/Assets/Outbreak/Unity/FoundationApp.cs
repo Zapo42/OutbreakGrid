@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 101 / courier order fulfillment"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 102 / multi-store supply district"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -225,6 +225,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button("Inspect Box Sharing Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxReportTest());selected=1;status="Step one tick: human #1 tells hungry human #2 about a remembered box behind the wall. Run or step to watch #2 find food using that report.";}));
             if(GUILayout.Button("Inspect Box Memory Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxMemoryTest());selected=0;status="This hungry human previously saw the box on the other side of the wall. Run or step to watch it walk around the corner, check current stock and collect food.";}));
             if(GUILayout.Button("Inspect Restocking Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageRestockTest());selected=0;status="Run or step: the fed human checks the door, collects from its remembered outdoor shelf, returns and stocks the box toward a six-meal reserve.";}));
+            if(GUILayout.Button("Inspect Multi-Store Supply Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.MultiStoreSupplyTrial());showCenters=true;showStores=true;status="Three stores, two center couriers and eight humans share 34 total meals. The center starts with 26 meals. Run or step game hours to observe competing phone orders, deliveries and shortages.";}));
             if(GUILayout.Button("Inspect Hunger Damage Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.HungerDamageTest());selected=0;status="Maximum hunger and zero energy: Step 50 ticks to see health loss. Food or recovered energy stops the deterioration.";}));
             if(GUILayout.Button("Inspect Courier Fulfillment Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.CourierFulfillmentTest());selected=0;showCenters=true;showStores=true;status="The clerk calls for four meals. A center courier with no manual destinations accepts the order, makes two deliveries and records completion.";}));
             if(GUILayout.Button("Inspect Phone Supply Order Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.PhoneSupplyOrderTest());selected=0;showStores=true;status="The store crate is empty. Its clerk walks to the cyan phone, makes a call and creates one pending replenishment order.";}));
@@ -444,6 +445,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 foreach(DistributionCenterOverview center in centers)
                 {
                     GUILayout.Label("Center #"+center.CenterId+" | Couriers: "+center.Couriers+" | Active trips: "+center.ActiveTrips+"\nStock: "+center.StockMeals+"/"+center.Capacity+" meals | Available for delivery: "+center.AvailableMeals);
+                    int centerBox=center.SupplyBox,centerId=center.CenterId;if(GUILayout.Button("Observe center #"+centerId))Queue(()=>FocusSupplyBox(centerBox));
                     if(center.StockMeals==0)GUILayout.Label("Center #"+center.CenterId+": stock empty.");
                 }
             }
@@ -478,14 +480,29 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(showStores)
             {
                 GUILayout.Label("STORES");StoreOverview[] stores=world.StoreSupplies();if(stores.Length==0)GUILayout.Label("Select an indoor storage box and use it as a store supply crate.");
-                if(world.SupplyRequestsEnabled)foreach(SupplyOrderDocument order in world.PendingSupplyOrders()){GUILayout.Label("Order #"+order.id+" | Store #"+order.storeId+"\nRequested: "+order.requestedMeals+" food | Awaiting courier\nCaller #"+order.requestedBy+" | Phone: "+((order.phone-1)%world.Width)+", "+((order.phone-1)/world.Width));int carrier=world.SupplyOrderCourier(order.id);if(carrier!=0 && GUILayout.Button("Observe courier #"+carrier))Queue(()=>{for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==carrier){SelectHouseholdResident(i);break;}});int phone=order.phone,id=order.id;if(GUILayout.Button("Observe order #"+id))Queue(()=>{SetPaused(true);selected=-1;selectedShelf=0;selectedStorageBox=0;selectedBatCell=-1;selectedPhone=phone;centerX=(phone-1)%world.Width+0.5f;centerY=(phone-1)/world.Width+0.5f;textureX=-1;sections["Selected item"]=true;inspectorScroll=new Vector2();});}
+                SupplyOrderDocument[] pending=world.PendingSupplyOrders();Array.Sort(pending,(a,b)=>a.createdTick==b.createdTick?a.id.CompareTo(b.id):a.createdTick.CompareTo(b.createdTick));GUILayout.Label("Pending orders: "+pending.Length+" | Completed history: "+world.CompletedSupplyOrders().Length);
+                if(world.SupplyRequestsEnabled)foreach(SupplyOrderDocument order in pending)DrawSupplyOrderRow(order);
                 foreach(SupplyOrderDocument order in world.CompletedSupplyOrders())GUILayout.Label("Completed order #"+order.id+" | Store #"+order.storeId+" | Delivered: "+order.deliveredMeals+" food");
                 foreach(StoreOverview store in stores)
                 {
                     GUILayout.Label("Store #"+store.StoreId+" | Clerks: "+store.Clerks+"\nShelf meals: "+store.ShelfMeals+" | Empty shelves: "+store.EmptyShelves+"/"+store.Shelves+"\nBack-stock meals: "+store.CrateMeals+" | Shelf target: "+store.ShelfTarget);
+                    int storeBox=store.SupplyBox,storeId=store.StoreId;if(GUILayout.Button("Observe store #"+storeId))Queue(()=>FocusSupplyBox(storeBox));
                     if(store.CrateMeals==0)GUILayout.Label("Store #"+store.StoreId+": crate empty — needs supplies.");
                 }
             }
+        }
+        private void FocusSupplyBox(int key)
+        {
+            SetPaused(true);selected=-1;selectedShelf=0;selectedPhone=0;selectedBatCell=-1;selectedStorageBox=key;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;phoneBrush=false;
+            centerX=(key-1)%world.Width+0.5f;centerY=(key-1)/world.Width+0.5f;span=Math.Min(span,16);textureX=-1;sections["Selected item"]=true;inspectorScroll=new Vector2();
+        }
+        private void DrawSupplyOrderRow(SupplyOrderDocument order)
+        {
+            int carrier=world.SupplyOrderCourier(order.id);
+            GUILayout.Label("Order #"+order.id+" | Store #"+order.storeId+"\nDelivered: "+order.deliveredMeals+"/"+order.requestedMeals+" food | Remaining: "+(order.requestedMeals-order.deliveredMeals)+"\n"+(carrier==0?"Awaiting courier":"Assigned courier #"+carrier)+" | Caller #"+order.requestedBy);
+            if(carrier!=0 && GUILayout.Button("Observe courier #"+carrier))Queue(()=>{for(int i=0;i<world.Count;i++)if(world.ActorAt(i).id==carrier){SelectHouseholdResident(i);break;}});
+            int phone=order.phone,id=order.id;
+            if(GUILayout.Button("Observe order #"+id))Queue(()=>{SetPaused(true);selected=-1;selectedShelf=0;selectedStorageBox=0;selectedBatCell=-1;selectedPhone=phone;centerX=(phone-1)%world.Width+0.5f;centerY=(phone-1)/world.Width+0.5f;textureX=-1;sections["Selected item"]=true;inspectorScroll=new Vector2();});
         }
         private void DrawSelectedStoreActions()
         {

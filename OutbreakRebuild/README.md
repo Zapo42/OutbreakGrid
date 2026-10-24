@@ -1,4 +1,4 @@
-Latest build: [Foundation 101 / courier order fulfillment](Docs/COURIER_ORDER_FULFILLMENT.md).
+Latest build: [Foundation 102 / multi-store supply district](Docs/MULTI_STORE_SUPPLY_DISTRICT.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

@@ -23,3 +23,5 @@
 - Foundation 100: user requested empty-crate replenishment orders made by clerks at a phone block, plus collapsible encounter options and clearer inspection of clicked items/events. Keep clicked details first and observation tools easy to find. Courier request acceptance/fulfillment remains outstanding.
 
 - Foundation 101: user selected courier fulfillment and reported missing health loss at maximum hunger/zero energy. Added automatic center dispatch, partial deposits/completion, claim release and combined-deprivation health loss/death. Preserve the collapsible selected-item-first UI.
+
+- Foundation 102: user selected a multi-store scenario with several stores/couriers sharing finite stock. Added three stores, two couriers and eight humans, and corrected the order-list status/remaining quantity display. Existing survival damage and collapsible inspection remain active.

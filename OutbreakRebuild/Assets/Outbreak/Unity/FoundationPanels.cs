@@ -70,6 +70,11 @@ namespace Outbreak.UnityAdapter
             if (selectedShelf > 0) { ShelfDocument shelf = world.ShelfAt((selectedShelf - 1) % world.Width, (selectedShelf - 1) / world.Width); if (shelf != null) GUILayout.Label("Shelf at " + shelf.x + ", " + shelf.y + "\nStock: " + shelf.food + " meals\n" + (shelf.searched ? "Searched: " + shelf.food + " meals remain" : "Unsearched: contents unknown to humans")); }
             if(selectedPhone>0 && selected<0 && selectedStorageBox==0 && selectedShelf==0)GUILayout.Label("PHONE BLOCK at "+((selectedPhone-1)%world.Width)+", "+((selectedPhone-1)/world.Width)+"\nStore clerks use an adjacent cell to call for supplies.");
             if(selectedPhone>0 && selected<0 && selectedStorageBox==0 && selectedShelf==0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.phone==selectedPhone)GUILayout.Label("Order #"+order.id+" | Store #"+order.storeId+"\nRequested: "+order.requestedMeals+" food\nCaller #"+order.requestedBy+" | Awaiting courier");
+            if(selectedStorageBox>0)
+            {
+                foreach(StoreOverview store in world.StoreSupplies())if(store.SupplyBox==selectedStorageBox)GUILayout.Label("Store #"+store.StoreId+" | Clerks: "+store.Clerks+"\nShelf meals: "+store.ShelfMeals+" | Empty shelves: "+store.EmptyShelves+"/"+store.Shelves);
+                foreach(DistributionCenterOverview center in world.DistributionCenters())if(center.SupplyBox==selectedStorageBox)GUILayout.Label("Center #"+center.CenterId+" | Couriers: "+center.Couriers+"\nAvailable for delivery: "+center.AvailableMeals+" food");
+            }
             DrawGroundBatInspector();
         }
         private void DrawSelectedVitals()

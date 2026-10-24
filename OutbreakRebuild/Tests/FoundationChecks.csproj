@@ -41,6 +41,7 @@
     <Compile Include="PhoneOrderChecks.cs" />
     <Compile Include="OrderFulfillmentChecks.cs" />
     <Compile Include="DeprivationChecks.cs" />
+    <Compile Include="MultiStoreChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />
     <Compile Include="ShelterSupplyChecks.cs" />
     <Compile Include="FoodExplorationChecks.cs" />

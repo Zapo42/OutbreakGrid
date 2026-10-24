@@ -38,3 +38,5 @@ Open **Inspect Courier Fulfillment Paused**. The store's crate holds four meals 
 This build also fixes [health loss under maximum hunger and zero energy](SURVIVAL_DAMAGE.md). Current saves use `encounter-prototype-82`; older phone-order saves require **Enable courier fulfillment**. Existing authored restart checkpoints retain their usual behavior, including shifts set before their first tick. The collapsible inspection layout from Foundation 100 remains in place.
 
 Automated checks cover the entire phone/claim/delivery/completion chain, partial quantities, exact save continuation, competing couriers, claim expiry, shifts, donor reserves, small final loads, full/reconfigured destinations, completion history, blocked corner/door coordination, UI observation and upgrade/restart paths. Native Unity remains untested after Foundation 82; the rollback tag remains `foundation-82-unity-checkpoint`.
+
+Foundation 102 adds a [three-store, two-courier shared-center trial](MULTI_STORE_SUPPLY_DISTRICT.md), with order-progress and stock-site observation controls.

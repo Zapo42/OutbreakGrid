@@ -280,6 +280,29 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World MultiStoreSupplyTrial(uint seed=214)
+        {
+            WorldMap map=new WorldMap(35,24,"Multi-store supply district","multi-store-supply-1");
+            for(int y=0;y<24;y++)for(int x=0;x<35;x++)if(x==0 || y==0 || x==34 || y==23)map.Set(x,y,Terrain.Wall);
+            for(int x=7;x<25;x++)map.Set(x,11,Terrain.Road);for(int y=5;y<=18;y++)map.Set(12,y,Terrain.Sidewalk);for(int x=12;x<14;x++){map.Set(x,5,Terrain.Sidewalk);map.Set(x,18,Terrain.Sidewalk);}
+            AddShelterRoom(map,2,8,false);map.SetStorageBox(new StorageBoxDocument{x=5,y=9,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=26}}});map.SetRestSpot(3,13);
+            int[] lefts={14,25,14},tops={2,8,15};
+            for(int i=0;i<3;i++)
+            {
+                int left=lefts[i],top=tops[i];AddShelterRoom(map,left,top,false);map.Set(left+4,top+3,Terrain.Wall);map.Set(left,top+3,Terrain.DoorClosed);
+                map.SetStorageBox(new StorageBoxDocument{x=left+3,y=top+1,capacity=4,items=new ItemStackDocument[0]});map.SetShelf(left+2,top+5,1,true);map.SetPhone(left+3,top+4);map.SetRestSpot(left+1,top+4);
+            }
+            World world=new World(map,seed,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,4,11,out id);world.TrySpawn(Species.Human,4,12,out id);
+            for(int i=0;i<3;i++){world.TrySpawn(Species.Human,lefts[i]+1,tops[i]+3,out id);world.TrySpawn(Species.Human,lefts[i]+1,tops[i]+5,out id);}
+            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++)
+            {
+                ActorState actor=saved.actors[i];actor.hunger=i<2 || i%2==0?10:80;actor.carriedFood=i<2 || i%2==0?1:0;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;
+            }
+            world=World.Restore(saved);world.TryConfigureDistributionCenter(5,9);int center=world.HouseAt(5,9);
+            for(int i=0;i<2;i++){ActorState actor=world.ActorAt(i);world.TryAssignHouse(i,actor.x,actor.y);world.TryAssignDistributionCourier(i,center);}
+            for(int i=0;i<3;i++){world.TryConfigureStore(lefts[i]+3,tops[i]+1);int clerk=2+i*2;ActorState actor=world.ActorAt(clerk);world.TryAssignHouse(clerk,actor.x,actor.y);world.TryAssignClerk(clerk,world.HouseAt(actor.x,actor.y));actor=world.ActorAt(clerk+1);world.TryAssignHouse(clerk+1,actor.x,actor.y);}
+            return world;
+        }
         public static World HungerDamageTest()
         {
             WorldMap map=new WorldMap(3,3,"Hunger and exhaustion damage","deprivation-1");for(int y=0;y<3;y++)for(int x=0;x<3;x++)map.Set(x,y,Terrain.Wall);map.Set(1,1,Terrain.Grass);World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,1,1,out id);SaveDocument saved=world.Capture();saved.actors[0].health=10;saved.actors[0].hunger=100;saved.actors[0].energySpent=100;return World.Restore(saved);
