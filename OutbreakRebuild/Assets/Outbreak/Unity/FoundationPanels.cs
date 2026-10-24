@@ -74,6 +74,8 @@ namespace Outbreak.UnityAdapter
                 }
                 if(person.clerkStoreId!=0)GUILayout.Label("Store clerk #"+person.clerkStoreId+(person.clerkPhone!=0?" | "+(person.clerkCallProgress>0?"Calling for supplies":"Walking to phone"):person.clerkNeedsSupplies?" | Needs supply call":person.clerkShelf!=0?" | Stocking shelves":" | Waiting"));
                 if(person.clerkStoreId!=0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.storeId==person.clerkStoreId)GUILayout.Label("Pending replenishment order #"+order.id);
+                if(person.shoppingShelf!=0)GUILayout.Label("Shopping: "+(person.restockPhase==RestockPhase.Collecting?"Collecting from store shelf":"Returning food home")+" | Planned: "+person.shoppingMeals+" meals\nHome box: "+((person.restockBox-1)%world.Width)+", "+((person.restockBox-1)/world.Width));
+                if(world.StoreShoppingEnabled && person.species==Species.Human && person.assignedHouseId!=0 && person.clerkStoreId==0 && person.courierSourceBox==0)GUILayout.Label("Home restock planning: intelligence "+person.intelligence+"/10 (higher plans earlier)");
                 if(person.courierOrderId!=0)GUILayout.Label("Fulfilling order #"+person.courierOrderId);
                 if(person.restockPhase!=RestockPhase.None)GUILayout.Label("Current supply task: "+person.restockPhase);
                 if(person.courierBoxes!=null || person.distributionCenterId!=0)GUILayout.Label("Courier: "+world.CourierScheduleStatus(selected));

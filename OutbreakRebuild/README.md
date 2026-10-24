@@ -1,4 +1,4 @@
-Current build: **Foundation 105 / home supply checks**. Targets **Unity 6000.6.3f1**. Personal home-stock checks, routine consumer boundaries at distribution centers, 5x/10x/20x/50x testing speeds and optional selected-NPC H/F/E bars with hunger counting down from 100. [Guide and limits](Docs/HOME_SUPPLY_CHECKS.md).
+Current build: **Foundation 106 / home store shopping**. Targets **Unity 6000.6.3f1**. Consumers plan trips from observed home shortages, collect finite food from known store shelves and bring it home; intelligence affects how early they restock. [Guide and limits](Docs/STORE_SHOPPING.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

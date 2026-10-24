@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 105 / home supply checks**. Targets **Unity 6000.6.3f1**. Personal home-stock checks, routine consumer boundaries at distribution centers, 5x/10x/20x/50x testing speeds and optional selected-NPC H/F/E bars with hunger counting down from 100. [Guide and limits](OutbreakRebuild/Docs/HOME_SUPPLY_CHECKS.md).
+Current build: **Foundation 106 / home store shopping**. Targets **Unity 6000.6.3f1**. Consumers plan trips from observed home shortages, collect finite food from known store shelves and bring it home; intelligence affects how early they restock. [Guide and limits](OutbreakRebuild/Docs/STORE_SHOPPING.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

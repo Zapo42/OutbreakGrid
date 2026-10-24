@@ -10,7 +10,7 @@ namespace Outbreak.Core
     {
         private static void ClearRestocking(ref ActorState actor)
         {
-            actor.courierOrderId=0;actor.restockSourceBox=0;actor.restockBox=0;actor.restockHomeId=0;actor.restockPhase=RestockPhase.None;actor.restockUntilTick=0;
+            actor.shoppingShelf=0;actor.shoppingMeals=0;actor.courierOrderId=0;actor.restockSourceBox=0;actor.restockBox=0;actor.restockHomeId=0;actor.restockPhase=RestockPhase.None;actor.restockUntilTick=0;
         }
         private bool SafeRestock(ActorState actor,int threat)
         {
@@ -18,7 +18,7 @@ namespace Outbreak.Core
         }
         private bool RestockDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
+            return ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
         }
         private ShelfDocument ChooseRestockShelf(ActorState actor,Room home)
         {
@@ -45,6 +45,10 @@ namespace Outbreak.Core
         private bool TryRestock(int index,ref ActorState actor,int threat,out int direction)
         {
             direction=8;if(StoresEnabled && actor.clerkStoreId!=0)return false;
+            if(StoreShoppingEnabled && actor.shoppingShelf!=0 && actor.turnAtTick==0 && actor.hunger>=HungerRules.SeekAt && actor.carriedFood>0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor))
+            {
+                actor.carriedFood--;actor.hunger=Math.Max(0,actor.hunger-HungerRules.MealRelief);ClearFoodMemory(ref actor);actors[index]=actor;return true;
+            }
             if(actor.courierOrderId!=0 && ActiveSupplyOrder(actor)==null){ClearRestocking(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;}
             bool hasHouse=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
             bool assigned=hasHouse && (actor.courierBoxes!=null || (DistributionCentersEnabled && actor.distributionCenterId!=0));
@@ -54,6 +58,7 @@ namespace Outbreak.Core
                 if(assigned){if(!StartSupplyOrderTrip(index,ref actor,threat) && !StartAssignedCourierJob(index,ref actor,threat))return TryReturnToAssignedHouse(index,ref actor,threat,out direction);}
                 else if(HouseAt(actor.x,actor.y)!=actor.assignedHouseId)return TryReturnToAssignedHouse(index,ref actor,threat,out direction);
             }
+            if(actor.restockPhase==RestockPhase.None && IsStoreShopper(actor) && !StartStoreShopping(index,ref actor,threat))return false;
             if(actor.restockPhase==RestockPhase.None)
             {
                 Room current=FindRoom(actor.shelterId);
@@ -66,7 +71,7 @@ namespace Outbreak.Core
             }
             Room home=FindRoom(actor.restockHomeId);StorageBoxDocument target=map.StorageBoxAt((actor.restockBox-1)%Width,(actor.restockBox-1)/Width);
             if(home==null || target==null){ClearRestocking(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
-            if(actor.turnAtTick!=0){ClearRestocking(ref actor);actors[index]=actor;return false;}
+            if(actor.turnAtTick!=0 || (actor.shoppingShelf!=0 && IsRestrictedSupplyBox(target))){ClearRestocking(ref actor);actors[index]=actor;return false;}
             if(actor.courierOrderId==0 && ReserveTargetsEnabled && actor.restockPhase==RestockPhase.Collecting && (EffectiveFoodReserve(target)==0 || (StorageVisible(actor,target) && StorageRules.Count(target,InventoryItem.Food)>=EffectiveFoodReserve(target))))
             {
                 if(home.Contains(Key(actor.x,actor.y))){ClearRestocking(ref actor);ClearShelterDeparture(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
@@ -80,7 +85,7 @@ namespace Outbreak.Core
                 }
                 if(!home.Contains(Key(actor.x,actor.y)))
                 {
-                    if(assigned && SafeRestock(actor,threat))
+                    if((assigned || actor.shoppingShelf!=0) && SafeRestock(actor,threat))
                     {
                         Room current=FindRoom(actor.shelterId);
                         if(current!=null && (current.Contains(Key(actor.x,actor.y)) || actor.shelterExitPhase!=ShelterExitPhase.None))return TryShelter(index,ref actor,threat,out direction);
@@ -117,6 +122,7 @@ namespace Outbreak.Core
                 if(TryCollectDeliveryFood(index,ref actor,home,threat,out direction))return true;
                 return BeginRestockReturn(index,ref actor,home,threat);
             }
+            if(actor.shoppingShelf!=0)return TryCollectShoppingShelf(index,ref actor,home,out direction);
             int before=actor.carriedFood;
             if(CollectShelfFood(index,ref actor,threat,null,out direction,true))
             {
@@ -131,7 +137,7 @@ namespace Outbreak.Core
                 ActorState actor=actors[i];bool active=actor.restockPhase!=RestockPhase.None;
                 if(!active){if(actor.restockSourceBox!=0 || actor.restockBox!=0 || actor.restockHomeId!=0 || actor.restockUntilTick!=0)throw new ArgumentException("Inactive restock task contains state.");continue;}
                 Room home=FindRoom(actor.restockHomeId);int key=actor.restockBox-1;
-                if(!RestockingEnabled || actor.species!=Species.Human || actor.health<=0 || actor.restockPhase<RestockPhase.Collecting || actor.restockPhase>RestockPhase.Returning || actor.restockBox<=0 || home==null || !home.Contains(key) || map.StorageBoxAt(key%Width,key/Width)==null || actor.restockUntilTick<=Tick || actor.restockUntilTick-Tick>(CourierAssignmentsEnabled && (actor.courierBoxes!=null || actor.courierOrderId!=0)?CourierRules.TaskTicks:RestockRules.TaskTicks))throw new ArgumentException("Invalid restock task.");
+                if(!RestockingEnabled || actor.species!=Species.Human || actor.health<=0 || actor.restockPhase<RestockPhase.Collecting || actor.restockPhase>RestockPhase.Returning || actor.restockBox<=0 || home==null || !home.Contains(key) || map.StorageBoxAt(key%Width,key/Width)==null || actor.restockUntilTick<=Tick || actor.restockUntilTick-Tick>(CourierAssignmentsEnabled && (actor.courierBoxes!=null || actor.courierOrderId!=0 || actor.shoppingShelf!=0)?CourierRules.TaskTicks:RestockRules.TaskTicks))throw new ArgumentException("Invalid restock task.");
                 if(actor.restockSourceBox!=0)
                 {
                     Room sourceRoom=DeliverySourceRoom(actor);int sourceKey=actor.restockSourceBox-1;

@@ -43,4 +43,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 105 | Personal home-stock inspection, routine distribution boundaries, accelerated testing speeds and selected-only H/F/E bars with descending hunger display | Core: 496 cases / 381684 assertions; UI: 1720 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 106 | Intelligence-based home grocery trips, finite shelf pickup/home deposit, personal rations, saved claims and shopper doorway courtesy | Core: 503 cases / 384114 assertions; UI: 1731 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

@@ -280,6 +280,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World StoreShoppingTest()
+        {
+            WorldMap map=new WorldMap(22,12,"Home store shopping","store-shopping-1");AddShelterRoom(map,1,2,false);AddShelterRoom(map,11,2,false);map.Set(15,5,Terrain.Wall);map.Set(11,5,Terrain.DoorClosed);
+            map.SetStorageBox(new StorageBoxDocument{x=4,y=3,capacity=6,foodReserve=4,items=new ItemStackDocument[0]});map.SetRestSpot(2,7);
+            map.SetStorageBox(new StorageBoxDocument{x=14,y=3,capacity=30,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=12}}});map.SetShelf(13,7,6,true);map.SetPhone(14,6);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TrySpawn(Species.Human,3,5,out id);world.TrySpawn(Species.Human,12,5,out id);world.TryAssignHouse(0,3,5);world.TryAssignHouse(1,3,5);world.TryConfigureStore(14,3);world.TryAssignClerk(1,world.HouseAt(12,5));
+            SaveDocument saved=world.Capture();for(int i=0;i<2;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}
+            saved.actors[0].intelligence=8;saved.actors[0].shelfMemory=new[]{new ShelfMemoryRecord{x=13,y=7,food=6,observedTick=0}};return World.Restore(saved);
+        }
         public static World HomeSupplyInspectionTest()
         {
             WorldMap map=new WorldMap(32,18,"Assigned home supply inspection","home-supply-inspection-1");

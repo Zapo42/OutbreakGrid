@@ -107,6 +107,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int clerkStoreId,clerkShelf;
         [DataMember(EmitDefaultValue=false)] public int distributionCenterId;
         [DataMember(EmitDefaultValue=false)] public int courierOrderId;
+        [DataMember(EmitDefaultValue=false)] public int shoppingShelf,shoppingMeals;
         [DataMember(EmitDefaultValue=false)] public bool diedFromDeprivation;
         [DataMember(EmitDefaultValue=false)] public bool clerkNeedsSupplies;
         [DataMember(EmitDefaultValue=false)] public int clerkPhone,clerkCallProgress;
