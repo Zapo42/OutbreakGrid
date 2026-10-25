@@ -1,0 +1,11 @@
+# Vehicle lanes and following distance — Foundation 119
+
+Open **Inspect Lane Traffic Paused**. Two cars begin in an eastbound lane. Press **Step 1 tick** to establish the restart checkpoint. Select the lead car and press **Stop vehicle**, then **Step 10 ticks**: the follower stays one empty cell behind and reports **Keeping following distance**. Retarget the lead to resume traffic, or restart and step 100 ticks to see both cars turn and arrive.
+
+New Grid and Neighborhood cities have right-hand traffic: the northern horizontal lane runs west, the southern lane east; the western vertical lane runs south, the eastern lane north. Junctions provide legal turns, and dead-end caps return cars into the opposite lane. Muted arrows and dashed center lines distinguish directions without painting over zebra crossings. Cars route through the directed network rather than taking wrong-way shortcuts.
+
+Cars keep one empty cell behind another car on straight sections. Junctions and return turns use the existing occupied-cell guard instead, so this is not an intersection reservation system. Crossing pedestrians still have priority. Cars do not overtake, drive around parked traffic or resolve deadlocks. Manual stop and destination controls remain available. NPCs still travel on foot; no boarding, drivers, courier cargo, physics or traffic lights are included.
+
+Running saves now use **encounter-prototype-92**. Existing rules-91 runs keep their previous behavior until **Enable lane traffic and following distance** is selected. Newly generated maps save lane metadata under map schema 12; Save Map retains those markings, while Save Run also retains cars and trips. Loading does not repaint old maps. Unmarked roads retain free-direction routing with straight-road following checks once the feature is enabled. Earlier software cannot load schema-12 maps or rules-92 runs.
+
+Automated checks exercise directed network connectivity across seeds/layouts, following and resumption, legal movement, saved continuation, map validation, legacy opt-in, road-arrow drawing, restart and the existing vehicle controls. Actual Unity 6000.6.3f1 rendering/input remain untested per the standing instruction. The Foundation 82 rollback checkpoint is unchanged.

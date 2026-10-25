@@ -1,3 +1,5 @@
+Current update: [Foundation 119 adds lane directions and following distance](VEHICLE_LANES.md). The text below records the Foundation 118 prototype.
+
 # Foundation 118 — vehicle road-routing prototype
 
 Choose **Inspect Vehicle Routing Paused**, then Run or step 100 ticks. The scene has one blue vehicle and no NPCs. It drives along a small road loop, crosses the painted zebra crossings, turns and stops at its chosen destination. Vehicle-only runs can use the normal Run, Pause, tick and speed controls.

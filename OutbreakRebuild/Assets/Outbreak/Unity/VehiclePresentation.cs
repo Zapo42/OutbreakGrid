@@ -33,7 +33,7 @@ namespace Outbreak.UnityAdapter
             if(GUILayout.Button("Place vehicle"))Queue(()=>BeginVehiclePlacement());
             for(int i=0;i<world.VehicleCount;i++){int index=i;VehicleState car=world.VehicleAtIndex(i);GUILayout.Label("Vehicle #"+car.id+" at "+car.x+", "+car.y+" | "+world.VehicleStatus(i));if(GUILayout.Button("Observe vehicle #"+car.id))Queue(()=>SelectVehicle(index));}
             if((vehicleBrush || routingVehicle>=0) && GUILayout.Button("Cancel vehicle action"))Queue(()=>{vehicleBrush=false;routingVehicle=-1;});
-            GUILayout.Label("Prototype: roads/crosswalks only; no drivers, cargo, lanes or traffic lights yet.");
+            GUILayout.Label("Marked roads use right-hand traffic. Straight sections keep one empty cell of following space.\nUnmarked roads retain free routing; drivers and traffic lights come later.");
         }
         private void DrawSelectedVehicle()
         {

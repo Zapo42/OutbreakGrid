@@ -31,3 +31,5 @@ Foundation 116 adds the [Grid / Neighborhood street-layout choice](NEIGHBORHOOD_
 Foundation 117 adds [Neighborhood centers zoning](NEIGHBORHOOD_ZONING.md), selectable separately from street layout and density. Stores are positioned for residential block coverage and the distribution center remains peripheral; Fixed layout remains available.
 
 Foundation 118 adds [manual vehicle placement and road routing](VEHICLE_ROUTES.md) after a city starts. Cities still generate without cars. Vehicles use roads/crosswalks and yield to actors; boarding, commuting and courier cargo integration remain separate steps.
+
+Foundation 119 adds [right-hand lane directions and following distance](VEHICLE_LANES.md) to newly generated roads. Existing saved maps keep their geometry and any saved markings; no lane regeneration is performed when loading.

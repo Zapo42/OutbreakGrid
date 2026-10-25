@@ -5,6 +5,44 @@ using Outbreak.Contracts;
 using Outbreak.Persistence;
 public static partial class Program
 {
+    private static void CheckLaneCases()
+    {
+        Check("Lane traffic preserves a following gap and exact saved continuation",()=>{
+            World world=EncounterScenarios.VehicleLaneTest();world.TryStopVehicle(0);Run(world,9);
+            Require(world.VehicleAtIndex(1).x==9 && world.VehicleStatus(1)=="Keeping following distance","Follower failed to keep an empty cell behind parked lead.");
+            World copy=Documents.ParseSave(State(world));Require(State(copy)==State(world),"Waiting lane save changed.");
+            Require(world.TrySetVehicleDestination(0,23,10) && copy.TrySetVehicleDestination(0,23,10),"Lead could not resume.");
+            for(int t=0;t<100;t++){
+                var before=world.VehicleAtIndex(1);int mask=world.RoadLaneMaskAt(before.x,before.y);world.Step();copy.Step();var after=world.VehicleAtIndex(1);
+                if(before.x!=after.x || before.y!=after.y)Require((mask&(1<<after.heading))!=0,"Car drove against lane direction.");
+                Require(State(world)==State(copy),"Lane save continuation diverged.");
+                var lead=world.VehicleAtIndex(0);Require(lead.x!=after.x || lead.y!=after.y,"Cars overlapped.");
+            }
+            Require(world.VehicleStatus(0)=="Arrived" && world.VehicleStatus(1)=="Arrived","Lane vehicles did not arrive.");
+        });
+        Check("Generated directed lanes remain connected across layouts and seeds",()=>{
+            for(uint seed=1;seed<=12;seed++)foreach(CityStreetLayout layout in new[]{CityStreetLayout.Grid,CityStreetLayout.Neighborhood}){
+                WorldMap map=CityGenerator.Streets(seed,4,2,layout);int start=-1,total=0;
+                for(int y=0;y<map.Height;y++)for(int x=0;x<map.Width;x++)if(TerrainRules.RoadSurface(map.Get(x,y))){Require(map.RoadLaneMaskAt(x,y)>0,"Road lacks lane metadata.");start=y*map.Width+x;total++;}
+                for(int reverse=0;reverse<2;reverse++){
+                    var seen=new HashSet<int>();var queue=new Queue<int>();queue.Enqueue(start);seen.Add(start);int[] dx={1,0,-1,0},dy={0,1,0,-1};
+                    while(queue.Count>0){int key=queue.Dequeue(),x=key%map.Width,y=key/map.Width;for(int d=0;d<4;d++){
+                        int nx=x+dx[d],ny=y+dy[d];if(!map.Contains(nx,ny) || !TerrainRules.RoadSurface(map.Get(nx,ny)))continue;
+                        int mask=reverse==0?map.RoadLaneMaskAt(x,y):map.RoadLaneMaskAt(nx,ny),bit=1<<(reverse==0?d:(d+2)%4);
+                        if((mask&bit)!=0 && seen.Add(ny*map.Width+nx))queue.Enqueue(ny*map.Width+nx);
+                    }}Require(seen.Count==total,"Directed road network contains an unreachable lane.");
+                }
+            }
+        });
+        Check("Lane metadata rejects corrupt catalogs and preserves explicit legacy rules",()=>{
+            SaveDocument saved=EncounterScenarios.VehicleLaneTest().Capture();Require(saved.map.schemaVersion==12,"Lane map schema missing.");
+            Action<Action<SaveDocument>> bad=change=>{var s=EncounterScenarios.VehicleLaneTest().Capture();change(s);Reject(()=>World.Restore(s));};
+            bad(s=>s.map.roadLanes[0].directions=16);bad(s=>s.map.roadLanes[0].directions=0);bad(s=>s.map.schemaVersion=11);bad(s=>s.map.roadLanes[0].x=0);bad(s=>s.map.roadLanes=new[]{s.map.roadLanes[0],s.map.roadLanes[0]});
+            WorldMap map=WorldMap.Restore(saved.map);var lane=saved.map.roadLanes[0];int mask=map.RoadLaneMaskAt(lane.x,lane.y);map.Set(lane.x,lane.y,Terrain.Crosswalk);Require(map.RoadLaneMaskAt(lane.x,lane.y)==mask,"Crosswalk erased lane.");map.Set(lane.x,lane.y,Terrain.Floor);Require(map.RoadLaneMaskAt(lane.x,lane.y)==0,"Removed road retained lane.");
+            saved.rulesVersion=EncounterRules.VehicleRoutesVersion;World old=World.Restore(saved);Require(old.VehicleRoutesEnabled && !old.LaneTrafficEnabled,"Legacy vehicle world silently enabled lanes.");
+            saved.vehicles[1].waitReason=VehicleWaitReason.FollowingDistance;Reject(()=>World.Restore(saved));
+        });
+    }
     private static void CheckVehicleCases()
     {
         Check("Vehicle route follows only roads crosses zebra tiles turns and arrives exactly",()=>{

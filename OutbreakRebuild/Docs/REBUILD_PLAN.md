@@ -44,3 +44,5 @@ Recovered simulator: `OutbreakSimulator_Unity_Emitter_Animations_Weapons.zip`, r
 The simulator uses a fixed 100×100 map and contains a roughly 154 KB main simulation source file. Its map loader and content code already contain useful regression scenarios; use their behavior as evidence rather than copying the old architecture wholesale. For example, legacy map code contains 80-HP doors and 35-HP windows, while the retained scope specifies 100 and 10. Resolve such differences against the accepted requirement when migrating each system and record the result.
 
 Sprite sheets, `.dgproject` projects, modular laboratory overlays, building templates, terrain artwork, palettes and saved layouts remain in their original archives. Foundation 1 has not converted or replaced them. The inventory records exact paths and SHA-256 hashes so the next migration can prove preservation.
+
+Foundation 119 adds saved directed road lanes, visible arrows, straight-road following gaps and a two-car paused preview. Driver boarding and intersection traffic management remain separate milestones.

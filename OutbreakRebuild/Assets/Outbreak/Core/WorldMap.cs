@@ -30,6 +30,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
         { // Begin a terrain write.
             if (!Contains(x, y) || !TerrainRules.Known((ushort)terrain)) throw new ArgumentOutOfRangeException("terrain"); // Validate both address and meaning before mutation.
             if (terrain == Terrain.DoorClosed && DoorHealthAt(x, y) == 0) throw new ArgumentException("A broken door cannot be closed."); if (terrain != Terrain.DoorClosed && terrain != Terrain.DoorOpen) doorHealth.Remove(y * Width + x); // Replacing a door removes its condition; closing a breach requires explicit repair.
+            if(!TerrainRules.RoadSurface(terrain))roadLanes.Remove(y*Width+x);
             if(terrain!=Terrain.Floor)phones.Remove(y*Width+x);
             if(terrain!=Terrain.Floor)restSpots.Remove(y*Width+x);
             if(!TerrainRules.Walkable(terrain) || terrain==Terrain.DoorOpen)storageBoxes.Remove(y*Width+x);
@@ -46,11 +47,11 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
         { // Begin map capture.
             List<int> keys = new List<int>(chunks.Keys); keys.Sort(); ChunkDocument[] output = new ChunkDocument[keys.Count]; // Make dictionary insertion order irrelevant to saved bytes.
             for (int i = 0; i < keys.Count; i++) output[i] = new ChunkDocument { x = keys[i] % columns, y = keys[i] / columns, cells = (ushort[])chunks[keys[i]].Clone() }; // Keep all mutable arrays detached from the live map.
-            return new MapDocument { schemaVersion = HasPhones ? 11 : HasBlockedDonations ? 10 : HasStorageReserveTargets ? 9 : HasStorageBoxes ? 8 : HasRestSpots ? 7 : HasWornWeapons ? 6 : HasDroppedWeapons ? 5 : HasWeapons ? 4 : HasShelves ? 3 : HasDoorDamage ? 2 : 1, phoneBlocks=CapturePhones(), storageBoxes=CaptureStorageBoxes(), restSpots=CaptureRestSpots(), weapons = CaptureWeapons(), shelves = CaptureShelves(), doors = CaptureDoorConditions(), width = Width, height = Height, id = Id, name = Name, authoringJson = AuthoringJson, chunks = output }; // Retain the unmodified authoring payload beside terrain.
+            return new MapDocument { schemaVersion = HasRoadLanes ? 12 : HasPhones ? 11 : HasBlockedDonations ? 10 : HasStorageReserveTargets ? 9 : HasStorageBoxes ? 8 : HasRestSpots ? 7 : HasWornWeapons ? 6 : HasDroppedWeapons ? 5 : HasWeapons ? 4 : HasShelves ? 3 : HasDoorDamage ? 2 : 1, roadLanes=CaptureRoadLanes(),phoneBlocks=CapturePhones(), storageBoxes=CaptureStorageBoxes(), restSpots=CaptureRestSpots(), weapons = CaptureWeapons(), shelves = CaptureShelves(), doors = CaptureDoorConditions(), width = Width, height = Height, id = Id, name = Name, authoringJson = AuthoringJson, chunks = output }; // Retain the unmodified authoring payload beside terrain.
         } // Finish map capture.
         public static WorldMap Restore(MapDocument source) // Validate the whole replacement before returning a new map.
         { // Begin transactional map loading.
-            if (source == null || source.kind != "outbreak.map" || (source.schemaVersion != 1 && source.schemaVersion != 2 && source.schemaVersion != 3 && source.schemaVersion != 4 && source.schemaVersion != 5 && source.schemaVersion != 6 && source.schemaVersion != 7 && source.schemaVersion != 8 && source.schemaVersion != 9 && source.schemaVersion != 10 && source.schemaVersion != 11) || source.chunkSize != Rules.ChunkSize || source.chunks == null || source.chunks.Length > 100000) throw new ArgumentException("Unsupported or invalid foundation map."); // Fail explicitly for old and future formats rather than guessing.
+            if (source == null || source.kind != "outbreak.map" || (source.schemaVersion != 1 && source.schemaVersion != 2 && source.schemaVersion != 3 && source.schemaVersion != 4 && source.schemaVersion != 5 && source.schemaVersion != 6 && source.schemaVersion != 7 && source.schemaVersion != 8 && source.schemaVersion != 9 && source.schemaVersion != 10 && source.schemaVersion != 11 && source.schemaVersion != 12) || source.chunkSize != Rules.ChunkSize || source.chunks == null || source.chunks.Length > 100000) throw new ArgumentException("Unsupported or invalid foundation map."); // Fail explicitly for old and future formats rather than guessing.
             WorldMap map = new WorldMap(source.width, source.height, source.name, source.id, source.authoringJson); // Validate dimensions before accepting any chunk.
             foreach (ChunkDocument chunk in source.chunks) // Validate every terrain record in the candidate document.
             { // Begin one chunk validation.
@@ -59,7 +60,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
                 for (int i = 0; i < chunk.cells.Length; i++) if (!TerrainRules.Known(chunk.cells[i]) || ((chunk.x * 32 + i % 32 >= map.Width || chunk.y * 32 + i / 32 >= map.Height) && chunk.cells[i] != 0)) throw new ArgumentException("Unknown terrain or nonempty cells outside map bounds."); // Reject hidden data beyond partial edge chunks.
                 map.chunks.Add(key, (ushort[])chunk.cells.Clone()); // Own the validated data without retaining caller aliases.
             } // Finish one chunk validation.
-            map.RestoreDoorConditions(source); map.RestoreShelves(source); map.RestoreWeapons(source); map.RestoreRestSpots(source); map.RestoreStorageBoxes(source);map.RestorePhones(source); return map; // Publish the candidate only after terrain and door conditions have passed.
+            map.RestoreDoorConditions(source); map.RestoreShelves(source); map.RestoreWeapons(source); map.RestoreRestSpots(source); map.RestoreStorageBoxes(source);map.RestorePhones(source);map.RestoreRoadLanes(source); return map; // Publish the candidate only after terrain and door conditions have passed.
         } // Finish transactional map loading.
     } // Finish the authoritative terrain owner.
 } // Finish sparse map storage.

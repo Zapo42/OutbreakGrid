@@ -47,6 +47,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int x,y;
     }
+    [DataContract] public sealed class RoadLaneDocument
+    {
+        [DataMember(IsRequired=true)] public int x,y,directions;
+    }
     [DataContract] public sealed class MapDocument // Separate starting terrain from an ongoing simulation save.
     { // Begin the shared map format.
         [DataMember(IsRequired = true)] public string kind = "outbreak.map"; // Refuse to interpret unrelated documents as maps.
@@ -58,6 +62,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public StorageBoxDocument[] storageBoxes;
         [DataMember(EmitDefaultValue=false)] public RestSpotDocument[] restSpots;
         [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
+        [DataMember(EmitDefaultValue=false)] public RoadLaneDocument[] roadLanes;
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.
@@ -172,7 +177,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired=true)] public long createdTick;
         [DataMember(EmitDefaultValue=false)] public int deliveredMeals;
     }
-    public enum VehicleWaitReason { None, Pedestrian, Vehicle, NoRoute }
+    public enum VehicleWaitReason { None, Pedestrian, Vehicle, NoRoute, FollowingDistance }
     [DataContract] public struct VehicleState
     {
         [DataMember(IsRequired=true)] public int id,x,y,heading;

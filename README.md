@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 118 / vehicle road-routing prototype**. Targets **Unity 6000.6.3f1**. Place, route and stop vehicles on roads/crosswalks, with pedestrian yielding and saved trips. NPC riding/deliveries remain later work. [Guide and limits](OutbreakRebuild/Docs/VEHICLE_ROUTES.md).
+Current build: **Foundation 119 / vehicle lanes and following distance**. Targets **Unity 6000.6.3f1**. Generated roads have right-hand lane directions, road arrows and straight-road following gaps. NPC boarding and driving remain later work. [Guide and limits](OutbreakRebuild/Docs/VEHICLE_LANES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

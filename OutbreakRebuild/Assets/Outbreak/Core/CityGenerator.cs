@@ -22,6 +22,7 @@ namespace Outbreak.Core
             }
             if(layout==CityStreetLayout.Neighborhood)VaryStreets(map,xs,ys,seed);
             PaintStreetCrosswalks(map,xs,ys);
+            PaintRoadLanes(map,xs,ys);
             return map;
         }
         private static int[] Axes(int blocks,ref uint state)

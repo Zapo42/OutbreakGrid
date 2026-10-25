@@ -61,3 +61,5 @@
 - Foundation 117: user selected neighborhood zoning and better store placement. Add an optional Neighborhood centers policy beside Fixed layout; optimize nearest-shop distances in blocks, seed ties, place distribution on a corner and orient commercial entrances toward served homes. Preserve both street layouts, housing densities, individual home inventories, job ordering and finite food; do not grant hidden stock knowledge.
 
 - Foundation 118: user selected basic vehicle routes on roads/crosswalks. Add a small independent vehicle entity/route prototype with manual placement, destinations, stop/arrival, crossing yield, collision exclusion, persistence and a vehicle-only paused preview. Do not imply NPC drivers, boarding, cargo, lanes, fuel or traffic signals exist. New rule generation 91 preserves old-run opt-in.
+
+- Foundation 119: user selected lane directions and following distance. Generated roads use deterministic right-hand traffic, legal junction turns and dead-end returns. Keep a one-cell gap on straight sections; preserve crossing yield and collision exclusion. Old rules-91 runs explicitly opt in; old unmarked maps keep free routing.

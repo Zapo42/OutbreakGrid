@@ -1,4 +1,4 @@
-Current build: **Foundation 118 / vehicle road-routing prototype**. Targets **Unity 6000.6.3f1**. Place, route and stop vehicles on roads/crosswalks, with pedestrian yielding and saved trips. NPC riding/deliveries remain later work. [Guide and limits](Docs/VEHICLE_ROUTES.md).
+Current build: **Foundation 119 / vehicle lanes and following distance**. Targets **Unity 6000.6.3f1**. Generated roads have right-hand lane directions, road arrows and straight-road following gaps. NPC boarding and driving remain later work. [Guide and limits](Docs/VEHICLE_LANES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

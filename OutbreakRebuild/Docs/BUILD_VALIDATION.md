@@ -70,3 +70,4 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 118 | Saved independent road/crosswalk vehicles, pedestrian/traffic blocking, placement/retarget/stop/arrival and smooth zero-NPC preview | Core: 551 cases / 575221 assertions; UI: 2000 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.
+| 119 | Saved right-hand road lanes, legal junction/dead-end turns, visible arrows and straight-road following distance with legacy opt-in | Core: 554 cases / 603520 assertions; UI: 2013 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
