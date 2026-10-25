@@ -19,6 +19,20 @@ namespace Outbreak.Core
                 return c==0?key.CompareTo(other.key):c;
             }
         }
+        // Reusable scratch holds only visited cells, never a dense array sized to the world.
+        private readonly List<CityFrontier> cityFrontier=new List<CityFrontier>();
+        private readonly Dictionary<int,int> cityBest=new Dictionary<int,int>();
+        private void PushCityFrontier(CityFrontier value)
+        {
+            int index=cityFrontier.Count;cityFrontier.Add(value);
+            while(index>0){int parent=(index-1)/2;if(cityFrontier[parent].CompareTo(value)<=0)break;cityFrontier[index]=cityFrontier[parent];index=parent;}cityFrontier[index]=value;
+        }
+        private CityFrontier PopCityFrontier()
+        {
+            CityFrontier result=cityFrontier[0],last=cityFrontier[cityFrontier.Count-1];cityFrontier.RemoveAt(cityFrontier.Count-1);int index=0;
+            while(index*2+1<cityFrontier.Count){int child=index*2+1;if(child+1<cityFrontier.Count && cityFrontier[child+1].CompareTo(cityFrontier[child])<0)child++;if(last.CompareTo(cityFrontier[child])<=0)break;cityFrontier[index]=cityFrontier[child];index=child;}
+            if(cityFrontier.Count>0)cityFrontier[index]=last;return result;
+        }
         // A* uses a bounded sparse frontier rather than allocating the full map.
         // Recompute from live geometry: saves need no stale route cache or random draws.
         private static int CityEstimate(int x,int y){x=Math.Abs(x);y=Math.Abs(y);return 10*Math.Max(x,y)+4*Math.Min(x,y);}
@@ -26,12 +40,12 @@ namespace Outbreak.Core
         {
             distance=0;
             if(!map.Contains(goalX,goalY) || Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>radius || !ShelterWalkable(goalX,goalY))return -1;
-            var frontier=new SortedSet<CityFrontier>();var best=new Dictionary<int,int>();
+            cityFrontier.Clear();cityBest.Clear();var best=cityBest;
             int start=Key(actor.x,actor.y),goal=Key(goalX,goalY);
-            frontier.Add(new CityFrontier{key=start,first=8,estimate=CityEstimate(goalX-actor.x,goalY-actor.y)});best[start]=0;
-            while(frontier.Count>0)
+            PushCityFrontier(new CityFrontier{key=start,first=8,estimate=CityEstimate(goalX-actor.x,goalY-actor.y)});best[start]=0;
+            while(cityFrontier.Count>0)
             {
-                CityFrontier current=frontier.Min;frontier.Remove(current);
+                CityFrontier current=PopCityFrontier();
                 if(best[current.key]!=current.cost)continue;
                 if(current.key==goal){distance=current.steps;return current.first;}
                 int x=current.key%Width,y=current.key/Width;
@@ -51,7 +65,7 @@ namespace Outbreak.Core
                     if(best.TryGetValue(key,out old) && old<=next)continue;
                     if(!best.ContainsKey(key) && best.Count==CityRouteRules.MaxVisited)return -1;
                     best[key]=next;
-                    frontier.Add(new CityFrontier{key=key,steps=current.steps+1,cost=next,estimate=CityEstimate(goalX-nx,goalY-ny),first=current.key==start?d:current.first});
+                    PushCityFrontier(new CityFrontier{key=key,steps=current.steps+1,cost=next,estimate=CityEstimate(goalX-nx,goalY-ny),first=current.key==start?d:current.first});
                 }
             }
             return -1;

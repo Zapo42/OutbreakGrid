@@ -9,7 +9,7 @@ namespace Outbreak.Core
         {
             if(seed==0 || columns<1 || columns>6 || rows<1 || rows>6)throw new ArgumentException("City needs a nonzero seed and 1–6 blocks per axis.");
             if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood && layout!=CityStreetLayout.Staggered)throw new ArgumentException("Unknown street layout.");
-            uint state=seed;int[] xs=Axes(columns,ref state),ys=Axes(rows,ref state);
+            uint state=seed;int[] xs=Axes(columns,ref state,layout==CityStreetLayout.Staggered),ys=Axes(rows,ref state,layout==CityStreetLayout.Staggered);
             if(layout==CityStreetLayout.Staggered)return StaggeredStreets(seed,xs,ys);
             int width=xs[xs.Length-1]+5,height=ys[ys.Length-1]+5;
             WorldMap map=new WorldMap(width,height,(layout==CityStreetLayout.Neighborhood?"Generated neighborhood streets (seed ":"Generated city streets (seed ")+seed+")",layout==CityStreetLayout.Neighborhood?"city-streets-2":"city-streets-1");
@@ -26,12 +26,12 @@ namespace Outbreak.Core
             PaintRoadLanes(map,xs,ys);
             return map;
         }
-        private static int[] Axes(int blocks,ref uint state)
+        private static int[] Axes(int blocks,ref uint state,bool varied=false)
         {
             var result=new List<int>{3};for(int i=0;i<blocks;i++)
             {
                 state^=state<<13;state^=state>>17;state^=state<<5;
-                result.Add(result[result.Count-1]+26+(int)(state%5));
+                result.Add(result[result.Count-1]+(varied?27+(int)(state%15):26+(int)(state%5)));
             }
             return result.ToArray();
         }

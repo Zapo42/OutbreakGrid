@@ -1,4 +1,4 @@
-Current build: **Foundation 121 / staggered connected city streets**. Targets **Unity 6000.6.3f1**. New city setup defaults to offset side streets and connected T-junctions; removed neighborhood roads become grass strips with narrow curb caps. Includes Foundation 120 intersection priority and smooth vehicle turns. [Guide](Docs/STAGGERED_CITY_STREETS.md).
+Current build: **Foundation 122 / varied dense cities and faster routing**. Targets **Unity 6000.6.3f1**. Staggered cities use more varied block dimensions and up to four homes per residential block. Route searches reuse memory and use indexed room/collision lookups. [Guide and benchmark limits](Docs/DENSE_CITY_PERFORMANCE.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

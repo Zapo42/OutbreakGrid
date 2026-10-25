@@ -50,3 +50,5 @@ Foundation 119 adds saved directed road lanes, visible arrows, straight-road fol
 Foundation 120 adds conservative intersection right-of-way, saved approach queue ages, exit clearance and a simultaneous-arrival preview. NPC boarding/driving and traffic signals remain separate steps.
 
 Foundation 121 fixes wide reclaimed-road paving and adds default staggered street geometry with offset side streets, connected lanes and matching building lots. Grid and legacy Neighborhood remain explicit choices. Curved roads/organic subdivision and NPC vehicle use are separate future increments.
+
+Foundation 122 adds varied Staggered block dimensions, up to four homes per residential block, a 60-resident compact preset, reusable route scratch and sparse room/collision indexes. A repeatable Release city benchmark records core time/allocations and exact continuation. District/hierarchical routing, broader population scaling and native render profiling remain future scaling work.

@@ -98,6 +98,7 @@ namespace Outbreak.Core // Execute all encounter work through the authoritative 
         } // Finish target acquisition.
         private bool ZombieAt(int x, int y) // Enforce human blocking by an unstaggered zombie in this prototype.
         { // Begin a local occupancy query.
+            if(!occupancy.MayContainZombie(Key(x,y)))return false;
             for (int i = 0; i < count; i++) if (actors[i].species == Species.Zombie && actors[i].health>0 && (!HumanReactions || actors[i].staggerUntilTick <= Tick) && actors[i].x == x && actors[i].y == y) return true; return false; // New runs permit passing staggered zombies; legacy rules retain their original blocking.
         } // Finish blocking query.
         private bool MayMove(ActorState actor, int direction) // Combine terrain and live occupancy without mutating state.

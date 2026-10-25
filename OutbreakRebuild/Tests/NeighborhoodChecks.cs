@@ -46,7 +46,7 @@ public static partial class Program
             }
         });
         Check("Density limits reject oversized catalogs and dense clerk jobs continue after saves",()=>{
-            Require(CitySetup.ValidationError(214,6,6,2)!=null,"Dense city exceeded supported room count.");Reject(()=>CitySetup.Create(214,6,6,2));Reject(()=>CityGenerator.BuildingLots(214,6,6,2));Reject(()=>CitySetup.Create(214,4,2,3));
+            Require(CitySetup.ValidationError(214,6,6,2)!=null,"Dense city exceeded supported room count.");Reject(()=>CitySetup.Create(214,6,6,2));Reject(()=>CityGenerator.BuildingLots(214,6,6,2));Reject(()=>CitySetup.Create(214,4,2,5));
             World world=CitySetup.Create(214,4,2,2);Require(world.Count==10 && world.ShelterRoomCount==13 && world.FoodSupplies().RemainingMeals==78,"Dense standard preview did not match its advertised setup.");Run(world,50);Require(world.PendingSupplyOrders().Length==2,"Dense city clerk requests failed.");World copy=Documents.ParseSave(State(world));Run(world,80);Run(copy,80);Require(State(world)==State(copy),"Dense job continuation diverged.");
         });
     }

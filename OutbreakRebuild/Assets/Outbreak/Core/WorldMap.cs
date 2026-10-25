@@ -25,15 +25,15 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
             if (!Contains(x, y)) throw new ArgumentOutOfRangeException("x"); // Never silently wrap an invalid grid coordinate.
             ushort[] cells; return chunks.TryGetValue((y / Rules.ChunkSize) * columns + x / Rules.ChunkSize, out cells) ? (Terrain)cells[(y % Rules.ChunkSize) * Rules.ChunkSize + x % Rules.ChunkSize] : Terrain.Grass; // Resolve one constant-time chunk lookup.
         } // Finish a terrain read.
-        public bool CanWalk(int x, int y) { return Contains(x, y) && TerrainRules.Walkable(Get(x, y)) && !shelves.ContainsKey(y * Width + x) && !storageBoxes.ContainsKey(y * Width + x) && !PhoneAt(x,y); } // Treat the world edge as a solid boundary.
+        public bool CanWalk(int x, int y) { return Contains(x, y) && TerrainRules.Walkable(Get(x, y)) && !shelves.ContainsKey(y * Width + x) && !storageCells.Contains(y * Width + x) && !PhoneAt(x,y); } // Treat the world edge as a solid boundary.
         public void Set(int x, int y, Terrain terrain) // Apply a terrain edit only to this independent map instance.
         { // Begin a terrain write.
             if (!Contains(x, y) || !TerrainRules.Known((ushort)terrain)) throw new ArgumentOutOfRangeException("terrain"); // Validate both address and meaning before mutation.
             if (terrain == Terrain.DoorClosed && DoorHealthAt(x, y) == 0) throw new ArgumentException("A broken door cannot be closed."); if (terrain != Terrain.DoorClosed && terrain != Terrain.DoorOpen) doorHealth.Remove(y * Width + x); // Replacing a door removes its condition; closing a breach requires explicit repair.
             if(!TerrainRules.RoadSurface(terrain))roadLanes.Remove(y*Width+x);
-            if(terrain!=Terrain.Floor)phones.Remove(y*Width+x);
+            if(terrain!=Terrain.Floor && phoneCells.Remove(y*Width+x))phones.Remove(y*Width+x);
             if(terrain!=Terrain.Floor)restSpots.Remove(y*Width+x);
-            if(!TerrainRules.Walkable(terrain) || terrain==Terrain.DoorOpen)storageBoxes.Remove(y*Width+x);
+            if((!TerrainRules.Walkable(terrain) || terrain==Terrain.DoorOpen) && storageCells.Remove(y*Width+x))storageBoxes.Remove(y*Width+x);
             if (!TerrainRules.Walkable(terrain) || terrain == Terrain.DoorOpen) shelves.Remove(y * Width + x); if(!TerrainRules.Walkable(terrain) && terrain!=Terrain.DoorClosed) {weapons.Remove(y*Width+x);weaponWear.Remove(y*Width+x);} int key = (y / Rules.ChunkSize) * columns + x / Rules.ChunkSize; ushort[] cells; // Locate the owning chunk once.
             if (!chunks.TryGetValue(key, out cells)) { if (terrain == Terrain.Grass) return; cells = new ushort[Rules.ChunkSize * Rules.ChunkSize]; chunks.Add(key, cells); } // Avoid allocating an unchanged default cell.
             cells[(y % Rules.ChunkSize) * Rules.ChunkSize + x % Rules.ChunkSize] = (ushort)terrain; // Replace only the requested logical cell.

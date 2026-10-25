@@ -7,6 +7,7 @@ namespace Outbreak.Core // Own simulation state independently of the Unity objec
     { // Begin spatial counts.
         private struct Counts { public int bodies, humans; } // Track the two agreed cell limits separately.
         private readonly Dictionary<int, Counts> cells = new Dictionary<int, Counts>(); // Avoid allocating a dense index for ten-thousand-cell worlds.
+        public bool MayContainZombie(int key){Counts count;return cells.TryGetValue(key,out count) && count.bodies>count.humans;}
         public int Count { get { return cells.Count; } } // Expose a structural bound for long-run diagnostics.
         public bool Allows(int key, Species species) // Check a proposed arrival against current occupancy.
         { // Begin arrival validation.

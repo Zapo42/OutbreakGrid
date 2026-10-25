@@ -37,3 +37,5 @@ Foundation 119 adds [right-hand lane directions and following distance](VEHICLE_
 Foundation 120 adds [intersection right-of-way](INTERSECTION_TRAFFIC.md) for marked generated junctions. Cars wait outside blocked exits and take turns; cities still generate without vehicles until manually placed.
 
 Foundation 121 makes [Staggered streets](STAGGERED_CITY_STREETS.md) the default in new city setup and primary generated-city previews. The layout button cycles Staggered → Grid → Neighborhood. Start a new city to use new generation; saved cities and restart keep their existing roads.
+
+Foundation 122 adds [varied block sizes, three/four-home layouts and performance improvements](DENSE_CITY_PERFORMANCE.md). Residential density cycles one → two → three → four; Large uses 6×3 blocks at the two highest densities so it stays within 64 recognized buildings. Staggered map dimensions now reflect wider seeded spacing; the summary uses the same axes as generation.

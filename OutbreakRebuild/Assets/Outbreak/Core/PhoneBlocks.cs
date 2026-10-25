@@ -5,12 +5,13 @@ namespace Outbreak.Core
 {
     public sealed partial class WorldMap
     {
+        private readonly HashSet<int> phoneCells=new HashSet<int>();
         private readonly SortedDictionary<int,PhoneBlockDocument> phones=new SortedDictionary<int,PhoneBlockDocument>();
         public bool HasPhones { get { return phones.Count>0; } }
-        public bool PhoneAt(int x,int y){return Contains(x,y) && phones.ContainsKey(y*Width+x);}
+        public bool PhoneAt(int x,int y){return Contains(x,y) && phoneCells.Contains(y*Width+x);}
         public void SetPhone(int x,int y)
         {
-            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || RestSpotAt(x,y) || WeaponAt(x,y)!=null || phones.Count>=4096)throw new ArgumentException("Phone needs a free indoor floor cell.");phones.Add(y*Width+x,new PhoneBlockDocument{x=x,y=y});
+            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || RestSpotAt(x,y) || WeaponAt(x,y)!=null || phones.Count>=4096)throw new ArgumentException("Phone needs a free indoor floor cell.");phones.Add(y*Width+x,new PhoneBlockDocument{x=x,y=y});phoneCells.Add(y*Width+x);
         }
         internal PhoneBlockDocument[] CapturePhones()
         {

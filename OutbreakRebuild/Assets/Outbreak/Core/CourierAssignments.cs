@@ -10,7 +10,7 @@ namespace Outbreak.Core
     {
         public int HouseAt(int x,int y)
         {
-            if(!map.Contains(x,y))return 0;foreach(Room room in rooms)if(room.Contains(Key(x,y)))return room.id;return 0;
+            int id;return map.Contains(x,y) && houseByCell.TryGetValue(Key(x,y),out id)?id:0;
         }
         private bool CanEditCourier(int index)
         {

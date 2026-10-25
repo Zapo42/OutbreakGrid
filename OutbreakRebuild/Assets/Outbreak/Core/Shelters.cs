@@ -18,13 +18,15 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         public bool SheltersEnabled { get; private set; } // Preserve earlier save behavior until an explicit upgrade.
         public int ShelterRoomCount { get { return rooms.Length; } } public bool ShelterScanLimited { get; private set; } // Expose discovery limits rather than claiming unsupported geometry is covered.
         public long TerrainRevision { get; private set; } // Invalidate presentation only when a real door changes state.
+        private readonly Dictionary<int,Room> roomsById=new Dictionary<int,Room>();
+        private readonly Dictionary<int,int> houseByCell=new Dictionary<int,int>();
         private Room[] rooms = new Room[0]; // Retain only bounded discovered room geometry.
         private readonly int[] shelterQueue = new int[1089], shelterFirst = new int[1089], shelterSteps = new int[1089]; // Reuse a thirty-three-cell-square local routing frontier.
         private readonly bool[] shelterSeen = new bool[1089]; // Avoid per-actor path history allocations.
         private int[] courierQueue,courierFirst,courierSteps;
         private bool[] courierSeen;
         private static void ClearShelter(ref ActorState a) { ClearFoodExploration(ref a); ClearDoorBrace(ref a); a.shelterId = 0; a.shelterX = 0; a.shelterY = 0; a.shelterState = ShelterState.None; ClearShelterDeparture(ref a); } // Canonicalize an abandoned or converted actor's destination.
-        private Room FindRoom(int id) { for (int i = 0; i < rooms.Length; i++) if (rooms[i].id == id) return rooms[i]; return null; } // Bound room lookup by the supported catalog size.
+        private Room FindRoom(int id) { Room room;return roomsById.TryGetValue(id,out room)?room:null; } // Resolve stable room IDs without a catalog scan.
         private bool IsDoor(int x, int y) { if (!map.Contains(x, y)) return false; Terrain t = map.Get(x, y); return t == Terrain.DoorClosed || t == Terrain.DoorOpen; } // Keep doors distinct from windows, walls and gates.
         private bool ValidObservedCell(int x, int y) { return map.CanWalk(x, y) || (SheltersEnabled && map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed); } // A formerly observed door cell may legitimately close after an actor leaves it.
         private void InitializeShelters() // Derive small enclosed rooms from actual authored floor and boundary tiles.
@@ -39,7 +41,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
                 } // Finish connected floor inspection.
                 if (!enclosed || doors.Count == 0) continue; if (cells.Count > ShelterRules.MaxRoomCells || doors.Count > ShelterRules.MaxDoors || found.Count == ShelterRules.MaxRooms) { ShelterScanLimited = true; continue; } cells.Sort(); int[] doorArray = new int[doors.Count]; doors.CopyTo(doorArray); Array.Sort(doorArray); found.Add(new Room { id = cells[0] + 1, cells = cells.ToArray(), doors = doorArray }); // Preserve deterministic membership and explicit bounded support.
             } // Finish floor components.
-            rooms = found.ToArray(); // No live actor references are held by the catalog.
+            rooms = found.ToArray();foreach(Room room in rooms){roomsById.Add(room.id,room);foreach(int cell in room.cells)houseByCell.Add(cell,room.id);} // No live actor references are held by the catalog.
         } // Finish room recognition.
         private void ValidateShelters() // Reject malformed destinations before publishing a restored world.
         { // Begin persisted shelter validation.
