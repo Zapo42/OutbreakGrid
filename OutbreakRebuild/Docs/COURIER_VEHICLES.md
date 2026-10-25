@@ -1,3 +1,5 @@
+Foundation 126 adds [parking bays and bounded traffic recovery](PARKING_AND_TRAFFIC_RECOVERY.md).
+
 Foundation 125 adds [assigned home deliveries](HOME_VEHICLE_DELIVERIES.md) after store orders. The cycle below also applies to home boxes.
 
 # Courier driving and vehicle deliveries — Foundation 124

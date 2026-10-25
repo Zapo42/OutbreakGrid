@@ -33,7 +33,7 @@ namespace Outbreak.Core
         public ShelfDocument ShelfAt(int x,int y) { return map.ShelfAt(x,y); }
         public bool TryPlaceShelf(int x,int y,int food)
         {
-            if(VehicleAt(x,y) || !HungerEnabled || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || food<0 || food>1000)return false;
+            if(map.ParkingExitAt(x,y)>=0 || VehicleAt(x,y) || !HungerEnabled || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || food<0 || food>1000)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             if(ShelfSites().Length>=4096)return false;map.SetShelf(x,y,food);TerrainRevision++;return true; // Furniture is solid and cannot be placed through a body or reserved destination.
         }

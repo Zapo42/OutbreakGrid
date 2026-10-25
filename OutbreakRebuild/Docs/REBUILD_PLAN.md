@@ -1,3 +1,5 @@
+Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; the large-city shopping regression is next. The earlier stage history below remains for context.
+
 Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
 
 > Current milestone: prototype 6 adds small enclosed room discovery, persistent destinations/capacity, human door use, unsafe-room reassessment and evacuation. It does not complete global navigation, knowledge, building metadata or door durability/breaching. See SHELTERS_AND_DOORS.md.

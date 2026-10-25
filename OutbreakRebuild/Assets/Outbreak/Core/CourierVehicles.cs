@@ -25,7 +25,7 @@ namespace Outbreak.Core
             if(index<0 || index>=vehicles.Count)return false;var car=vehicles[index];if(car.driverId==0 || car.driverAboard || car.deliveryPhase!=VehicleDeliveryPhase.None || car.cargoFood!=0 || car.handFood!=0)return false;car.driverId=0;car.deliveriesPaused=false;car.driveEffort=0;car.lastMealTick=0;vehicles[index]=car;return true;
         }
         public bool TryResumeVehicleCourier(int index){if(index<0 || index>=vehicles.Count || !HealthyVehicleDriver(vehicles[index]))return false;var car=vehicles[index];car.deliveriesPaused=false;vehicles[index]=car;return true;}
-        private static void StopVehicleMotion(ref VehicleState car){car.hasDestination=false;car.destinationX=car.destinationY=0;car.exitAtTick=car.nextRoutePlanTick=0;car.nextMoveTick=car.junctionWaitTick=0;car.waitReason=VehicleWaitReason.None;}
+        private static void StopVehicleMotion(ref VehicleState car){ClearTrafficRecovery(ref car);car.hasDestination=false;car.destinationX=car.destinationY=0;car.exitAtTick=car.nextRoutePlanTick=0;car.nextMoveTick=car.junctionWaitTick=0;car.waitReason=VehicleWaitReason.None;}
         private bool ExitVehicle(int carIndex,bool emergency=false)
         {
             var car=vehicles[carIndex];if(!car.driverAboard)return true;int index=VehicleDriverIndex(car.driverId);if(index<0)return false;
@@ -77,6 +77,9 @@ namespace Outbreak.Core
         private int VehicleParking(VehicleState car,int boxKey)
         {
             if(boxKey<=0)return -1;int key=boxKey-1,bx=key%Width,by=key/Width;Room room=FindRoom(HouseAt(bx,by));if(room==null)return -1;
+            var bays=new List<int>();foreach(var bay in map.ParkingBaySites())if(Math.Max(Math.Abs(bay.x-bx),Math.Abs(bay.y-by))<=CourierVehicleRules.ParkingRadius)bays.Add(Key(bay.x,bay.y));
+            bays.Sort((a,b)=>{int compare=ParkingDoorDistance(a,room).CompareTo(ParkingDoorDistance(b,room));return compare==0?a.CompareTo(b):compare;});
+            if(bays.Count>0){foreach(int cell in bays){int x=cell%Width,y=cell/Width;if(VehicleAt(x,y,car.id) || BodyAt(x,y,car.driverAboard?car.driverId:0) || ParkingClaimed(cell,car.id))continue;if(VehicleRoute(car,x,y)>=0)return cell;}return -1;}
             var candidates=new List<int>();for(int y=Math.Max(0,by-CourierVehicleRules.ParkingRadius);y<=Math.Min(Height-1,by+CourierVehicleRules.ParkingRadius);y++)for(int x=Math.Max(0,bx-CourierVehicleRules.ParkingRadius);x<=Math.Min(Width-1,bx+CourierVehicleRules.ParkingRadius);x++){
                 if(map.Get(x,y)!=Terrain.Road || !VehicleRoad(x,y) || JunctionCell(x,y) || VehicleAt(x,y,car.id) || BodyAt(x,y,car.driverAboard?car.driverId:0))continue;bool exit=false;for(int d=0;d<4;d++)if(map.Contains(x+carDX[d],y+carDY[d]) && map.Get(x+carDX[d],y+carDY[d])==Terrain.Sidewalk && map.CanWalk(x+carDX[d],y+carDY[d]))exit=true;if(exit)candidates.Add(Key(x,y));
             }

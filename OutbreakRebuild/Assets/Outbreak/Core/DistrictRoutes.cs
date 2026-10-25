@@ -7,7 +7,7 @@ namespace Outbreak.Core
     public sealed partial class WorldMap
     {
         internal long DistrictSurfaceRevision { get; private set; }
-        private void DistrictSurfaceChanged(int x,int y){Terrain t=Get(x,y);if(t==Terrain.Sidewalk || t==Terrain.Crosswalk)DistrictSurfaceRevision++;if(TerrainRules.RoadSurface(t))VehicleRoadRevision++;}
+        private void DistrictSurfaceChanged(int x,int y){if(parkingBays.Remove(y*Width+x))VehicleRoadRevision++;Terrain t=Get(x,y);if(t==Terrain.Sidewalk || t==Terrain.Crosswalk)DistrictSurfaceRevision++;if(TerrainRules.RoadSurface(t))VehicleRoadRevision++;}
         internal int[] DistrictSurfaceCells()
         {
             var result=new List<int>();foreach(var chunk in chunks){int cx=chunk.Key%columns,cy=chunk.Key/columns;for(int i=0;i<chunk.Value.Length;i++){

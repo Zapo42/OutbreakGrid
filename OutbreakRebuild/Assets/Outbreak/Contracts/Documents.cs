@@ -51,6 +51,10 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     {
         [DataMember(IsRequired=true)] public int x,y,directions;
     }
+    [DataContract] public sealed class ParkingBayDocument
+    {
+        [DataMember(IsRequired=true)] public int x,y,exitDirection;
+    }
     [DataContract] public sealed class MapDocument // Separate starting terrain from an ongoing simulation save.
     { // Begin the shared map format.
         [DataMember(IsRequired = true)] public string kind = "outbreak.map"; // Refuse to interpret unrelated documents as maps.
@@ -63,6 +67,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public RestSpotDocument[] restSpots;
         [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
         [DataMember(EmitDefaultValue=false)] public RoadLaneDocument[] roadLanes;
+        [DataMember(EmitDefaultValue=false)] public ParkingBayDocument[] parkingBays;
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.
@@ -187,6 +192,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public long nextMoveTick;
         [DataMember] public VehicleWaitReason waitReason;
         [DataMember(EmitDefaultValue=false)] public long junctionWaitTick;
+        [DataMember(EmitDefaultValue=false)] public long blockedSinceTick,trafficRetryTick,detourUntilTick;
         [DataMember(EmitDefaultValue=false)] public long exitAtTick,nextRoutePlanTick,lastMealTick;
         [DataMember(EmitDefaultValue=false)] public int driverId,cargoFood,handFood,sourceBox,targetBox,orderId,driveEffort;
         [DataMember(EmitDefaultValue=false)] public bool driverAboard,deliveriesPaused,shipmentDropped;

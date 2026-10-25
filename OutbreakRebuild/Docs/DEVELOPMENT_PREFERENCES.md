@@ -1,5 +1,7 @@
 # Current development preferences
 
+- Follow the updated [city life and transport workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md). The user selected parking/traffic recovery first, with the large-city failed-shopping report next. Happiness, leisure, transport variety/fuel, pixel presentation and old-test menu organization are queued incremental requirements.
+
 - Target **Unity 6000.6.3f1** for every future build. Preserve this exact ProjectVersion target and run the configuration check; never claim native compatibility without actual Unity validation.
 - Follow [the home/store/distribution plan](HOME_STORE_DISTRIBUTION_PLAN.md): home supplies and consumer shopping first, occupation shifts/outlines next, then scale and store specialization. Build incrementally.
 - Continue incremental builds and publish each completed build to GitHub with its ZIP download link.

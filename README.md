@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 125 / vehicle home deliveries**. Targets **Unity 6000.6.3f1**. Assigned center couriers drive finite shipments to requesting stores and assigned home storage boxes, unload to reserve targets and return excess food. Cargo holds up to 24 meals; road plans are shared and saved journeys resume exactly. [Home delivery guide](OutbreakRebuild/Docs/HOME_VEHICLE_DELIVERIES.md). [Vehicle guide and limits](OutbreakRebuild/Docs/COURIER_VEHICLES.md).
+Current build: **Foundation 126 / parking bays and traffic recovery**. Targets **Unity 6000.6.3f1**. Couriers can reserve off-lane parking bays; blocked vehicles try bounded legal detours. [Parking guide](OutbreakRebuild/Docs/PARKING_AND_TRAFFIC_RECOVERY.md). [Updated development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md). Assigned center couriers drive finite shipments to requesting stores and assigned home storage boxes, unload to reserve targets and return excess food. Cargo holds up to 24 meals; road plans are shared and saved journeys resume exactly. [Home delivery guide](OutbreakRebuild/Docs/HOME_VEHICLE_DELIVERIES.md). [Vehicle guide and limits](OutbreakRebuild/Docs/COURIER_VEHICLES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

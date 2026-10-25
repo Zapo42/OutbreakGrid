@@ -6,7 +6,7 @@ namespace Outbreak.UnityAdapter
 {
     public sealed partial class FoundationApp
     {
-        private int selectedVehicle=-1,routingVehicle=-1;private bool vehicleBrush;
+        private int selectedVehicle=-1,routingVehicle=-1;private bool vehicleBrush,parkingBrush;
         private VehicleHeadingPresentation[] vehicleHeading=new VehicleHeadingPresentation[VehicleRules.Maximum];
         private MovementPresentation[] vehicleMotion=new MovementPresentation[VehicleRules.Maximum];private int knownVehicles;
         private bool VehicleSelected { get { return selectedVehicle>=0 && selectedVehicle<world.VehicleCount && selected<0 && selectedStorageBox==0 && selectedShelf==0 && selectedPhone==0 && selectedBatCell<0; } }
@@ -21,19 +21,22 @@ namespace Outbreak.UnityAdapter
         }
         private void SelectVehicle(int index)
         {
-            SetPaused(true);routingVehicle=-1;selectedVehicle=index;selected=-1;selectedStorageBox=0;selectedShelf=0;selectedPhone=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;phoneBrush=false;vehicleBrush=false;sections["Selected item"]=true;sections["Vehicles"]=true;
+            SetPaused(true);routingVehicle=-1;selectedVehicle=index;selected=-1;selectedStorageBox=0;selectedShelf=0;selectedPhone=0;selectedBatCell=-1;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;phoneBrush=false;vehicleBrush=false;parkingBrush=false;sections["Selected item"]=true;sections["Vehicles"]=true;
             VehicleState car=world.VehicleAtIndex(index);centerX=car.x+0.5f;centerY=car.y+0.5f;textureX=-1;
         }
         private void BeginVehiclePlacement(int route=-1)
         {
-            SetPaused(true);routingVehicle=route;vehicleBrush=route<0;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;phoneBrush=false;status=route<0?"Click a free road or crosswalk to place a vehicle.":"Click a reachable road or crosswalk for the vehicle destination.";
+            SetPaused(true);parkingBrush=false;routingVehicle=route;vehicleBrush=route<0;placing=null;shelfBrush=-1;restBrush=false;boxBrush=false;phoneBrush=false;status=route<0?"Click a free road or crosswalk to place a vehicle.":"Click a reachable road or crosswalk for the vehicle destination.";
         }
         private void DrawVehiclePanel()
         {
             GUILayout.Label("Vehicles: "+world.VehicleCount+" / "+VehicleRules.Maximum);
+            if(world.ParkingTrafficEnabled && GUILayout.Button("Place parking bay"))Queue(()=>{BeginVehiclePlacement();vehicleBrush=false;parkingBrush=true;status="Click clear grass or sidewalk beside an ordinary road, away from intersections, to mark an off-lane bay.";});
+            if(world.ParkingTrafficEnabled && selectedStorageBox>0 && GUILayout.Button("Add parking near selected box")){int key=selectedStorageBox-1;Queue(()=>{SetPaused(true);status=world.TryPlaceParkingNearBox(key%world.Width,key/world.Width)?"Parking bay added near this box.":"No clear curb bay available near this box.";});}
+            GUILayout.Label("Parking bays: "+world.ParkingBays().Length);
             if(GUILayout.Button("Place vehicle"))Queue(()=>BeginVehiclePlacement());
             for(int i=0;i<world.VehicleCount;i++){int index=i;VehicleState car=world.VehicleAtIndex(i);GUILayout.Label("Vehicle #"+car.id+" at "+car.x+", "+car.y+" | "+world.VehicleStatus(i));if(GUILayout.Button("Observe vehicle #"+car.id))Queue(()=>SelectVehicle(index));}
-            if((vehicleBrush || routingVehicle>=0) && GUILayout.Button("Cancel vehicle action"))Queue(()=>{vehicleBrush=false;routingVehicle=-1;});
+            if((parkingBrush || vehicleBrush || routingVehicle>=0) && GUILayout.Button("Cancel vehicle action"))Queue(()=>{parkingBrush=false;vehicleBrush=false;routingVehicle=-1;});
             GUILayout.Label("Marked roads use right-hand traffic. Straight sections keep one empty cell of following space.\nUnmarked roads retain free routing; marked junctions admit one car at a time when its exit is clear.");
         }
         private void DrawSelectedVehicle()
@@ -43,18 +46,26 @@ namespace Outbreak.UnityAdapter
             if(car.driverId!=0){GUILayout.Label("Courier #"+car.driverId+(car.driverAboard?" (aboard)":" (on foot)"));GUILayout.Label(world.VehicleDeliveryStatus(index));GUILayout.Label("Cargo: "+car.cargoFood+" / "+CourierVehicleRules.CargoMeals+" | Shipment with courier: "+car.handFood);if(car.deliveriesPaused && GUILayout.Button("Resume courier deliveries"))Queue(()=>{if(!world.TryResumeVehicleCourier(index))status="Assign a healthy replacement courier before resuming deliveries.";});if(car.deliveryPhase==VehicleDeliveryPhase.None && !car.driverAboard && GUILayout.Button("Unassign courier"))Queue(()=>world.TryUnassignVehicleCourier(index));}
             if(world.CourierVehiclesEnabled && !car.driverAboard)for(int a=0;a<world.Count;a++){int actorIndex=a;var person=world.ActorAt(a);if(person.species==Species.Human && person.health>0 && person.turnAtTick==0 && person.distributionCenterId!=0 && world.AssignedVehicle(a)<0 && GUILayout.Button("Assign courier #"+person.id))Queue(()=>{if(!world.TryAssignVehicleCourier(index,actorIndex))status="Courier needs an idle assignment and a vehicle near the source crate.";});}
             if(car.shipmentDropped){GUILayout.Label("Dropped shipment: "+car.handFood+" meals at "+car.shipmentX+", "+car.shipmentY);if(GUILayout.Button("Observe dropped shipment"))Queue(()=>{centerX=car.shipmentX+0.5f;centerY=car.shipmentY+0.5f;textureX=-1;});}
+            if(car.blockedSinceTick>0)GUILayout.Label("Blocked for "+(world.Tick-car.blockedSinceTick)+" ticks; bounded detour checks active.");
+            if(car.detourUntilTick>world.Tick)GUILayout.Label("Following a traffic detour");
             if(car.hasDestination)GUILayout.Label("Destination: "+car.destinationX+", "+car.destinationY);
             if(car.driverId==0 && GUILayout.Button("Choose vehicle destination"))Queue(()=>BeginVehiclePlacement(index));
             if(GUILayout.Button("Stop vehicle"))Queue(()=>{SetPaused(true);world.TryStopVehicle(index);routingVehicle=-1;});
         }
         private void HandleVehiclePlacement(Event input,Rect visible,Rect bounds,int left,int top,float cell)
         {
-            if(confirmReset || (!vehicleBrush && routingVehicle<0) || input.type!=EventType.MouseDown || input.button!=0 || !visible.Contains(input.mousePosition))return;
+            if(confirmReset || (!parkingBrush && !vehicleBrush && routingVehicle<0) || input.type!=EventType.MouseDown || input.button!=0 || !visible.Contains(input.mousePosition))return;
             int x=left+(int)((input.mousePosition.x-bounds.x)/cell),y=top+(int)((input.mousePosition.y-bounds.y)/cell),route=routingVehicle;
             Queue(()=>{
-                if(route>=0){if(world.TrySetVehicleDestination(route,x,y)){routingVehicle=-1;status="Vehicle destination set. Run or step to drive.";}else status="Choose reachable road or crosswalk outside an intersection, clear of other vehicles.";}
+                if(parkingBrush){if(world.TryPlaceParkingBay(x,y)){parkingBrush=false;status="Parking bay marked. Couriers reserve available bays near their destination.";}else status="Choose clear grass or sidewalk beside a road outside an intersection.";}
+                else if(route>=0){if(world.TrySetVehicleDestination(route,x,y)){routingVehicle=-1;status="Vehicle destination set. Run or step to drive.";}else status="Choose reachable road or crosswalk outside an intersection, clear of other vehicles.";}
                 else{int id;if(world.TryPlaceVehicle(x,y,out id)){vehicleBrush=false;SelectVehicle(world.VehicleCount-1);status="Vehicle placed. Choose a road destination.";}else status="Vehicle needs a free road or crosswalk cell.";}
             });input.Use();
+        }
+        private void DrawParkingBays(Rect bounds,int left,int top,int width,int height,float cell)
+        {
+            foreach(var bay in world.ParkingBays()){if(bay.x<left || bay.y<top || bay.x>=left+width || bay.y>=top+height)continue;float x=bounds.x+(bay.x-left)*cell,y=bounds.y+(bay.y-top)*cell;GUI.color=new Color(0.32f,0.34f,0.36f);GUI.DrawTexture(new Rect(x+cell*0.05f,y+cell*0.05f,cell*0.9f,cell*0.9f),Texture2D.whiteTexture);GUI.color=new Color(0.88f,0.86f,0.68f);GUI.DrawTexture(new Rect(x+cell*0.12f,y+cell*0.12f,cell*0.08f,cell*0.76f),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(x+cell*0.8f,y+cell*0.12f,cell*0.08f,cell*0.76f),Texture2D.whiteTexture);}
+            GUI.color=Color.white;
         }
         private void DrawDroppedShipments(Rect bounds,int left,int top,int width,int height,float cell)
         {
@@ -84,7 +95,7 @@ namespace Outbreak.UnityAdapter
                 GUI.matrix=previousMatrix;
                 double radians=angle*Math.PI/180,mouseX=Event.current.mousePosition.x-pivotX,mouseY=Event.current.mousePosition.y-pivotY;
                 Vector2 localMouse=new Vector2(pivotX+(float)(mouseX*Math.Cos(radians)+mouseY*Math.Sin(radians)),pivotY+(float)(-mouseX*Math.Sin(radians)+mouseY*Math.Cos(radians)));
-                if(!confirmReset && !vehicleBrush && routingVehicle<0 && !placing.HasValue && shelfBrush<0 && !boxBrush && !restBrush && !phoneBrush && Event.current.type==EventType.MouseDown && Event.current.button==0 && body.Contains(localMouse)){int index=i;Queue(()=>SelectVehicle(index));Event.current.Use();}
+                if(!confirmReset && !parkingBrush && !vehicleBrush && routingVehicle<0 && !placing.HasValue && shelfBrush<0 && !boxBrush && !restBrush && !phoneBrush && Event.current.type==EventType.MouseDown && Event.current.button==0 && body.Contains(localMouse)){int index=i;Queue(()=>SelectVehicle(index));Event.current.Use();}
             }
             GUI.color=Color.white;
         }

@@ -57,6 +57,13 @@ namespace Outbreak.Core
     {
         public int RoadLaneMaskAt(int x,int y){return map.RoadLaneMaskAt(x,y);}
         private int VehicleDirections(int x,int y){int mask=LaneTrafficEnabled?map.RoadLaneMaskAt(x,y):0;return mask==0?15:mask;}
+        private bool VehicleLink(int x,int y,int direction)
+        {
+            int nx=x+carDX[direction],ny=y+carDY[direction];if(!VehicleRoad(nx,ny))return false;
+            int exit=map.ParkingExitAt(x,y);if(exit>=0)return direction==exit;
+            exit=map.ParkingExitAt(nx,ny);if(exit>=0)return exit==(direction+2)%4;
+            return (VehicleDirections(x,y)&(1<<direction))!=0;
+        }
         private bool FollowingSegment(int x,int y,int nx,int ny,int direction)
         {
             if(!LaneTrafficEnabled)return false;int from=map.RoadLaneMaskAt(x,y),to=map.RoadLaneMaskAt(nx,ny),bit=1<<direction;

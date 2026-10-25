@@ -61,7 +61,7 @@ namespace Outbreak.Core
         public StorageBoxDocument StorageBoxAt(int x,int y){return map.StorageBoxAt(x,y);}
         public bool TryPlaceStorageBox(int x,int y)
         {
-            if(VehicleAt(x,y) || !StorageEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || StorageBoxSites().Length>=StorageRules.MaxBoxes)return false;
+            if(map.ParkingExitAt(x,y)>=0 || VehicleAt(x,y) || !StorageEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || StorageBoxSites().Length>=StorageRules.MaxBoxes)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             map.SetStorageBox(new StorageBoxDocument{x=x,y=y,capacity=StorageRules.DefaultCapacity,items=new ItemStackDocument[0]});TerrainRevision++;return true;
         }

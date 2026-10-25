@@ -45,3 +45,5 @@ Foundation 123 adds [expanded cities and district routing](EXPANDED_DISTRICT_ROU
 Foundation 124 adds [courier driving and vehicle deliveries](COURIER_VEHICLES.md). Generated cities still start without vehicles; use the assigned-courier delivery preview or place a vehicle near a distribution source and assign an idle center courier through its inspector.
 
 Foundation 125 adds [vehicle home delivery routes](HOME_VEHICLE_DELIVERIES.md), with a paused two-home preview. Assigned home boxes use reserve targets after store requests are served.
+
+Foundation 126 supports [off-lane parking bays](PARKING_AND_TRAFFIC_RECOVERY.md) through placement controls and a dedicated courier-parking preview. Generated layouts remain unchanged until bays are authored; the large-city shopping regression is queued in [the current workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md).

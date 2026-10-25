@@ -1,3 +1,5 @@
+Current follow-on queue: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md), including the reported large-city shopping interruption.
+
 # Home, store and distribution chain
 
 ## Refined development brief

@@ -54,6 +54,7 @@
     <Compile Include="CityZoningChecks.cs" />
     <Compile Include="VehicleChecks.cs" />
     <Compile Include="CourierVehicleChecks.cs" />
+    <Compile Include="ParkingTrafficChecks.cs" />
     <Compile Include="VehicleJunctionChecks.cs" />
     <Compile Include="PedestrianRouteChecks.cs" />
     <Compile Include="HomeSupplyChecks.cs" />
