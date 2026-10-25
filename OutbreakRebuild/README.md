@@ -1,4 +1,4 @@
-Current build: **Foundation 123 / expanded cities and district routes**. Targets **Unity 6000.6.3f1**. Shared compressed walkway plans support longer assigned trips; the new 8×8 compact preview contains 244 residents and 247 buildings. [Guide, limits and benchmarks](Docs/EXPANDED_DISTRICT_ROUTES.md).
+Current build: **Foundation 124 / courier driving and vehicle deliveries**. Targets **Unity 6000.6.3f1**. Assigned center couriers collect finite shipments, board vehicles, drive to requesting stores, unload and return. Cargo holds up to 24 meals; road plans are shared and saved journeys resume exactly. [Guide and limits](Docs/COURIER_VEHICLES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

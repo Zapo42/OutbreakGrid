@@ -14,7 +14,7 @@ namespace Outbreak.Core
         }
         private bool CanEditCourier(int index)
         {
-            return CourierAssignmentsEnabled && index>=0 && index<count && actors[index].species==Species.Human && actors[index].health>0 && actors[index].turnAtTick==0 && actors[index].restockPhase==RestockPhase.None && actors[index].workerCommuteId==0;
+            return CourierAssignmentsEnabled && index>=0 && index<count && actors[index].species==Species.Human && actors[index].health>0 && actors[index].turnAtTick==0 && actors[index].restockPhase==RestockPhase.None && actors[index].workerCommuteId==0 && AssignedVehicle(index)<0;
         }
         public bool TryAssignHouse(int index,int x,int y)
         {

@@ -4,14 +4,14 @@ namespace Outbreak.Core
     {
         public const int VeryHungryAt=80;
         public int Humans,Hungry,VeryHungry,Infected,SeekingFood,Searching,InvestigatingRooms,CarriedMeals,ShelfMeals,StockedShelves,EmptyShelves,UnsearchedShelves;
-        public int StorageMeals,StorageBoxes,RestockingTrips,SupplyDeliveries;
-        public int RemainingMeals { get { return CarriedMeals+ShelfMeals+StorageMeals; } }
+        public int VehicleMeals,StorageMeals,StorageBoxes,RestockingTrips,SupplyDeliveries;
+        public int RemainingMeals { get { return CarriedMeals+ShelfMeals+StorageMeals+VehicleMeals; } }
     }
     public sealed partial class World
     {
         public FoodOverview FoodSupplies()
         {
-            FoodOverview result=new FoodOverview();
+            FoodOverview result=new FoodOverview();foreach(var car in vehicles){result.VehicleMeals+=car.cargoFood+car.handFood;if(car.deliveryPhase!=Outbreak.Contracts.VehicleDeliveryPhase.None){result.SupplyDeliveries++;result.RestockingTrips++;}}
             for(int i=0;i<count;i++)
             {
                 var actor=actors[i];if(actor.species!=Outbreak.Contracts.Species.Human || actor.health==0)continue;

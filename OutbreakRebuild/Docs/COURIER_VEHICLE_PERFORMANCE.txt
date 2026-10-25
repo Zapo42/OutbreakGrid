@@ -1,0 +1,24 @@
+Foundation 124 courier-vehicle core benchmarks
+
+Same Linux cloud environment, .NET 8 Release, median of three runs after separate JIT warmup.
+Runs were sequential after the acceptance/UI suites. Only simulation ticks are timed;
+setup, serialization and Unity rendering/input are excluded. No native FPS claim is made.
+
+Complete courier preview workload (covers both initial shipments and return travel):
+Courier vehicle: 5 residents, 1 van: 2500 ticks median 341.5 ms (0.137 ms/tick), allocated 11.96 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+
+Existing city workloads without starting vehicles (new rules-95 runs):
+(4, 2, 4): 500 ticks median 192.3 ms (0.385 ms/tick), allocated 7.37 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 3, 4): 500 ticks median 174.0 ms (0.348 ms/tick), allocated 8.41 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 5, 2): 500 ticks median 173.7 ms (0.347 ms/tick), allocated 7.65 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 6, 1): 500 ticks median 131.8 ms (0.264 ms/tick), allocated 5.08 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(8, 8, 4): 500 ticks median 985.8 ms (1.972 ms/tick), allocated 35.49 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(10, 10, 2): 500 ticks median 663.8 ms (1.328 ms/tick), allocated 28.90 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+
+All three repetitions matched exact final saved states. Tests separately compare live continuation
+against a fresh save/load during walking, boarding, driving, unloading and return phases.
+Shared road-distance fields are derived and rebuilt after load; food/order/RNG/clock state is saved.
+
+Validation: 587 acceptance cases / 728517 assertions; UI API doubles 2110 assertions;
+NewOnly input mode 3 assertions. Focused vehicle suite passed again after stricter quantity bounds.
+Actual Unity/Windows performance, heavy multi-vehicle traffic and large outbreaks remain unverified.

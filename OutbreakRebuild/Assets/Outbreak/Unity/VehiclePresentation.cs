@@ -40,8 +40,11 @@ namespace Outbreak.UnityAdapter
         {
             int index=selectedVehicle;VehicleState car=world.VehicleAtIndex(index);
             GUILayout.Label("VEHICLE #"+car.id+" at "+car.x+", "+car.y);GUILayout.Label("Status: "+world.VehicleStatus(index));
+            if(car.driverId!=0){GUILayout.Label("Courier #"+car.driverId+(car.driverAboard?" (aboard)":" (on foot)"));GUILayout.Label(world.VehicleDeliveryStatus(index));GUILayout.Label("Cargo: "+car.cargoFood+" / "+CourierVehicleRules.CargoMeals+" | Shipment with courier: "+car.handFood);if(car.deliveriesPaused && GUILayout.Button("Resume courier deliveries"))Queue(()=>{if(!world.TryResumeVehicleCourier(index))status="Assign a healthy replacement courier before resuming deliveries.";});if(car.deliveryPhase==VehicleDeliveryPhase.None && !car.driverAboard && GUILayout.Button("Unassign courier"))Queue(()=>world.TryUnassignVehicleCourier(index));}
+            if(world.CourierVehiclesEnabled && !car.driverAboard)for(int a=0;a<world.Count;a++){int actorIndex=a;var person=world.ActorAt(a);if(person.species==Species.Human && person.health>0 && person.turnAtTick==0 && person.distributionCenterId!=0 && world.AssignedVehicle(a)<0 && GUILayout.Button("Assign courier #"+person.id))Queue(()=>{if(!world.TryAssignVehicleCourier(index,actorIndex))status="Courier needs an idle assignment and a vehicle near the source crate.";});}
+            if(car.shipmentDropped){GUILayout.Label("Dropped shipment: "+car.handFood+" meals at "+car.shipmentX+", "+car.shipmentY);if(GUILayout.Button("Observe dropped shipment"))Queue(()=>{centerX=car.shipmentX+0.5f;centerY=car.shipmentY+0.5f;textureX=-1;});}
             if(car.hasDestination)GUILayout.Label("Destination: "+car.destinationX+", "+car.destinationY);
-            if(GUILayout.Button("Choose vehicle destination"))Queue(()=>BeginVehiclePlacement(index));
+            if(car.driverId==0 && GUILayout.Button("Choose vehicle destination"))Queue(()=>BeginVehiclePlacement(index));
             if(GUILayout.Button("Stop vehicle"))Queue(()=>{SetPaused(true);world.TryStopVehicle(index);routingVehicle=-1;});
         }
         private void HandleVehiclePlacement(Event input,Rect visible,Rect bounds,int left,int top,float cell)
@@ -52,6 +55,10 @@ namespace Outbreak.UnityAdapter
                 if(route>=0){if(world.TrySetVehicleDestination(route,x,y)){routingVehicle=-1;status="Vehicle destination set. Run or step to drive.";}else status="Choose reachable road or crosswalk outside an intersection, clear of other vehicles.";}
                 else{int id;if(world.TryPlaceVehicle(x,y,out id)){vehicleBrush=false;SelectVehicle(world.VehicleCount-1);status="Vehicle placed. Choose a road destination.";}else status="Vehicle needs a free road or crosswalk cell.";}
             });input.Use();
+        }
+        private void DrawDroppedShipments(Rect bounds,int left,int top,int width,int height,float cell)
+        {
+            for(int index=0;index<world.VehicleCount;index++){var car=world.VehicleAtIndex(index);if(!car.shipmentDropped || car.shipmentX<left || car.shipmentY<top || car.shipmentX>=left+width || car.shipmentY>=top+height)continue;GUI.color=new Color(0.66f,0.48f,0.24f);GUI.DrawTexture(new Rect(bounds.x+(car.shipmentX-left+0.28f)*cell,bounds.y+(car.shipmentY-top+0.28f)*cell,cell*0.44f,cell*0.44f),Texture2D.whiteTexture);}GUI.color=Color.white;
         }
         private void DrawVehicles(Rect bounds,int left,int top,int width,int height,float cell)
         {
@@ -67,6 +74,7 @@ namespace Outbreak.UnityAdapter
                 GUIUtility.RotateAroundPivot(angle,new Vector2(pivotX,pivotY));
                 GUI.color=VehicleSelected && i==selectedVehicle?Color.yellow:new Color(0.18f,0.42f,0.65f);GUI.DrawTexture(body,Texture2D.whiteTexture);
                 GUI.color=new Color(0.70f,0.84f,0.90f);GUI.DrawTexture(new Rect(body.x+body.width*0.3f,body.y+body.height*0.2f,body.width*0.4f,body.height*0.6f),Texture2D.whiteTexture);
+                if(car.cargoFood>0){GUI.color=new Color(0.66f,0.48f,0.24f);GUI.DrawTexture(new Rect(body.x+body.width*0.06f,body.y+body.height*0.28f,body.width*0.18f,body.height*0.44f),Texture2D.whiteTexture);}
                 GUI.color=new Color(0.10f,0.11f,0.12f);
                 for(int wheel=0;wheel<2;wheel++)
                 {

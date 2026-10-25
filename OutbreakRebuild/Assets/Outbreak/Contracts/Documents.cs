@@ -178,6 +178,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int deliveredMeals;
     }
     public enum VehicleWaitReason { None, Pedestrian, Vehicle, NoRoute, FollowingDistance, Intersection, ExitBlocked }
+    public enum VehicleDeliveryPhase { None, Collecting, BoardingForDelivery, DrivingToDelivery, Unloading, BoardingForSource, DrivingToSource, RecoveringShipment }
     [DataContract] public struct VehicleState
     {
         [DataMember(IsRequired=true)] public int id,x,y,heading;
@@ -186,6 +187,11 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember] public long nextMoveTick;
         [DataMember] public VehicleWaitReason waitReason;
         [DataMember(EmitDefaultValue=false)] public long junctionWaitTick;
+        [DataMember(EmitDefaultValue=false)] public long exitAtTick,nextRoutePlanTick,lastMealTick;
+        [DataMember(EmitDefaultValue=false)] public int driverId,cargoFood,handFood,sourceBox,targetBox,orderId,driveEffort;
+        [DataMember(EmitDefaultValue=false)] public bool driverAboard,deliveriesPaused,shipmentDropped;
+        [DataMember(EmitDefaultValue=false)] public int shipmentX,shipmentY;
+        [DataMember(EmitDefaultValue=false)] public VehicleDeliveryPhase deliveryPhase;
     }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.

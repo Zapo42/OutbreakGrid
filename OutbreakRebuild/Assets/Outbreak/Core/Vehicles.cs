@@ -11,7 +11,7 @@ namespace Outbreak.Core
         public int VehicleCount { get { return vehicles.Count; } }
         public VehicleState VehicleAtIndex(int index){if(index<0 || index>=vehicles.Count)throw new ArgumentOutOfRangeException("index");return vehicles[index];}
         private bool VehicleAt(int x,int y,int exceptId=0){if(vehicles.Count==0)return false;foreach(VehicleState car in vehicles)if(car.id!=exceptId && car.x==x && car.y==y)return true;return false;}
-        private bool BodyAt(int x,int y){for(int i=0;i<count;i++)if(actors[i].x==x && actors[i].y==y)return true;return false;}
+        private bool BodyAt(int x,int y,int exceptActor=0){for(int i=0;i<count;i++)if(actors[i].id!=exceptActor && !ActorRiding(actors[i].id) && actors[i].x==x && actors[i].y==y)return true;return false;}
         private bool VehicleRoad(int x,int y){return map.Contains(x,y) && TerrainRules.RoadSurface(map.Get(x,y)) && map.CanWalk(x,y);}
         public bool TryPlaceVehicle(int x,int y,out int id)
         {
@@ -21,6 +21,7 @@ namespace Outbreak.Core
         }
         private int VehicleRoute(VehicleState car,int goalX,int goalY)
         {
+            if(CourierVehiclesEnabled && car.driverId!=0){int planned=AssignedVehicleRoadStep(car,goalX,goalY);if(planned!=-2)return planned;}
             int radius=DistrictRoutesEnabled?DistrictRouteRules.Radius:VehicleRules.RouteRadius,maxCells=DistrictRoutesEnabled?32768:VehicleRules.MaxRouteCells;
             if(!VehicleRoad(goalX,goalY) || Math.Max(Math.Abs(car.x-goalX),Math.Abs(car.y-goalY))>radius)return -1;
             int start=Key(car.x,car.y),goal=Key(goalX,goalY);var first=new Dictionary<int,int>{{start,4}};var queue=new Queue<int>();queue.Enqueue(start);
@@ -37,15 +38,16 @@ namespace Outbreak.Core
             }
             return -1;
         }
-        public bool TrySetVehicleDestination(int index,int x,int y)
+        public bool TrySetVehicleDestination(int index,int x,int y){return SetVehicleDestination(index,x,y,false);}
+        private bool SetVehicleDestination(int index,int x,int y,bool driverCommand)
         {
-            if(!VehicleRoutesEnabled || index<0 || index>=vehicles.Count)return false;VehicleState car=vehicles[index];
+            if(!VehicleRoutesEnabled || index<0 || index>=vehicles.Count)return false;VehicleState car=vehicles[index];if(car.driverId!=0 && !driverCommand)return false;
             if(!VehicleRoad(x,y) || (JunctionTrafficEnabled && JunctionCell(x,y)) || VehicleAt(x,y,car.id) || VehicleRoute(car,x,y)<0)return false;
-            car.junctionWaitTick=0;car.hasDestination=true;car.destinationX=x;car.destinationY=y;car.waitReason=VehicleWaitReason.None;car.nextMoveTick=car.x==x && car.y==y?0:Tick+VehicleRules.MoveTicks;vehicles[index]=car;return true;
+            car.nextRoutePlanTick=0;car.junctionWaitTick=0;car.hasDestination=true;car.destinationX=x;car.destinationY=y;car.waitReason=VehicleWaitReason.None;car.nextMoveTick=car.x==x && car.y==y?0:Tick+VehicleRules.MoveTicks;vehicles[index]=car;return true;
         }
         public bool TryStopVehicle(int index)
         {
-            if(!VehicleRoutesEnabled || index<0 || index>=vehicles.Count)return false;VehicleState car=vehicles[index];car.junctionWaitTick=0;car.hasDestination=false;car.destinationX=0;car.destinationY=0;car.nextMoveTick=0;car.waitReason=VehicleWaitReason.None;vehicles[index]=car;return true;
+            if(!VehicleRoutesEnabled || index<0 || index>=vehicles.Count)return false;VehicleState car=vehicles[index];if(car.driverId!=0)car.deliveriesPaused=true;car.exitAtTick=car.nextRoutePlanTick=0;car.junctionWaitTick=0;car.hasDestination=false;car.destinationX=0;car.destinationY=0;car.nextMoveTick=0;car.waitReason=VehicleWaitReason.None;vehicles[index]=car;return true;
         }
         private bool CrossingOccupied(int x,int y)
         {
@@ -64,7 +66,7 @@ namespace Outbreak.Core
             VehicleState[] junctionOccupants=JunctionTrafficEnabled?vehicles.ToArray():null;
             for(int i=0;i<vehicles.Count;i++)
             {
-                VehicleState car=vehicles[i];if(!car.hasDestination || car.nextMoveTick==0 || car.nextMoveTick>Tick)continue;
+                VehicleState car=vehicles[i];if(car.driverId!=0 && (!car.driverAboard || car.deliveriesPaused || !HealthyVehicleDriver(car)))continue;if(!car.hasDestination || car.nextMoveTick==0 || car.nextMoveTick>Tick)continue;
                 car.nextMoveTick=Tick+VehicleRules.MoveTicks;int direction=VehicleRoute(car,car.destinationX,car.destinationY);
                 if(direction<0){car.waitReason=VehicleWaitReason.NoRoute;vehicles[i]=car;continue;}
                 int nx=car.x+carDX[direction],ny=car.y+carDY[direction];
@@ -75,7 +77,7 @@ namespace Outbreak.Core
                 if(FollowingSegment(car.x,car.y,nx,ny,direction) && VehicleAt(nx+carDX[direction],ny+carDY[direction],car.id)){car.waitReason=VehicleWaitReason.FollowingDistance;vehicles[i]=car;continue;}
                 car.junctionWaitTick=0;car.x=nx;car.y=ny;car.heading=direction;car.waitReason=VehicleWaitReason.None;
                 if(car.x==car.destinationX && car.y==car.destinationY)car.nextMoveTick=0;
-                vehicles[i]=car;
+                vehicles[i]=car;MoveVehicleDriver(car);
             }
         }
         public string VehicleStatus(int index)
@@ -91,7 +93,7 @@ namespace Outbreak.Core
             int previous=0;
             foreach(VehicleState car in records)
             {
-                if(car.id<=previous || car.id>=next || car.heading<0 || car.heading>3 || !VehicleRoad(car.x,car.y) || VehicleAt(car.x,car.y) || BodyAt(car.x,car.y) || car.waitReason<VehicleWaitReason.None || car.waitReason>VehicleWaitReason.ExitBlocked || (!LaneTrafficEnabled && car.waitReason==VehicleWaitReason.FollowingDistance))throw new ArgumentException("Invalid vehicle identity, placement or heading.");
+                if(car.id<=previous || car.id>=next || car.heading<0 || car.heading>3 || !VehicleRoad(car.x,car.y) || VehicleAt(car.x,car.y) || BodyAt(car.x,car.y,car.driverAboard?car.driverId:0) || car.waitReason<VehicleWaitReason.None || car.waitReason>VehicleWaitReason.ExitBlocked || (!LaneTrafficEnabled && car.waitReason==VehicleWaitReason.FollowingDistance))throw new ArgumentException("Invalid vehicle identity, placement or heading.");
                 ValidateJunctionRequest(car);
                 if(!car.hasDestination){if(car.destinationX!=0 || car.destinationY!=0 || car.nextMoveTick!=0 || car.waitReason!=VehicleWaitReason.None)throw new ArgumentException("Parked vehicle retained a route.");}
                 else

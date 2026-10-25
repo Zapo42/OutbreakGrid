@@ -13,6 +13,7 @@ namespace Outbreak.Core
         }
         public int SupplyOrderCourier(int orderId)
         {
+            foreach(VehicleState car in vehicles)if(car.orderId==orderId && car.deliveryPhase!=VehicleDeliveryPhase.None)return car.driverId;
             for(int i=0;i<count;i++)if(actors[i].species==Species.Human && actors[i].health>0 && actors[i].courierOrderId==orderId && actors[i].restockPhase!=RestockPhase.None)return actors[i].id;return 0;
         }
         // Only reported request quantities and actual credited deliveries affect dispatch.
@@ -51,7 +52,7 @@ namespace Outbreak.Core
             for(int i=0;i<count;i++)
             {
                 ActorState visitor=actors[i];
-                bool delivery=visitor.courierOrderId!=0 && visitor.restockPhase==RestockPhase.Returning && visitor.restockHomeId==room.id;
+                bool delivery=visitor.courierOrderId!=0 && visitor.restockPhase==RestockPhase.Returning && visitor.restockHomeId==room.id;int vehicle=AssignedVehicle(i);if(vehicle>=0){var shipment=vehicles[vehicle];delivery|=shipment.deliveryPhase==VehicleDeliveryPhase.Unloading && shipment.targetBox>0 && HouseAt((shipment.targetBox-1)%Width,(shipment.targetBox-1)/Width)==room.id;}
                 bool shopping=StoreShoppingEnabled && IsShopping(visitor) && ((visitor.restockPhase==RestockPhase.Collecting && visitor.shelterId==room.id) || (visitor.restockPhase==RestockPhase.Returning && visitor.restockHomeId==room.id));
                 bool commute=WorkerShiftsEnabled && visitor.workerCommuteId==room.id && visitor.shelterId==room.id;
                 if(visitor.health>0 && visitor.species==Species.Human && (delivery || shopping || commute) && !room.Contains(Key(visitor.x,visitor.y)) && Math.Abs(visitor.x-door%Width)+Math.Abs(visitor.y-door/Width)<=1)return true;

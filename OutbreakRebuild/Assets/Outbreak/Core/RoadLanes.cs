@@ -13,8 +13,8 @@ namespace Outbreak.Core
         public void SetRoadLaneMask(int x,int y,int mask)
         {
             if(!Contains(x,y) || !TerrainRules.RoadSurface(Get(x,y)) || mask<0 || mask>15)throw new ArgumentException("Lane needs roadway and a cardinal direction mask.");
-            int key=y*Width+x;if(mask==0){roadLanes.Remove(key);return;}
-            if(!roadLanes.ContainsKey(key) && roadLanes.Count==MaxLaneCells)throw new ArgumentException("Lane catalog limit reached.");roadLanes[key]=mask;
+            int key=y*Width+x,old;if(roadLanes.TryGetValue(key,out old) && old==mask)return;if(mask==0){if(roadLanes.Remove(key))VehicleRoadRevision++;return;}
+            if(!roadLanes.ContainsKey(key) && roadLanes.Count==MaxLaneCells)throw new ArgumentException("Lane catalog limit reached.");roadLanes[key]=mask;VehicleRoadRevision++;
         }
         private RoadLaneDocument[] CaptureRoadLanes()
         {

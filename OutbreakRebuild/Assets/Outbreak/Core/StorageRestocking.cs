@@ -44,7 +44,7 @@ namespace Outbreak.Core
         }
         private bool TryRestock(int index,ref ActorState actor,int threat,out int direction)
         {
-            direction=8;if(WorkerShiftsEnabled && actor.workerCommuteId!=0)return false;
+            direction=8;if(CourierVehiclesEnabled && AssignedVehicle(index)>=0)return false;if(WorkerShiftsEnabled && actor.workerCommuteId!=0)return false;
             if(StoresEnabled && actor.clerkStoreId!=0 && !(WorkerShiftsEnabled && (WorkerMayShopOffDuty(actor) || IsShopping(actor))))return false;
             if(StoreShoppingEnabled && IsShopping(actor) && actor.turnAtTick==0 && actor.hunger>=HungerRules.SeekAt && actor.carriedFood>0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor))
             {

@@ -54,3 +54,5 @@ Foundation 121 fixes wide reclaimed-road paving and adds default staggered stree
 Foundation 122 adds varied Staggered block dimensions, up to four homes per residential block, a 60-resident compact preset, reusable route scratch and sparse room/collision indexes. A repeatable Release city benchmark records core time/allocations and exact continuation. District/hierarchical routing, broader population scaling and native render profiling remain future scaling work.
 
 Foundation 123 adds bounded district waypoint planning, 512-cell assigned-trip queries and expanded 8×8 cities within a 256-building limit. Route graphs are shared and rebuilt for geometry/furniture changes. Next scaling work includes district-level distribution/store staffing, vehicle cargo and profiling large outbreaks/native rendering.
+
+Foundation 124 adds assigned courier driving and finite vehicle cargo for phone replenishment orders, with walking pickup/drop-off, needs, traffic compliance, save/restart, excess/cancelled returns and replacement-driver recovery. Next vehicle increments can cover home/manual-box deliveries, dedicated loading bays, traffic recovery or passenger commuting.

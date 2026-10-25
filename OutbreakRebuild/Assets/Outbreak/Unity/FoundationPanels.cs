@@ -58,6 +58,7 @@ namespace Outbreak.UnityAdapter
             if(selected>=0 && selected<world.Count)
             {
                 ActorState person=world.ActorAt(selected);GUILayout.Label("#"+person.id+" "+person.species+" at "+person.x+", "+person.y);
+                int assignedCar=world.AssignedVehicle(selected);if(assignedCar>=0){var assigned=world.VehicleAtIndex(assignedCar);GUILayout.Label("Vehicle #"+assigned.id+" | "+world.VehicleDeliveryStatus(assignedCar));if(assigned.driverAboard)GUILayout.Label("Seated in vehicle");}
                 int targetX,targetY;Color targetColor;string targetLabel;if(SelectedTarget(out targetX,out targetY,out targetColor,out targetLabel))GUILayout.Label("Current target: "+targetLabel);
                 GUILayout.Label("Health: "+person.health+"/100"+(person.species==Species.Human && person.health>0?" | Energy: "+EnergyRules.Remaining(person)+"/100":""));
                 if(world.HomeSuppliesEnabled && person.species==Species.Human && person.health>0)
@@ -149,6 +150,7 @@ namespace Outbreak.UnityAdapter
                 GUILayout.Label("Food trips: " + food.SeekingFood + " | Searching: " + food.Searching);
                 GUILayout.Label("Investigating rooms: " + food.InvestigatingRooms);
                 GUILayout.Label("Meals: carried " + food.CarriedMeals + " | shelves " + food.ShelfMeals);
+                if(food.VehicleMeals>0)GUILayout.Label("Vehicle shipments: "+food.VehicleMeals+" meals");
                 if(world.StorageEnabled)GUILayout.Label("Storage boxes: "+food.StorageBoxes+" | Stored meals: "+food.StorageMeals);
                 if(world.RestockingEnabled)GUILayout.Label("Restocking trips: "+food.RestockingTrips);
                 if(world.SupplyDeliveriesEnabled)GUILayout.Label("Box-to-box deliveries: "+food.SupplyDeliveries);

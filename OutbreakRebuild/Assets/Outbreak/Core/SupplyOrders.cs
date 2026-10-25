@@ -16,7 +16,7 @@ namespace Outbreak.Core
         }
         private void InvalidateStoreOrder(int storeId)
         {
-            SupplyOrderDocument cancelled;if(supplyOrders.TryGetValue(storeId,out cancelled))for(int i=0;i<count;i++)if(actors[i].courierOrderId==cancelled.id){ActorState courier=actors[i];ClearRestocking(ref courier);ClearFoodMemory(ref courier);ClearShelterDeparture(ref courier);actors[i]=courier;}
+            SupplyOrderDocument cancelled;if(supplyOrders.TryGetValue(storeId,out cancelled))CancelVehicleOrder(cancelled.id);if(supplyOrders.TryGetValue(storeId,out cancelled))for(int i=0;i<count;i++)if(actors[i].courierOrderId==cancelled.id){ActorState courier=actors[i];ClearRestocking(ref courier);ClearFoodMemory(ref courier);ClearShelterDeparture(ref courier);actors[i]=courier;}
             supplyOrders.Remove(storeId);for(int i=0;i<count;i++)if(actors[i].clerkStoreId==storeId){ActorState actor=actors[i];actor.clerkNeedsSupplies=false;ResetClerkCall(ref actor);actors[i]=actor;}
         }
         private void UpdateClerkSupplyKnowledge(ref ActorState actor,StoreDocument store)
