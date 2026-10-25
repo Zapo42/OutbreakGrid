@@ -59,4 +59,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 113 | Generated-city seed/block controls, presets, exact setup summaries, validated population scaling and retained-run protection | Core: 532 cases / 496680 assertions; UI: 1933 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 114 | Four-way street-facing entrances, connected paths, role-specific footprints, furniture clearance and physical generated commutes | Core: 535 cases / 501907 assertions; UI: 1933 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

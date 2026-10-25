@@ -21,3 +21,5 @@ Restart restores the initial generated world, assignments, food and tick zero; i
 Checks cover invalid/boundary settings, summary accuracy across minimum/maximum/rectangular layouts and seeds including uint.MaxValue, deterministic regeneration, unique homes and staffed workplaces, finite food, save continuation, form parsing, presets, paused/running starts, replacement cancellation/confirmation, restart and the existing encounter UI. Native Unity 6000.6.3f1 layout, input and large-city performance remain unverified; the Foundation 82 checkpoint is unchanged.
 
 Future item categories remain **supplies**, **medical**, **ammo**. Existing food-only storage remains unchanged in this increment.
+
+Foundation 114 updates new generation with [four-way street-facing entrances and building sizes by use](CITY_BUILDING_VARIETY.md). Existing setup controls/counts remain; new cities use updated geometry for the same seed. Saved cities keep their actual layouts.

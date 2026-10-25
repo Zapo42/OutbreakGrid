@@ -33,7 +33,7 @@ namespace Outbreak.UnityAdapter
                 GUILayout.Label(summary.Humans+" humans: 1 courier, "+summary.Stores+(summary.Stores==1?" clerk, ":" clerks, ")+summary.Consumers+(summary.Consumers==1?" consumer":" consumers")+" | "+summary.Meals+" starting meals");
             }
             GUILayout.Label("One resident per home; workers start at their separate workplaces.");
-            GUILayout.Label("Generated streets, sidewalks, buildings and entrance paths.");
+            GUILayout.Label("Street-facing entrances; larger stores and distribution buildings.");
             GUILayout.Label("No starting zombies. Use Place zombie to introduce an outbreak.");
             GUI.enabled=error==null;
             if(GUILayout.Button("Start generated city"))

@@ -1,4 +1,4 @@
-Current build: **Foundation 113 / configurable generated cities**. Targets **Unity 6000.6.3f1**. Set the city seed and 2–6 blocks per axis, inspect exact counts, and start paused or running. [Guide and limits](Docs/CITY_SETUP.md).
+Current build: **Foundation 114 / varied street-facing buildings**. Targets **Unity 6000.6.3f1**. Generated entrances face all four streets, with connected paths and larger store/distribution footprints. [Guide and limits](Docs/CITY_BUILDING_VARIETY.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

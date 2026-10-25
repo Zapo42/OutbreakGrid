@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 113 / configurable generated cities**. Targets **Unity 6000.6.3f1**. Set the city seed and 2–6 blocks per axis, inspect exact counts, and start paused or running. [Guide and limits](OutbreakRebuild/Docs/CITY_SETUP.md).
+Current build: **Foundation 114 / varied street-facing buildings**. Targets **Unity 6000.6.3f1**. Generated entrances face all four streets, with connected paths and larger store/distribution footprints. [Guide and limits](OutbreakRebuild/Docs/CITY_BUILDING_VARIETY.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 
