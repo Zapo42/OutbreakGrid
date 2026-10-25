@@ -1,4 +1,4 @@
-Current build: **Foundation 115 / denser neighborhoods and storefront discovery**. Targets **Unity 6000.6.3f1**. Two-house residential blocks and a fix for empty-home shoppers missing nearby stores with hidden entrances. [Guide and limits](Docs/DENSE_NEIGHBORHOODS_AND_SHOPPING.md).
+Current build: **Foundation 116 / neighborhood street layouts**. Targets **Unity 6000.6.3f1**. Seeded T-junctions, short dead-end streets, connected pedestrian links and striped crosswalks on shared road surfaces. [Guide and limits](Docs/NEIGHBORHOOD_STREETS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

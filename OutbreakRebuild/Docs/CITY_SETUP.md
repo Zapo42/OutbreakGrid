@@ -25,3 +25,5 @@ Future item categories remain **supplies**, **medical**, **ammo**. Existing food
 Foundation 114 updates new generation with [four-way street-facing entrances and building sizes by use](CITY_BUILDING_VARIETY.md). Existing setup controls/counts remain; new cities use updated geometry for the same seed. Saved cities keep their actual layouts.
 
 Foundation 115 adds [two-house residential density](DENSE_NEIGHBORHOODS_AND_SHOPPING.md). Toggle Residential density in this form; the dense Large preset uses 6×5 blocks to stay within the existing 64-building limit. Default single-house setup remains available.
+
+Foundation 116 adds the [Grid / Neighborhood street-layout choice](NEIGHBORHOOD_STREETS.md). Neighborhood preserves connected roads and pedestrian access while introducing T-junctions, short dead ends and pedestrian links. Crosswalks now have pale stripes on dark road paving and remain road surfaces for future vehicles.

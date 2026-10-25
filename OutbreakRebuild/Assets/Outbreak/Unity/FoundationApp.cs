@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Foundation 115 / denser neighborhoods and storefront discovery"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Foundation 116 / neighborhood street layouts"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -228,6 +228,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if(GUILayout.Button("Inspect Box Memory Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.BoxMemoryTest());selected=0;status="This hungry human previously saw the box on the other side of the wall. Run or step to watch it walk around the corner, check current stock and collect food.";}));
             if(GUILayout.Button("Inspect Restocking Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.StorageRestockTest());selected=0;status="Run or step: the fed human checks the door, collects from its remembered outdoor shelf, returns and stocks the box toward a six-meal reserve.";}));
             if(GUILayout.Button("Inspect Idle Motion Paused"))Queue(()=>StartScenario(()=>{SaveDocument saved=EncounterScenarios.HungerDamageTest().Capture();saved.actors[0].health=100;saved.actors[0].hunger=10;saved.actors[0].energySpent=0;saved.map.name="Idle motion test";UseWorld(World.Restore(saved));selected=0;status="Run: this enclosed human shifts naturally while idle. Its grid position and energy stay unchanged; hunger still advances normally.";}));
+            if(GUILayout.Button("Inspect Neighborhood Streets Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.GeneratedBuildingTrial(214,4,2,2,CityStreetLayout.Neighborhood));selected=0;showStores=true;showCenters=true;status="Neighborhood streets: seeded T-junctions, short dead-end side streets and connected pedestrian links. Ten homes retain their sidewalk access; roads keep a connected backbone.";}));
             if(GUILayout.Button("Inspect Dense Neighborhood Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.GeneratedBuildingTrial(214,4,2,2));selected=3;showStores=true;showCenters=true;status="Two houses per residential block: ten assigned homes, two stores and one distribution center. Ten humans share 78 finite meals.";}));
             if(GUILayout.Button("Inspect Hidden Store Entrance Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.HiddenStoreEntranceTest());selected=0;showStores=true;status="Intelligence 10, empty home chest, stocked nearby shop with its entrance on the far side. The resident must see the shop facade, find its door, shop and bring groceries home.";}));
             if(GUILayout.Button("Inspect Generated Buildings Paused"))Queue(()=>StartScenario(()=>{UseWorld(EncounterScenarios.GeneratedBuildingTrial());selected=0;showCenters=true;showStores=true;status="Seed 214: eight generated buildings, door paths to sidewalks, five assigned homes, two stores and one distribution center. Five humans share 63 finite meals.";}));
@@ -774,10 +775,11 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (terrain == null || textureWidth != width || textureHeight != height) { if (terrain != null) Destroy(terrain); terrain = new Texture2D(width, height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point }; textureWidth = width; textureHeight = height; textureX = -1; } // Reuse one small GPU texture until its dimensions change.
             if (textureX != left || textureY != top) // Refresh terrain only after a changed viewed range or loaded world.
             { // Begin a bounded pixel refresh.
-                for (int y = 0; y < height; y++) for (int x = 0; x < width; x++) terrain.SetPixel(x, height - 1 - y, ColorForCell(left + x, top + y)); terrain.Apply(false); textureX = left; textureY = top; // Upload only visible terrain cells, with logical north at the top.
+                for (int y = 0; y < height; y++) for (int x = 0; x < width; x++) terrain.SetPixel(x, height - 1 - y, ColorForCell(left + x, top + y)); terrain.Apply(false); RefreshCrosswalkCells(left,top,width,height); textureX = left; textureY = top; // Upload only visible terrain cells, with logical north at the top.
             } // Finish a bounded pixel refresh.
             Rect visible = new Rect(bounds.x, bounds.y, width * cell, height * cell); GUI.DrawTexture(visible, terrain, ScaleMode.StretchToFill); // Render terrain in one texture operation.
             Event input = Event.current; // Use UI events so the shell does not depend on an extra input package.
+            DrawCrosswalkMarkings(bounds,left,top,cell);
             DrawDoorCrossings(bounds,left,top,width,height,cell);
             foreach(RestSpotDocument spot in world.RestSpotSites()){if(spot.x<left || spot.y<top || spot.x>=left+width || spot.y>=top+height)continue;float bedX=bounds.x+(spot.x-left)*cell,bedY=bounds.y+(spot.y-top)*cell;GUI.color=new Color(0.38f,0.30f,0.23f);GUI.DrawTexture(new Rect(bedX+cell*0.1f,bedY+cell*0.08f,cell*0.8f,cell*0.84f),Texture2D.whiteTexture);GUI.color=new Color(0.28f,0.58f,0.62f);GUI.DrawTexture(new Rect(bedX+cell*0.16f,bedY+cell*0.16f,cell*0.68f,cell*0.68f),Texture2D.whiteTexture);GUI.color=new Color(0.86f,0.87f,0.82f);GUI.DrawTexture(new Rect(bedX+cell*0.22f,bedY+cell*0.19f,cell*0.56f,cell*0.2f),Texture2D.whiteTexture);}
             foreach(StorageBoxDocument box in world.StorageBoxSites())
@@ -887,7 +889,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         private static Color ColorFor(Terrain value) // Keep debug colors in presentation rather than in movement rules.
         { // Begin terrain presentation.
             if (value == Terrain.Wall || value == Terrain.Fence || value == Terrain.GateClosed) return new Color(0.18f, 0.18f, 0.2f); // Show solid structural cells clearly.
-            if (value == Terrain.Road) return new Color(0.27f, 0.28f, 0.31f); if (value == Terrain.Sidewalk || value == Terrain.Crosswalk) return new Color(0.6f, 0.6f, 0.56f); // Distinguish travel surfaces in the fixture.
+            if (TerrainRules.RoadSurface(value)) return new Color(0.27f, 0.28f, 0.31f); if (value == Terrain.Sidewalk) return new Color(0.6f, 0.6f, 0.56f); // Distinguish travel surfaces in the fixture.
             if (value == Terrain.Floor) return new Color(0.55f, 0.45f, 0.32f); if (value == Terrain.Window) return new Color(0.3f, 0.65f, 0.72f); if (value == Terrain.Water) return new Color(0.15f, 0.36f, 0.6f); // Keep room floors, glass, and water visually separate.
             if (value == Terrain.DoorClosed) return new Color(0.70f, 0.62f, 0.53f); if (value == Terrain.DoorOpen) return new Color(0.39f, 0.33f, 0.28f); if (value == Terrain.GateOpen) return new Color(0.65f, 0.45f, 0.2f); return new Color(0.23f, 0.36f - (int)value * 0.005f, 0.22f); // Supply a stable grass fallback for remaining known terrain.
         } // Finish terrain presentation.

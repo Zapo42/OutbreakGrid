@@ -5,12 +5,13 @@ namespace Outbreak.Core
     // First generation stage: deterministic connected street blocks; no population or hidden supplies.
     public static partial class CityGenerator
     {
-        public static WorldMap Streets(uint seed,int columns=4,int rows=2)
+        public static WorldMap Streets(uint seed,int columns=4,int rows=2,CityStreetLayout layout=CityStreetLayout.Grid)
         {
             if(seed==0 || columns<1 || columns>6 || rows<1 || rows>6)throw new ArgumentException("City needs a nonzero seed and 1–6 blocks per axis.");
+            if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood)throw new ArgumentException("Unknown street layout.");
             uint state=seed;int[] xs=Axes(columns,ref state),ys=Axes(rows,ref state);
             int width=xs[xs.Length-1]+5,height=ys[ys.Length-1]+5;
-            WorldMap map=new WorldMap(width,height,"Generated city streets (seed "+seed+")","city-streets-1");
+            WorldMap map=new WorldMap(width,height,(layout==CityStreetLayout.Neighborhood?"Generated neighborhood streets (seed ":"Generated city streets (seed ")+seed+")",layout==CityStreetLayout.Neighborhood?"city-streets-2":"city-streets-1");
             for(int y=0;y<height;y++)for(int x=0;x<width;x++)
             {
                 if(x==0 || y==0 || x==width-1 || y==height-1){map.Set(x,y,Terrain.Wall);continue;}
@@ -19,12 +20,8 @@ namespace Outbreak.Core
                 foreach(int axis in ys){road|=y>=axis && y<=axis+1;sidewalk|=y==axis-1 || y==axis+2;}
                 if(road)map.Set(x,y,Terrain.Road);else if(sidewalk)map.Set(x,y,Terrain.Sidewalk);
             }
-            // Crosswalks extend the perimeter sidewalks through both lanes at each junction.
-            foreach(int x in xs)foreach(int y in ys)for(int lane=0;lane<2;lane++)
-            {
-                map.Set(x+lane,y-1,Terrain.Crosswalk);map.Set(x+lane,y+2,Terrain.Crosswalk);
-                map.Set(x-1,y+lane,Terrain.Crosswalk);map.Set(x+2,y+lane,Terrain.Crosswalk);
-            }
+            if(layout==CityStreetLayout.Neighborhood)VaryStreets(map,xs,ys,seed);
+            PaintStreetCrosswalks(map,xs,ys);
             return map;
         }
         private static int[] Axes(int blocks,ref uint state)

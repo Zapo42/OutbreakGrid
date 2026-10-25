@@ -6,6 +6,7 @@ namespace Outbreak.UnityAdapter
 {
     public sealed partial class FoundationApp
     {
+        private CityStreetLayout cityStreetLayout=CityStreetLayout.Grid;
         private int cityHomesPerBlock=1;
         private bool showCitySetup,cityStartPaused=true;
         private string citySeedInput="214",cityColumnsInput="4",cityRowsInput="2";
@@ -19,17 +20,18 @@ namespace Outbreak.UnityAdapter
             if(GUILayout.Button("Standard city (4 x 2 blocks)"))Queue(()=>{cityColumnsInput="4";cityRowsInput="2";});
             if(GUILayout.Button(cityHomesPerBlock==2?"Large city (6 x 5 blocks)":"Large city (6 x 6 blocks)"))Queue(()=>{cityColumnsInput="6";cityRowsInput=cityHomesPerBlock==2?"5":"6";});
             if(GUILayout.Button("Residential density: "+(cityHomesPerBlock==1?"One house per block":"Two houses per block")))Queue(()=>{cityHomesPerBlock=cityHomesPerBlock==1?2:1;});
+            if(GUILayout.Button("Street layout: "+cityStreetLayout))Queue(()=>{cityStreetLayout=cityStreetLayout==CityStreetLayout.Grid?CityStreetLayout.Neighborhood:CityStreetLayout.Grid;});
             GUILayout.Label("City seed (1 to 4294967295)");citySeedInput=GUILayout.TextField(citySeedInput,32);
             GUILayout.Label("Blocks across (2 to 6)");cityColumnsInput=GUILayout.TextField(cityColumnsInput,32);
             GUILayout.Label("Blocks down (2 to 6)");cityRowsInput=GUILayout.TextField(cityRowsInput,32);
             if(GUILayout.Button("Start city paused: "+(cityStartPaused?"Yes":"No")))Queue(()=>{cityStartPaused=!cityStartPaused;});
             uint seed=0;int columns=0,rows=0;
             bool parsed=uint.TryParse(citySeedInput,NumberStyles.None,CultureInfo.InvariantCulture,out seed) && int.TryParse(cityColumnsInput,NumberStyles.None,CultureInfo.InvariantCulture,out columns) && int.TryParse(cityRowsInput,NumberStyles.None,CultureInfo.InvariantCulture,out rows);
-            string error=parsed?CitySetup.ValidationError(seed,columns,rows,cityHomesPerBlock):"Enter whole numbers for the seed and both block counts.";
+            string error=parsed?CitySetup.ValidationError(seed,columns,rows,cityHomesPerBlock,cityStreetLayout):"Enter whole numbers for the seed and both block counts.";
             if(error!=null)GUILayout.Label(error);
             else
             {
-                CitySetupSummary summary=CitySetup.Describe(seed,columns,rows,cityHomesPerBlock);
+                CitySetupSummary summary=CitySetup.Describe(seed,columns,rows,cityHomesPerBlock,cityStreetLayout);
                 GUILayout.Label("Map: "+summary.Width+" x "+summary.Height+" cells | "+summary.Buildings+" buildings");
                 GUILayout.Label(summary.Homes+" homes | "+summary.Stores+(summary.Stores==1?" store":" stores")+" | 1 distribution center");
                 GUILayout.Label(summary.Humans+" humans: 1 courier, "+summary.Stores+(summary.Stores==1?" clerk, ":" clerks, ")+summary.Consumers+(summary.Consumers==1?" consumer":" consumers")+" | "+summary.Meals+" starting meals");
@@ -40,8 +42,8 @@ namespace Outbreak.UnityAdapter
             GUI.enabled=error==null;
             if(GUILayout.Button("Start generated city"))
             {
-                bool paused=cityStartPaused;int density=cityHomesPerBlock;
-                Queue(()=>StartScenario(()=>{World candidate=CitySetup.Create(seed,columns,rows,density);UseWorld(candidate);span=Math.Max(candidate.Width,candidate.Height);selected=0;showStores=true;showCenters=true;SetPaused(paused);status="Generated city: seed "+seed+", "+columns+" x "+rows+" blocks. "+(paused?"Paused: Run or step to begin.":"Running.");}));
+                bool paused=cityStartPaused;int density=cityHomesPerBlock;CityStreetLayout layout=cityStreetLayout;
+                Queue(()=>StartScenario(()=>{World candidate=CitySetup.Create(seed,columns,rows,density,layout);UseWorld(candidate);span=Math.Max(candidate.Width,candidate.Height);selected=0;showStores=true;showCenters=true;SetPaused(paused);status="Generated city ("+layout+"): seed "+seed+", "+columns+" x "+rows+" blocks. "+(paused?"Paused: Run or step to begin.":"Running.");}));
             }
             GUI.enabled=true;
             if(GUILayout.Button("Back to Main Menu"))Queue(()=>{showCitySetup=false;menuScroll=new Vector2();});

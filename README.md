@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 115 / denser neighborhoods and storefront discovery**. Targets **Unity 6000.6.3f1**. Two-house residential blocks and a fix for empty-home shoppers missing nearby stores with hidden entrances. [Guide and limits](OutbreakRebuild/Docs/DENSE_NEIGHBORHOODS_AND_SHOPPING.md).
+Current build: **Foundation 116 / neighborhood street layouts**. Targets **Unity 6000.6.3f1**. Seeded T-junctions, short dead-end streets, connected pedestrian links and striped crosswalks on shared road surfaces. [Guide and limits](OutbreakRebuild/Docs/NEIGHBORHOOD_STREETS.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

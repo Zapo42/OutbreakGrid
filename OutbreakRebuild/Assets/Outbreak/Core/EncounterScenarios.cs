@@ -284,10 +284,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=StoreShoppingTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.Set(11,5,Terrain.Wall);map.Set(15,5,Terrain.DoorClosed);saved.map=map.Capture();saved.map.name="Nearby store with a hidden entrance";saved.actors[0].shelfMemory=null;saved.actors[0].intelligence=10;return World.Restore(saved);
         }
-        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1)
+        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid)
         {
-            string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock);if(error!=null)throw new System.ArgumentException(error);
-            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock);WorldMap map=district.Map;
+            string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock,layout);if(error!=null)throw new System.ArgumentException(error);
+            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock,layout);WorldMap map=district.Map;
             var homes=new System.Collections.Generic.List<GeneratedBuilding>();var jobs=new System.Collections.Generic.List<GeneratedBuilding>();
             foreach(GeneratedBuilding building in district.Buildings)
             {

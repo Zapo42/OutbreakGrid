@@ -63,4 +63,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 115 | Visible storefront discovery fixes reproduced empty-home shopping failure; optional paired residential houses, separate inventories and density limits | Core: 539 cases / 557706 assertions; UI: 1954 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 116 | Optional connected neighborhood streets with T-junctions/dead ends/pedestrian links; striped road-surface crosswalks distinct from sidewalks | Core: 542 cases / 573764 assertions; UI: 1965 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.

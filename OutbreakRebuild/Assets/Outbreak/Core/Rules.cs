@@ -14,6 +14,7 @@ namespace Outbreak.Core // Keep authoritative rules outside the engine adapter.
     public enum Terrain : ushort { Grass, Grass2, Grass3, Grass4, Grass5, Sidewalk, Road, Floor, Wall, DoorClosed, DoorOpen, Window, Water, Fence, GateClosed, GateOpen, Crosswalk } // Give stock terrain stable identities independent of artwork.
     public static class TerrainRules // Supply the same collision rule to maps and simulation.
     { // Begin foundational collision.
+        public static bool RoadSurface(Terrain value) { return value==Terrain.Road || value==Terrain.Crosswalk; } // Shared roadway ground for future vehicles; sidewalks remain separate.
         public static bool Known(ushort value) { return value <= (ushort)Terrain.Crosswalk; } // Reject unknown terrain instead of treating it as grass.
         public static bool Walkable(Terrain value) { return value != Terrain.Wall && value != Terrain.DoorClosed && value != Terrain.Window && value != Terrain.Fence && value != Terrain.GateClosed; } // Keep closed barriers solid in the movement slice.
     } // Finish foundational collision.

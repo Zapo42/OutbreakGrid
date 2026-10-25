@@ -21,9 +21,9 @@ namespace Outbreak.Core
     public static partial class CityGenerator
     {
         // Geometry only. Scenario setup assigns work, residents and finite inventories separately.
-        public static GeneratedDistrict BuildingLots(uint seed,int columns=4,int rows=2,int homesPerBlock=1)
+        public static GeneratedDistrict BuildingLots(uint seed,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid)
         {
-            WorldMap map=Streets(seed,columns,rows);
+            WorldMap map=Streets(seed,columns,rows,layout);
             if(homesPerBlock<1 || homesPerBlock>2)throw new ArgumentException("Choose one or two homes per residential block.");
             int blocks=columns*rows,shops=blocks>6?2:blocks>2?1:0;
             if((blocks-shops-1)*homesPerBlock+shops+1>ShelterRules.MaxRooms)throw new ArgumentException("This density exceeds the 64-building city limit.");
@@ -51,7 +51,7 @@ namespace Outbreak.Core
                     buildings.Add(building);
                 }
             }
-            MapDocument document=map.Capture();document.name="Generated building district (seed "+seed+")";document.id=homesPerBlock==2?"city-lots-3":"city-lots-2";
+            MapDocument document=map.Capture();document.name="Generated building district (seed "+seed+")";document.id=layout==CityStreetLayout.Neighborhood?(homesPerBlock==2?"city-neighborhood-lots-2":"city-neighborhood-lots-1"):(homesPerBlock==2?"city-lots-3":"city-lots-2");
             return new GeneratedDistrict{Map=WorldMap.Restore(document),Buildings=buildings.ToArray()};
         }
         private static void PaintLot(WorldMap map,ref GeneratedBuilding building,int west,int east,int north,int south)

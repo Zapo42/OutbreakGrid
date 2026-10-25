@@ -47,7 +47,7 @@ namespace Outbreak.UnityAdapter
             if(Section("Placement tools"))DrawPlacementPanel();
             DrawCancelPlacement();
             if(Section("Weapon supplies"))DrawWeaponSupplyPanel();
-            if(Section("Map markers & navigation")){GUILayout.Label("Occupation outlines: brown = courier; yellow above blue = clerk; gray = off duty; white = consumer.\nBuilding floors: tan = home / shelter; blue = store; green = distribution center.");GUILayout.Label("Storage: chest = home / shelter; cabinet = store; braced crate = distribution.");DrawMapMarkerPanel();}
+            if(Section("Map markers & navigation")){GUILayout.Label("Occupation outlines: brown = courier; yellow above blue = clerk; gray = off duty; white = consumer.\nBuilding floors: tan = home / shelter; blue = store; green = distribution center.");GUILayout.Label("Storage: chest = home / shelter; cabinet = store; braced crate = distribution.\nCrosswalks: pale stripes on road paving. Sidewalks: solid light paving.");DrawMapMarkerPanel();}
             if(Section("Technical details"))DrawTechnicalPanel();
         }
         private void DrawClickedItem()
