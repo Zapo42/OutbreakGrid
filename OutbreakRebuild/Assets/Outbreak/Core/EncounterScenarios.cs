@@ -284,10 +284,10 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=StoreShoppingTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.Set(11,5,Terrain.Wall);map.Set(15,5,Terrain.DoorClosed);saved.map=map.Capture();saved.map.name="Nearby store with a hidden entrance";saved.actors[0].shelfMemory=null;saved.actors[0].intelligence=10;return World.Restore(saved);
         }
-        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid)
+        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid,CityZoning zoning=CityZoning.Fixed)
         {
-            string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock,layout);if(error!=null)throw new System.ArgumentException(error);
-            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock,layout);WorldMap map=district.Map;
+            string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock,layout,zoning);if(error!=null)throw new System.ArgumentException(error);
+            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock,layout,zoning);WorldMap map=district.Map;
             var homes=new System.Collections.Generic.List<GeneratedBuilding>();var jobs=new System.Collections.Generic.List<GeneratedBuilding>();
             foreach(GeneratedBuilding building in district.Buildings)
             {
@@ -297,6 +297,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
                 if(building.Use==BuildingUse.Store){map.SetShelf(building.Left+2,building.Top+2,4,true);map.SetPhone(building.Left+3,building.Top+2);}
                 if(building.Use==BuildingUse.Home)homes.Add(building);else jobs.Add(building);
             }
+            jobs.Sort((a,b)=>{int order=(a.Use==BuildingUse.DistributionCenter?0:1).CompareTo(b.Use==BuildingUse.DistributionCenter?0:1);if(order==0)order=a.BlockRow.CompareTo(b.BlockRow);return order==0?a.BlockColumn.CompareTo(b.BlockColumn):order;});
             World world=new World(map,seed,1000,true,hunger:true);int id;
             foreach(GeneratedBuilding building in jobs)
             {

@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 116 / neighborhood street layouts**. Targets **Unity 6000.6.3f1**. Seeded T-junctions, short dead-end streets, connected pedestrian links and striped crosswalks on shared road surfaces. [Guide and limits](OutbreakRebuild/Docs/NEIGHBORHOOD_STREETS.md).
+Current build: **Foundation 117 / neighborhood zoning and store placement**. Targets **Unity 6000.6.3f1**. Optional seeded shop placement among homes, peripheral distribution and entrances facing served neighborhoods. [Guide and limits](OutbreakRebuild/Docs/NEIGHBORHOOD_ZONING.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

@@ -27,3 +27,5 @@ Foundation 114 updates new generation with [four-way street-facing entrances and
 Foundation 115 adds [two-house residential density](DENSE_NEIGHBORHOODS_AND_SHOPPING.md). Toggle Residential density in this form; the dense Large preset uses 6×5 blocks to stay within the existing 64-building limit. Default single-house setup remains available.
 
 Foundation 116 adds the [Grid / Neighborhood street-layout choice](NEIGHBORHOOD_STREETS.md). Neighborhood preserves connected roads and pedestrian access while introducing T-junctions, short dead ends and pedestrian links. Crosswalks now have pale stripes on dark road paving and remain road surfaces for future vehicles.
+
+Foundation 117 adds [Neighborhood centers zoning](NEIGHBORHOOD_ZONING.md), selectable separately from street layout and density. Stores are positioned for residential block coverage and the distribution center remains peripheral; Fixed layout remains available.
