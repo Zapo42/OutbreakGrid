@@ -16,6 +16,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int x, y, food;
         [DataMember] public bool searched;
     }
+    public enum ShoppingEndReason { None, NoKnownStore, NoRoute, EmptyStores, Danger, Hunger, TargetSatisfied, Expired }
     public enum RestockPhase { None, Collecting, Returning }
     public enum InventoryItem { Food }
     [DataContract] public sealed class ItemStackDocument
@@ -119,6 +120,9 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int distributionCenterId;
         [DataMember(EmitDefaultValue=false)] public int courierOrderId;
         [DataMember(EmitDefaultValue=false)] public int shoppingShelf,shoppingMeals;
+        [DataMember(EmitDefaultValue=false)] public int familiarStoreId;
+        [DataMember(EmitDefaultValue=false)] public bool shoppingResting;
+        [DataMember(EmitDefaultValue=false)] public ShoppingEndReason shoppingEndReason;
         [DataMember(EmitDefaultValue=false)] public int shoppingStoreId,shoppingSearchCell;
         [DataMember(EmitDefaultValue=false)] public long shoppingRetryTick;
         [DataMember(EmitDefaultValue=false)] public FoodRoomVisit[] storeMemory,storeFailures;

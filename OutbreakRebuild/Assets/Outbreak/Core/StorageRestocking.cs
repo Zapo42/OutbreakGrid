@@ -10,7 +10,7 @@ namespace Outbreak.Core
     {
         private static void ClearRestocking(ref ActorState actor)
         {
-            actor.shoppingStoreId=0;actor.shoppingSearchCell=0;actor.shoppingShelf=0;actor.shoppingMeals=0;actor.courierOrderId=0;actor.restockSourceBox=0;actor.restockBox=0;actor.restockHomeId=0;actor.restockPhase=RestockPhase.None;actor.restockUntilTick=0;
+            actor.shoppingResting=false;actor.shoppingStoreId=0;actor.shoppingSearchCell=0;actor.shoppingShelf=0;actor.shoppingMeals=0;actor.courierOrderId=0;actor.restockSourceBox=0;actor.restockBox=0;actor.restockHomeId=0;actor.restockPhase=RestockPhase.None;actor.restockUntilTick=0;
         }
         private bool SafeRestock(ActorState actor,int threat)
         {
@@ -39,7 +39,8 @@ namespace Outbreak.Core
         }
         private bool BeginRestockReturn(int index,ref ActorState actor,Room home,int threat)
         {
-            actor.restockPhase=RestockPhase.Returning;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);
+            if(ShoppingContinuityEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Collecting && actor.shoppingEndReason==ShoppingEndReason.None)actor.shoppingEndReason=actor.hunger>=HungerRules.SeekAt?ShoppingEndReason.Hunger:!SafeRestock(actor,threat)?ShoppingEndReason.Danger:ShoppingEndReason.NoRoute;
+            actor.shoppingResting=false;actor.restockPhase=RestockPhase.Returning;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);
             int goal,length;if(home==null || !FoodReturnGoal(actor,home,KnownShelterThreats(actor,threat),out goal,out length)){ClearRestocking(ref actor);actor.homeShelterId=0;actors[index]=actor;return false;}
             actor.homeShelterId=home.id;actor.shelterId=home.id;actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=home.Contains(Key(actor.x,actor.y))?ShelterState.Inside:ShelterState.Seeking;actors[index]=actor;return false;
         }
@@ -77,9 +78,11 @@ namespace Outbreak.Core
             if(actor.turnAtTick!=0 || (IsShopping(actor) && IsRestrictedSupplyBox(target))){ClearRestocking(ref actor);actors[index]=actor;return false;}
             if(actor.courierOrderId==0 && ReserveTargetsEnabled && actor.restockPhase==RestockPhase.Collecting && (EffectiveFoodReserve(target)==0 || (StorageVisible(actor,target) && StorageRules.Count(target,InventoryItem.Food)>=EffectiveFoodReserve(target))))
             {
+                if(ShoppingContinuityEnabled && IsShopping(actor))actor.shoppingEndReason=ShoppingEndReason.TargetSatisfied;
                 if(home.Contains(Key(actor.x,actor.y))){ClearRestocking(ref actor);ClearShelterDeparture(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
                 return BeginRestockReturn(index,ref actor,home,threat);
             }
+            if(ShoppingContinuityEnabled && IsShopping(actor) && SafeRestock(actor,threat) && TryShoppingRest(index,ref actor))return true;
             if(actor.restockPhase==RestockPhase.Returning)
             {
                 if(SupplyDeliveriesEnabled && actor.restockSourceBox!=0 && SafeRestock(actor,threat))
@@ -114,7 +117,7 @@ namespace Outbreak.Core
                 ClearRestocking(ref actor);actors[index]=actor;return TryReturnToAssignedHouse(index,ref actor,threat,out direction);
             }
             bool inside=home.Contains(Key(actor.x,actor.y));
-            if(!SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy || actor.carriedFood>=HungerRules.CarryLimit)
+            if(!SafeRestock(actor,threat) || (EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy && !(ShoppingContinuityEnabled && IsShopping(actor) && actor.shoppingStoreId!=0)) || actor.carriedFood>=HungerRules.CarryLimit)
             {
                 if(inside){ClearRestocking(ref actor);ClearShelterDeparture(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;return false;}
                 return BeginRestockReturn(index,ref actor,home,threat);

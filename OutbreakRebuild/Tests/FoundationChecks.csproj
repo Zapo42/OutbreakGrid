@@ -59,6 +59,7 @@
     <Compile Include="PedestrianRouteChecks.cs" />
     <Compile Include="HomeSupplyChecks.cs" />
     <Compile Include="StoreShoppingChecks.cs" />
+    <Compile Include="CityShoppingContinuityChecks.cs" />
     <Compile Include="StoreDiscoveryChecks.cs" />
     <Compile Include="WorkerShiftChecks.cs" />
     <Compile Include="FoodOverviewChecks.cs" />

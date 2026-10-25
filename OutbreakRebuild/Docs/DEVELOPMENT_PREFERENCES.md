@@ -79,3 +79,9 @@
 - Foundation 123 rendering follow-up: batch visible terrain pixels through a reused buffer instead of one native Unity call per pixel. Keep unchanged viewport uploads suppressed; headless API checks do not establish native FPS.
 
 - Foundation 124: user selected NPC driving and vehicle deliveries. First increment is center couriers using assigned vehicles for phone orders: physical loading/boarding/driving/unloading/return, separate 24-meal shipment space, saved identity/phase/cargo, energy/needs and bounded shared road fields. Keep manual home-box routes/consumer passengers separate. Preserve finite food, source reserves, destination capacity, cancelled/full returns and incapacitated-driver shipment recovery. Do not imply vehicle combat/fuel or native Unity validation.
+
+- Foundation 127: generated residents have authored familiar shop locations without hidden stock knowledge. Shopping rest breaks retain destinations and spend hunger; all actual movement still costs energy. Preserve older rules until explicit upgrade. See [city shopping continuity](CITY_SHOPPING_CONTINUITY.md).
+
+- Consumer vehicle shopping should mitigate the food costs of long walks through faster travel, lower exertion and larger shopping loads. This is the next transport increment; preserve finite food and needs rather than disabling hunger while driving.
+
+- Consumer vehicles need larger cargo storage and a separate finite shopping-cart/haul inventory, allowing multiple loading trips from store shelves to a parked vehicle. Keep personal rations distinct and physically unload vehicle cargo into home storage. See the cart requirements in the city-life workflow.

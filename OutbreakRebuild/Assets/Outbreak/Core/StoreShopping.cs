@@ -32,8 +32,10 @@ namespace Outbreak.Core
             if(target==null)return false;
             ShelfMemoryRecord? chosen=KnownShoppingShelf(actor);
             if(!chosen.HasValue && !StoreDiscoveryEnabled)return false;
+            actor.shoppingEndReason=ShoppingEndReason.None;actor.shoppingResting=false;
             actor.shoppingShelf=chosen.HasValue?Key(chosen.Value.x,chosen.Value.y)+1:0;
             actor.shoppingStoreId=StoreDiscoveryEnabled && chosen.HasValue?HouseAt(chosen.Value.x,chosen.Value.y):0;
+            if(ShoppingContinuityEnabled && actor.shoppingStoreId==0)actor.shoppingStoreId=KnownShoppingStore(actor);
             actor.shoppingSearchCell=0;actor.shoppingMeals=Math.Min(deficit,HungerRules.CarryLimit-FoodReserve(actor));
             if(actor.shoppingMeals<=0){actor.shoppingShelf=0;return false;}
             actor.courierReturningHome=false;actor.restockBox=Key(target.x,target.y)+1;actor.restockHomeId=home.id;actor.restockSourceBox=0;actor.restockPhase=RestockPhase.Collecting;actor.restockUntilTick=Tick+CourierRules.TaskTicks;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);actors[index]=actor;return true;

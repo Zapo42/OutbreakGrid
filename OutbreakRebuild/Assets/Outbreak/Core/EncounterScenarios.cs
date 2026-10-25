@@ -280,6 +280,12 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World LargeCityShoppingTest()
+        {
+            World world=CitySetup.Create(214,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters);SaveDocument saved=world.Capture();int chosen=3,best=int.MaxValue;
+            for(int i=3;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];foreach(var shop in world.StoreSupplies())if(shop.StoreId==actor.familiarStoreId){int key=shop.SupplyBox-1,distance=System.Math.Abs(actor.x-key%world.Width)+System.Math.Abs(actor.y-key/world.Width),score=System.Math.Abs(distance-45);if(score<best){best=score;chosen=i;}}}
+            ActorState resident=saved.actors[chosen];saved.actors=new[]{resident};foreach(var box in saved.map.storageBoxes)if(world.HouseAt(box.x,box.y)==resident.assignedHouseId)box.items=new ItemStackDocument[0];return World.Restore(saved);
+        }
         public static World VehicleParkingTest()
         {
             World world=VehicleHomeDeliveryTest();foreach(var box in world.StorageBoxSites())if(!world.TryPlaceParkingNearBox(box.x,box.y))throw new System.InvalidOperationException("Parking preview lacks a usable bay.");return world;
@@ -351,7 +357,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
                 if(building.Use==BuildingUse.DistributionCenter){world.TryAssignDistributionCourier(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetCourierSchedule(index,7,12);}else{world.TryAssignClerk(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetClerkSchedule(index,7,12);}
             }
             for(int i=jobs.Count;i<homes.Count;i++){GeneratedBuilding home=homes[i];int index=world.Count;world.TrySpawn(Species.Human,home.Left+1,home.Top+2,out id);world.TryAssignHouse(index,home.Left+1,home.Top+1);}
-            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}return World.Restore(saved);
+            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}World prepared=World.Restore(saved);prepared.TryFamiliarizeResidentsWithShops();return prepared;
         }
         public static World PedestrianCrossingTrial()
         {

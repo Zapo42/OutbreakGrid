@@ -74,8 +74,8 @@ namespace Outbreak.Core
         }
         private int KnownShoppingStore(ActorState actor)
         {
-            if(actor.storeMemory==null)return 0;int chosen=0,best=int.MaxValue;
-            foreach(FoodRoomVisit note in actor.storeMemory)
+            if(actor.storeMemory==null && (!ShoppingContinuityEnabled || actor.familiarStoreId==0))return 0;int chosen=0,best=int.MaxValue;
+            foreach(FoodRoomVisit note in actor.storeMemory??new FoodRoomVisit[0])
             {
                 Room room=FindRoom(note.roomId);if(room==null || FailedStore(actor,room.id) || KnownRoomDanger(actor,room))continue;
                 foreach(int door in room.doors)
@@ -84,10 +84,14 @@ namespace Outbreak.Core
                     if(route>=0 && length<best){best=length;chosen=room.id;}
                 }
             }
+            if(ShoppingContinuityEnabled && actor.familiarStoreId!=0 && !FailedStore(actor,actor.familiarStoreId)){
+                Room familiar=FindRoom(actor.familiarStoreId);if(familiar!=null && !KnownRoomDanger(actor,familiar))foreach(int door in familiar.doors){int length;if(ShelterRoute(actor,door%Width,door/Width,0,out length,foodRoute:true)>=0 && length<best){best=length;chosen=familiar.id;}}
+            }
             return chosen;
         }
         private bool EndUnsuccessfulShopping(int index,ref ActorState actor,Room home)
         {
+            if(ShoppingContinuityEnabled)actor.shoppingEndReason=actor.storeFailures!=null?ShoppingEndReason.EmptyStores:ShoppingEndReason.NoKnownStore;
             actor.shoppingRetryTick=Tick+StoreDiscoveryRules.RetryTicks;actor.restockPhase=RestockPhase.Returning;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);actors[index]=actor;
             if(home.Contains(Key(actor.x,actor.y))){ClearRestocking(ref actor);actors[index]=actor;}
             return false;
