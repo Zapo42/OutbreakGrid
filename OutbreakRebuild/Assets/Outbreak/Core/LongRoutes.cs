@@ -40,7 +40,7 @@ namespace Outbreak.Core
                     int nx=x+dx[d],ny=y+dy[d];
                     if(Math.Max(Math.Abs(nx-actor.x),Math.Abs(ny-actor.y))>radius || !ShelterWalkable(nx,ny) || (walkOnly && !map.CanWalk(nx,ny)) || !RoutineDistributionStepAllowed(actor,nx,ny))continue;
                     int key=Key(nx,ny);if(!occupancy.Allows(key,Species.Human) || ZombieAt(nx,ny))continue;
-                    if(nx!=x && ny!=y && (IsDoor(x,y) || IsDoor(nx,ny) || !map.CanWalk(nx,y) || !map.CanWalk(x,ny)))continue;
+                    if(nx!=x && ny!=y && (IsDoor(x,y) || IsDoor(nx,ny) || VehicleAt(nx,y) || VehicleAt(x,ny) || !map.CanWalk(nx,y) || !map.CanWalk(x,ny)))continue;
                     bool diagonal=nx!=x && ny!=y;
                     Terrain tile=map.Get(nx,ny),from=map.Get(x,y);
                     bool prefer=PedestrianRoutesEnabled && streetTerrain;

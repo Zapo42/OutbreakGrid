@@ -280,6 +280,21 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World VehicleRoutingTest()
+        {
+            WorldMap map=new WorldMap(28,18,"Vehicle road routing trial","vehicle-routing-1");
+            for(int y=0;y<18;y++)for(int x=0;x<28;x++)
+            {
+                if(x==0 || y==0 || x==27 || y==17)map.Set(x,y,Terrain.Wall);
+                else if(x>=3 && x<=24 && y>=4 && y<=13 && (x<=4 || x>=23 || y<=5 || y>=12))map.Set(x,y,Terrain.Road);
+            }
+            for(int y=1;y<17;y++)for(int x=1;x<27;x++)if(map.Get(x,y)==Terrain.Grass)
+            {
+                bool beside=false;foreach(var offset in new[]{(1,0),(-1,0),(0,1),(0,-1)})beside|=TerrainRules.RoadSurface(map.Get(x+offset.Item1,y+offset.Item2));if(beside)map.Set(x,y,Terrain.Sidewalk);
+            }
+            foreach(int x in new[]{3,4,23,24})map.Set(x,8,Terrain.Crosswalk);foreach(int y in new[]{4,5,12,13})map.Set(14,y,Terrain.Crosswalk);
+            World world=new World(map,214,1000,true,hunger:true);int id;world.TryPlaceVehicle(7,4,out id);world.TrySetVehicleDestination(0,23,11);return world;
+        }
         public static World HiddenStoreEntranceTest()
         {
             SaveDocument saved=StoreShoppingTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.Set(11,5,Terrain.Wall);map.Set(15,5,Terrain.DoorClosed);saved.map=map.Capture();saved.map.name="Nearby store with a hidden entrance";saved.actors[0].shelfMemory=null;saved.actors[0].intelligence=10;return World.Restore(saved);

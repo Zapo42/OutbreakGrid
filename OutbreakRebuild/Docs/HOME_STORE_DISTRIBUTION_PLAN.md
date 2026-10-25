@@ -62,3 +62,5 @@ Foundation 115: [denser neighborhoods and storefront discovery](DENSE_NEIGHBORHO
 Foundation 116: [neighborhood streets](NEIGHBORHOOD_STREETS.md) adds optional seeded street connections with T-junctions, short dead ends and pedestrian links. The user additionally requested crosswalks distinct from sidewalks and traversable by future vehicles: render stripes on road paving and classify Road/Crosswalk as roadway without implementing driving. Preserve both connected surface networks and all lot entrances.
 
 Foundation 117: [neighborhood zoning](NEIGHBORHOOD_ZONING.md) replaces fixed shop slots optionally with seeded placement that prioritizes worst residential block coverage, keeps distribution peripheral and faces shops toward served home blocks. Counts, finite stock, housing, saved jobs and storefront discovery remain intact.
+
+Foundation 118: [vehicle routing prototype](VEHICLE_ROUTES.md) starts independent saved vehicle entities on roads and crosswalks, with manual destinations, arrival, pedestrian/vehicle blocking and smooth presentation. Existing human commutes and deliveries stay on foot until driver/passenger/cargo integration is explicitly implemented.

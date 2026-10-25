@@ -29,3 +29,5 @@ Foundation 115 adds [two-house residential density](DENSE_NEIGHBORHOODS_AND_SHOP
 Foundation 116 adds the [Grid / Neighborhood street-layout choice](NEIGHBORHOOD_STREETS.md). Neighborhood preserves connected roads and pedestrian access while introducing T-junctions, short dead ends and pedestrian links. Crosswalks now have pale stripes on dark road paving and remain road surfaces for future vehicles.
 
 Foundation 117 adds [Neighborhood centers zoning](NEIGHBORHOOD_ZONING.md), selectable separately from street layout and density. Stores are positioned for residential block coverage and the distribution center remains peripheral; Fixed layout remains available.
+
+Foundation 118 adds [manual vehicle placement and road routing](VEHICLE_ROUTES.md) after a city starts. Cities still generate without cars. Vehicles use roads/crosswalks and yield to actors; boarding, commuting and courier cargo integration remain separate steps.

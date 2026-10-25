@@ -1,4 +1,4 @@
-Current build: **Foundation 117 / neighborhood zoning and store placement**. Targets **Unity 6000.6.3f1**. Optional seeded shop placement among homes, peripheral distribution and entrances facing served neighborhoods. [Guide and limits](Docs/NEIGHBORHOOD_ZONING.md).
+Current build: **Foundation 118 / vehicle road-routing prototype**. Targets **Unity 6000.6.3f1**. Place, route and stop vehicles on roads/crosswalks, with pedestrian yielding and saved trips. NPC riding/deliveries remain later work. [Guide and limits](Docs/VEHICLE_ROUTES.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
