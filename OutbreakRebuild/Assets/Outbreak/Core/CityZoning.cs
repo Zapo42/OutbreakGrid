@@ -11,7 +11,7 @@ namespace Outbreak.Core
         }
         public static BuildingUse[] PlanZones(uint seed,int columns,int rows,CityZoning zoning=CityZoning.NeighborhoodCenters)
         {
-            if(seed==0 || columns<1 || columns>6 || rows<1 || rows>6 || (zoning!=CityZoning.Fixed && zoning!=CityZoning.NeighborhoodCenters))throw new ArgumentException("Invalid city zoning settings.");
+            if(seed==0 || columns<1 || columns>10 || rows<1 || rows>10 || (zoning!=CityZoning.Fixed && zoning!=CityZoning.NeighborhoodCenters))throw new ArgumentException("Invalid city zoning settings.");
             int blocks=columns*rows,shops=blocks>6?2:blocks>2?1:0;
             var uses=new BuildingUse[blocks];for(int i=0;i<blocks;i++)uses[i]=BuildingUse.Home;
             if(zoning==CityZoning.Fixed){uses[0]=BuildingUse.DistributionCenter;if(shops>0)uses[2]=BuildingUse.Store;if(shops>1)uses[6]=BuildingUse.Store;return uses;}

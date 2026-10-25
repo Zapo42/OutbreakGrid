@@ -30,7 +30,7 @@ public static partial class Program
                 Require(State(world)==State(Documents.ParseSave(State(world))),"Generated geometry failed exact save round trip.");
             }
             Require(State(new World(CityGenerator.Streets(214)))!=State(new World(CityGenerator.Streets(999))),"Different seeds failed to vary blocks.");
-            Reject(()=>CityGenerator.Streets(0));Reject(()=>CityGenerator.Streets(1,7));
+            Reject(()=>CityGenerator.Streets(0));Reject(()=>CityGenerator.Streets(1,11));
         });
         Check("Long routes reach beyond the old square and preserve old saved rules",()=>{
             World world=EncounterScenarios.GeneratedCityTrial();ActorState actor=world.ActorAt(0);int goal=world.ActorAt(1).x,distance;

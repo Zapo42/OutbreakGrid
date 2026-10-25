@@ -26,7 +26,7 @@ namespace Outbreak.Core
             WorldMap map=Streets(seed,columns,rows,layout);
             if(homesPerBlock<1 || homesPerBlock>4)throw new ArgumentException("Choose one to four homes per residential block.");
             int blocks=columns*rows,shops=blocks>6?2:blocks>2?1:0;
-            if((blocks-shops-1)*homesPerBlock+shops+1>ShelterRules.MaxRooms)throw new ArgumentException("This density exceeds the 64-building city limit.");
+            if((blocks-shops-1)*homesPerBlock+shops+1>ShelterRules.MaxRooms)throw new ArgumentException("This density exceeds the 256-building city limit.");
             BuildingUse[] zones=PlanZones(seed,columns,rows,zoning);
             uint axesState=seed;
             int[] baseXs=Axes(columns,ref axesState,layout==CityStreetLayout.Staggered),ys=Axes(rows,ref axesState,layout==CityStreetLayout.Staggered);

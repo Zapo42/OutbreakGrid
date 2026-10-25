@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 122 / varied dense cities and faster routing**. Targets **Unity 6000.6.3f1**. Staggered cities use more varied block dimensions and up to four homes per residential block. Route searches reuse memory and use indexed room/collision lookups. [Guide and benchmark limits](OutbreakRebuild/Docs/DENSE_CITY_PERFORMANCE.md).
+Current build: **Foundation 123 / expanded cities and district routes**. Targets **Unity 6000.6.3f1**. Shared compressed walkway plans support longer assigned trips; the new 8×8 compact preview contains 244 residents and 247 buildings. [Guide, limits and benchmarks](OutbreakRebuild/Docs/EXPANDED_DISTRICT_ROUTES.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

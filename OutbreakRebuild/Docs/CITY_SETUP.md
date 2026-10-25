@@ -39,3 +39,5 @@ Foundation 120 adds [intersection right-of-way](INTERSECTION_TRAFFIC.md) for mar
 Foundation 121 makes [Staggered streets](STAGGERED_CITY_STREETS.md) the default in new city setup and primary generated-city previews. The layout button cycles Staggered → Grid → Neighborhood. Start a new city to use new generation; saved cities and restart keep their existing roads.
 
 Foundation 122 adds [varied block sizes, three/four-home layouts and performance improvements](DENSE_CITY_PERFORMANCE.md). Residential density cycles one → two → three → four; Large uses 6×3 blocks at the two highest densities so it stays within 64 recognized buildings. Staggered map dimensions now reflect wider seeded spacing; the summary uses the same axes as generation.
+
+Foundation 123 adds [expanded cities and district routing](EXPANDED_DISTRICT_ROUTES.md): the Expanded 8×8 preset retains density/zoning, custom dimensions allow 2–10 blocks per axis, and new runs support up to 256 buildings. The four-home Expanded preview has 244 residents and 247 buildings. Older saves opt in through Enable expanded district routes.

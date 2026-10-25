@@ -21,12 +21,13 @@ namespace Outbreak.UnityAdapter
             if(GUILayout.Button("Standard city (4 x 2 blocks)"))Queue(()=>{cityColumnsInput="4";cityRowsInput="2";});
             int largeRows=cityHomesPerBlock>=3?3:cityHomesPerBlock==2?5:6;
             if(GUILayout.Button("Large city (6 x "+largeRows+" blocks)"))Queue(()=>{cityColumnsInput="6";cityRowsInput=largeRows.ToString(CultureInfo.InvariantCulture);});
+            if(GUILayout.Button("Expanded city (8 x 8 blocks)"))Queue(()=>{cityColumnsInput="8";cityRowsInput="8";});
             if(GUILayout.Button("Residential density: "+(cityHomesPerBlock==1?"One house per block":cityHomesPerBlock==2?"Two houses per block":cityHomesPerBlock==3?"Three houses per block":"Four houses per block")))Queue(()=>{cityHomesPerBlock=cityHomesPerBlock==4?1:cityHomesPerBlock+1;});
             if(GUILayout.Button("Street layout: "+cityStreetLayout))Queue(()=>{cityStreetLayout=cityStreetLayout==CityStreetLayout.Staggered?CityStreetLayout.Grid:cityStreetLayout==CityStreetLayout.Grid?CityStreetLayout.Neighborhood:CityStreetLayout.Staggered;});
             if(GUILayout.Button("Zoning: "+(cityZoning==CityZoning.Fixed?"Fixed layout":"Neighborhood centers")))Queue(()=>{cityZoning=cityZoning==CityZoning.Fixed?CityZoning.NeighborhoodCenters:CityZoning.Fixed;});
             GUILayout.Label("City seed (1 to 4294967295)");citySeedInput=GUILayout.TextField(citySeedInput,32);
-            GUILayout.Label("Blocks across (2 to 6)");cityColumnsInput=GUILayout.TextField(cityColumnsInput,32);
-            GUILayout.Label("Blocks down (2 to 6)");cityRowsInput=GUILayout.TextField(cityRowsInput,32);
+            GUILayout.Label("Blocks across (2 to 10)");cityColumnsInput=GUILayout.TextField(cityColumnsInput,32);
+            GUILayout.Label("Blocks down (2 to 10)");cityRowsInput=GUILayout.TextField(cityRowsInput,32);
             if(GUILayout.Button("Start city paused: "+(cityStartPaused?"Yes":"No")))Queue(()=>{cityStartPaused=!cityStartPaused;});
             uint seed=0;int columns=0,rows=0;
             bool parsed=uint.TryParse(citySeedInput,NumberStyles.None,CultureInfo.InvariantCulture,out seed) && int.TryParse(cityColumnsInput,NumberStyles.None,CultureInfo.InvariantCulture,out columns) && int.TryParse(cityRowsInput,NumberStyles.None,CultureInfo.InvariantCulture,out rows);

@@ -53,7 +53,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         } // Finish reaction-state validation.
         private int ObserveSupport(ActorState observer) // Count only nearby humans whose cells the observer can actually see.
         { // Begin a bounded support observation.
-            int total = 0; for (int i = 0; i < count; i++) { ActorState ally = actors[i]; if (ally.id == observer.id || ally.health==0 || ally.species != Species.Human) continue; int x = ally.x - observer.x, y = ally.y - observer.y; if (x * x + y * y <= HumanRules.SupportRadius * HumanRules.SupportRadius && Visible(observer, ally)) total += Math.Max(-1, Math.Min(3, ally.bravery)); } return Math.Max(HumanRules.MinSupport, Math.Min(HumanRules.MaxSupport, total)); // Brave allies contribute up to three; each coward subtracts at most one.
+            int total = 0; for (int i = 0; i < count; i++) { if(actors[i].id==observer.id || actors[i].health==0 || actors[i].species!=Species.Human)continue;int x=actors[i].x-observer.x,y=actors[i].y-observer.y;if(x*x+y*y>HumanRules.SupportRadius*HumanRules.SupportRadius)continue;ActorState ally=actors[i];if (Visible(observer, ally)) total += Math.Max(-1, Math.Min(3, ally.bravery)); } return Math.Max(HumanRules.MinSupport, Math.Min(HumanRules.MaxSupport, total)); // Brave allies contribute up to three; each coward subtracts at most one.
         } // Finish support observation.
         private int ObservePressure(ActorState observer, ActorState closest) // Use locally visible zombies rather than the total world population.
         { // Begin threat observation.

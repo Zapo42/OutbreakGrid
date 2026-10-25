@@ -29,6 +29,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
         public void Set(int x, int y, Terrain terrain) // Apply a terrain edit only to this independent map instance.
         { // Begin a terrain write.
             if (!Contains(x, y) || !TerrainRules.Known((ushort)terrain)) throw new ArgumentOutOfRangeException("terrain"); // Validate both address and meaning before mutation.
+            Terrain previous=Get(x,y);if(previous!=terrain && (previous==Terrain.Sidewalk || previous==Terrain.Crosswalk || terrain==Terrain.Sidewalk || terrain==Terrain.Crosswalk))DistrictSurfaceRevision++;
             if (terrain == Terrain.DoorClosed && DoorHealthAt(x, y) == 0) throw new ArgumentException("A broken door cannot be closed."); if (terrain != Terrain.DoorClosed && terrain != Terrain.DoorOpen) doorHealth.Remove(y * Width + x); // Replacing a door removes its condition; closing a breach requires explicit repair.
             if(!TerrainRules.RoadSurface(terrain))roadLanes.Remove(y*Width+x);
             if(terrain!=Terrain.Floor && phoneCells.Remove(y*Width+x))phones.Remove(y*Width+x);

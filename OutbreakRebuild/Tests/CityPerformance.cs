@@ -13,7 +13,7 @@ public static class CityPerformance
         }
         // Optional before/after fixture files let two revisions benchmark identical saved geometry and state.
         if(args.Length==1){foreach(string key in new[]{"4-2-2","6-5-2","6-6-1"})Measure(key,File.ReadAllText(Path.Combine(args[0],"perf122-start-"+key+".json")),File.ReadAllText(Path.Combine(args[0],"perf122-end-"+key+".json")));return;}
-        foreach(var scene in new[]{(4,2,4),(6,3,4),(6,5,2),(6,6,1)}){World world=CitySetup.Create(214,scene.Item1,scene.Item2,scene.Item3,CityStreetLayout.Staggered);Measure(scene.ToString(),Documents.Encode(world.Capture()),null);}
+        foreach(var scene in new[]{(4,2,4),(6,3,4),(6,5,2),(6,6,1),(8,8,4),(10,10,2)}){World world=CitySetup.Create(214,scene.Item1,scene.Item2,scene.Item3,CityStreetLayout.Staggered,scene.Item1>=8?CityZoning.NeighborhoodCenters:CityZoning.Fixed);Measure(scene.ToString(),Documents.Encode(world.Capture()),null);}
     }
     private static void Measure(string label,string start,string expected)
     {

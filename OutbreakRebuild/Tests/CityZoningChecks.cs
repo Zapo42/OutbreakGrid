@@ -65,7 +65,7 @@ ActorState actor=world.ActorAt(0);actor.x=b.InsideX;actor.y=b.InsideY;actor.assi
             {
                 World world=CitySetup.Create(214,size.Item1,size.Item2,size.Item3,CityStreetLayout.Neighborhood,CityZoning.NeighborhoodCenters);CitySetupSummary summary=CitySetup.Describe(214,size.Item1,size.Item2,size.Item3,CityStreetLayout.Neighborhood,CityZoning.NeighborhoodCenters);Require(!world.ShelterScanLimited && world.ShelterRoomCount==summary.Buildings && world.Count==summary.Homes && world.FoodSupplies().RemainingMeals==summary.Meals,"Zoned size limit or summary was wrong.");
             }
-            Require(State(CitySetup.Create(214,4,2))==State(CitySetup.Create(214,4,2,1,CityStreetLayout.Grid,CityZoning.Fixed)),"Fixed-layout default changed.");Reject(()=>CitySetup.Create(214,6,6,2,CityStreetLayout.Neighborhood,CityZoning.NeighborhoodCenters));
+            Require(State(CitySetup.Create(214,4,2))==State(CitySetup.Create(214,4,2,1,CityStreetLayout.Grid,CityZoning.Fixed)),"Fixed-layout default changed.");Reject(()=>CitySetup.Create(214,10,10,4,CityStreetLayout.Neighborhood,CityZoning.NeighborhoodCenters));
         });
     }
 }

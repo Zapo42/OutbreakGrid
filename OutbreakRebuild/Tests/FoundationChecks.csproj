@@ -49,6 +49,7 @@
     <Compile Include="StreetLayoutChecks.cs" />
     <Compile Include="StaggeredCityChecks.cs" />
     <Compile Include="CityScaleChecks.cs" />
+    <Compile Include="DistrictRouteChecks.cs" />
     <Compile Include="CitySetupChecks.cs" />
     <Compile Include="CityZoningChecks.cs" />
     <Compile Include="VehicleChecks.cs" />

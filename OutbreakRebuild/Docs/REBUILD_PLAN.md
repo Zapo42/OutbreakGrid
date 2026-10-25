@@ -52,3 +52,5 @@ Foundation 120 adds conservative intersection right-of-way, saved approach queue
 Foundation 121 fixes wide reclaimed-road paving and adds default staggered street geometry with offset side streets, connected lanes and matching building lots. Grid and legacy Neighborhood remain explicit choices. Curved roads/organic subdivision and NPC vehicle use are separate future increments.
 
 Foundation 122 adds varied Staggered block dimensions, up to four homes per residential block, a 60-resident compact preset, reusable route scratch and sparse room/collision indexes. A repeatable Release city benchmark records core time/allocations and exact continuation. District/hierarchical routing, broader population scaling and native render profiling remain future scaling work.
+
+Foundation 123 adds bounded district waypoint planning, 512-cell assigned-trip queries and expanded 8×8 cities within a 256-building limit. Route graphs are shared and rebuilt for geometry/furniture changes. Next scaling work includes district-level distribution/store staffing, vehicle cargo and profiling large outbreaks/native rendering.

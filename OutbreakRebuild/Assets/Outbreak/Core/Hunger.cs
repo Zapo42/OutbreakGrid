@@ -19,10 +19,11 @@ namespace Outbreak.Core
         {
             for(int i=0;i<count;i++){ActorState a=actors[i];if(a.shelfSearchProgress<0 || a.shelfSearchProgress>2 || (a.shelfSearchProgress>0 && (!CarefulSearch || a.species!=Species.Human || a.foodUntilTick==0 || Math.Abs(a.x-a.foodX)+Math.Abs(a.y-a.foodY)!=1)))throw new ArgumentException("Invalid shelf search progress.");if(a.hunger<0 || a.hunger>100 || a.carriedFood<0 || a.carriedFood>HungerRules.CarryLimit || ((!HungerEnabled || a.species!=Species.Human) && (a.hunger!=0 || a.carriedFood!=0 || a.foodUntilTick!=0 || a.foodX!=0 || a.foodY!=0 || a.homeShelterId!=0)))throw new ArgumentException("Invalid hunger or inventory.");if(a.homeShelterId!=0 && FindRoom(a.homeShelterId)==null)throw new ArgumentException("Invalid food trip home.");if(a.foodUntilTick==0){if(a.foodX!=0 || a.foodY!=0)throw new ArgumentException("Inactive shelf memory contains coordinates.");}else if(a.foodUntilTick<=Tick || a.foodUntilTick-Tick>HungerRules.MemoryTicks || map.ShelfAt(a.foodX,a.foodY)==null)throw new ArgumentException("Invalid personally observed shelf memory.");}
         }
-        private bool ShelfVisible(ActorState observer,ShelfDocument shelf)
+        private bool ShelfVisible(ActorState observer,ShelfDocument shelf){return ShelfVisible(observer,shelf.x,shelf.y);}
+        private bool ShelfVisible(ActorState observer,int shelfX,int shelfY)
         {
-            if(DistanceSquared(observer,new ActorState{x=shelf.x,y=shelf.y})>EncounterRules.SightRadius*EncounterRules.SightRadius)return false;
-            for(int d=0;d<8;d+=2){int x=shelf.x+dx[d],y=shelf.y+dy[d];if(map.CanWalk(x,y) && Visible(observer,new ActorState{x=x,y=y}))return true;}return false; // Observe a surface from an adjacent visible cell without tracing through solid furniture.
+            if((observer.x-shelfX)*(observer.x-shelfX)+(observer.y-shelfY)*(observer.y-shelfY)>EncounterRules.SightRadius*EncounterRules.SightRadius)return false;
+            for(int d=0;d<8;d+=2){int x=shelfX+dx[d],y=shelfY+dy[d];if(map.CanWalk(x,y) && Visible(observer,new ActorState{x=x,y=y}))return true;}return false; // Observe a surface from an adjacent visible cell without tracing through solid furniture.
         }
         private bool KnownRoomSupplies(ActorState actor,Room room)
         {

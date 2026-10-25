@@ -21,7 +21,8 @@ namespace Outbreak.Core
         }
         private int VehicleRoute(VehicleState car,int goalX,int goalY)
         {
-            if(!VehicleRoad(goalX,goalY) || Math.Max(Math.Abs(car.x-goalX),Math.Abs(car.y-goalY))>VehicleRules.RouteRadius)return -1;
+            int radius=DistrictRoutesEnabled?DistrictRouteRules.Radius:VehicleRules.RouteRadius,maxCells=DistrictRoutesEnabled?32768:VehicleRules.MaxRouteCells;
+            if(!VehicleRoad(goalX,goalY) || Math.Max(Math.Abs(car.x-goalX),Math.Abs(car.y-goalY))>radius)return -1;
             int start=Key(car.x,car.y),goal=Key(goalX,goalY);var first=new Dictionary<int,int>{{start,4}};var queue=new Queue<int>();queue.Enqueue(start);
             int[] order={car.heading,(car.heading+1)%4,(car.heading+3)%4,(car.heading+2)%4};
             while(queue.Count>0)
@@ -29,8 +30,8 @@ namespace Outbreak.Core
                 int cell=queue.Dequeue();if(cell==goal)return first[cell];int x=cell%Width,y=cell/Width;
                 foreach(int direction in order)
                 {
-                    int nx=x+carDX[direction],ny=y+carDY[direction];if((VehicleDirections(x,y)&(1<<direction))==0 || Math.Max(Math.Abs(nx-car.x),Math.Abs(ny-car.y))>VehicleRules.RouteRadius || !VehicleRoad(nx,ny))continue;
-                    int key=Key(nx,ny);if(first.ContainsKey(key))continue;if(first.Count==VehicleRules.MaxRouteCells)return -1;
+                    int nx=x+carDX[direction],ny=y+carDY[direction];if((VehicleDirections(x,y)&(1<<direction))==0 || Math.Max(Math.Abs(nx-car.x),Math.Abs(ny-car.y))>radius || !VehicleRoad(nx,ny))continue;
+                    int key=Key(nx,ny);if(first.ContainsKey(key))continue;if(first.Count==maxCells)return -1;
                     first.Add(key,cell==start?direction:first[cell]);queue.Enqueue(key);
                 }
             }

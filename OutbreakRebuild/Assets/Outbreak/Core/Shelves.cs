@@ -12,6 +12,7 @@ namespace Outbreak.Core
         public void SetShelf(int x, int y, int food, bool searched = false)
         {
             if (!Contains(x,y) || !TerrainRules.Walkable(Get(x,y)) || Get(x,y)==Terrain.DoorOpen || PhoneAt(x,y) || StorageBoxAt(x,y)!=null || RestSpotAt(x,y) || WeaponAt(x,y)!=null || food<0 || food>1000 || (!shelves.ContainsKey(y*Width+x) && shelves.Count>=4096)) throw new ArgumentException("Shelf needs a non-door walkable terrain cell, 0–1000 food and room in the 4096-shelf limit.");
+            if(!shelves.ContainsKey(y*Width+x))DistrictSurfaceChanged(x,y);
             shelves[y*Width+x]=new ShelfDocument { x=x,y=y,food=food,searched=searched };
         }
         internal ShelfDocument[] CaptureShelves()

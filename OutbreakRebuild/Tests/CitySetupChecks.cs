@@ -8,8 +8,8 @@ public static partial class Program
     private static void CheckCitySetupCases()
     {
         Check("City setup rejects unsupported dimensions and seeds before constructing a city",()=>{
-            foreach(int columns in new[]{-1,0,1,7,int.MaxValue}){Require(CitySetup.ValidationError(214,columns,2)!=null,"Invalid width accepted.");Reject(()=>CitySetup.Create(214,columns,2));}
-            foreach(int rows in new[]{-1,0,1,7,int.MaxValue}){Require(CitySetup.ValidationError(214,2,rows)!=null,"Invalid height accepted.");Reject(()=>CitySetup.Describe(214,2,rows));}
+            foreach(int columns in new[]{-1,0,1,11,int.MaxValue}){Require(CitySetup.ValidationError(214,columns,2)!=null,"Invalid width accepted.");Reject(()=>CitySetup.Create(214,columns,2));}
+            foreach(int rows in new[]{-1,0,1,11,int.MaxValue}){Require(CitySetup.ValidationError(214,2,rows)!=null,"Invalid height accepted.");Reject(()=>CitySetup.Describe(214,2,rows));}
             Reject(()=>CitySetup.Create(0,4,2));Reject(()=>EncounterScenarios.GeneratedBuildingTrial(214,1,1));
             for(int columns=2;columns<=6;columns++)for(int rows=2;rows<=6;rows++)Require(CitySetup.ValidationError(uint.MaxValue,columns,rows)==null,"Supported rectangle rejected.");
             Require(State(CitySetup.Create(214,4,2))==State(EncounterScenarios.GeneratedBuildingTrial()),"Default configured city changed the existing preview.");

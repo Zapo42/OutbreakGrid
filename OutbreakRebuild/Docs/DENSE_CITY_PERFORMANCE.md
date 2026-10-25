@@ -1,3 +1,5 @@
+Current update: [Foundation 123 expands building limits and adds district routes](EXPANDED_DISTRICT_ROUTES.md). The text below records Foundation 122 limits and measurements.
+
 # Varied dense cities and faster routing — Foundation 122
 
 Open **Inspect Compact City Paused** for a 20-resident city with 23 buildings and 108 meals. Or choose **Set Up Generated City** and cycle **Residential density** through one, two, three and four homes per residential block. The Large preset adapts to the room limit: 6×6 for one home, 6×5 for two, and 6×3 for three or four. Four homes across 6×3 blocks gives 60 residents, 63 buildings and 228 meals.

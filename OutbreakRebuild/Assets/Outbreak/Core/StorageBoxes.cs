@@ -43,7 +43,7 @@ namespace Outbreak.Core
         {
             if(box==null || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || PhoneAt(box.x,box.y) || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || (box.foodReserve.HasValue && (box.foodReserve.Value<0 || box.foodReserve.Value>box.capacity)) || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
             int used=0;foreach(ItemStackDocument stack in box.items){if(stack==null || stack.item!=InventoryItem.Food || stack.quantity<1 || stack.quantity>StorageRules.MaxCapacity)throw new ArgumentException("Invalid storage item stack.");used+=stack.quantity;}
-            if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);storageCells.Add(box.y*Width+box.x);
+            if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);if(storageCells.Add(box.y*Width+box.x))DistrictSurfaceChanged(box.x,box.y);
         }
         internal StorageBoxDocument[] CaptureStorageBoxes()
         {
@@ -78,7 +78,7 @@ namespace Outbreak.Core
         }
         private bool StorageVisible(ActorState actor,StorageBoxDocument box)
         {
-            return ShelfVisible(actor,new ShelfDocument{x=box.x,y=box.y}); // Observe the container from an accessible face, without seeing through walls.
+            return ShelfVisible(actor,box.x,box.y); // Observe the container from an accessible face, without seeing through walls.
         }
         private bool TryUseStorage(int index,ref ActorState actor,int threat,Room room,bool deposit,out int direction,int boxKey=0)
         {

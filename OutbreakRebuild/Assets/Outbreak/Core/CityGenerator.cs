@@ -7,7 +7,7 @@ namespace Outbreak.Core
     {
         public static WorldMap Streets(uint seed,int columns=4,int rows=2,CityStreetLayout layout=CityStreetLayout.Grid)
         {
-            if(seed==0 || columns<1 || columns>6 || rows<1 || rows>6)throw new ArgumentException("City needs a nonzero seed and 1–6 blocks per axis.");
+            if(seed==0 || columns<1 || columns>10 || rows<1 || rows>10)throw new ArgumentException("City needs a nonzero seed and 1–10 blocks per axis.");
             if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood && layout!=CityStreetLayout.Staggered)throw new ArgumentException("Unknown street layout.");
             uint state=seed;int[] xs=Axes(columns,ref state,layout==CityStreetLayout.Staggered),ys=Axes(rows,ref state,layout==CityStreetLayout.Staggered);
             if(layout==CityStreetLayout.Staggered)return StaggeredStreets(seed,xs,ys);

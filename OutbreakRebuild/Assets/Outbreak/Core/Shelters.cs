@@ -5,7 +5,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
 { // Begin the shelter milestone.
     public static class ShelterRules // Publish provisional capacity and bounded-query limits.
     { // Begin explicit prototype limits.
-        public const int MaxFloors = 8192, MaxRooms = 64, MaxRoomCells = 256, MaxDoors = 4, RouteRadius = 16, RejectTicks = 50, ComfortCells = 2; // Keep discovery, planning and rejected-room memory finite.
+        public const int MaxFloors = 32768, MaxRooms = 256, LegacyMaxFloors = 8192, LegacyMaxRooms = 64, MaxRoomCells = 256, MaxDoors = 4, RouteRadius = 16, RejectTicks = 50, ComfortCells = 2; // Keep discovery, planning and rejected-room memory finite.
     } // Finish tuning limits.
     public sealed partial class World // Extend the same world owner without engine dependencies.
     { // Begin room discovery and authoritative door actions.
@@ -31,7 +31,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         private bool ValidObservedCell(int x, int y) { return map.CanWalk(x, y) || (SheltersEnabled && map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed); } // A formerly observed door cell may legitimately close after an actor leaves it.
         private void InitializeShelters() // Derive small enclosed rooms from actual authored floor and boundary tiles.
         { // Begin one-time discovery.
-            if (!SheltersEnabled) return; int[] floors = map.ShelterFloorCells(ShelterRules.MaxFloors); if (floors == null) { ShelterScanLimited = true; return; } HashSet<int> floorSet = new HashSet<int>(floors), visited = new HashSet<int>(); List<Room> found = new List<Room>(); // Never scan the full sparse map area or silently crop an oversized floor collection.
+            if (!SheltersEnabled) return; int[] floors = map.ShelterFloorCells(DistrictRoutesEnabled?ShelterRules.MaxFloors:ShelterRules.LegacyMaxFloors); if (floors == null) { ShelterScanLimited = true; return; } HashSet<int> floorSet = new HashSet<int>(floors), visited = new HashSet<int>(); List<Room> found = new List<Room>(); // Never scan the full sparse map area or silently crop an oversized floor collection.
             foreach (int seed in floors) // Canonical seeds produce stable identities across save/load and door changes.
             { // Begin one connected floor region.
                 if (!visited.Add(seed)) continue; List<int> cells = new List<int> { seed }; HashSet<int> doors = new HashSet<int>(); bool enclosed = true; // Keep discovery independent of population and actor order.
@@ -39,7 +39,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
                 { // Begin floor boundary inspection.
                     int x = cells[head] % Width, y = cells[head] / Width; for (int d = 0; d < 8; d += 2) { int nx = x + dx[d], ny = y + dy[d]; if (!map.Contains(nx, ny)) { enclosed = false; continue; } int key = Key(nx, ny); if (floorSet.Contains(key)) { if (visited.Add(key)) cells.Add(key); } else { Terrain t = map.Get(nx, ny); if (t == Terrain.DoorClosed || t == Terrain.DoorOpen) doors.Add(key); else if (t != Terrain.Wall && t != Terrain.Window) enclosed = false; } } // Open outdoor floor borders do not become imaginary buildings.
                 } // Finish connected floor inspection.
-                if (!enclosed || doors.Count == 0) continue; if (cells.Count > ShelterRules.MaxRoomCells || doors.Count > ShelterRules.MaxDoors || found.Count == ShelterRules.MaxRooms) { ShelterScanLimited = true; continue; } cells.Sort(); int[] doorArray = new int[doors.Count]; doors.CopyTo(doorArray); Array.Sort(doorArray); found.Add(new Room { id = cells[0] + 1, cells = cells.ToArray(), doors = doorArray }); // Preserve deterministic membership and explicit bounded support.
+                if (!enclosed || doors.Count == 0) continue; if (cells.Count > ShelterRules.MaxRoomCells || doors.Count > ShelterRules.MaxDoors || found.Count == (DistrictRoutesEnabled?ShelterRules.MaxRooms:ShelterRules.LegacyMaxRooms)) { ShelterScanLimited = true; continue; } cells.Sort(); int[] doorArray = new int[doors.Count]; doors.CopyTo(doorArray); Array.Sort(doorArray); found.Add(new Room { id = cells[0] + 1, cells = cells.ToArray(), doors = doorArray }); // Preserve deterministic membership and explicit bounded support.
             } // Finish floor components.
             rooms = found.ToArray();foreach(Room room in rooms){roomsById.Add(room.id,room);foreach(int cell in room.cells)houseByCell.Add(cell,room.id);} // No live actor references are held by the catalog.
         } // Finish room recognition.
@@ -68,7 +68,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
         } // Finish capacity accounting.
         private int KnownShelterThreats(ActorState actor, int threatIndex) // Reuse fixed observation buffers for route risk checks.
         { // Begin threat collection.
-            int total = 0; for (int i = 0; i < count; i++) { ActorState z = actors[i]; if (z.species == Species.Zombie && z.health>0 && DistanceSquared(actor, z) <= 144 && Visible(actor, z)) escapeThreats[total++] = z; } if (total == 0 && actor.avoidUntilTick > Tick) escapeThreats[total++] = new ActorState { x = actor.avoidX, y = actor.avoidY, species = Species.Zombie }; return total; // Hidden actor positions are never used to update a remembered threat.
+            int total = 0; if(occupancy.HasSpecies(Species.Zombie))for (int i = 0; i < count; i++) { if(actors[i].species!=Species.Zombie || actors[i].health<=0)continue;ActorState z = actors[i]; if (z.species == Species.Zombie && z.health>0 && DistanceSquared(actor, z) <= 144 && Visible(actor, z)) escapeThreats[total++] = z; } if (total == 0 && actor.avoidUntilTick > Tick) escapeThreats[total++] = new ActorState { x = actor.avoidX, y = actor.avoidY, species = Species.Zombie }; return total; // Hidden actor positions are never used to update a remembered threat.
         } // Finish threat collection.
         private bool ShelterWalkable(int x, int y) { return !VehicleAt(x,y) && (map.CanWalk(x, y) || (map.Contains(x, y) && map.Get(x, y) == Terrain.DoorClosed)); } // Only humans planning shelter entry may consider opening a closed door.
         private int ShelterRoute(ActorState actor, int goalX, int goalY, int threats, out int distance, Room confinedRoom = null, bool foodRoute = false, bool walkOnly = false) // Find a collision-safe local path including human door actions.
@@ -76,6 +76,10 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
             bool courier=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
             bool pedestrian=PedestrianRoutesEnabled && streetTerrain && threats==0 && confinedRoom==null;
             bool extended=LongRoutesEnabled && (courier || pedestrian) && threats==0 && confinedRoom==null;
+            if(DistrictRoutesEnabled && extended && courier && Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>32)
+            {
+                int districtDirection=DistrictRoute(actor,goalX,goalY,walkOnly,out distance);if(districtDirection>=0)return districtDirection;
+            }
             if(pedestrian || (PedestrianRoutesEnabled && extended))return LongRoute(actor,goalX,goalY,walkOnly,out distance,courier?CityRouteRules.Radius:ShelterRules.RouteRadius);
             if(extended && Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>ShelterRules.RouteRadius)return LongRoute(actor,goalX,goalY,walkOnly,out distance);
             int side=courier?CourierRules.RouteRadius*2+1:33,radius=side/2;

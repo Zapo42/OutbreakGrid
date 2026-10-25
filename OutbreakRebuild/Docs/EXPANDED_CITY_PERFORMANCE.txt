@@ -1,0 +1,34 @@
+Foundation 123 expanded-city core benchmarks
+
+Same Linux cloud environment, .NET 8 Release, JIT warmup separate, median of three 500-tick runs.
+Final benchmark runs executed sequentially after the acceptance suites finished.
+Only ticks are timed; setup, serialization and Unity rendering/input are excluded.
+No Unity FPS or Windows performance claim is made. Timings vary by host/load.
+
+New rules-94 cities, label (columns, rows, homes per residential block):
+Expanded (8x8/10x10) cases use neighborhood-center zoning. Other cases retain fixed zoning.
+(4, 2, 4): 500 ticks median 194.1 ms (0.388 ms/tick), allocated 8.01 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 3, 4): 500 ticks median 161.9 ms (0.324 ms/tick), allocated 8.86 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 5, 2): 500 ticks median 173.4 ms (0.347 ms/tick), allocated 8.10 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(6, 6, 1): 500 ticks median 132.3 ms (0.265 ms/tick), allocated 5.41 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(8, 8, 4): 500 ticks median 981.8 ms (1.964 ms/tick), allocated 37.01 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+(10, 10, 2): 500 ticks median 631.6 ms (1.263 ms/tick), allocated 30.19 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+
+The 8x8 four-home case has 244 residents and 247 recognized buildings.
+The 10x10 two-home case has 194 residents and 197 buildings.
+These are short non-outbreak workloads, not proof of performance with thousands of residents.
+
+Legacy rules-93 matched starting/final saves from Foundation 121; all full states match exactly:
+4-2-2: 500 ticks median 216.1 ms (0.432 ms/tick), allocated 1.32 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+6-5-2: 500 ticks median 261.0 ms (0.522 ms/tick), allocated 7.09 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+6-6-1: 500 ticks median 197.7 ms (0.395 ms/tick), allocated 4.35 MiB; exact continuation PASS. Core only; Unity rendering excluded.
+
+Further checks: 578 acceptance cases / 724782 assertions; UI API doubles 2073 assertions;
+NewOnly input mode 3 assertions; editor target/module configuration and diff checks passed.
+Actual Unity 6000.6.3f1 rendering/play testing remains unverified.
+
+The expanded network query test reaches a destination beyond the old 256-cell bound and follows
+570 collision-valid planned steps on the seed-214 8x8 street map. Separate tests verify physical
+credited courier delivery on closer district routes and saved continuation of the live city.
+Very long walking deliveries can consume the courier's provisions; more hubs or vehicles are still
+needed for balanced large-city logistics. See EXPANDED_DISTRICT_ROUTES.md for limits and commands.
