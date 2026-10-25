@@ -29,11 +29,12 @@ namespace Outbreak.Core
             if((blocks-shops-1)*homesPerBlock+shops+1>ShelterRules.MaxRooms)throw new ArgumentException("This density exceeds the 64-building city limit.");
             BuildingUse[] zones=PlanZones(seed,columns,rows,zoning);
             uint axesState=seed;
-            int[] xs=Axes(columns,ref axesState),ys=Axes(rows,ref axesState);
+            int[] baseXs=Axes(columns,ref axesState),ys=Axes(rows,ref axesState);
             uint state=seed^0xC17B10C5u;if(state==0)state=1;
             var buildings=new System.Collections.Generic.List<GeneratedBuilding>();
             for(int row=0;row<rows;row++)for(int column=0;column<columns;column++)
             {
+                int[] xs=layout==CityStreetLayout.Staggered?RowStreetAxes(baseXs,seed,row):baseXs;
                 int index=row*columns+column;
                 BuildingUse use=zones[index];
                 int count=use==BuildingUse.Home?homesPerBlock:1;
@@ -53,7 +54,7 @@ namespace Outbreak.Core
                     buildings.Add(building);
                 }
             }
-            MapDocument document=map.Capture();document.name="Generated building district (seed "+seed+")";document.id=zoning==CityZoning.NeighborhoodCenters?"city-zoned-lots-1":layout==CityStreetLayout.Neighborhood?(homesPerBlock==2?"city-neighborhood-lots-2":"city-neighborhood-lots-1"):(homesPerBlock==2?"city-lots-3":"city-lots-2");
+            MapDocument document=map.Capture();document.name="Generated building district (seed "+seed+")";document.id=layout==CityStreetLayout.Staggered?(homesPerBlock==2?"city-staggered-lots-2":"city-staggered-lots-1"):zoning==CityZoning.NeighborhoodCenters?"city-zoned-lots-1":layout==CityStreetLayout.Neighborhood?(homesPerBlock==2?"city-neighborhood-lots-2":"city-neighborhood-lots-1"):(homesPerBlock==2?"city-lots-3":"city-lots-2");
             return new GeneratedDistrict{Map=WorldMap.Restore(document),Buildings=buildings.ToArray()};
         }
         private static void PaintLot(WorldMap map,ref GeneratedBuilding building,int west,int east,int north,int south)

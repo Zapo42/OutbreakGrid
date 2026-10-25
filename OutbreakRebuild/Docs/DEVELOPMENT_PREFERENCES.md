@@ -67,3 +67,5 @@
 - Foundation 120: user selected intersection right-of-way. Marked connected junctions admit one vehicle at a time after checking its exit; oldest eligible approach wins, stable ID breaks ties. Save waiting ages, retain pedestrian priority and explicit rules-92 opt-in. Keep NPC drivers and traffic signals separate.
 
 - Foundation 120 follow-up: user requested turning instead of instant 90-degree heading changes. Rotate the complete vehicle smoothly during playback while retaining cardinal simulation routes, exact paused/manual-step poses and rotated hit testing.
+
+- Foundation 121: user reported grid-like generation and broken-looking road ends with thick sidewalks. New setup and primary generated previews default to Staggered: row-offset side streets and connected T-junctions. Derive building lots from the same row axes, narrow curbs around actual roads, and replace removed Neighborhood roadway with grass/caps. Preserve old saved terrain; do not call this curved or fully organic generation.

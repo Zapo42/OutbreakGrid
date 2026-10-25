@@ -7,7 +7,7 @@ namespace Outbreak.UnityAdapter
     public sealed partial class FoundationApp
     {
         private CityZoning cityZoning=CityZoning.Fixed;
-        private CityStreetLayout cityStreetLayout=CityStreetLayout.Grid;
+        private CityStreetLayout cityStreetLayout=CityStreetLayout.Staggered;
         private int cityHomesPerBlock=1;
         private bool showCitySetup,cityStartPaused=true;
         private string citySeedInput="214",cityColumnsInput="4",cityRowsInput="2";
@@ -21,7 +21,7 @@ namespace Outbreak.UnityAdapter
             if(GUILayout.Button("Standard city (4 x 2 blocks)"))Queue(()=>{cityColumnsInput="4";cityRowsInput="2";});
             if(GUILayout.Button(cityHomesPerBlock==2?"Large city (6 x 5 blocks)":"Large city (6 x 6 blocks)"))Queue(()=>{cityColumnsInput="6";cityRowsInput=cityHomesPerBlock==2?"5":"6";});
             if(GUILayout.Button("Residential density: "+(cityHomesPerBlock==1?"One house per block":"Two houses per block")))Queue(()=>{cityHomesPerBlock=cityHomesPerBlock==1?2:1;});
-            if(GUILayout.Button("Street layout: "+cityStreetLayout))Queue(()=>{cityStreetLayout=cityStreetLayout==CityStreetLayout.Grid?CityStreetLayout.Neighborhood:CityStreetLayout.Grid;});
+            if(GUILayout.Button("Street layout: "+cityStreetLayout))Queue(()=>{cityStreetLayout=cityStreetLayout==CityStreetLayout.Staggered?CityStreetLayout.Grid:cityStreetLayout==CityStreetLayout.Grid?CityStreetLayout.Neighborhood:CityStreetLayout.Staggered;});
             if(GUILayout.Button("Zoning: "+(cityZoning==CityZoning.Fixed?"Fixed layout":"Neighborhood centers")))Queue(()=>{cityZoning=cityZoning==CityZoning.Fixed?CityZoning.NeighborhoodCenters:CityZoning.Fixed;});
             GUILayout.Label("City seed (1 to 4294967295)");citySeedInput=GUILayout.TextField(citySeedInput,32);
             GUILayout.Label("Blocks across (2 to 6)");cityColumnsInput=GUILayout.TextField(cityColumnsInput,32);
@@ -39,6 +39,7 @@ namespace Outbreak.UnityAdapter
                 GUILayout.Label(summary.Humans+" humans: 1 courier, "+summary.Stores+(summary.Stores==1?" clerk, ":" clerks, ")+summary.Consumers+(summary.Consumers==1?" consumer":" consumers")+" | "+summary.Meals+" starting meals");
             }
             GUILayout.Label("One resident per home; workers start at their separate workplaces.");
+            GUILayout.Label("Staggered streets offset side-road junctions between districts.");
             GUILayout.Label("Street-facing entrances; larger stores and distribution buildings.");
             GUILayout.Label("No starting zombies. Use Place zombie to introduce an outbreak.");
             GUI.enabled=error==null;

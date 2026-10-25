@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace Outbreak.Core
 {
-    public enum CityStreetLayout { Grid, Neighborhood }
+    public enum CityStreetLayout { Grid, Neighborhood, Staggered }
     public static partial class CityGenerator
     {
         private sealed class StreetEdge
@@ -50,8 +50,10 @@ namespace Outbreak.Core
                 {
                     bool road=reverse?i>=length-stub:i<stub;
                     int x=edge.X+(edge.Vertical?0:i+2),y=edge.Y+(edge.Vertical?i+2:0);
-                    map.Set(x,y,road?Terrain.Road:Terrain.Sidewalk);
-                    map.Set(x+(edge.Vertical?1:0),y+(edge.Vertical?0:1),road?Terrain.Road:Terrain.Sidewalk);
+                    bool cap=i==0 || i==length-1 || (stub>0 && (reverse?i==length-stub-1:i==stub));
+                    Terrain tile=road?Terrain.Road:cap?Terrain.Sidewalk:Terrain.Grass;
+                    map.Set(x,y,tile);
+                    map.Set(x+(edge.Vertical?1:0),y+(edge.Vertical?0:1),tile);
                 }
             }
         }

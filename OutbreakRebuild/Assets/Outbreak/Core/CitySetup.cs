@@ -10,7 +10,7 @@ namespace Outbreak.Core
         public static string ValidationError(uint seed,int columns,int rows,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid,CityZoning zoning=CityZoning.Fixed)
         {
             if(zoning!=CityZoning.Fixed && zoning!=CityZoning.NeighborhoodCenters)return "Choose Fixed layout or Neighborhood centers zoning.";
-            if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood)return "Choose Grid or Neighborhood streets.";
+            if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood && layout!=CityStreetLayout.Staggered)return "Choose Grid, Neighborhood or Staggered streets.";
             if(seed==0)return "Seed must be between 1 and 4294967295.";
             if(columns<2 || columns>6 || rows<2 || rows>6)return "Choose 2 to 6 blocks across and 2 to 6 blocks down.";
             if(homesPerBlock<1 || homesPerBlock>2)return "Choose one or two homes per residential block.";

@@ -8,8 +8,9 @@ namespace Outbreak.Core
         public static WorldMap Streets(uint seed,int columns=4,int rows=2,CityStreetLayout layout=CityStreetLayout.Grid)
         {
             if(seed==0 || columns<1 || columns>6 || rows<1 || rows>6)throw new ArgumentException("City needs a nonzero seed and 1–6 blocks per axis.");
-            if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood)throw new ArgumentException("Unknown street layout.");
+            if(layout!=CityStreetLayout.Grid && layout!=CityStreetLayout.Neighborhood && layout!=CityStreetLayout.Staggered)throw new ArgumentException("Unknown street layout.");
             uint state=seed;int[] xs=Axes(columns,ref state),ys=Axes(rows,ref state);
+            if(layout==CityStreetLayout.Staggered)return StaggeredStreets(seed,xs,ys);
             int width=xs[xs.Length-1]+5,height=ys[ys.Length-1]+5;
             WorldMap map=new WorldMap(width,height,(layout==CityStreetLayout.Neighborhood?"Generated neighborhood streets (seed ":"Generated city streets (seed ")+seed+")",layout==CityStreetLayout.Neighborhood?"city-streets-2":"city-streets-1");
             for(int y=0;y<height;y++)for(int x=0;x<width;x++)

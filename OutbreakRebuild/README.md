@@ -1,4 +1,4 @@
-Current build: **Foundation 120 / intersection right-of-way and smooth turns**. Targets **Unity 6000.6.3f1**. Marked junctions admit one vehicle at a time, prioritize the oldest clear approach and hold traffic outside blocked exits. Vehicle bodies rotate smoothly during playback. [Guide and limits](Docs/INTERSECTION_TRAFFIC.md).
+Current build: **Foundation 121 / staggered connected city streets**. Targets **Unity 6000.6.3f1**. New city setup defaults to offset side streets and connected T-junctions; removed neighborhood roads become grass strips with narrow curb caps. Includes Foundation 120 intersection priority and smooth vehicle turns. [Guide](Docs/STAGGERED_CITY_STREETS.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

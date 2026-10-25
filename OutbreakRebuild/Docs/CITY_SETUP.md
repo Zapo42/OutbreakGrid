@@ -35,3 +35,5 @@ Foundation 118 adds [manual vehicle placement and road routing](VEHICLE_ROUTES.m
 Foundation 119 adds [right-hand lane directions and following distance](VEHICLE_LANES.md) to newly generated roads. Existing saved maps keep their geometry and any saved markings; no lane regeneration is performed when loading.
 
 Foundation 120 adds [intersection right-of-way](INTERSECTION_TRAFFIC.md) for marked generated junctions. Cars wait outside blocked exits and take turns; cities still generate without vehicles until manually placed.
+
+Foundation 121 makes [Staggered streets](STAGGERED_CITY_STREETS.md) the default in new city setup and primary generated-city previews. The layout button cycles Staggered → Grid → Neighborhood. Start a new city to use new generation; saved cities and restart keep their existing roads.

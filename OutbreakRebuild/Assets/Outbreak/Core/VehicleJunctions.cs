@@ -8,7 +8,13 @@ namespace Outbreak.Core
         // Adjacent marked cells with multiple exits form a junction. Unmarked roads keep legacy routing.
         private bool JunctionCell(int x,int y)
         {
-            int mask=map.RoadLaneMaskAt(x,y);return mask!=0 && (mask&(mask-1))!=0;
+            int mask=map.RoadLaneMaskAt(x,y);if(mask==0)return false;if((mask&(mask-1))!=0)return true;
+            // At a T-junction one quadrant may have only one exit. Include the complete 2x2 crossing.
+            for(int top=y-1;top<=y;top++)for(int left=x-1;left<=x;left++){
+                int union=0;bool complete=true;for(int cy=top;cy<=top+1;cy++)for(int cx=left;cx<=left+1;cx++){int part=map.RoadLaneMaskAt(cx,cy);complete&=part!=0;union|=part;}
+                if(complete && union==15)return true;
+            }
+            return false;
         }
         private HashSet<int> JunctionCells(int x,int y)
         {

@@ -48,3 +48,5 @@ Sprite sheets, `.dgproject` projects, modular laboratory overlays, building temp
 Foundation 119 adds saved directed road lanes, visible arrows, straight-road following gaps and a two-car paused preview. Driver boarding and intersection traffic management remain separate milestones.
 
 Foundation 120 adds conservative intersection right-of-way, saved approach queue ages, exit clearance and a simultaneous-arrival preview. NPC boarding/driving and traffic signals remain separate steps.
+
+Foundation 121 fixes wide reclaimed-road paving and adds default staggered street geometry with offset side streets, connected lanes and matching building lots. Grid and legacy Neighborhood remain explicit choices. Curved roads/organic subdivision and NPC vehicle use are separate future increments.
