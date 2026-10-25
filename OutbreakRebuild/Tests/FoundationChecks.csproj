@@ -45,6 +45,7 @@
     <Compile Include="MultiStoreChecks.cs" />
     <Compile Include="CityRoutingChecks.cs" />
     <Compile Include="CityLotChecks.cs" />
+    <Compile Include="NeighborhoodChecks.cs" />
     <Compile Include="CitySetupChecks.cs" />
     <Compile Include="PedestrianRouteChecks.cs" />
     <Compile Include="HomeSupplyChecks.cs" />

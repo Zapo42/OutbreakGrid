@@ -23,3 +23,5 @@ Checks cover invalid/boundary settings, summary accuracy across minimum/maximum/
 Future item categories remain **supplies**, **medical**, **ammo**. Existing food-only storage remains unchanged in this increment.
 
 Foundation 114 updates new generation with [four-way street-facing entrances and building sizes by use](CITY_BUILDING_VARIETY.md). Existing setup controls/counts remain; new cities use updated geometry for the same seed. Saved cities keep their actual layouts.
+
+Foundation 115 adds [two-house residential density](DENSE_NEIGHBORHOODS_AND_SHOPPING.md). Toggle Residential density in this form; the dense Large preset uses 6×5 blocks to stay within the existing 64-building limit. Default single-house setup remains available.

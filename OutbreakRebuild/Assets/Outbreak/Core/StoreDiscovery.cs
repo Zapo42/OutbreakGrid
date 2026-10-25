@@ -19,7 +19,32 @@ namespace Outbreak.Core
         }
         private void ObserveStoreEntrances(ref ActorState actor)
         {
-            foreach(int id in stores.Keys)if(SeenFoodEntrance(actor,FindRoom(id)))RememberStore(ref actor.storeMemory,id,Tick);
+            foreach(int id in stores.Keys)if(SeenStorefront(actor,FindRoom(id)))RememberStore(ref actor.storeMemory,id,Tick);
+        }
+        private readonly Dictionary<int,int[]> storefrontViewpoints=new Dictionary<int,int[]>();
+        private bool SeenStorefront(ActorState actor,Room room)
+        {
+            if(SeenFoodEntrance(actor,room))return true;
+            if(!StorefrontDiscoveryEnabled || HouseAt(actor.x,actor.y)!=0)return false;
+            int[] viewpoints;
+            if(!storefrontViewpoints.TryGetValue(room.id,out viewpoints))
+            {
+                var cells=new HashSet<int>();
+                foreach(int cell in room.cells)for(int d=0;d<8;d+=2)
+                {
+                    int wallX=cell%Width+dx[d],wallY=cell/Width+dy[d];
+                    if(!map.Contains(wallX,wallY) || (map.Get(wallX,wallY)!=Terrain.Wall && map.Get(wallX,wallY)!=Terrain.Window))continue;
+                    int x=wallX+dx[d],y=wallY+dy[d];if(map.Contains(x,y) && HouseAt(x,y)==0)cells.Add(Key(x,y));
+                }
+                viewpoints=new int[cells.Count];cells.CopyTo(viewpoints);Array.Sort(viewpoints);storefrontViewpoints.Add(room.id,viewpoints);
+            }
+            // Seeing the outside of a shop identifies it without revealing shelves or stock.
+            foreach(int cell in viewpoints)
+            {
+                ActorState facade=new ActorState{x=cell%Width,y=cell/Width};
+                if(DistanceSquared(actor,facade)<=EncounterRules.SightRadius*EncounterRules.SightRadius && map.CanWalk(facade.x,facade.y) && Visible(actor,facade))return true;
+            }
+            return false;
         }
         private void PruneStoreNotes(ref FoodRoomVisit[] notes,int duration)
         {

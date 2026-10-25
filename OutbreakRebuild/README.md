@@ -1,4 +1,4 @@
-Current build: **Foundation 114 / varied street-facing buildings**. Targets **Unity 6000.6.3f1**. Generated entrances face all four streets, with connected paths and larger store/distribution footprints. [Guide and limits](Docs/CITY_BUILDING_VARIETY.md).
+Current build: **Foundation 115 / denser neighborhoods and storefront discovery**. Targets **Unity 6000.6.3f1**. Two-house residential blocks and a fix for empty-home shoppers missing nearby stores with hidden entrances. [Guide and limits](Docs/DENSE_NEIGHBORHOODS_AND_SHOPPING.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

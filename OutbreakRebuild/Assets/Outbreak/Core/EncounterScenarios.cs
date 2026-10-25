@@ -280,10 +280,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
-        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2)
+        public static World HiddenStoreEntranceTest()
         {
-            string error=CitySetup.ValidationError(seed,columns,rows);if(error!=null)throw new System.ArgumentException(error);
-            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows);WorldMap map=district.Map;
+            SaveDocument saved=StoreShoppingTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.Set(11,5,Terrain.Wall);map.Set(15,5,Terrain.DoorClosed);saved.map=map.Capture();saved.map.name="Nearby store with a hidden entrance";saved.actors[0].shelfMemory=null;saved.actors[0].intelligence=10;return World.Restore(saved);
+        }
+        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1)
+        {
+            string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock);if(error!=null)throw new System.ArgumentException(error);
+            GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock);WorldMap map=district.Map;
             var homes=new System.Collections.Generic.List<GeneratedBuilding>();var jobs=new System.Collections.Generic.List<GeneratedBuilding>();
             foreach(GeneratedBuilding building in district.Buildings)
             {

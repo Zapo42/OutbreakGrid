@@ -61,4 +61,6 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 | 114 | Four-way street-facing entrances, connected paths, role-specific footprints, furniture clearance and physical generated commutes | Core: 535 cases / 501907 assertions; UI: 1933 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
+| 115 | Visible storefront discovery fixes reproduced empty-home shopping failure; optional paired residential houses, separate inventories and density limits | Core: 539 cases / 557706 assertions; UI: 1954 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.
