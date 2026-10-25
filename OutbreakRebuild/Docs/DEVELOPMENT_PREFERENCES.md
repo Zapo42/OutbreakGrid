@@ -63,3 +63,7 @@
 - Foundation 118: user selected basic vehicle routes on roads/crosswalks. Add a small independent vehicle entity/route prototype with manual placement, destinations, stop/arrival, crossing yield, collision exclusion, persistence and a vehicle-only paused preview. Do not imply NPC drivers, boarding, cargo, lanes, fuel or traffic signals exist. New rule generation 91 preserves old-run opt-in.
 
 - Foundation 119: user selected lane directions and following distance. Generated roads use deterministic right-hand traffic, legal junction turns and dead-end returns. Keep a one-cell gap on straight sections; preserve crossing yield and collision exclusion. Old rules-91 runs explicitly opt in; old unmarked maps keep free routing.
+
+- Foundation 120: user selected intersection right-of-way. Marked connected junctions admit one vehicle at a time after checking its exit; oldest eligible approach wins, stable ID breaks ties. Save waiting ages, retain pedestrian priority and explicit rules-92 opt-in. Keep NPC drivers and traffic signals separate.
+
+- Foundation 120 follow-up: user requested turning instead of instant 90-degree heading changes. Rotate the complete vehicle smoothly during playback while retaining cardinal simulation routes, exact paused/manual-step poses and rotated hit testing.

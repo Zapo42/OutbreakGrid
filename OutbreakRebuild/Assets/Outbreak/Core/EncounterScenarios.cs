@@ -280,6 +280,12 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World VehicleIntersectionTest()
+        {
+            WorldMap map=CityGenerator.Streets(214,1,1);World world=new World(map,214,1000,true,hunger:true);int id;
+            world.TryPlaceVehicle(2,4,out id);world.TrySetVehicleDestination(0,9,4);
+            world.TryPlaceVehicle(4,5,out id);world.TrySetVehicleDestination(1,4,1);return world;
+        }
         public static World VehicleLaneTest()
         {
             WorldMap map=WorldMap.Restore(VehicleRoutingTest().Capture().map);CityGenerator.PaintRoadLanes(map,new[]{3,23},new[]{4,12});

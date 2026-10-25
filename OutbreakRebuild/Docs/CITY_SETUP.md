@@ -33,3 +33,5 @@ Foundation 117 adds [Neighborhood centers zoning](NEIGHBORHOOD_ZONING.md), selec
 Foundation 118 adds [manual vehicle placement and road routing](VEHICLE_ROUTES.md) after a city starts. Cities still generate without cars. Vehicles use roads/crosswalks and yield to actors; boarding, commuting and courier cargo integration remain separate steps.
 
 Foundation 119 adds [right-hand lane directions and following distance](VEHICLE_LANES.md) to newly generated roads. Existing saved maps keep their geometry and any saved markings; no lane regeneration is performed when loading.
+
+Foundation 120 adds [intersection right-of-way](INTERSECTION_TRAFFIC.md) for marked generated junctions. Cars wait outside blocked exits and take turns; cities still generate without vehicles until manually placed.

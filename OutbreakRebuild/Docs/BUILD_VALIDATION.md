@@ -36,38 +36,23 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 100 | Solid phone blocks, saved deduplicated replenishment orders, collapsible encounter panels and selected-item/event inspection | Core: 473 cases / 325160 assertions; UI: 1624 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 101 | Automatic phone-order claims, partial delivery/completion history, route/door safeguards and hunger/exhaustion health loss/death | Core: 485 cases / 325818 assertions; UI: 1645 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
 | 102 | Multi-store shared-center scenario, three-seed four-hour conservation trials, accurate order status and contextual stock-site focus | Core: 488 cases / 379294 assertions; UI: 1660 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
-
 | 103 | Least-fulfilled request dispatch, age/ID ties, visible policy and preserved rules-82 dispatch | Core: 489 cases / 380966 assertions; UI: 1661 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |
-
 | 104 | Unity 6000.6.3f1 target, distinct building floors/storage/phones and separate-home visual preview | Core: 490 cases / 380980 assertions; UI: 1676 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 105 | Personal home-stock inspection, routine distribution boundaries, accelerated testing speeds and selected-only H/F/E bars with descending hunger display | Core: 496 cases / 381684 assertions; UI: 1720 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 106 | Intelligence-based home grocery trips, finite shelf pickup/home deposit, personal rations, saved claims and shopper doorway courtesy | Core: 503 cases / 384114 assertions; UI: 1731 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 107 | Personal visible-store discovery, saved investigation, same-trip alternatives, failure memory and retry delays | Core: 509 cases / 385542 assertions; UI: 1744 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 108 | Clerk shifts, worker home/work commutes, off-duty groceries, occupation outlines and energy-free visual idling | Core: 517 cases / 387191 assertions; UI: 1867 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 109 | Larger 64 × 36 district, three assigned homes/stores, near/far deliveries and integrated finite-food/save-load trial | Core: 518 cases / 416047 assertions; UI: 1873 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 110 | Bounded extended A* routes, preserved legacy routing, seeded connected roads/sidewalks/crosswalks and distant courier previews | Core: 522 cases / 431189 assertions; UI: 1883 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 111 | Safe sidewalk/crosswalk preference, fallback road crossings, straight final approaches and Generated City doorway-arc fix | Core: 527 cases / 432319 assertions; focused pedestrian/doorway checks: 5 cases / 868 assertions; UI: 1891 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 112 | Seeded building lots, connected entrance paths, preserved street tiles and configured homes/stores/center previews | Core: 529 cases / 496291 assertions; UI: 1899 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 113 | Generated-city seed/block controls, presets, exact setup summaries, validated population scaling and retained-run protection | Core: 532 cases / 496680 assertions; UI: 1933 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 114 | Four-way street-facing entrances, connected paths, role-specific footprints, furniture clearance and physical generated commutes | Core: 535 cases / 501907 assertions; UI: 1933 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 115 | Visible storefront discovery fixes reproduced empty-home shopping failure; optional paired residential houses, separate inventories and density limits | Core: 539 cases / 557706 assertions; UI: 1954 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 116 | Optional connected neighborhood streets with T-junctions/dead ends/pedestrian links; striped road-surface crosswalks distinct from sidewalks | Core: 542 cases / 573764 assertions; UI: 1965 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 117 | Optional neighborhood-center zoning, improved residential store coverage, peripheral distribution and inward-facing commercial entrances | Core: 545 cases / 574473 assertions; UI: 1975 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
-
 | 118 | Saved independent road/crosswalk vehicles, pedestrian/traffic blocking, placement/retarget/stop/arrival and smooth zero-NPC preview | Core: 551 cases / 575221 assertions; UI: 2000 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+| 119 | Saved right-hand road lanes, legal junction/dead-end turns, visible arrows and straight-road following distance with legacy opt-in | Core: 554 cases / 603520 assertions; UI: 2013 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
+| 120 | Saved intersection queues, oldest clear approach priority, exit clearance, exclusive junction admission and smooth vehicle rotation with rotated hit testing | Core: 563 cases / 604037 assertions; UI: 2036 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.
-| 119 | Saved right-hand road lanes, legal junction/dead-end turns, visible arrows and straight-road following distance with legacy opt-in | Core: 554 cases / 603520 assertions; UI: 2013 assertions; NewOnly input: 3 assertions; editor-target/module configuration and diff checks | Untested, per user instruction |

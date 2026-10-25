@@ -46,3 +46,5 @@ The simulator uses a fixed 100×100 map and contains a roughly 154 KB main simul
 Sprite sheets, `.dgproject` projects, modular laboratory overlays, building templates, terrain artwork, palettes and saved layouts remain in their original archives. Foundation 1 has not converted or replaced them. The inventory records exact paths and SHA-256 hashes so the next migration can prove preservation.
 
 Foundation 119 adds saved directed road lanes, visible arrows, straight-road following gaps and a two-car paused preview. Driver boarding and intersection traffic management remain separate milestones.
+
+Foundation 120 adds conservative intersection right-of-way, saved approach queue ages, exit clearance and a simultaneous-arrival preview. NPC boarding/driving and traffic signals remain separate steps.

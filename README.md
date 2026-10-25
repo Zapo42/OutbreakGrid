@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 119 / vehicle lanes and following distance**. Targets **Unity 6000.6.3f1**. Generated roads have right-hand lane directions, road arrows and straight-road following gaps. NPC boarding and driving remain later work. [Guide and limits](OutbreakRebuild/Docs/VEHICLE_LANES.md).
+Current build: **Foundation 120 / intersection right-of-way and smooth turns**. Targets **Unity 6000.6.3f1**. Marked junctions admit one vehicle at a time, prioritize the oldest clear approach and hold traffic outside blocked exits. Vehicle bodies rotate smoothly during playback. [Guide and limits](OutbreakRebuild/Docs/INTERSECTION_TRAFFIC.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

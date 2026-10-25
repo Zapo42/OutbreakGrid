@@ -1,3 +1,5 @@
+Current update: [Foundation 120 adds intersection right-of-way](INTERSECTION_TRAFFIC.md). The text below records the Foundation 119 milestone.
+
 # Vehicle lanes and following distance — Foundation 119
 
 Open **Inspect Lane Traffic Paused**. Two cars begin in an eastbound lane. Press **Step 1 tick** to establish the restart checkpoint. Select the lead car and press **Stop vehicle**, then **Step 10 ticks**: the follower stays one empty cell behind and reports **Keeping following distance**. Retarget the lead to resume traffic, or restart and step 100 ticks to see both cars turn and arrive.

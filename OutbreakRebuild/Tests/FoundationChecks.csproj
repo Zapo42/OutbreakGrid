@@ -50,6 +50,7 @@
     <Compile Include="CitySetupChecks.cs" />
     <Compile Include="CityZoningChecks.cs" />
     <Compile Include="VehicleChecks.cs" />
+    <Compile Include="VehicleJunctionChecks.cs" />
     <Compile Include="PedestrianRouteChecks.cs" />
     <Compile Include="HomeSupplyChecks.cs" />
     <Compile Include="StoreShoppingChecks.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="FoodScarcityChecks.cs" />
     <Compile Include="MeleeChecks.cs" />
     <Compile Include="../Assets/Outbreak/Unity/MovementPresentation.cs" />
+    <Compile Include="../Assets/Outbreak/Unity/VehicleHeadingPresentation.cs" />
     <Compile Include="../Assets/Outbreak/Unity/WeaponPresentation.cs" />
     <None Update="Fixtures/*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
