@@ -60,3 +60,5 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 | 124 | Assigned courier driving, physical 24-meal shipments, finite two-store delivery credit, saved riders/phases/needs, shared road fields and cancellation/incapacity recovery | Core: 587 cases / 728517 assertions; UI: 2110 assertions; NewOnly input: 3 assertions; focused vehicle suite after stricter quantity bounds; Release vehicle-cycle and city benchmarks; editor-target/module configuration and diff checks | Untested, per user instruction |
 
 Maintain this table for every subsequent increment. Keep the checkpoint unchanged until the user explicitly identifies a newer tested build. Automated UI checks use API doubles and do not verify Unity layout, native rendering, or a Windows executable.
+
+| 125 | Assigned home-box vehicle routes, reserve-capped unloading, round-robin destinations, shared claims and excess returns | Core: 589 cases / 730684 assertions; UI: 2112 assertions; NewOnly input: 3 assertions; focused vehicle suite including two homes, exact saves, food conservation and reserve changes in transit; Unity target and diff checks | Untested, per user instruction |

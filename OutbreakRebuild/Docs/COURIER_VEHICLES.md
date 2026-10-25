@@ -1,3 +1,5 @@
+Foundation 125 adds [assigned home deliveries](HOME_VEHICLE_DELIVERIES.md) after store orders. The cycle below also applies to home boxes.
+
 # Courier driving and vehicle deliveries — Foundation 124
 
 Choose **Inspect Vehicle Deliveries Paused**. The preview has five residents, two stores, a distribution center and one vehicle assigned to courier #1. Run at 1×/5× to watch movement, or step 100 ticks at a time. The selected vehicle shows its driver, cargo, delivery phase and normal traffic status. Around tick 200 the courier is aboard; both initial 12-meal store requests finish within 2,500 ticks in the checked seed-214 preview.

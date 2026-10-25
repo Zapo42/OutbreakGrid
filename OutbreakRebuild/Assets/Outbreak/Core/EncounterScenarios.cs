@@ -280,6 +280,12 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World VehicleHomeDeliveryTest()
+        {
+            World world=CitySetup.Create(214,4,2,1,CityStreetLayout.Staggered,CityZoning.Fixed);
+            int assigned=0;foreach(var box in world.StorageBoxSites())if(world.BuildingUseAt(box.x,box.y)==BuildingUse.Home && world.TryToggleCourierDestination(0,box.x,box.y)){world.TrySetStorageFoodReserve(box.x,box.y,6);if(++assigned==2)break;}
+            int id;if(assigned!=2 || !world.TryPlaceVehicle(3,8,out id) || !world.TryAssignVehicleCourier(0,0))throw new System.InvalidOperationException("Home delivery preview could not assign its courier.");return world;
+        }
         public static World VehicleDeliveryTest()
         {
             World world=CitySetup.Create(214,4,2,1,CityStreetLayout.Staggered,CityZoning.Fixed);int id;if(!world.TryPlaceVehicle(3,8,out id) || !world.TryAssignVehicleCourier(0,0))throw new System.InvalidOperationException("Vehicle delivery preview could not assign its courier.");return world;

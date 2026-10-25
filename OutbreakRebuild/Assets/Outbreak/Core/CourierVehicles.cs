@@ -64,7 +64,7 @@ namespace Outbreak.Core
         private void FinishVehicleDrivers()
         {
             if(!CourierVehiclesEnabled)return;for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(!car.driverAboard || car.deliveriesPaused || !car.hasDestination || car.nextMoveTick!=0)continue;
-                bool delivery=car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery;if(!delivery && car.deliveryPhase!=VehicleDeliveryPhase.DrivingToSource)continue;if(car.exitAtTick==0){car.exitAtTick=Tick+VehicleRules.MoveTicks;vehicles[i]=car;continue;}if(Tick<car.exitAtTick)continue;if(!ExitVehicle(i))continue;car=vehicles[i];StopVehicleMotion(ref car);car.handFood=car.cargoFood;car.cargoFood=0;car.deliveryPhase=delivery?VehicleDeliveryPhase.Unloading:VehicleDeliveryPhase.Collecting;vehicles[i]=car;
+                bool delivery=car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery;if(!delivery && car.deliveryPhase!=VehicleDeliveryPhase.DrivingToSource)continue;if(car.exitAtTick==0){car.exitAtTick=Tick+VehicleRules.MoveTicks;vehicles[i]=car;continue;}if(Tick<car.exitAtTick)continue;if(!ExitVehicle(i))continue;car=vehicles[i];StopVehicleMotion(ref car);car.handFood=car.cargoFood;car.cargoFood=0;car.deliveryPhase=delivery?VehicleDeliveryPhase.Unloading:VehicleDeliveryPhase.Collecting;if(!delivery)car.targetBox=car.sourceBox;vehicles[i]=car;
             }
         }
         private void CancelVehicleOrder(int orderId)
@@ -98,8 +98,28 @@ namespace Outbreak.Core
         {
             if(!CourierWorkingNow(actor) || actor.workerCommuteId!=0 || actor.restockPhase!=RestockPhase.None || actor.grappledById!=0 || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.hunger>=HungerRules.SeekAt)return false;
             SupplyOrderDocument chosen=null;foreach(var order in supplyOrders.Values){if(SupplyOrderCourier(order.id)!=0 || order.supplyBox==actor.courierSourceBox)continue;int key=order.supplyBox-1,knownFood,knownSpace;var destination=map.StorageBoxAt(key%Width,key/Width);if(destination==null || (KnownStorageState(actor,destination,out knownFood,out knownSpace) && knownSpace==0))continue;if(chosen==null || CompareSupplyOrderPriority(order,chosen)<0)chosen=order;}
-            if(chosen==null)return false;int source=actor.courierSourceBox-1;StorageBoxDocument box=map.StorageBoxAt(source%Width,source/Width);int food,space;if(box==null || box.blockDonations || (KnownStorageState(actor,box,out food,out space) && food>=0 && food<=EffectiveFoodReserve(box)))return false;
+            if(chosen==null)return StartVehicleHomeDelivery(index,ref actor,ref car);int source=actor.courierSourceBox-1;StorageBoxDocument box=map.StorageBoxAt(source%Width,source/Width);int food,space;if(box==null || box.blockDonations || (KnownStorageState(actor,box,out food,out space) && food>=0 && food<=EffectiveFoodReserve(box)))return false;
             car.sourceBox=actor.courierSourceBox;car.targetBox=chosen.supplyBox;car.orderId=chosen.id;car.deliveryPhase=VehicleDeliveryPhase.Collecting;ClearShelterDeparture(ref actor);actor.homeShelterId=0;actors[index]=actor;return true;
+        }
+        // Assigned home routes use remembered stock; actual quantities are checked at pickup and delivery.
+        private bool StartVehicleHomeDelivery(int index,ref ActorState actor,ref VehicleState car)
+        {
+            if(actor.courierBoxes==null)return false;
+            for(int n=0;n<actor.courierBoxes.Length;n++){
+                int cursor=(actor.courierNextBox+n)%actor.courierBoxes.Length,key=actor.courierBoxes[cursor]-1,food,space;
+                var target=map.StorageBoxAt(key%Width,key/Width);
+                if(target==null || IsRestrictedSupplyBox(target) || EffectiveFoodReserve(target)==0 || RestockClaimed(key+1,actor.id) || (KnownStorageState(actor,target,out food,out space) && (space==0 || food>=EffectiveFoodReserve(target))))continue;
+                int source=actor.courierSourceBox-1;var box=map.StorageBoxAt(source%Width,source/Width);
+                if(box==null || box.blockDonations || (KnownStorageState(actor,box,out food,out space) && food>=0 && food<=EffectiveFoodReserve(box)))return false;
+                car.sourceBox=actor.courierSourceBox;car.targetBox=key+1;car.orderId=0;car.deliveryPhase=VehicleDeliveryPhase.Collecting;
+                actor.courierNextBox=(cursor+1)%actor.courierBoxes.Length;actor.courierReturningHome=false;actor.homeShelterId=0;ClearShelterDeparture(ref actor);actors[index]=actor;return true;
+            }
+            return false;
+        }
+        private int VehicleHomeDemand(VehicleState car)
+        {
+            int key=car.targetBox-1;var box=map.StorageBoxAt(key%Width,key/Width);
+            return box==null || IsRestrictedSupplyBox(box)?0:Math.Max(0,EffectiveFoodReserve(box)-StorageRules.Count(box,InventoryItem.Food));
         }
         private void CreditVehicleOrder(VehicleState car,int amount)
         {
@@ -122,8 +142,8 @@ namespace Outbreak.Core
             if(car.deliveryPhase==VehicleDeliveryPhase.Collecting || car.deliveryPhase==VehicleDeliveryPhase.Unloading){
                 bool loading=car.deliveryPhase==VehicleDeliveryPhase.Collecting;int key=(loading?car.sourceBox:car.targetBox)-1;StorageBoxDocument box=map.StorageBoxAt(key%Width,key/Width);if(box==null){car.deliveriesPaused=true;vehicles[carIndex]=car;return true;}
                 if(Math.Abs(actor.x-box.x)+Math.Abs(actor.y-box.y)!=1){int goal=CourierBoxGoal(actor,box);if(goal>=0)direction=WalkCourierVehicle(index,ref actor,goal%Width,goal/Width);return true;}
-                if(loading && car.handFood==0){if(box.blockDonations){ClearVehicleDelivery(ref car);vehicles[carIndex]=car;return true;}var order=VehicleOrder(car.orderId);if(order==null){ClearVehicleDelivery(ref car);vehicles[carIndex]=car;return true;}int available=Math.Max(0,StorageRules.Count(box,InventoryItem.Food)-EffectiveFoodReserve(box));int personal=Math.Min(HungerRules.CarryLimit-actor.carriedFood,available);actor.carriedFood+=personal;available-=personal;int amount=Math.Min(CourierVehicleRules.CargoMeals,Math.Min(available,order.requestedMeals-order.deliveredMeals));var update=StorageRules.Copy(box);StorageRules.ChangeFood(update,-personal-amount);map.SetStorageBox(update);RememberStorage(ref actor,StorageObservation(update));car.handFood=amount;if(amount>0)car.deliveryPhase=VehicleDeliveryPhase.BoardingForDelivery;else ClearVehicleDelivery(ref car);actors[index]=actor;vehicles[carIndex]=car;return true;}
-                int unload=Math.Min(car.handFood,box.capacity-StorageRules.Used(box));if(!loading){var order=VehicleOrder(car.orderId);if(order!=null)unload=Math.Min(unload,order.requestedMeals-order.deliveredMeals);}
+                if(loading && car.handFood==0){if(car.orderId==0 && car.targetBox==car.sourceBox){ClearVehicleDelivery(ref car);vehicles[carIndex]=car;return true;}if(box.blockDonations){ClearVehicleDelivery(ref car);vehicles[carIndex]=car;return true;}var order=VehicleOrder(car.orderId);if(order==null && car.orderId!=0){ClearVehicleDelivery(ref car);vehicles[carIndex]=car;return true;}int available=Math.Max(0,StorageRules.Count(box,InventoryItem.Food)-EffectiveFoodReserve(box));int personal=Math.Min(HungerRules.CarryLimit-actor.carriedFood,available);actor.carriedFood+=personal;available-=personal;int amount=Math.Min(CourierVehicleRules.CargoMeals,Math.Min(available,order!=null?order.requestedMeals-order.deliveredMeals:EffectiveFoodReserve(map.StorageBoxAt((car.targetBox-1)%Width,(car.targetBox-1)/Width))));var update=StorageRules.Copy(box);StorageRules.ChangeFood(update,-personal-amount);map.SetStorageBox(update);RememberStorage(ref actor,StorageObservation(update));car.handFood=amount;if(amount>0)car.deliveryPhase=VehicleDeliveryPhase.BoardingForDelivery;else ClearVehicleDelivery(ref car);actors[index]=actor;vehicles[carIndex]=car;return true;}
+                int unload=Math.Min(car.handFood,box.capacity-StorageRules.Used(box));if(!loading){var order=VehicleOrder(car.orderId);if(order!=null)unload=Math.Min(unload,order.requestedMeals-order.deliveredMeals);else unload=Math.Min(unload,VehicleHomeDemand(car));}
                 RememberStorage(ref actor,StorageObservation(box));
                 if(unload>0){var update=StorageRules.Copy(box);StorageRules.ChangeFood(update,unload);map.SetStorageBox(update);RememberStorage(ref actor,StorageObservation(update));if(!loading)CreditVehicleOrder(car,unload);car.handFood-=unload;}
                 if(loading && car.handFood==0)ClearVehicleDelivery(ref car);else if(!loading){car.orderId=0;car.deliveryPhase=VehicleDeliveryPhase.BoardingForSource;}actors[index]=actor;vehicles[carIndex]=car;return true;
@@ -134,7 +154,7 @@ namespace Outbreak.Core
             }
             return true;
         }
-        public string VehicleDeliveryStatus(int index){var car=VehicleAtIndex(index);if(car.driverId==0)return "No assigned courier";if(!HealthyVehicleDriver(car))return "Driver incapacitated; shipment retained";if(car.deliveriesPaused)return "Deliveries paused";if(car.driverAboard && !car.hasDestination)return "Waiting for reachable curb";return car.deliveryPhase==VehicleDeliveryPhase.None?"Waiting for supply order":car.deliveryPhase==VehicleDeliveryPhase.Collecting?"Collecting at source crate":car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery?"Carrying shipment to vehicle":car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery?"Driving to store":car.deliveryPhase==VehicleDeliveryPhase.Unloading?"Carrying shipment to store crate":car.deliveryPhase==VehicleDeliveryPhase.RecoveringShipment?"Recovering dropped shipment":car.deliveryPhase==VehicleDeliveryPhase.BoardingForSource?"Returning to vehicle":"Driving back to source";}
+        public string VehicleDeliveryStatus(int index){var car=VehicleAtIndex(index);if(car.driverId==0)return "No assigned courier";if(!HealthyVehicleDriver(car))return "Driver incapacitated; shipment retained";if(car.deliveriesPaused)return "Deliveries paused";if(car.driverAboard && !car.hasDestination)return "Waiting for reachable curb";return car.deliveryPhase==VehicleDeliveryPhase.None?"Waiting for supply order":car.deliveryPhase==VehicleDeliveryPhase.Collecting?"Collecting at source crate":car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery?"Carrying shipment to vehicle":car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery?"Driving to delivery box":car.deliveryPhase==VehicleDeliveryPhase.Unloading?"Carrying shipment to destination box":car.deliveryPhase==VehicleDeliveryPhase.RecoveringShipment?"Recovering dropped shipment":car.deliveryPhase==VehicleDeliveryPhase.BoardingForSource?"Returning to vehicle":"Driving back to source";}
         private void ValidateVehicleDrivers()
         {
             var assigned=new HashSet<int>();var claims=new HashSet<int>();foreach(var car in vehicles){bool data=car.lastMealTick!=0 || car.nextRoutePlanTick!=0 || car.exitAtTick!=0 || car.driverId!=0 || car.driverAboard || car.cargoFood!=0 || car.handFood!=0 || car.sourceBox!=0 || car.targetBox!=0 || car.orderId!=0 || car.driveEffort!=0 || car.deliveriesPaused || car.shipmentDropped || car.shipmentX!=0 || car.shipmentY!=0 || car.deliveryPhase!=VehicleDeliveryPhase.None;if(!CourierVehiclesEnabled && data)throw new ArgumentException("Courier vehicles require current rules.");

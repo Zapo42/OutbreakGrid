@@ -43,3 +43,5 @@ Foundation 122 adds [varied block sizes, three/four-home layouts and performance
 Foundation 123 adds [expanded cities and district routing](EXPANDED_DISTRICT_ROUTES.md): the Expanded 8×8 preset retains density/zoning, custom dimensions allow 2–10 blocks per axis, and new runs support up to 256 buildings. The four-home Expanded preview has 244 residents and 247 buildings. Older saves opt in through Enable expanded district routes.
 
 Foundation 124 adds [courier driving and vehicle deliveries](COURIER_VEHICLES.md). Generated cities still start without vehicles; use the assigned-courier delivery preview or place a vehicle near a distribution source and assign an idle center courier through its inspector.
+
+Foundation 125 adds [vehicle home delivery routes](HOME_VEHICLE_DELIVERIES.md), with a paused two-home preview. Assigned home boxes use reserve targets after store requests are served.

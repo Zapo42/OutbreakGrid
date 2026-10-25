@@ -11,6 +11,27 @@ public static partial class Program
     }
     private static void CheckCourierVehicleCases()
     {
+        Check("Vehicle home routes deliver physically to two reserve targets and resume exactly",()=>{
+            World world=EncounterScenarios.VehicleHomeDeliveryTest();int[] homes=world.ActorAt(0).courierBoxes;var saved=world.Capture();
+            // Isolate home work from clerk orders and consumer withdrawals.
+            saved.actors=new[]{saved.actors[0]};world=World.Restore(saved);int initial=world.FoodSupplies().RemainingMeals,meals=0;bool drove=false,unloaded=false;var destinations=new HashSet<int>();
+            for(int t=0;t<5000;t++){
+                int hunger=world.ActorAt(0).hunger;world.Step();if(world.ActorAt(0).hunger<hunger)meals++;
+                var car=world.VehicleAtIndex(0);if(car.orderId==0 && car.targetBox!=0){if(car.driverAboard && car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery){drove=true;destinations.Add(car.targetBox);}unloaded|=car.deliveryPhase==VehicleDeliveryPhase.Unloading;}
+                Require(world.FoodSupplies().RemainingMeals+meals==initial,"Home shipment created or deleted food.");
+                if(t%97==0){World copy=Documents.ParseSave(State(world));world.Step();copy.Step();Require(State(world)==State(copy),"Home vehicle journey diverged after save.");}
+                bool full=true;foreach(int box in homes)full&=StorageRules.Count(world.StorageBoxAt((box-1)%world.Width,(box-1)/world.Width),InventoryItem.Food)==6;
+                if(full && car.deliveryPhase==VehicleDeliveryPhase.None)break;
+            }
+            foreach(int box in homes)Require(StorageRules.Count(world.StorageBoxAt((box-1)%world.Width,(box-1)/world.Width),InventoryItem.Food)==6,"Home box did not reach its reserve.");
+            Require(drove && unloaded && destinations.Count==2,"Home deliveries skipped driving, unloading or a destination.");
+        });
+        Check("Home reserve changes during transit return excess food without overfilling",()=>{
+            var saved=EncounterScenarios.VehicleHomeDeliveryTest().Capture();saved.actors=new[]{saved.actors[0]};World world=World.Restore(saved);
+            for(int t=0;t<1000 && !world.VehicleAtIndex(0).driverAboard;t++)world.Step();var car=world.VehicleAtIndex(0);Require(car.driverAboard && car.cargoFood>0 && car.orderId==0,"Home shipment never departed.");int target=car.targetBox-1;Require(world.TrySetStorageFoodReserve(target%world.Width,target/world.Width,0),"Could not disable home reserve in transit.");int before=StorageRules.Count(world.StorageBoxAt(target%world.Width,target/world.Width),InventoryItem.Food);bool returned=false;
+            for(int t=0;t<2000;t++){world.Step();if(world.VehicleAtIndex(0).deliveryPhase==VehicleDeliveryPhase.None){returned=true;break;}}
+            Require(returned && StorageRules.Count(world.StorageBoxAt(target%world.Width,target/world.Width),InventoryItem.Food)==before && world.VehicleAtIndex(0).cargoFood==0 && world.VehicleAtIndex(0).handFood==0,"Disabled target changed food or stranded excess cargo: "+world.VehicleAtIndex(0).deliveryPhase+", food="+StorageRules.Count(world.StorageBoxAt(target%world.Width,target/world.Width),InventoryItem.Food)+", before="+before);
+        });
         Check("Courier physically loads boards drives and credits both finite store orders",()=>{
             World world=EncounterScenarios.VehicleDeliveryTest();int initial=world.FoodSupplies().RemainingMeals,meals=0;bool carrying=false,driving=false,returning=false,unloading=false;
             for(int t=0;t<2500 && world.CompletedSupplyOrders().Length<2;t++){

@@ -34,6 +34,7 @@ namespace Outbreak.Core
         }
         private bool RestockClaimed(int box,int exceptId)
         {
+            foreach(var car in vehicles)if(car.driverId!=exceptId && car.targetBox==box && car.orderId==0 && HealthyVehicleDriver(car) && (car.deliveryPhase==VehicleDeliveryPhase.Collecting || car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery || car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery || car.deliveryPhase==VehicleDeliveryPhase.Unloading))return true;
             for(int i=0;i<count;i++)if(actors[i].id!=exceptId && actors[i].health>0 && actors[i].species==Species.Human && actors[i].restockBox==box && actors[i].restockUntilTick>Tick)return true;return false;
         }
         private bool BeginRestockReturn(int index,ref ActorState actor,Room home,int threat)
