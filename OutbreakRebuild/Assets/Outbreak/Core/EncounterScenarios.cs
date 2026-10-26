@@ -290,7 +290,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             map.SetStorageBox(new StorageBoxDocument{x=3,y=7,capacity=12,foodReserve=6,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=12}}});
             map.SetStorageBox(new StorageBoxDocument{x=18,y=7,capacity=12,foodReserve=4,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});map.SetShelf(19,10,6,false);
             World world=new World(map,214,encounter:true,hunger:true);int id;
-            if(!world.TrySpawn(Species.Human,4,9,out id) || !world.TryAssignHouse(0,4,9) || !world.TryConfigureStore(19,9))throw new System.InvalidOperationException("Neighborhood walking preview needs its home and shop.");
+            if(!world.TrySpawn(Species.Human,4,9,out id) || !world.TryAssignHouse(0,4,9) || !world.TryConfigureStore(18,7))throw new System.InvalidOperationException("Neighborhood walking preview needs its home and shop.");
             SaveDocument saved=world.Capture();ActorState actor=saved.actors[0];actor.hunger=0;actor.carriedFood=1;
             actor.shelterId=actor.assignedHouseId;actor.shelterX=4;actor.shelterY=9;actor.shelterState=ShelterState.Inside;
             actor.storageMemory=new[]{new StorageMemoryRecord{x=3,y=7,food=12,space=0,observedTick=0}};
