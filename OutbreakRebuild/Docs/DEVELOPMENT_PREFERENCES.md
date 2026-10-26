@@ -85,3 +85,5 @@
 - Consumer vehicle shopping should mitigate the food costs of long walks through faster travel, lower exertion and larger shopping loads. This is the next transport increment; preserve finite food and needs rather than disabling hunger while driving.
 
 - Consumer vehicles need larger cargo storage and a separate finite shopping-cart/haul inventory, allowing multiple loading trips from store shelves to a parked vehicle. Keep personal rations distinct and physically unload vehicle cargo into home storage. See the cart requirements in the city-life workflow.
+
+- Foundation 128: keep recent milestone previews directly accessible under Current Tests. Put historical fixtures under Show Old Test Scenarios; preserve their original launch behavior. Keep archived scenarios available for regression checks.

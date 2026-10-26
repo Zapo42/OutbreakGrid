@@ -24,7 +24,7 @@ Group historical previews under an **Old Test Scenarios** menu. Keep the newest/
 
 1. **Foundation 126: parking bays and blocked-traffic recovery (implemented).** Off-lane single-cell bays, reserved courier destinations, safe merges, bounded detours, saved waiting state and observable tests. No vehicle teleporting, pushing pedestrians aside or ignoring lane direction.
 2. **Foundation 127: large-city shopping regression (implemented).** Seeded reproduction, persistent store destination and informative interruption reasons; verify home → store → home food delivery over longer routes.
-3. **Scenario menu organization.** Current tests at the top; collapsible Old Test Scenarios collection containing historical previews.
+3. **Foundation 128: scenario menu organization (implemented).** Current tests at the top; collapsible Old Test Scenarios collection containing historical previews.
 4. **Purposeful free-time walking.** Stable outdoor walk targets and returns, occasional safe walks, actual energy accounting. Preserve zero-cost visual idle animation separately.
 5. **Happiness foundation.** Saved −50…+50 value; charisma-based social/environment preferences, inspector explanations, exact continuation.
 6. **Parks.** Distinct generated/authored destination and safe bounded leisure walks.
@@ -49,3 +49,5 @@ User steering after Foundation 127: vehicle use should mitigate food consumption
 Use larger vehicle cargo storage, separate from the NPC's personal food inventory. Add a finite shopping-cart/haul inventory for each shopping trip so a resident can leave the car parked and make multiple shelf → cart → vehicle loading trips before driving home. Keep the cart load distinct from personal rations; its capacity and movement cost should be explicit and saved. Model unloading at home physically too, with multiple haul trips if necessary.
 
 Conserve items at every step: shelf → shopping cart → vehicle cargo → home haul/cart → home storage. Capacity, target deficit and stock limit each actual transfer. Avoid remote pickups, duplicated food, invisible infinite carry capacity or counting reserved food as already delivered. Save/load, interruption, abandoned carts, blocked parking and excess-load returns need incremental checks. Vehicle types can later vary cargo capacity; the first consumer-driving build should establish this parked-car/cart cycle before fuel or additional cosmetic variants.
+
+Foundation 128 keeps six recent previews directly accessible and moves historical scenarios into a collapsed-by-default Old Test Scenarios collection. All original launch handlers remain available. [Menu guide](SCENARIO_MENU.md).
