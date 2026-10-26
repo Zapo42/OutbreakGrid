@@ -39,7 +39,7 @@ public static partial class Program
             Action<Action<SaveDocument>> bad=change=>{var s=EncounterScenarios.VehicleLaneTest().Capture();change(s);Reject(()=>World.Restore(s));};
             bad(s=>s.map.roadLanes[0].directions=16);bad(s=>s.map.roadLanes[0].directions=0);bad(s=>s.map.schemaVersion=11);bad(s=>s.map.roadLanes[0].x=0);bad(s=>s.map.roadLanes=new[]{s.map.roadLanes[0],s.map.roadLanes[0]});
             WorldMap map=WorldMap.Restore(saved.map);var lane=saved.map.roadLanes[0];int mask=map.RoadLaneMaskAt(lane.x,lane.y);map.Set(lane.x,lane.y,Terrain.Crosswalk);Require(map.RoadLaneMaskAt(lane.x,lane.y)==mask,"Crosswalk erased lane.");map.Set(lane.x,lane.y,Terrain.Floor);Require(map.RoadLaneMaskAt(lane.x,lane.y)==0,"Removed road retained lane.");
-            saved.rulesVersion=EncounterRules.VehicleRoutesVersion;World old=World.Restore(saved);Require(old.VehicleRoutesEnabled && !old.LaneTrafficEnabled,"Legacy vehicle world silently enabled lanes.");
+            saved.rulesVersion=EncounterRules.VehicleRoutesVersion;for(int c=0;c<saved.vehicles.Length;c++)saved.vehicles[c].paint=VehiclePaint.Blue;World old=World.Restore(saved);Require(old.VehicleRoutesEnabled && !old.LaneTrafficEnabled,"Legacy vehicle world silently enabled lanes.");
             saved.vehicles[1].waitReason=VehicleWaitReason.FollowingDistance;Reject(()=>World.Restore(saved));
         });
     }

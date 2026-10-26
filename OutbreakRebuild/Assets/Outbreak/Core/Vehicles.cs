@@ -17,7 +17,11 @@ namespace Outbreak.Core
         {
             id=0;if(!VehicleRoutesEnabled || vehicles.Count==VehicleRules.Maximum || nextVehicleId==int.MaxValue || !VehicleRoad(x,y) || VehicleAt(x,y) || BodyAt(x,y) || (map.ParkingExitAt(x,y)>=0 && ParkingClaimed(Key(x,y),0)))return false;
             int heading=0,mask=VehicleDirections(x,y);while((mask&(1<<heading))==0)heading++;
-            id=nextVehicleId++;vehicles.Add(new VehicleState{id=id,x=x,y=y,heading=heading});return true;
+            id=nextVehicleId++;vehicles.Add(new VehicleState{id=id,x=x,y=y,heading=heading,paint=VehicleVariationsEnabled?(VehiclePaint)((id-1)%8):VehiclePaint.Blue});return true;
+        }
+        public bool TrySetVehiclePaint(int index,VehiclePaint paint)
+        {
+            if(!VehicleVariationsEnabled || index<0 || index>=vehicles.Count || paint<VehiclePaint.Blue || paint>VehiclePaint.Yellow)return false;var car=vehicles[index];car.paint=paint;vehicles[index]=car;return true;
         }
         private int VehicleRoute(VehicleState car,int goalX,int goalY)
         {
@@ -44,7 +48,7 @@ namespace Outbreak.Core
         {
             if(!VehicleRoutesEnabled || index<0 || index>=vehicles.Count)return false;VehicleState car=vehicles[index];if(car.driverId!=0 && !driverCommand)return false;
             if(!VehicleRoad(x,y) || (JunctionTrafficEnabled && JunctionCell(x,y)) || VehicleAt(x,y,car.id) || (map.ParkingExitAt(x,y)>=0 && ParkingClaimed(Key(x,y),car.id)) || VehicleRoute(car,x,y)<0)return false;
-            ClearTrafficRecovery(ref car);car.nextRoutePlanTick=0;car.junctionWaitTick=0;car.hasDestination=true;car.destinationX=x;car.destinationY=y;car.waitReason=VehicleWaitReason.None;car.nextMoveTick=car.x==x && car.y==y?0:Tick+VehicleRules.MoveTicks;vehicles[index]=car;return true;
+            ClearTrafficRecovery(ref car);car.nextRoutePlanTick=0;car.junctionWaitTick=0;car.hasDestination=true;car.destinationX=x;car.destinationY=y;car.waitReason=VehicleWaitReason.None;car.nextMoveTick=car.x==x && car.y==y?0:Tick+VehicleMoveTicks;vehicles[index]=car;return true;
         }
         public bool TryStopVehicle(int index)
         {
@@ -68,7 +72,7 @@ namespace Outbreak.Core
             for(int i=0;i<vehicles.Count;i++)
             {
                 VehicleState car=vehicles[i];if(car.driverId!=0 && (!car.driverAboard || car.deliveriesPaused || !HealthyVehicleDriver(car)))continue;if(!car.hasDestination || car.nextMoveTick==0 || car.nextMoveTick>Tick)continue;
-                car.nextMoveTick=Tick+VehicleRules.MoveTicks;int direction=VehicleRoute(car,car.destinationX,car.destinationY);
+                car.nextMoveTick=Tick+VehicleMoveTicks;int direction=VehicleRoute(car,car.destinationX,car.destinationY);
                 if(direction<0){car.waitReason=VehicleWaitReason.NoRoute;vehicles[i]=car;continue;}
                 int nx=car.x+carDX[direction],ny=car.y+carDY[direction];
                 VehicleWaitReason junctionReason=JunctionWaitReason(car,nx,ny,junctionOccupants);
@@ -96,13 +100,14 @@ namespace Outbreak.Core
             foreach(VehicleState car in records)
             {
                 if(car.id<=previous || car.id>=next || car.heading<0 || car.heading>3 || !VehicleRoad(car.x,car.y) || VehicleAt(car.x,car.y) || BodyAt(car.x,car.y,car.driverAboard?car.driverId:0) || car.waitReason<VehicleWaitReason.None || car.waitReason>VehicleWaitReason.ExitBlocked || (!LaneTrafficEnabled && car.waitReason==VehicleWaitReason.FollowingDistance))throw new ArgumentException("Invalid vehicle identity, placement or heading.");
+                if(car.paint<VehiclePaint.Blue || car.paint>VehiclePaint.Yellow || (!VehicleVariationsEnabled && car.paint!=VehiclePaint.Blue))throw new ArgumentException("Invalid or unsupported vehicle paint.");
                 ValidateJunctionRequest(car);ValidateTrafficRecovery(car);
                 if(!car.hasDestination){if(car.destinationX!=0 || car.destinationY!=0 || car.nextMoveTick!=0 || car.waitReason!=VehicleWaitReason.None)throw new ArgumentException("Parked vehicle retained a route.");}
                 else
                 {
                     if(!map.Contains(car.destinationX,car.destinationY) || (!TerrainRules.RoadSurface(map.Get(car.destinationX,car.destinationY)) && map.ParkingExitAt(car.destinationX,car.destinationY)<0))throw new ArgumentException("Invalid vehicle destination.");
                     bool arrived=car.x==car.destinationX && car.y==car.destinationY;
-                    if(arrived?(car.nextMoveTick!=0 || car.waitReason!=VehicleWaitReason.None):(car.nextMoveTick<=Tick || car.nextMoveTick-Tick>VehicleRules.MoveTicks))throw new ArgumentException("Invalid vehicle movement clock.");
+                    if(arrived?(car.nextMoveTick!=0 || car.waitReason!=VehicleWaitReason.None):(car.nextMoveTick<=Tick || car.nextMoveTick-Tick>VehicleMoveTicks))throw new ArgumentException("Invalid vehicle movement clock.");
                 }
                 vehicles.Add(car);previous=car.id;
             }

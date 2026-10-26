@@ -21,7 +21,7 @@ public static partial class Program
             for(int t=1;t<=60;t++){
                 world.Step();int inside=0;for(int i=0;i<world.VehicleCount;i++){var car=world.VehicleAtIndex(i);if(TestJunctionCell(world,car.x,car.y))inside++;}
                 Require(inside<=1,"Multiple vehicles occupied a marked junction.");yielded|=world.VehicleStatus(1)=="Waiting for intersection";
-                if(t==3)Require(world.VehicleAtIndex(0).x==3 && world.VehicleAtIndex(1).y==5 && world.VehicleAtIndex(1).junctionWaitTick==3,"Simultaneous arrival tie did not use stable vehicle identity.");
+                if(t==world.VehicleMoveTicks)Require(world.VehicleAtIndex(0).x==3 && world.VehicleAtIndex(1).y==5 && world.VehicleAtIndex(1).junctionWaitTick==world.VehicleMoveTicks,"Simultaneous arrival tie did not use stable vehicle identity.");
             }
             Require(yielded && world.VehicleStatus(0)=="Arrived" && world.VehicleStatus(1)=="Arrived" && world.Capture().randomState==random,"Junction trial failed arrival or consumed random draws.");
         });
@@ -31,8 +31,8 @@ public static partial class Program
             Require(TestJunctionCell(world,world.VehicleAtIndex(0).x,world.VehicleAtIndex(0).y) && TestJunctionCell(world,world.VehicleAtIndex(1).x,world.VehicleAtIndex(1).y),"One junction unnecessarily locked the entire road network.");
         });
         Check("Junction priority uses waiting age before vehicle identity",()=>{
-            var saved=EncounterScenarios.VehicleIntersectionTest().Capture();saved.vehicles[0].x=1;World world=World.Restore(saved);int id;Require(world.TryPlaceVehicle(3,3,out id),"Could not place junction blocker.");Run(world,9);
-            Require(world.VehicleAtIndex(0).junctionWaitTick==6 && world.VehicleAtIndex(1).junctionWaitTick==3,"Approach arrival times not recorded.");Require(world.TrySetVehicleDestination(2,2,3),"Junction blocker could not leave.");Run(world,6);
+            var saved=EncounterScenarios.VehicleIntersectionTest().Capture();saved.vehicles[0].x=1;World world=World.Restore(saved);int id;Require(world.TryPlaceVehicle(3,3,out id),"Could not place junction blocker.");Run(world,world.VehicleMoveTicks*3);
+            Require(world.VehicleAtIndex(0).junctionWaitTick==world.VehicleMoveTicks*2 && world.VehicleAtIndex(1).junctionWaitTick==world.VehicleMoveTicks,"Approach arrival times not recorded.");Require(world.TrySetVehicleDestination(2,2,3),"Junction blocker could not leave.");Run(world,world.VehicleMoveTicks*2);
             Require(TestJunctionCell(world,world.VehicleAtIndex(1).x,world.VehicleAtIndex(1).y) && !TestJunctionCell(world,world.VehicleAtIndex(0).x,world.VehicleAtIndex(0).y),"Newer lower-ID arrival stole right-of-way.");
             Run(world,60);Require(world.VehicleStatus(0)=="Arrived" && world.VehicleStatus(1)=="Arrived","A queued approach starved.");
         });
@@ -50,7 +50,7 @@ public static partial class Program
         Check("Junction commands clear queues reject junction destinations and preserve legacy opt-in",()=>{
             World world=EncounterScenarios.VehicleIntersectionTest();Run(world,3);string before=State(world);Require(!world.TrySetVehicleDestination(1,4,3) && State(world)==before,"Destination allowed a car to park inside junction.");
             Require(world.TryStopVehicle(1) && world.VehicleAtIndex(1).junctionWaitTick==0,"Stop retained priority claim.");Require(world.TrySetVehicleDestination(1,4,1) && world.VehicleAtIndex(1).junctionWaitTick==0,"Retarget retained old queue age.");
-            var old=EncounterScenarios.VehicleIntersectionTest().Capture();old.rulesVersion=EncounterRules.LaneTrafficVersion;World legacy=World.Restore(old);Require(!legacy.JunctionTrafficEnabled && legacy.LaneTrafficEnabled,"Old lane saves silently enabled junction behavior.");Run(legacy,3);int inside=0;for(int i=0;i<legacy.VehicleCount;i++){var car=legacy.VehicleAtIndex(i);if(TestJunctionCell(legacy,car.x,car.y))inside++;}Require(inside==2,"Legacy junction movement changed.");
+            var old=EncounterScenarios.VehicleIntersectionTest().Capture();old.rulesVersion=EncounterRules.LaneTrafficVersion;for(int c=0;c<old.vehicles.Length;c++)old.vehicles[c].paint=VehiclePaint.Blue;World legacy=World.Restore(old);Require(!legacy.JunctionTrafficEnabled && legacy.LaneTrafficEnabled,"Old lane saves silently enabled junction behavior.");Run(legacy,3);int inside=0;for(int i=0;i<legacy.VehicleCount;i++){var car=legacy.VehicleAtIndex(i);if(TestJunctionCell(legacy,car.x,car.y))inside++;}Require(inside==2,"Legacy junction movement changed.");
         });
         Check("Junction save validation rejects malformed and unsupported queue fields",()=>{
             Action<Action<SaveDocument>> bad=change=>{var world=EncounterScenarios.VehicleIntersectionTest();Run(world,3);var saved=world.Capture();change(saved);Reject(()=>World.Restore(saved));};

@@ -10,6 +10,14 @@ namespace Outbreak.UnityAdapter
         private VehicleHeadingPresentation[] vehicleHeading=new VehicleHeadingPresentation[VehicleRules.Maximum];
         private MovementPresentation[] vehicleMotion=new MovementPresentation[VehicleRules.Maximum];private int knownVehicles;
         private bool VehicleSelected { get { return selectedVehicle>=0 && selectedVehicle<world.VehicleCount && selected<0 && selectedStorageBox==0 && selectedShelf==0 && selectedPhone==0 && selectedBatCell<0; } }
+        private static Color VehiclePaintColor(VehiclePaint paint)
+        {
+            switch(paint){case VehiclePaint.Red:return new Color(0.65f,0.24f,0.20f);case VehiclePaint.Green:return new Color(0.25f,0.48f,0.30f);case VehiclePaint.Sand:return new Color(0.67f,0.58f,0.38f);case VehiclePaint.Silver:return new Color(0.62f,0.65f,0.68f);case VehiclePaint.Charcoal:return new Color(0.25f,0.27f,0.29f);case VehiclePaint.White:return new Color(0.84f,0.84f,0.79f);case VehiclePaint.Yellow:return new Color(0.79f,0.65f,0.22f);default:return new Color(0.18f,0.42f,0.65f);}
+        }
+        private static void PrepareFasterVehicleClocks(SaveDocument saved)
+        {
+            if(saved.vehicles==null)return;for(int i=0;i<saved.vehicles.Length;i++){var car=saved.vehicles[i];if(car.nextMoveTick>saved.tick)car.nextMoveTick=saved.tick+Math.Min(2,car.nextMoveTick-saved.tick);if(car.exitAtTick>saved.tick)car.exitAtTick=saved.tick+Math.Min(2,car.exitAtTick-saved.tick);saved.vehicles[i]=car;}
+        }
         private void SnapVehicleMotion()
         {
             knownVehicles=world.VehicleCount;for(int i=0;i<knownVehicles;i++){VehicleState car=world.VehicleAtIndex(i);vehicleMotion[i].Snap(car.x,car.y,world.Tick);vehicleHeading[i].Snap(car.heading,world.Tick);}
@@ -17,7 +25,7 @@ namespace Outbreak.UnityAdapter
         private void ObserveVehicleMotion()
         {
             if(knownVehicles!=world.VehicleCount){SnapVehicleMotion();return;}
-            for(int i=0;i<knownVehicles;i++){VehicleState car=world.VehicleAtIndex(i);if(clock.Paused){vehicleMotion[i].Snap(car.x,car.y,world.Tick);vehicleHeading[i].Snap(car.heading,world.Tick);}else{vehicleMotion[i].Observe(car.x,car.y,world.Tick,interval:VehicleRules.MoveTicks);vehicleHeading[i].Observe(car.heading,world.Tick);}}
+            for(int i=0;i<knownVehicles;i++){VehicleState car=world.VehicleAtIndex(i);if(clock.Paused){vehicleMotion[i].Snap(car.x,car.y,world.Tick);vehicleHeading[i].Snap(car.heading,world.Tick);}else{vehicleMotion[i].Observe(car.x,car.y,world.Tick,interval:world.VehicleMoveTicks);vehicleHeading[i].Observe(car.heading,world.Tick,world.VehicleMoveTicks);}}
         }
         private void SelectVehicle(int index)
         {
@@ -42,7 +50,7 @@ namespace Outbreak.UnityAdapter
         private void DrawSelectedVehicle()
         {
             int index=selectedVehicle;VehicleState car=world.VehicleAtIndex(index);
-            GUILayout.Label("VEHICLE #"+car.id+" at "+car.x+", "+car.y);GUILayout.Label("Status: "+world.VehicleStatus(index));
+            GUILayout.Label("VEHICLE #"+car.id+" at "+car.x+", "+car.y);GUILayout.Label("Status: "+world.VehicleStatus(index));GUILayout.Label("Vehicle color: "+car.paint);GUILayout.Label(world.VehicleVariationsEnabled?"Road pace: Faster":"Road pace: Legacy");if(world.VehicleVariationsEnabled && GUILayout.Button("Next vehicle color"))Queue(()=>{SetPaused(true);world.TrySetVehiclePaint(index,(VehiclePaint)(((int)car.paint+1)%8));});
             if(car.consumerDriver){GUILayout.Label("Shopper #"+car.driverId+(car.driverAboard?" (aboard)":" (on foot)"));GUILayout.Label(world.ConsumerVehicleStatus(index));GUILayout.Label("Vehicle groceries: "+car.cargoFood+" / "+ConsumerVehicleRules.CargoMeals);GUILayout.Label("Shopping cart: "+car.handFood+" / "+ConsumerVehicleRules.CartMeals);if(car.purchaseGoal>0)GUILayout.Label("Trip target: "+car.purchaseGoal+" meals");if(car.deliveriesPaused && GUILayout.Button("Resume vehicle shopping"))Queue(()=>{if(!world.TryResumeVehicleCourier(index))status="Assign a healthy replacement shopper before resuming.";});if(car.consumerPhase==ConsumerVehiclePhase.None && car.cargoFood==0 && !car.driverAboard && GUILayout.Button("Unassign shopper"))Queue(()=>world.TryUnassignVehicleCourier(index));}
             if(car.driverId!=0 && !car.consumerDriver){GUILayout.Label("Courier #"+car.driverId+(car.driverAboard?" (aboard)":" (on foot)"));GUILayout.Label(world.VehicleDeliveryStatus(index));GUILayout.Label("Cargo: "+car.cargoFood+" / "+CourierVehicleRules.CargoMeals+" | Shipment with courier: "+car.handFood);if(car.deliveriesPaused && GUILayout.Button("Resume courier deliveries"))Queue(()=>{if(!world.TryResumeVehicleCourier(index))status="Assign a healthy replacement courier before resuming deliveries.";});if(car.deliveryPhase==VehicleDeliveryPhase.None && !car.driverAboard && GUILayout.Button("Unassign courier"))Queue(()=>world.TryUnassignVehicleCourier(index));}
             if(world.CourierVehiclesEnabled && !car.driverAboard)for(int a=0;a<world.Count;a++){int actorIndex=a;var person=world.ActorAt(a);if(person.species==Species.Human && person.health>0 && person.turnAtTick==0 && person.distributionCenterId!=0 && world.AssignedVehicle(a)<0 && GUILayout.Button("Assign courier #"+person.id))Queue(()=>{if(!world.TryAssignVehicleCourier(index,actorIndex))status="Courier needs an idle assignment and a vehicle near the source crate.";});}
@@ -89,7 +97,8 @@ namespace Outbreak.UnityAdapter
                 Rect body=new Rect(bounds.x+(x-left+(1-w)/2)*cell,bounds.y+(y-top+(1-h)/2)*cell,w*cell,h*cell);
                 Matrix4x4 previousMatrix=GUI.matrix;float pivotX=body.x+body.width/2,pivotY=body.y+body.height/2;
                 GUIUtility.RotateAroundPivot(angle,new Vector2(pivotX,pivotY));
-                GUI.color=VehicleSelected && i==selectedVehicle?Color.yellow:new Color(0.18f,0.42f,0.65f);GUI.DrawTexture(body,Texture2D.whiteTexture);
+                if(VehicleSelected && i==selectedVehicle){GUI.color=Color.yellow;GUI.DrawTexture(new Rect(body.x-cell*0.05f,body.y-cell*0.05f,body.width+cell*0.1f,body.height+cell*0.1f),Texture2D.whiteTexture);}
+                GUI.color=VehiclePaintColor(car.paint);GUI.DrawTexture(body,Texture2D.whiteTexture);
                 GUI.color=new Color(0.70f,0.84f,0.90f);GUI.DrawTexture(new Rect(body.x+body.width*0.3f,body.y+body.height*0.2f,body.width*0.4f,body.height*0.6f),Texture2D.whiteTexture);
                 if(car.cargoFood>0){GUI.color=new Color(0.66f,0.48f,0.24f);GUI.DrawTexture(new Rect(body.x+body.width*0.06f,body.y+body.height*0.28f,body.width*0.18f,body.height*0.44f),Texture2D.whiteTexture);}
                 GUI.color=new Color(0.10f,0.11f,0.12f);

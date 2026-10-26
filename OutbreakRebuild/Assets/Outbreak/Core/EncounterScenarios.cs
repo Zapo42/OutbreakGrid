@@ -280,6 +280,12 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World FasterVehicleColorsTest()
+        {
+            WorldMap map=WorldMap.Restore(VehicleRoutingTest().Capture().map);foreach(int x in new[]{6,8,10,12,16,18,20,22})map.SetParkingBay(x,3,1);
+            World world=new World(map,214,encounter:true,hunger:true);int id;foreach(int x in new[]{6,8,10,12,16,18,20,22})if(!world.TryPlaceVehicle(x,3,out id))throw new System.InvalidOperationException("Vehicle color preview could not place its parked cars.");
+            if(!world.TrySetVehicleDestination(0,23,11))throw new System.InvalidOperationException("Vehicle color preview needs a clear demonstration route.");return world;
+        }
         public static World ConsumerVehicleShoppingTest()
         {
             World original=LargeCityShoppingTest();SaveDocument saved=original.Capture();int home=saved.actors[0].assignedHouseId,shop=saved.actors[0].familiarStoreId;StorageBoxDocument homeBox=null,shopBox=null;

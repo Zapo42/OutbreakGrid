@@ -64,7 +64,7 @@ namespace Outbreak.Core
         private void FinishVehicleDrivers()
         {
             if(!CourierVehiclesEnabled)return;for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(car.consumerDriver){FinishConsumerVehicle(i);continue;}if(!car.driverAboard || car.deliveriesPaused || !car.hasDestination || car.nextMoveTick!=0)continue;
-                bool delivery=car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery;if(!delivery && car.deliveryPhase!=VehicleDeliveryPhase.DrivingToSource)continue;if(car.exitAtTick==0){car.exitAtTick=Tick+VehicleRules.MoveTicks;vehicles[i]=car;continue;}if(Tick<car.exitAtTick)continue;if(!ExitVehicle(i))continue;car=vehicles[i];StopVehicleMotion(ref car);car.handFood=car.cargoFood;car.cargoFood=0;car.deliveryPhase=delivery?VehicleDeliveryPhase.Unloading:VehicleDeliveryPhase.Collecting;if(!delivery)car.targetBox=car.sourceBox;vehicles[i]=car;
+                bool delivery=car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery;if(!delivery && car.deliveryPhase!=VehicleDeliveryPhase.DrivingToSource)continue;if(car.exitAtTick==0){car.exitAtTick=Tick+VehicleMoveTicks;vehicles[i]=car;continue;}if(Tick<car.exitAtTick)continue;if(!ExitVehicle(i))continue;car=vehicles[i];StopVehicleMotion(ref car);car.handFood=car.cargoFood;car.cargoFood=0;car.deliveryPhase=delivery?VehicleDeliveryPhase.Unloading:VehicleDeliveryPhase.Collecting;if(!delivery)car.targetBox=car.sourceBox;vehicles[i]=car;
             }
         }
         private void CancelVehicleOrder(int orderId)
@@ -166,7 +166,7 @@ namespace Outbreak.Core
                 if(car.orderId!=0 && !claims.Add(car.orderId))throw new ArgumentException("Vehicle order claimed twice.");
                 if(car.lastMealTick<0 || car.lastMealTick>Tick)throw new ArgumentException("Invalid vehicle meal clock.");
                 if(car.nextRoutePlanTick<0 || car.nextRoutePlanTick>Tick+30 || (car.nextRoutePlanTick!=0 && (!car.driverAboard || car.hasDestination)))throw new ArgumentException("Invalid vehicle route retry clock.");
-                if(car.exitAtTick<0 || car.exitAtTick>Tick+VehicleRules.MoveTicks || (car.exitAtTick!=0 && (!car.driverAboard || !car.hasDestination || car.nextMoveTick!=0)))throw new ArgumentException("Invalid vehicle exit clock.");
+                if(car.exitAtTick<0 || car.exitAtTick>Tick+VehicleMoveTicks || (car.exitAtTick!=0 && (!car.driverAboard || !car.hasDestination || car.nextMoveTick!=0)))throw new ArgumentException("Invalid vehicle exit clock.");
                 if(!car.driverAboard && car.hasDestination)throw new ArgumentException("Unoccupied courier vehicle retained an active route.");
                 if(car.orderId!=0)for(int a=0;a<count;a++)if(actors[a].courierOrderId==car.orderId)throw new ArgumentException("Supply order claimed by driver and pedestrian.");
                 if(car.driverAboard && actors[index].grappledById!=0)throw new ArgumentException("Vehicle occupant is also grappled.");

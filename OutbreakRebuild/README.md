@@ -1,4 +1,4 @@
-Current build: **Foundation 129 / consumer vehicles and shopping carts**. Targets **Unity 6000.6.3f1**. Consumers use 48-meal vehicle cargo and separate six-meal carts for physical store loading and home unloading. Current rules also fix depleted-store/hungry-return loops with alternate familiar shops. [Vehicle shopping guide](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Scenario menu](Docs/SCENARIO_MENU.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+Current build: **Foundation 130 / faster cars and saved paint colors**. Targets **Unity 6000.6.3f1**. Cars travel every two ticks with matching smooth turns; eight saved colors remain visible when selected. [Speed, colors and older-run upgrade](Docs/VEHICLE_SPEED_AND_COLORS.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

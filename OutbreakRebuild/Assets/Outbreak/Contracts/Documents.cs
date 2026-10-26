@@ -187,12 +187,14 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired=true)] public long createdTick;
         [DataMember(EmitDefaultValue=false)] public int deliveredMeals;
     }
+    public enum VehiclePaint { Blue, Red, Green, Sand, Silver, Charcoal, White, Yellow }
     public enum VehicleWaitReason { None, Pedestrian, Vehicle, NoRoute, FollowingDistance, Intersection, ExitBlocked }
     public enum ConsumerVehiclePhase { None, BoardingForStore, DrivingToStore, Shopping, LoadingCar, BoardingForHome, DrivingHome, FetchHomeCart, UnloadingHome, ReturnCart, RecoverCart }
     public enum VehicleDeliveryPhase { None, Collecting, BoardingForDelivery, DrivingToDelivery, Unloading, BoardingForSource, DrivingToSource, RecoveringShipment }
     [DataContract] public struct VehicleState
     {
         [DataMember(IsRequired=true)] public int id,x,y,heading;
+        [DataMember(EmitDefaultValue=false)] public VehiclePaint paint;
         [DataMember] public bool hasDestination;
         [DataMember] public int destinationX,destinationY;
         [DataMember] public long nextMoveTick;
