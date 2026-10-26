@@ -29,6 +29,19 @@ public static partial class Program
             long next=world.ActorAt(0).nextLeisureTick;Require(next>world.Tick,"Walk did not schedule an occasional cooldown.");
             for(int t=0;t<50 && world.Tick+1<next;t++){world.Step();Require(world.ActorAt(0).leisurePhase==HumanLeisurePhase.None,"Finished walk immediately restarted.");}
         });
+        Check("A normal unscheduled resident waits at home before occasionally taking a walk",()=>{
+            var saved=EncounterScenarios.HumanLeisureTest().Capture();saved.actors[0].nextLeisureTick=0;World world=World.Restore(saved);int home=world.ActorAt(0).assignedHouseId;
+            for(int t=0;t<300;t++){world.Step();var actor=world.ActorAt(0);Require(actor.leisurePhase==HumanLeisurePhase.None && world.HouseAt(actor.x,actor.y)==home,"Initial free time fell through to automatic shelter departure.");}
+            bool walked=false;for(int t=0;t<120;t++){world.Step();walked|=world.ActorAt(0).leisurePhase==HumanLeisurePhase.Outbound;}Require(walked,"Initial bounded waiting never produced an optional walk.");
+        });
+        Check("Changing or clearing an assigned home immediately clears saved leisure geometry",()=>{
+            foreach(bool active in new[]{false,true})foreach(bool unassign in new[]{false,true}){
+                World world=active?LeisureAtPhase(HumanLeisurePhase.Pausing):EncounterScenarios.HumanLeisureTest();
+                Require(unassign?world.TryUnassignHouse(0):world.TryAssignHouse(0,18,9),"House command was unexpectedly rejected.");
+                var actor=world.ActorAt(0);Require(actor.leisurePhase==HumanLeisurePhase.None && actor.nextLeisureTick==0 && actor.leisureUntilTick==0 && actor.leisureHomeCell==0 && actor.leisureDoor==0,"House change retained an old walk or cooldown.");
+                Require(State(world)==State(Documents.ParseSave(State(world))),"House command produced an unloadable save before the next tick.");
+            }
+        });
         Check("Leisure save continuation is exact during outbound pause return and cooldown",()=>{
             foreach(var phase in new[]{HumanLeisurePhase.Outbound,HumanLeisurePhase.Pausing,HumanLeisurePhase.Returning}){
                 World world=LeisureAtPhase(phase),copy=Documents.ParseSave(State(world));string paused=State(world);TickClock clock=new TickClock();clock.Advance(100,world.Step);Require(State(world)==paused,"Paused real time advanced a walk.");
@@ -52,6 +65,9 @@ public static partial class Program
                 saved.actors[0]=actor;World world=World.Restore(saved);Run(world,5);var after=world.ActorAt(0);Require(after.leisurePhase!=HumanLeisurePhase.Outbound && after.leisurePhase!=HumanLeisurePhase.Pausing,"Optional trip ignored changed condition "+condition+".");
             }
         });
+        Check("A bitten walker abandons leisure between movement decisions and clears it on turning",()=>{
+            var saved=LeisureAtPhase(HumanLeisurePhase.Pausing).Capture();saved.actors[0].health=90;saved.actors[0].turnAtTick=saved.tick+10;World world=World.Restore(saved);world.Step();Require(world.ActorAt(0).leisurePhase==HumanLeisurePhase.None,"Bitten walker retained leisure until its next movement action.");Run(world,10);var actor=world.ActorAt(0);Require(actor.species==Species.Zombie && actor.leisurePhase==HumanLeisurePhase.None && actor.nextLeisureTick==0,"Turning retained human leisure state.");Require(State(world)==State(Documents.ParseSave(State(world))),"Turned former walker cannot save.");
+        });
         Check("A visible zombie interrupts optional leisure promptly",()=>{
             World world=LeisureAtPhase(HumanLeisurePhase.Pausing);var person=world.ActorAt(0);int zombie;bool placed=false;
             for(int y=person.y-2;y<=person.y+2 && !placed;y++)for(int x=person.x-2;x<=person.x+2 && !placed;x++)if((x!=person.x || y!=person.y) && world.HouseAt(x,y)==0)placed=world.TrySpawn(Species.Zombie,x,y,out zombie);
@@ -60,6 +76,11 @@ public static partial class Program
         Check("Assigned work and home shopping retain priority over optional walking",()=>{
             World work=EncounterScenarios.StoreShoppingTest();Run(work,100);Require(work.ActorAt(1).leisurePhase==HumanLeisurePhase.None,"Clerk took a leisure trip during work.");
             World shop=EncounterScenarios.LargeCityShoppingTest();bool shopping=false;for(int t=0;t<150;t++){shop.Step();var actor=shop.ActorAt(0);shopping|=actor.shoppingStoreId!=0;Require(actor.leisurePhase==HumanLeisurePhase.None,"Empty-home shopping was replaced by leisure.");}Require(shopping,"Priority fixture did not begin actual shopping.");
+        });
+        Check("Newly observed empty home supplies interrupt an outbound walk for real shopping",()=>{
+            World initial=LeisureAtPhase(HumanLeisurePhase.Outbound);var saved=initial.Capture();var actor=saved.actors[0];actor.intelligence=10;actor.familiarStoreId=initial.HouseAt(18,9);actor.storageMemory[0].food=0;actor.storageMemory[0].space=12;actor.storageMemory[0].observedTick=saved.tick;actor.shelfMemory=new[]{new ShelfMemoryRecord{x=19,y=10,food=6,observedTick=saved.tick}};saved.actors[0]=actor;
+            foreach(var box in saved.map.storageBoxes)if(box.x==3 && box.y==7)box.items=new ItemStackDocument[0];
+            World world=World.Restore(saved);Run(world,10);var after=world.ActorAt(0);Require(after.leisurePhase==HumanLeisurePhase.None && after.restockPhase!=RestockPhase.None,"Optional walk displaced newly necessary home shopping.");
         });
         Check("An enclosed home with no safe outdoor destination does not create a leisure trip",()=>{
             World original=EncounterScenarios.HumanLeisureTest();var saved=original.Capture();WorldMap map=WorldMap.Restore(saved.map);
@@ -74,7 +95,7 @@ public static partial class Program
         Check("Legacy rules99 retains independently recorded pre-leisure continuation",()=>{
             var saved=EncounterScenarios.HomeSupplyInspectionTest().Capture();saved.rulesVersion="encounter-prototype-99";World legacy=World.Restore(saved);Require(!legacy.LeisureEnabled,"Older run silently enabled free-time walking.");Run(legacy,600);
             // Digest was generated from unmodified c9d5cd2 before any leisure source was copied into QA.
-            string digest=Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(State(legacy))));Require(digest=="0B8A502E56A55C18298230B5B9C35D85C1908B8E6AFC7390CDAB3552D98916F6","Rules99 continuation changed from the independent prior release.");
+            string digest;using(var sha=SHA256.Create())digest=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(State(legacy)))).Replace("-","");Require(digest=="0B8A502E56A55C18298230B5B9C35D85C1908B8E6AFC7390CDAB3552D98916F6","Rules99 continuation changed from the independent prior release.");
         });
     }
 }
