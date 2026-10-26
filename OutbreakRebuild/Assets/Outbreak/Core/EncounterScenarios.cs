@@ -280,6 +280,22 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World HumanLeisureTest()
+        {
+            // A stocked home and unrelated shop make the complete outing visible without urgent errands.
+            WorldMap map=new WorldMap(28,20,"Neighborhood free-time walks","human-leisure-1");
+            for(int y=0;y<20;y++)for(int x=0;x<28;x++)if(x==0 || y==0 || x==27 || y==19)map.Set(x,y,Terrain.Wall);
+            AddShelterRoom(map,2,6,false);AddShelterRoom(map,17,6,false);
+            for(int x=7;x<=16;x++)map.Set(x,9,Terrain.Sidewalk);
+            map.SetStorageBox(new StorageBoxDocument{x=3,y=7,capacity=12,foodReserve=6,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=12}}});
+            map.SetStorageBox(new StorageBoxDocument{x=18,y=7,capacity=12,foodReserve=4,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=6}}});map.SetShelf(19,10,6,false);
+            World world=new World(map,214,encounter:true,hunger:true);int id;
+            if(!world.TrySpawn(Species.Human,4,9,out id) || !world.TryAssignHouse(0,4,9) || !world.TryConfigureStore(19,9))throw new System.InvalidOperationException("Neighborhood walking preview needs its home and shop.");
+            SaveDocument saved=world.Capture();ActorState actor=saved.actors[0];actor.hunger=0;actor.carriedFood=1;
+            actor.shelterId=actor.assignedHouseId;actor.shelterX=4;actor.shelterY=9;actor.shelterState=ShelterState.Inside;
+            actor.storageMemory=new[]{new StorageMemoryRecord{x=3,y=7,food=12,space=0,observedTick=0}};
+            actor.nextLeisureTick=1;saved.actors[0]=actor;return World.Restore(saved);
+        }
         public static World FasterVehicleColorsTest()
         {
             WorldMap map=WorldMap.Restore(VehicleRoutingTest().Capture().map);foreach(int x in new[]{6,8,10,12,16,18,20,22})map.SetParkingBay(x,3,1);
