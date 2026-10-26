@@ -12,6 +12,7 @@
     <Compile Include="../Assets/Outbreak/Persistence/*.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="HumanReactionChecks.cs" />
+    <Compile Include="HumanLeisureChecks.cs" />
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />
     <Compile Include="ShelterChecks.cs" />
