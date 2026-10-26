@@ -18,3 +18,5 @@ All scenario launch handlers, authored setups, starting pause states, replacemen
 This build changes menu presentation only. Consumer vehicle shopping with larger cargo and finite carts remains the next transport task in [the development workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 Automated validation: 2284 UI assertions and 3 NewOnly input assertions passed. All literal button labels were checked against the original menu during extraction. Core behavior is unchanged; native Unity layout remains unverified.
+
+Foundation 129 adds **Inspect Vehicle Shopping Paused** to Current Tests. Historical previews remain in the same collapsed collection.

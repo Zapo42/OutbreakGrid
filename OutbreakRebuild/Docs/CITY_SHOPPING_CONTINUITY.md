@@ -1,3 +1,5 @@
+Foundation 129 adds [consumer vehicle/cart shopping and the depleted-shop/hungry-return correction](CONSUMER_VEHICLE_SHOPPING.md). The Foundation 127 history below describes the earlier baseline.
+
 # Foundation 127: persistent shopping trips in generated cities
 
 Target: Unity 6000.6.3f1. Native Unity testing remains paused after Foundation 82.

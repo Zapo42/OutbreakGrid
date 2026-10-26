@@ -87,6 +87,7 @@ namespace Outbreak.Core
             if(ShoppingContinuityEnabled && actor.familiarStoreId!=0 && !FailedStore(actor,actor.familiarStoreId)){
                 Room familiar=FindRoom(actor.familiarStoreId);if(familiar!=null && !KnownRoomDanger(actor,familiar))foreach(int door in familiar.doors){int length;if(ShelterRoute(actor,door%Width,door/Width,0,out length,foodRoute:true)>=0 && length<best){best=length;chosen=familiar.id;}}
             }
+            if(ConsumerVehiclesEnabled && actor.additionalFamiliarStores!=null)foreach(int id in actor.additionalFamiliarStores){if(FailedStore(actor,id))continue;Room familiar=FindRoom(id);if(familiar==null || KnownRoomDanger(actor,familiar))continue;foreach(int door in familiar.doors){int length;if(ShelterRoute(actor,door%Width,door/Width,0,out length,foodRoute:true)>=0 && length<best){best=length;chosen=id;}}}
             return chosen;
         }
         private bool EndUnsuccessfulShopping(int index,ref ActorState actor,Room home)

@@ -14,7 +14,7 @@ namespace Outbreak.Core
         public bool TryAssignVehicleCourier(int vehicleIndex,int actorIndex)
         {
             if(!CourierVehiclesEnabled || vehicleIndex<0 || vehicleIndex>=vehicles.Count || actorIndex<0 || actorIndex>=count || AssignedVehicle(actorIndex)>=0)return false;
-            VehicleState car=vehicles[vehicleIndex];ActorState actor=actors[actorIndex];if(actor.species!=Species.Human || actor.health<=0 || actor.turnAtTick!=0 || actor.distributionCenterId==0 || actor.courierSourceBox==0 || actor.restockPhase!=RestockPhase.None || actor.courierOrderId!=0 || actor.grappledById!=0 || car.driverAboard || (car.driverId!=0 && HealthyVehicleDriver(car)))return false;
+            VehicleState car=vehicles[vehicleIndex];if(car.consumerDriver)return false;ActorState actor=actors[actorIndex];if(actor.species!=Species.Human || actor.health<=0 || actor.turnAtTick!=0 || actor.distributionCenterId==0 || actor.courierSourceBox==0 || actor.restockPhase!=RestockPhase.None || actor.courierOrderId!=0 || actor.grappledById!=0 || car.driverAboard || (car.driverId!=0 && HealthyVehicleDriver(car)))return false;
             int source=actor.courierSourceBox-1;if(car.sourceBox!=0 && car.sourceBox!=actor.courierSourceBox)return false;if(car.deliveryPhase==VehicleDeliveryPhase.None && Math.Max(Math.Abs(car.x-source%Width),Math.Abs(car.y-source/Width))>64)return false;
             StopVehicleMotion(ref car);car.driverId=actor.id;car.deliveriesPaused=false;
             if(car.shipmentDropped)car.deliveryPhase=VehicleDeliveryPhase.RecoveringShipment;else if(car.cargoFood>0)car.deliveryPhase=VehicleDeliveryPhase.BoardingForSource;
@@ -22,7 +22,7 @@ namespace Outbreak.Core
         }
         public bool TryUnassignVehicleCourier(int index)
         {
-            if(index<0 || index>=vehicles.Count)return false;var car=vehicles[index];if(car.driverId==0 || car.driverAboard || car.deliveryPhase!=VehicleDeliveryPhase.None || car.cargoFood!=0 || car.handFood!=0)return false;car.driverId=0;car.deliveriesPaused=false;car.driveEffort=0;car.lastMealTick=0;vehicles[index]=car;return true;
+            if(index<0 || index>=vehicles.Count)return false;var car=vehicles[index];if(car.driverId==0 || car.driverAboard || car.deliveryPhase!=VehicleDeliveryPhase.None || car.consumerPhase!=ConsumerVehiclePhase.None || car.cargoFood!=0 || car.handFood!=0)return false;car.driverId=0;car.consumerDriver=false;car.deliveriesPaused=false;car.driveEffort=0;car.lastMealTick=0;vehicles[index]=car;return true;
         }
         public bool TryResumeVehicleCourier(int index){if(index<0 || index>=vehicles.Count || !HealthyVehicleDriver(vehicles[index]))return false;var car=vehicles[index];car.deliveriesPaused=false;vehicles[index]=car;return true;}
         private static void StopVehicleMotion(ref VehicleState car){ClearTrafficRecovery(ref car);car.hasDestination=false;car.destinationX=car.destinationY=0;car.exitAtTick=car.nextRoutePlanTick=0;car.nextMoveTick=car.junctionWaitTick=0;car.waitReason=VehicleWaitReason.None;}
@@ -49,7 +49,7 @@ namespace Outbreak.Core
         private void PrepareVehicleDrivers()
         {
             if(!CourierVehiclesEnabled)return;
-            for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(car.driverId==0)continue;int index=VehicleDriverIndex(car.driverId);if(index<0)continue;
+            for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(car.driverId==0)continue;if(car.consumerDriver){PrepareConsumerVehicle(i);continue;}int index=VehicleDriverIndex(car.driverId);if(index<0)continue;
                 if(!HealthyVehicleDriver(car)){
                     StopVehicleMotion(ref car);car.deliveriesPaused=true;car.orderId=0;if(car.handFood>0 && !car.shipmentDropped){car.shipmentDropped=true;car.shipmentX=actors[index].x;car.shipmentY=actors[index].y;car.deliveryPhase=VehicleDeliveryPhase.RecoveringShipment;}vehicles[i]=car;if(car.driverAboard)ExitVehicle(i,true);continue;
                 }
@@ -63,7 +63,7 @@ namespace Outbreak.Core
         }
         private void FinishVehicleDrivers()
         {
-            if(!CourierVehiclesEnabled)return;for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(!car.driverAboard || car.deliveriesPaused || !car.hasDestination || car.nextMoveTick!=0)continue;
+            if(!CourierVehiclesEnabled)return;for(int i=0;i<vehicles.Count;i++){var car=vehicles[i];if(car.consumerDriver){FinishConsumerVehicle(i);continue;}if(!car.driverAboard || car.deliveriesPaused || !car.hasDestination || car.nextMoveTick!=0)continue;
                 bool delivery=car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery;if(!delivery && car.deliveryPhase!=VehicleDeliveryPhase.DrivingToSource)continue;if(car.exitAtTick==0){car.exitAtTick=Tick+VehicleRules.MoveTicks;vehicles[i]=car;continue;}if(Tick<car.exitAtTick)continue;if(!ExitVehicle(i))continue;car=vehicles[i];StopVehicleMotion(ref car);car.handFood=car.cargoFood;car.cargoFood=0;car.deliveryPhase=delivery?VehicleDeliveryPhase.Unloading:VehicleDeliveryPhase.Collecting;if(!delivery)car.targetBox=car.sourceBox;vehicles[i]=car;
             }
         }
@@ -136,7 +136,7 @@ namespace Outbreak.Core
         }
         private bool TryCourierVehicleRoutine(int index,ref ActorState actor,int threat,out int direction)
         {
-            direction=8;int carIndex=AssignedVehicle(index);if(carIndex<0)return false;var car=vehicles[carIndex];if(!HealthyVehicleDriver(car) || car.driverAboard)return false;
+            direction=8;int carIndex=AssignedVehicle(index);if(carIndex<0)return false;var car=vehicles[carIndex];if(car.consumerDriver)return TryConsumerVehicleRoutine(index,ref actor,threat,carIndex,out direction);if(!HealthyVehicleDriver(car) || car.driverAboard)return false;
             if(threat>=0 || actor.freezeUntilTick>Tick || actor.grappledById!=0)return false;
             CloseCourierDepartureDoors(actor,car);int beforeFood=actor.carriedFood,beforeHand=car.handFood;EatCourierMeal(ref actor,ref car);if(actor.carriedFood!=beforeFood || car.handFood!=beforeHand){actors[index]=actor;vehicles[carIndex]=car;return true;}
             if(car.deliveriesPaused)return car.deliveryPhase!=VehicleDeliveryPhase.None;
@@ -157,11 +157,11 @@ namespace Outbreak.Core
             }
             return true;
         }
-        public string VehicleDeliveryStatus(int index){var car=VehicleAtIndex(index);if(car.driverId==0)return "No assigned courier";if(!HealthyVehicleDriver(car))return "Driver incapacitated; shipment retained";if(car.deliveriesPaused)return "Deliveries paused";if(car.driverAboard && !car.hasDestination)return "Waiting for reachable curb";return car.deliveryPhase==VehicleDeliveryPhase.None?"Waiting for supply order":car.deliveryPhase==VehicleDeliveryPhase.Collecting?"Collecting at source crate":car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery?"Carrying shipment to vehicle":car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery?"Driving to delivery box":car.deliveryPhase==VehicleDeliveryPhase.Unloading?"Carrying shipment to destination box":car.deliveryPhase==VehicleDeliveryPhase.RecoveringShipment?"Recovering dropped shipment":car.deliveryPhase==VehicleDeliveryPhase.BoardingForSource?"Returning to vehicle":"Driving back to source";}
+        public string VehicleDeliveryStatus(int index){var car=VehicleAtIndex(index);if(car.consumerDriver)return ConsumerVehicleStatus(index);if(car.driverId==0)return "No assigned courier";if(!HealthyVehicleDriver(car))return "Driver incapacitated; shipment retained";if(car.deliveriesPaused)return "Deliveries paused";if(car.driverAboard && !car.hasDestination)return "Waiting for reachable curb";return car.deliveryPhase==VehicleDeliveryPhase.None?"Waiting for supply order":car.deliveryPhase==VehicleDeliveryPhase.Collecting?"Collecting at source crate":car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery?"Carrying shipment to vehicle":car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery?"Driving to delivery box":car.deliveryPhase==VehicleDeliveryPhase.Unloading?"Carrying shipment to destination box":car.deliveryPhase==VehicleDeliveryPhase.RecoveringShipment?"Recovering dropped shipment":car.deliveryPhase==VehicleDeliveryPhase.BoardingForSource?"Returning to vehicle":"Driving back to source";}
         private void ValidateVehicleDrivers()
         {
-            var assigned=new HashSet<int>();var claims=new HashSet<int>();foreach(var car in vehicles){bool data=car.lastMealTick!=0 || car.nextRoutePlanTick!=0 || car.exitAtTick!=0 || car.driverId!=0 || car.driverAboard || car.cargoFood!=0 || car.handFood!=0 || car.sourceBox!=0 || car.targetBox!=0 || car.orderId!=0 || car.driveEffort!=0 || car.deliveriesPaused || car.shipmentDropped || car.shipmentX!=0 || car.shipmentY!=0 || car.deliveryPhase!=VehicleDeliveryPhase.None;if(!CourierVehiclesEnabled && data)throw new ArgumentException("Courier vehicles require current rules.");
-                if(car.driverId==0){if(data)throw new ArgumentException("Unassigned vehicle retained delivery data.");continue;}int index=VehicleDriverIndex(car.driverId);if(index<0 || !assigned.Add(car.driverId) || car.cargoFood<0 || car.handFood<0 || car.cargoFood>CourierVehicleRules.CargoMeals || car.handFood>CourierVehicleRules.CargoMeals || car.cargoFood+car.handFood>CourierVehicleRules.CargoMeals || car.driveEffort<0 || car.driveEffort>=CourierVehicleRules.DriveEffortCells || car.deliveryPhase<VehicleDeliveryPhase.None || car.deliveryPhase>VehicleDeliveryPhase.RecoveringShipment)throw new ArgumentException("Invalid vehicle courier, cargo or phase.");
+            var assigned=new HashSet<int>();var claims=new HashSet<int>();foreach(var car in vehicles){bool data=car.consumerDriver || car.consumerPhase!=ConsumerVehiclePhase.None || car.purchaseGoal!=0 || car.shoppingStops!=0 || car.lastMealTick!=0 || car.nextRoutePlanTick!=0 || car.exitAtTick!=0 || car.driverId!=0 || car.driverAboard || car.cargoFood!=0 || car.handFood!=0 || car.sourceBox!=0 || car.targetBox!=0 || car.orderId!=0 || car.driveEffort!=0 || car.deliveriesPaused || car.shipmentDropped || car.shipmentX!=0 || car.shipmentY!=0 || car.deliveryPhase!=VehicleDeliveryPhase.None;if(!CourierVehiclesEnabled && data)throw new ArgumentException("Courier vehicles require current rules.");
+                if(car.driverId==0){if(data)throw new ArgumentException("Unassigned vehicle retained delivery data.");continue;}if(car.consumerDriver){ValidateConsumerVehicle(car,assigned);continue;}if(car.consumerPhase!=ConsumerVehiclePhase.None || car.purchaseGoal!=0 || car.shoppingStops!=0)throw new ArgumentException("Unassigned consumer shopping state.");int index=VehicleDriverIndex(car.driverId);if(index<0 || !assigned.Add(car.driverId) || car.cargoFood<0 || car.handFood<0 || car.cargoFood>CourierVehicleRules.CargoMeals || car.handFood>CourierVehicleRules.CargoMeals || car.cargoFood+car.handFood>CourierVehicleRules.CargoMeals || car.driveEffort<0 || car.driveEffort>=CourierVehicleRules.DriveEffortCells || car.deliveryPhase<VehicleDeliveryPhase.None || car.deliveryPhase>VehicleDeliveryPhase.RecoveringShipment)throw new ArgumentException("Invalid vehicle courier, cargo or phase.");
                 if(HealthyVehicleDriver(car) && (actors[index].distributionCenterId==0 || actors[index].courierSourceBox==0 || actors[index].restockPhase!=RestockPhase.None || actors[index].courierOrderId!=0))throw new ArgumentException("Vehicle driver has an incompatible work assignment.");
                 if(car.orderId!=0 && !claims.Add(car.orderId))throw new ArgumentException("Vehicle order claimed twice.");
                 if(car.lastMealTick<0 || car.lastMealTick>Tick)throw new ArgumentException("Invalid vehicle meal clock.");

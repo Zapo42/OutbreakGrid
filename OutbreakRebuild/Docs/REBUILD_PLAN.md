@@ -1,4 +1,4 @@
-Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity. The earlier stage history below remains for context.
+Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity; Foundation 129 adds consumer vehicle/cart shopping and alternate-store hunger-loop recovery. The earlier stage history below remains for context.
 
 Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
 

@@ -15,11 +15,11 @@ namespace Outbreak.Core
         }
         private bool ShoppingDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return StoreShoppingEnabled && IsShopping(actor) && ((actor.restockPhase==RestockPhase.Returning && room.id!=actor.restockHomeId) || (StoreDiscoveryEnabled && actor.restockPhase==RestockPhase.Collecting && room.id!=actor.restockHomeId && room.id!=actor.shoppingStoreId)) && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
+            return StoreShoppingEnabled && IsShopping(actor) && ((actor.restockPhase==RestockPhase.Returning && room.id!=actor.restockHomeId) || (StoreDiscoveryEnabled && actor.restockPhase==RestockPhase.Collecting && room.id!=actor.restockHomeId && room.id!=actor.shoppingStoreId)) && SafeRestock(actor,threat) && (EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy || CanSeekFoodForEmptyHome(actor));
         }
         private bool StartStoreShopping(int index,ref ActorState actor,int threat)
         {
-            if((StoreDiscoveryEnabled && actor.shoppingRetryTick>Tick) || !SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
+            if((StoreDiscoveryEnabled && actor.shoppingRetryTick>Tick) || !SafeRestock(actor,threat) || (EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy && !CanSeekFoodForEmptyHome(actor)) || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
             Room home=FindRoom(actor.assignedHouseId);if(!home.Contains(Key(actor.x,actor.y)) || actor.shelterState!=ShelterState.Inside)return false;
             HomeSupplyKnowledge knowledge=HomeSuppliesKnownBy(index);if(knowledge.Boxes==0 || knowledge.KnownBoxes!=knowledge.Boxes)return false;
             StorageBoxDocument target=null;int deficit=0;

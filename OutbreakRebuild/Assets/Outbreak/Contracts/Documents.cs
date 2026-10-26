@@ -121,6 +121,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int courierOrderId;
         [DataMember(EmitDefaultValue=false)] public int shoppingShelf,shoppingMeals;
         [DataMember(EmitDefaultValue=false)] public int familiarStoreId;
+        [DataMember(EmitDefaultValue=false)] public int[] additionalFamiliarStores;
         [DataMember(EmitDefaultValue=false)] public bool shoppingResting;
         [DataMember(EmitDefaultValue=false)] public ShoppingEndReason shoppingEndReason;
         [DataMember(EmitDefaultValue=false)] public int shoppingStoreId,shoppingSearchCell;
@@ -187,6 +188,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int deliveredMeals;
     }
     public enum VehicleWaitReason { None, Pedestrian, Vehicle, NoRoute, FollowingDistance, Intersection, ExitBlocked }
+    public enum ConsumerVehiclePhase { None, BoardingForStore, DrivingToStore, Shopping, LoadingCar, BoardingForHome, DrivingHome, FetchHomeCart, UnloadingHome, ReturnCart, RecoverCart }
     public enum VehicleDeliveryPhase { None, Collecting, BoardingForDelivery, DrivingToDelivery, Unloading, BoardingForSource, DrivingToSource, RecoveringShipment }
     [DataContract] public struct VehicleState
     {
@@ -202,6 +204,9 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public bool driverAboard,deliveriesPaused,shipmentDropped;
         [DataMember(EmitDefaultValue=false)] public int shipmentX,shipmentY;
         [DataMember(EmitDefaultValue=false)] public VehicleDeliveryPhase deliveryPhase;
+        [DataMember(EmitDefaultValue=false)] public bool consumerDriver;
+        [DataMember(EmitDefaultValue=false)] public ConsumerVehiclePhase consumerPhase;
+        [DataMember(EmitDefaultValue=false)] public int purchaseGoal,shoppingStops;
     }
     [DataContract] public sealed class SaveDocument // Include every authoritative value needed to continue this foundation.
     { // Begin a running-save envelope.

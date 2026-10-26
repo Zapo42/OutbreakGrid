@@ -14,11 +14,11 @@ namespace Outbreak.Core
         }
         private bool SafeRestock(ActorState actor,int threat)
         {
-            return actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth && actor.turnAtTick==0 && actor.hunger<HungerRules.SeekAt && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
+            return (actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth || CanSeekFoodForEmptyHome(actor)) && actor.turnAtTick==0 && (actor.hunger<HungerRules.SeekAt || CanSeekFoodForEmptyHome(actor)) && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
         }
         private bool RestockDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return WorkerDepartureAllowed(actor,room,threat) || ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
+            return WorkerDepartureAllowed(actor,room,threat) || ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && (EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy || CanSeekFoodForEmptyHome(actor));
         }
         private ShelfDocument ChooseRestockShelf(ActorState actor,Room home)
         {
@@ -34,7 +34,8 @@ namespace Outbreak.Core
         }
         private bool RestockClaimed(int box,int exceptId)
         {
-            foreach(var car in vehicles)if(car.driverId!=exceptId && car.targetBox==box && car.orderId==0 && HealthyVehicleDriver(car) && (car.deliveryPhase==VehicleDeliveryPhase.Collecting || car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery || car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery || car.deliveryPhase==VehicleDeliveryPhase.Unloading))return true;
+            foreach(var car in vehicles)if(car.driverId!=exceptId && !car.consumerDriver && car.targetBox==box && car.orderId==0 && HealthyVehicleDriver(car) && (car.deliveryPhase==VehicleDeliveryPhase.Collecting || car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery || car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery || car.deliveryPhase==VehicleDeliveryPhase.Unloading))return true;
+            foreach(var car in vehicles)if(car.consumerDriver && car.driverId!=exceptId && car.sourceBox==box && car.consumerPhase!=ConsumerVehiclePhase.None && HealthyVehicleDriver(car))return true;
             for(int i=0;i<count;i++)if(actors[i].id!=exceptId && actors[i].health>0 && actors[i].species==Species.Human && actors[i].restockBox==box && actors[i].restockUntilTick>Tick)return true;return false;
         }
         private bool BeginRestockReturn(int index,ref ActorState actor,Room home,int threat)

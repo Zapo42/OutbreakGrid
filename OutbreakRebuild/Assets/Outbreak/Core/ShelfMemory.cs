@@ -11,6 +11,7 @@ namespace Outbreak.Core
         private static ActorState DetachActor(ActorState actor)
         {
             if(actor.storeFailures!=null){if(actor.storeFailures.Length>StoreDiscoveryRules.MemoryLimit)throw new ArgumentException("Too many failed store visits.");actor.storeFailures=(FoodRoomVisit[])actor.storeFailures.Clone();}
+            if(actor.additionalFamiliarStores!=null){if(actor.additionalFamiliarStores.Length>=StoreDiscoveryRules.MemoryLimit)throw new ArgumentException("Too many familiar stores.");actor.additionalFamiliarStores=(int[])actor.additionalFamiliarStores.Clone();}
             if(actor.storeMemory!=null){if(actor.storeMemory.Length>StoreDiscoveryRules.MemoryLimit)throw new ArgumentException("Too many remembered stores.");actor.storeMemory=(FoodRoomVisit[])actor.storeMemory.Clone();}
             if(actor.courierBoxes!=null){if(actor.courierBoxes.Length>CourierRules.MaxDestinations)throw new ArgumentException("Too many courier destinations.");actor.courierBoxes=(int[])actor.courierBoxes.Clone();}
             if(actor.storageMemory!=null){if(actor.storageMemory.Length>StorageMemoryRules.Limit)throw new ArgumentException("Storage memory exceeds its limit.");actor.storageMemory=(StorageMemoryRecord[])actor.storageMemory.Clone();}

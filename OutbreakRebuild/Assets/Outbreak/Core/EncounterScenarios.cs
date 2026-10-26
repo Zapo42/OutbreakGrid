@@ -280,6 +280,15 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World ConsumerVehicleShoppingTest()
+        {
+            World original=LargeCityShoppingTest();SaveDocument saved=original.Capture();int home=saved.actors[0].assignedHouseId,shop=saved.actors[0].familiarStoreId;StorageBoxDocument homeBox=null,shopBox=null;
+            foreach(var box in saved.map.storageBoxes){int room=original.HouseAt(box.x,box.y);if(room==home){box.foodReserve=12;homeBox=box;}if(room==shop)shopBox=box;}
+            foreach(var shelf in saved.map.shelves)if(original.HouseAt(shelf.x,shelf.y)==shop)shelf.food=18;
+            World world=World.Restore(saved);if(homeBox==null || shopBox==null || !world.TryPlaceParkingNearBox(homeBox.x,homeBox.y) || !world.TryPlaceParkingNearBox(shopBox.x,shopBox.y))throw new System.InvalidOperationException("Vehicle shopping preview needs home and store parking.");
+            ParkingBayDocument chosen=null;int nearest=int.MaxValue;foreach(var bay in world.ParkingBays()){int distance=System.Math.Abs(bay.x-homeBox.x)+System.Math.Abs(bay.y-homeBox.y);if(distance<nearest){nearest=distance;chosen=bay;}}
+            int id;if(chosen==null || !world.TryPlaceVehicle(chosen.x,chosen.y,out id) || !world.TryAssignVehicleShopper(0,0))throw new System.InvalidOperationException("Vehicle shopping preview could not assign its consumer.");return world;
+        }
         public static World LargeCityShoppingTest()
         {
             World world=CitySetup.Create(214,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters);SaveDocument saved=world.Capture();int chosen=3,best=int.MaxValue;
