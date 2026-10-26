@@ -1,6 +1,6 @@
-Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity; Foundation 129 adds consumer vehicle/cart shopping and alternate-store hunger-loop recovery. Foundation 130 adds faster road travel and saved colors. The next unfinished gameplay increment is purposeful free-time walking. The earlier stage history below remains for context.
+Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity; Foundation 129 adds consumer vehicle/cart shopping and alternate-store hunger-loop recovery. Foundation 130 adds faster road travel and saved colors. Foundation 131 adds saved consumer free-time walks. The next unfinished gameplay increment is the happiness foundation. The earlier stage history below remains for context.
 
-Current gameplay build: [Foundation 130 / faster cars and saved paint colors](VEHICLE_SPEED_AND_COLORS.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
+Current gameplay build: [Foundation 131 / purposeful neighborhood walks](HUMAN_LEISURE.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
 
 The milestone notes below are historical records, not the current task queue. Foundation 82 remains the last user-reported working Unity build; later builds have automated evidence only.
 

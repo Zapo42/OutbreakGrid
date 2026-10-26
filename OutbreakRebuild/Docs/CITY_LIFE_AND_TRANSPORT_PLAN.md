@@ -25,13 +25,13 @@ Group historical previews under an **Old Test Scenarios** menu. Keep the newest/
 1. **Foundation 126: parking bays and blocked-traffic recovery (implemented).** Off-lane single-cell bays, reserved courier destinations, safe merges, bounded detours, saved waiting state and observable tests. No vehicle teleporting, pushing pedestrians aside or ignoring lane direction.
 2. **Foundation 127: large-city shopping regression (implemented).** Seeded reproduction, persistent store destination and informative interruption reasons; verify home → store → home food delivery over longer routes.
 3. **Foundation 128: scenario menu organization (implemented).** Current tests at the top; collapsible Old Test Scenarios collection containing historical previews.
-4. **Purposeful free-time walking.** Stable outdoor walk targets and returns, occasional safe walks, actual energy accounting. Preserve zero-cost visual idle animation separately.
+4. **Foundation 131: purposeful free-time walking (implemented for pure consumers).** Stable outdoor walk targets and returns, occasional safe walks, actual energy accounting. Preserve zero-cost visual idle animation separately.
 5. **Happiness foundation.** Saved −50…+50 value; charisma-based social/environment preferences, inspector explanations, exact continuation.
 6. **Parks.** Distinct generated/authored destination and safe bounded leisure walks.
 7. **Evening bars.** Building identity, opening hours and interruptible social visits.
 8. **Happiness and energy tuning.** Modest benefit with a nonzero movement cost, observed over full daily routines.
-9. **Vehicle speed.** Increase speed modestly; verify braking, turning, crossing safety, boarding/arrival timing and fast-forward.
-10. **Vehicle types and colors.** Saved identity, readable silhouettes and modest type-specific capacities/speed where justified.
+9. **Foundation 130: vehicle speed (implemented).** Increase speed modestly; verify braking, turning, crossing safety, boarding/arrival timing and fast-forward.
+10. **Vehicle types and colors (colors implemented in Foundation 130; types pending).** Saved identity, readable silhouettes and modest type-specific capacities/speed where justified.
 11. **Bicycles.** Distinct transport with stamina costs, capacity and parking rules.
 12. **Motor fuel.** Finite fuel, consumption, refueling jobs and safe recovery when empty.
 13. **Pixel presentation trial**, then staged rollout after visual review; preserve palette/detail and avoid coupling rendering to simulation.
@@ -55,3 +55,5 @@ Foundation 128 keeps six recent previews directly accessible and moves historica
 Foundation 129 implements the first pure-consumer vehicle shopping cycle: 48-meal cargo, six-meal cart loads, physical repeated loading/unloading, saved phases, excess retention and household cart recovery. It also fixes the reported depleted-nearby-store/hungry-return loop using bounded additional familiar shop locations and necessary food trips when home is known empty. [Scope and controls](CONSUMER_VEHICLE_SHOPPING.md). Worker driving, automatic ownership, fuel and vehicle types remain later increments.
 
 Foundation 130 adds two-tick road travel with matching visual turn/translation timing and eight saved, selectable paint colors. Older runs retain three-tick travel until explicitly upgraded. [Controls and compatibility](VEHICLE_SPEED_AND_COLORS.md). Purposeful free-time walks and the happiness foundation remain upcoming choices.
+
+Foundation 131 implements occasional saved free-time walks for healthy, fed pure consumers: bounded outdoor destinations, real doorway crossings, paid movement, brief pauses and home returns. Needs/work/safety retain priority; home changes clear walk state. Older rules-99 runs explicitly opt in. [Scope, timing and preview](HUMAN_LEISURE.md). Off-duty worker leisure remains deferred; happiness is the next documented increment.

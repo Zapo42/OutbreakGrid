@@ -1,6 +1,6 @@
 # Automated check setup
 
-Gameplay baseline: Foundation 130. This maintenance update changes documentation and test tooling only. Unity remains pinned to **6000.6.3f1**; Foundation 82 is the last user-reported working native Unity checkpoint.
+Current gameplay baseline: Foundation 131. The MAINT-01 runner repair itself changed documentation and tooling only. Unity remains pinned to **6000.6.3f1**; Foundation 82 is the last user-reported working native Unity checkpoint.
 
 ## Recommended: .NET 8 SDK and Python 3
 

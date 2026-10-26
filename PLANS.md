@@ -52,3 +52,21 @@ All four specialist reviews completed and accepted. QA verified the checkpoint, 
 ## MAINT-01 completion
 
 Current-build labels and historical notes corrected; automated runner repaired using canonical project manifests. Full .NET run passed: 614 cases / 735724 assertions, Windows dialog ABI, UI Legacy 2321 and NewOnly 3. Tool-discovery/error/path/coverage checks passed. Actual Mono and native Unity/Windows player execution remain NOT RUN. Detailed commands/evidence and ownership are in harness/build-log.md. Earlier baseline audit findings about stale labels and the incomplete runner are resolved by this maintenance task; missing tracked .meta assets remains out of scope. Gameplay stays Foundation 130; RESTORE42 unchanged. Purposeful free-time walking remains the next documented gameplay task, unstarted.
+
+## F131 — purposeful free-time walks (authorized)
+
+- Baseline: c9d5cd2bca0f425ca19312f0e911e4f62ebd0ad9; pre-team RESTORE42 remains fixed.
+- Scope: occasional short home → reachable outdoor destination → pause → home walks; normal movement energy; urgent needs, jobs and safety retain priority; saved phase/target; selected-NPC activity and controlled preview. No happiness/parks/bars/vehicle changes.
+- Lead ownership: Core/World.cs, Core/Encounter.cs rules integration, Core/EncounterScenarios.cs fixture, Unity/FoundationApp.cs label/menu/upgrade, documentation/PLANS/build log. Lead integrates and reviews shared save contracts.
+- Simulation ownership (isolated /tmp/outbreak131-simulation, foundation131-simulation): Core/HumanLeisure.cs, HumanReactions.cs, ShelterRecovery.cs if needed, Hunger.cs cleanup, Contracts/Documents.cs new optional records.
+- UI ownership (isolated /tmp/outbreak131-ui, foundation131-ui): Unity/FoundationPanels.cs and Tests/UiHarness.cs.
+- QA ownership (isolated /tmp/outbreak131-qa, foundation131-qa): Tests/HumanLeisureChecks.cs, FoundationChecks.csproj, Program.cs; independent final review.
+- Build & Release: final unified-runner execution after integration in a separate checkout; no overlapping writes/build intermediates.
+- Dependencies/risks: shelter departure and work/home priorities can consume free-time actions; deterministic current save generation100, legacy99 unchanged; bounded outdoor routing must not trespass through unrelated buildings; all actual steps retain existing energy accounting.
+- Acceptance: observed departure/pause/return and meaningful cooldown; selected activity; no urgent task interruption; no unrelated building transit; valid exact saved continuation and invalid-state rejection; full core/config/WindowsABI/both UI modes pass; native Unity/player remain NOT RUN per paused testing.
+- F131 ownership clarification: Simulation also owns narrow Core/StorageRestocking.cs routine-home-return integration and Core/CourierAssignments.cs cleanup on home reassignment; these preserve leisure progress without preempting genuine supply tasks and keep immediate saves coherent.
+- F131 cleanup clarification: Simulation owns minimal Core/Households.cs unassignment cleanup too. Walk/cooldown state must clear atomically when assigned home is removed, and injury/infection/grapple cancellation must run even when normal movement decisions are skipped.
+
+## F131 completion
+
+Purposeful free-time walking implemented for pure consumers with saved phase/target/deadline/cooldown, paid movement, bounded outdoor routing and needs/work/safety priority. A controlled neighborhood preview and selected-human activity expose the full outing. Atomic home changes and scalar injury/infection/grapple cancellation keep saves coherent. Older rules-99 behavior remains independently verified until explicit upgrade. Source and documentation QA accepted; detailed validation and integration evidence is in harness/build-log.md. The next documented gameplay task is the happiness foundation; it has not been started. RESTORE42 and the Foundation 82 native Unity checkpoint remain unchanged.

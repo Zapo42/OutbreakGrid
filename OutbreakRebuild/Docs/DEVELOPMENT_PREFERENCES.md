@@ -92,3 +92,5 @@
 
 - Foundation 130: two-tick vehicle road travel and eight saved paint colors; older runs retain three-tick pace until explicit upgrade. Keep native Unity validation separate from core/UI-double results.
 - MAINT-01: documentation and test-runner maintenance only. Gameplay remains Foundation 130; RESTORE42 is unchanged. Use the documented automated runner and current project source manifests instead of stale duplicate source lists.
+
+- Foundation 131: purposeful consumer walks are separate from zero-cost visual idling. Every real step uses normal energy. Preserve urgent needs/work/safety, bounded outdoor paths, exact saved phases, and explicit older-run opt-in. Native Unity testing remains paused; RESTORE42 unchanged.

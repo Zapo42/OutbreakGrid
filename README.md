@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-Current build: **Foundation 130 / faster cars and saved paint colors**. Targets **Unity 6000.6.3f1**. Cars travel every two ticks with matching smooth turns; eight saved colors remain visible when selected. Consumer shopping retains 48-meal cargo and separate six-meal carts. [Speed and colors](OutbreakRebuild/Docs/VEHICLE_SPEED_AND_COLORS.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

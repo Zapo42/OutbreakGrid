@@ -1,4 +1,4 @@
-Current build: **Foundation 130 / faster cars and saved paint colors**. Targets **Unity 6000.6.3f1**. Cars travel every two ticks with matching smooth turns; eight saved colors remain visible when selected. [Speed, colors and older-run upgrade](Docs/VEHICLE_SPEED_AND_COLORS.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return, with normal energy costs and urgent tasks taking priority. [Walking preview, rules and older-run upgrade](Docs/HUMAN_LEISURE.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

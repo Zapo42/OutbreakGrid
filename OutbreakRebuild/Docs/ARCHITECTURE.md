@@ -1,4 +1,4 @@
-Current gameplay build: [Foundation 130 / faster cars and saved paint colors](VEHICLE_SPEED_AND_COLORS.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
+Current gameplay build: [Foundation 131 / purposeful neighborhood walks](HUMAN_LEISURE.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
 
 The milestone notes below are historical records, not the current task queue. Foundation 82 remains the last user-reported working Unity build; later builds have automated evidence only.
 
