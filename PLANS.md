@@ -37,3 +37,18 @@ The primary agent acts as Lead Developer and starts specialists through the avai
 ## TEAM-SETUP-01 completion
 
 All four specialist reviews completed and accepted. QA verified the checkpoint, nine-file installation and absence of gameplay changes; the completed evidence is in harness/build-log.md. Build & Release confirms an interactive Windows build action exists, while native compilation, runtime and Windows release readiness remain unverified. Team setup is complete; no gameplay assignment has been started.
+
+## MAINT-01 — documentation and test-runner maintenance (authorized)
+
+- Baseline: c0494eb8b787a965b47e95e8d7315d882f7a3493; RESTORE42 remains fixed.
+- Scope: correct stale current-build labels and document/repair the existing automated runner; no gameplay, Unity target, dependency, asset or save-format changes.
+- Lead ownership: README.md, OutbreakRebuild/README.md, Docs/ARCHITECTURE.md, REBUILD_PLAN.md, DEVELOPMENT_PREFERENCES.md, BUILD_VALIDATION.md, new Docs/AUTOMATED_CHECKS.md, PLANS.md and harness/build-log.md.
+- Build & Release ownership: Tools/run_checks.py and optional Tests/WindowsDialogChecks.csproj, only in /tmp/outbreak-check-runner on maintenance-check-runner. No overlapping writes; Lead integrates reviewed commit.
+- QA & Integration: read-only final code/documentation review and failure/coverage checks; no concurrent compiles in the implementation worktree.
+- Dependencies/risks: pinned .NET 8 test projects and available toolchain; old manually duplicated source lists can omit coverage; tests share build intermediates and must run sequentially. Native Unity/Windows runtime evidence remains unavailable.
+- Acceptance: accurate Foundation 130/current vs Foundation 82/native checkpoint labels; one documented runner executes configuration, all current core sources, Windows ABI checks and both UI modes; failed prerequisites/commands report failure; no tracked generated outputs or gameplay changes.
+- Next documented gameplay task remains purposeful free-time walking, unstarted.
+
+## MAINT-01 completion
+
+Current-build labels and historical notes corrected; automated runner repaired using canonical project manifests. Full .NET run passed: 614 cases / 735724 assertions, Windows dialog ABI, UI Legacy 2321 and NewOnly 3. Tool-discovery/error/path/coverage checks passed. Actual Mono and native Unity/Windows player execution remain NOT RUN. Detailed commands/evidence and ownership are in harness/build-log.md. Earlier baseline audit findings about stale labels and the incomplete runner are resolved by this maintenance task; missing tracked .meta assets remains out of scope. Gameplay stays Foundation 130; RESTORE42 unchanged. Purposeful free-time walking remains the next documented gameplay task, unstarted.

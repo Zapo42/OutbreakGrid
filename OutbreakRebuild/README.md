@@ -2,31 +2,35 @@ Current build: **Foundation 130 / faster cars and saved paint colors**. Targets 
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
-# Current update: Shelters and doors
+## Historical foundation notes
+
+The sections below describe earlier increments. Their “pending” and “next” statements reflect those milestones, not the current implementation queue. Use the current-build links above and the city-life workflow for present status.
+
+# Historical update: Shelters and doors
 
 Humans can choose enclosed floor-based rooms, reserve space, open doors, enter, close behind themselves and reassess observed internal danger. The main encounter now has two rooms. [Launch steps, exact limits, old-run upgrade and validation](Docs/SHELTERS_AND_DOORS.md). Door breaking is still pending.
 
 ## Previous milestone
 
-# Current update: Bitten escape
+# Historical update: Bitten escape
 
 Infected humans now prioritize escape over courage, freezing and wandering. They seek local obstacle cover or an observed human screen without approaching a visible zombie. [Rules, controlled scenario, existing-run update and validation](Docs/INFECTED_ESCAPE.md).
 
 ## Previous milestone
 
-# Current update: Cautious movement
+# Historical update: Cautious movement
 
 Aware/Cautious humans keep their distance instead of automatically approaching on a positive courage margin. Full-interval visual motion and direct route preferences reduce stop/start movement and gratuitous zigzags. [Behavior, remaining grid limitations, old-run upgrade and validation](Docs/MOVEMENT_UPDATE.md).
 
 ## Previous milestone
 
-# Current update: Human reactions
+# Historical update: Human reactions
 
 Stress, visible group support and bravery now drive **Fight / Freeze / Flight**. Fight performs defensive shoves; Freeze resolves after a saved variable delay. The simulator also has **1 / 10 / 50 / 100 tick** buttons and **Main Menu / Resume current run**. [Launch steps, exact prototype rules and validation](Docs/HUMAN_REACTIONS.md). Older saves retain their original behavior.
 
 ## Previous update
 
-# Current update: Encounter prototype 2
+# Historical update: Encounter prototype 2
 
 Choose **Start Encounter** for zombies pursuing visible humans, last-seen search after losing sight, prototype fleeing, contact infection and delayed turning. Choose **Inspect Corner Pursuit Paused** for a controlled obstacle scenario. Prior encounter saves retain their original behavior. The original Movement Test remains available. Read [launch instructions, provisional rules and validation](Docs/ENCOUNTER_PROTOTYPE.md).
 
@@ -81,24 +85,22 @@ Load Map deliberately loads only terrain and its opaque authoring payload, with 
 
 Invalid loads construct and validate a candidate before replacing the current world. Cancellation leaves the current world paused. Saves flush an adjacent temporary file and atomically publish it; failed publication leaves the old file intact.
 
-## Executed checks
+## Automated checks
 
-See `Examples/FOUNDATION_CHECKS.txt` for exact results and measured movement timings. The acceptance run includes 15,000 ticks at 1,000 bodies and save/resume continuation, plus a 100/250/500/1,000 map-size ladder.
-
-With Mono installed:
+From this project folder, with a .NET 8 SDK installed:
 
 ```bash
 python3 Tools/run_checks.py
 ```
 
-Or with a .NET 8 SDK:
+The runner checks the pinned project configuration, runs the production core/persistence suite, checks the Windows dialog ABI, then exercises the UI handlers with narrow API doubles in Legacy and NewOnly input modes. See [Automated check setup](Docs/AUTOMATED_CHECKS.md) for explicit toolchain paths, Mono compatibility and output locations. Running only `Tests/FoundationChecks.csproj` runs only the core suite.
 
-```bash
-dotnet run --project Tests/FoundationChecks.csproj -- Examples
-```
+The checked-in `Examples/FOUNDATION_CHECKS.txt` is a historical sample. Use the current run’s report and [build validation record](Docs/BUILD_VALIDATION.md) for current evidence. The movement benchmark ladder measures open-terrain baseline movement, not navigation, perception, combat, rendering or full-game performance.
 
-These commands execute the actual delivered simulation and persistence source. Their success does not establish Unity compilation or full-game performance. The recorded ladder measures baseline movement on open terrain, with fixtures initially placed in a 50×20 patch; navigation, perception, combat and rendering are absent from that benchmark.
-
-The Mono runner checks the documented module baseline, compiles the actual Windows dialog bindings and checks native record layout, then runs the production UI handlers against a narrow API double in Legacy and New-only configurations. The regression includes a paused host with no simulation Update, exactly-once dispatch, explicit Run resume, paused manual stepping, copied native diagnostics and callback cleanup. These are command/configuration checks, not Unity's real package resolver, layout, mouse backend or operating-system dialogs. The .NET project runs the core/persistence suite only.
+Automated results do not establish Unity import/compilation, package resolution, native input/layout, Windows dialogs or a Windows player build. Native Unity testing remains paused after Foundation 82.
 
 Read `Docs/REBUILD_PLAN.md`, `Docs/LOCKED_SCOPE.md` and `Docs/ARCHITECTURE.md` for the work order, retained requirements and boundaries. `Docs/LEGACY_INVENTORY.json` records the hashes of all 637 files in the two recovered archives.
+
+## Development team
+
+[Team assignments](../PLANS.md) separate gameplay builds from maintenance tasks.

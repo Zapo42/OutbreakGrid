@@ -89,3 +89,6 @@
 - Foundation 128: keep recent milestone previews directly accessible under Current Tests. Put historical fixtures under Show Old Test Scenarios; preserve their original launch behavior. Keep archived scenarios available for regression checks.
 
 - Foundation 129: pure consumers can use 48-meal vehicle cargo and separate six-meal carts. Preserve finite shelf/cart/cargo/home transfers, personal rations, saved journeys and household recovery. Current rules also support alternate familiar stores and avoid hunger-only returns to a personally known empty home. Do not claim fuel, automatic car assignment or worker driving are implemented.
+
+- Foundation 130: two-tick vehicle road travel and eight saved paint colors; older runs retain three-tick pace until explicit upgrade. Keep native Unity validation separate from core/UI-double results.
+- MAINT-01: documentation and test-runner maintenance only. Gameplay remains Foundation 130; RESTORE42 is unchanged. Use the documented automated runner and current project source manifests instead of stale duplicate source lists.

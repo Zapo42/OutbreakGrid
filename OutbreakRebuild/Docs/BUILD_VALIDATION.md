@@ -72,3 +72,9 @@ Maintain this table for every subsequent increment. Keep the checkpoint unchange
 | 129 | Pure-consumer vehicle shopping, 48-meal cargo/six-meal carts, repeated physical loading/unloading, excess retention and household cart recovery; alternate familiar stores and hungry-empty-home loop correction | Core: 611 cases / 738553 assertions; focused courier/parking/shopping suite: 33 cases; UI: 2315 assertions; NewOnly input: 3 assertions; Unity target and diff checks | Untested, per user instruction |
 
 | 130 | Two-tick vehicle road travel with matching translation, rotation and driver exit waits; eight deterministic saved paint colors, selected-color preservation and explicit legacy upgrade | Core: 614 cases / 735724 assertions; focused courier/parking/shopping suite: 33 cases; UI: 2321 assertions including paint rendering/control, restart and old-clock upgrade; NewOnly input: 3 assertions; Unity target and diff checks | Untested, per user instruction |
+
+## Maintenance after Foundation 130
+
+MAINT-01 repairs the automated runner and current documentation; it does not create a new gameplay rules generation or change Foundation 130 behavior. The runner now uses current C# project manifests, runs configuration/core/Windows-ABI/both-input-mode checks sequentially, and defaults to reports outside tracked Examples. See [runner setup and limits](AUTOMATED_CHECKS.md) and the [verification log](../../harness/build-log.md) for the completed task evidence. Foundation 82 remains the native Unity checkpoint; RESTORE42 remains the pre-team Foundation 130 checkpoint.
+
+MAINT-01 automated evidence: complete .NET runner PASS (614 core cases / 735724 assertions; Windows branch compile and 64-bit dialog ABI; UI Legacy 2321 and NewOnly 3; configuration and runner behavior checks). Mono runtime NOT RUN; native Unity and Windows player NOT RUN.

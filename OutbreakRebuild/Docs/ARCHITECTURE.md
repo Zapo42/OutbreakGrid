@@ -1,4 +1,6 @@
-Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
+Current gameplay build: [Foundation 130 / faster cars and saved paint colors](VEHICLE_SPEED_AND_COLORS.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
+
+The milestone notes below are historical records, not the current task queue. Foundation 82 remains the last user-reported working Unity build; later builds have automated evidence only.
 
 > Prototype 21 copies useful dated shelf facts through safe adjacent conversations. A reportedBy identity distinguishes hearsay from personal observation; original timestamps and bounded notebook replacement remain authoritative. Only direct observations can be shared, preventing relay freshness loops. Player shelf colours/counts now expose actual authoring stock while AI observations remain independent. See SHELF_REPORTS.md.
 

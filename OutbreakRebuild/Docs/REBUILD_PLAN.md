@@ -1,6 +1,8 @@
-Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity; Foundation 129 adds consumer vehicle/cart shopping and alternate-store hunger-loop recovery. The earlier stage history below remains for context.
+Current incremental workflow: [city life, transport and presentation](CITY_LIFE_AND_TRANSPORT_PLAN.md). Foundation 126 implements parking bays and traffic recovery; Foundation 127 fixes generated shopping-trip continuity; Foundation 129 adds consumer vehicle/cart shopping and alternate-store hunger-loop recovery. Foundation 130 adds faster road travel and saved colors. The next unfinished gameplay increment is purposeful free-time walking. The earlier stage history below remains for context.
 
-Latest build: [Foundation 22 / sharing shelf reports](SHELF_REPORTS.md).
+Current gameplay build: [Foundation 130 / faster cars and saved paint colors](VEHICLE_SPEED_AND_COLORS.md). [Current incremental workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md) · [Validation and last native Unity checkpoint](BUILD_VALIDATION.md).
+
+The milestone notes below are historical records, not the current task queue. Foundation 82 remains the last user-reported working Unity build; later builds have automated evidence only.
 
 > Current milestone: prototype 6 adds small enclosed room discovery, persistent destinations/capacity, human door use, unsafe-room reassessment and evacuation. It does not complete global navigation, knowledge, building metadata or door durability/breaching. See SHELTERS_AND_DOORS.md.
 
@@ -20,14 +22,14 @@ The goal remains the full observational Outbreak Simulator and compatible Dragon
 | --- | --- | --- | --- |
 | 0. Recovery | Preserve both latest source archives, asset identities and a hash inventory; record scope | Originals remain unchanged; no asset or user project is overwritten | Done |
 | 1. Foundation | Isolated simulation, fixed clock, sparse grid, stable bodies, collision, deterministic continuation and minimal Unity shell | Executed C# invariants and 15,000-tick run; native Unity/Windows check remains open | Core checks passed; shell source prepared |
-| 2. Content and movement | Legacy map/project migration; shared terrain/asset catalog; real pathfinding; doors/windows; spawn regions; authored room/building IDs | Import representative user maps, preserve pixels and metadata, save/reload, walk the same cells in Workshop and simulator; verify file browser in EXE | Next |
+| 2. Content and movement | Legacy map/project migration; shared terrain/asset catalog; real pathfinding; doors/windows; spawn regions; authored room/building IDs | Import representative user maps, preserve pixels and metadata, save/reload, walk the same cells in Workshop and simulator; verify file browser in EXE | Original stage gate; see current incremental workflow |
 | 3. Encounter | Real human/zombie movement, local senses, occlusion, last-known locations, witness knowledge, stress, flight and hiding | Small controlled maps show each behavior; seeded runs reproduce; pause stops every system | Planned |
 | 4. Combat and infection | Shove, stagger, grab/pile-on, weapons/projectiles, delayed turning, SPECIAL inheritance, emitters and four-part queues | Repeatable multi-body edge cases, exact weapon/strain data, correct sprite state, stable selection through turning | Planned |
 | 5. Civilian world and laboratories | Population profiles, homes/jobs, inventory/needs, stores/couriers/DCs, LEO and full automatic research | Whole-day small-town scenario and exact save/resume of tasks, stock, experiments and ownership | Planned |
 | 6. Survivors | Classes, base claiming, household planning, shelter/occupancy, patrols, resources, vehicles and expansion | Class-specific scenarios obey risk, storage, patrol, alert and base limits | Planned |
 | 7. Product and scale | Finished start flow, shared authoring components, docking/accessibility, sprite animation, minimap/follow, profiling and Windows build | Native end-to-end author→save→browse→load→simulate→save→resume, plus agreed population/map benchmark and long-run memory checks | Planned |
 
-Native Unity import and the Windows movement shell should be checked before substantial Stage 2 integration. The next deliverable is map/asset compatibility and a trustworthy navigation test, not another pile of partially connected features.
+Native Unity import and the Windows movement shell should be checked before substantial Stage 2 integration. This original stage gate remains migration context; it does not supersede the current incremental workflow or the user’s instruction to pause native Unity testing.
 
 ## Rules for each stage
 
