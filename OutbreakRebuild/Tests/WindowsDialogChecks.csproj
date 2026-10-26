@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UseAppHost>false</UseAppHost>
+    <TargetFramework>net8.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Compile the real Windows binding, but only inspect its ABI on this host. -->
+    <DefineConstants>UNITY_STANDALONE_WIN</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Assets/Outbreak/Unity/FileDialogs.cs" />
+    <Compile Include="WindowsDialogChecks.cs" />
+  </ItemGroup>
+</Project>

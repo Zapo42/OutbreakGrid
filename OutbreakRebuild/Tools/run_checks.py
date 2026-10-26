@@ -1,33 +1,118 @@
-"""Compile and execute the delivered C# foundation; never substitute a Python simulation.""" # Keep the validation target explicit.
-import argparse # Accept an installed Mono compiler and runtime.
-from pathlib import Path # Locate the project relative to this script.
-import shutil # Discover standard Mono executables.
-import subprocess # Propagate real compiler and test failures.
-import sys # Run configuration checks with the same Python interpreter as this tool.
-import tempfile # Keep disposable binaries outside Unity Assets.
-parser = argparse.ArgumentParser(description=__doc__) # Document what the runner actually executes.
-parser.add_argument("--compiler", default=shutil.which("mcs")) # Use an installed C# compiler unless explicitly supplied.
-parser.add_argument("--mono", default=shutil.which("mono")) # Use an installed Mono runtime unless explicitly supplied.
-args = parser.parse_args() # Read supported toolchain inputs.
-if not args.compiler or not args.mono: parser.error("Install Mono or use dotnet run --project Tests/FoundationChecks.csproj -- Examples.") # Fail honestly when no C# execution toolchain exists.
-root = Path(__file__).resolve().parents[1] # Keep fresh ZIP extraction independent of the current folder.
-subprocess.run([sys.executable, str(root / "Tools" / "check_project_config.py")], check=True) # Reject missing or unreviewed module declarations before reporting C# logic success.
-with tempfile.TemporaryDirectory(prefix="OutbreakFoundation-") as folder: # Avoid shipping an accidental test executable as a Windows game.
-    libraries = [] # Keep exact assembly references in dependency order.
-    for name in ["Contracts", "Core", "Persistence"]: # Compile the real layers separately so dependency direction is enforced.
-        library = str(Path(folder) / ("Outbreak." + name + ".dll")) # Match the production assembly identities used by Unity.
-        sources = sorted(str(p) for p in (root / "Assets" / "Outbreak" / name).glob("*.cs")) # Compile the delivered source for this layer only.
-        subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-target:library", "-r:System.Runtime.Serialization.dll", "-out:" + library] + ["-r:" + path for path in libraries] + sources, check=True) # Give a layer only its allowed earlier dependencies.
-        libraries.append(library) # Make the successfully compiled layer available to later layers.
-    shutil.copytree(root / "Tests" / "Fixtures", Path(folder) / "Fixtures") # Supply independently recorded prior-release continuation to the same test executable.
-    binary = str(Path(folder) / "FoundationChecks.exe") # Name the host test process separately from the player.
-    subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-r:System.Runtime.Serialization.dll", "-out:" + binary] + ["-r:" + path for path in libraries] + [str(root / "Tests" / "Program.cs"), str(root / "Tests" / "HumanReactionChecks.cs"), str(root / "Tests" / "MovementChecks.cs"), str(root / "Tests" / "InfectedEscapeChecks.cs"), str(root / "Tests" / "ShelterChecks.cs"), str(root / "Tests" / "ShelterRecoveryChecks.cs"), str(root / "Tests" / "ScenarioSetupChecks.cs"), str(root / "Tests" / "ZombieWanderChecks.cs"), str(root / "Tests" / "DoorDamageChecks.cs"), str(root / "Tests" / "DoorHearingChecks.cs"), str(root / "Tests" / "ZombieSoundChecks.cs"), str(root / "Tests" / "HumanWarningChecks.cs"), str(root / "Tests" / "WarningAttractionChecks.cs"), str(root / "Tests" / "DoorBracingChecks.cs"), str(root / "Tests" / "WarningShelterChecks.cs"), str(root / "Tests" / "DoorRepairChecks.cs"), str(root / "Tests" / "HungerChecks.cs"), str(root / "Tests" / "FoodSharingChecks.cs"), str(root / "Tests" / "ShelfMemoryChecks.cs"), str(root / "Tests" / "ShelfReportChecks.cs"), str(root / "Tests" / "PantryChecks.cs"), str(root / "Tests" / "FoodOverviewChecks.cs"), str(root / "Tests" / "FoodExplorationChecks.cs"), str(root / "Tests" / "FoodScarcityChecks.cs"), str(root / "Tests" / "MeleeChecks.cs"), str(root / "Assets" / "Outbreak" / "Unity" / "MovementPresentation.cs"), str(root / "Assets" / "Outbreak" / "Unity" / "WeaponPresentation.cs")], check=True) # Link the checks against actual production assemblies and treat all warnings as failures.
-    subprocess.run([args.mono, binary, str(root / "Examples")], check=True) # Execute production logic and retain evidence with loadable sample documents.
-    platform = str(Path(folder) / "WindowsDialogChecks.exe") # Keep platform signature checks separate from a game executable.
-    subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-define:UNITY_STANDALONE_WIN", "-out:" + platform, str(root / "Assets" / "Outbreak" / "Unity" / "FileDialogs.cs"), str(root / "Tests" / "WindowsDialogChecks.cs")], check=True) # Compile the actual Windows Open and Save bindings without a Unity substitute.
-    subprocess.run([args.mono, platform, str(root / "Examples" / "FOUNDATION_CHECKS.txt")], check=True) # Validate the native record layout without pretending to open a Windows dialog on this host.
-    for mode, symbols in [("Legacy", "UNITY_EDITOR,ENABLE_LEGACY_INPUT_MANAGER"), ("NewOnly", "UNITY_EDITOR,ENABLE_INPUT_SYSTEM")]: # Check real handlers with both compatible input and the documented incompatible mode.
-        ui_binary = str(Path(folder) / ("UiChecks" + mode + ".exe")) # Keep host test executables distinct from a compiled Unity player.
-        ui_sources = [root / "Assets" / "Outbreak" / "Unity" / "FoundationApp.cs", root / "Assets" / "Outbreak" / "Unity" / "MovementPresentation.cs", root / "Assets" / "Outbreak" / "Unity" / "WeaponPresentation.cs", root / "Assets" / "Outbreak" / "Unity" / "FileDialogs.cs", root / "Assets" / "Outbreak" / "Editor" / "InputSetup.cs", root / "Assets" / "Outbreak" / "Editor" / "InputDiagnostics.cs", root / "Tests" / "UiHarness.cs"] # Compile actual UI, pause-safe dispatch and diagnostic handlers with an explicitly scoped API double.
-        subprocess.run([args.compiler, "-langversion:latest", "-warnaserror+", "-define:" + symbols, "-out:" + ui_binary] + ["-r:" + path for path in libraries] + [str(path) for path in ui_sources], check=True) # Reject syntax and handler integration errors in either input configuration.
-        subprocess.run([args.mono, ui_binary, str(root / "Examples" / "FOUNDATION_CHECKS.txt")], check=True) # Record command and setup behavior without claiming native Unity mouse or layout verification.
+"""Run production C# checks sequentially; these are not native Unity or Windows player tests."""
+import argparse
+import glob
+from pathlib import Path
+import re
+import shlex
+import shutil
+import subprocess
+import sys
+import tempfile
+import xml.etree.ElementTree as ET
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def executable(value, label):
+    """Reject missing explicit tools instead of silently switching to a different backend."""
+    found = shutil.which(value) if value else None
+    if not found:
+        raise ValueError(label + " executable not found: " + str(value))
+    return str(Path(found).resolve())
+
+
+def manifest_sources(project):
+    """Use the same explicit Compile includes as MSBuild for the optional Mono backend."""
+    document = ET.parse(project).getroot()
+    if document.findtext("./PropertyGroup/EnableDefaultCompileItems") != "false":
+        raise ValueError("Mono requires explicit Compile items: " + str(project))
+    sources = set()
+    for item in document.findall("./ItemGroup/Compile"):
+        # Fail on unsupported MSBuild constructs rather than skipping authoritative sources.
+        if set(item.attrib) != {"Include"} or "$" in item.attrib["Include"]:
+            raise ValueError("Unsupported Mono Compile item in " + str(project))
+        for pattern in item.attrib["Include"].split(";"):
+            matches = glob.glob(str(project.parent / pattern), recursive=True)
+            if not matches:
+                raise ValueError("Compile include has no sources: " + pattern)
+            sources.update(str(Path(path).resolve()) for path in matches)
+    if not sources:
+        raise ValueError("No Compile sources in " + str(project))
+    return sorted(sources)
+
+
+def manifest_defines(project, mode):
+    """Read conditional input symbols from the project instead of maintaining a second list."""
+    symbols = ""
+    for item in ET.parse(project).getroot().findall("./PropertyGroup/DefineConstants"):
+        condition = item.get("Condition")
+        if condition and condition != "'$(InputMode)' == '" + mode + "'":
+            if re.fullmatch(r"'\$\(InputMode\)' == '[^']+'", condition):
+                continue
+            raise ValueError("Unsupported Mono symbol condition: " + condition)
+        symbols = item.text or ""
+    return symbols
+
+
+def run(command):
+    print("RUN " + shlex.join([str(part) for part in command]), flush=True)
+    subprocess.run(command, cwd=ROOT, check=True)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, epilog="Default reports/examples are retained in a printed temporary directory, never tracked Examples. --output explicitly selects their destination. Mono uses project Compile manifests and rejects unsupported items.")
+    parser.add_argument("--dotnet", help=".NET SDK executable (8 or later); preferred when found on PATH")
+    parser.add_argument("--compiler", help="Mono C# compiler; selecting this or --mono requests the Mono backend")
+    parser.add_argument("--mono", help="Mono runtime executable")
+    parser.add_argument("--output", type=Path, help="report/example destination; default: a retained temporary directory")
+    args = parser.parse_args(argv)
+    try:
+        if args.dotnet and (args.compiler or args.mono):
+            raise ValueError("Choose --dotnet or the Mono options, not both")
+        use_mono = bool(args.compiler or args.mono) or not (args.dotnet or shutil.which("dotnet"))
+        if use_mono:
+            compiler = executable(args.compiler or "mcs", "C# compiler")
+            mono = executable(args.mono or "mono", "Mono runtime")
+        else:
+            dotnet = executable(args.dotnet or "dotnet", ".NET")
+            sdks = subprocess.check_output([dotnet, "--list-sdks"], text=True)
+            if not any(int(major) >= 8 for major in re.findall(r"^(\d+)\.", sdks, re.MULTILINE)):
+                raise ValueError("A .NET SDK version 8 or later is required")
+        # Resolve tools before making output folders, so missing-tool checks have no side effects.
+        output = args.output.expanduser().resolve() if args.output else Path(tempfile.mkdtemp(prefix="OutbreakChecks-"))
+        output.mkdir(parents=True, exist_ok=True)
+        print("Check output: " + str(output), flush=True)
+        run([sys.executable, ROOT / "Tools/check_project_config.py"])
+        projects = [("FoundationChecks", None, str(output)), ("WindowsDialogChecks", None, str(output / "FOUNDATION_CHECKS.txt")), ("UiChecks", "Legacy", str(output / "FOUNDATION_CHECKS.txt")), ("UiChecks", "NewOnly", str(output / "FOUNDATION_CHECKS.txt"))]
+        with tempfile.TemporaryDirectory(prefix="OutbreakCheckBinaries-") as temporary:
+            for name, mode, argument in projects:
+                project = ROOT / "Tests" / (name + ".csproj")
+                if use_mono:
+                    folder = Path(temporary) / (name + (mode or ""))
+                    folder.mkdir()
+                    # Core fixture lookup is relative to the host executable, not its working directory.
+                    shutil.copytree(ROOT / "Tests/Fixtures", folder / "Fixtures")
+                    binary = folder / (name + ".exe")
+                    command = [compiler, "-langversion:latest", "-warnaserror+", "-r:System.Runtime.Serialization.dll", "-out:" + str(binary)]
+                    symbols = manifest_defines(project, mode)
+                    if symbols:
+                        command.append("-define:" + symbols.replace(";", ","))
+                    run(command + manifest_sources(project))
+                    run([mono, binary, argument])
+                else:
+                    # These projects share obj state; complete each build and run before starting the next.
+                    command = [dotnet, "run", "--project", project, "--no-launch-profile"]
+                    if mode:
+                        command.append("-p:InputMode=" + mode)
+                    run(command + ["--", argument])
+        print("PASS all hosted checks. Native Unity, native dialogs and Windows player builds were NOT RUN.", flush=True)
+        return 0
+    except ValueError as error:
+        parser.error(str(error))
+    except (OSError, subprocess.CalledProcessError) as error:
+        print("FAIL " + str(error), file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
