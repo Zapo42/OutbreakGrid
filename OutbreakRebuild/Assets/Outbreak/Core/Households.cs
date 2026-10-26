@@ -48,6 +48,7 @@ namespace Outbreak.Core
                 if(actor.shelterId==actor.assignedHouseId && actor.shelterState==ShelterState.Seeking)ClearShelter(ref actor);
                 else ClearShelterDeparture(ref actor);
             }
+            ClearLeisure(ref actor); // No saved home walk may survive removal of its assigned household.
             actor.assignedHouseId=0;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
     }

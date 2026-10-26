@@ -83,6 +83,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
         private int ReactHuman(int index, int threatIndex) // Evaluate observation, stress, courage and the resulting action once per opportunity.
         { // Begin a complete human decision.
             ActorState actor = actors[index]; if (actor.supportUntilTick <= Tick) { actor.groupSupport = ObserveSupport(actor); actor.supportUntilTick = Tick + HumanRules.SupportTicks; } // Departures affect support only when the human next observes nearby allies.
+            if(LeisureEnabled)InterruptLeisure(index,ref actor,threatIndex); // Urgent needs, danger and new assignments cancel leisure before higher-priority work runs.
             if(ShoveFatigueEnabled && !EnergyEnabled && actor.shoveFatigue>0 && actor.turnAtTick==0 && actor.nextShoveTick==0 && threatIndex<0 && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor)){actor.shoveFatigue--;actors[index]=actor;}
             if(MaulingEnabled && actor.turnAtTick>Tick && threatIndex>=0 && Math.Max(Math.Abs(actor.x-actors[threatIndex].x),Math.Abs(actor.y-actors[threatIndex].y))<=2)return ReactInfected(index,actor,threatIndex);
             // A visible rising corpse is an immediate spacing priority for mobile, unarmed survivors.
@@ -105,6 +106,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             if (ShelfReports && TryShareShelfReport(index, ref actor, threatIndex)) return 8; // A safe conversation is a separate action, after actual meal sharing.
             if(BoxReportsEnabled && TryShareStorageReport(index,ref actor,threatIndex))return 8;
             int foodDirection; if (HungerEnabled && TryForage(index, ref actor, threatIndex, out foodDirection)) return foodDirection;
+            int leisureDirection; if(LeisureEnabled && TryLeisureRoutine(index,ref actor,threatIndex,out leisureDirection))return leisureDirection; // Only otherwise free, safe consumers may take a real energy-costing walk.
             int shelterDirection; if (SheltersEnabled && TryShelter(index, ref actor, threatIndex, out shelterDirection)) return shelterDirection; // Retain a reachable room goal before falling back to local escape.
             if (InfectedEscape && actor.turnAtTick > Tick) return ReactInfected(index, actor, threatIndex); // Infection overrides fighting, freezing and wandering before any normal courage decision.
             if(WeaponReplacement && TryReplaceBat(index,ref actor,threatIndex))return 8;

@@ -16,6 +16,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired = true)] public int x, y, food;
         [DataMember] public bool searched;
     }
+    public enum HumanLeisurePhase { None, Outbound, Pausing, Returning } // Persist a short walk independently of food and work tasks.
     public enum ShoppingEndReason { None, NoKnownStore, NoRoute, EmptyStores, Danger, Hunger, TargetSatisfied, Expired }
     public enum RestockPhase { None, Collecting, Returning }
     public enum InventoryItem { Food }
@@ -122,6 +123,9 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int shoppingShelf,shoppingMeals;
         [DataMember(EmitDefaultValue=false)] public int familiarStoreId;
         [DataMember(EmitDefaultValue=false)] public int[] additionalFamiliarStores;
+        [DataMember(EmitDefaultValue=false)] public HumanLeisurePhase leisurePhase;
+        [DataMember(EmitDefaultValue=false)] public int leisureDoor,leisureHomeCell,leisureX,leisureY; // Door and home cells use key+1 so zero is canonical inactivity.
+        [DataMember(EmitDefaultValue=false)] public long nextLeisureTick,leisureUntilTick; // Saved cooldown and phase deadline do not consume a random stream.
         [DataMember(EmitDefaultValue=false)] public bool shoppingResting;
         [DataMember(EmitDefaultValue=false)] public ShoppingEndReason shoppingEndReason;
         [DataMember(EmitDefaultValue=false)] public int shoppingStoreId,shoppingSearchCell;

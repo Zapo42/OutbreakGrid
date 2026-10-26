@@ -52,6 +52,15 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
         } // Finish departure decision.
         private bool FinishShelterDeparture(int index, ref ActorState actor, Room room) // Preserve inspection doors and release admission after physically reaching outdoors.
         { // Begin post-movement exit commitment.
+            if(LeisureEnabled && actor.leisurePhase!=HumanLeisurePhase.None && room!=null)
+            {
+                bool inside=room.Contains(Key(actor.x,actor.y));actor.shelterState=inside?ShelterState.Inside:ShelterState.Seeking;
+                int door=actor.leisureDoor-1,x=door%Width,y=door/Width;
+                // Leave an opening action visible until the following crossing; close only after physically passing the door.
+                if(actor.leisurePhase==HumanLeisurePhase.Returning && inside)CloseNearbyDoors(actor,room);
+                else if(actor.leisurePhase==HumanLeisurePhase.Outbound && !inside && Math.Abs(actor.x-x)+Math.Abs(actor.y-y)==1 && !DoorOccupied(x,y))SetDoor(x,y,false);
+                actors[index]=actor;return true;
+            }
             if (room == null || (actor.shelterExitPhase != ShelterExitPhase.Checking && actor.shelterExitPhase != ShelterExitPhase.Leaving)) return false; if (actor.x == actor.shelterExitX && actor.y == actor.shelterExitY && actor.shelterExitPhase == ShelterExitPhase.Leaving) { int x = (actor.shelterExitDoor - 1) % Width, y = (actor.shelterExitDoor - 1) / Width; if (!DoorOccupied(x, y)) SetDoor(x, y, false); ClearShelter(ref actor);if(ShoppingContinuityEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Collecting)actor.homeShelterId=0; actor.reaction = HumanReaction.Calm; } else actor.shelterState = room.Contains(Key(actor.x, actor.y)) ? ShelterState.Inside : ShelterState.Seeking; actors[index] = actor; return true; // Other bodies keep an occupied doorway open; no distant door closes magically.
         } // Finish departure commitment.
     } // Finish recovery implementation.

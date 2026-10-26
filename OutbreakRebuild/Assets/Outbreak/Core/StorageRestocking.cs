@@ -60,7 +60,8 @@ namespace Outbreak.Core
             {
                 if(actor.courierReturningHome && HouseAt(actor.x,actor.y)==actor.assignedHouseId){actor.courierReturningHome=false;actors[index]=actor;}
                 if(assigned){if(!StartSupplyOrderTrip(index,ref actor,threat) && !StartAssignedCourierJob(index,ref actor,threat)){if(WorkerShiftsEnabled && CourierWorkingNow(actor) && HouseAt(actor.x,actor.y)==Workplace(actor))return false;return TryReturnToAssignedHouse(index,ref actor,threat,out direction);}}
-                else if(HouseAt(actor.x,actor.y)!=actor.assignedHouseId)return TryReturnToAssignedHouse(index,ref actor,threat,out direction);
+                // A safe leisure route owns its return; actual shopping and courier tasks still run in their established order.
+                else if(HouseAt(actor.x,actor.y)!=actor.assignedHouseId && !(LeisureEnabled && actor.leisurePhase!=HumanLeisurePhase.None))return TryReturnToAssignedHouse(index,ref actor,threat,out direction);
             }
             if(actor.restockPhase==RestockPhase.None && IsStoreShopper(actor) && !StartStoreShopping(index,ref actor,threat))return false;
             if(WorkerMayShopOffDuty(actor) && actor.restockPhase==RestockPhase.None)return false;

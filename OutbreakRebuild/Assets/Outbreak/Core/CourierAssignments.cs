@@ -19,7 +19,7 @@ namespace Outbreak.Core
         public bool TryAssignHouse(int index,int x,int y)
         {
             int house=HouseAt(x,y);if(!CanEditCourier(index) || house==0)return false;
-            ActorState actor=actors[index];actor.assignedHouseId=house;actor.courierReturningHome=false;actors[index]=actor;return true;
+            ActorState actor=actors[index];ClearLeisure(ref actor);actor.assignedHouseId=house;actor.courierReturningHome=false;actors[index]=actor;return true;
         }
         public bool TrySetCourierSource(int index,int x,int y)
         {
@@ -42,6 +42,7 @@ namespace Outbreak.Core
         }
         private static void ClearCourierAssignment(ref ActorState actor)
         {
+            ClearLeisure(ref actor); // Removing a household also releases its saved walk and cooldown.
             actor.workerCommuteId=0;actor.assignedHouseId=0;actor.distributionCenterId=0;ClearCourierSchedule(ref actor);actor.courierSourceBox=0;actor.courierBoxes=null;actor.courierNextBox=0;actor.courierReturningHome=false;
         }
         private bool AssignedCourierDepartureAllowed(ActorState actor,Room room,int threat)
