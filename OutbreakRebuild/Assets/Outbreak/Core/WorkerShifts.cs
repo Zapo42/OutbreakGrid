@@ -89,9 +89,9 @@ namespace Outbreak.Core
                 actors[index]=actor;
             }
             if(actor.assignedHouseId==0)return false;
-            if(OffDutyConsumersEnabled && !working && EffectiveOccupationOf(actor)==HumanOccupation.Consumer)
+            if(OffDutyConsumersEnabled && !working && EffectiveOccupationOf(actor)==HumanOccupation.Consumer && ((actual!=null && actual.id==actor.assignedHouseId) || actor.leisurePhase!=HumanLeisurePhase.None))
             {
-                // Consumer shopping and leisure own the home return while off duty; retain the job for the next shift.
+                // Once home, or on an optional walk, consumer routines take over; preserve the established physical commute from work.
                 if(actor.workerCommuteId!=0){actor.workerCommuteId=0;actor.courierReturningHome=false;actor.homeShelterId=0;ClearShelterDeparture(ref actor);actors[index]=actor;}
                 return false;
             }
