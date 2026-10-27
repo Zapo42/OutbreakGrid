@@ -109,6 +109,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int energySpent;
         [DataMember(EmitDefaultValue=false)] public int happiness; // Human mood starts neutral and remains within -50 through +50.
         [DataMember(EmitDefaultValue=false)] public long nextHappinessTick; // Saved staggered cadence is independent of simulation random streams.
+        [DataMember(EmitDefaultValue=false)] public long nextSocialTick; // Pair cooldown also dates the latest physical greeting.
+        [DataMember(EmitDefaultValue=false)] public int lastSocialPartnerId,lastSocialGain; // Stable observed identity and actual bounded happiness gain.
         [DataMember(EmitDefaultValue=false)] public int grappledById;
         [DataMember(EmitDefaultValue=false)] public long grappleUntilTick;
         [DataMember(EmitDefaultValue=false)] public long riseUntilTick;

@@ -12,7 +12,7 @@ public static partial class Program
         WorldMap map=new WorldMap(11,9,"Happiness observation cells","happiness-qa-1");for(int y=0;y<9;y++)for(int x=0;x<11;x++)map.Set(x,y,Terrain.Wall);
         map.Set(3,3,indoors?Terrain.Floor:Terrain.Grass);if(indoors)map.Set(4,3,Terrain.DoorClosed);
         if(hidden)map.Set(5,3,Terrain.Grass);if(companions>3)map.Set(3,4,indoors?Terrain.Floor:Terrain.Grass);
-        World world=new World(map,214,encounter:true,hunger:true);int id;Require(world.TrySpawn(Species.Human,3,3,out id),"Could not place happiness observer.");
+        World world=new World(map,214,encounter:true,hunger:true,socialInteractions:false);int id;Require(world.TrySpawn(Species.Human,3,3,out id),"Could not place happiness observer.");
         for(int i=0;i<companions;i++)Require(world.TrySpawn(Species.Human,hidden?5:3,!hidden && i>=3?4:3,out id),"Could not place happiness companion.");
         var saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){saved.actors[i].charisma=charisma;saved.actors[i].hunger=0;saved.actors[i].carriedFood=1;if(indoors){saved.actors[i].assignedHouseId=world.HouseAt(3,3);saved.actors[i].nextLeisureTick=600;}}
         return World.Restore(saved);
