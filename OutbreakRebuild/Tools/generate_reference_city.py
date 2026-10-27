@@ -181,6 +181,209 @@ def place_parks(cells,width,height,blocks,cell_metres,specs):
     return occupied,parks,omitted
 
 
+# These templates describe geometry and proposed fixture sites only. They do not
+# create new gameplay object types or change the game's room/home save contracts.
+BUILDING_LAYOUT_VERSION="building-layouts-draft-1"
+BUILDING_TYPES=("house","store","distribution-center","restaurant-bar","church")
+BUILDING_VARIANTS=("compact","spacious")
+
+
+def building_blueprint(kind,variant="compact",rotation=0):
+    """Return a local-cell, rotatable building layout for Lead/NPC integration review."""
+    if kind not in BUILDING_TYPES or variant not in BUILDING_VARIANTS:
+        raise ValueError("Unknown building type or layout variant")
+    if type(rotation) is not int or rotation not in range(4):
+        raise ValueError("Rotation must be 0, 1, 2 or 3 clockwise quarter turns")
+    dimensions={"house":((10,9),(12,11)),"store":((14,12),(18,14)),
+                "distribution-center":((16,12),(18,14)),
+                "restaurant-bar":((18,14),(20,16)),"church":((16,14),(18,16))}
+    width,height=dimensions[kind][BUILDING_VARIANTS.index(variant)]
+    walls={(x,y) for y in range(height) for x in range(width)
+           if x in (0,width-1) or y in (0,height-1)}
+    rooms=[];doors=[];fixtures=[];interactions=[]
+
+    def room(identity,role,left,top,w,h):
+        rooms.append({"id":identity,"role":role,"cells":[[x,y] for y in range(top,top+h) for x in range(left,left+w)]})
+
+    def door(identity,x,y,a,b):
+        walls.discard((x,y));doors.append({"id":identity,"cell":[x,y],"connects":[a,b],"external":b=="outside"})
+
+    def fixture(identity,role,cells,approaches,room_id):
+        fixtures.append({"id":identity,"role":role,"room_id":room_id,"cells":[list(p) for p in cells],
+                         "approach_cells":[list(p) for p in approaches],"blocks_movement":True,
+                         "status":"proposed fixture; no game object instantiated"})
+
+    if kind=="house":
+        split=width-4
+        walls.update((split,y) for y in range(1,height-1))
+        room("living","living-area",1,1,split-1,height-2)
+        room("storage","household-storage",split+1,1,width-split-2,height-2)
+        door("front",3,height-1,"living","outside")
+        door("storage-door",split,height//2,"living","storage")
+        fixture("seating","seating",[(2,2),(3,2)],[(2,3),(3,3)],"living")
+        fixture("home-storage","storage-shelf",[(width-2,2)],[(width-3,2)],"storage")
+    else:
+        split=height-5
+        walls.update((x,split) for x in range(1,width-1))
+        front_role={"store":"sales-floor","distribution-center":"dispatch-office",
+                    "restaurant-bar":"dining-bar","church":"sanctuary"}[kind]
+        rear_role={"store":"stockroom","distribution-center":"warehouse",
+                   "restaurant-bar":"kitchen","church":"vestry-storage"}[kind]
+        room("front",front_role,1,1,width-2,split-1)
+        room("rear",rear_role,1,split+1,width-2,height-split-2)
+        door("public-entrance",width//2,0,"front","outside")
+        door("internal-door",width-3,split,"front","rear")
+        if kind!="church":door("service-entrance",width-1,height-3,"rear","outside")
+        if kind=="store":
+            for y in (3,5):
+                for x in range(3,width-3,3):
+                    fixture(f"sales-shelf-{x}-{y}","sales-shelf",[(x,y)],[(x+1,y)],"front")
+            fixture("store-stock","storage-shelf",[(x,height-2) for x in range(2,5)],[(x,height-3) for x in range(2,5)],"rear")
+        elif kind=="distribution-center":
+            fixture("order-computer","order-computer",[(2,2)],[(3,2)],"front")
+            interactions.append({"id":"order-pickup","kind":"courier-order-pickup","fixture_id":"order-computer",
+                                 "approach_cells":[[3,2]],"mechanics":"pending Lead/NPC agreement; no order generation or assignment changes"})
+            for x in range(2,width-3,3):
+                fixture(f"warehouse-rack-{x}","storage-shelf",[(x,height-2)],[(x,height-3)],"rear")
+        elif kind=="restaurant-bar":
+            # A low service counter occupies the partition. Wall terrain is only
+            # a solid preview placeholder; across-counter interaction is a draft interface.
+            counter=[(x,split) for x in range(3,6)]
+            fixture("service-counter","service-counter",counter,[(x,split-1) for x in range(3,6)]+[(x,split+1) for x in range(3,6)],None)
+            for x,y in counter:
+                interactions.append({"id":f"service-handoff-{x}","kind":"across-counter","fixture_id":"service-counter",
+                                     "counter_cell":[x,y],"sides":[{"role":"waiter","room_id":"front","cell":[x,y-1]},
+                                                                             {"role":"cook","room_id":"rear","cell":[x,y+1]}],
+                                     "mechanics":"proposed interaction positions; no item transfer or NPC logic"})
+            for x in (3,width-4):
+                for y in (3,6):fixture(f"table-{x}-{y}","dining-table",[(x,y)],[(x+1,y)],"front")
+            fixture("bar","bar-counter",[(1,5),(1,6)],[(2,5),(2,6)],"front")
+            fixture("cooking-station","cooking-station",[(2,height-2)],[(2,height-3)],"rear")
+            fixture("kitchen-stock","storage-shelf",[(width-3,height-2)],[(width-3,height-3)],"rear")
+        else:
+            middle=width//2
+            for y in (3,5):
+                for side,xs in (("left",range(2,middle-1)),("right",range(middle+2,width-2))):
+                    fixture(f"pew-{side}-{y}","pew",[(x,y) for x in xs],[(x,y+1) for x in xs],"front")
+            fixture("altar","altar",[(middle,split-2)],[(middle,split-3)],"front")
+            fixture("vestry-stock","storage-shelf",[(2,height-2)],[(2,height-3)],"rear")
+
+    # Rotate every geometry field together; IDs describe purpose, not world coordinates.
+    def transform(point):
+        x,y=point;w,h=width,height
+        for _ in range(rotation):x,y,w,h=h-1-y,x,h,w
+        return [x,y]
+
+    for r in rooms:r["cells"]=[transform(p) for p in r["cells"]]
+    for d in doors:d["cell"]=transform(d["cell"])
+    for f in fixtures:
+        for key in ("cells","approach_cells"):f[key]=[transform(p) for p in f[key]]
+    for interaction in interactions:
+        if "counter_cell" in interaction:interaction["counter_cell"]=transform(interaction["counter_cell"])
+        if "approach_cells" in interaction:interaction["approach_cells"]=[transform(p) for p in interaction["approach_cells"]]
+        for side in interaction.get("sides",[]):side["cell"]=transform(side["cell"])
+    result={"kind":"outbreak.building-blueprint.draft","layout_version":BUILDING_LAYOUT_VERSION,
+            "id":f"{kind}-{variant}-r{rotation}","building_type":kind,"variant":variant,"rotation_quarter_turns":rotation,
+            "width":height if rotation%2 else width,"height":width if rotation%2 else height,
+            "coordinate_units":"local simulation cells; use the destination map's metres-per-cell scale",
+            "rooms":rooms,"walls":[transform(p) for p in sorted(walls)],"doors":doors,
+            "fixtures":fixtures,"interactions":interactions,
+            "integration_status":"draft authoring geometry, not an agreed persisted gameplay contract"}
+    if kind=="house":
+        blocked={tuple(p) for f in fixtures for p in f["cells"]}
+        result["recovery_area"]={"room_id":"living","cells":[p for p in rooms[0]["cells"] if tuple(p) not in blocked],
+                                 "intended_effect":"energy recovery in living area; activation and rates owned by Lead/NPC coder"}
+    validate_building_blueprint(result)
+    return result
+
+
+def validate_building_blueprint(blueprint):
+    """Check enclosure and access with proposed fixtures treated as solid obstacles."""
+    width,height=blueprint["width"],blueprint["height"]
+    def point(p):
+        if not isinstance(p,list) or len(p)!=2 or any(type(v) is not int for v in p) or not (0<=p[0]<width and 0<=p[1]<height):
+            raise ValueError("Blueprint geometry leaves its local bounds")
+        return tuple(p)
+    walls={point(p) for p in blueprint["walls"]};doors={};room_cells={};owners={}
+    if len(walls)!=len(blueprint["walls"]):raise ValueError("Duplicate wall cell")
+    ids=set()
+    for room in blueprint["rooms"]:
+        if room["id"] in room_cells:raise ValueError("Duplicate room identity")
+        cells={point(p) for p in room["cells"]}
+        if not 1<=len(cells)<=256 or len(cells)!=len(room["cells"]):raise ValueError("Invalid room floor budget")
+        if cells & (walls|set(owners)):raise ValueError("Overlapping rooms or walls")
+        room_cells[room["id"]]=cells;owners.update((p,room["id"]) for p in cells)
+    def adjacent(p):
+        x,y=p;return ((x-1,y),(x+1,y),(x,y-1),(x,y+1))
+    for door in blueprint["doors"]:
+        p=point(door["cell"])
+        if door["id"] in ids or p in doors or p in walls or p in owners:raise ValueError("Invalid or overlapping door")
+        ids.add(door["id"]);doors[p]=door
+        connected={owners[n] for n in adjacent(p) if n in owners}
+        if p[0] in (0,width-1) or p[1] in (0,height-1):connected.add("outside")
+        if connected!=set(door["connects"]) or door["external"]!=("outside" in connected):raise ValueError("Door connects the wrong rooms")
+    if walls|set(doors)|set(owners)!={(x,y) for y in range(height) for x in range(width)}:
+        raise ValueError("Blueprint has missing wall or floor geometry")
+    blocked=set();fixtures={}
+    for fixture in blueprint["fixtures"]:
+        if fixture["id"] in fixtures:raise ValueError("Duplicate fixture identity")
+        cells={point(p) for p in fixture["cells"]}
+        if not cells or cells & (blocked|set(doors)):raise ValueError("Fixture blocks a door or overlaps another fixture")
+        if fixture["role"]=="service-counter":
+            if not cells<=walls:raise ValueError("Service counter must occupy its partition")
+        elif not cells<=room_cells.get(fixture["room_id"],set()):raise ValueError("Fixture is outside its room")
+        blocked.update(cells);fixtures[fixture["id"]]=fixture
+    # Room connectivity is checked with all fixtures present, before allowing any door crossing.
+    for identity,cells in room_cells.items():
+        free=cells-blocked
+        if not free:raise ValueError("Room has no usable floor")
+        first=min(free);seen={first};queue=deque([first])
+        while queue:
+            for n in adjacent(queue.popleft()):
+                if n in free and n not in seen:seen.add(n);queue.append(n)
+        if seen!=free:raise ValueError("Fixtures divide a room's usable floor")
+        if not any(identity in d["connects"] and any(n in free for n in adjacent(p)) for p,d in doors.items()):
+            raise ValueError("Room has no accessible doorway")
+    walkable=set(owners)-blocked|set(doors)
+    entrances=[p for p,d in doors.items() if d["external"]]
+    if not entrances:raise ValueError("Building has no exterior entrance")
+    seen={entrances[0]};queue=deque(seen)
+    while queue:
+        for n in adjacent(queue.popleft()):
+            if n in walkable and n not in seen:seen.add(n);queue.append(n)
+    if seen!=walkable:raise ValueError("Building contains unreachable floor or doors")
+    for fixture in fixtures.values():
+        if not fixture["approach_cells"]:raise ValueError("Fixture has no interaction approach")
+        for approach in fixture["approach_cells"]:
+            p=point(approach)
+            if p not in seen or not any(n in {tuple(v) for v in fixture["cells"]} for n in adjacent(p)):
+                raise ValueError("Fixture approach is blocked or not adjacent")
+    for interaction in blueprint["interactions"]:
+        fixture=fixtures.get(interaction["fixture_id"])
+        if fixture is None:raise ValueError("Interaction references a missing fixture")
+        approaches={tuple(p) for p in fixture["approach_cells"]}
+        for p in interaction.get("approach_cells",[]):
+            if point(p) not in approaches:raise ValueError("Interaction is outside its fixture approaches")
+        if interaction["kind"]=="across-counter":
+            counter=point(interaction["counter_cell"])
+            if counter not in {tuple(p) for p in fixture["cells"]}:raise ValueError("Missing counter cell")
+            sides=interaction["sides"]
+            if len(sides)!=2 or {s["role"] for s in sides}!={"cook","waiter"} or len({s["room_id"] for s in sides})!=2:
+                raise ValueError("Counter needs distinct kitchen and dining approaches")
+            positions=[]
+            for side in sides:
+                p=point(side["cell"]);positions.append(p)
+                if p not in approaches or owners.get(p)!=side["room_id"] or p not in adjacent(counter):
+                    raise ValueError("Counter interaction is outside its assigned room")
+            if positions[0][0]+positions[1][0]!=2*counter[0] or positions[0][1]+positions[1][1]!=2*counter[1]:
+                raise ValueError("Counter approaches must face each other")
+    if "recovery_area" in blueprint:
+        area=blueprint["recovery_area"];cells={point(p) for p in area["cells"]}
+        if not cells or cells!=room_cells.get(area["room_id"],set())-blocked:
+            raise ValueError("Recovery area must cover usable living-area floor")
+    return True
+
+
 def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildings=128,
                        density=None,setback_cells=2,footprint_sizes=None,road_width_cells=1.5,
                        sidewalk_width_cells=.75,placement_mode="scatter",lot_gap_cells=1,

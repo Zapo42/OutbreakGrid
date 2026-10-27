@@ -134,3 +134,72 @@ Also run the Lead's documented unified hosted runner sequentially after
 integration. The maps source baseline predates its repair; do not replace that
 runner or alter test manifests as part of World-owned file changes. Native
 Unity testing remains paused; generated terrain is not native visual evidence.
+
+## Multi-room building layout review pack
+
+User-requested follow-on: reusable house, store, distribution-center,
+restaurant/bar and church layouts. Generate the review pack in a fresh output
+folder, without changing existing city recipes:
+
+```bash
+python Tools/generate_district_city.py building-pack \
+  --directory /tmp/outbreak-building-pack --seed 214
+```
+
+The pack contains ten examples: compact and spacious versions of each building,
+with seeded cardinal rotations. `index.html` links technical `.svg` floor plans,
+local-cell `.blueprint.json` templates, and loadable `.obmap2` terrain shells.
+`manifest.json` records the seed, examples and required Lead decisions. The
+Python API `generate_reference_city.building_blueprint(type, variant, rotation)`
+returns a reusable layout; `rotation` is 0–3 clockwise quarter turns. Call
+`generate_district_city.building_preview_map(blueprint)` to inspect its shell.
+These are game-cell designs, not measured architectural plans.
+
+| Building | Rooms and planned fixtures |
+| --- | --- |
+| House | Large living area with seating and an identified recovery region; smaller storage room behind an internal door, containing the household storage shelf. No bed fixture. |
+| Store | Sales floor with multiple shelf positions and clear approach aisles; separate stockroom with storage shelving, an internal door and receiving entrance. |
+| Distribution center | Dispatch office containing an order-computer position and courier approach point; separate warehouse with storage racks and service entrance. |
+| Restaurant/bar | Dining/bar area and separate kitchen; public dining entrance and kitchen service entrance; internal staff door; service counter with opposite cook/waiter interaction cells; tables, bar, cooking and storage positions. |
+| Church | Sanctuary with central aisle, pew positions and altar; separate vestry/storage room behind an internal door. |
+
+Blueprint coordinates are local simulation cells. Preview authoring metadata
+provides `origin_cells` for translation to its map. Room IDs, fixture IDs and
+interaction IDs are stable **draft authoring identifiers**, not current saved
+home/job/object identities. A future city placer must namespace them per
+building instance, verify the template footprint fits its lot, and retain all
+room/door/fixture transforms together. The new layouts are **not automatically
+applied** to the existing single-room district generator or existing saves.
+
+Each template describes room floor cells, enclosing walls, exterior/internal
+doors, proposed solid fixture footprints and accessible interaction cells.
+Geometry checks treat proposed fixtures as obstacles and verify usable room
+floor remains connected, every room is accessible from outside, fixtures have
+adjacent reachable approaches, and each service counter has opposite kitchen
+and dining approaches. Tests cover all five types, both variants and four
+rotations, malformed/blocked layouts and exact pack replay.
+
+**Current runtime boundary:** OBMAP2 shells use existing schema 1 floors, walls,
+doors and sidewalks. Fixtures are drawn in technical SVG plans and retained in
+opaque `authoringJson`; they are not materialized as game shelves, storage,
+rest spots, computers, furniture or counters. The shell therefore has no live
+fixture collision/inventory or new mechanics. The restaurant counter uses wall
+terrain as a solid partition placeholder; visibility and across-counter actions
+need an agreed counter implementation. No NPCs, supplies or behaviors are added.
+
+The living region records the intended energy-recovery area; the NPC coder and
+Lead own activation, rates and rest decisions. The order-computer record gives
+an explicit courier interaction site; clerk calls still use current behavior
+until their coder implements a physical terminal visit/claim protocol. Kitchen
+handoff pairs are geometry only: no cooking, waiting, food transfers, bar or
+church mechanics have been implemented.
+
+Before gameplay integration, the Lead must agree building-to-room grouping,
+finite inventory fixture mappings, recovery semantics, order claiming, counter
+collision/visibility and interaction rules with the appropriate coders. The
+current engine discovers **each enclosed room as a separate shelter**, so these
+two-room shells cannot safely replace assigned homes or stores until that
+membership/identity contract is resolved. No shared contracts, persistence,
+NPC logic, Unity settings, assets, GUIDs or dependencies change in this pack.
+Native Unity testing remains paused. Run the Python checks above and the
+Lead's sequential unified hosted runner before accepting integration.

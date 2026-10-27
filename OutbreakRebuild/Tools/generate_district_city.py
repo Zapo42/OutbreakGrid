@@ -315,6 +315,99 @@ def save(result,output):
     return stem
 
 
+def building_preview_map(blueprint,cell_metres=5):
+    """Export existing terrain only; fixture and mechanic proposals remain opaque authoring data."""
+    lots.validate_building_blueprint(blueprint)
+    if not isinstance(cell_metres,(int,float)) or isinstance(cell_metres,bool) or not math.isfinite(cell_metres) or cell_metres<=0:
+        raise ValueError("Preview cell scale must be positive and finite")
+    margin=4;width=blueprint["width"]+margin*2;height=blueprint["height"]+margin*2
+    cells=bytearray(width*height)
+    # Connected perimeter road and sidewalk make each external doorway testable in isolation.
+    for y in range(1,height-1):
+        for x in range(1,width-1):
+            if x in (1,width-2) or y in (1,height-2):cells[y*width+x]=6
+            elif x in (2,width-3) or y in (2,height-3):cells[y*width+x]=5
+    for room in blueprint["rooms"]:
+        for x,y in room["cells"]:cells[(y+margin)*width+x+margin]=7
+    for x,y in blueprint["walls"]:cells[(y+margin)*width+x+margin]=8
+    for door in blueprint["doors"]:
+        x,y=door["cell"];cells[(y+margin)*width+x+margin]=9
+        if not door["external"]:continue
+        dx=-1 if x==0 else 1 if x==blueprint["width"]-1 else 0
+        dy=-1 if y==0 else 1 if y==blueprint["height"]-1 else 0
+        px,py=x+margin+dx,y+margin+dy
+        while cells[py*width+px]==0:
+            cells[py*width+px]=5;px+=dx;py+=dy
+        if cells[py*width+px] not in (5,6):raise ValueError("Preview entrance missed its sidewalk")
+    grid={"width":width,"height":height,"cell_metres":cell_metres,"north_up":True,"projection":"fictional local metric grid"}
+    metadata={"generator_version":lots.BUILDING_LAYOUT_VERSION,"grid":grid,"origin_cells":[margin,margin],
+              "blueprint":copy.deepcopy(blueprint),"expected_room_count":len(blueprint["rooms"]),
+              "fixtures_materialized":False,"mechanics_enabled":False,
+              "provenance":{"attribution":"Fictional building geometry for Lead integration review."},
+              "scope":"Terrain shell with real partitions/doors. Fixtures and interaction sites are draft authoring hints, not active game objects."}
+    document={"kind":"outbreak.map","schemaVersion":1,"id":"blueprint-"+blueprint["id"],"name":"Building geometry review: "+blueprint["id"],
+              "width":width,"height":height,"chunkSize":32,"chunks":[],"authoringJson":json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)}
+    lots.pack(document,cells)
+    return document,metadata
+
+
+def building_blueprint_svg(document,metadata):
+    """Technical plan overlay, separate from game art and runtime fixture materialization."""
+    from html import escape
+    blueprint=metadata["blueprint"];ox,oy=metadata["origin_cells"];width,height=document["width"],document["height"]
+    unit=28;cells=lots.unpack(document)
+    palette={0:"#eef3e8",5:"#c1c9c4",6:"#938f83",7:"#fff9e9",8:"#35454c",9:"#edab65"}
+    parts=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {max(800,width*unit)} {(height+6)*unit}" role="img" aria-label="{escape(blueprint["id"])} technical layout">',
+           '<rect width="100%" height="100%" fill="white"/>']
+    for y in range(height):
+        for x in range(width):parts.append(f'<rect x="{x*unit}" y="{y*unit}" width="{unit}" height="{unit}" fill="{palette[cells[y*width+x]]}" stroke="#ffffff" stroke-width=".5"/>')
+    for room in blueprint["rooms"]:
+        x,y=min(room["cells"],key=lambda p:(p[1],p[0]))
+        parts.append(f'<text x="{(x+ox)*unit+2}" y="{(y+oy)*unit+10}" font-size="9" font-family="sans-serif" fill="#243b45">{escape(room["role"])}</text>')
+    for fixture in blueprint["fixtures"]:
+        short={"order-computer":"PC","service-counter":"PASS","sales-shelf":"SH","storage-shelf":"ST","seating":"SOFA","dining-table":"TBL","bar-counter":"BAR","cooking-station":"COOK","pew":"PEW","altar":"ALT"}[fixture["role"]]
+        for x,y in fixture["cells"]:
+            px,py=(x+ox)*unit,(y+oy)*unit
+            parts.append(f'<rect x="{px+2}" y="{py+2}" width="{unit-4}" height="{unit-4}" fill="#6d8ca0"><title>{escape(fixture["id"]+": "+fixture["role"])}</title></rect>')
+            parts.append(f'<text x="{px+unit/2}" y="{py+17}" text-anchor="middle" font-size="7" font-family="sans-serif" fill="white">{short}</text>')
+        for x,y in fixture["approach_cells"]:
+            parts.append(f'<circle cx="{(x+ox+.5)*unit}" cy="{(y+oy+.5)*unit}" r="3" fill="#39a55c"/>')
+    for y,text in enumerate((blueprint["id"],"Technical plan: orange doors; blue proposed fixtures; green interaction approaches.",
+                              "SH sales shelf | ST storage | PC order computer | PASS kitchen service counter",
+                              "Map shell contains terrain only. Fixtures, recovery and order mechanics await Lead/NPC integration.",
+                              "Units: simulation cells. Draft room/fixture IDs are not persisted gameplay identities.")):
+        parts.append(f'<text x="12" y="{(height+1+y)*unit}" font-family="sans-serif" font-size="11" fill="#243b45">{escape(text)}</text>')
+    parts.append('</svg>')
+    return ''.join(parts)
+
+
+def write_building_pack(output,seed=214):
+    """Write a deterministic review pack without changing bundled city recipes or maps."""
+    if type(seed) is not int or not 1<=seed<=0xffffffff:raise ValueError("Seed must be a nonzero uint32")
+    output=Path(output);output.mkdir(parents=True,exist_ok=True)
+    rng=lots.StableRandom(stream_seed(seed,"building-layouts"));entries=[]
+    for kind in lots.BUILDING_TYPES:
+        for variant in lots.BUILDING_VARIANTS:
+            blueprint=lots.building_blueprint(kind,variant,rng.randrange(4))
+            document,metadata=building_preview_map(blueprint);stem=blueprint["id"]
+            atlas.write_json(output/(stem+".blueprint.json"),blueprint)
+            atlas.write_json(output/(stem+".obmap2"),document)
+            (output/(stem+".svg")).write_text(building_blueprint_svg(document,metadata),encoding="utf-8")
+            entries.append({"id":stem,"type":kind,"variant":variant,"blueprint":stem+".blueprint.json","map":stem+".obmap2","plan":stem+".svg"})
+    manifest={"layout_version":lots.BUILDING_LAYOUT_VERSION,"seed":seed,"templates":entries,
+              "status":"Geometry review pack; no runtime fixture/behavior integration",
+              "lead_decisions":["Group multiple rooms under one building/home identity without changing old saves",
+                                "Approve room recovery semantics and rates with NPC coder",
+                                "Map proposed sales/storage fixtures to finite-inventory game objects",
+                                "Agree order-computer visit/claim protocol with NPC coder",
+                                "Agree cook/waiter counter transfer protocol and fixture collision/visibility"]}
+    atlas.write_json(output/"manifest.json",manifest)
+    # Plain technical documents, not production UI or replacement graphics assets.
+    links=''.join(f'<li><a href="{entry["plan"]}">{entry["id"]}</a> | <a href="{entry["blueprint"]}">blueprint</a> | <a href="{entry["map"]}">terrain shell</a></li>' for entry in entries)
+    (output/"index.html").write_text('<!doctype html><meta charset="utf-8"><title>Building geometry review pack</title><h1>Building geometry review pack</h1><p>Ten reusable local-cell layouts. Blueprints and technical plans include proposed fixture sites. OBMAP2 files contain walls, floors, doors and sidewalks only; fixtures and mechanics await integration.</p><ul>'+links+'</ul>',encoding="utf-8")
+    return manifest
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output",type=Path,default=atlas.ROOT/"CityReferences/districts/maps")
@@ -325,8 +418,14 @@ def main():
     district.add_argument("--block-width-cells",type=int);district.add_argument("--block-height-cells",type=int)
     district.add_argument("--coverage",type=float);district.add_argument("--blocks-across",type=int);district.add_argument("--blocks-down",type=int)
     city=sub.add_parser("city");city.add_argument("--districts",nargs='+',default=["dense-urban","business-core","terrace-residential","garden-suburb"]);city.add_argument("--seed",type=int,default=214);city.add_argument("--city-columns",type=int,default=2)
+    pack=sub.add_parser("building-pack",help="Export draft multi-room templates and technical map shells")
+    pack.add_argument("--directory",type=Path,required=True);pack.add_argument("--seed",type=int,default=214)
     replay=sub.add_parser("replay");replay.add_argument("recipe",type=Path)
     args=parser.parse_args()
+    if args.command=="building-pack":
+        manifest=write_building_pack(args.directory,args.seed)
+        print(f'Wrote {len(manifest["templates"])} draft building templates to {args.directory}')
+        return
     if args.command=="district":
         overrides={name:value for name,value in [("building_coverage",args.coverage),("columns",args.blocks_across),("rows",args.blocks_down),("block_width_cells",args.block_width_cells),("block_height_cells",args.block_height_cells)] if value is not None}
         parks=[]
