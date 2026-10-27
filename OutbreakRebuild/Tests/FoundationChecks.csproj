@@ -16,6 +16,7 @@
     <Compile Include="HappinessChecks.cs" />
     <Compile Include="OffDutyConsumerChecks.cs" />
     <Compile Include="ParkVisitChecks.cs" />
+    <Compile Include="ParkPreferenceChecks.cs" />
     <Compile Include="SocialInteractionChecks.cs" />
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />

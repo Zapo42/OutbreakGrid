@@ -61,7 +61,8 @@ public static partial class Program
         });
         Check("Happiness save continuation retains both pulse timing and all existing simulation state",()=>{
             World world=EncounterScenarios.HappinessPreferencesTest();Run(world,3);World copy=Documents.ParseSave(State(world));for(int t=0;t<250;t++){world.Step();copy.Step();Require(State(world)==State(copy),"Happiness pulse or saved world diverged after loading.");if(t==119)copy=Documents.ParseSave(State(world));}
-            World current=EncounterScenarios.HumanLeisureTest();var saved=current.Capture();saved.rulesVersion="encounter-prototype-100";World previous=World.Restore(saved);
+            // Isolate the passive mood increment from later personality-driven outing decisions.
+            var passive=EncounterScenarios.HumanLeisureTest().Capture();passive.rulesVersion=EncounterRules.HappinessVersion;World current=World.Restore(passive);var saved=current.Capture();saved.rulesVersion="encounter-prototype-100";World previous=World.Restore(saved);
             for(int t=0;t<300;t++){current.Step();previous.Step();Require(WithoutHappiness(current)==State(previous),"Happiness changed movement, energy, needs, inventories or random streams.");}
         });
         Check("Death and turning clear saved human happiness and make the observer unavailable",()=>{

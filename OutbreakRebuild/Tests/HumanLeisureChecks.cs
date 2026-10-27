@@ -30,7 +30,8 @@ public static partial class Program
             for(int t=0;t<50 && world.Tick+1<next;t++){world.Step();Require(world.ActorAt(0).leisurePhase==HumanLeisurePhase.None,"Finished walk immediately restarted.");}
         });
         Check("A normal unscheduled resident waits at home before occasionally taking a walk",()=>{
-            var saved=EncounterScenarios.HumanLeisureTest().Capture();saved.actors[0].nextLeisureTick=0;World world=World.Restore(saved);int home=world.ActorAt(0).assignedHouseId;
+            // A neutral preference retains the original baseline wait; indoor/outdoor waits have separate coverage.
+            var saved=EncounterScenarios.HumanLeisureTest().Capture();saved.actors[0].nextLeisureTick=0;saved.actors[0].charisma=5;World world=World.Restore(saved);int home=world.ActorAt(0).assignedHouseId;
             for(int t=0;t<300;t++){world.Step();var actor=world.ActorAt(0);Require(actor.leisurePhase==HumanLeisurePhase.None && world.HouseAt(actor.x,actor.y)==home,"Initial free time fell through to automatic shelter departure.");}
             bool walked=false;for(int t=0;t<120;t++){world.Step();walked|=world.ActorAt(0).leisurePhase==HumanLeisurePhase.Outbound;}Require(walked,"Initial bounded waiting never produced an optional walk.");
         });
