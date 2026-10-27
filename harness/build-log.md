@@ -2,6 +2,35 @@
 
 Append one section per completed or blocked task.
 
+## WORLD-RES-01 — source verified and instructions prepared for publication
+- Source baseline: 8e92e361206507219a725d698fca55dd26de5ff9 on maps/city-reference-pack-20261026. git ls-remote confirmed the branch SHA; git fetch --no-tags and git ls-tree verified all four assigned paths without changing the checkout.
+- Exclusive World ownership: OutbreakRebuild/Tools/generate_reference_city.py, OutbreakRebuild/Tools/generate_district_city.py, OutbreakRebuild/Tools/test_district_city.py, OutbreakRebuild/CityReferences/districts/README.md.
+- Lead updated agents/world.md and PLANS.md to resolve the prior source-location limitation and preserve source-branch work. Documentation publication branch: docs/world-res-01-assignment. This entry supersedes the earlier missing-source status; earlier inspection remains historical evidence for the Foundation 131 checkout.
+- No generator files or NPC behavior changed. Documentation consistency, git diff --check and source-path verification PASS. Generator tests and native Unity NOT RUN for this documentation-only handoff. No generation completion or gameplay release claimed.
+
+## WORLD-RES-01 — assignment handoff
+- Date: 2026-10-27 (America/Chicago).
+- User-selected scope: seeded residential house placement, lot spacing, setbacks and sidewalk-connected entrances; no NPC behavior changes.
+- Baseline: Lead work at f1b170bab2d6565097b292d0d83883f3c352afd6, one worktree; prior uncommitted instruction changes preserved.
+- Lead changed agents/world.md, PLANS.md and this log for the assignment. World exclusively reserves generate_reference_city.py, generate_district_city.py, test_district_city.py and the associated district generator README under OutbreakRebuild, pending confirmation of exact paths/source revision. Lead retains coordination records; QA reviews/runs checks read-only.
+- Inspection: workspace rg discovery and git ls-tree of HEAD found none of those proposed sources or district README. No guessed paths, replacement scripts, imported projects or substitute C# assignment created.
+- Acceptance recorded: deterministic same-input output, usable interior-to-sidewalk entrances, recipe-defined spacing/setbacks/boundaries and existing recipe/input-output compatibility. Actual recipes/units and baseline commands must be inspected first.
+- Assignment checks: role/plan consistency and git diff --check. Generator tests, hosted runner and native Unity NOT RUN for this documentation-only handoff; native testing remains paused.
+- Remaining dependency: World developer must identify actual source HEAD/branch/worktree, exact owned paths and current recipes/commands. If missing there too, obtain the source revision before implementation. No generation completion, QA acceptance, integration or publication claimed.
+
+## ROLE-SPLIT-02 — three additional non-NPC development roles
+- Date: 2026-10-27 (America/Chicago).
+- Baseline: f1b170bab2d6565097b292d0d83883f3c352afd6, clean checkout on work; one worktree. Gameplay remains published Foundation 131. User-reported Foundation 132 at 72a80e6 is absent here; no full QA or completion claim is made.
+- Authorization/scope: acting Lead coordinates the existing dedicated NPC coder and defines three additional coding roles. Documentation only; no gameplay, test, asset, GUID, dependency, setting or version changes.
+- Ownership/changed files: Lead writes AGENTS.md, PLANS.md, START_HERE.md, agents/lead.md, agents/simulation.md coordination note, agents/workshop.md, new agents/world.md and agents/engine.md, agents/qa.md and agents/release.md pause reminders, OutbreakRebuild/Docs/BUILD_VALIDATION.md and this log. QA reviewer role_review is read-only in the shared checkout; no concurrent writers or builds.
+- Allocation: existing NPC coder retains NPC behavior and behavioral tests. World owns assigned generation/infrastructure; Graphics/UI owns assigned visuals/presentation/editor tools; Engine/Tools owns assigned general infrastructure/diagnostics/runner/build tooling. Lead coordinates exact file ownership, shared interfaces, integration, records, QA and releases. No replacement NPC agent or new gameplay assignments started.
+- Acceptance/evidence: instruction roles and referenced agent paths checked with Python pathlib/re; PASS. git diff --check PASS. Read-only independent QA found role boundaries, presentation requirements, roadmap preservation and incomplete Foundation 132 status sound. Review follow-ups completed: cloud start_skill updated from pending approval to approved role allocation (save confirmed); this evidence added; native pause reminders added to QA/Release roles.
+- Reusable configuration: start_skill draft saved successfully with approved role allocation; install_script unchanged. Draft persistence does not publish the environment or contact external coders.
+- Automated core/UI suites: NOT RERUN for Markdown-only role changes. Earlier same-baseline onboarding run passed 627 core cases / 737155 assertions, Windows ABI, Legacy UI 2463 and NewOnly 3; evidence /workspace/setup-evidence/runner.log. This is hosted evidence only.
+- Unity compilation/runtime/native dialogs and Windows EXE: NOT RUN; native testing remains paused and no EXE produced.
+- Lead review: changes preserve presentation requirements, version pins, checkpoints, unfinished work and approved roadmap. Per-task exclusive ownership and shared contract coordination are mandatory before coding. Roles are reusable instructions, not permanent live agents or proof of synchronization with the external NPC coder.
+- Integration/next work: instruction update saved locally; no GitHub publication claimed. No new gameplay task or roadmap order selected by this role setup.
+
 ## Template
 - Task ID:
 - Date:

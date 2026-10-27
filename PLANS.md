@@ -1,10 +1,25 @@
 # Development Plan — Existing Roadmap Only
 
-Status: Baseline audited; team setup authorized. Gameplay implementation still requires a selected task.
+Status: Acting Lead coordinates the existing dedicated NPC coder plus three non-NPC roles. User selected WORLD-RES-01 residential-block generation; ownership/acceptance are below. Sources and exact owned paths are verified at 8e92e361206507219a725d698fca55dd26de5ff9 on maps/city-reference-pack-20261026; the prior source-location limitation is resolved.
 
 Before implementation, identify the existing roadmap and latest accepted task from project documentation, Git history, issue tracker and available Codex handoffs. Present evidence and unresolved ambiguities. Do not invent, reorder or expand the next task. The user must approve changes to task order or scope.
 
-## Current checkpoint
+## ROLE-SPLIT-02 — approved non-NPC role allocation
+
+- Authorization: user assigned the acting Project Lead to coordinate coders and split development responsibilities, explicitly retaining the already active dedicated NPC agent.
+- Baseline: clean checkout f1b170bab2d6565097b292d0d83883f3c352afd6 (published Foundation 131); one local worktree. User reports Foundation 132 happiness partially integrated at 72a80e6, specialist checks passed but full QA unfinished. That object is absent here; do not overwrite/recreate it or call it complete. Obtain its actual handoff before continuing that integration.
+- Lead ownership for this documentation task: AGENTS.md, PLANS.md, START_HERE.md, agents/lead.md, agents/simulation.md coordination note, agents/workshop.md, new agents/world.md and agents/engine.md, agents/qa.md and agents/release.md pause reminders, Docs/BUILD_VALIDATION.md and harness/build-log.md. No application, tests, assets, settings, dependency, version or save changes.
+- Existing NPC coder: retains NPC behavior and behavioral tests; no replacement agent is assigned. NPC movement/driving/cargo interfaces remain coordinated with that coder.
+- Additional coding role 1: Procedural World & Infrastructure — city generation, building placement, streets, sidewalks, crosswalk geometry, connectivity and infrastructure tests (agents/world.md).
+- Additional coding role 2: Graphics & UI — graphics/sprites/palettes, animation presentation, cameras, inspectors, menus, editor tools, vehicle/building appearance and presentation tests (agents/workshop.md).
+- Additional coding role 3: Engine & Development Tools — engine infrastructure, diagnostics, test-runner maintenance and build tooling (agents/engine.md).
+- Lead: planning, task allocation, shared interfaces, final integration, documentation and verification records; coordinate QA & Integration and Build & Release. These role files do not create permanent background agents or prove contact with an external NPC coder.
+- Coordination: assign exact files and acceptance criteria for each approved increment before work. Shared Contracts, persistence, tick integration, scenes/settings and test manifests need an agreed interface and one writer. Concurrent writers need isolated branches/worktrees; in cloud tasks use the existing checkout unless worktrees are explicitly requested, otherwise sequence writers. No gameplay assignments or concurrent coding were started by this instruction change.
+- Risks: broad role overlap is controlled by per-task file ownership; missing Foundation 132 state prevents integration claims; hosted evidence must not be presented as native Unity/Windows validation. Native Unity testing remains paused; pinned versions and permanent checkpoints remain unchanged.
+- Acceptance: three additional non-NPC roles documented, existing NPC coder retained, presentation/checkpoint requirements preserved, onboarding role-split status updated, local instruction links and diff checks pass, independent read-only review completed. Results recorded in harness/build-log.md.
+- Next authorized work: coordination instructions only. No new roadmap or gameplay task is selected by this role split.
+
+## Historical team-setup checkpoint
 - Repository: Zapo42/OutbreakGrid; Unity project: OutbreakRebuild/
 - Baseline commit: 49fc25b05567c4ec6b22acb03a9df98da3b39c76; permanent pre-team tag RESTORE42
 - Unity version: 6000.6.3f1
@@ -16,6 +31,18 @@ Before implementation, identify the existing roadmap and latest accepted task fr
 
 ## Approved assignments
 Record each task ID, owner, branch/worktree, file ownership, acceptance criteria, verification and merge status.
+
+## WORLD-RES-01 — residential-block generation (user-selected)
+
+- Scope: seeded house placement, lot spacing, setbacks and sidewalk-connected entrances; no NPC behavior changes or city-wide redesign.
+- Baseline: Lead checkout work at f1b170bab2d6565097b292d0d83883f3c352afd6, one worktree. Existing uncommitted role/documentation changes preserved. Workspace discovery and tracked HEAD inspection found none of the proposed Python sources or the district README.
+- Exclusive World ownership: OutbreakRebuild/Tools/generate_reference_city.py, OutbreakRebuild/Tools/generate_district_city.py, OutbreakRebuild/Tools/test_district_city.py and OutbreakRebuild/CityReferences/districts/README.md. Source baseline: 8e92e361206507219a725d698fca55dd26de5ff9 on maps/city-reference-pack-20261026; Lead fetched and verified all four paths. Work from that source branch, preserving existing changes and reporting divergence. Do not reset to the older Lead checkout, create replacement scripts or substitute the C# generator.
+- Lead owns assignment/integration records in agents/world.md, PLANS.md, BUILD_VALIDATION.md and harness/build-log.md. QA independently reviews/runs checks; World remains the only writer of assigned generator tests. Existing NPC coder retains NPC behavior/tests. Other coders must not concurrently edit World-reserved files.
+- Dependencies: actual recipe schema/units, CLI/options, output consumers, lot boundaries and sidewalk connectivity. Recipe files/generated assets remain read-only unless separately assigned. Additional files/shared contracts need coordinated ownership. Concurrent writers require isolated checkouts only when explicitly requested; otherwise sequence writers.
+- Acceptance: deterministic same-seed/recipe/options output; usable interior-to-sidewalk entrances; valid recipe-defined spacing/setbacks/boundaries; existing recipe/default/input-output compatibility. Derive numeric limits and impossible-lot policy from actual sources. Detailed evidence requirements are in agents/world.md.
+- Validation: capture baseline, run existing Python district tests and representative generation across relevant seeds/recipes, orientations and tight/edge lots; verify geometry and compatibility directly. Then run sequential unified hosted checks after integration. Native Unity testing stays paused. C# checks do not substitute for generator tests.
+- Risks: unknown recipe contracts, blocked doors, connection paths crossing neighbors, random-state coupling and compatibility regressions hidden by rewritten fixtures.
+- Status: assignment authorized and exact paths/source verified; source-location limitation resolved. Implementation and QA remain with the World developer and reviewers; no generator changes or completed validation are claimed by this documentation handoff.
 
 ## TEAM-SETUP-01 — approved team configuration
 
