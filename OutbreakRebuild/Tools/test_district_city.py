@@ -2,6 +2,7 @@
 import copy
 import json
 import unittest
+from unittest.mock import patch
 
 import city_atlas as atlas
 import generate_district_city as districts
@@ -10,6 +11,19 @@ import generate_reference_city as lots
 
 
 class DistrictChecks(unittest.TestCase):
+    def test_all_open_space_roll_retains_one_buildable_block(self):
+        original=streets.street_layout
+        def all_open(settings):
+            projected,grid=original(settings)
+            for geometry,props in projected:
+                if props["category"]=="block":props["open_space"]=True
+            return projected,grid
+        with patch.object(districts.streets,"street_layout",side_effect=all_open):
+            document,metadata,_=districts.generate_district(districts.district_recipe("garden-suburb"))
+        self.assertTrue(metadata["buildings"])
+        self.assertIn("open_space_recovery",metadata)
+        districts.assert_usable(document,metadata)
+
     def test_all_catalogue_types_generate_and_replay_usable_maps(self):
         catalogue=json.loads(districts.CATALOGUE.read_text())
         for kind in catalogue["districts"]:

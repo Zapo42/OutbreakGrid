@@ -34,7 +34,7 @@ The Vinohrady query returned HTTP 502 even after reducing the survey window. It 
 
 The source measurements calibrate block form and provide observed footprint coverage. Recipe coverage targets, use weights, setbacks and storey ranges are **explicit design choices**. Minimum block dimensions are adapted so game-scale buildings, paths and doors fit. The catalogue is `../district_catalogue.json`; each exported recipe expands all settings, so replay does not silently pick up later catalogue changes.
 
-Buildings favour street frontages, retain physical entrances and paths, and distribute the global building budget across eligible blocks. Coverage is a placement target; actual coverage is reported separately. Close-set plots retain separate interiors. Larger footprints obey the game's 256-floor-cell per-room limit.
+If every block rolls as open space, the central block is deterministically retained for buildings so a valid sparse-district seed does not become an accidental park-only failure. Buildings favour street frontages, retain physical entrances and paths, and distribute the global building budget across eligible blocks. Coverage is a placement target; actual coverage is reported separately. Close-set plots retain separate interiors. Larger footprints obey the game's 256-floor-cell per-room limit.
 
 Building metadata includes stable parcel identity, district identity, `use_hint`, an optional mapping to the game's existing Home/Store categories, and `storeys_hint`. **These are map-generation hints.** No inhabitants, jobs, inventory, office simulation, usable upper floors or directed vehicle lanes are created. Apartment/hotel capacity must be interpreted by a later scenario-generation step, not fabricated by the map reader.
 
@@ -68,7 +68,7 @@ Named street, lot and building-use streams are derived from the root seed with S
 
 ## Validation and limits
 
-All 24 Python atlas/generation/district tests pass, including all nine district types, exact replay, density differences, office versus residential footprint differences, connected road portals, parcel uniqueness and rejection of incompatible scales or oversized rooms. All 20 examples are replayed during the example build. Production C# import checks separately validate maps, room discovery, serialization round-trips, actor spawning and ticks. Native Unity rendering remains unverified and paused under the existing repository instructions.
+All 25 Python atlas/generation/district tests pass, including all nine district types, exact replay, density differences, office versus residential footprint differences, connected road portals, parcel uniqueness and rejection of incompatible scales or oversized rooms. All 20 examples are replayed during the example build. Production C# import checks separately validate maps, room discovery, serialization round-trips, actor spawning and ticks. Native Unity rendering remains unverified and paused under the existing repository instructions.
 
 The standalone pack supports Python map generation. Running the C# import-check project requires the existing OutbreakGrid checkout's production C# source; it is not a bundled game executable.
 

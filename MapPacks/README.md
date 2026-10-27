@@ -24,7 +24,7 @@ python Tools/generate_district_city.py replay path/to/exported.recipe.json
 
 See [the district README](../OutbreakRebuild/CityReferences/districts/README.md) and [catalogue](../OutbreakRebuild/CityReferences/district_catalogue.json) for controls and source details.
 
-Validation: 24 Python tests pass both in the checkout and after extracting the pack. All 20 generated maps and all eight reference terrain templates pass the production C# map-reader checks. Each example is checked for exact recipe replay. The previous v2 compact-grid map also remains byte-for-byte reproducible.
+Validation: 25 Python tests pass both in the checkout and after extracting the pack. All 20 generated maps and all eight reference terrain templates pass the production C# map-reader checks. Each example is checked for exact recipe replay. The previous v2 compact-grid map also remains byte-for-byte reproducible.
 
 These are unpopulated 2D maps and procedural hints. No NPC jobs, inventories, directed traffic lanes or usable upper floors are added. Native Unity rendering remains unverified. The main branch and game behavior are not changed by this publication.
 

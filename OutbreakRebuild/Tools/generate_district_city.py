@@ -141,6 +141,12 @@ def generate_district(recipe):
     profile=validate_recipe(recipe);settings=recipe["street_settings"]
     streams={name:stream_seed(recipe["seed"],name) for name in ("streets","lots","uses")}
     projected,grid=streets.street_layout(dict(settings,seed=streams["streets"]))
+    block_choices=[(g,p) for g,p in projected if p["category"]=="block"]
+    open_space_recovery=None
+    if block_choices and all(p.get("open_space",False) for g,p in block_choices):
+        # A valid sparse/cul-de-sac seed can have only one closed block. Keep a buildable district.
+        geometry,props=min(block_choices,key=lambda item:((item[0].centroid.x-grid["width"]*grid["cell_metres"]/2)**2+(item[0].centroid.y-grid["height"]*grid["cell_metres"]/2)**2,item[1]["source_id"]))
+        props["open_space"]=False;open_space_recovery=props["source_id"]
     provenance={"attribution":"Designed fictional district; no matching survey.","calibration":"Explicit design controls."}
     if profile:
         provenance={**profile["provenance"],"reference_profile_sha256":recipe["reference_profile_sha256"],
@@ -163,6 +169,7 @@ def generate_district(recipe):
     metadata.update(generator_version=VERSION,seed=recipe["seed"],stream_seeds=streams,recipe=copy.deepcopy(recipe),recipe_id=fingerprint,
                     district_type=recipe["district_type"],category=recipe["category"],
                     scope="Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.")
+    if open_space_recovery is not None:metadata["open_space_recovery"]=open_space_recovery
     metadata["street_segments"]=[{"points_metres":list(g.coords),"width_cells":p["width_cells"],**p["tags"]} for g,p in projected if p["category"]=="road"]
     metadata["actual_building_coverage"]=round(sum(b["width"]*b["height"] for b in metadata["buildings"])/(document["width"]*document["height"]),6)
     metadata["use_counts"]=dict(Counter(b["use_hint"] for b in metadata["buildings"]))
