@@ -194,15 +194,15 @@ until their coder implements a physical terminal visit/claim protocol. Kitchen
 handoff pairs are geometry only: no cooking, waiting, food transfers, bar or
 church mechanics have been implemented.
 
-Before gameplay integration, the Lead must agree building-to-room grouping,
-finite inventory fixture mappings, recovery semantics, order claiming, counter
-collision/visibility and interaction rules with the appropriate coders. The
-current engine discovers **each enclosed room as a separate shelter**, so these
-two-room shells cannot safely replace assigned homes or stores until that
-membership/identity contract is resolved. No shared contracts, persistence,
-NPC logic, Unity settings, assets, GUIDs or dependencies change in this pack.
-Native Unity testing remains paused. Run the Python checks above and the
-Lead's sequential unified hosted runner before accepting integration.
+The schema1 prototype pack keeps its rooms ungrouped and its fixture proposals
+inactive. Use the live house mode below for explicit building membership and
+working household recovery/storage. Other building types still need their
+fixture and interaction implementations under the user's direction; the Lead
+handles integration/publication and the NPC coder handles their behaviors.
+No shared contracts, persistence, NPC logic, Unity settings, assets, GUIDs or
+dependencies change when exporting the prototype pack itself. Native Unity
+testing remains paused. Run the Python checks above and the documented
+sequential unified hosted runner before accepting integration.
 
 ## Live two-room houses in generated districts
 
@@ -223,7 +223,8 @@ house templates with aligned lots. The recipe records the template variant and
 such district contains residential uses only, one ground floor, template-sized
 footprints, an internal storage-room door, a sidewalk-connected exterior door,
 one empty 30-capacity household storage box (the existing default), and existing
-rest spots over usable living-area cells. No food is generated. Existing rest
+rest spots marked `area: true` over usable living-area cells. They receive the
+existing recovery effect and are not rendered as bed furniture. No food is generated. Existing rest
 recovery rules apply to that living area; rates and NPC decisions are unchanged.
 Seating remains an authoring/graphics hint. Other building types in a mixed city
 retain their normal layout. Old recipes/defaults stay unchanged.
@@ -237,7 +238,8 @@ composing cities. Root fixture coordinates and membership anchors are translated
 with the buildings. Technical SVGs show internal walls, green recovery markers
 and brown household storage markers.
 
-New maps use **map schema 14** and an explicit `buildingRooms` array. Each record
+New house maps use **map schema 14** and an explicit `buildingRooms` array.
+Schema14 also supports rest-area markers without room groups. Each record
 has a readable building `id` and `rooms` containing local `id`, `role` and world
 floor-anchor `x,y`. The C# spatial catalog merges only explicitly declared,
 door-connected floor regions into one home/shelter identity. Its numeric home

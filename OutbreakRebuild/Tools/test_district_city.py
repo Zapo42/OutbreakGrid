@@ -279,6 +279,7 @@ class PlacedHouseChecks(unittest.TestCase):
                             self.assertEqual(lots.validate_building_blueprint(blueprint),True)
                         self.assertEqual({(p["x"],p["y"]) for p in document["restSpots"]},expected_rest)
                         self.assertEqual({(p["x"],p["y"]) for p in document["storageBoxes"]},storage_cells)
+                        self.assertTrue(all(p["area"] for p in document["restSpots"]))
                         self.assertFalse(expected_rest & storage_cells)
                         self.assertTrue(all(box["items"]==[] and box["capacity"]==30 for box in document["storageBoxes"]))
                         districts.assert_usable(document,metadata)

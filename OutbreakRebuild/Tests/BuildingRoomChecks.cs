@@ -35,6 +35,13 @@ public static class BuildingRoomChecks
         Require(map.Capture().schemaVersion==14,"Group schema missing.");
         string grouped=Documents.Encode(map.Capture());Require(Documents.Encode(Documents.ParseMap(grouped).Capture())==grouped,"Grouped map round-trip differs.");
         string saved=Documents.Encode(world.Capture());Require(Documents.Encode(Documents.ParseSave(saved).Capture())==saved,"Grouped save round-trip differs.");
+        // Exercise saved ownership on both sides of the partition without running NPC decisions.
+        int residentId;Require(world.TrySpawn(Species.Human,6,1,out residentId),"Storage-room floor cannot host a resident.");
+        int resident=world.Count-1;
+        Require(world.TryAssignHouse(resident,1,1),"Existing home-assignment API rejected grouped rooms.");
+        string assigned=Documents.Encode(world.Capture());World restoredResident=Documents.ParseSave(assigned);
+        Require(restoredResident.ActorAt(resident).assignedHouseId==id && restoredResident.HouseAt(6,1)==id,"Saved storage-room resident lost the living-room home identity.");
+        Require(Documents.Encode(restoredResident.Capture())==assigned,"Assigned resident save round-trip differs.");
         // Closed/open internal doors retain the same spatial identity without changing actor decisions.
         map.Set(5,3,Terrain.DoorOpen);World open=new World(map,214,encounter:true,hunger:true);
         Require(open.HouseAt(5,3)==open.HouseAt(1,1) && open.ShelterRoomCount==1,"Door state changed membership.");
@@ -48,6 +55,10 @@ public static class BuildingRoomChecks
         invalid=Members();invalid[0].rooms[0].role="";Reject(()=>candidate.SetBuildingRooms(invalid));
         Require(Documents.Encode(candidate.Capture())==before,"Failed validation changed existing membership.");
         WorldMap disconnected=Shell();disconnected.Set(5,3,Terrain.Wall);disconnected.Set(7,6,Terrain.DoorClosed);Reject(()=>disconnected.SetBuildingRooms(Members()));
+        WorldMap areaMap=Shell();areaMap.SetRestSpot(1,1,true);Require(areaMap.Capture().schemaVersion==14,"Area-only schema missing.");
+        Require(Documents.ParseMap(Documents.Encode(areaMap.Capture())).Capture().restSpots[0].area,"Area marker lost.");
+        MapDocument areaLegacy=areaMap.Capture();areaLegacy.schemaVersion=7;Reject(()=>WorldMap.Restore(areaLegacy));
+        areaMap.Set(1,1,Terrain.Wall);Require(areaMap.Capture().schemaVersion==1,"Removed area leaked stale schema.");
         Console.WriteLine("PASS building grouping, internal/exterior doors, schema, aliases, corrupt input and legacy/map/save compatibility");
         if(args.Length>0)
         {
@@ -58,6 +69,7 @@ public static class BuildingRoomChecks
                 using(JsonDocument metadata=JsonDocument.Parse(generated.AuthoringJson))
                 {
                     MapDocument features=generated.Capture();Require(features.storageBoxes!=null && features.restSpots!=null && features.restSpots.Length>0,"Live house fixtures missing.");
+                    foreach(RestSpotDocument spot in features.restSpots)Require(spot.area,"Living recovery became bed furniture.");
                     foreach(StorageBoxDocument box in features.storageBoxes){Require(box.capacity==StorageRules.DefaultCapacity && box.items.Length==0,"House created food or changed storage capacity.");Require(!generated.CanWalk(box.x,box.y),"Storage has no physical collision.");}
                     int expected=metadata.RootElement.GetProperty("buildings").GetArrayLength();Require(instance.ShelterRoomCount==expected,"Generated houses changed room identity.");
                     foreach(BuildingRoomsDocument group in generated.BuildingRoomGroups())

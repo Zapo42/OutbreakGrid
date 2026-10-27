@@ -42,6 +42,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     }
     [DataContract] public sealed class RestSpotDocument
     {
+        [DataMember(EmitDefaultValue=false)] public bool area; // Recovery-area cells are not bed furniture.
         [DataMember(IsRequired=true)] public int x,y;
     }
     [DataContract] public sealed class PhoneBlockDocument

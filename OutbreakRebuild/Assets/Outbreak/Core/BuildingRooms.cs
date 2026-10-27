@@ -21,7 +21,7 @@ namespace Outbreak.Core
         }
         private void RestoreBuildingRooms(MapDocument source)
         {
-            if(source.buildingRooms==null){if(source.schemaVersion==14)throw new ArgumentException("Version14 requires building room groups.");return;}
+            if(source.buildingRooms==null){if(source.schemaVersion==14 && !HasAreaRestSpots)throw new ArgumentException("Version14 requires room groups or recovery areas.");return;}
             if(source.schemaVersion<14)throw new ArgumentException("Building room groups require map version14.");
             SetBuildingRooms(source.buildingRooms);
         }

@@ -424,7 +424,7 @@ def materialize_house_layouts(document,metadata,variant,street_targets):
         for x,y in fixture["cells"]:
             # Use the existing empty household box and reserve policy; generation creates no food.
             storage.append({"x":left+x,"y":top+y,"capacity":30,"items":[]})
-        rest.extend({"x":left+x,"y":top+y} for x,y in blueprint["recovery_area"]["cells"])
+        rest.extend({"x":left+x,"y":top+y,"area":True} for x,y in blueprint["recovery_area"]["cells"])
         building.update(door=[door[0],door[1]],path_cells=path,retained_walk_cells=building["path_cells"],
                         interior_layout={"blueprint":blueprint,"origin_cells":[left,top],"instance_id":identity,
                                          "room_keys":{room["id"]:identity+"/"+room["id"] for room in blueprint["rooms"]},
