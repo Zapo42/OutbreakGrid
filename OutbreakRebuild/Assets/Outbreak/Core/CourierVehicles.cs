@@ -138,6 +138,7 @@ namespace Outbreak.Core
         {
             direction=8;int carIndex=AssignedVehicle(index);if(carIndex<0)return false;var car=vehicles[carIndex];if(car.consumerDriver)return TryConsumerVehicleRoutine(index,ref actor,threat,carIndex,out direction);if(!HealthyVehicleDriver(car) || car.driverAboard)return false;
             if(threat>=0 || actor.freezeUntilTick>Tick || actor.grappledById!=0)return false;
+            if(IdleOffDutyWorkVehicle(index,actor))return false; // An empty work van must not consume off-duty personal actions.
             CloseCourierDepartureDoors(actor,car);int beforeFood=actor.carriedFood,beforeHand=car.handFood;EatCourierMeal(ref actor,ref car);if(actor.carriedFood!=beforeFood || car.handFood!=beforeHand){actors[index]=actor;vehicles[carIndex]=car;return true;}
             if(car.deliveriesPaused)return car.deliveryPhase!=VehicleDeliveryPhase.None;
             if(car.deliveryPhase==VehicleDeliveryPhase.None){if(!StartVehicleDelivery(index,ref actor,ref car))return false;vehicles[carIndex]=car;}

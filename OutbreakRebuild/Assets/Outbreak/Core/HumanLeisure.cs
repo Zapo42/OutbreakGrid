@@ -21,8 +21,8 @@ namespace Outbreak.Core
         }
         private bool LeisureSafe(ActorState actor,int threat,bool starting)
         {
-            // This first slice is consumer leisure; workers retain their established work/home routine.
-            return actor.species==Species.Human && actor.health==100 && actor.turnAtTick==0 && actor.grappledById==0 && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor) && actor.assignedHouseId!=0 && OccupationOf(actor)==HumanOccupation.Consumer && actor.workerCommuteId==0 && actor.restockPhase==RestockPhase.None && !IsShopping(actor) && actor.foodUntilTick==0 && actor.foodExploreRoomId==0 && actor.homeShelterId==0 && actor.hunger<(starting?HumanLeisureRules.MaxHunger:35) && EnergyRules.Remaining(actor)>=(starting?HumanLeisureRules.MinimumEnergy:40);
+            // Scheduled workers share consumer leisure off duty while retaining their permanent employment.
+            return actor.species==Species.Human && actor.health==100 && actor.turnAtTick==0 && actor.grappledById==0 && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor) && actor.assignedHouseId!=0 && EffectiveOccupationOf(actor)==HumanOccupation.Consumer && actor.workerCommuteId==0 && actor.restockPhase==RestockPhase.None && !IsShopping(actor) && actor.foodUntilTick==0 && actor.foodExploreRoomId==0 && actor.homeShelterId==0 && actor.hunger<(starting?HumanLeisureRules.MaxHunger:35) && EnergyRules.Remaining(actor)>=(starting?HumanLeisureRules.MinimumEnergy:40);
         }
         private void AdvanceLeisure(ref ActorState actor)
         {
@@ -46,7 +46,7 @@ namespace Outbreak.Core
         {
             ActorState actor=ActorAt(index);if(!LeisureEnabled)return "Leisure unavailable: older rules";
             switch(actor.leisurePhase){case HumanLeisurePhase.Outbound:return "Taking a walk";case HumanLeisurePhase.Pausing:return "Pausing outside";case HumanLeisurePhase.Returning:return "Returning home";}
-            return actor.species==Species.Human && actor.health>0 && actor.assignedHouseId!=0 && HouseAt(actor.x,actor.y)==actor.assignedHouseId && OccupationOf(actor)==HumanOccupation.Consumer?"Free time: at home":"Waiting for free time";
+            return actor.species==Species.Human && actor.health>0 && actor.assignedHouseId!=0 && HouseAt(actor.x,actor.y)==actor.assignedHouseId && EffectiveOccupationOf(actor)==HumanOccupation.Consumer?"Free time: at home":"Waiting for free time";
         }
         private bool LeisureOutdoor(int x,int y)
         {

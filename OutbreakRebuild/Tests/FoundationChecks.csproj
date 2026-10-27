@@ -14,6 +14,7 @@
     <Compile Include="HumanReactionChecks.cs" />
     <Compile Include="HumanLeisureChecks.cs" />
     <Compile Include="HappinessChecks.cs" />
+    <Compile Include="OffDutyConsumerChecks.cs" />
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />
     <Compile Include="ShelterChecks.cs" />
