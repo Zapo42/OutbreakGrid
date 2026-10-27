@@ -73,3 +73,20 @@ Append one section per completed or blocked task.
 - Lead Developer review: source/contract integration and four specialist handoffs accepted; no unresolved concrete defects from independent QA. No gameplay scope expansion beyond the approved walk increment.
 - Next authorized task: F131 complete; next documented task is happiness foundation (saved −50…+50 with personality preferences), awaiting user selection.
 - Final independent QA acceptance: PASS after verifying full-run logs, README131 labels, walking guide and validation/log counts. No remaining concerns or repeated suite required. Native Unity/Windows results remain NOT RUN.
+
+## NPC-F132 — happiness behavior and compatibility handoff
+- Date: 2026-10-27 (America/Chicago).
+- Baseline: existing local F132 integration 72a80e6; last published completed gameplay build f1b170b (Foundation 131). User approved dedicated NPC scope; general project/UI/release ownership transferred to the other agent.
+- Branch/worktree: npc/f132-happiness, /tmp/outbreak132-npc; primary checkout and its pending PLANS.md preserved.
+- Scope: finish NPC happiness acceptance and existing NPC compatibility fixtures; no new UI, city generation, general tooling, settings, artwork or release work.
+- NPC implementation under review: existing Happiness.cs, optional actor mood/cadence fields and ClearHunger cleanup; version/tick wiring already provided by the prior Lead integration. No production-source changes after baseline.
+- Changed files: Tests/HappinessChecks.cs, FoundationChecks.csproj, Program.cs; Tests/StorageChecks.cs, HomeSupplyChecks.cs, MultiStoreChecks.cs and MeleeChecks.cs; NPC handoff and this verification record.
+- Acceptance: neutral signed/clamped mood, charisma preferences, visible living pedestrian company, rider/danger handling, deterministic cadence/saves, strict invalid/legacy-state rejection, cleanup and unchanged NPC movement/needs/inventory/RNG.
+- Focused results: ten happiness cases / 798 assertions PASS; storage/home-stock/happiness 52 cases / 2042 assertions PASS; legacy dispatch 1 case / 9 assertions PASS; complete combat 104 cases / 2481 assertions PASS.
+- Compatibility fixes: authored observation time jumps reschedule mood sampling; true older-rule records omit both new fields; negative storage/combat checks retain their original malformed data so happiness cannot mask unrelated validation regressions. Production validation unchanged.
+- Full NPC core command: DOTNET_CLI_HOME=/workspace/toolchains/dotnet-home /workspace/toolchains/dotnet/dotnet run --project OutbreakRebuild/Tests/FoundationChecks.csproj -- /tmp/outbreak132-npc-results; executed at dbd3d23. Final result: PASS, exit 0; 637 cases / 737953 assertions.
+- Evidence: /tmp/outbreak132-npc-core.log; /tmp/outbreak132-npc-results/FOUNDATION_CHECKS.txt; /tmp/outbreak132-npc-focus.log; /tmp/outbreak132-melee-focus.log; /tmp/outbreak132-multistore-focus.log.
+- Independent source/fixture QA: PASS; no remaining concrete NPC defects. Old100 independent600-tick continuation digest matches pre-feature source. Snapshot.Change is the raw contribution; actual stored delta clamps at limits, noted for UI wording.
+- Native Unity compilation/runtime/dialogs, Windows player and actual Mono: NOT RUN. General UI/release acceptance remains with the project lead; no completed Foundation 132 release claimed.
+- Integration: NPC commits after72a80e6 are6c07c67,9ec16a9,6ab3492,a537cb5,dbd3d23. Details and ownership boundary: harness/NPC_F132_HANDOFF.md. Preserve RESTORE42 and foundation-82-unity-checkpoint.
+- Next authorized task: complete this NPC handoff; subsequent NPC gameplay work is not yet selected.
