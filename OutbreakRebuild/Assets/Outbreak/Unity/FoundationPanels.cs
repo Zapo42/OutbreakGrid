@@ -78,6 +78,19 @@ namespace Outbreak.UnityAdapter
                 if(person.species==Species.Human && person.health>0)GUILayout.Label("Occupation: "+world.Occupation(selected)+" | "+world.WorkerStatus(selected));
                 // Read the simulation activity without advancing leisure or changing its saved destination during rendering.
                 if(person.species==Species.Human && person.health>0)GUILayout.Label("Free-time activity: "+(world.LeisureEnabled?world.LeisureStatus(selected):"Legacy behavior (walks disabled)"));
+                if(person.species==Species.Human && person.health>0)
+                {
+                    // The simulation supplies current contributors; opening the inspector never samples or changes happiness.
+                    if(world.HappinessEnabled)
+                    {
+                        HappinessSnapshot happiness=world.HappinessKnownBy(selected);
+                        GUILayout.Label("Happiness: "+happiness.Value.ToString("+0;-0;0")+" / -50 to +50");
+                        GUILayout.Label(happiness.SocialPreference+" | "+happiness.EnvironmentPreference);
+                        GUILayout.Label(happiness.Description);
+                        GUILayout.Label("Happiness updates every "+(HappinessRules.CadenceTicks*60/Rules.TicksPerGameHour)+" game minutes");
+                    }
+                    else GUILayout.Label("Happiness: disabled in this older run");
+                }
                 if(person.clerkStoreId!=0)GUILayout.Label("Store clerk #"+person.clerkStoreId+(person.clerkPhone!=0?" | "+(person.clerkCallProgress>0?"Calling for supplies":"Walking to phone"):person.clerkNeedsSupplies?" | Needs supply call":person.clerkShelf!=0?" | Stocking shelves":" | Waiting"));
                 if(person.clerkStoreId!=0)foreach(SupplyOrderDocument order in world.PendingSupplyOrders())if(order.storeId==person.clerkStoreId)GUILayout.Label("Pending replenishment order #"+order.id);
                 if(world.ShoppingContinuityEnabled && person.species==Species.Human){GUILayout.Label("Familiar shop location: "+(person.familiarStoreId==0?"none":"#"+person.familiarStoreId+" (stock unknown until observed)"));GUILayout.Label("Other familiar shops: "+(person.additionalFamiliarStores==null?0:person.additionalFamiliarStores.Length));GUILayout.Label("Shopping activity: "+world.ShoppingStatus(selected));if(GUILayout.Button("Assign familiar neighborhood shops"))Queue(()=>{SetPaused(true);status="Assigned familiar shop locations to "+world.TryFamiliarizeResidentsWithShops()+" residents. Shelf stock remains unknown.";});}
