@@ -1,0 +1,45 @@
+{
+  "generator_version": "cardinal-city-2",
+  "settings": {
+    "columns": 5,
+    "rows": 4,
+    "block_width_cells": 18,
+    "block_height_cells": 18,
+    "block_variation": 0.12,
+    "loop_chance": 1.0,
+    "dead_end_chance": 0.0,
+    "road_width_cells": 2.0,
+    "arterial_width_cells": 4.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.0,
+    "building_coverage": 0.24,
+    "setback_cells": 3.0,
+    "park_fraction": 0.08,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 128,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": "west-oakland",
+    "preset": "compact-grid",
+    "seed": 215
+  },
+  "reference_profile_sha256": "6bdcaa91b9142c57288df9b6b4a4c161880ef9b0e2d6dbee29ce3cb83af35897",
+  "recipe_id": "700607f73bf8"
+}

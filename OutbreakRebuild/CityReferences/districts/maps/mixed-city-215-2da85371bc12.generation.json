@@ -1,0 +1,7303 @@
+{
+  "generator_version": "district-city-3",
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "city",
+    "seed": 215,
+    "columns": 2,
+    "gap_cells": 12,
+    "districts": [
+      {
+        "generator_version": "district-city-3",
+        "kind": "district",
+        "district_type": "dense-urban",
+        "seed": 3269898735,
+        "name": "Dense urban core",
+        "category": "urban",
+        "street_settings": {
+          "columns": 3,
+          "rows": 3,
+          "block_width_cells": 48,
+          "block_height_cells": 24,
+          "block_variation": 0.1,
+          "loop_chance": 1.0,
+          "dead_end_chance": 0.0,
+          "road_width_cells": 2.0,
+          "arterial_width_cells": 4.0,
+          "arterial_every": 3,
+          "sidewalk_width_cells": 1.0,
+          "building_coverage": 0.48,
+          "setback_cells": 2.0,
+          "park_fraction": 0.03,
+          "centre_density_multiplier": 1.0,
+          "max_buildings": 64,
+          "cell_metres": 5,
+          "footprint_sizes": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "reference_id": null,
+          "preset": "compact-grid",
+          "seed": 3269898735
+        },
+        "footprint_sizes": [
+          [
+            4,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ]
+        ],
+        "placement_mode": "frontage",
+        "lot_gap_cells": 0,
+        "uses": {
+          "apartments": 60,
+          "retail": 20,
+          "office": 20
+        },
+        "storeys": [
+          4,
+          16
+        ],
+        "reference_id": "midtown-manhattan",
+        "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718"
+      },
+      {
+        "generator_version": "district-city-3",
+        "kind": "district",
+        "district_type": "business-core",
+        "seed": 2410687426,
+        "name": "Central business district",
+        "category": "business",
+        "street_settings": {
+          "columns": 3,
+          "rows": 3,
+          "block_width_cells": 40,
+          "block_height_cells": 36,
+          "block_variation": 0.08,
+          "loop_chance": 1.0,
+          "dead_end_chance": 0.0,
+          "road_width_cells": 3.0,
+          "arterial_width_cells": 5.0,
+          "arterial_every": 3,
+          "sidewalk_width_cells": 1.5,
+          "building_coverage": 0.48,
+          "setback_cells": 2.0,
+          "park_fraction": 0.05,
+          "centre_density_multiplier": 1.0,
+          "max_buildings": 64,
+          "cell_metres": 5,
+          "footprint_sizes": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "reference_id": null,
+          "preset": "compact-grid",
+          "seed": 2410687426
+        },
+        "footprint_sizes": [
+          [
+            10,
+            12
+          ],
+          [
+            12,
+            14
+          ],
+          [
+            14,
+            16
+          ]
+        ],
+        "placement_mode": "frontage",
+        "lot_gap_cells": 0,
+        "uses": {
+          "office": 70,
+          "retail": 25,
+          "hotel": 5
+        },
+        "storeys": [
+          6,
+          20
+        ],
+        "reference_id": "chicago-loop",
+        "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723"
+      },
+      {
+        "generator_version": "district-city-3",
+        "kind": "district",
+        "district_type": "terrace-residential",
+        "seed": 3553491558,
+        "name": "Compact terrace residential",
+        "category": "residential",
+        "street_settings": {
+          "columns": 3,
+          "rows": 3,
+          "block_width_cells": 27,
+          "block_height_cells": 24,
+          "block_variation": 0.08,
+          "loop_chance": 1.0,
+          "dead_end_chance": 0.0,
+          "road_width_cells": 2.0,
+          "arterial_width_cells": 4.0,
+          "arterial_every": 3,
+          "sidewalk_width_cells": 1.0,
+          "building_coverage": 0.42,
+          "setback_cells": 2.0,
+          "park_fraction": 0.05,
+          "centre_density_multiplier": 1.0,
+          "max_buildings": 64,
+          "cell_metres": 5,
+          "footprint_sizes": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "reference_id": null,
+          "preset": "compact-grid",
+          "seed": 3553491558
+        },
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "placement_mode": "frontage",
+        "lot_gap_cells": 0,
+        "uses": {
+          "terrace-home": 90,
+          "retail": 10
+        },
+        "storeys": [
+          2,
+          3
+        ],
+        "reference_id": "philadelphia-rowhouses",
+        "reference_profile_sha256": "23ba5d643f7ef0db76499be2b5051c21a577a4b426a292fe626555832f4f90fb"
+      },
+      {
+        "generator_version": "district-city-3",
+        "kind": "district",
+        "district_type": "garden-suburb",
+        "seed": 4238379238,
+        "name": "Garden suburb",
+        "category": "suburban",
+        "street_settings": {
+          "columns": 3,
+          "rows": 3,
+          "block_width_cells": 34,
+          "block_height_cells": 30,
+          "block_variation": 0.28,
+          "loop_chance": 0.5,
+          "dead_end_chance": 0.4,
+          "road_width_cells": 2.0,
+          "arterial_width_cells": 4.0,
+          "arterial_every": 3,
+          "sidewalk_width_cells": 1.0,
+          "building_coverage": 0.13,
+          "setback_cells": 4.0,
+          "park_fraction": 0.2,
+          "centre_density_multiplier": 1.0,
+          "max_buildings": 64,
+          "cell_metres": 5,
+          "footprint_sizes": [
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ]
+          ],
+          "reference_id": null,
+          "preset": "suburban-loops",
+          "seed": 4238379238
+        },
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ],
+        "placement_mode": "frontage",
+        "lot_gap_cells": 2,
+        "uses": {
+          "detached-home": 95,
+          "retail": 5
+        },
+        "storeys": [
+          1,
+          2
+        ],
+        "reference_id": "woodbridge-suburb",
+        "reference_profile_sha256": "8f1282f29be84b446e9cd2b57f42ae2e11376de845ac36266860449305753cd6"
+      }
+    ]
+  },
+  "recipe_id": "2da85371bc12",
+  "seed": 215,
+  "grid": {
+    "width": 328,
+    "height": 260,
+    "cell_metres": 5,
+    "north_up": true,
+    "projection": "fictional local metric grid"
+  },
+  "provenance": {
+    "attribution": "Mixed fictional city; district source terms and provenance retained per region.",
+    "district_sources": [
+      {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "8f74465f9c345805006b899e2ad2834be5102b20aa30443545d6e019341aa485",
+        "processed_utc": "2026-10-27T05:04:13.162905+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:55:00Z",
+        "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      },
+      {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "d87709ab254214ea9640a91682b8ee1993ce4c2fc701dd364e15ef9618fae029",
+        "processed_utc": "2026-10-27T05:04:14.845857+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:56:50Z",
+        "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      },
+      {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "f433e24a21869e2392f7a68b756e04295ab1eb232fb2eb458eabf09b014eb6d2",
+        "processed_utc": "2026-10-27T05:04:15.929745+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:58:02Z",
+        "reference_profile_sha256": "23ba5d643f7ef0db76499be2b5051c21a577a4b426a292fe626555832f4f90fb",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      },
+      {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "c4218ab325b1b311c054c3cf17ed561d6541de05ada12146eddad7f3fb270155",
+        "processed_utc": "2026-10-27T05:04:18.443013+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:58:02Z",
+        "reference_profile_sha256": "8f1282f29be84b446e9cd2b57f42ae2e11376de845ac36266860449305753cd6",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      }
+    ]
+  },
+  "districts": [
+    {
+      "index": 0,
+      "district_type": "dense-urban",
+      "category": "urban",
+      "bounds_cells": [
+        4,
+        4,
+        154,
+        80
+      ],
+      "road_bounds_cells": [
+        9.0,
+        9.0,
+        152.0,
+        78.0
+      ],
+      "recipe_id": "082723869994",
+      "provenance": {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "8f74465f9c345805006b899e2ad2834be5102b20aa30443545d6e019341aa485",
+        "processed_utc": "2026-10-27T05:04:13.162905+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:55:00Z",
+        "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      }
+    },
+    {
+      "index": 1,
+      "district_type": "business-core",
+      "category": "business",
+      "bounds_cells": [
+        170,
+        4,
+        138,
+        120
+      ],
+      "road_bounds_cells": [
+        176.0,
+        10.0,
+        301.0,
+        117.0
+      ],
+      "recipe_id": "37614a5ff180",
+      "provenance": {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "d87709ab254214ea9640a91682b8ee1993ce4c2fc701dd364e15ef9618fae029",
+        "processed_utc": "2026-10-27T05:04:14.845857+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:56:50Z",
+        "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      }
+    },
+    {
+      "index": 2,
+      "district_type": "terrace-residential",
+      "category": "residential",
+      "bounds_cells": [
+        4,
+        136,
+        95,
+        83
+      ],
+      "road_bounds_cells": [
+        9.0,
+        141.0,
+        93.0,
+        213.0
+      ],
+      "recipe_id": "5d7c8ea619a0",
+      "provenance": {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "f433e24a21869e2392f7a68b756e04295ab1eb232fb2eb458eabf09b014eb6d2",
+        "processed_utc": "2026-10-27T05:04:15.929745+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:58:02Z",
+        "reference_profile_sha256": "23ba5d643f7ef0db76499be2b5051c21a577a4b426a292fe626555832f4f90fb",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      }
+    },
+    {
+      "index": 3,
+      "district_type": "garden-suburb",
+      "category": "suburban",
+      "bounds_cells": [
+        170,
+        136,
+        117,
+        101
+      ],
+      "road_bounds_cells": [
+        175.0,
+        141.0,
+        281.0,
+        231.0
+      ],
+      "recipe_id": "648cebbceb17",
+      "provenance": {
+        "source_url": "https://overpass-api.de/api/interpreter",
+        "sha256": "c4218ab325b1b311c054c3cf17ed561d6541de05ada12146eddad7f3fb270155",
+        "processed_utc": "2026-10-27T05:04:18.443013+00:00",
+        "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+        "skipped": {},
+        "scope": "Overpass survey response",
+        "osm_base_timestamp_utc": "2026-10-27T04:58:02Z",
+        "reference_profile_sha256": "8f1282f29be84b446e9cd2b57f42ae2e11376de845ac36266860449305753cd6",
+        "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+      }
+    }
+  ],
+  "portals": [
+    {
+      "from_district": 0,
+      "to_district": 1,
+      "side": "east",
+      "start_cells": [
+        152.0,
+        44.5
+      ],
+      "end_cells": [
+        176.0,
+        44.5
+      ],
+      "road_width_cells": 2,
+      "sidewalk_width_cells": 0.5
+    },
+    {
+      "from_district": 0,
+      "to_district": 2,
+      "side": "south",
+      "start_cells": [
+        51.5,
+        78.0
+      ],
+      "end_cells": [
+        51.5,
+        141.0
+      ],
+      "road_width_cells": 2,
+      "sidewalk_width_cells": 0.5
+    },
+    {
+      "from_district": 1,
+      "to_district": 3,
+      "side": "south",
+      "start_cells": [
+        228.5,
+        117.0
+      ],
+      "end_cells": [
+        228.5,
+        141.0
+      ],
+      "road_width_cells": 2,
+      "sidewalk_width_cells": 0.5
+    },
+    {
+      "from_district": 2,
+      "to_district": 3,
+      "side": "east",
+      "start_cells": [
+        93.0,
+        177.5
+      ],
+      "end_cells": [
+        175.0,
+        177.5
+      ],
+      "road_width_cells": 2,
+      "sidewalk_width_cells": 0.5
+    }
+  ],
+  "buildings": [
+    {
+      "left": 41,
+      "top": 22,
+      "width": 10,
+      "height": 8,
+      "door": [
+        46,
+        29
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          46,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-1",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4,
+      "district_index": 0
+    },
+    {
+      "left": 33,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        36,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          36,
+          30
+        ],
+        [
+          36,
+          29
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-2",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7,
+      "district_index": 0
+    },
+    {
+      "left": 20,
+      "top": 22,
+      "width": 10,
+      "height": 8,
+      "door": [
+        25,
+        29
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-3",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 22,
+      "top": 12,
+      "width": 6,
+      "height": 4,
+      "door": [
+        25,
+        12
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          11
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-4",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 49,
+      "top": 14,
+      "width": 6,
+      "height": 8,
+      "door": [
+        54,
+        18
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          55,
+          18
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-5",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 42,
+      "top": 14,
+      "width": 4,
+      "height": 6,
+      "door": [
+        44,
+        14
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          44,
+          11
+        ],
+        [
+          44,
+          12
+        ],
+        [
+          44,
+          13
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-6",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7,
+      "district_index": 0
+    },
+    {
+      "left": 16,
+      "top": 15,
+      "width": 4,
+      "height": 6,
+      "door": [
+        18,
+        15
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          18,
+          11
+        ],
+        [
+          18,
+          12
+        ],
+        [
+          18,
+          13
+        ],
+        [
+          18,
+          14
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-7",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 16,
+      "top": 34,
+      "width": 6,
+      "height": 8,
+      "door": [
+        19,
+        34
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          19,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-8",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14,
+      "district_index": 0
+    },
+    {
+      "left": 51,
+      "top": 37,
+      "width": 4,
+      "height": 6,
+      "door": [
+        54,
+        40
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          55,
+          40
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-9",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 13,
+      "district_index": 0
+    },
+    {
+      "left": 39,
+      "top": 45,
+      "width": 10,
+      "height": 8,
+      "door": [
+        44,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          44,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-10",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 29,
+      "top": 34,
+      "width": 6,
+      "height": 4,
+      "door": [
+        32,
+        34
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          32,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-11",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8,
+      "district_index": 0
+    },
+    {
+      "left": 49,
+      "top": 47,
+      "width": 6,
+      "height": 4,
+      "door": [
+        54,
+        49
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          55,
+          49
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-12",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 14,
+      "district_index": 0
+    },
+    {
+      "left": 20,
+      "top": 47,
+      "width": 8,
+      "height": 6,
+      "door": [
+        24,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          24,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-13",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13,
+      "district_index": 0
+    },
+    {
+      "left": 15,
+      "top": 47,
+      "width": 4,
+      "height": 6,
+      "door": [
+        17,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          17,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-14",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12,
+      "district_index": 0
+    },
+    {
+      "left": 40,
+      "top": 57,
+      "width": 8,
+      "height": 10,
+      "door": [
+        44,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          44,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-15",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 16,
+      "district_index": 0
+    },
+    {
+      "left": 47,
+      "top": 67,
+      "width": 8,
+      "height": 6,
+      "door": [
+        54,
+        70
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          55,
+          70
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-16",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4,
+      "district_index": 0
+    },
+    {
+      "left": 27,
+      "top": 66,
+      "width": 6,
+      "height": 8,
+      "door": [
+        30,
+        73
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          30,
+          75
+        ],
+        [
+          30,
+          74
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-17",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 9,
+      "district_index": 0
+    },
+    {
+      "left": 14,
+      "top": 57,
+      "width": 8,
+      "height": 10,
+      "door": [
+        18,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          18,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-18",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 49,
+      "top": 59,
+      "width": 6,
+      "height": 8,
+      "door": [
+        54,
+        63
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          55,
+          63
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-19",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9,
+      "district_index": 0
+    },
+    {
+      "left": 27,
+      "top": 57,
+      "width": 8,
+      "height": 6,
+      "door": [
+        31,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          31,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-20",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 34,
+      "top": 69,
+      "width": 6,
+      "height": 4,
+      "door": [
+        37,
+        72
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          37,
+          75
+        ],
+        [
+          37,
+          74
+        ],
+        [
+          37,
+          73
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-21",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14,
+      "district_index": 0
+    },
+    {
+      "left": 59,
+      "top": 18,
+      "width": 10,
+      "height": 8,
+      "door": [
+        59,
+        22
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          58,
+          22
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-22",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 92,
+      "top": 22,
+      "width": 8,
+      "height": 6,
+      "door": [
+        99,
+        25
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          100,
+          25
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-23",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7,
+      "district_index": 0
+    },
+    {
+      "left": 74,
+      "top": 24,
+      "width": 4,
+      "height": 6,
+      "door": [
+        76,
+        29
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          76,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-24",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16,
+      "district_index": 0
+    },
+    {
+      "left": 82,
+      "top": 12,
+      "width": 8,
+      "height": 10,
+      "door": [
+        86,
+        12
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          86,
+          11
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-25",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13,
+      "district_index": 0
+    },
+    {
+      "left": 59,
+      "top": 12,
+      "width": 4,
+      "height": 6,
+      "door": [
+        61,
+        12
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          61,
+          11
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-26",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 84,
+      "top": 22,
+      "width": 6,
+      "height": 8,
+      "door": [
+        87,
+        29
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          87,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-27",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6,
+      "district_index": 0
+    },
+    {
+      "left": 96,
+      "top": 15,
+      "width": 4,
+      "height": 6,
+      "door": [
+        99,
+        18
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          100,
+          18
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-28",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8,
+      "district_index": 0
+    },
+    {
+      "left": 59,
+      "top": 40,
+      "width": 6,
+      "height": 8,
+      "door": [
+        59,
+        44
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          58,
+          44
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-29",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 89,
+      "top": 34,
+      "width": 8,
+      "height": 6,
+      "door": [
+        93,
+        34
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          93,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-30",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4,
+      "district_index": 0
+    },
+    {
+      "left": 91,
+      "top": 43,
+      "width": 8,
+      "height": 10,
+      "door": [
+        95,
+        52
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          95,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-31",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9,
+      "district_index": 0
+    },
+    {
+      "left": 83,
+      "top": 34,
+      "width": 6,
+      "height": 8,
+      "door": [
+        86,
+        34
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          86,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-32",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4,
+      "district_index": 0
+    },
+    {
+      "left": 75,
+      "top": 47,
+      "width": 4,
+      "height": 6,
+      "door": [
+        77,
+        52
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          77,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-33",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 14,
+      "district_index": 0
+    },
+    {
+      "left": 70,
+      "top": 37,
+      "width": 8,
+      "height": 10,
+      "door": [
+        74,
+        37
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          74,
+          33
+        ],
+        [
+          74,
+          34
+        ],
+        [
+          74,
+          35
+        ],
+        [
+          74,
+          36
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-34",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 16,
+      "district_index": 0
+    },
+    {
+      "left": 66,
+      "top": 49,
+      "width": 6,
+      "height": 4,
+      "door": [
+        69,
+        52
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          69,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-35",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6,
+      "district_index": 0
+    },
+    {
+      "left": 59,
+      "top": 64,
+      "width": 4,
+      "height": 6,
+      "door": [
+        59,
+        67
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          58,
+          67
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-36",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 75,
+      "top": 57,
+      "width": 10,
+      "height": 8,
+      "door": [
+        80,
+        57
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          80,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-37",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12,
+      "district_index": 0
+    },
+    {
+      "left": 92,
+      "top": 58,
+      "width": 8,
+      "height": 10,
+      "door": [
+        99,
+        63
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          100,
+          63
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-38",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 9,
+      "district_index": 0
+    },
+    {
+      "left": 90,
+      "top": 69,
+      "width": 8,
+      "height": 6,
+      "door": [
+        94,
+        74
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          94,
+          75
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-39",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6,
+      "district_index": 0
+    },
+    {
+      "left": 68,
+      "top": 57,
+      "width": 6,
+      "height": 8,
+      "door": [
+        71,
+        57
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          71,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-40",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 59,
+      "top": 60,
+      "width": 6,
+      "height": 4,
+      "door": [
+        59,
+        62
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          58,
+          62
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-41",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11,
+      "district_index": 0
+    },
+    {
+      "left": 68,
+      "top": 66,
+      "width": 6,
+      "height": 8,
+      "door": [
+        71,
+        73
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          71,
+          75
+        ],
+        [
+          71,
+          74
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-42",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4,
+      "district_index": 0
+    },
+    {
+      "left": 104,
+      "top": 21,
+      "width": 4,
+      "height": 6,
+      "door": [
+        104,
+        24
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          103,
+          24
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-43",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16,
+      "district_index": 0
+    },
+    {
+      "left": 107,
+      "top": 12,
+      "width": 8,
+      "height": 6,
+      "door": [
+        111,
+        12
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          111,
+          11
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-44",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 7,
+      "district_index": 0
+    },
+    {
+      "left": 140,
+      "top": 24,
+      "width": 4,
+      "height": 6,
+      "door": [
+        142,
+        29
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          142,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-45",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 127,
+      "top": 22,
+      "width": 6,
+      "height": 8,
+      "door": [
+        130,
+        29
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          130,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-46",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 11,
+      "district_index": 0
+    },
+    {
+      "left": 114,
+      "top": 22,
+      "width": 8,
+      "height": 6,
+      "door": [
+        118,
+        27
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          118,
+          30
+        ],
+        [
+          118,
+          29
+        ],
+        [
+          118,
+          28
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-47",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8,
+      "district_index": 0
+    },
+    {
+      "left": 126,
+      "top": 14,
+      "width": 10,
+      "height": 8,
+      "door": [
+        131,
+        14
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          131,
+          11
+        ],
+        [
+          131,
+          12
+        ],
+        [
+          131,
+          13
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-48",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11,
+      "district_index": 0
+    },
+    {
+      "left": 134,
+      "top": 26,
+      "width": 6,
+      "height": 4,
+      "door": [
+        137,
+        29
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          137,
+          30
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-49",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 104,
+      "top": 41,
+      "width": 8,
+      "height": 6,
+      "door": [
+        104,
+        44
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          103,
+          44
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-50",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8,
+      "district_index": 0
+    },
+    {
+      "left": 123,
+      "top": 34,
+      "width": 10,
+      "height": 8,
+      "door": [
+        128,
+        34
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          128,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-51",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12,
+      "district_index": 0
+    },
+    {
+      "left": 127,
+      "top": 43,
+      "width": 8,
+      "height": 10,
+      "door": [
+        131,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          131,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-52",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 13,
+      "district_index": 0
+    },
+    {
+      "left": 140,
+      "top": 45,
+      "width": 6,
+      "height": 8,
+      "door": [
+        143,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          143,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-53",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12,
+      "district_index": 0
+    },
+    {
+      "left": 113,
+      "top": 40,
+      "width": 8,
+      "height": 6,
+      "door": [
+        117,
+        40
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          117,
+          33
+        ],
+        [
+          117,
+          34
+        ],
+        [
+          117,
+          35
+        ],
+        [
+          117,
+          36
+        ],
+        [
+          117,
+          37
+        ],
+        [
+          117,
+          38
+        ],
+        [
+          117,
+          39
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-54",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8,
+      "district_index": 0
+    },
+    {
+      "left": 137,
+      "top": 34,
+      "width": 8,
+      "height": 6,
+      "door": [
+        141,
+        34
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          141,
+          33
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-55",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 106,
+      "top": 47,
+      "width": 8,
+      "height": 6,
+      "door": [
+        110,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          110,
+          53
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-56",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6,
+      "district_index": 0
+    },
+    {
+      "left": 104,
+      "top": 69,
+      "width": 8,
+      "height": 6,
+      "door": [
+        108,
+        74
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          108,
+          75
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-57",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 132,
+      "top": 57,
+      "width": 4,
+      "height": 6,
+      "door": [
+        134,
+        57
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          134,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-58",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11,
+      "district_index": 0
+    },
+    {
+      "left": 135,
+      "top": 65,
+      "width": 10,
+      "height": 8,
+      "door": [
+        140,
+        72
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          140,
+          75
+        ],
+        [
+          140,
+          74
+        ],
+        [
+          140,
+          73
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-59",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 104,
+      "top": 63,
+      "width": 4,
+      "height": 6,
+      "door": [
+        104,
+        66
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          103,
+          66
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-60",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9,
+      "district_index": 0
+    },
+    {
+      "left": 116,
+      "top": 57,
+      "width": 6,
+      "height": 8,
+      "door": [
+        119,
+        57
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          119,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-61",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10,
+      "district_index": 0
+    },
+    {
+      "left": 124,
+      "top": 57,
+      "width": 8,
+      "height": 6,
+      "door": [
+        128,
+        57
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          128,
+          56
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-62",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 5,
+      "district_index": 0
+    },
+    {
+      "left": 126,
+      "top": 65,
+      "width": 4,
+      "height": 6,
+      "door": [
+        128,
+        70
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          128,
+          75
+        ],
+        [
+          128,
+          74
+        ],
+        [
+          128,
+          73
+        ],
+        [
+          128,
+          72
+        ],
+        [
+          128,
+          71
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-63",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15,
+      "district_index": 0
+    },
+    {
+      "left": 104,
+      "top": 59,
+      "width": 6,
+      "height": 4,
+      "door": [
+        104,
+        61
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          103,
+          61
+        ]
+      ],
+      "parcel_id": "d0-dense-urban-64",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12,
+      "district_index": 0
+    },
+    {
+      "left": 189,
+      "top": 16,
+      "width": 12,
+      "height": 14,
+      "door": [
+        195,
+        16
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          195,
+          13
+        ],
+        [
+          195,
+          14
+        ],
+        [
+          195,
+          15
+        ]
+      ],
+      "parcel_id": "d1-business-core-1",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 6,
+      "district_index": 1
+    },
+    {
+      "left": 202,
+      "top": 33,
+      "width": 12,
+      "height": 10,
+      "door": [
+        208,
+        42
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          208,
+          43
+        ]
+      ],
+      "parcel_id": "d1-business-core-2",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 14,
+      "district_index": 1
+    },
+    {
+      "left": 190,
+      "top": 33,
+      "width": 12,
+      "height": 10,
+      "door": [
+        196,
+        42
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          196,
+          43
+        ]
+      ],
+      "parcel_id": "d1-business-core-3",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 14,
+      "district_index": 1
+    },
+    {
+      "left": 203,
+      "top": 20,
+      "width": 10,
+      "height": 12,
+      "door": [
+        212,
+        26
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          215,
+          26
+        ],
+        [
+          214,
+          26
+        ],
+        [
+          213,
+          26
+        ]
+      ],
+      "parcel_id": "d1-business-core-4",
+      "district_type": "business-core",
+      "use_hint": "hotel",
+      "game_building_use_hint": null,
+      "storeys_hint": 7,
+      "district_index": 1
+    },
+    {
+      "left": 182,
+      "top": 60,
+      "width": 12,
+      "height": 14,
+      "door": [
+        182,
+        67
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          179,
+          67
+        ],
+        [
+          180,
+          67
+        ],
+        [
+          181,
+          67
+        ]
+      ],
+      "parcel_id": "d1-business-core-5",
+      "district_type": "business-core",
+      "use_hint": "hotel",
+      "game_building_use_hint": null,
+      "storeys_hint": 20,
+      "district_index": 1
+    },
+    {
+      "left": 195,
+      "top": 63,
+      "width": 12,
+      "height": 10,
+      "door": [
+        201,
+        72
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          201,
+          78
+        ],
+        [
+          201,
+          77
+        ],
+        [
+          201,
+          76
+        ],
+        [
+          201,
+          75
+        ],
+        [
+          201,
+          74
+        ],
+        [
+          201,
+          73
+        ]
+      ],
+      "parcel_id": "d1-business-core-6",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 11,
+      "district_index": 1
+    },
+    {
+      "left": 197,
+      "top": 52,
+      "width": 12,
+      "height": 10,
+      "door": [
+        203,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          203,
+          48
+        ],
+        [
+          203,
+          49
+        ],
+        [
+          203,
+          50
+        ],
+        [
+          203,
+          51
+        ]
+      ],
+      "parcel_id": "d1-business-core-7",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 10,
+      "district_index": 1
+    },
+    {
+      "left": 186,
+      "top": 95,
+      "width": 16,
+      "height": 14,
+      "door": [
+        194,
+        108
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          194,
+          113
+        ],
+        [
+          194,
+          112
+        ],
+        [
+          194,
+          111
+        ],
+        [
+          194,
+          110
+        ],
+        [
+          194,
+          109
+        ]
+      ],
+      "parcel_id": "d1-business-core-8",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 8,
+      "district_index": 1
+    },
+    {
+      "left": 205,
+      "top": 86,
+      "width": 10,
+      "height": 12,
+      "door": [
+        214,
+        92
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          215,
+          92
+        ]
+      ],
+      "parcel_id": "d1-business-core-9",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 14,
+      "district_index": 1
+    },
+    {
+      "left": 230,
+      "top": 49,
+      "width": 12,
+      "height": 14,
+      "door": [
+        236,
+        49
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          236,
+          48
+        ]
+      ],
+      "parcel_id": "d1-business-core-10",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 20,
+      "district_index": 1
+    },
+    {
+      "left": 244,
+      "top": 59,
+      "width": 10,
+      "height": 12,
+      "door": [
+        253,
+        65
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          258,
+          65
+        ],
+        [
+          257,
+          65
+        ],
+        [
+          256,
+          65
+        ],
+        [
+          255,
+          65
+        ],
+        [
+          254,
+          65
+        ]
+      ],
+      "parcel_id": "d1-business-core-11",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12,
+      "district_index": 1
+    },
+    {
+      "left": 228,
+      "top": 65,
+      "width": 12,
+      "height": 10,
+      "door": [
+        234,
+        74
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          234,
+          78
+        ],
+        [
+          234,
+          77
+        ],
+        [
+          234,
+          76
+        ],
+        [
+          234,
+          75
+        ]
+      ],
+      "parcel_id": "d1-business-core-12",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6,
+      "district_index": 1
+    },
+    {
+      "left": 245,
+      "top": 49,
+      "width": 12,
+      "height": 10,
+      "door": [
+        251,
+        49
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          251,
+          48
+        ]
+      ],
+      "parcel_id": "d1-business-core-13",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 14,
+      "district_index": 1
+    },
+    {
+      "left": 245,
+      "top": 88,
+      "width": 12,
+      "height": 10,
+      "door": [
+        256,
+        93
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          258,
+          93
+        ],
+        [
+          257,
+          93
+        ]
+      ],
+      "parcel_id": "d1-business-core-14",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 16,
+      "district_index": 1
+    },
+    {
+      "left": 227,
+      "top": 84,
+      "width": 16,
+      "height": 14,
+      "door": [
+        235,
+        84
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          235,
+          83
+        ]
+      ],
+      "parcel_id": "d1-business-core-15",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 9,
+      "district_index": 1
+    },
+    {
+      "left": 244,
+      "top": 103,
+      "width": 12,
+      "height": 10,
+      "door": [
+        250,
+        112
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          250,
+          113
+        ]
+      ],
+      "parcel_id": "d1-business-core-16",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 13,
+      "district_index": 1
+    },
+    {
+      "left": 225,
+      "top": 101,
+      "width": 14,
+      "height": 12,
+      "door": [
+        232,
+        112
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          232,
+          113
+        ]
+      ],
+      "parcel_id": "d1-business-core-17",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 9,
+      "district_index": 1
+    },
+    {
+      "left": 268,
+      "top": 19,
+      "width": 14,
+      "height": 16,
+      "door": [
+        268,
+        27
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          263,
+          27
+        ],
+        [
+          264,
+          27
+        ],
+        [
+          265,
+          27
+        ],
+        [
+          266,
+          27
+        ],
+        [
+          267,
+          27
+        ]
+      ],
+      "parcel_id": "d1-business-core-18",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12,
+      "district_index": 1
+    },
+    {
+      "left": 282,
+      "top": 15,
+      "width": 12,
+      "height": 14,
+      "door": [
+        288,
+        15
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          288,
+          13
+        ],
+        [
+          288,
+          14
+        ]
+      ],
+      "parcel_id": "d1-business-core-19",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 14,
+      "district_index": 1
+    },
+    {
+      "left": 275,
+      "top": 54,
+      "width": 12,
+      "height": 10,
+      "door": [
+        281,
+        54
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          281,
+          48
+        ],
+        [
+          281,
+          49
+        ],
+        [
+          281,
+          50
+        ],
+        [
+          281,
+          51
+        ],
+        [
+          281,
+          52
+        ],
+        [
+          281,
+          53
+        ]
+      ],
+      "parcel_id": "d1-business-core-20",
+      "district_type": "business-core",
+      "use_hint": "hotel",
+      "game_building_use_hint": null,
+      "storeys_hint": 17,
+      "district_index": 1
+    },
+    {
+      "left": 283,
+      "top": 64,
+      "width": 14,
+      "height": 12,
+      "door": [
+        296,
+        70
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          297,
+          70
+        ]
+      ],
+      "parcel_id": "d1-business-core-21",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 20,
+      "district_index": 1
+    },
+    {
+      "left": 265,
+      "top": 68,
+      "width": 12,
+      "height": 10,
+      "door": [
+        271,
+        77
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          271,
+          78
+        ]
+      ],
+      "parcel_id": "d1-business-core-22",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 11,
+      "district_index": 1
+    },
+    {
+      "left": 276,
+      "top": 98,
+      "width": 14,
+      "height": 12,
+      "door": [
+        283,
+        109
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          283,
+          113
+        ],
+        [
+          283,
+          112
+        ],
+        [
+          283,
+          111
+        ],
+        [
+          283,
+          110
+        ]
+      ],
+      "parcel_id": "d1-business-core-23",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6,
+      "district_index": 1
+    },
+    {
+      "left": 272,
+      "top": 84,
+      "width": 10,
+      "height": 12,
+      "door": [
+        277,
+        84
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          277,
+          83
+        ]
+      ],
+      "parcel_id": "d1-business-core-24",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 13,
+      "district_index": 1
+    },
+    {
+      "left": 282,
+      "top": 84,
+      "width": 14,
+      "height": 12,
+      "door": [
+        289,
+        84
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          289,
+          83
+        ]
+      ],
+      "parcel_id": "d1-business-core-25",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 16,
+      "district_index": 1
+    },
+    {
+      "left": 264,
+      "top": 97,
+      "width": 12,
+      "height": 14,
+      "door": [
+        264,
+        104
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          263,
+          104
+        ]
+      ],
+      "parcel_id": "d1-business-core-26",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12,
+      "district_index": 1
+    },
+    {
+      "left": 30,
+      "top": 153,
+      "width": 6,
+      "height": 4,
+      "door": [
+        35,
+        155
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          36,
+          155
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-1",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 32,
+      "top": 157,
+      "width": 4,
+      "height": 5,
+      "door": [
+        34,
+        161
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          34,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-2",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 19,
+      "top": 148,
+      "width": 6,
+      "height": 4,
+      "door": [
+        22,
+        148
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          22,
+          143
+        ],
+        [
+          22,
+          144
+        ],
+        [
+          22,
+          145
+        ],
+        [
+          22,
+          146
+        ],
+        [
+          22,
+          147
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-3",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 24,
+      "top": 158,
+      "width": 6,
+      "height": 4,
+      "door": [
+        27,
+        161
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          27,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-4",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 17,
+      "top": 157,
+      "width": 4,
+      "height": 5,
+      "door": [
+        19,
+        161
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          19,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-5",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 30,
+      "top": 145,
+      "width": 4,
+      "height": 6,
+      "door": [
+        32,
+        145
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          32,
+          143
+        ],
+        [
+          32,
+          144
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-6",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 26,
+      "top": 146,
+      "width": 4,
+      "height": 6,
+      "door": [
+        28,
+        146
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          28,
+          143
+        ],
+        [
+          28,
+          144
+        ],
+        [
+          28,
+          145
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-7",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 18,
+      "top": 166,
+      "width": 6,
+      "height": 4,
+      "door": [
+        21,
+        166
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          21,
+          165
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-8",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 31,
+      "top": 168,
+      "width": 5,
+      "height": 4,
+      "door": [
+        35,
+        170
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          36,
+          170
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-9",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 20,
+      "top": 184,
+      "width": 5,
+      "height": 4,
+      "door": [
+        22,
+        187
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          22,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-10",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 12,
+      "top": 184,
+      "width": 6,
+      "height": 4,
+      "door": [
+        15,
+        187
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          15,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-11",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 30,
+      "top": 180,
+      "width": 6,
+      "height": 4,
+      "door": [
+        35,
+        182
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          36,
+          182
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-12",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 29,
+      "top": 172,
+      "width": 6,
+      "height": 5,
+      "door": [
+        34,
+        174
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          36,
+          174
+        ],
+        [
+          35,
+          174
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-13",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 26,
+      "top": 178,
+      "width": 4,
+      "height": 6,
+      "door": [
+        28,
+        183
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          28,
+          188
+        ],
+        [
+          28,
+          187
+        ],
+        [
+          28,
+          186
+        ],
+        [
+          28,
+          185
+        ],
+        [
+          28,
+          184
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-14",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 18,
+      "top": 192,
+      "width": 5,
+      "height": 6,
+      "door": [
+        20,
+        192
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          20,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-15",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 31,
+      "top": 193,
+      "width": 5,
+      "height": 4,
+      "door": [
+        35,
+        195
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          36,
+          195
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-16",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 30,
+      "top": 206,
+      "width": 5,
+      "height": 4,
+      "door": [
+        32,
+        209
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          32,
+          210
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-17",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 26,
+      "top": 192,
+      "width": 5,
+      "height": 4,
+      "door": [
+        28,
+        192
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          28,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-18",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 32,
+      "top": 201,
+      "width": 4,
+      "height": 5,
+      "door": [
+        35,
+        203
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          36,
+          203
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-19",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 19,
+      "top": 202,
+      "width": 4,
+      "height": 6,
+      "door": [
+        21,
+        207
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          21,
+          210
+        ],
+        [
+          21,
+          209
+        ],
+        [
+          21,
+          208
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-20",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 28,
+      "top": 199,
+      "width": 4,
+      "height": 6,
+      "door": [
+        30,
+        199
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          36,
+          198
+        ],
+        [
+          35,
+          198
+        ],
+        [
+          34,
+          198
+        ],
+        [
+          33,
+          198
+        ],
+        [
+          32,
+          198
+        ],
+        [
+          31,
+          198
+        ],
+        [
+          30,
+          198
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-21",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 148,
+      "width": 6,
+      "height": 5,
+      "door": [
+        40,
+        150
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          39,
+          150
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-22",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 58,
+      "top": 151,
+      "width": 6,
+      "height": 4,
+      "door": [
+        63,
+        153
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          64,
+          153
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-23",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 50,
+      "top": 157,
+      "width": 4,
+      "height": 5,
+      "door": [
+        52,
+        161
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          52,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-24",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 46,
+      "top": 151,
+      "width": 5,
+      "height": 6,
+      "door": [
+        48,
+        156
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          48,
+          162
+        ],
+        [
+          48,
+          161
+        ],
+        [
+          48,
+          160
+        ],
+        [
+          48,
+          159
+        ],
+        [
+          48,
+          158
+        ],
+        [
+          48,
+          157
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-25",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 155,
+      "width": 6,
+      "height": 5,
+      "door": [
+        40,
+        157
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          39,
+          157
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-26",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 57,
+      "top": 156,
+      "width": 5,
+      "height": 6,
+      "door": [
+        59,
+        161
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          59,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-27",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 58,
+      "top": 147,
+      "width": 6,
+      "height": 4,
+      "door": [
+        63,
+        149
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          64,
+          149
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-28",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 184,
+      "width": 6,
+      "height": 4,
+      "door": [
+        43,
+        187
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          43,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-29",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 46,
+      "top": 166,
+      "width": 4,
+      "height": 5,
+      "door": [
+        48,
+        166
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          48,
+          165
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-30",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 60,
+      "top": 182,
+      "width": 4,
+      "height": 6,
+      "door": [
+        62,
+        187
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          62,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-31",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 53,
+      "top": 183,
+      "width": 4,
+      "height": 5,
+      "door": [
+        55,
+        187
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          55,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-32",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 44,
+      "top": 171,
+      "width": 4,
+      "height": 5,
+      "door": [
+        44,
+        173
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          39,
+          173
+        ],
+        [
+          40,
+          173
+        ],
+        [
+          41,
+          173
+        ],
+        [
+          42,
+          173
+        ],
+        [
+          43,
+          173
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-33",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 178,
+      "width": 6,
+      "height": 5,
+      "door": [
+        40,
+        180
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          39,
+          180
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-34",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 60,
+      "top": 166,
+      "width": 4,
+      "height": 5,
+      "door": [
+        62,
+        166
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          62,
+          165
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-35",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 193,
+      "width": 6,
+      "height": 4,
+      "door": [
+        40,
+        195
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          39,
+          195
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-36",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 52,
+      "top": 192,
+      "width": 5,
+      "height": 4,
+      "door": [
+        54,
+        192
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          54,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-37",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 60,
+      "top": 193,
+      "width": 4,
+      "height": 5,
+      "door": [
+        63,
+        195
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          64,
+          195
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-38",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 198,
+      "width": 6,
+      "height": 4,
+      "door": [
+        40,
+        200
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          39,
+          200
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-39",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 60,
+      "top": 202,
+      "width": 4,
+      "height": 5,
+      "door": [
+        63,
+        204
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          64,
+          204
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-40",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 40,
+      "top": 206,
+      "width": 6,
+      "height": 4,
+      "door": [
+        43,
+        209
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          43,
+          210
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-41",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 46,
+      "top": 204,
+      "width": 6,
+      "height": 5,
+      "door": [
+        49,
+        208
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          49,
+          210
+        ],
+        [
+          49,
+          209
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-42",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 153,
+      "width": 6,
+      "height": 4,
+      "door": [
+        68,
+        155
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          67,
+          155
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-43",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 80,
+      "top": 152,
+      "width": 4,
+      "height": 6,
+      "door": [
+        82,
+        157
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          82,
+          162
+        ],
+        [
+          82,
+          161
+        ],
+        [
+          82,
+          160
+        ],
+        [
+          82,
+          159
+        ],
+        [
+          82,
+          158
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-44",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 146,
+      "width": 5,
+      "height": 6,
+      "door": [
+        68,
+        149
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          67,
+          149
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-45",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 74,
+      "top": 157,
+      "width": 6,
+      "height": 5,
+      "door": [
+        77,
+        161
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          77,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-46",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 157,
+      "width": 4,
+      "height": 5,
+      "door": [
+        70,
+        161
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          70,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-47",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 84,
+      "top": 158,
+      "width": 6,
+      "height": 4,
+      "door": [
+        87,
+        161
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          87,
+          162
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-48",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 84,
+      "top": 152,
+      "width": 5,
+      "height": 4,
+      "door": [
+        88,
+        154
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          90,
+          154
+        ],
+        [
+          89,
+          154
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-49",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 169,
+      "width": 5,
+      "height": 4,
+      "door": [
+        68,
+        171
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          67,
+          171
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-50",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 76,
+      "top": 166,
+      "width": 5,
+      "height": 4,
+      "door": [
+        78,
+        166
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          78,
+          165
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-51",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 80,
+      "top": 184,
+      "width": 6,
+      "height": 4,
+      "door": [
+        83,
+        187
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          83,
+          188
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-52",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 74,
+      "top": 180,
+      "width": 6,
+      "height": 4,
+      "door": [
+        77,
+        183
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          77,
+          188
+        ],
+        [
+          77,
+          187
+        ],
+        [
+          77,
+          186
+        ],
+        [
+          77,
+          185
+        ],
+        [
+          77,
+          184
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-53",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 181,
+      "width": 5,
+      "height": 6,
+      "door": [
+        68,
+        184
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          67,
+          184
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-54",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 83,
+      "top": 170,
+      "width": 5,
+      "height": 6,
+      "door": [
+        87,
+        173
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          90,
+          173
+        ],
+        [
+          89,
+          173
+        ],
+        [
+          88,
+          173
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-55",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 81,
+      "top": 166,
+      "width": 6,
+      "height": 4,
+      "door": [
+        84,
+        166
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          84,
+          165
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-56",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 204,
+      "width": 4,
+      "height": 5,
+      "door": [
+        68,
+        206
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          67,
+          206
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-57",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 80,
+      "top": 202,
+      "width": 5,
+      "height": 4,
+      "door": [
+        82,
+        205
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          82,
+          210
+        ],
+        [
+          82,
+          209
+        ],
+        [
+          82,
+          208
+        ],
+        [
+          82,
+          207
+        ],
+        [
+          82,
+          206
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-58",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 194,
+      "width": 5,
+      "height": 4,
+      "door": [
+        68,
+        196
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          67,
+          196
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-59",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 83,
+      "top": 192,
+      "width": 6,
+      "height": 4,
+      "door": [
+        86,
+        192
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          86,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-60",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 73,
+      "top": 192,
+      "width": 5,
+      "height": 6,
+      "door": [
+        75,
+        192
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          75,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-61",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 68,
+      "top": 198,
+      "width": 6,
+      "height": 4,
+      "door": [
+        68,
+        200
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          67,
+          200
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-62",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 75,
+      "top": 203,
+      "width": 5,
+      "height": 6,
+      "door": [
+        77,
+        208
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          77,
+          210
+        ],
+        [
+          77,
+          209
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-63",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3,
+      "district_index": 2
+    },
+    {
+      "left": 79,
+      "top": 192,
+      "width": 4,
+      "height": 6,
+      "door": [
+        81,
+        192
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          81,
+          191
+        ]
+      ],
+      "parcel_id": "d2-terrace-residential-64",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 2
+    },
+    {
+      "left": 179,
+      "top": 166,
+      "width": 4,
+      "height": 5,
+      "door": [
+        179,
+        168
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          177,
+          168
+        ],
+        [
+          178,
+          168
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-1",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 229,
+      "top": 145,
+      "width": 6,
+      "height": 7,
+      "door": [
+        232,
+        145
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          232,
+          143
+        ],
+        [
+          232,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-2",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 239,
+      "top": 157,
+      "width": 5,
+      "height": 6,
+      "door": [
+        243,
+        160
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          246,
+          160
+        ],
+        [
+          245,
+          160
+        ],
+        [
+          244,
+          160
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-3",
+      "district_type": "garden-suburb",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 179,
+      "top": 187,
+      "width": 7,
+      "height": 6,
+      "door": [
+        179,
+        190
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          177,
+          190
+        ],
+        [
+          178,
+          190
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-4",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 180,
+      "top": 147,
+      "width": 6,
+      "height": 7,
+      "door": [
+        180,
+        150
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          177,
+          150
+        ],
+        [
+          178,
+          150
+        ],
+        [
+          179,
+          150
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-5",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 205,
+      "top": 145,
+      "width": 4,
+      "height": 5,
+      "door": [
+        207,
+        145
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          207,
+          143
+        ],
+        [
+          207,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-6",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 179,
+      "top": 179,
+      "width": 4,
+      "height": 5,
+      "door": [
+        179,
+        181
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          177,
+          181
+        ],
+        [
+          178,
+          181
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-7",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 197,
+      "top": 147,
+      "width": 6,
+      "height": 7,
+      "door": [
+        200,
+        147
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          200,
+          143
+        ],
+        [
+          200,
+          144
+        ],
+        [
+          200,
+          145
+        ],
+        [
+          200,
+          146
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-8",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 191,
+      "top": 187,
+      "width": 5,
+      "height": 6,
+      "door": [
+        193,
+        192
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          193,
+          195
+        ],
+        [
+          193,
+          194
+        ],
+        [
+          193,
+          193
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-9",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 194,
+      "top": 158,
+      "width": 7,
+      "height": 6,
+      "door": [
+        197,
+        163
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          197,
+          167
+        ],
+        [
+          197,
+          166
+        ],
+        [
+          197,
+          165
+        ],
+        [
+          197,
+          164
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-10",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 188,
+      "top": 145,
+      "width": 5,
+      "height": 4,
+      "door": [
+        190,
+        145
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          190,
+          143
+        ],
+        [
+          190,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-11",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 239,
+      "top": 145,
+      "width": 5,
+      "height": 4,
+      "door": [
+        241,
+        145
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          241,
+          143
+        ],
+        [
+          241,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-12",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 179,
+      "top": 159,
+      "width": 4,
+      "height": 5,
+      "door": [
+        179,
+        161
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          177,
+          161
+        ],
+        [
+          178,
+          161
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-13",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 213,
+      "top": 214,
+      "width": 5,
+      "height": 6,
+      "door": [
+        213,
+        217
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          210,
+          217
+        ],
+        [
+          211,
+          217
+        ],
+        [
+          212,
+          217
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-14",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 255,
+      "top": 182,
+      "width": 4,
+      "height": 5,
+      "door": [
+        257,
+        186
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          257,
+          195
+        ],
+        [
+          257,
+          194
+        ],
+        [
+          257,
+          193
+        ],
+        [
+          257,
+          192
+        ],
+        [
+          257,
+          191
+        ],
+        [
+          257,
+          190
+        ],
+        [
+          257,
+          189
+        ],
+        [
+          257,
+          188
+        ],
+        [
+          257,
+          187
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-15",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 213,
+      "top": 207,
+      "width": 6,
+      "height": 5,
+      "door": [
+        213,
+        209
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          210,
+          209
+        ],
+        [
+          211,
+          209
+        ],
+        [
+          212,
+          209
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-16",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 266,
+      "top": 145,
+      "width": 5,
+      "height": 4,
+      "door": [
+        268,
+        145
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          268,
+          143
+        ],
+        [
+          268,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-17",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 215,
+      "top": 186,
+      "width": 5,
+      "height": 4,
+      "door": [
+        215,
+        188
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          210,
+          188
+        ],
+        [
+          211,
+          188
+        ],
+        [
+          212,
+          188
+        ],
+        [
+          213,
+          188
+        ],
+        [
+          214,
+          188
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-18",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 213,
+      "top": 177,
+      "width": 6,
+      "height": 7,
+      "door": [
+        213,
+        180
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          210,
+          180
+        ],
+        [
+          211,
+          180
+        ],
+        [
+          212,
+          180
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-19",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 271,
+      "top": 179,
+      "width": 6,
+      "height": 7,
+      "door": [
+        276,
+        182
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          278,
+          182
+        ],
+        [
+          277,
+          182
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-20",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 216,
+      "top": 222,
+      "width": 4,
+      "height": 5,
+      "door": [
+        218,
+        226
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          218,
+          228
+        ],
+        [
+          218,
+          227
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-21",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 273,
+      "top": 162,
+      "width": 4,
+      "height": 5,
+      "door": [
+        275,
+        166
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          275,
+          167
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-22",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 273,
+      "top": 145,
+      "width": 4,
+      "height": 5,
+      "door": [
+        275,
+        145
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          275,
+          143
+        ],
+        [
+          275,
+          144
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-23",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 229,
+      "top": 222,
+      "width": 4,
+      "height": 5,
+      "door": [
+        231,
+        226
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          231,
+          228
+        ],
+        [
+          231,
+          227
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-24",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 262,
+      "top": 187,
+      "width": 7,
+      "height": 6,
+      "door": [
+        265,
+        192
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          265,
+          195
+        ],
+        [
+          265,
+          194
+        ],
+        [
+          265,
+          193
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-25",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 254,
+      "top": 154,
+      "width": 5,
+      "height": 4,
+      "door": [
+        254,
+        156
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          249,
+          156
+        ],
+        [
+          250,
+          156
+        ],
+        [
+          251,
+          156
+        ],
+        [
+          252,
+          156
+        ],
+        [
+          253,
+          156
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-26",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 235,
+      "top": 221,
+      "width": 7,
+      "height": 6,
+      "door": [
+        238,
+        226
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          238,
+          228
+        ],
+        [
+          238,
+          227
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-27",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 272,
+      "top": 152,
+      "width": 5,
+      "height": 4,
+      "door": [
+        276,
+        154
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          278,
+          154
+        ],
+        [
+          277,
+          154
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-28",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 232,
+      "top": 207,
+      "width": 6,
+      "height": 5,
+      "door": [
+        237,
+        209
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          246,
+          209
+        ],
+        [
+          245,
+          209
+        ],
+        [
+          244,
+          209
+        ],
+        [
+          243,
+          209
+        ],
+        [
+          242,
+          209
+        ],
+        [
+          241,
+          209
+        ],
+        [
+          240,
+          209
+        ],
+        [
+          239,
+          209
+        ],
+        [
+          238,
+          209
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-29",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 227,
+      "top": 179,
+      "width": 6,
+      "height": 5,
+      "door": [
+        230,
+        179
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          230,
+          170
+        ],
+        [
+          230,
+          171
+        ],
+        [
+          230,
+          172
+        ],
+        [
+          230,
+          173
+        ],
+        [
+          230,
+          174
+        ],
+        [
+          230,
+          175
+        ],
+        [
+          230,
+          176
+        ],
+        [
+          230,
+          177
+        ],
+        [
+          230,
+          178
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-30",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 237,
+      "top": 181,
+      "width": 5,
+      "height": 4,
+      "door": [
+        239,
+        181
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          239,
+          170
+        ],
+        [
+          239,
+          171
+        ],
+        [
+          239,
+          172
+        ],
+        [
+          239,
+          173
+        ],
+        [
+          239,
+          174
+        ],
+        [
+          239,
+          175
+        ],
+        [
+          239,
+          176
+        ],
+        [
+          239,
+          177
+        ],
+        [
+          239,
+          178
+        ],
+        [
+          239,
+          179
+        ],
+        [
+          239,
+          180
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-31",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2,
+      "district_index": 3
+    },
+    {
+      "left": 252,
+      "top": 219,
+      "width": 6,
+      "height": 5,
+      "door": [
+        252,
+        221
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          249,
+          221
+        ],
+        [
+          250,
+          221
+        ],
+        [
+          251,
+          221
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-32",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 252,
+      "top": 201,
+      "width": 7,
+      "height": 6,
+      "door": [
+        255,
+        201
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          255,
+          198
+        ],
+        [
+          255,
+          199
+        ],
+        [
+          255,
+          200
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-33",
+      "district_type": "garden-suburb",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 272,
+      "top": 207,
+      "width": 5,
+      "height": 4,
+      "door": [
+        276,
+        209
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          278,
+          209
+        ],
+        [
+          277,
+          209
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-34",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 264,
+      "top": 218,
+      "width": 6,
+      "height": 5,
+      "door": [
+        267,
+        222
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          267,
+          228
+        ],
+        [
+          267,
+          227
+        ],
+        [
+          267,
+          226
+        ],
+        [
+          267,
+          225
+        ],
+        [
+          267,
+          224
+        ],
+        [
+          267,
+          223
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-35",
+      "district_type": "garden-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "district_index": 3
+    },
+    {
+      "left": 272,
+      "top": 219,
+      "width": 5,
+      "height": 4,
+      "door": [
+        276,
+        221
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          278,
+          221
+        ],
+        [
+          277,
+          221
+        ]
+      ],
+      "parcel_id": "d3-garden-suburb-36",
+      "district_type": "garden-suburb",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2,
+      "district_index": 3
+    }
+  ],
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          45.0,
+          45.0
+        ],
+        [
+          285.0,
+          45.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          45.0
+        ],
+        [
+          510.0,
+          45.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          45.0
+        ],
+        [
+          760.0,
+          45.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          160.0
+        ],
+        [
+          285.0,
+          160.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          160.0
+        ],
+        [
+          510.0,
+          160.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          160.0
+        ],
+        [
+          760.0,
+          160.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          275.0
+        ],
+        [
+          285.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          275.0
+        ],
+        [
+          510.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          275.0
+        ],
+        [
+          760.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          390.0
+        ],
+        [
+          285.0,
+          390.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          390.0
+        ],
+        [
+          510.0,
+          390.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          390.0
+        ],
+        [
+          760.0,
+          390.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          45.0
+        ],
+        [
+          45.0,
+          160.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          160.0
+        ],
+        [
+          45.0,
+          275.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          275.0
+        ],
+        [
+          45.0,
+          390.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          45.0
+        ],
+        [
+          285.0,
+          160.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          160.0
+        ],
+        [
+          285.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          285.0,
+          275.0
+        ],
+        [
+          285.0,
+          390.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          45.0
+        ],
+        [
+          510.0,
+          160.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          160.0
+        ],
+        [
+          510.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          275.0
+        ],
+        [
+          510.0,
+          390.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          760.0,
+          45.0
+        ],
+        [
+          760.0,
+          160.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          760.0,
+          160.0
+        ],
+        [
+          760.0,
+          275.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          760.0,
+          275.0
+        ],
+        [
+          760.0,
+          390.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          50.0
+        ],
+        [
+          1090.0,
+          50.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          50.0
+        ],
+        [
+          1305.0,
+          50.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          50.0
+        ],
+        [
+          1505.0,
+          50.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          230.0
+        ],
+        [
+          1090.0,
+          230.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          230.0
+        ],
+        [
+          1305.0,
+          230.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          230.0
+        ],
+        [
+          1505.0,
+          230.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          405.0
+        ],
+        [
+          1090.0,
+          405.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          405.0
+        ],
+        [
+          1305.0,
+          405.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          405.0
+        ],
+        [
+          1505.0,
+          405.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          585.0
+        ],
+        [
+          1090.0,
+          585.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          585.0
+        ],
+        [
+          1305.0,
+          585.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          585.0
+        ],
+        [
+          1505.0,
+          585.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          50.0
+        ],
+        [
+          880.0,
+          230.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          230.0
+        ],
+        [
+          880.0,
+          405.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          880.0,
+          405.0
+        ],
+        [
+          880.0,
+          585.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          50.0
+        ],
+        [
+          1090.0,
+          230.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          230.0
+        ],
+        [
+          1090.0,
+          405.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1090.0,
+          405.0
+        ],
+        [
+          1090.0,
+          585.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          50.0
+        ],
+        [
+          1305.0,
+          230.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          230.0
+        ],
+        [
+          1305.0,
+          405.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1305.0,
+          405.0
+        ],
+        [
+          1305.0,
+          585.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1505.0,
+          50.0
+        ],
+        [
+          1505.0,
+          230.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1505.0,
+          230.0
+        ],
+        [
+          1505.0,
+          405.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1505.0,
+          405.0
+        ],
+        [
+          1505.0,
+          585.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          705.0
+        ],
+        [
+          190.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          705.0
+        ],
+        [
+          330.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          705.0
+        ],
+        [
+          465.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          820.0
+        ],
+        [
+          190.0,
+          820.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          820.0
+        ],
+        [
+          330.0,
+          820.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          820.0
+        ],
+        [
+          465.0,
+          820.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          950.0
+        ],
+        [
+          190.0,
+          950.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          950.0
+        ],
+        [
+          330.0,
+          950.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          950.0
+        ],
+        [
+          465.0,
+          950.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          1065.0
+        ],
+        [
+          190.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          1065.0
+        ],
+        [
+          330.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          1065.0
+        ],
+        [
+          465.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          705.0
+        ],
+        [
+          45.0,
+          820.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          820.0
+        ],
+        [
+          45.0,
+          950.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          45.0,
+          950.0
+        ],
+        [
+          45.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          705.0
+        ],
+        [
+          190.0,
+          820.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          820.0
+        ],
+        [
+          190.0,
+          950.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          190.0,
+          950.0
+        ],
+        [
+          190.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          705.0
+        ],
+        [
+          330.0,
+          820.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          820.0
+        ],
+        [
+          330.0,
+          950.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          330.0,
+          950.0
+        ],
+        [
+          330.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          465.0,
+          705.0
+        ],
+        [
+          465.0,
+          820.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          465.0,
+          820.0
+        ],
+        [
+          465.0,
+          950.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          465.0,
+          950.0
+        ],
+        [
+          465.0,
+          1065.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          705.0
+        ],
+        [
+          1045.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          705.0
+        ],
+        [
+          1240.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1240.0,
+          705.0
+        ],
+        [
+          1405.0,
+          705.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          845.0
+        ],
+        [
+          968.0903540276922,
+          845.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          845.0
+        ],
+        [
+          1240.0,
+          845.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1405.0,
+          845.0
+        ],
+        [
+          1322.0344504802488,
+          845.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          985.0
+        ],
+        [
+          1045.0,
+          985.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          985.0
+        ],
+        [
+          1140.8055755184032,
+          985.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1240.0,
+          985.0
+        ],
+        [
+          1405.0,
+          985.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          1155.0
+        ],
+        [
+          1045.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          1155.0
+        ],
+        [
+          1240.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1240.0,
+          1155.0
+        ],
+        [
+          1405.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          705.0
+        ],
+        [
+          875.0,
+          845.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          845.0
+        ],
+        [
+          875.0,
+          985.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          875.0,
+          985.0
+        ],
+        [
+          875.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          845.0
+        ],
+        [
+          1045.0,
+          985.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1045.0,
+          985.0
+        ],
+        [
+          1045.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1240.0,
+          705.0
+        ],
+        [
+          1240.0,
+          845.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1240.0,
+          985.0
+        ],
+        [
+          1240.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          1405.0,
+          705.0
+        ],
+        [
+          1405.0,
+          845.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1405.0,
+          845.0
+        ],
+        [
+          1405.0,
+          985.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          1405.0,
+          985.0
+        ],
+        [
+          1405.0,
+          1155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          760.0,
+          222.5
+        ],
+        [
+          880.0,
+          222.5
+        ]
+      ],
+      "width_cells": 2,
+      "connector": true,
+      "source_id": "portal/0/1"
+    },
+    {
+      "points_metres": [
+        [
+          257.5,
+          390.0
+        ],
+        [
+          257.5,
+          705.0
+        ]
+      ],
+      "width_cells": 2,
+      "connector": true,
+      "source_id": "portal/0/2"
+    },
+    {
+      "points_metres": [
+        [
+          1142.5,
+          585.0
+        ],
+        [
+          1142.5,
+          705.0
+        ]
+      ],
+      "width_cells": 2,
+      "connector": true,
+      "source_id": "portal/1/3"
+    },
+    {
+      "points_metres": [
+        [
+          465.0,
+          887.5
+        ],
+        [
+          875.0,
+          887.5
+        ]
+      ],
+      "width_cells": 2,
+      "connector": true,
+      "source_id": "portal/2/3"
+    }
+  ],
+  "use_counts": {
+    "retail": 34,
+    "apartments": 42,
+    "office": 22,
+    "hotel": 3,
+    "terrace-home": 56,
+    "detached-home": 33
+  },
+  "scope": "Connected district terrain and procedural parcel hints; no jobs, inhabitants, inventories, vehicle lanes or simulated upper floors."
+}

@@ -1,0 +1,75 @@
+{
+  "generator_version": "district-city-3",
+  "kind": "district",
+  "district_type": "dense-urban",
+  "seed": 214,
+  "name": "Dense urban core",
+  "category": "urban",
+  "street_settings": {
+    "columns": 3,
+    "rows": 3,
+    "block_width_cells": 48,
+    "block_height_cells": 24,
+    "block_variation": 0.1,
+    "loop_chance": 1.0,
+    "dead_end_chance": 0.0,
+    "road_width_cells": 2.0,
+    "arterial_width_cells": 4.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.0,
+    "building_coverage": 0.48,
+    "setback_cells": 2.0,
+    "park_fraction": 0.03,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 192,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": null,
+    "preset": "compact-grid",
+    "seed": 214
+  },
+  "footprint_sizes": [
+    [
+      4,
+      6
+    ],
+    [
+      6,
+      8
+    ],
+    [
+      8,
+      10
+    ]
+  ],
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "uses": {
+    "apartments": 60,
+    "retail": 20,
+    "office": 20
+  },
+  "storeys": [
+    4,
+    16
+  ],
+  "reference_id": "midtown-manhattan",
+  "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718"
+}

@@ -1,0 +1,1138 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "urban-apartments",
+  "reference": {
+    "id": "urban-apartments",
+    "name": "Urban apartment district",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/bubenec.gpkg",
+    "sha256": "fab4f3047ce5a63dec99943a09e3c8dba1f18d9a4e3b7b21ea377e28a67a55a4",
+    "processed_utc": "2026-10-26T00:15:59.666548+00:00",
+    "attribution": "Momepy sample data; © 2018–2021 Martin Fleischmann and PySAL Developers, BSD-3-Clause. Upstream geometry lineage unspecified; not claimed as OSM.",
+    "skipped": {
+      "note": "Published morphology sample. Upstream street/building lineage is not specified; no OSM district claims."
+    },
+    "scope": "Historical published sample",
+    "reference_profile_sha256": "61b0bf275d31095b9d8e2a3089faad99cfb27b940e92ce41f5fcc86a230fffa4",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 87,
+    "height": 86,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 23,
+      "top": 14,
+      "width": 6,
+      "height": 8,
+      "door": [
+        28,
+        18
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          29,
+          18
+        ]
+      ],
+      "parcel_id": "urban-apartments-1",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 13,
+      "top": 19,
+      "width": 8,
+      "height": 10,
+      "door": [
+        17,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          17,
+          29
+        ]
+      ],
+      "parcel_id": "urban-apartments-2",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 21,
+      "top": 8,
+      "width": 8,
+      "height": 6,
+      "door": [
+        25,
+        8
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          7
+        ]
+      ],
+      "parcel_id": "urban-apartments-3",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 12,
+      "top": 33,
+      "width": 10,
+      "height": 10,
+      "door": [
+        17,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          17,
+          32
+        ]
+      ],
+      "parcel_id": "urban-apartments-4",
+      "district_type": "urban-apartments",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 5
+    },
+    {
+      "left": 12,
+      "top": 46,
+      "width": 8,
+      "height": 10,
+      "door": [
+        16,
+        55
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          16,
+          56
+        ]
+      ],
+      "parcel_id": "urban-apartments-5",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 23,
+      "top": 42,
+      "width": 6,
+      "height": 8,
+      "door": [
+        28,
+        46
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          29,
+          46
+        ]
+      ],
+      "parcel_id": "urban-apartments-6",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 21,
+      "top": 50,
+      "width": 8,
+      "height": 6,
+      "door": [
+        25,
+        55
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          25,
+          56
+        ]
+      ],
+      "parcel_id": "urban-apartments-7",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 17,
+      "top": 60,
+      "width": 6,
+      "height": 8,
+      "door": [
+        20,
+        60
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          20,
+          59
+        ]
+      ],
+      "parcel_id": "urban-apartments-8",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 22,
+      "top": 68,
+      "width": 6,
+      "height": 8,
+      "door": [
+        25,
+        75
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          25,
+          77
+        ],
+        [
+          25,
+          76
+        ]
+      ],
+      "parcel_id": "urban-apartments-9",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 9,
+      "top": 60,
+      "width": 6,
+      "height": 8,
+      "door": [
+        12,
+        60
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          12,
+          59
+        ]
+      ],
+      "parcel_id": "urban-apartments-10",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 33,
+      "top": 10,
+      "width": 10,
+      "height": 10,
+      "door": [
+        33,
+        15
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          32,
+          15
+        ]
+      ],
+      "parcel_id": "urban-apartments-11",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 50,
+      "top": 21,
+      "width": 6,
+      "height": 8,
+      "door": [
+        53,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          53,
+          29
+        ]
+      ],
+      "parcel_id": "urban-apartments-12",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 46,
+      "top": 11,
+      "width": 6,
+      "height": 8,
+      "door": [
+        49,
+        11
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          49,
+          7
+        ],
+        [
+          49,
+          8
+        ],
+        [
+          49,
+          9
+        ],
+        [
+          49,
+          10
+        ]
+      ],
+      "parcel_id": "urban-apartments-13",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 36,
+      "top": 21,
+      "width": 6,
+      "height": 8,
+      "door": [
+        39,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          39,
+          29
+        ]
+      ],
+      "parcel_id": "urban-apartments-14",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 33,
+      "top": 40,
+      "width": 10,
+      "height": 8,
+      "door": [
+        33,
+        44
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          32,
+          44
+        ]
+      ],
+      "parcel_id": "urban-apartments-15",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 48,
+      "top": 46,
+      "width": 8,
+      "height": 6,
+      "door": [
+        55,
+        49
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          56,
+          49
+        ]
+      ],
+      "parcel_id": "urban-apartments-16",
+      "district_type": "urban-apartments",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6
+    },
+    {
+      "left": 45,
+      "top": 36,
+      "width": 10,
+      "height": 8,
+      "door": [
+        54,
+        40
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          56,
+          40
+        ],
+        [
+          55,
+          40
+        ]
+      ],
+      "parcel_id": "urban-apartments-17",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 36,
+      "top": 48,
+      "width": 10,
+      "height": 8,
+      "door": [
+        41,
+        55
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          41,
+          56
+        ]
+      ],
+      "parcel_id": "urban-apartments-18",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 33,
+      "top": 63,
+      "width": 10,
+      "height": 10,
+      "door": [
+        33,
+        68
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          32,
+          68
+        ]
+      ],
+      "parcel_id": "urban-apartments-19",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 48,
+      "top": 66,
+      "width": 8,
+      "height": 6,
+      "door": [
+        55,
+        69
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          56,
+          69
+        ]
+      ],
+      "parcel_id": "urban-apartments-20",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 48,
+      "top": 60,
+      "width": 8,
+      "height": 6,
+      "door": [
+        52,
+        60
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          52,
+          59
+        ]
+      ],
+      "parcel_id": "urban-apartments-21",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 60,
+      "top": 18,
+      "width": 10,
+      "height": 10,
+      "door": [
+        60,
+        23
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          59,
+          23
+        ]
+      ],
+      "parcel_id": "urban-apartments-22",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 70,
+      "top": 11,
+      "width": 6,
+      "height": 8,
+      "door": [
+        75,
+        15
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          78,
+          15
+        ],
+        [
+          77,
+          15
+        ],
+        [
+          76,
+          15
+        ]
+      ],
+      "parcel_id": "urban-apartments-23",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 71,
+      "top": 21,
+      "width": 6,
+      "height": 8,
+      "door": [
+        74,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          74,
+          29
+        ]
+      ],
+      "parcel_id": "urban-apartments-24",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 60,
+      "top": 39,
+      "width": 8,
+      "height": 6,
+      "door": [
+        60,
+        42
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          59,
+          42
+        ]
+      ],
+      "parcel_id": "urban-apartments-25",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 67,
+      "top": 50,
+      "width": 8,
+      "height": 6,
+      "door": [
+        71,
+        55
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          71,
+          56
+        ]
+      ],
+      "parcel_id": "urban-apartments-26",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 60,
+      "top": 33,
+      "width": 8,
+      "height": 6,
+      "door": [
+        64,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          64,
+          32
+        ]
+      ],
+      "parcel_id": "urban-apartments-27",
+      "district_type": "urban-apartments",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.38,
+  "setback_cells": 2.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 3576230011,
+    "lots": 986699797,
+    "uses": 3524669001
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "urban-apartments",
+    "seed": 214,
+    "name": "Urban apartment district",
+    "category": "residential",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 26,
+      "block_height_cells": 24,
+      "block_variation": 0.12,
+      "loop_chance": 1.0,
+      "dead_end_chance": 0.0,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.38,
+      "setback_cells": 2.0,
+      "park_fraction": 0.08,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 160,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 214
+    },
+    "footprint_sizes": [
+      [
+        6,
+        8
+      ],
+      [
+        8,
+        10
+      ],
+      [
+        10,
+        10
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 0,
+    "uses": {
+      "apartments": 85,
+      "retail": 15
+    },
+    "storeys": [
+      3,
+      7
+    ],
+    "reference_id": "prague-bubenec",
+    "reference_profile_sha256": "61b0bf275d31095b9d8e2a3089faad99cfb27b940e92ce41f5fcc86a230fffa4"
+  },
+  "recipe_id": "7d1b89a54e33",
+  "district_type": "urban-apartments",
+  "category": "residential",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          155.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          25.0
+        ],
+        [
+          290.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          25.0
+        ],
+        [
+          405.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          155.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          155.0
+        ],
+        [
+          290.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          155.0
+        ],
+        [
+          405.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          290.0
+        ],
+        [
+          155.0,
+          290.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          290.0
+        ],
+        [
+          290.0,
+          290.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          290.0
+        ],
+        [
+          405.0,
+          290.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          400.0
+        ],
+        [
+          155.0,
+          400.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          400.0
+        ],
+        [
+          290.0,
+          400.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          400.0
+        ],
+        [
+          405.0,
+          400.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          25.0,
+          290.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          290.0
+        ],
+        [
+          25.0,
+          400.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          25.0
+        ],
+        [
+          155.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          155.0
+        ],
+        [
+          155.0,
+          290.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          155.0,
+          290.0
+        ],
+        [
+          155.0,
+          400.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          25.0
+        ],
+        [
+          290.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          155.0
+        ],
+        [
+          290.0,
+          290.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          290.0
+        ],
+        [
+          290.0,
+          400.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          405.0,
+          25.0
+        ],
+        [
+          405.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          405.0,
+          155.0
+        ],
+        [
+          405.0,
+          290.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          405.0,
+          290.0
+        ],
+        [
+          405.0,
+          400.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.2224,
+  "use_counts": {
+    "apartments": 25,
+    "retail": 2
+  }
+}

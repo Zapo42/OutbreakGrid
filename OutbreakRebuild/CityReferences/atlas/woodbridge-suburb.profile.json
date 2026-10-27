@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "woodbridge-suburb",
+    "name": "Irvine — Woodbridge suburban sample",
+    "form": "planned suburban loops and open space",
+    "bbox": [
+      33.678,
+      -117.803,
+      33.684,
+      -117.795
+    ]
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "c4218ab325b1b311c054c3cf17ed561d6541de05ada12146eddad7f3fb270155",
+    "processed_utc": "2026-10-27T05:04:18.443013+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:58:02Z"
+  },
+  "grid": {
+    "width": 149,
+    "height": 134,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      33.678,
+      -117.803,
+      33.684,
+      -117.795
+    ],
+    "projected_origin_x": -370.9276493625414,
+    "projected_origin_y": 332.7571733336344,
+    "projection": "+proj=aeqd +lat_0=33.681 +lon_0=-117.799 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.493687,
+    "feature_counts": {
+      "road": 144,
+      "landuse": 35,
+      "building": 489,
+      "water": 1
+    },
+    "street_length_km": 10.3325,
+    "street_density_km_per_km2": 20.9292,
+    "median_noded_street_segment_metres": 27.05,
+    "fourfold_orientation_alignment": 0.6769,
+    "curved_street_length_share": 0.3014,
+    "interior_junctions": 116,
+    "interior_dead_ends": 33,
+    "interior_dead_end_share": 0.2215,
+    "building_coverage": 0.2142190139492534,
+    "closed_street_blocks": 10,
+    "median_closed_block_area_m2": 2434.87,
+    "median_closed_block_aspect_ratio": 2.03,
+    "generation_hint": {
+      "existing_street_layout": "Neighborhood",
+      "observed_segment_cells": 5.41,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

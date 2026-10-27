@@ -1,0 +1,74 @@
+{
+  "generator_version": "district-city-3",
+  "kind": "district",
+  "district_type": "retail-corridor",
+  "seed": 215,
+  "name": "Retail and local business",
+  "category": "business",
+  "street_settings": {
+    "columns": 4,
+    "rows": 2,
+    "block_width_cells": 36,
+    "block_height_cells": 26,
+    "block_variation": 0.15,
+    "loop_chance": 0.9,
+    "dead_end_chance": 0.1,
+    "road_width_cells": 3.0,
+    "arterial_width_cells": 5.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.0,
+    "building_coverage": 0.32,
+    "setback_cells": 3.0,
+    "park_fraction": 0.08,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 96,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": null,
+    "preset": "long-block-grid",
+    "seed": 215
+  },
+  "footprint_sizes": [
+    [
+      6,
+      8
+    ],
+    [
+      8,
+      10
+    ],
+    [
+      10,
+      12
+    ]
+  ],
+  "placement_mode": "frontage",
+  "lot_gap_cells": 1,
+  "uses": {
+    "retail": 80,
+    "office": 20
+  },
+  "storeys": [
+    1,
+    4
+  ],
+  "reference_id": "chicago-loop",
+  "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723"
+}

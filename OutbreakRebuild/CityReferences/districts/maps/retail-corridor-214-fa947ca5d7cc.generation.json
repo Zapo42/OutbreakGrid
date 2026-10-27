@@ -1,0 +1,1079 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "retail-corridor",
+  "reference": {
+    "id": "retail-corridor",
+    "name": "Retail and local business",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "d87709ab254214ea9640a91682b8ee1993ce4c2fc701dd364e15ef9618fae029",
+    "processed_utc": "2026-10-27T05:04:14.845857+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:56:50Z",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 155,
+    "height": 63,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 30,
+      "top": 16,
+      "width": 6,
+      "height": 8,
+      "door": [
+        35,
+        20
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          36,
+          20
+        ]
+      ],
+      "parcel_id": "retail-corridor-1",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 13,
+      "top": 18,
+      "width": 8,
+      "height": 10,
+      "door": [
+        17,
+        27
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          17,
+          31
+        ],
+        [
+          17,
+          30
+        ],
+        [
+          17,
+          29
+        ],
+        [
+          17,
+          28
+        ]
+      ],
+      "parcel_id": "retail-corridor-2",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 28,
+      "top": 25,
+      "width": 8,
+      "height": 6,
+      "door": [
+        32,
+        30
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          32,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-3",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 20,
+      "top": 10,
+      "width": 8,
+      "height": 6,
+      "door": [
+        24,
+        10
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          24,
+          9
+        ]
+      ],
+      "parcel_id": "retail-corridor-4",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 10,
+      "top": 37,
+      "width": 12,
+      "height": 10,
+      "door": [
+        16,
+        37
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          16,
+          36
+        ]
+      ],
+      "parcel_id": "retail-corridor-5",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 4
+    },
+    {
+      "left": 30,
+      "top": 38,
+      "width": 6,
+      "height": 8,
+      "door": [
+        35,
+        42
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          36,
+          42
+        ]
+      ],
+      "parcel_id": "retail-corridor-6",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 4
+    },
+    {
+      "left": 27,
+      "top": 47,
+      "width": 8,
+      "height": 6,
+      "door": [
+        31,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          31,
+          53
+        ]
+      ],
+      "parcel_id": "retail-corridor-7",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3
+    },
+    {
+      "left": 42,
+      "top": 11,
+      "width": 6,
+      "height": 8,
+      "door": [
+        42,
+        15
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          41,
+          15
+        ]
+      ],
+      "parcel_id": "retail-corridor-8",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 1
+    },
+    {
+      "left": 56,
+      "top": 16,
+      "width": 12,
+      "height": 10,
+      "door": [
+        67,
+        21
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          68,
+          21
+        ]
+      ],
+      "parcel_id": "retail-corridor-9",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 44,
+      "top": 23,
+      "width": 6,
+      "height": 8,
+      "door": [
+        47,
+        30
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          47,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-10",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3
+    },
+    {
+      "left": 42,
+      "top": 40,
+      "width": 8,
+      "height": 6,
+      "door": [
+        42,
+        43
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          41,
+          43
+        ]
+      ],
+      "parcel_id": "retail-corridor-11",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 62,
+      "top": 44,
+      "width": 6,
+      "height": 8,
+      "door": [
+        67,
+        48
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          68,
+          48
+        ]
+      ],
+      "parcel_id": "retail-corridor-12",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 51,
+      "top": 37,
+      "width": 10,
+      "height": 8,
+      "door": [
+        56,
+        37
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          56,
+          36
+        ]
+      ],
+      "parcel_id": "retail-corridor-13",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 74,
+      "top": 15,
+      "width": 10,
+      "height": 8,
+      "door": [
+        74,
+        19
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          73,
+          19
+        ]
+      ],
+      "parcel_id": "retail-corridor-14",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 1
+    },
+    {
+      "left": 76,
+      "top": 25,
+      "width": 8,
+      "height": 6,
+      "door": [
+        80,
+        30
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          80,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-15",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 92,
+      "top": 10,
+      "width": 6,
+      "height": 8,
+      "door": [
+        95,
+        10
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          95,
+          9
+        ]
+      ],
+      "parcel_id": "retail-corridor-16",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 90,
+      "top": 21,
+      "width": 12,
+      "height": 10,
+      "door": [
+        96,
+        30
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          96,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-17",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 74,
+      "top": 38,
+      "width": 12,
+      "height": 10,
+      "door": [
+        74,
+        43
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          73,
+          43
+        ]
+      ],
+      "parcel_id": "retail-corridor-18",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 91,
+      "top": 37,
+      "width": 10,
+      "height": 12,
+      "door": [
+        96,
+        37
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          96,
+          36
+        ]
+      ],
+      "parcel_id": "retail-corridor-19",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 133,
+      "top": 11,
+      "width": 12,
+      "height": 10,
+      "door": [
+        144,
+        16
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          145,
+          16
+        ]
+      ],
+      "parcel_id": "retail-corridor-20",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 128,
+      "top": 25,
+      "width": 8,
+      "height": 6,
+      "door": [
+        132,
+        30
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          132,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-21",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 1
+    },
+    {
+      "left": 112,
+      "top": 19,
+      "width": 10,
+      "height": 12,
+      "door": [
+        117,
+        30
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          117,
+          31
+        ]
+      ],
+      "parcel_id": "retail-corridor-22",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 119,
+      "top": 11,
+      "width": 8,
+      "height": 6,
+      "door": [
+        123,
+        11
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          123,
+          9
+        ],
+        [
+          123,
+          10
+        ]
+      ],
+      "parcel_id": "retail-corridor-23",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 131,
+      "top": 37,
+      "width": 10,
+      "height": 8,
+      "door": [
+        136,
+        37
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          136,
+          36
+        ]
+      ],
+      "parcel_id": "retail-corridor-24",
+      "district_type": "retail-corridor",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 133,
+      "top": 47,
+      "width": 8,
+      "height": 6,
+      "door": [
+        137,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          137,
+          53
+        ]
+      ],
+      "parcel_id": "retail-corridor-25",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 2
+    },
+    {
+      "left": 115,
+      "top": 39,
+      "width": 12,
+      "height": 10,
+      "door": [
+        121,
+        39
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          121,
+          36
+        ],
+        [
+          121,
+          37
+        ],
+        [
+          121,
+          38
+        ]
+      ],
+      "parcel_id": "retail-corridor-26",
+      "district_type": "retail-corridor",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 3
+    }
+  ],
+  "source_block_count": 8,
+  "target_coverage": 0.32,
+  "setback_cells": 3.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 1,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 3576230011,
+    "lots": 986699797,
+    "uses": 3524669001
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "retail-corridor",
+    "seed": 214,
+    "name": "Retail and local business",
+    "category": "business",
+    "street_settings": {
+      "columns": 4,
+      "rows": 2,
+      "block_width_cells": 36,
+      "block_height_cells": 26,
+      "block_variation": 0.15,
+      "loop_chance": 0.9,
+      "dead_end_chance": 0.1,
+      "road_width_cells": 3.0,
+      "arterial_width_cells": 5.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.32,
+      "setback_cells": 3.0,
+      "park_fraction": 0.08,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 96,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "long-block-grid",
+      "seed": 214
+    },
+    "footprint_sizes": [
+      [
+        6,
+        8
+      ],
+      [
+        8,
+        10
+      ],
+      [
+        10,
+        12
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 1,
+    "uses": {
+      "retail": 80,
+      "office": 20
+    },
+    "storeys": [
+      1,
+      4
+    ],
+    "reference_id": "chicago-loop",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723"
+  },
+  "recipe_id": "fa947ca5d7cc",
+  "district_type": "retail-corridor",
+  "category": "business",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          195.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          195.0,
+          30.0
+        ],
+        [
+          355.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          355.0,
+          30.0
+        ],
+        [
+          535.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          535.0,
+          30.0
+        ],
+        [
+          740.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          170.0
+        ],
+        [
+          195.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          195.0,
+          170.0
+        ],
+        [
+          355.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          355.0,
+          170.0
+        ],
+        [
+          535.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          535.0,
+          170.0
+        ],
+        [
+          740.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          280.0
+        ],
+        [
+          195.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          195.0,
+          280.0
+        ],
+        [
+          355.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          355.0,
+          280.0
+        ],
+        [
+          535.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          535.0,
+          280.0
+        ],
+        [
+          740.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          30.0,
+          170.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          170.0
+        ],
+        [
+          30.0,
+          280.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          195.0,
+          30.0
+        ],
+        [
+          195.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          195.0,
+          170.0
+        ],
+        [
+          195.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          355.0,
+          30.0
+        ],
+        [
+          355.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          355.0,
+          170.0
+        ],
+        [
+          355.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          535.0,
+          30.0
+        ],
+        [
+          535.0,
+          170.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          535.0,
+          170.0
+        ],
+        [
+          535.0,
+          280.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          740.0,
+          30.0
+        ],
+        [
+          740.0,
+          170.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          740.0,
+          170.0
+        ],
+        [
+          740.0,
+          280.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    }
+  ],
+  "actual_building_coverage": 0.199898,
+  "use_counts": {
+    "retail": 19,
+    "office": 7
+  }
+}

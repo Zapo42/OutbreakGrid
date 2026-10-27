@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "midtown-manhattan",
+    "name": "Manhattan — Midtown dense urban sample",
+    "form": "dense urban and business blocks",
+    "bbox": [
+      40.7475,
+      -73.9885,
+      40.752,
+      -73.9825
+    ]
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "8f74465f9c345805006b899e2ad2834be5102b20aa30443545d6e019341aa485",
+    "processed_utc": "2026-10-27T05:04:13.162905+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:55:00Z"
+  },
+  "grid": {
+    "width": 102,
+    "height": 100,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      40.7475,
+      -73.9885,
+      40.752,
+      -73.9825
+    ],
+    "projected_origin_x": -253.36633452167914,
+    "projected_origin_y": 249.86479470200413,
+    "projection": "+proj=aeqd +lat_0=40.749750000000006 +lon_0=-73.9855 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.253216,
+    "feature_counts": {
+      "road": 58,
+      "building": 268,
+      "landuse": 3
+    },
+    "street_length_km": 4.3794,
+    "street_density_km_per_km2": 17.2951,
+    "median_noded_street_segment_metres": 45.19,
+    "fourfold_orientation_alignment": 0.9685,
+    "curved_street_length_share": 0.0,
+    "interior_junctions": 21,
+    "interior_dead_ends": 7,
+    "interior_dead_end_share": 0.25,
+    "building_coverage": 0.6094215683070574,
+    "closed_street_blocks": 4,
+    "median_closed_block_area_m2": 25156.22,
+    "median_closed_block_aspect_ratio": 3.82,
+    "generation_hint": {
+      "existing_street_layout": "Neighborhood",
+      "observed_segment_cells": 9.04,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

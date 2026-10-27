@@ -1,0 +1,1269 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 215,
+  "reference_id": "business-core",
+  "reference": {
+    "id": "business-core",
+    "name": "Central business district",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "d87709ab254214ea9640a91682b8ee1993ce4c2fc701dd364e15ef9618fae029",
+    "processed_utc": "2026-10-27T05:04:14.845857+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:56:50Z",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 132,
+    "height": 118,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 16,
+      "top": 21,
+      "width": 10,
+      "height": 12,
+      "door": [
+        16,
+        27
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          9,
+          27
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          27
+        ],
+        [
+          15,
+          27
+        ]
+      ],
+      "parcel_id": "business-core-1",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12
+    },
+    {
+      "left": 29,
+      "top": 24,
+      "width": 10,
+      "height": 12,
+      "door": [
+        38,
+        30
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          40,
+          30
+        ],
+        [
+          39,
+          30
+        ]
+      ],
+      "parcel_id": "business-core-2",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 17
+    },
+    {
+      "left": 15,
+      "top": 11,
+      "width": 12,
+      "height": 10,
+      "door": [
+        21,
+        11
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          21,
+          9
+        ],
+        [
+          21,
+          10
+        ]
+      ],
+      "parcel_id": "business-core-3",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 8
+    },
+    {
+      "left": 10,
+      "top": 48,
+      "width": 10,
+      "height": 12,
+      "door": [
+        10,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          9,
+          54
+        ]
+      ],
+      "parcel_id": "business-core-4",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12
+    },
+    {
+      "left": 13,
+      "top": 61,
+      "width": 16,
+      "height": 14,
+      "door": [
+        21,
+        74
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          21,
+          75
+        ]
+      ],
+      "parcel_id": "business-core-5",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 17
+    },
+    {
+      "left": 22,
+      "top": 49,
+      "width": 12,
+      "height": 10,
+      "door": [
+        28,
+        49
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          28,
+          45
+        ],
+        [
+          28,
+          46
+        ],
+        [
+          28,
+          47
+        ],
+        [
+          28,
+          48
+        ]
+      ],
+      "parcel_id": "business-core-6",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 6
+    },
+    {
+      "left": 25,
+      "top": 82,
+      "width": 12,
+      "height": 10,
+      "door": [
+        31,
+        82
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          31,
+          80
+        ],
+        [
+          31,
+          81
+        ]
+      ],
+      "parcel_id": "business-core-7",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 10
+    },
+    {
+      "left": 17,
+      "top": 97,
+      "width": 12,
+      "height": 10,
+      "door": [
+        23,
+        106
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          23,
+          107
+        ]
+      ],
+      "parcel_id": "business-core-8",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12
+    },
+    {
+      "left": 10,
+      "top": 81,
+      "width": 12,
+      "height": 14,
+      "door": [
+        16,
+        81
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          16,
+          80
+        ]
+      ],
+      "parcel_id": "business-core-9",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 14
+    },
+    {
+      "left": 49,
+      "top": 13,
+      "width": 14,
+      "height": 12,
+      "door": [
+        56,
+        13
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          56,
+          9
+        ],
+        [
+          56,
+          10
+        ],
+        [
+          56,
+          11
+        ],
+        [
+          56,
+          12
+        ]
+      ],
+      "parcel_id": "business-core-10",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 17
+    },
+    {
+      "left": 66,
+      "top": 25,
+      "width": 14,
+      "height": 12,
+      "door": [
+        79,
+        31
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          81,
+          31
+        ],
+        [
+          80,
+          31
+        ]
+      ],
+      "parcel_id": "business-core-11",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 20
+    },
+    {
+      "left": 50,
+      "top": 28,
+      "width": 14,
+      "height": 12,
+      "door": [
+        57,
+        39
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          57,
+          40
+        ]
+      ],
+      "parcel_id": "business-core-12",
+      "district_type": "business-core",
+      "use_hint": "hotel",
+      "game_building_use_hint": null,
+      "storeys_hint": 20
+    },
+    {
+      "left": 71,
+      "top": 11,
+      "width": 10,
+      "height": 12,
+      "door": [
+        80,
+        17
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          81,
+          17
+        ]
+      ],
+      "parcel_id": "business-core-13",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 8
+    },
+    {
+      "left": 55,
+      "top": 47,
+      "width": 14,
+      "height": 16,
+      "door": [
+        62,
+        47
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          62,
+          45
+        ],
+        [
+          62,
+          46
+        ]
+      ],
+      "parcel_id": "business-core-14",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 7
+    },
+    {
+      "left": 66,
+      "top": 65,
+      "width": 12,
+      "height": 10,
+      "door": [
+        72,
+        74
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          72,
+          75
+        ]
+      ],
+      "parcel_id": "business-core-15",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 9
+    },
+    {
+      "left": 69,
+      "top": 47,
+      "width": 10,
+      "height": 12,
+      "door": [
+        74,
+        47
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          74,
+          45
+        ],
+        [
+          74,
+          46
+        ]
+      ],
+      "parcel_id": "business-core-16",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 19
+    },
+    {
+      "left": 66,
+      "top": 85,
+      "width": 14,
+      "height": 12,
+      "door": [
+        79,
+        91
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          81,
+          91
+        ],
+        [
+          80,
+          91
+        ]
+      ],
+      "parcel_id": "business-core-17",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 14
+    },
+    {
+      "left": 52,
+      "top": 85,
+      "width": 14,
+      "height": 16,
+      "door": [
+        59,
+        85
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          59,
+          80
+        ],
+        [
+          59,
+          81
+        ],
+        [
+          59,
+          82
+        ],
+        [
+          59,
+          83
+        ],
+        [
+          59,
+          84
+        ]
+      ],
+      "parcel_id": "business-core-18",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 19
+    },
+    {
+      "left": 99,
+      "top": 25,
+      "width": 14,
+      "height": 12,
+      "door": [
+        106,
+        36
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          106,
+          40
+        ],
+        [
+          106,
+          39
+        ],
+        [
+          106,
+          38
+        ],
+        [
+          106,
+          37
+        ]
+      ],
+      "parcel_id": "business-core-19",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 15
+    },
+    {
+      "left": 92,
+      "top": 12,
+      "width": 10,
+      "height": 12,
+      "door": [
+        97,
+        12
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          97,
+          9
+        ],
+        [
+          97,
+          10
+        ],
+        [
+          97,
+          11
+        ]
+      ],
+      "parcel_id": "business-core-20",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 18
+    },
+    {
+      "left": 102,
+      "top": 14,
+      "width": 12,
+      "height": 10,
+      "door": [
+        108,
+        14
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          108,
+          9
+        ],
+        [
+          108,
+          10
+        ],
+        [
+          108,
+          11
+        ],
+        [
+          108,
+          12
+        ],
+        [
+          108,
+          13
+        ]
+      ],
+      "parcel_id": "business-core-21",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 9
+    },
+    {
+      "left": 109,
+      "top": 60,
+      "width": 12,
+      "height": 14,
+      "door": [
+        120,
+        67
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          121,
+          67
+        ]
+      ],
+      "parcel_id": "business-core-22",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6
+    },
+    {
+      "left": 94,
+      "top": 53,
+      "width": 12,
+      "height": 10,
+      "door": [
+        100,
+        53
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          100,
+          45
+        ],
+        [
+          100,
+          46
+        ],
+        [
+          100,
+          47
+        ],
+        [
+          100,
+          48
+        ],
+        [
+          100,
+          49
+        ],
+        [
+          100,
+          50
+        ],
+        [
+          100,
+          51
+        ],
+        [
+          100,
+          52
+        ]
+      ],
+      "parcel_id": "business-core-23",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 11
+    },
+    {
+      "left": 95,
+      "top": 63,
+      "width": 10,
+      "height": 12,
+      "door": [
+        100,
+        74
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          100,
+          75
+        ]
+      ],
+      "parcel_id": "business-core-24",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 11
+    },
+    {
+      "left": 91,
+      "top": 87,
+      "width": 14,
+      "height": 16,
+      "door": [
+        98,
+        102
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          98,
+          107
+        ],
+        [
+          98,
+          106
+        ],
+        [
+          98,
+          105
+        ],
+        [
+          98,
+          104
+        ],
+        [
+          98,
+          103
+        ]
+      ],
+      "parcel_id": "business-core-25",
+      "district_type": "business-core",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 20
+    },
+    {
+      "left": 106,
+      "top": 91,
+      "width": 12,
+      "height": 14,
+      "door": [
+        112,
+        104
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          112,
+          107
+        ],
+        [
+          112,
+          106
+        ],
+        [
+          112,
+          105
+        ]
+      ],
+      "parcel_id": "business-core-26",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.48,
+  "setback_cells": 2.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 1807557907,
+    "lots": 494402251,
+    "uses": 235199824
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "business-core",
+    "seed": 215,
+    "name": "Central business district",
+    "category": "business",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 40,
+      "block_height_cells": 36,
+      "block_variation": 0.08,
+      "loop_chance": 1.0,
+      "dead_end_chance": 0.0,
+      "road_width_cells": 3.0,
+      "arterial_width_cells": 5.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.5,
+      "building_coverage": 0.48,
+      "setback_cells": 2.0,
+      "park_fraction": 0.05,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 128,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 215
+    },
+    "footprint_sizes": [
+      [
+        10,
+        12
+      ],
+      [
+        12,
+        14
+      ],
+      [
+        14,
+        16
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 0,
+    "uses": {
+      "office": 70,
+      "retail": 25,
+      "hotel": 5
+    },
+    "storeys": [
+      6,
+      20
+    ],
+    "reference_id": "chicago-loop",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723"
+  },
+  "recipe_id": "6785a5ab92d2",
+  "district_type": "business-core",
+  "category": "business",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          215.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          30.0
+        ],
+        [
+          420.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          30.0
+        ],
+        [
+          625.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          215.0
+        ],
+        [
+          215.0,
+          215.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          215.0
+        ],
+        [
+          420.0,
+          215.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          215.0
+        ],
+        [
+          625.0,
+          215.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          390.0
+        ],
+        [
+          215.0,
+          390.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          390.0
+        ],
+        [
+          420.0,
+          390.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          390.0
+        ],
+        [
+          625.0,
+          390.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          555.0
+        ],
+        [
+          215.0,
+          555.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          555.0
+        ],
+        [
+          420.0,
+          555.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          555.0
+        ],
+        [
+          625.0,
+          555.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          30.0,
+          215.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          215.0
+        ],
+        [
+          30.0,
+          390.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          390.0
+        ],
+        [
+          30.0,
+          555.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          30.0
+        ],
+        [
+          215.0,
+          215.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          215.0
+        ],
+        [
+          215.0,
+          390.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          215.0,
+          390.0
+        ],
+        [
+          215.0,
+          555.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          30.0
+        ],
+        [
+          420.0,
+          215.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          215.0
+        ],
+        [
+          420.0,
+          390.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          420.0,
+          390.0
+        ],
+        [
+          420.0,
+          555.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          625.0,
+          30.0
+        ],
+        [
+          625.0,
+          215.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          625.0,
+          215.0
+        ],
+        [
+          625.0,
+          390.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          625.0,
+          390.0
+        ],
+        [
+          625.0,
+          555.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.251669,
+  "use_counts": {
+    "office": 17,
+    "retail": 8,
+    "hotel": 1
+  }
+}

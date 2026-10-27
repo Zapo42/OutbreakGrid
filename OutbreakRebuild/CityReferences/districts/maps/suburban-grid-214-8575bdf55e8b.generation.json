@@ -1,0 +1,1309 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "suburban-grid",
+  "reference": {
+    "id": "suburban-grid",
+    "name": "Connected residential suburb",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "e70dc7b1b72ff229f3e71c075c968ccaadfe2c797226f7697724b7f07661552a",
+    "processed_utc": "2026-10-27T05:04:19.974708+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:59:02Z",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 108,
+    "height": 103,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 8,
+      "top": 15,
+      "width": 5,
+      "height": 6,
+      "door": [
+        8,
+        18
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          18
+        ]
+      ],
+      "parcel_id": "suburban-grid-1",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 24,
+      "top": 29,
+      "width": 5,
+      "height": 6,
+      "door": [
+        26,
+        34
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          26,
+          36
+        ],
+        [
+          26,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-2",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 16,
+      "top": 27,
+      "width": 7,
+      "height": 8,
+      "door": [
+        19,
+        34
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          19,
+          36
+        ],
+        [
+          19,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-3",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 20,
+      "top": 12,
+      "width": 6,
+      "height": 7,
+      "door": [
+        23,
+        12
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          23,
+          7
+        ],
+        [
+          23,
+          8
+        ],
+        [
+          23,
+          9
+        ],
+        [
+          23,
+          10
+        ],
+        [
+          23,
+          11
+        ]
+      ],
+      "parcel_id": "suburban-grid-4",
+      "district_type": "suburban-grid",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 8,
+      "top": 55,
+      "width": 6,
+      "height": 5,
+      "door": [
+        8,
+        57
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          57
+        ]
+      ],
+      "parcel_id": "suburban-grid-5",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 23,
+      "top": 41,
+      "width": 6,
+      "height": 7,
+      "door": [
+        26,
+        41
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          26,
+          39
+        ],
+        [
+          26,
+          40
+        ]
+      ],
+      "parcel_id": "suburban-grid-6",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 16,
+      "top": 51,
+      "width": 6,
+      "height": 7,
+      "door": [
+        19,
+        57
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          19,
+          62
+        ],
+        [
+          19,
+          61
+        ],
+        [
+          19,
+          60
+        ],
+        [
+          19,
+          59
+        ],
+        [
+          19,
+          58
+        ]
+      ],
+      "parcel_id": "suburban-grid-7",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 8,
+      "top": 86,
+      "width": 7,
+      "height": 6,
+      "door": [
+        8,
+        89
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          7,
+          89
+        ]
+      ],
+      "parcel_id": "suburban-grid-8",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 11,
+      "top": 67,
+      "width": 7,
+      "height": 6,
+      "door": [
+        14,
+        67
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          14,
+          65
+        ],
+        [
+          14,
+          66
+        ]
+      ],
+      "parcel_id": "suburban-grid-9",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 21,
+      "top": 86,
+      "width": 8,
+      "height": 7,
+      "door": [
+        25,
+        92
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          25,
+          94
+        ],
+        [
+          25,
+          93
+        ]
+      ],
+      "parcel_id": "suburban-grid-10",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 22,
+      "top": 68,
+      "width": 7,
+      "height": 6,
+      "door": [
+        28,
+        71
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          30,
+          71
+        ],
+        [
+          29,
+          71
+        ]
+      ],
+      "parcel_id": "suburban-grid-11",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 35,
+      "top": 15,
+      "width": 7,
+      "height": 8,
+      "door": [
+        35,
+        19
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          33,
+          19
+        ],
+        [
+          34,
+          19
+        ]
+      ],
+      "parcel_id": "suburban-grid-12",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 40,
+      "top": 8,
+      "width": 7,
+      "height": 6,
+      "door": [
+        43,
+        8
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          43,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-13",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 54,
+      "top": 17,
+      "width": 7,
+      "height": 6,
+      "door": [
+        60,
+        20
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          62,
+          20
+        ],
+        [
+          61,
+          20
+        ]
+      ],
+      "parcel_id": "suburban-grid-14",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 42,
+      "top": 27,
+      "width": 7,
+      "height": 8,
+      "door": [
+        45,
+        34
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          45,
+          36
+        ],
+        [
+          45,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-15",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 35,
+      "top": 44,
+      "width": 7,
+      "height": 6,
+      "door": [
+        35,
+        47
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          33,
+          47
+        ],
+        [
+          34,
+          47
+        ]
+      ],
+      "parcel_id": "suburban-grid-16",
+      "district_type": "suburban-grid",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 50,
+      "top": 41,
+      "width": 7,
+      "height": 8,
+      "door": [
+        53,
+        41
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          53,
+          39
+        ],
+        [
+          53,
+          40
+        ]
+      ],
+      "parcel_id": "suburban-grid-17",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 45,
+      "top": 55,
+      "width": 5,
+      "height": 6,
+      "door": [
+        47,
+        60
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          47,
+          62
+        ],
+        [
+          47,
+          61
+        ]
+      ],
+      "parcel_id": "suburban-grid-18",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 35,
+      "top": 79,
+      "width": 6,
+      "height": 7,
+      "door": [
+        35,
+        82
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          33,
+          82
+        ],
+        [
+          34,
+          82
+        ]
+      ],
+      "parcel_id": "suburban-grid-19",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 43,
+      "top": 67,
+      "width": 7,
+      "height": 8,
+      "door": [
+        46,
+        67
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          46,
+          65
+        ],
+        [
+          46,
+          66
+        ]
+      ],
+      "parcel_id": "suburban-grid-20",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 55,
+      "top": 87,
+      "width": 6,
+      "height": 5,
+      "door": [
+        60,
+        89
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          62,
+          89
+        ],
+        [
+          61,
+          89
+        ]
+      ],
+      "parcel_id": "suburban-grid-21",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 35,
+      "top": 87,
+      "width": 8,
+      "height": 7,
+      "door": [
+        39,
+        93
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          39,
+          94
+        ]
+      ],
+      "parcel_id": "suburban-grid-22",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 67,
+      "top": 8,
+      "width": 8,
+      "height": 7,
+      "door": [
+        71,
+        8
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          71,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-23",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 94,
+      "top": 20,
+      "width": 5,
+      "height": 6,
+      "door": [
+        98,
+        23
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          99,
+          23
+        ]
+      ],
+      "parcel_id": "suburban-grid-24",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 92,
+      "top": 30,
+      "width": 6,
+      "height": 5,
+      "door": [
+        95,
+        34
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          95,
+          36
+        ],
+        [
+          95,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-25",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 89,
+      "top": 8,
+      "width": 6,
+      "height": 5,
+      "door": [
+        92,
+        8
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          92,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-26",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 70,
+      "top": 28,
+      "width": 6,
+      "height": 7,
+      "door": [
+        73,
+        34
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          73,
+          36
+        ],
+        [
+          73,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-27",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 67,
+      "top": 49,
+      "width": 6,
+      "height": 5,
+      "door": [
+        67,
+        51
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          65,
+          51
+        ],
+        [
+          66,
+          51
+        ]
+      ],
+      "parcel_id": "suburban-grid-28",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 72,
+      "top": 41,
+      "width": 6,
+      "height": 5,
+      "door": [
+        75,
+        41
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          75,
+          39
+        ],
+        [
+          75,
+          40
+        ]
+      ],
+      "parcel_id": "suburban-grid-29",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 91,
+      "top": 52,
+      "width": 8,
+      "height": 7,
+      "door": [
+        98,
+        55
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          99,
+          55
+        ]
+      ],
+      "parcel_id": "suburban-grid-30",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 79,
+      "top": 54,
+      "width": 6,
+      "height": 7,
+      "door": [
+        82,
+        60
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          82,
+          62
+        ],
+        [
+          82,
+          61
+        ]
+      ],
+      "parcel_id": "suburban-grid-31",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.17,
+  "setback_cells": 3.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 1,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 3576230011,
+    "lots": 986699797,
+    "uses": 3524669001
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "suburban-grid",
+    "seed": 214,
+    "name": "Connected residential suburb",
+    "category": "suburban",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 32,
+      "block_height_cells": 28,
+      "block_variation": 0.18,
+      "loop_chance": 0.9,
+      "dead_end_chance": 0.1,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.17,
+      "setback_cells": 3.0,
+      "park_fraction": 0.12,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 128,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 214
+    },
+    "footprint_sizes": [
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 1,
+    "uses": {
+      "detached-home": 90,
+      "retail": 10
+    },
+    "storeys": [
+      1,
+      3
+    ],
+    "reference_id": "naperville-suburb",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a"
+  },
+  "recipe_id": "8575bdf55e8b",
+  "district_type": "suburban-grid",
+  "category": "suburban",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          160.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          25.0
+        ],
+        [
+          320.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          25.0
+        ],
+        [
+          510.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          190.0
+        ],
+        [
+          160.0,
+          190.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          190.0
+        ],
+        [
+          320.0,
+          190.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          190.0
+        ],
+        [
+          510.0,
+          190.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          320.0
+        ],
+        [
+          160.0,
+          320.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          320.0
+        ],
+        [
+          320.0,
+          320.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          320.0
+        ],
+        [
+          510.0,
+          320.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          485.0
+        ],
+        [
+          160.0,
+          485.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          485.0
+        ],
+        [
+          320.0,
+          485.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          485.0
+        ],
+        [
+          510.0,
+          485.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          190.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          190.0
+        ],
+        [
+          25.0,
+          320.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          320.0
+        ],
+        [
+          25.0,
+          485.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          25.0
+        ],
+        [
+          160.0,
+          190.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          190.0
+        ],
+        [
+          160.0,
+          320.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          320.0
+        ],
+        [
+          160.0,
+          485.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          25.0
+        ],
+        [
+          320.0,
+          190.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          190.0
+        ],
+        [
+          320.0,
+          320.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          320.0
+        ],
+        [
+          320.0,
+          485.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          25.0
+        ],
+        [
+          510.0,
+          190.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          190.0
+        ],
+        [
+          510.0,
+          320.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          510.0,
+          320.0
+        ],
+        [
+          510.0,
+          485.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.117584,
+  "use_counts": {
+    "detached-home": 29,
+    "retail": 2
+  }
+}
