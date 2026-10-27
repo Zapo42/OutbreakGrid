@@ -73,3 +73,64 @@ All 25 Python atlas/generation/district tests pass, including all nine district 
 The standalone pack supports Python map generation. Running the C# import-check project requires the existing OutbreakGrid checkout's production C# source; it is not a bundled game executable.
 
 The scope remains maps and map generation; confirm before acting on unrelated requests. See `../NOTICE.md` for source attribution and data terms.
+
+## WORLD-RES-01: aligned residential lots and park templates
+
+The optional `residential` placement mode uses fixed lot modules sized from the
+largest allowed footprint dimension plus the recipe's `lot_gap_cells`. It tries
+edge lots first and uses the existing seeded footprint/orientation choices,
+block inset (`setback_cells`), terrain reservations and entrance search. A lot
+that cannot fit is omitted; a district with no fitting houses still raises the
+existing generation error. Defaults and old recipes retain their previous modes.
+This is physical map geometry, without NPC decisions or new building/save types.
+
+From `OutbreakRebuild`, with the atlas Python dependencies installed:
+
+```bash
+python Tools/generate_district_city.py --output /tmp/residential-parks district \
+  --type suburban-grid --seed 214 --residential-lots \
+  --blocks-across 3 --blocks-down 2 --block-width-cells 40 --block-height-cells 40 \
+  --park small:cross --park small:loop \
+  --park medium:cross --park medium:loop \
+  --park large:cross --park large:loop
+```
+
+Each park is an unobstructed grass lot with connected sidewalk paths. `cross`
+provides two crossing paths; `loop` adds an internal perimeter circuit to those
+paths. Small is 6×6 cells, medium 10×10 and large 16×16 (30×30, 50×50 and
+80×80 metres at the default 5 metres/cell). These are explicit design sizes,
+not measurements from reference surveys. There are no new art assets, trees,
+benches, leisure behaviors or happiness effects in this increment.
+
+Up to six park requests can be recorded in the optional district recipe field
+`parks`, e.g. `[{"size":"small","variant":"loop"}]`. Python callers can use
+`district_recipe(..., residential_lots=True, parks=[...])`. Mixed-city callers
+can put the same `parks` list on each desired child district recipe before
+`compose_city`; exported recipes replay both options without extra flags.
+Parks are placed in request order in distinct fitting street-enclosed blocks,
+with one-cell boundary clearance. They reserve their entire grass/path lot
+before houses are placed and connect to the street sidewalk network. Large
+parks need sufficiently large blocks. Placement is bounded to block centres;
+a request that cannot fit safely is recorded in `omitted_parks` rather than
+shrunk or forced over roads/houses. Inspect this list when requesting a count.
+
+Optional authoring metadata includes `parks` (stable IDs, size, variant, cell
+bounds, entrance, and path cells) and `omitted_parks`. Composed cities translate
+park geometry and prefix IDs with the district index. Existing OBMAP2 schema
+and terrain IDs are unchanged. Old recipes without `parks` keep their existing
+metadata shape and exact replay; new mode/options are included in recipe IDs.
+Park metadata is an authoring hint, not a persisted game leisure-destination
+contract. Any gameplay use requires a separately coordinated Lead/NPC task.
+
+Validation includes module gaps/setbacks across residential types, seeds 1,
+214 and 4294967295, all six park templates, tight-block omission, mixed-city
+translations, and connected interior→door→sidewalk access. Run:
+
+```bash
+python -m unittest discover -s Tools -p 'test_*city*.py' -v
+```
+
+Also run the Lead's documented unified hosted runner sequentially after
+integration. The maps source baseline predates its repair; do not replace that
+runner or alter test manifests as part of World-owned file changes. Native
+Unity testing remains paused; generated terrain is not native visual evidence.

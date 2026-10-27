@@ -39,7 +39,7 @@ def load_profile(identity):
     return json.loads((atlas.ROOT/"CityReferences/atlas"/(identity+".profile.json")).read_text())
 
 
-def district_recipe(kind,seed=214,overrides=None):
+def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=None):
     catalogue=json.loads(CATALOGUE.read_text())
     if kind not in catalogue["districts"]:raise ValueError("Unknown district type")
     spec=copy.deepcopy(catalogue["districts"][kind]);profile=load_profile(spec["reference_id"])
@@ -63,12 +63,14 @@ def district_recipe(kind,seed=214,overrides=None):
             "footprint_sizes":spec["footprint_sizes"],"placement_mode":"frontage",
             "lot_gap_cells":spec["lot_gap_cells"],"uses":spec["uses"],"storeys":spec["storeys"],
             "reference_id":spec["reference_id"],"reference_profile_sha256":digest(profile) if profile else None}
+    if residential_lots:recipe["placement_mode"]="residential"
+    if parks is not None:recipe["parks"]=copy.deepcopy(parks)
     return recipe
 
 
 def validate_recipe(recipe):
     required={"generator_version","kind","district_type","seed","name","category","street_settings", "footprint_sizes","placement_mode","lot_gap_cells","uses","storeys","reference_id","reference_profile_sha256"}
-    if set(recipe)!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
+    if set(recipe)-{"parks"}!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
         raise ValueError("Unsupported or incomplete district recipe")
     if not isinstance(recipe["district_type"],str) or not recipe["district_type"] or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in recipe["district_type"]):
         raise ValueError("District ids must contain only lowercase letters, digits and hyphens")
@@ -77,7 +79,7 @@ def validate_recipe(recipe):
     streets.validate(recipe["street_settings"])
     if type(recipe["seed"]) is not int or not 1<=recipe["seed"]<=0xffffffff or recipe["seed"]!=recipe["street_settings"]["seed"]:
         raise ValueError("Recipe and street seeds must match and be nonzero uint32 values")
-    if recipe["placement_mode"] not in ("frontage","scatter") or type(recipe["lot_gap_cells"]) is not int or not 0<=recipe["lot_gap_cells"]<=4:
+    if recipe["placement_mode"] not in ("frontage","scatter","residential") or type(recipe["lot_gap_cells"]) is not int or not 0<=recipe["lot_gap_cells"]<=4:
         raise ValueError("Invalid lot placement controls")
     if not isinstance(recipe["footprint_sizes"],list) or not 1<=len(recipe["footprint_sizes"])<=16:
         raise ValueError("At least one bounded footprint recipe is required")
@@ -89,6 +91,12 @@ def validate_recipe(recipe):
     levels=recipe["storeys"]
     if not isinstance(levels,list) or len(levels)!=2 or any(type(v) is not int for v in levels) or not 1<=levels[0]<=levels[1]<=40:
         raise ValueError("Invalid design storey range")
+    parks=recipe.get("parks",[])
+    if not isinstance(parks,list) or len(parks)>6:
+        raise ValueError("Request at most six parks per district")
+    for park in parks:
+        if not isinstance(park,dict) or set(park)!={"size","variant"} or park["size"] not in ("small","medium","large") or park["variant"] not in ("cross","loop"):
+            raise ValueError("Parks require small/medium/large size and cross/loop variant")
     profile=load_profile(recipe["reference_id"])
     if (digest(profile) if profile else None)!=recipe["reference_profile_sha256"]:
         raise ValueError("Reference profile changed; preserve the bundled snapshot for exact replay")
@@ -109,8 +117,39 @@ def assert_usable(document,metadata):
             if 0<=nx<width and 0<=ny<height and key in roads and key not in visited:
                 visited.add(key);queue.append(key)
     if roads!=visited:raise ValueError("Road network is disconnected")
+    # Validate physical sidewalk connectivity separately from the road-only topology check.
+    walkable={i for i,tile in enumerate(cells) if tile in (5,6)}
+    reachable=set(roads);queue=deque(sorted(roads))
+    while queue:
+        cell=queue.popleft();x,y=cell%width,cell//width
+        for nx,ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+            key=ny*width+nx
+            if 0<=nx<width and 0<=ny<height and key in walkable and key not in reachable:
+                reachable.add(key);queue.append(key)
+    occupied=set()
+    for park in metadata.get("parks",[]):
+        for x,y in park["path_cells"]:
+            if not (0<=x<width and 0<=y<height) or cells[y*width+x]!=5 or y*width+x not in reachable:
+                raise ValueError("Park path is not connected to the street sidewalk network")
+        if tuple(park["entrance"]) not in {tuple(p) for p in park["path_cells"]}:
+            raise ValueError("Park entrance is missing its path")
+        footprint={(x,y) for y in range(park["top"],park["top"]+park["height"]) for x in range(park["left"],park["left"]+park["width"])}
+        if footprint & occupied:raise ValueError("Park lots overlap")
+        occupied.update(footprint)
     for building in metadata["buildings"]:
+        left,top=building["left"],building["top"];w,h=building["width"],building["height"]
+        footprint={(px,py) for py in range(top,top+h) for px in range(left,left+w)}
+        if footprint & occupied or any(not (0<=px<width and 0<=py<height) for px,py in footprint):
+            raise ValueError("Building lot overlaps another lot or leaves map bounds")
+        occupied.update(footprint)
         x,y=building["door"]
+        if not (left<=x<left+w and top<=y<top+h) or (x not in (left,left+w-1) and y not in (top,top+h-1)):
+            raise ValueError("Door is not on its building boundary")
+        neighbours=[(x-1,y),(x+1,y),(x,y-1),(x,y+1)]
+        if not any(left<px<left+w-1 and top<py<top+h-1 and cells[py*width+px]==7 for px,py in neighbours):
+            raise ValueError("Door has no interior floor access")
+        if not any(0<=px<width and 0<=py<height and py*width+px in reachable for px,py in neighbours):
+            raise ValueError("Door has no street-connected sidewalk access")
         if cells[y*width+x]!=9 or not building["path_cells"] or any(cells[py*width+px] not in (5,6) for px,py in building["path_cells"]):
             raise ValueError("Building has no physical entrance path")
         if (building["width"]-2)*(building["height"]-2)>256:raise ValueError("Room is too large")
@@ -155,7 +194,7 @@ def generate_district(recipe):
         {"building_coverage":profile["metrics"]["building_coverage"] if profile else None},provenance,streams["lots"],settings["max_buildings"],
         density=settings["building_coverage"],setback_cells=settings["setback_cells"],footprint_sizes=recipe["footprint_sizes"],
         road_width_cells=settings["road_width_cells"],sidewalk_width_cells=settings["sidewalk_width_cells"],
-        placement_mode=recipe["placement_mode"],lot_gap_cells=recipe["lot_gap_cells"],fair_block_budget=True)
+        placement_mode=recipe["placement_mode"],lot_gap_cells=recipe["lot_gap_cells"],fair_block_budget=True,park_specs=recipe.get("parks"))
     rng=lots.StableRandom(streams["uses"])
     uses=sorted(recipe["uses"].items());total=sum(weight for use,weight in uses)
     for index,b in enumerate(metadata["buildings"]):
@@ -203,7 +242,7 @@ def compose_city(recipe):
     rows=math.ceil(len(districts)/columns);margin=4
     width=margin*2+columns*slot_width+(columns-1)*gap;height=margin*2+rows*slot_height+(rows-1)*gap
     if width*height>atlas.MAX_CELLS:raise ValueError("Composed map exceeds the one-million-cell limit")
-    cells=bytearray(width*height);placements=[];buildings=[];segments=[]
+    cells=bytearray(width*height);placements=[];buildings=[];segments=[];parks=[];omitted_parks=[]
     for i,(document,metadata,_) in enumerate(generated):
         ox=margin+(i%columns)*(slot_width+gap);oy=margin+(i//columns)*(slot_height+gap)
         tile=lots.unpack(document)
@@ -213,6 +252,13 @@ def compose_city(recipe):
             moved=copy.deepcopy(b);moved.update(left=b["left"]+ox,top=b["top"]+oy,door=[b["door"][0]+ox,b["door"][1]+oy],
                 path_cells=[[x+ox,y+oy] for x,y in b["path_cells"]],district_index=i,parcel_id=f'd{i}-'+b["parcel_id"])
             buildings.append(moved)
+        for park in metadata.get("parks",[]):
+            moved=copy.deepcopy(park)
+            moved.update(left=park["left"]+ox,top=park["top"]+oy,park_id=f'd{i}-'+park["park_id"],district_index=i,
+                         entrance=[park["entrance"][0]+ox,park["entrance"][1]+oy],
+                         path_cells=[[x+ox,y+oy] for x,y in park["path_cells"]])
+            parks.append(moved)
+        omitted_parks.extend(dict(p,district_index=i) for p in metadata.get("omitted_parks",[]))
         bounds=[]
         for segment in metadata["street_segments"]:
             moved=copy.deepcopy(segment);moved["points_metres"]=[[x+ox*scale,y+oy*scale] for x,y in segment["points_metres"]]
@@ -252,6 +298,7 @@ def compose_city(recipe):
               "districts":placements,"portals":portals,"buildings":buildings,"street_segments":segments,
               "use_counts":dict(Counter(b["use_hint"] for b in buildings)),
               "scope":"Connected district terrain and procedural parcel hints; no jobs, inhabitants, inventories, vehicle lanes or simulated upper floors."}
+    if any("parks" in r for r in districts):metadata.update(parks=parks,omitted_parks=omitted_parks)
     document={"kind":"outbreak.map","schemaVersion":1,"id":f'mixed-city-{recipe["seed"]}-{identity}',"name":f'Mixed district city (seed {recipe["seed"]})',
               "width":width,"height":height,"chunkSize":32,"chunks":[],"authoringJson":json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)}
     lots.pack(document,cells);assert_usable(document,metadata)
@@ -273,13 +320,21 @@ def main():
     parser.add_argument("--output",type=Path,default=atlas.ROOT/"CityReferences/districts/maps")
     sub=parser.add_subparsers(dest="command",required=True)
     district=sub.add_parser("district");district.add_argument("--type",required=True);district.add_argument("--seed",type=int,default=214)
+    district.add_argument("--residential-lots",action="store_true",help="Use aligned residential lot modules")
+    district.add_argument("--park",action="append",default=[],metavar="SIZE:VARIANT",help="Repeat up to six times; sizes small/medium/large, variants cross/loop")
+    district.add_argument("--block-width-cells",type=int);district.add_argument("--block-height-cells",type=int)
     district.add_argument("--coverage",type=float);district.add_argument("--blocks-across",type=int);district.add_argument("--blocks-down",type=int)
     city=sub.add_parser("city");city.add_argument("--districts",nargs='+',default=["dense-urban","business-core","terrace-residential","garden-suburb"]);city.add_argument("--seed",type=int,default=214);city.add_argument("--city-columns",type=int,default=2)
     replay=sub.add_parser("replay");replay.add_argument("recipe",type=Path)
     args=parser.parse_args()
     if args.command=="district":
-        overrides={name:value for name,value in [("building_coverage",args.coverage),("columns",args.blocks_across),("rows",args.blocks_down)] if value is not None}
-        recipe=district_recipe(args.type,args.seed,overrides)
+        overrides={name:value for name,value in [("building_coverage",args.coverage),("columns",args.blocks_across),("rows",args.blocks_down),("block_width_cells",args.block_width_cells),("block_height_cells",args.block_height_cells)] if value is not None}
+        parks=[]
+        for value in args.park:
+            parts=value.split(":")
+            if len(parts)!=2:parser.error("--park requires SIZE:VARIANT")
+            parks.append({"size":parts[0],"variant":parts[1]})
+        recipe=district_recipe(args.type,args.seed,overrides,residential_lots=args.residential_lots,parks=parks if args.park else None)
     elif args.command=="city":recipe=city_recipe(args.districts,args.seed,args.city_columns)
     else:recipe=json.loads(args.recipe.read_text())
     save(compose_city(recipe) if recipe["kind"]=="city" else generate_district(recipe),args.output)

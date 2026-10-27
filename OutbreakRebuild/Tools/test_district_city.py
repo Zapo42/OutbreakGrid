@@ -11,6 +11,72 @@ import generate_reference_city as lots
 
 
 class DistrictChecks(unittest.TestCase):
+    def test_residential_modules_respect_spacing_setbacks_and_replay(self):
+        for kind in ("terrace-residential","garden-suburb","suburban-grid"):
+            for seed in (1,214,0xffffffff):
+                with self.subTest(kind=kind,seed=seed):
+                    recipe=districts.district_recipe(kind,seed,{"columns":2,"rows":2,"max_buildings":16,"park_fraction":0},residential_lots=True)
+                    document,metadata,_=districts.generate_district(recipe)
+                    # A different prior call must not affect this recipe's random streams.
+                    districts.generate_district(districts.district_recipe("business-core",17,{"columns":2,"rows":2,"max_buildings":2,"park_fraction":0}))
+                    self.assertEqual(streets.canonical(document),streets.canonical(districts.generate_district(copy.deepcopy(recipe))[0]))
+                    projected,grid=streets.street_layout(dict(recipe["street_settings"],seed=metadata["stream_seeds"]["streets"]))
+                    blocks=[g for g,p in projected if p["category"]=="block"]
+                    scale=grid["cell_metres"];gap=recipe["lot_gap_cells"]
+                    for i,b in enumerate(metadata["buildings"]):
+                        shape=districts.box(b["left"]*scale,b["top"]*scale,(b["left"]+b["width"])*scale,(b["top"]+b["height"])*scale)
+                        self.assertTrue(blocks[b["block"]].buffer(-scale*recipe["street_settings"]["setback_cells"]).covers(shape))
+                        for other in metadata["buildings"][:i]:
+                            self.assertTrue(b["left"]>=other["left"]+other["width"]+gap or other["left"]>=b["left"]+b["width"]+gap or b["top"]>=other["top"]+other["height"]+gap or other["top"]>=b["top"]+b["height"]+gap)
+                    districts.assert_usable(document,metadata)
+
+    def test_residential_entrance_targets_street_instead_of_neighbour_spur(self):
+        width=20;height=20;cells=bytearray(width*height)
+        for x in range(width):cells[2*width+x]=5
+        cells[10*width+12]=5
+        street={(x,2) for x in range(width)}
+        door,path=lots.entrance_path(cells,width,height,8,8,4,4,street)
+        self.assertEqual(path[0][1],2)
+        self.assertEqual(door[:2],(10,8))
+        self.assertTrue(all(not (8<=x<12 and 8<=y<12) for x,y in path))
+
+    def test_impossible_residential_inset_does_not_relax_setback(self):
+        recipe=districts.district_recipe("terrace-residential",214,{"columns":2,"rows":2,"block_width_cells":14,"block_height_cells":14,"setback_cells":6,"park_fraction":0},residential_lots=True)
+        recipe["footprint_sizes"]=[[20,14]]
+        with self.assertRaisesRegex(ValueError,"No safe building"):
+            districts.generate_district(recipe)
+
+    def test_six_park_templates_replay_without_house_overlap(self):
+        specs=[{"size":size,"variant":variant} for size in ("small","medium","large") for variant in ("cross","loop")]
+        recipe=districts.district_recipe("suburban-grid",214,{"columns":3,"rows":2,"block_width_cells":40,"block_height_cells":40,"park_fraction":0,"max_buildings":24},residential_lots=True,parks=specs)
+        document,metadata,_=districts.generate_district(recipe)
+        self.assertEqual(streets.canonical(document),streets.canonical(districts.generate_district(copy.deepcopy(recipe))[0]))
+        self.assertEqual([(p["size"],p["variant"]) for p in metadata["parks"]],[(p["size"],p["variant"]) for p in specs])
+        self.assertEqual(metadata["omitted_parks"],[])
+        self.assertEqual([p["width"] for p in metadata["parks"]],[6,6,10,10,16,16])
+        districts.assert_usable(document,metadata)
+        cells=lots.unpack(document);width=document["width"]
+        for p in metadata["parks"]:
+            self.assertTrue(all(cells[y*width+x] in (0,5) for y in range(p["top"],p["top"]+p["height"]) for x in range(p["left"],p["left"]+p["width"])))
+
+    def test_tight_park_requests_are_reported_and_bad_specs_rejected(self):
+        recipe=districts.district_recipe("garden-suburb",1,{"columns":2,"rows":2,"block_width_cells":14,"block_height_cells":14,"park_fraction":0,"max_buildings":2},parks=[{"size":"large","variant":"loop"}])
+        _,metadata,_=districts.generate_district(recipe)
+        self.assertEqual(metadata["parks"],[])
+        self.assertEqual(len(metadata["omitted_parks"]),1)
+        recipe["parks"]=[{"size":"huge","variant":"loop"}]
+        with self.assertRaises(ValueError):districts.generate_district(recipe)
+
+    def test_park_metadata_is_translated_when_composing_city(self):
+        recipe=districts.city_recipe(["suburban-grid","garden-suburb"],214)
+        for r in recipe["districts"]:
+            r["street_settings"].update(columns=2,rows=2,max_buildings=8,park_fraction=0)
+            r["parks"]=[{"size":"small","variant":"loop"}]
+        document,metadata,_=districts.compose_city(recipe)
+        self.assertEqual(len(metadata["parks"]),2)
+        self.assertEqual(len({p["park_id"] for p in metadata["parks"]}),2)
+        districts.assert_usable(document,metadata)
+
     def test_all_open_space_roll_retains_one_buildable_block(self):
         original=streets.street_layout
         def all_open(settings):

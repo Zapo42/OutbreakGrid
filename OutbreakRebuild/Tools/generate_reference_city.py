@@ -108,7 +108,7 @@ def pack(document,cells):
     document["chunks"]=chunks
 
 
-def entrance_path(cells,width,height,left,top,w,h):
+def entrance_path(cells,width,height,left,top,w,h,target_cells=None):
     """Four candidate doors; bounded multi-source BFS chooses a physical path to a sidewalk."""
     doors=[(left+w//2,top,0,-1),(left+w//2,top+h-1,0,1),
            (left,top+h//2,-1,0),(left+w-1,top+h//2,1,0)]
@@ -119,7 +119,7 @@ def entrance_path(cells,width,height,left,top,w,h):
             queue.append(outside);parents[outside]=None;origins[outside]=door
     while queue and len(parents)<=10000:
         position=queue.popleft();x,y=position
-        if cells[y*width+x] in (5,6):
+        if cells[y*width+x] in (5,6) and (target_cells is None or position in target_cells):
             path=[];door=origins[position]
             while position is not None:
                 path.append(position);position=parents[position]
@@ -147,15 +147,49 @@ def generate(sample,features,provenance,seed,cell_metres=5,max_buildings=128,ori
     return document,metadata,artwork
 
 
+def place_parks(cells,width,height,blocks,cell_metres,specs):
+    """Reserve park lots before houses; use only existing grass and sidewalk terrain."""
+    sizes={"small":6,"medium":10,"large":16}
+    occupied=set();parks=[];omitted=[]
+    for index,spec in enumerate(specs):
+        edge=sizes[spec["size"]];chosen=None
+        # Separate parks use separate blocks. A requested park that cannot fit is reported.
+        for block_index,block in enumerate(blocks):
+            if any(p["block"]==block_index for p in parks):continue
+            left=math.floor(block.centroid.x/cell_metres-edge/2)
+            top=math.floor(block.centroid.y/cell_metres-edge/2)
+            footprint={(x,y) for y in range(top,top+edge) for x in range(left,left+edge)}
+            if not block.buffer(-cell_metres).covers(box(left*cell_metres,top*cell_metres,(left+edge)*cell_metres,(top+edge)*cell_metres)):continue
+            if any(not (0<=x<width and 0<=y<height) or cells[y*width+x]!=0 or (x,y) in occupied for x,y in footprint):continue
+            connection=entrance_path(cells,width,height,left,top,edge,edge)
+            if connection is None:continue
+            door,access=connection;cx=left+edge//2;cy=top+edge//2
+            # Both variants connect all four sides. The loop adds a continuous internal circuit.
+            paths={(cx,y) for y in range(top,top+edge)}|{(x,cy) for x in range(left,left+edge)}
+            if spec["variant"]=="loop":
+                paths|={(x,y) for x in range(left+1,left+edge-1) for y in (top+1,top+edge-2)}
+                paths|={(x,y) for y in range(top+1,top+edge-1) for x in (left+1,left+edge-2)}
+            paths.update(access)
+            for x,y in paths:
+                if cells[y*width+x]==0:cells[y*width+x]=5
+            occupied.update(footprint)
+            chosen={"park_id":f"park-{index+1}","size":spec["size"],"variant":spec["variant"],
+                    "left":left,"top":top,"width":edge,"height":edge,"block":block_index,
+                    "entrance":[door[0],door[1]],"path_cells":[list(v) for v in sorted(paths)]}
+            parks.append(chosen);break
+        if chosen is None:omitted.append({"request_index":index,"size":spec["size"],"variant":spec["variant"],"reason":"No unused block fits a connected park lot"})
+    return occupied,parks,omitted
+
+
 def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildings=128,
                        density=None,setback_cells=2,footprint_sizes=None,road_width_cells=1.5,
                        sidewalk_width_cells=.75,placement_mode="scatter",lot_gap_cells=1,
-                       fair_block_budget=False):
+                       fair_block_budget=False,park_specs=None):
     if not isinstance(seed,int) or not 1<=seed<=4294967295:
         raise ValueError("Seed must be between 1 and 4294967295")
     if not 1<=max_buildings<=256:
         raise ValueError("Choose between 1 and 256 buildings")
-    if placement_mode not in ("scatter","frontage") or type(lot_gap_cells) is not int or not 0<=lot_gap_cells<=4:
+    if placement_mode not in ("scatter","frontage","residential") or type(lot_gap_cells) is not int or not 0<=lot_gap_cells<=4:
         raise ValueError("Invalid placement mode or lot clearance")
     cell_metres=grid["cell_metres"]
     blocks=[g for g,p in projected if p["category"]=="block"]
@@ -187,6 +221,11 @@ def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildin
         raise ValueError("Building setback must be between one and six cells")
     average_cells=sum(w*h for w,h in recipes)/len(recipes)
     rng=StableRandom(seed ^ 0xB017D1A5);buildings=[];occupied=set()
+    parks=[];omitted=[]
+    if park_specs:
+        occupied,parks,omitted=place_parks(cells,width,height,blocks,cell_metres,park_specs)
+    # New residential lots connect to surveyed street sidewalks, not merely a neighbour's spur.
+    street_targets={(i%width,i//width) for i,tile in enumerate(original) if tile in (5,6)} if placement_mode=="residential" else None
     remaining_blocks=sum(1 for g,p in projected if p["category"]=="block" and not p.get("open_space",False))
     for block_index,block in enumerate(blocks):
         props=next(p for g,p in projected if p["category"]=="block" and g is block)
@@ -200,7 +239,14 @@ def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildin
             target=min(target,max(1,(max_buildings-len(buildings))//max(1,remaining_blocks)))
         remaining_blocks-=1
         placed=0
-        for attempt in range(target*100):
+        candidates=[]
+        if placement_mode=="residential":
+            # Fixed lot modules prevent random slivers; nearest-edge lots are attempted first.
+            lot_w=max(max(pair) for pair in recipes);stride=lot_w+lot_gap_cells
+            candidates=[(x,y) for y in range(math.ceil(y0/cell_metres),math.floor(y1/cell_metres)-lot_w+1,stride)
+                        for x in range(math.ceil(x0/cell_metres),math.floor(x1/cell_metres)-lot_w+1,stride)]
+            candidates.sort(key=lambda xy:(min(xy[0]-x0/cell_metres,xy[1]-y0/cell_metres,x1/cell_metres-xy[0]-lot_w,y1/cell_metres-xy[1]-lot_w),xy[1],xy[0]))
+        for attempt in range(len(candidates) if placement_mode=="residential" else target*100):
             if placed>=target or len(buildings)>=max_buildings:break
             w,h=rng.choice(recipes)
             if rng.randrange(2):w,h=h,w
@@ -214,12 +260,13 @@ def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildin
                 elif side==1:top=minimum_y
                 elif side==2:left=maximum_x
                 elif side==3:top=maximum_y
+            if placement_mode=="residential":left,top=candidates[attempt]
             if left<1 or top<1 or left+w>=width or top+h>=height:continue
             geometry=box(left*cell_metres,top*cell_metres,(left+w)*cell_metres,(top+h)*cell_metres)
             if not inner.covers(geometry):continue
             footprint={(x,y) for y in range(top,top+h) for x in range(left,left+w)}
             if any(cells[y*width+x]!=0 or (x,y) in occupied for x,y in footprint):continue
-            connection=entrance_path(cells,width,height,left,top,w,h)
+            connection=entrance_path(cells,width,height,left,top,w,h,street_targets)
             if connection is None:continue
             door,path=connection
             for x,y in footprint:
@@ -243,6 +290,7 @@ def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildin
               "scope":"Surveyed street backbone; fictional seeded buildings and doors. No population, assigned roles, supplies or vehicle lanes."}
     if placement_mode!="scatter" or lot_gap_cells!=1 or fair_block_budget:
         metadata.update(placement_mode=placement_mode,lot_gap_cells=lot_gap_cells,fair_block_budget=fair_block_budget)
+    if park_specs is not None:metadata.update(parks=parks,omitted_parks=omitted)
     document["id"]="generated-reference-"+sample["id"]+"-"+str(seed)
     document["name"]="Generated "+sample["id"]+" district (seed "+str(seed)+")"
     document["authoringJson"]=json.dumps(metadata,ensure_ascii=False,sort_keys=True)
