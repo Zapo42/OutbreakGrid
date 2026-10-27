@@ -125,6 +125,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int shoppingShelf,shoppingMeals;
         [DataMember(EmitDefaultValue=false)] public int familiarStoreId;
         [DataMember(EmitDefaultValue=false)] public int[] additionalFamiliarStores;
+        [DataMember(EmitDefaultValue=false)] public int[] knownParks; // Authored/observed park cells, sorted key+1; no hidden venue registry.
+        [DataMember(EmitDefaultValue=false)] public bool leisureParkVisit;
         [DataMember(EmitDefaultValue=false)] public HumanLeisurePhase leisurePhase;
         [DataMember(EmitDefaultValue=false)] public int leisureDoor,leisureHomeCell,leisureX,leisureY; // Door and home cells use key+1 so zero is canonical inactivity.
         [DataMember(EmitDefaultValue=false)] public long nextLeisureTick,leisureUntilTick; // Saved cooldown and phase deadline do not consume a random stream.

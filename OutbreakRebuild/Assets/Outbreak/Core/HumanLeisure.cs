@@ -13,7 +13,7 @@ namespace Outbreak.Core
         private int[] leisureQueue,leisureSeen,leisureFirst,leisureDistance;private int leisureStamp;
         private static void ClearLeisure(ref ActorState actor)
         {
-            actor.leisurePhase=HumanLeisurePhase.None;actor.leisureDoor=actor.leisureHomeCell=actor.leisureX=actor.leisureY=0;actor.nextLeisureTick=actor.leisureUntilTick=0;
+            actor.leisureParkVisit=false;actor.leisurePhase=HumanLeisurePhase.None;actor.leisureDoor=actor.leisureHomeCell=actor.leisureX=actor.leisureY=0;actor.nextLeisureTick=actor.leisureUntilTick=0;
         }
         private void EndLeisure(ref ActorState actor)
         {
@@ -45,6 +45,7 @@ namespace Outbreak.Core
         public string LeisureStatus(int index)
         {
             ActorState actor=ActorAt(index);if(!LeisureEnabled)return "Leisure unavailable: older rules";
+            if(actor.leisureParkVisit){switch(actor.leisurePhase){case HumanLeisurePhase.Outbound:return "Walking to known park";case HumanLeisurePhase.Pausing:return "Visiting park";case HumanLeisurePhase.Returning:return "Returning home from park";}}
             switch(actor.leisurePhase){case HumanLeisurePhase.Outbound:return "Taking a walk";case HumanLeisurePhase.Pausing:return "Pausing outside";case HumanLeisurePhase.Returning:return "Returning home";}
             return actor.species==Species.Human && actor.health>0 && actor.assignedHouseId!=0 && HouseAt(actor.x,actor.y)==actor.assignedHouseId && EffectiveOccupationOf(actor)==HumanOccupation.Consumer?"Free time: at home":"Waiting for free time";
         }
@@ -71,10 +72,11 @@ namespace Outbreak.Core
             {
                 int cell=leisureQueue[head++],x=cx+cell%LeisureSide-r,y=cy+cell/LeisureSide-r,key=Key(x,y),distance=leisureDistance[cell];
                 if(!chooseTarget && key==target){goal=key;return leisureFirst[cell];}
-                if(chooseTarget && LeisureOutdoor(x,y) && Math.Abs(x-cx)+Math.Abs(y-cy)>=4 && distance<=20)
+                if(chooseTarget && LeisureOutdoor(x,y) && (KnowsPark(actor,key) || Math.Abs(x-cx)+Math.Abs(y-cy)>=4) && distance<=20)
                 {
                     // Prefer a modest six-cell radius; stable identity/time-based ties vary destinations without changing simulation RNG.
                     int score=Math.Abs(Math.Abs(x-cx)+Math.Abs(y-cy)-6)*1024+(int)(((uint)x*73856093u^(uint)y*19349663u^(uint)actor.id*83492791u^(uint)Tick*2654435761u)%1024);
+                    if(KnowsPark(actor,key))score=-32768+distance*1024; // Prefer a nearby reachable familiar venue without querying remote people or stock.
                     if(score<best){best=score;goal=key;}
                 }
                 for(int d=0;d<8;d+=2)
@@ -96,7 +98,7 @@ namespace Outbreak.Core
             if(door<0)return false;
             actor.leisureDoor=door+1;actor.leisureHomeCell=Key(actor.x,actor.y)+1;int goal;
             if(LeisureSearch(actor,home,true,out goal)<0){EndLeisure(ref actor);return false;}
-            actor.leisureX=goal%Width;actor.leisureY=goal/Width;actor.leisurePhase=HumanLeisurePhase.Outbound;actor.leisureUntilTick=Tick+HumanLeisureRules.MaxTripTicks;actor.nextLeisureTick=0;
+            actor.leisureParkVisit=KnowsPark(actor,goal);actor.leisureX=goal%Width;actor.leisureY=goal/Width;actor.leisurePhase=HumanLeisurePhase.Outbound;actor.leisureUntilTick=Tick+HumanLeisureRules.MaxTripTicks;actor.nextLeisureTick=0;
             ClearShelterDeparture(ref actor);actor.homeShelterId=0;actor.shelterId=home.id;actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;return true;
         }
         private bool TryLeisureRoutine(int index,ref ActorState actor,int threat,out int direction)
@@ -111,7 +113,7 @@ namespace Outbreak.Core
                 if(!StartLeisure(ref actor,home)){EndLeisure(ref actor);actors[index]=actor;return true;}
             }
             if(!LeisureSafe(actor,threat,false) || home==null){EndLeisure(ref actor);actors[index]=actor;return false;}
-            if(actor.leisurePhase==HumanLeisurePhase.Outbound && actor.x==actor.leisureX && actor.y==actor.leisureY){actor.leisurePhase=HumanLeisurePhase.Pausing;actor.leisureUntilTick=Tick+HumanLeisureRules.PauseTicks;}
+            if(actor.leisurePhase==HumanLeisurePhase.Outbound && actor.x==actor.leisureX && actor.y==actor.leisureY){actor.leisurePhase=HumanLeisurePhase.Pausing;actor.leisureUntilTick=Tick+(actor.leisureParkVisit?ParkVisitRules.StayTicks:HumanLeisureRules.PauseTicks);}
             if(actor.leisurePhase==HumanLeisurePhase.Pausing)
             {
                 if(Tick<actor.leisureUntilTick){actors[index]=actor;return true;}
@@ -135,7 +137,7 @@ namespace Outbreak.Core
                 if(!LeisureEnabled || actor.species!=Species.Human || actor.health<=0 || actor.assignedHouseId==0 || actor.nextLeisureTick<0 || actor.nextLeisureTick>Tick+HumanLeisureRules.CooldownTicks+HumanLeisureRules.StaggerTicks || actor.leisurePhase<HumanLeisurePhase.None || actor.leisurePhase>HumanLeisurePhase.Returning)throw new ArgumentException("Invalid leisure identity or cooldown.");
                 if(!active){if(actor.leisureUntilTick!=0 || actor.leisureDoor!=0 || actor.leisureHomeCell!=0 || actor.leisureX!=0 || actor.leisureY!=0)throw new ArgumentException("Inactive leisure contains stale geometry.");continue;}
                 Room home=FindRoom(actor.assignedHouseId);int door=actor.leisureDoor-1;
-                if(home==null || actor.nextLeisureTick!=0 || actor.leisureHomeCell<=0 || !home.Contains(actor.leisureHomeCell-1) || door<0 || Array.BinarySearch(home.doors,door)<0 || !LeisureOutdoor(actor.leisureX,actor.leisureY) || actor.leisureUntilTick<1 || actor.leisureUntilTick<Tick-HumanLeisureRules.MaxTripTicks || actor.leisureUntilTick>Tick+(actor.leisurePhase==HumanLeisurePhase.Pausing?HumanLeisureRules.PauseTicks:HumanLeisureRules.MaxTripTicks) || Math.Abs(actor.leisureX-door%Width)>HumanLeisureRules.Radius || Math.Abs(actor.leisureY-door/Width)>HumanLeisureRules.Radius || !LeisureCell(actor,home,actor.x,actor.y))throw new ArgumentException("Invalid leisure route or deadline.");
+                if(home==null || actor.nextLeisureTick!=0 || actor.leisureHomeCell<=0 || !home.Contains(actor.leisureHomeCell-1) || door<0 || Array.BinarySearch(home.doors,door)<0 || !LeisureOutdoor(actor.leisureX,actor.leisureY) || actor.leisureUntilTick<1 || actor.leisureUntilTick<Tick-HumanLeisureRules.MaxTripTicks || actor.leisureUntilTick>Tick+(actor.leisurePhase==HumanLeisurePhase.Pausing?(actor.leisureParkVisit?ParkVisitRules.StayTicks:HumanLeisureRules.PauseTicks):HumanLeisureRules.MaxTripTicks) || Math.Abs(actor.leisureX-door%Width)>HumanLeisureRules.Radius || Math.Abs(actor.leisureY-door/Width)>HumanLeisureRules.Radius || !LeisureCell(actor,home,actor.x,actor.y))throw new ArgumentException("Invalid leisure route or deadline.");
                 if(actor.leisurePhase==HumanLeisurePhase.Pausing && (actor.x!=actor.leisureX || actor.y!=actor.leisureY))throw new ArgumentException("Leisure pause is not at its destination.");
             }
         }
