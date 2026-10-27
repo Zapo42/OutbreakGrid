@@ -35,7 +35,7 @@ namespace Outbreak.Core
     {
         private static void ClearHappiness(ref ActorState actor)
         {
-            ClearSocialInteraction(ref actor);actor.happiness=0;actor.nextHappinessTick=0; // Death and turning retain no human mood or cadence.
+            actor.familiarPeople=null;ClearSocialInteraction(ref actor);actor.happiness=0;actor.nextHappinessTick=0; // Death and turning retain no human mood or cadence.
         }
         private HappinessSnapshot ObserveHappiness(int index)
         {

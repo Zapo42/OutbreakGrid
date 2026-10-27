@@ -12,7 +12,7 @@ public static partial class Program
     }
     private static string WithoutSocial(World w)
     {
-        var s=w.Capture();s.rulesVersion=EncounterRules.ParkVisitsVersion;foreach(var index in new[]{0,1}){s.actors[index].happiness=0;s.actors[index].nextSocialTick=0;s.actors[index].lastSocialPartnerId=s.actors[index].lastSocialGain=0;}return Documents.Encode(s);
+        var s=w.Capture();s.rulesVersion=EncounterRules.ParkVisitsVersion;foreach(var index in new[]{0,1}){s.actors[index].familiarPeople=null;s.actors[index].happiness=0;s.actors[index].nextSocialTick=0;s.actors[index].lastSocialPartnerId=s.actors[index].lastSocialGain=0;}return Documents.Encode(s);
     }
     private static void CheckSocialInteractionCases()
     {

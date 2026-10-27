@@ -34,6 +34,7 @@ namespace Outbreak.Core
         private void ApplyGreeting(ref ActorState actor,int partnerId)
         {
             int gain=actor.charisma>=6?2:1;gain=Math.Min(gain,HappinessRules.Maximum-actor.happiness);
+            RememberGreeting(ref actor,partnerId);
             actor.happiness+=gain;actor.lastSocialGain=gain;actor.lastSocialPartnerId=partnerId;actor.nextSocialTick=Tick+SocialInteractionRules.CooldownTicks;
         }
         private void AdvanceSocialInteractions()
@@ -44,16 +45,18 @@ namespace Outbreak.Core
                 if(actor.nextSocialTick!=0 && Tick>=actor.nextSocialTick){ClearSocialInteraction(ref actor);actors[i]=actor;}
                 // Stable cadence and no RNG draws preserve reproducibility. Neither greeting nor its query moves an actor.
                 if(Tick%HappinessRules.CadenceTicks!=actor.id%HappinessRules.CadenceTicks || !SociallyAvailable(actor) || ObserveHappiness(i).Danger)continue;
-                int partner=-1,best=int.MaxValue;
+                int partner=-1,best=int.MaxValue;bool bestFamiliar=false;
                 for(int j=0;j<count;j++)
                 {
                     if(i==j)continue;ActorState other=actors[j];int x=other.x-actor.x,y=other.y-actor.y;
                     if(Math.Abs(x)>SocialInteractionRules.Radius || Math.Abs(y)>SocialInteractionRules.Radius)continue;
-                    int distance=x*x+y*y;if(distance>SocialInteractionRules.Radius*SocialInteractionRules.Radius || distance>best || !SociallyAvailable(other) || !Visible(actor,other))continue;
-                    if(distance==best && other.id>=actors[partner].id)continue;
-                    partner=j;best=distance;
+                    int distance=x*x+y*y;if(distance>SocialInteractionRules.Radius*SocialInteractionRules.Radius || !SociallyAvailable(other) || !Visible(actor,other))continue;
+                    // Recognition only ranks already visible willing people; it never supplies a remote location or skips consent.
+                    bool familiar=FamiliarPerson(actor,other.id);
+                    if(partner>=0 && (bestFamiliar && !familiar || bestFamiliar==familiar && (distance>best || distance==best && other.id>=actors[partner].id)))continue;
+                    partner=j;best=distance;bestFamiliar=familiar;
                 }
-                // The closest willing partner must also perceive safety; do not infer their hidden surroundings.
+                // The selected willing partner must also perceive safety; do not infer their hidden surroundings.
                 if(partner<0 || ObserveHappiness(partner).Danger)continue;
                 ActorState companion=actors[partner];ApplyGreeting(ref actor,companion.id);ApplyGreeting(ref companion,actor.id);actors[i]=actor;actors[partner]=companion;
             }

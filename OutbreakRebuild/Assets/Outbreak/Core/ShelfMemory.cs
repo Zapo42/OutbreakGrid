@@ -10,6 +10,7 @@ namespace Outbreak.Core
     {
         private static ActorState DetachActor(ActorState actor)
         {
+            if(actor.familiarPeople!=null){if(actor.familiarPeople.Length>SocialFamiliarityRules.Limit)throw new ArgumentException("Too many familiar people.");actor.familiarPeople=(FamiliarPersonRecord[])actor.familiarPeople.Clone();}
             if(actor.knownParks!=null){if(actor.knownParks.Length>ParkVisitRules.MaximumKnown)throw new ArgumentException("Too many known parks.");actor.knownParks=(int[])actor.knownParks.Clone();}
             if(actor.storeFailures!=null){if(actor.storeFailures.Length>StoreDiscoveryRules.MemoryLimit)throw new ArgumentException("Too many failed store visits.");actor.storeFailures=(FoodRoomVisit[])actor.storeFailures.Clone();}
             if(actor.additionalFamiliarStores!=null){if(actor.additionalFamiliarStores.Length>=StoreDiscoveryRules.MemoryLimit)throw new ArgumentException("Too many familiar stores.");actor.additionalFamiliarStores=(int[])actor.additionalFamiliarStores.Clone();}

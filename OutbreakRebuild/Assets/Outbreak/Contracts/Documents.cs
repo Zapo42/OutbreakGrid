@@ -96,6 +96,11 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(IsRequired=true)] public int roomId;
         [DataMember(IsRequired=true)] public long observedTick;
     }
+    [DataContract] public struct FamiliarPersonRecord // Personal history records an actual encounter, not a current position or health report.
+    {
+        [DataMember] public int actorId;
+        [DataMember] public long lastGreetedTick;
+    }
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
@@ -109,6 +114,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public int energySpent;
         [DataMember(EmitDefaultValue=false)] public int happiness; // Human mood starts neutral and remains within -50 through +50.
         [DataMember(EmitDefaultValue=false)] public long nextHappinessTick; // Saved staggered cadence is independent of simulation random streams.
+        [DataMember(EmitDefaultValue=false)] public FamiliarPersonRecord[] familiarPeople; // Bounded history, sorted by stable identity.
         [DataMember(EmitDefaultValue=false)] public long nextSocialTick; // Pair cooldown also dates the latest physical greeting.
         [DataMember(EmitDefaultValue=false)] public int lastSocialPartnerId,lastSocialGain; // Stable observed identity and actual bounded happiness gain.
         [DataMember(EmitDefaultValue=false)] public int grappledById;
