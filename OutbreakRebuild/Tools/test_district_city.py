@@ -251,4 +251,63 @@ class BuildingBlueprintChecks(unittest.TestCase):
                 self.assertFalse(any(key in doc for key in ("shelves","storageBoxes","restSpots")))
 
 
+class PlacedHouseChecks(unittest.TestCase):
+    def test_houses_fit_lots_with_live_storage_rest_and_physical_rooms(self):
+        for variant in lots.BUILDING_VARIANTS:
+            for kind in ("garden-suburb","suburban-grid"):
+                for seed in (1,214):
+                    with self.subTest(variant=variant,kind=kind,seed=seed):
+                        recipe=districts.district_recipe(kind,seed,{"columns":2,"rows":2,"max_buildings":8,"park_fraction":0},house_layout=variant)
+                        document,metadata,_=districts.generate_district(recipe)
+                        self.assertEqual(streets.canonical(document),streets.canonical(districts.generate_district(copy.deepcopy(recipe))[0]))
+                        self.assertEqual(document["schemaVersion"],14)
+                        self.assertEqual(len(document["buildingRooms"]),len(metadata["buildings"]))
+                        self.assertEqual(len(document["storageBoxes"]),len(metadata["buildings"]))
+                        cells=lots.unpack(document);width=document["width"];expected_rest=set();storage_cells=set()
+                        for building,group in zip(metadata["buildings"],document["buildingRooms"]):
+                            layout=building["interior_layout"];blueprint=layout["blueprint"];left,top=layout["origin_cells"]
+                            self.assertEqual(group["id"],building["parcel_id"])
+                            self.assertEqual((blueprint["width"],blueprint["height"]),(building["width"],building["height"]))
+                            self.assertEqual({r["role"] for r in group["rooms"]},{"living-area","household-storage"})
+                            for room in blueprint["rooms"]:
+                                for x,y in room["cells"]:self.assertEqual(cells[(top+y)*width+left+x],7)
+                            for door in blueprint["doors"]:
+                                x,y=door["cell"];self.assertEqual(cells[(top+y)*width+left+x],9)
+                            fixture=next(f for f in blueprint["fixtures"] if f["role"]=="storage-shelf")
+                            storage_cells.update((left+x,top+y) for x,y in fixture["cells"])
+                            expected_rest.update((left+x,top+y) for x,y in blueprint["recovery_area"]["cells"])
+                            self.assertEqual(lots.validate_building_blueprint(blueprint),True)
+                        self.assertEqual({(p["x"],p["y"]) for p in document["restSpots"]},expected_rest)
+                        self.assertEqual({(p["x"],p["y"]) for p in document["storageBoxes"]},storage_cells)
+                        self.assertFalse(expected_rest & storage_cells)
+                        self.assertTrue(all(box["items"]==[] and box["capacity"]==30 for box in document["storageBoxes"]))
+                        districts.assert_usable(document,metadata)
+
+    def test_mixed_city_preserves_group_and_fixture_coordinates(self):
+        recipe=districts.city_recipe(["garden-suburb","business-core"],214,house_layout="compact")
+        for r in recipe["districts"]:r["street_settings"].update(columns=2,rows=2,max_buildings=8,park_fraction=0)
+        document,metadata,_=districts.compose_city(recipe)
+        self.assertEqual(streets.canonical(document),streets.canonical(districts.compose_city(copy.deepcopy(recipe))[0]))
+        self.assertEqual(document["schemaVersion"],14)
+        houses={b["parcel_id"]:b for b in metadata["buildings"] if "interior_layout" in b}
+        self.assertEqual({g["id"] for g in document["buildingRooms"]},set(houses))
+        for group in document["buildingRooms"]:
+            building=houses[group["id"]];layout=building["interior_layout"]
+            self.assertEqual(layout["instance_id"],group["id"])
+            self.assertEqual(layout["origin_cells"],[building["left"],building["top"]])
+            for room in group["rooms"]:
+                self.assertTrue(building["left"]<room["x"]<building["left"]+building["width"]-1)
+                self.assertTrue(building["top"]<room["y"]<building["top"]+building["height"]-1)
+                self.assertEqual(layout["room_keys"][room["id"]],group["id"]+"/"+room["id"])
+
+    def test_house_limits_and_nonresidential_inputs_fail_explicitly(self):
+        with self.assertRaises(ValueError):districts.district_recipe("business-core",house_layout="compact")
+        with self.assertRaises(ValueError):districts.district_recipe("garden-suburb",overrides={"max_buildings":256},house_layout="spacious")
+        recipe=districts.district_recipe("garden-suburb",house_layout="compact");recipe["footprint_sizes"]=[[4,4]]
+        with self.assertRaises(ValueError):districts.generate_district(recipe)
+        recipe=districts.city_recipe(["garden-suburb","suburban-grid"],house_layout="spacious")
+        for r in recipe["districts"]:r["street_settings"]["max_buildings"]=lots.house_layout_budget("spacious")
+        with self.assertRaises(ValueError):districts.compose_city(recipe)
+
+
 if __name__=="__main__":unittest.main()

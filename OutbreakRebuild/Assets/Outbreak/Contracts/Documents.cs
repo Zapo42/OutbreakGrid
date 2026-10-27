@@ -69,6 +69,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
         [DataMember(EmitDefaultValue=false)] public RoadLaneDocument[] roadLanes;
         [DataMember(EmitDefaultValue=false)] public ParkingBayDocument[] parkingBays;
+        [DataMember(EmitDefaultValue=false)] public BuildingRoomsDocument[] buildingRooms; // Explicit multi-room membership; absent preserves old maps.
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.

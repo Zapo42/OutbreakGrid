@@ -39,7 +39,7 @@ def load_profile(identity):
     return json.loads((atlas.ROOT/"CityReferences/atlas"/(identity+".profile.json")).read_text())
 
 
-def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=None):
+def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=None,house_layout=None):
     catalogue=json.loads(CATALOGUE.read_text())
     if kind not in catalogue["districts"]:raise ValueError("Unknown district type")
     spec=copy.deepcopy(catalogue["districts"][kind]);profile=load_profile(spec["reference_id"])
@@ -65,12 +65,21 @@ def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=
             "reference_id":spec["reference_id"],"reference_profile_sha256":digest(profile) if profile else None}
     if residential_lots:recipe["placement_mode"]="residential"
     if parks is not None:recipe["parks"]=copy.deepcopy(parks)
+    if house_layout is not None:
+        blueprint=lots.building_blueprint("house",house_layout)
+        if recipe["category"] not in ("residential","suburban"):raise ValueError("House layouts require a residential district")
+        home=max(((weight,use) for use,weight in recipe["uses"].items() if HINTS[use]=="Home"),default=None)
+        if home is None:raise ValueError("District has no residential use")
+        recipe.update(house_layout=house_layout,house_layout_version=lots.BUILDING_LAYOUT_VERSION,placement_mode="residential",footprint_sizes=[[blueprint["width"],blueprint["height"]]],uses={home[1]:100},storeys=[1,1])
+        if overrides and "max_buildings" in overrides and settings["max_buildings"]>lots.house_layout_budget(house_layout):
+            raise ValueError("Requested house count exceeds room/rest limits")
+        settings["max_buildings"]=min(settings["max_buildings"],lots.house_layout_budget(house_layout))
     return recipe
 
 
 def validate_recipe(recipe):
     required={"generator_version","kind","district_type","seed","name","category","street_settings", "footprint_sizes","placement_mode","lot_gap_cells","uses","storeys","reference_id","reference_profile_sha256"}
-    if set(recipe)-{"parks"}!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
+    if set(recipe)-{"parks","house_layout","house_layout_version"}!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
         raise ValueError("Unsupported or incomplete district recipe")
     if not isinstance(recipe["district_type"],str) or not recipe["district_type"] or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in recipe["district_type"]):
         raise ValueError("District ids must contain only lowercase letters, digits and hyphens")
@@ -97,6 +106,12 @@ def validate_recipe(recipe):
     for park in parks:
         if not isinstance(park,dict) or set(park)!={"size","variant"} or park["size"] not in ("small","medium","large") or park["variant"] not in ("cross","loop"):
             raise ValueError("Parks require small/medium/large size and cross/loop variant")
+    if ("house_layout" in recipe)!=("house_layout_version" in recipe):raise ValueError("House recipes require a layout version")
+    if "house_layout" in recipe:
+        if recipe["house_layout_version"]!=lots.BUILDING_LAYOUT_VERSION:raise ValueError("Unsupported house layout version")
+        blueprint=lots.building_blueprint("house",recipe["house_layout"])
+        if recipe["category"] not in ("residential","suburban") or recipe["placement_mode"]!="residential" or recipe["footprint_sizes"]!=[[blueprint["width"],blueprint["height"]]] or any(HINTS[use]!="Home" for use in recipe["uses"]) or recipe["storeys"]!=[1,1] or recipe["street_settings"]["max_buildings"]>lots.house_layout_budget(recipe["house_layout"]):
+            raise ValueError("House layout recipe conflicts with template or room/rest budget")
     profile=load_profile(recipe["reference_id"])
     if (digest(profile) if profile else None)!=recipe["reference_profile_sha256"]:
         raise ValueError("Reference profile changed; preserve the bundled snapshot for exact replay")
@@ -168,7 +183,17 @@ def render_map(document,metadata):
             while x<width and cells[y*width+x]==tile:x+=1
             if tile in palette:parts.append(f'<rect x="{start*scale}" y="{y*scale}" width="{(x-start)*scale}" height="{scale}" fill="{palette[tile]}"/>')
     for b in metadata["buildings"]:
-        parts.append(f'<rect x="{(b["left"]+1)*scale}" y="{(b["top"]+1)*scale}" width="{(b["width"]-2)*scale}" height="{(b["height"]-2)*scale}" fill="{COLOURS[b["use_hint"]]}"/>')
+        if "interior_layout" in b:
+            # Colour only real floor cells so internal walls and doors remain readable.
+            for y in range(b["top"]+1,b["top"]+b["height"]-1):
+                for x in range(b["left"]+1,b["left"]+b["width"]-1):
+                    if cells[y*width+x]==7:parts.append(f'<rect x="{x*scale}" y="{y*scale}" width="{scale}" height="{scale}" fill="{COLOURS[b["use_hint"]]}"/>')
+        else:
+            parts.append(f'<rect x="{(b["left"]+1)*scale}" y="{(b["top"]+1)*scale}" width="{(b["width"]-2)*scale}" height="{(b["height"]-2)*scale}" fill="{COLOURS[b["use_hint"]]}"/>')
+    for spot in document.get("restSpots",[]):
+        parts.append(f'<circle cx="{(spot["x"]+.5)*scale}" cy="{(spot["y"]+.5)*scale}" r="{scale*.12}" fill="#31985a"/>')
+    for storage in document.get("storageBoxes",[]):
+        parts.append(f'<rect x="{(storage["x"]+.15)*scale}" y="{(storage["y"]+.15)*scale}" width="{scale*.7}" height="{scale*.7}" fill="#9a673e"/>')
     for district in metadata.get("districts",[]):
         x,y,w,h=district["bounds_cells"]
         parts.append(f'<rect x="{x*scale}" y="{y*scale}" width="{w*scale}" height="{h*scale}" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="2"/>')
@@ -204,10 +229,17 @@ def generate_district(recipe):
             if roll<0:break
         b.update(parcel_id=f'{recipe["district_type"]}-{index+1}',district_type=recipe["district_type"],use_hint=use,
                  game_building_use_hint=HINTS[use],storeys_hint=rng.randint(*recipe["storeys"]))
+    if "house_layout" in recipe:
+        # The original street raster remains the entrance target even when other houses have paths.
+        backbone=[(g,p) for g,p in projected if p["category"] in ("road","water")]
+        corridor=atlas.export_map({"id":"house-streets","name":"House streets"},backbone,grid,provenance,settings["road_width_cells"],settings["sidewalk_width_cells"])
+        targets={(i%grid["width"],i//grid["width"]) for i,t in enumerate(lots.unpack(corridor)) if t in (5,6)}
+        lots.materialize_house_layouts(document,metadata,recipe["house_layout"],targets)
     fingerprint=digest(recipe)[:12]
     metadata.update(generator_version=VERSION,seed=recipe["seed"],stream_seeds=streams,recipe=copy.deepcopy(recipe),recipe_id=fingerprint,
                     district_type=recipe["district_type"],category=recipe["category"],
                     scope="Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.")
+    if "house_layout" in recipe:metadata["scope"]="Seeded multi-room homes with explicit building identity, empty finite storage and living-area rest spots; no population or NPC decision changes."
     if open_space_recovery is not None:metadata["open_space_recovery"]=open_space_recovery
     metadata["street_segments"]=[{"points_metres":list(g.coords),"width_cells":p["width_cells"],**p["tags"]} for g,p in projected if p["category"]=="road"]
     metadata["actual_building_coverage"]=round(sum(b["width"]*b["height"] for b in metadata["buildings"])/(document["width"]*document["height"]),6)
@@ -218,13 +250,19 @@ def generate_district(recipe):
     return document,metadata,render_map(document,metadata)
 
 
-def city_recipe(kinds,seed=214,columns=2,gap=12,cell_metres=5):
+def city_recipe(kinds,seed=214,columns=2,gap=12,cell_metres=5,house_layout=None):
     if not 1<=len(kinds)<=9 or type(columns) is not int or not 1<=columns<=3 or not 6<=gap<=30:
         raise ValueError("Compose 1–9 districts in 1–3 columns with 6–30 cells between slots")
     if type(seed) is not int or not 1<=seed<=0xffffffff:raise ValueError("Invalid city seed")
     rng=lots.StableRandom(stream_seed(seed,"city-districts"))
-    budget=256//len(kinds)
-    districts=[district_recipe(kind,rng.word() or 1,{"cell_metres":cell_metres,"max_buildings":min(budget,64)}) for kind in kinds]
+    budget=256//(len(kinds)*(2 if house_layout else 1))
+    if house_layout:budget=min(budget,lots.house_layout_budget(house_layout)//len(kinds))
+    districts=[]
+    for kind in kinds:
+        child=district_recipe(kind,rng.word() or 1,{"cell_metres":cell_metres,"max_buildings":min(budget,64)})
+        if house_layout and child["category"] in ("residential","suburban"):
+            child=district_recipe(kind,child["seed"],{"cell_metres":cell_metres,"max_buildings":min(budget,64)},house_layout=house_layout)
+        districts.append(child)
     return {"generator_version":VERSION,"kind":"city","seed":seed,"columns":columns,"gap_cells":gap,"districts":districts}
 
 
@@ -235,6 +273,10 @@ def compose_city(recipe):
     if type(recipe["seed"]) is not int or not 1<=recipe["seed"]<=0xffffffff or not 1<=len(districts)<=9 or type(columns) is not int or not 1<=columns<=3 or type(gap) is not int or not 6<=gap<=30:
         raise ValueError("Invalid city seed, district count or slot layout")
     if sum(r["street_settings"]["max_buildings"] for r in districts)>256:raise ValueError("City building budgets exceed 256")
+    if sum(r["street_settings"]["max_buildings"]*(2 if "house_layout" in r else 1) for r in districts)>256:
+        raise ValueError("City physical room budgets exceed 256")
+    if sum(r["street_settings"]["max_buildings"]*len(lots.building_blueprint("house",r["house_layout"])["recovery_area"]["cells"]) for r in districts if "house_layout" in r)>4096:
+        raise ValueError("City living-area rest budget exceeds 4096")
     scales={r["street_settings"]["cell_metres"] for r in districts}
     if len(scales)!=1:raise ValueError("All districts must use the same metres-per-cell scale")
     scale=scales.pop();generated=[generate_district(r) for r in districts]
@@ -242,7 +284,7 @@ def compose_city(recipe):
     rows=math.ceil(len(districts)/columns);margin=4
     width=margin*2+columns*slot_width+(columns-1)*gap;height=margin*2+rows*slot_height+(rows-1)*gap
     if width*height>atlas.MAX_CELLS:raise ValueError("Composed map exceeds the one-million-cell limit")
-    cells=bytearray(width*height);placements=[];buildings=[];segments=[];parks=[];omitted_parks=[]
+    cells=bytearray(width*height);placements=[];buildings=[];segments=[];parks=[];omitted_parks=[];groups=[];storage=[];rest=[]
     for i,(document,metadata,_) in enumerate(generated):
         ox=margin+(i%columns)*(slot_width+gap);oy=margin+(i//columns)*(slot_height+gap)
         tile=lots.unpack(document)
@@ -251,7 +293,18 @@ def compose_city(recipe):
         for b in metadata["buildings"]:
             moved=copy.deepcopy(b);moved.update(left=b["left"]+ox,top=b["top"]+oy,door=[b["door"][0]+ox,b["door"][1]+oy],
                 path_cells=[[x+ox,y+oy] for x,y in b["path_cells"]],district_index=i,parcel_id=f'd{i}-'+b["parcel_id"])
+            if "interior_layout" in moved:
+                layout=moved["interior_layout"];lx,ly=layout["origin_cells"]
+                layout.update(origin_cells=[lx+ox,ly+oy],instance_id=moved["parcel_id"],room_keys={k:moved["parcel_id"]+"/"+k for k in layout["room_keys"]})
+                moved["retained_walk_cells"]=[[x+ox,y+oy] for x,y in b["retained_walk_cells"]]
             buildings.append(moved)
+        for group in document.get("buildingRooms",[]):
+            moved=copy.deepcopy(group);moved["id"]=f'd{i}-'+group["id"]
+            for room in moved["rooms"]:room["x"]+=ox;room["y"]+=oy
+            groups.append(moved)
+        for key,destination in (("storageBoxes",storage),("restSpots",rest)):
+            for item in document.get(key,[]):
+                moved=copy.deepcopy(item);moved["x"]+=ox;moved["y"]+=oy;destination.append(moved)
         for park in metadata.get("parks",[]):
             moved=copy.deepcopy(park)
             moved.update(left=park["left"]+ox,top=park["top"]+oy,park_id=f'd{i}-'+park["park_id"],district_index=i,
@@ -301,6 +354,10 @@ def compose_city(recipe):
     if any("parks" in r for r in districts):metadata.update(parks=parks,omitted_parks=omitted_parks)
     document={"kind":"outbreak.map","schemaVersion":1,"id":f'mixed-city-{recipe["seed"]}-{identity}',"name":f'Mixed district city (seed {recipe["seed"]})',
               "width":width,"height":height,"chunkSize":32,"chunks":[],"authoringJson":json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)}
+    if groups:
+        document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])),restSpots=sorted(rest,key=lambda p:(p["y"],p["x"])))
+        metadata.update(expected_building_count=len(buildings),expected_physical_room_count=len(buildings)+len(groups),active_features=["building-room-membership","living-area-rest-spots","household-storage"])
+        document["authoringJson"]=json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)
     lots.pack(document,cells);assert_usable(document,metadata)
     return document,metadata,render_map(document,metadata)
 
@@ -413,11 +470,13 @@ def main():
     parser.add_argument("--output",type=Path,default=atlas.ROOT/"CityReferences/districts/maps")
     sub=parser.add_subparsers(dest="command",required=True)
     district=sub.add_parser("district");district.add_argument("--type",required=True);district.add_argument("--seed",type=int,default=214)
+    district.add_argument("--house-layout",choices=lots.BUILDING_VARIANTS,help="Place live two-room houses with living rest areas and storage")
     district.add_argument("--residential-lots",action="store_true",help="Use aligned residential lot modules")
     district.add_argument("--park",action="append",default=[],metavar="SIZE:VARIANT",help="Repeat up to six times; sizes small/medium/large, variants cross/loop")
     district.add_argument("--block-width-cells",type=int);district.add_argument("--block-height-cells",type=int)
     district.add_argument("--coverage",type=float);district.add_argument("--blocks-across",type=int);district.add_argument("--blocks-down",type=int)
     city=sub.add_parser("city");city.add_argument("--districts",nargs='+',default=["dense-urban","business-core","terrace-residential","garden-suburb"]);city.add_argument("--seed",type=int,default=214);city.add_argument("--city-columns",type=int,default=2)
+    city.add_argument("--house-layout",choices=lots.BUILDING_VARIANTS)
     pack=sub.add_parser("building-pack",help="Export draft multi-room templates and technical map shells")
     pack.add_argument("--directory",type=Path,required=True);pack.add_argument("--seed",type=int,default=214)
     replay=sub.add_parser("replay");replay.add_argument("recipe",type=Path)
@@ -433,8 +492,8 @@ def main():
             parts=value.split(":")
             if len(parts)!=2:parser.error("--park requires SIZE:VARIANT")
             parks.append({"size":parts[0],"variant":parts[1]})
-        recipe=district_recipe(args.type,args.seed,overrides,residential_lots=args.residential_lots,parks=parks if args.park else None)
-    elif args.command=="city":recipe=city_recipe(args.districts,args.seed,args.city_columns)
+        recipe=district_recipe(args.type,args.seed,overrides,residential_lots=args.residential_lots,parks=parks if args.park else None,house_layout=args.house_layout)
+    elif args.command=="city":recipe=city_recipe(args.districts,args.seed,args.city_columns,house_layout=args.house_layout)
     else:recipe=json.loads(args.recipe.read_text())
     save(compose_city(recipe) if recipe["kind"]=="city" else generate_district(recipe),args.output)
 

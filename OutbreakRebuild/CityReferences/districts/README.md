@@ -203,3 +203,75 @@ membership/identity contract is resolved. No shared contracts, persistence,
 NPC logic, Unity settings, assets, GUIDs or dependencies change in this pack.
 Native Unity testing remains paused. Run the Python checks above and the
 Lead's sequential unified hosted runner before accepting integration.
+
+## Live two-room houses in generated districts
+
+This mode combines explicit building/room membership with the existing
+storage and rest-spot systems. House placement and spatial identity are World
+infrastructure; the existing NPC needs, choices and movement rules are reused.
+
+```bash
+python Tools/generate_district_city.py --output /tmp/generated-houses district \
+  --type suburban-grid --seed 214 --house-layout compact
+python Tools/generate_district_city.py --output /tmp/generated-houses city \
+  --seed 214 --districts garden-suburb business-core --house-layout spacious
+```
+
+`--house-layout compact|spacious` opts residential/suburban districts into real
+house templates with aligned lots. The recipe records the template variant and
+`house_layout_version`; exact replay uses the ordinary `replay` command. Each
+such district contains residential uses only, one ground floor, template-sized
+footprints, an internal storage-room door, a sidewalk-connected exterior door,
+one empty 30-capacity household storage box (the existing default), and existing
+rest spots over usable living-area cells. No food is generated. Existing rest
+recovery rules apply to that living area; rates and NPC decisions are unchanged.
+Seating remains an authoring/graphics hint. Other building types in a mixed city
+retain their normal layout. Old recipes/defaults stay unchanged.
+
+Template orientation is chosen deterministically among rotations that fit the
+placed footprint, using the shortest available path to the original street
+network. Existing lot access paths remain shared pedestrian space. Blueprint
+coordinates stay local; `interior_layout.origin_cells` locates them in the map.
+Instance and room keys are namespaced per parcel and again per district when
+composing cities. Root fixture coordinates and membership anchors are translated
+with the buildings. Technical SVGs show internal walls, green recovery markers
+and brown household storage markers.
+
+New maps use **map schema 14** and an explicit `buildingRooms` array. Each record
+has a readable building `id` and `rooms` containing local `id`, `role` and world
+floor-anchor `x,y`. The C# spatial catalog merges only explicitly declared,
+door-connected floor regions into one home/shelter identity. Its numeric home
+ID remains the smallest floor-cell key plus one. Internal doors belong to that
+home for indoor traversal and storage access; the exit-door list contains only
+external entrances. This prevents stockrooms from becoming additional homes
+and prevents internal doors being selected as outdoor exits.
+
+Room-membership records are validated, cloned, canonically ordered and preserved
+through map/save capture and restore. Overlap, duplicate identities, invalid
+anchors, missing enclosures, disconnected rooms and room/floor/entrance budget
+violations are rejected. Existing maps with no grouping retain their original
+room discovery and serialized output. Older clients cannot read schema14 maps;
+the matching C# contract/core files must be integrated before importing them.
+Existing maps and saves are not automatically repartitioned or migrated.
+
+Generation respects current limits:256 physical rooms,256 cells per grouped
+building,32768 floor cells and4096 rest spots. House counts are bounded from the
+two-room template and its recovery-cell count; mixed-city budgets include
+ungrouped buildings too. Explicit oversized requests fail rather than discarding
+fixtures. Default recipe counts are recorded after applying these limits.
+
+Run Python geometry/replay checks, then the documented unified hosted runner
+sequentially, followed by the focused production infrastructure project:
+
+```bash
+python -m unittest discover -s Tools -p 'test_*city*.py' -v
+python Tools/run_checks.py --dotnet /path/to/dotnet --output /tmp/hosted-results
+dotnet run --project Tests/BuildingRoomChecks.csproj -- /tmp/generated-houses
+```
+
+The focused test takes an optional folder of at least three generated `.obmap2`
+examples. It checks grouped/legacy geometry, internal/exterior membership,
+defensive records, schema and corrupt-data handling, actual storage collision,
+empty finite inventory, and exact map/save round-trips. It adds no NPC behavior
+tests. Source `.meta` GUIDs for new assets are supplied and must be preserved.
+Unity stays6000.6.3f1 and native Unity testing remains paused.

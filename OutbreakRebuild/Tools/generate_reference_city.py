@@ -108,10 +108,11 @@ def pack(document,cells):
     document["chunks"]=chunks
 
 
-def entrance_path(cells,width,height,left,top,w,h,target_cells=None):
+def entrance_path(cells,width,height,left,top,w,h,target_cells=None,door_candidates=None):
     """Four candidate doors; bounded multi-source BFS chooses a physical path to a sidewalk."""
     doors=[(left+w//2,top,0,-1),(left+w//2,top+h-1,0,1),
            (left,top+h//2,-1,0),(left+w-1,top+h//2,1,0)]
+    if door_candidates is not None:doors=door_candidates
     queue=deque();parents={};origins={}
     for door in doors:
         x,y,dx,dy=door;outside=(x+dx,y+dy)
@@ -382,6 +383,59 @@ def validate_building_blueprint(blueprint):
         if not cells or cells!=room_cells.get(area["room_id"],set())-blocked:
             raise ValueError("Recovery area must cover usable living-area floor")
     return True
+
+
+def house_layout_budget(variant):
+    blueprint=building_blueprint("house",variant)
+    # Existing shelter and rest-spot limits bound fully furnished generated maps.
+    return min(256//len(blueprint["rooms"]),4096//len(blueprint["recovery_area"]["cells"]))
+
+
+def materialize_house_layouts(document,metadata,variant,street_targets):
+    """Fit rotated houses to existing lots and emit explicit building membership and fixtures."""
+    cells=unpack(document);width,height=document["width"],document["height"]
+    groups=[];storage=[];rest=[]
+    for building in metadata["buildings"]:
+        left,top,w,h=(building[k] for k in ("left","top","width","height"))
+        choices=[]
+        for rotation in range(4):
+            blueprint=building_blueprint("house",variant,rotation)
+            if (blueprint["width"],blueprint["height"])!=(w,h):continue
+            external=next(d for d in blueprint["doors"] if d["external"])
+            x,y=external["cell"];dx=-1 if x==0 else 1 if x==w-1 else 0;dy=-1 if y==0 else 1 if y==h-1 else 0
+            connection=entrance_path(cells,width,height,left,top,w,h,street_targets,[(left+x,top+y,dx,dy)])
+            if connection is not None:choices.append((len(connection[1]),rotation,blueprint,connection))
+        if not choices:raise ValueError("No template entrance can reach the lot's street network")
+        _,_,blueprint,(door,path)=min(choices,key=lambda choice:choice[:2])
+        for room in blueprint["rooms"]:
+            for x,y in room["cells"]:cells[(top+y)*width+left+x]=7
+        for x,y in blueprint["walls"]:cells[(top+y)*width+left+x]=8
+        for entry in blueprint["doors"]:
+            x,y=entry["cell"];cells[(top+y)*width+left+x]=9
+        for x,y in path:
+            if cells[y*width+x]==0:cells[y*width+x]=5
+        identity=building["parcel_id"]
+        members=[]
+        for room in blueprint["rooms"]:
+            x,y=min(room["cells"],key=lambda p:(p[1],p[0]))
+            members.append({"id":room["id"],"role":room["role"],"x":left+x,"y":top+y})
+        groups.append({"id":identity,"rooms":members})
+        fixture=next(f for f in blueprint["fixtures"] if f["role"]=="storage-shelf")
+        for x,y in fixture["cells"]:
+            # Use the existing empty household box and reserve policy; generation creates no food.
+            storage.append({"x":left+x,"y":top+y,"capacity":30,"items":[]})
+        rest.extend({"x":left+x,"y":top+y} for x,y in blueprint["recovery_area"]["cells"])
+        building.update(door=[door[0],door[1]],path_cells=path,retained_walk_cells=building["path_cells"],
+                        interior_layout={"blueprint":blueprint,"origin_cells":[left,top],"instance_id":identity,
+                                         "room_keys":{room["id"]:identity+"/"+room["id"] for room in blueprint["rooms"]},
+                                         "storage_materialized":True,"living_recovery_materialized":True,"seating_materialized":False})
+    if len(groups)>256 or len(rest)>4096:raise ValueError("House layout exceeds current room/rest limits")
+    document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])),
+                    restSpots=sorted(rest,key=lambda p:(p["y"],p["x"])))
+    metadata.update(house_layout=variant,expected_physical_room_count=2*len(groups),expected_building_count=len(groups),
+                    active_features=["building-room-membership","living-area-rest-spots","household-storage"],
+                    seating_materialized=False)
+    pack(document,cells)
 
 
 def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildings=128,
