@@ -90,3 +90,19 @@ Append one section per completed or blocked task.
 - Native Unity compilation/runtime/dialogs, Windows player and actual Mono: NOT RUN. General UI/release acceptance remains with the project lead; no completed Foundation 132 release claimed.
 - Integration: NPC commits after72a80e6 are6c07c67,9ec16a9,6ab3492,a537cb5,dbd3d23. Details and ownership boundary: harness/NPC_F132_HANDOFF.md. Preserve RESTORE42 and foundation-82-unity-checkpoint.
 - Next authorized task: complete this NPC handoff; subsequent NPC gameplay work is not yet selected.
+
+## NPC-F133 — temporary off-duty consumer roles
+- Date: 2026-10-27 (America/Chicago).
+- Baseline: 9c8c41440e4aa2aef176b5038eabba596352b4d6, NPC happiness handoff. RESTORE42 unchanged.
+- Branch/worktree: npc/f133-off-duty, /tmp/outbreak133-npc. Dedicated NPC developer completed implementation/testing directly after specialist work was interrupted; no overlapping edits occurred.
+- Scope: clerks and couriers act as consumers off shift while preserving permanent jobs, schedules, homes and finite work loads. Normal movement energy and urgent-needs priority remain intact. No UI/world generation/tooling/release changes.
+- Changed production files: WorkerShifts.cs, HumanLeisure.cs, CourierVehicles.cs, StorageRestocking.cs, HomeSupplies.cs, World.cs and Encounter.cs. AssignedOccupation remains permanent; EffectiveOccupation and current Occupation report the temporary consumer role under rules102. Work loads finish safely before consumer leisure. Empty work vans no longer block personal routines; active returning shipments retain center access. Old rules101 keep prior behavior.
+- Changed NPC tests: OffDutyConsumerChecks.cs, FoundationChecks.csproj, Program.cs and MultiStoreChecks.cs. The deliberate pre-leisure dispatch fixture now excludes leisure fields that can be created by newly off-duty workers; validation was not weakened.
+- Focused results: ten new cases / 1064 assertions PASS; combined existing worker shifts + new off-duty cases 18 cases / 2718 assertions PASS, log /tmp/npc133-focus.log. Includes actual physical home returns, both jobs, full leisure cycles, paid steps, shift-start interruption, grocery priority, saved continuation, overnight/always-on schedules, shelf loads, idle vans and loaded vehicle delivery completion.
+- Independent pre-feature legacy101 digest: WorkerShiftTest after200ticks matches B573D8C04701EA54A7C6B80253FC3B4EF1322923CB4FA57196CD4B18F81CF8C4 (pinned before source changes).
+- Full core command: DOTNET_CLI_HOME=/workspace/toolchains/dotnet-home /workspace/toolchains/dotnet/dotnet run --project OutbreakRebuild/Tests/FoundationChecks.csproj -- /tmp/outbreak133-npc-results, at fa560ed. Final result PASS, exit 0: 647 cases / 739017 assertions. Log /tmp/npc133-core.log; report /tmp/outbreak133-npc-results/FOUNDATION_CHECKS.txt.
+- Regressions caught/fixed: after-hours courier could not cross the distribution-center threshold to finish returning its shipment; legitimate active-work access restored. Switching directly to generic return-home routing delayed a loaded clerk's home arrival; original work-to-home commute preserved before free-time takeover. Both fixes have behavioral coverage.
+- Shared integration: sole NPC writer updated World/Encounter with OffDutyConsumersEnabled, currentrules102 and HappinessVersion101 alias. Project lead must review and add corresponding UI upgrade/restart handling and use AssignedOccupation for permanent identity/gray off-duty outlines.
+- Native Unity/player/dialogs and actual Mono NOT RUN; independent integration review and general UI/release validation remain the project lead's responsibilities. No main merge or completed player release claimed.
+- Integration commits: 6bceb9e and fa560ed atop npc/f132-happiness. Details in harness/NPC_F133_HANDOFF.md.
+- Next task: finish this NPC handoff; further NPC work awaits user selection.
