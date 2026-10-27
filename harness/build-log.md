@@ -106,3 +106,15 @@ Append one section per completed or blocked task.
 - Native Unity/player/dialogs and actual Mono NOT RUN; independent integration review and general UI/release validation remain the project lead's responsibilities. No main merge or completed player release claimed.
 - Integration commits: 6bceb9e and fa560ed atop npc/f132-happiness. Details in harness/NPC_F133_HANDOFF.md.
 - Next task: finish this NPC handoff; further NPC work awaits user selection.
+
+## NPC-F134 — decisions for known park visits
+- Date: 2026-10-27 (America/Chicago).
+- Baseline: 34a36a32cdf9b8417c5b74c5fd6a184d7e28e449, off-duty NPC handoff. Isolated branch npc/f134-park-visits, /tmp/outbreak134-npc; sole writer dedicated NPC developer.
+- Scope/files: Core/ParkVisits.cs new explicit familiarity/forget APIs; HumanLeisure.cs park selection/stay/status; ShelfMemory.cs detached arrays; Hunger.cs cleanup; Contracts/Documents.cs optional NPC fields; minimal World.cs/Encounter.cs rule103 gate; ParkVisitChecks.cs and core project/entrypoint; NPC handoff and this log. No UI, city generation, artwork, settings, packages, tooling or release changes.
+- Acceptance: known reachable park visit, bounded paid travel and stationary stay, physical return, no hidden venue/crowd/stock knowledge, urgent priorities, exact saves, detached bounded knowledge, strict validation and old102 continuation. No flat happiness/energy bonus.
+- Build PASS zero warnings/errors. Focused park suite PASS ten cases / 967 assertions, /tmp/npc134-focus.log. Independent old102300-tick digest matches 2DA13FF9F743969B08F933389A6356325EB414733403F50320F8922218D09F20.
+- Full core command: DOTNET_CLI_HOME=/workspace/toolchains/dotnet-home /workspace/toolchains/dotnet/dotnet run --project OutbreakRebuild/Tests/FoundationChecks.csproj -- /tmp/outbreak134-npc-results at9fd55d1. Final result PASS, exit 0: 657 cases / 739984 assertions. Log /tmp/npc134-core.log; report /tmp/outbreak134-npc-results/FOUNDATION_CHECKS.txt.
+- Limits: park familiarity must come from the world layer's authored knowledge or actual observation; no generated parks or park presentation claimed. Current local outing budget remains12-cell radius/20initialsteps. NPCs use ordinary outdoor/company happiness influences, not a new facility bonus or mood-maximization decision.
+- Native Unity, UI/release checks, Windows player and Mono NOT RUN; independent integration review remains with project lead. Preserve RESTORE42 and Foundation82 native checkpoint.
+- Integration: NPC commit9fd55d1 plus this handoff/log, atop npc/f133-off-duty. World/UI owner supplies park locations and upgrades/previews; see harness/NPC_F134_HANDOFF.md.
+- Next authorized task: complete park NPC handoff; further NPC behavior awaits selection.
