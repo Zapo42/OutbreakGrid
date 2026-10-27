@@ -280,6 +280,17 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             SaveDocument saved=world.Capture();for(int i=0;i<3;i++){saved.actors[i].shelterId=i<2?81:90;saved.actors[i].shelterX=saved.actors[i].x;saved.actors[i].shelterY=saved.actors[i].y;saved.actors[i].shelterState=ShelterState.Inside;}saved.actors[0].hunger=80;saved.actors[1].hunger=50;saved.actors[2].hunger=10;saved.actors[2].carriedFood=1;
             saved.actors[3].hunger=10;saved.actors[3].carriedFood=1;saved.actors[3].homeShelterId=81;saved.actors[3].restockHomeId=81;saved.actors[3].restockBox=83;saved.actors[3].restockPhase=RestockPhase.Collecting;saved.actors[3].restockUntilTick=600;saved.actors[3].shelfMemory=new[]{new ShelfMemoryRecord{x=8,y=9,food=12,observedTick=0}};return World.Restore(saved);
         }
+        public static World HappinessPreferencesTest()
+        {
+            // Closed indoor rooms and a tiny outdoor courtyard keep the comparison conditions observable.
+            WorldMap map=new WorldMap(32,18,"Happiness preference comparisons","happiness-preferences-1");
+            for(int y=0;y<18;y++)for(int x=0;x<32;x++)if(x==0 || y==0 || x==31 || y==17)map.Set(x,y,Terrain.Wall);
+            AddShelterRoom(map,2,2,false);AddShelterRoom(map,12,2,false);
+            for(int y=3;y<=6;y++)for(int x=21;x<=24;x++)if(x==21 || x==24 || y==3 || y==6)map.Set(x,y,Terrain.Fence);
+            World world=new World(map,214,encounter:true,hunger:true);int id;
+            if(!world.TrySpawn(Species.Human,4,5,out id) || !world.TrySpawn(Species.Human,14,5,out id) || !world.TrySpawn(Species.Human,22,4,out id) || !world.TrySpawn(Species.Human,23,5,out id))throw new System.InvalidOperationException("Happiness comparison needs four residents.");
+            SaveDocument saved=world.Capture();for(int i=0;i<4;i++){ActorState actor=saved.actors[i];actor.charisma=(i==0 || i==2)?2:8;actor.hunger=0;actor.carriedFood=1;saved.actors[i]=actor;}return World.Restore(saved);
+        }
         public static World HumanLeisureTest()
         {
             // A stocked home and unrelated shop make the complete outing visible without urgent errands.
