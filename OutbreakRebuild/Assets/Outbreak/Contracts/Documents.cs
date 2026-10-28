@@ -43,6 +43,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     }
     [DataContract] public sealed class RestSpotDocument
     {
+        [DataMember(EmitDefaultValue=false)] public bool area; // Recovery-area cells are not bed furniture.
         [DataMember(IsRequired=true)] public int x,y;
     }
     [DataContract] public sealed class PhoneBlockDocument
@@ -70,6 +71,7 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
         [DataMember(EmitDefaultValue=false)] public RoadLaneDocument[] roadLanes;
         [DataMember(EmitDefaultValue=false)] public ParkingBayDocument[] parkingBays;
+        [DataMember(EmitDefaultValue=false)] public BuildingRoomsDocument[] buildingRooms; // Explicit multi-room membership; absent preserves old maps.
         [DataMember(EmitDefaultValue = false)] public ShelfDocument[] shelves; // Version-three maps own sparse searchable furniture.
         [DataMember(EmitDefaultValue = false)] public DoorConditionDocument[] doors; // Version-two maps retain damaged-door health; unchanged version-one maps omit this field.
         [DataMember(IsRequired = true)] public string authoringJson = ""; // Retain opaque future authoring data without interpreting or discarding it.

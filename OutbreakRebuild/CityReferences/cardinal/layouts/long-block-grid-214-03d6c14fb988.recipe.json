@@ -1,0 +1,45 @@
+{
+  "generator_version": "cardinal-city-2",
+  "settings": {
+    "columns": 4,
+    "rows": 4,
+    "block_width_cells": 37,
+    "block_height_cells": 16,
+    "block_variation": 0.12,
+    "loop_chance": 1.0,
+    "dead_end_chance": 0.0,
+    "road_width_cells": 2.0,
+    "arterial_width_cells": 4.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.0,
+    "building_coverage": 0.23,
+    "setback_cells": 3.0,
+    "park_fraction": 0.08,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 128,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": "manhattan",
+    "preset": "long-block-grid",
+    "seed": 214
+  },
+  "reference_profile_sha256": "7329bbcec95f16de8e853335f840dc2dece577192093cdc193c02c98df180421",
+  "recipe_id": "03d6c14fb988"
+}

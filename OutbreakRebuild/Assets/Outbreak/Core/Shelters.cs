@@ -11,8 +11,8 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
     { // Begin room discovery and authoritative door actions.
         private sealed class Room // Cache immutable room geometry independently of door open state.
         { // Begin one discovered floor component.
-            public int id; public int[] cells, doors; // Use a stable floor-derived identity and bounded member lists.
-            public bool Contains(int key) { return Array.BinarySearch(cells, key) >= 0; } // Query canonical sorted floor membership without allocating.
+            public int id; public int[] cells, doors; public int[] interiorDoors; // Use a stable floor-derived identity and bounded member lists.
+            public bool Contains(int key) { return Array.BinarySearch(cells, key) >= 0 || (interiorDoors!=null && Array.BinarySearch(interiorDoors,key)>=0); } // Query canonical sorted floor membership without allocating.
             public int Capacity { get { return Math.Max(1, cells.Length / ShelterRules.ComfortCells); } } // Treat comfort capacity as planning admission, not a global spawn restriction.
         } // Finish one room definition.
         public bool SheltersEnabled { get; private set; } // Preserve earlier save behavior until an explicit upgrade.
@@ -41,7 +41,7 @@ namespace Outbreak.Core // Own shelter and door actions on the authoritative sim
                 } // Finish connected floor inspection.
                 if (!enclosed || doors.Count == 0) continue; if (cells.Count > ShelterRules.MaxRoomCells || doors.Count > ShelterRules.MaxDoors || found.Count == (DistrictRoutesEnabled?ShelterRules.MaxRooms:ShelterRules.LegacyMaxRooms)) { ShelterScanLimited = true; continue; } cells.Sort(); int[] doorArray = new int[doors.Count]; doors.CopyTo(doorArray); Array.Sort(doorArray); found.Add(new Room { id = cells[0] + 1, cells = cells.ToArray(), doors = doorArray }); // Preserve deterministic membership and explicit bounded support.
             } // Finish floor components.
-            rooms = found.ToArray();foreach(Room room in rooms){roomsById.Add(room.id,room);foreach(int cell in room.cells)houseByCell.Add(cell,room.id);} // No live actor references are held by the catalog.
+            found=GroupBuildingRooms(found);rooms = found.ToArray();foreach(Room room in rooms){roomsById.Add(room.id,room);foreach(int cell in room.cells)houseByCell.Add(cell,room.id);if(room.interiorDoors!=null)foreach(int door in room.interiorDoors)houseByCell.Add(door,room.id);} // No live actor references are held by the catalog.
         } // Finish room recognition.
         private void ValidateShelters() // Reject malformed destinations before publishing a restored world.
         { // Begin persisted shelter validation.

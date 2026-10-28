@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "manhattan",
+    "name": "Manhattan — Upper East Side street sample",
+    "bbox": [
+      40.78573209999999,
+      -73.9769096,
+      40.792705399999996,
+      -73.9674683
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/nyc_graph.graphml",
+    "sha256": "d071cec23cfcd659b3571fbcc7ca21cf3500f0e4d3c30c6f4facc71517b280ae",
+    "processed_utc": "2026-10-26T00:15:57.763116+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {
+      "note": "Road-only published sample; buildings and district polygons are unavailable."
+    },
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 160,
+    "height": 155,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      40.78573209999999,
+      -73.9769096,
+      40.792705399999996,
+      -73.9674683
+    ],
+    "projected_origin_x": -398.4561815536647,
+    "projected_origin_y": 387.20274998189035,
+    "projection": "+proj=aeqd +lat_0=40.78921874999999 +lon_0=-73.97218895 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.617084,
+    "feature_counts": {
+      "road": 73
+    },
+    "street_length_km": 8.5813,
+    "street_density_km_per_km2": 13.9061,
+    "median_noded_street_segment_metres": 81.15,
+    "fourfold_orientation_alignment": 0.9985,
+    "curved_street_length_share": 0.0,
+    "interior_junctions": 35,
+    "interior_dead_ends": 1,
+    "interior_dead_end_share": 0.0278,
+    "building_coverage": null,
+    "closed_street_blocks": 26,
+    "median_closed_block_area_m2": 10433.1,
+    "median_closed_block_aspect_ratio": 3.36,
+    "generation_hint": {
+      "existing_street_layout": "Grid",
+      "observed_segment_cells": 16.23,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

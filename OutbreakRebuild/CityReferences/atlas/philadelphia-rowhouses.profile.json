@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "philadelphia-rowhouses",
+    "name": "Philadelphia — residential rowhouse sample",
+    "form": "compact residential blocks",
+    "bbox": [
+      39.926,
+      -75.165,
+      39.931,
+      -75.1585
+    ]
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "f433e24a21869e2392f7a68b756e04295ab1eb232fb2eb458eabf09b014eb6d2",
+    "processed_utc": "2026-10-27T05:04:15.929745+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:58:02Z"
+  },
+  "grid": {
+    "width": 112,
+    "height": 112,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      39.926,
+      -75.165,
+      39.931,
+      -75.1585
+    ],
+    "projected_origin_x": -277.82938643771286,
+    "projected_origin_y": 277.58826432228165,
+    "projection": "+proj=aeqd +lat_0=39.9285 +lon_0=-75.16175000000001 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.308472,
+    "feature_counts": {
+      "road": 71,
+      "building": 2120,
+      "water": 1,
+      "landuse": 3
+    },
+    "street_length_km": 9.1861,
+    "street_density_km_per_km2": 29.7793,
+    "median_noded_street_segment_metres": 47.34,
+    "fourfold_orientation_alignment": 0.8145,
+    "curved_street_length_share": 0.0387,
+    "interior_junctions": 66,
+    "interior_dead_ends": 7,
+    "interior_dead_end_share": 0.0959,
+    "building_coverage": 0.5012031876812773,
+    "closed_street_blocks": 30,
+    "median_closed_block_area_m2": 6401.18,
+    "median_closed_block_aspect_ratio": 2.8,
+    "generation_hint": {
+      "existing_street_layout": "Grid",
+      "observed_segment_cells": 9.47,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "seed": 214,
+  "reference_id": "west-oakland",
+  "reference": {
+    "id": "west-oakland",
+    "name": "West Oakland — published street/building sample",
+    "bbox": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/gboeing/osmnx/main/tests/input_data/West-Oakland.osm.bz2",
+    "sha256": "92efe9ed4f803961e1b552d0e769fc10703814efa827e9a6fb013004e00bbeae",
+    "processed_utc": "2026-10-26T00:15:56.738785+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 77,
+    "height": 67,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ],
+    "projected_origin_x": -190.65674063952352,
+    "projected_origin_y": 165.9365247306189,
+    "projection": "+proj=aeqd +lat_0=37.807645 +lon_0=-122.300415 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "buildings": [
+    {
+      "left": 20,
+      "top": 39,
+      "width": 4,
+      "height": 4,
+      "door": [
+        22,
+        39
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          22,
+          36
+        ],
+        [
+          22,
+          37
+        ],
+        [
+          22,
+          38
+        ]
+      ]
+    },
+    {
+      "left": 26,
+      "top": 17,
+      "width": 4,
+      "height": 4,
+      "door": [
+        28,
+        17
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          28,
+          13
+        ],
+        [
+          28,
+          14
+        ],
+        [
+          28,
+          15
+        ],
+        [
+          28,
+          16
+        ]
+      ]
+    },
+    {
+      "left": 47,
+      "top": 49,
+      "width": 4,
+      "height": 4,
+      "door": [
+        49,
+        52
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          49,
+          59
+        ],
+        [
+          49,
+          58
+        ],
+        [
+          49,
+          57
+        ],
+        [
+          49,
+          56
+        ],
+        [
+          49,
+          55
+        ],
+        [
+          49,
+          54
+        ],
+        [
+          49,
+          53
+        ]
+      ]
+    },
+    {
+      "left": 45,
+      "top": 43,
+      "width": 4,
+      "height": 4,
+      "door": [
+        47,
+        43
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          47,
+          35
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          47,
+          37
+        ],
+        [
+          47,
+          38
+        ],
+        [
+          47,
+          39
+        ],
+        [
+          47,
+          40
+        ],
+        [
+          47,
+          41
+        ],
+        [
+          47,
+          42
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 6,
+  "target_coverage": 0.09620115922714494,
+  "footprint_recipe_source": "surveyed footprints, adapted to 4–12 game cells per side",
+  "scope": "Surveyed street backbone; fictional seeded buildings and doors. No population, assigned roles, supplies or vehicle lanes."
+}

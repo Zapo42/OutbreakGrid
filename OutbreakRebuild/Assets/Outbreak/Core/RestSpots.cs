@@ -6,22 +6,24 @@ namespace Outbreak.Core
     public sealed partial class WorldMap
     {
         private readonly HashSet<int> restSpots=new HashSet<int>();
+        private readonly HashSet<int> areaRestSpots=new HashSet<int>();
+        internal bool HasAreaRestSpots { get { return areaRestSpots.Count>0; } }
         public bool HasRestSpots { get { return restSpots.Count>0; } }
         public bool RestSpotAt(int x,int y){return Contains(x,y) && restSpots.Contains(y*Width+x);}
-        public void SetRestSpot(int x,int y)
+        public void SetRestSpot(int x,int y,bool area=false)
         {
-            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || (restSpots.Count>=4096 && !RestSpotAt(x,y)))throw new ArgumentException("Rest spots need free floor cells.");restSpots.Add(y*Width+x);
+            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || (restSpots.Count>=4096 && !RestSpotAt(x,y)))throw new ArgumentException("Rest spots need free floor cells.");restSpots.Add(y*Width+x);if(area)areaRestSpots.Add(y*Width+x);else areaRestSpots.Remove(y*Width+x);
         }
         internal RestSpotDocument[] CaptureRestSpots()
         {
-            if(restSpots.Count==0)return null;List<int> keys=new List<int>(restSpots);keys.Sort();RestSpotDocument[] result=new RestSpotDocument[keys.Count];for(int i=0;i<keys.Count;i++)result[i]=new RestSpotDocument{x=keys[i]%Width,y=keys[i]/Width};return result;
+            if(restSpots.Count==0)return null;List<int> keys=new List<int>(restSpots);keys.Sort();RestSpotDocument[] result=new RestSpotDocument[keys.Count];for(int i=0;i<keys.Count;i++)result[i]=new RestSpotDocument{x=keys[i]%Width,y=keys[i]/Width,area=areaRestSpots.Contains(keys[i])};return result;
         }
         private void RestoreRestSpots(MapDocument source)
         {
             if(source.restSpots==null)return;if(source.schemaVersion<7 || source.restSpots.Length>4096)throw new ArgumentException("Unsupported rest spots.");
-            foreach(RestSpotDocument spot in source.restSpots){if(spot==null || RestSpotAt(spot.x,spot.y))throw new ArgumentException("Invalid or duplicate rest spot.");SetRestSpot(spot.x,spot.y);}
+            foreach(RestSpotDocument spot in source.restSpots){if(spot==null || (spot.area && source.schemaVersion<14) || RestSpotAt(spot.x,spot.y))throw new ArgumentException("Invalid or duplicate rest spot.");SetRestSpot(spot.x,spot.y,spot.area);}
         }
-        internal bool RemoveRestSpot(int x,int y){return Contains(x,y) && restSpots.Remove(y*Width+x);}
+        internal bool RemoveRestSpot(int x,int y){if(!Contains(x,y))return false;areaRestSpots.Remove(y*Width+x);return restSpots.Remove(y*Width+x);}
     }
     public sealed partial class World
     {

@@ -1,0 +1,666 @@
+{
+  "schema_version": 2,
+  "generator_version": "cardinal-city-2",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "prague-bubenec",
+  "reference": {
+    "id": "prague-bubenec",
+    "name": "Prague — Bubeneč residential quarter sample",
+    "bbox": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/bubenec.gpkg",
+    "sha256": "fab4f3047ce5a63dec99943a09e3c8dba1f18d9a4e3b7b21ea377e28a67a55a4",
+    "processed_utc": "2026-10-26T00:15:59.666548+00:00",
+    "attribution": "Momepy sample data; © 2018–2021 Martin Fleischmann and PySAL Developers, BSD-3-Clause. Upstream geometry lineage unspecified; not claimed as OSM.",
+    "skipped": {
+      "note": "Published morphology sample. Upstream street/building lineage is not specified; no OSM district claims."
+    },
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 121,
+    "height": 131,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ],
+    "projected_origin_x": -291.9825544163759,
+    "projected_origin_y": 317.9898120674864,
+    "projection": "+proj=aeqd +lat_0=50.10293575000001 +lon_0=14.403062600000004 +datum=WGS84 +units=m +type=crs",
+    "north_up": false,
+    "reference_grid": {
+      "width": 117,
+      "height": 128,
+      "cell_metres": 5,
+      "survey_bbox_south_west_north_east": [
+        50.10007700000001,
+        14.398981599999999,
+        50.1057945,
+        14.407143600000008
+      ],
+      "projected_origin_x": -291.9825544163759,
+      "projected_origin_y": 317.9898120674864,
+      "projection": "+proj=aeqd +lat_0=50.10293575000001 +lon_0=14.403062600000004 +datum=WGS84 +units=m +type=crs",
+      "north_up": true
+    },
+    "rotation_degrees": -3.654889742579398,
+    "alignment_translation_metres": [
+      -19.028592874045685,
+      38.55425080517145
+    ],
+    "orientation": "Dominant surveyed street axes aligned to game east/west and north/south; geographic north is rotated."
+  },
+  "buildings": [
+    {
+      "left": 86,
+      "top": 32,
+      "width": 5,
+      "height": 5,
+      "door": [
+        88,
+        32
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          88,
+          28
+        ],
+        [
+          88,
+          29
+        ],
+        [
+          88,
+          30
+        ],
+        [
+          88,
+          31
+        ]
+      ]
+    },
+    {
+      "left": 77,
+      "top": 45,
+      "width": 5,
+      "height": 4,
+      "door": [
+        77,
+        47
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          74,
+          45
+        ],
+        [
+          75,
+          45
+        ],
+        [
+          76,
+          45
+        ],
+        [
+          76,
+          46
+        ],
+        [
+          76,
+          47
+        ]
+      ]
+    },
+    {
+      "left": 80,
+      "top": 40,
+      "width": 4,
+      "height": 4,
+      "door": [
+        80,
+        42
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          77,
+          41
+        ],
+        [
+          78,
+          41
+        ],
+        [
+          79,
+          41
+        ],
+        [
+          79,
+          42
+        ]
+      ]
+    },
+    {
+      "left": 57,
+      "top": 62,
+      "width": 4,
+      "height": 4,
+      "door": [
+        60,
+        64
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          63,
+          64
+        ],
+        [
+          62,
+          64
+        ],
+        [
+          61,
+          64
+        ]
+      ]
+    },
+    {
+      "left": 52,
+      "top": 70,
+      "width": 4,
+      "height": 4,
+      "door": [
+        54,
+        73
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          54,
+          76
+        ],
+        [
+          54,
+          75
+        ],
+        [
+          54,
+          74
+        ]
+      ]
+    },
+    {
+      "left": 52,
+      "top": 85,
+      "width": 4,
+      "height": 4,
+      "door": [
+        55,
+        87
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          59,
+          87
+        ],
+        [
+          58,
+          87
+        ],
+        [
+          57,
+          87
+        ],
+        [
+          56,
+          87
+        ]
+      ]
+    },
+    {
+      "left": 42,
+      "top": 93,
+      "width": 4,
+      "height": 4,
+      "door": [
+        44,
+        96
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          44,
+          100
+        ],
+        [
+          44,
+          99
+        ],
+        [
+          44,
+          98
+        ],
+        [
+          44,
+          97
+        ]
+      ]
+    },
+    {
+      "left": 53,
+      "top": 80,
+      "width": 4,
+      "height": 4,
+      "door": [
+        55,
+        80
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          55,
+          78
+        ],
+        [
+          55,
+          79
+        ]
+      ]
+    },
+    {
+      "left": 81,
+      "top": 63,
+      "width": 4,
+      "height": 4,
+      "door": [
+        84,
+        65
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          89,
+          65
+        ],
+        [
+          88,
+          65
+        ],
+        [
+          87,
+          65
+        ],
+        [
+          86,
+          65
+        ],
+        [
+          85,
+          65
+        ]
+      ]
+    },
+    {
+      "left": 76,
+      "top": 71,
+      "width": 7,
+      "height": 6,
+      "door": [
+        79,
+        76
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          79,
+          80
+        ],
+        [
+          79,
+          79
+        ],
+        [
+          79,
+          78
+        ],
+        [
+          79,
+          77
+        ]
+      ]
+    },
+    {
+      "left": 68,
+      "top": 64,
+      "width": 4,
+      "height": 4,
+      "door": [
+        68,
+        66
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          65,
+          66
+        ],
+        [
+          66,
+          66
+        ],
+        [
+          67,
+          66
+        ]
+      ]
+    },
+    {
+      "left": 73,
+      "top": 59,
+      "width": 5,
+      "height": 5,
+      "door": [
+        75,
+        59
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          75,
+          55
+        ],
+        [
+          75,
+          56
+        ],
+        [
+          75,
+          57
+        ],
+        [
+          75,
+          58
+        ]
+      ]
+    },
+    {
+      "left": 29,
+      "top": 82,
+      "width": 4,
+      "height": 5,
+      "door": [
+        31,
+        86
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          31,
+          90
+        ],
+        [
+          31,
+          89
+        ],
+        [
+          31,
+          88
+        ],
+        [
+          31,
+          87
+        ]
+      ]
+    },
+    {
+      "left": 37,
+      "top": 78,
+      "width": 4,
+      "height": 4,
+      "door": [
+        39,
+        81
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          42,
+          82
+        ],
+        [
+          41,
+          82
+        ],
+        [
+          40,
+          82
+        ],
+        [
+          39,
+          82
+        ]
+      ]
+    },
+    {
+      "left": 34,
+      "top": 73,
+      "width": 4,
+      "height": 4,
+      "door": [
+        36,
+        73
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          36,
+          67
+        ],
+        [
+          36,
+          68
+        ],
+        [
+          36,
+          69
+        ],
+        [
+          36,
+          70
+        ],
+        [
+          36,
+          71
+        ],
+        [
+          36,
+          72
+        ]
+      ]
+    },
+    {
+      "left": 73,
+      "top": 97,
+      "width": 7,
+      "height": 6,
+      "door": [
+        76,
+        102
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          76,
+          106
+        ],
+        [
+          76,
+          105
+        ],
+        [
+          76,
+          104
+        ],
+        [
+          76,
+          103
+        ]
+      ]
+    },
+    {
+      "left": 68,
+      "top": 89,
+      "width": 4,
+      "height": 4,
+      "door": [
+        70,
+        89
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          70,
+          81
+        ],
+        [
+          70,
+          82
+        ],
+        [
+          70,
+          83
+        ],
+        [
+          70,
+          84
+        ],
+        [
+          70,
+          85
+        ],
+        [
+          70,
+          86
+        ],
+        [
+          70,
+          87
+        ],
+        [
+          70,
+          88
+        ]
+      ]
+    },
+    {
+      "left": 77,
+      "top": 92,
+      "width": 4,
+      "height": 4,
+      "door": [
+        80,
+        94
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          84,
+          94
+        ],
+        [
+          83,
+          94
+        ],
+        [
+          82,
+          94
+        ],
+        [
+          81,
+          94
+        ]
+      ]
+    },
+    {
+      "left": 67,
+      "top": 94,
+      "width": 4,
+      "height": 4,
+      "door": [
+        67,
+        96
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          60,
+          96
+        ],
+        [
+          61,
+          96
+        ],
+        [
+          62,
+          96
+        ],
+        [
+          63,
+          96
+        ],
+        [
+          64,
+          96
+        ],
+        [
+          65,
+          96
+        ],
+        [
+          66,
+          96
+        ]
+      ]
+    },
+    {
+      "left": 96,
+      "top": 49,
+      "width": 4,
+      "height": 4,
+      "door": [
+        96,
+        51
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          94,
+          51
+        ],
+        [
+          95,
+          51
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 7,
+  "target_coverage": 0.11628672938234258,
+  "setback_cells": 2,
+  "footprint_recipe_source": "surveyed footprints, adapted to 4–12 game cells per side",
+  "scope": "Surveyed street backbone; fictional seeded buildings and doors. No population, assigned roles, supplies or vehicle lanes."
+}

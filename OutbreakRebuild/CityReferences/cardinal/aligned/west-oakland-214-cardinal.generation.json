@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "generator_version": "cardinal-city-2",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "west-oakland",
+  "reference": {
+    "id": "west-oakland",
+    "name": "West Oakland — published street/building sample",
+    "bbox": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/gboeing/osmnx/main/tests/input_data/West-Oakland.osm.bz2",
+    "sha256": "92efe9ed4f803961e1b552d0e769fc10703814efa827e9a6fb013004e00bbeae",
+    "processed_utc": "2026-10-26T00:15:56.738785+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 93,
+    "height": 92,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ],
+    "projected_origin_x": -190.65674063952352,
+    "projected_origin_y": 165.9365247306189,
+    "projection": "+proj=aeqd +lat_0=37.807645 +lon_0=-122.300415 +datum=WGS84 +units=m +type=crs",
+    "north_up": false,
+    "reference_grid": {
+      "width": 77,
+      "height": 67,
+      "cell_metres": 5,
+      "survey_bbox_south_west_north_east": [
+        37.80615,
+        -122.30258,
+        37.80914,
+        -122.29825
+      ],
+      "projected_origin_x": -190.65674063952352,
+      "projected_origin_y": 165.9365247306189,
+      "projection": "+proj=aeqd +lat_0=37.807645 +lon_0=-122.300415 +datum=WGS84 +units=m +type=crs",
+      "north_up": true
+    },
+    "rotation_degrees": -20.822174923623862,
+    "alignment_translation_metres": [
+      1.9192782246395557,
+      140.54228905923517
+    ],
+    "orientation": "Dominant surveyed street axes aligned to game east/west and north/south; geographic north is rotated."
+  },
+  "buildings": [
+    {
+      "left": 27,
+      "top": 62,
+      "width": 4,
+      "height": 4,
+      "door": [
+        29,
+        65
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          29,
+          68
+        ],
+        [
+          29,
+          67
+        ],
+        [
+          29,
+          66
+        ]
+      ]
+    },
+    {
+      "left": 39,
+      "top": 34,
+      "width": 4,
+      "height": 4,
+      "door": [
+        41,
+        34
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          41,
+          32
+        ],
+        [
+          41,
+          33
+        ]
+      ]
+    },
+    {
+      "left": 63,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        65,
+        49
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          65,
+          44
+        ],
+        [
+          65,
+          45
+        ],
+        [
+          65,
+          46
+        ],
+        [
+          65,
+          47
+        ],
+        [
+          65,
+          48
+        ]
+      ]
+    },
+    {
+      "left": 49,
+      "top": 48,
+      "width": 5,
+      "height": 4,
+      "door": [
+        49,
+        50
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          47,
+          50
+        ],
+        [
+          48,
+          50
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 6,
+  "target_coverage": 0.09620115922714494,
+  "setback_cells": 2,
+  "footprint_recipe_source": "surveyed footprints, adapted to 4–12 game cells per side",
+  "scope": "Surveyed street backbone; fictional seeded buildings and doors. No population, assigned roles, supplies or vehicle lanes."
+}

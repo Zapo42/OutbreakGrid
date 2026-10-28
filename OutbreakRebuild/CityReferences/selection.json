@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "description": "Curated neighborhood survey windows of varying sizes, not official district boundaries. Coordinates are south, west, north, east in WGS84. All atlas maps use a shared 5-metres-per-cell scale; profiles report each actual area.",
+  "samples": [
+    {
+      "id": "chicago-lincoln-park",
+      "name": "Chicago — Lincoln Park",
+      "form": "regular city grid",
+      "bbox": [
+        41.9146,
+        -87.6562,
+        41.9254,
+        -87.6416
+      ]
+    },
+    {
+      "id": "boston-back-bay",
+      "name": "Boston — Back Bay / South End",
+      "form": "joined grids and diagonal streets",
+      "bbox": [
+        42.3446,
+        -71.0883,
+        42.3554,
+        -71.0737
+      ]
+    },
+    {
+      "id": "philadelphia-south",
+      "name": "Philadelphia — South Philadelphia",
+      "form": "compact grid and small blocks",
+      "bbox": [
+        39.9246,
+        -75.167,
+        39.9354,
+        -75.153
+      ]
+    },
+    {
+      "id": "irvine-woodbridge",
+      "name": "Irvine — Woodbridge",
+      "form": "curving planned suburb and green space",
+      "bbox": [
+        33.6746,
+        -117.8035,
+        33.6854,
+        -117.7905
+      ]
+    },
+    {
+      "id": "naperville-residential",
+      "name": "Naperville — residential area east of downtown",
+      "form": "suburban streets and collectors",
+      "bbox": [
+        41.7646,
+        -88.1452,
+        41.7754,
+        -88.1308
+      ]
+    },
+    {
+      "id": "milton-keynes",
+      "name": "Milton Keynes — Great Linford",
+      "form": "suburban local streets within arterial grid",
+      "bbox": [
+        52.0656,
+        -0.7568,
+        52.0764,
+        -0.7392
+      ]
+    },
+    {
+      "id": "midtown-manhattan",
+      "name": "Manhattan — Midtown dense urban sample",
+      "form": "dense urban and business blocks",
+      "bbox": [
+        40.7475,
+        -73.9885,
+        40.752,
+        -73.9825
+      ]
+    },
+    {
+      "id": "chicago-loop",
+      "name": "Chicago — Loop business district sample",
+      "form": "office and business core",
+      "bbox": [
+        41.879,
+        -87.631,
+        41.884,
+        -87.624
+      ]
+    },
+    {
+      "id": "philadelphia-rowhouses",
+      "name": "Philadelphia — residential rowhouse sample",
+      "form": "compact residential blocks",
+      "bbox": [
+        39.926,
+        -75.165,
+        39.931,
+        -75.1585
+      ]
+    },
+    {
+      "id": "woodbridge-suburb",
+      "name": "Irvine — Woodbridge suburban sample",
+      "form": "planned suburban loops and open space",
+      "bbox": [
+        33.678,
+        -117.803,
+        33.684,
+        -117.795
+      ]
+    },
+    {
+      "id": "naperville-suburb",
+      "name": "Naperville — suburban residential sample",
+      "form": "detached residential streets",
+      "bbox": [
+        41.767,
+        -88.146,
+        41.773,
+        -88.138
+      ]
+    },
+    {
+      "id": "vinohrady-residential",
+      "name": "Prague — Vinohrady residential sample",
+      "form": "urban residential perimeter blocks",
+      "bbox": [
+        50.075,
+        14.436,
+        50.079,
+        14.441
+      ]
+    }
+  ]
+}

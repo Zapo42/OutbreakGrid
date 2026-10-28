@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "seed": 214,
+  "reference_id": "prague-bubenec",
+  "reference": {
+    "id": "prague-bubenec",
+    "name": "Prague — Bubeneč residential quarter sample",
+    "bbox": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/bubenec.gpkg",
+    "sha256": "fab4f3047ce5a63dec99943a09e3c8dba1f18d9a4e3b7b21ea377e28a67a55a4",
+    "processed_utc": "2026-10-26T00:15:59.666548+00:00",
+    "attribution": "Momepy sample data; © 2018–2021 Martin Fleischmann and PySAL Developers, BSD-3-Clause. Upstream geometry lineage unspecified; not claimed as OSM.",
+    "skipped": {
+      "note": "Published morphology sample. Upstream street/building lineage is not specified; no OSM district claims."
+    },
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 117,
+    "height": 128,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ],
+    "projected_origin_x": -291.9825544163759,
+    "projected_origin_y": 317.9898120674864,
+    "projection": "+proj=aeqd +lat_0=50.10293575000001 +lon_0=14.403062600000004 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "buildings": [
+    {
+      "left": 85,
+      "top": 37,
+      "width": 4,
+      "height": 4,
+      "door": [
+        85,
+        39
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          78,
+          39
+        ],
+        [
+          79,
+          39
+        ],
+        [
+          80,
+          39
+        ],
+        [
+          81,
+          39
+        ],
+        [
+          82,
+          39
+        ],
+        [
+          83,
+          39
+        ],
+        [
+          84,
+          39
+        ]
+      ]
+    },
+    {
+      "left": 79,
+      "top": 41,
+      "width": 4,
+      "height": 4,
+      "door": [
+        81,
+        41
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          81,
+          39
+        ],
+        [
+          81,
+          40
+        ]
+      ]
+    },
+    {
+      "left": 85,
+      "top": 48,
+      "width": 4,
+      "height": 4,
+      "door": [
+        87,
+        51
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          87,
+          53
+        ],
+        [
+          87,
+          52
+        ]
+      ]
+    },
+    {
+      "left": 57,
+      "top": 57,
+      "width": 4,
+      "height": 4,
+      "door": [
+        59,
+        57
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          59,
+          53
+        ],
+        [
+          59,
+          54
+        ],
+        [
+          59,
+          55
+        ],
+        [
+          59,
+          56
+        ]
+      ]
+    },
+    {
+      "left": 50,
+      "top": 60,
+      "width": 5,
+      "height": 5,
+      "door": [
+        52,
+        60
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          52,
+          56
+        ],
+        [
+          52,
+          57
+        ],
+        [
+          52,
+          58
+        ],
+        [
+          52,
+          59
+        ]
+      ]
+    },
+    {
+      "left": 48,
+      "top": 82,
+      "width": 5,
+      "height": 5,
+      "door": [
+        52,
+        84
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          57,
+          84
+        ],
+        [
+          56,
+          84
+        ],
+        [
+          55,
+          84
+        ],
+        [
+          54,
+          84
+        ],
+        [
+          53,
+          84
+        ]
+      ]
+    },
+    {
+      "left": 50,
+      "top": 90,
+      "width": 4,
+      "height": 6,
+      "door": [
+        53,
+        93
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          55,
+          93
+        ],
+        [
+          54,
+          93
+        ]
+      ]
+    },
+    {
+      "left": 51,
+      "top": 76,
+      "width": 4,
+      "height": 4,
+      "door": [
+        53,
+        76
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          53,
+          74
+        ],
+        [
+          53,
+          75
+        ]
+      ]
+    },
+    {
+      "left": 75,
+      "top": 67,
+      "width": 4,
+      "height": 4,
+      "door": [
+        77,
+        70
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          77,
+          77
+        ],
+        [
+          77,
+          76
+        ],
+        [
+          77,
+          75
+        ],
+        [
+          77,
+          74
+        ],
+        [
+          77,
+          73
+        ],
+        [
+          77,
+          72
+        ],
+        [
+          77,
+          71
+        ]
+      ]
+    },
+    {
+      "left": 77,
+      "top": 59,
+      "width": 5,
+      "height": 4,
+      "door": [
+        79,
+        59
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          79,
+          53
+        ],
+        [
+          79,
+          54
+        ],
+        [
+          79,
+          55
+        ],
+        [
+          79,
+          56
+        ],
+        [
+          79,
+          57
+        ],
+        [
+          79,
+          58
+        ]
+      ]
+    },
+    {
+      "left": 83,
+      "top": 61,
+      "width": 4,
+      "height": 4,
+      "door": [
+        86,
+        63
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          89,
+          63
+        ],
+        [
+          88,
+          63
+        ],
+        [
+          87,
+          63
+        ]
+      ]
+    },
+    {
+      "left": 67,
+      "top": 63,
+      "width": 4,
+      "height": 4,
+      "door": [
+        67,
+        65
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          64,
+          65
+        ],
+        [
+          65,
+          65
+        ],
+        [
+          66,
+          65
+        ]
+      ]
+    },
+    {
+      "left": 36,
+      "top": 72,
+      "width": 4,
+      "height": 4,
+      "door": [
+        38,
+        75
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          42,
+          76
+        ],
+        [
+          41,
+          76
+        ],
+        [
+          40,
+          76
+        ],
+        [
+          39,
+          76
+        ],
+        [
+          38,
+          76
+        ]
+      ]
+    },
+    {
+      "left": 36,
+      "top": 67,
+      "width": 4,
+      "height": 4,
+      "door": [
+        38,
+        67
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          38,
+          61
+        ],
+        [
+          38,
+          62
+        ],
+        [
+          38,
+          63
+        ],
+        [
+          38,
+          64
+        ],
+        [
+          38,
+          65
+        ],
+        [
+          38,
+          66
+        ]
+      ]
+    },
+    {
+      "left": 30,
+      "top": 73,
+      "width": 5,
+      "height": 5,
+      "door": [
+        34,
+        75
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          38,
+          76
+        ],
+        [
+          37,
+          76
+        ],
+        [
+          36,
+          76
+        ],
+        [
+          35,
+          76
+        ],
+        [
+          35,
+          75
+        ]
+      ]
+    },
+    {
+      "left": 65,
+      "top": 88,
+      "width": 5,
+      "height": 5,
+      "door": [
+        65,
+        90
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          58,
+          90
+        ],
+        [
+          59,
+          90
+        ],
+        [
+          60,
+          90
+        ],
+        [
+          61,
+          90
+        ],
+        [
+          62,
+          90
+        ],
+        [
+          63,
+          90
+        ],
+        [
+          64,
+          90
+        ]
+      ]
+    },
+    {
+      "left": 74,
+      "top": 84,
+      "width": 4,
+      "height": 4,
+      "door": [
+        76,
+        84
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          76,
+          79
+        ],
+        [
+          76,
+          80
+        ],
+        [
+          76,
+          81
+        ],
+        [
+          76,
+          82
+        ],
+        [
+          76,
+          83
+        ]
+      ]
+    },
+    {
+      "left": 65,
+      "top": 96,
+      "width": 4,
+      "height": 4,
+      "door": [
+        67,
+        99
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          67,
+          102
+        ],
+        [
+          67,
+          101
+        ],
+        [
+          67,
+          100
+        ]
+      ]
+    },
+    {
+      "left": 73,
+      "top": 93,
+      "width": 4,
+      "height": 4,
+      "door": [
+        76,
+        95
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          81,
+          95
+        ],
+        [
+          80,
+          95
+        ],
+        [
+          79,
+          95
+        ],
+        [
+          78,
+          95
+        ],
+        [
+          77,
+          95
+        ]
+      ]
+    },
+    {
+      "left": 98,
+      "top": 46,
+      "width": 4,
+      "height": 4,
+      "door": [
+        98,
+        48
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          95,
+          48
+        ],
+        [
+          96,
+          48
+        ],
+        [
+          97,
+          48
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 7,
+  "target_coverage": 0.11628672938234258,
+  "footprint_recipe_source": "surveyed footprints, adapted to 4–12 game cells per side",
+  "scope": "Surveyed street backbone; fictional seeded buildings and doors. No population, assigned roles, supplies or vehicle lanes."
+}

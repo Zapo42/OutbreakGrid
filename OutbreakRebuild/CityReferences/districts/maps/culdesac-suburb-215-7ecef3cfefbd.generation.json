@@ -1,0 +1,1175 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 215,
+  "reference_id": "culdesac-suburb",
+  "reference": {
+    "id": "culdesac-suburb",
+    "name": "Cul-de-sac suburb",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "e70dc7b1b72ff229f3e71c075c968ccaadfe2c797226f7697724b7f07661552a",
+    "processed_utc": "2026-10-27T05:04:19.974708+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:59:02Z",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 110,
+    "height": 97,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 9,
+      "top": 59,
+      "width": 6,
+      "height": 6,
+      "door": [
+        9,
+        62
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          62
+        ],
+        [
+          8,
+          62
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-1",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 89,
+      "top": 9,
+      "width": 7,
+      "height": 6,
+      "door": [
+        92,
+        9
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          92,
+          7
+        ],
+        [
+          92,
+          8
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-2",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 93,
+      "top": 81,
+      "width": 5,
+      "height": 6,
+      "door": [
+        95,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          95,
+          88
+        ],
+        [
+          95,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-3",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 17,
+      "top": 37,
+      "width": 5,
+      "height": 6,
+      "door": [
+        19,
+        37
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          19,
+          32
+        ],
+        [
+          19,
+          33
+        ],
+        [
+          19,
+          34
+        ],
+        [
+          19,
+          35
+        ],
+        [
+          19,
+          36
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-4",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 9,
+      "top": 35,
+      "width": 6,
+      "height": 5,
+      "door": [
+        9,
+        37
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          37
+        ],
+        [
+          8,
+          37
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-5",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 94,
+      "top": 58,
+      "width": 6,
+      "height": 5,
+      "door": [
+        99,
+        60
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          101,
+          60
+        ],
+        [
+          100,
+          60
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-6",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 35,
+      "top": 82,
+      "width": 6,
+      "height": 5,
+      "door": [
+        38,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          38,
+          88
+        ],
+        [
+          38,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-7",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 9,
+      "top": 10,
+      "width": 6,
+      "height": 5,
+      "door": [
+        9,
+        12
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          12
+        ],
+        [
+          8,
+          12
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-8",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 31,
+      "top": 9,
+      "width": 6,
+      "height": 7,
+      "door": [
+        34,
+        9
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          34,
+          7
+        ],
+        [
+          34,
+          8
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-9",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 82,
+      "top": 81,
+      "width": 5,
+      "height": 6,
+      "door": [
+        84,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          84,
+          88
+        ],
+        [
+          84,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-10",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 52,
+      "top": 34,
+      "width": 6,
+      "height": 5,
+      "door": [
+        55,
+        34
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          55,
+          32
+        ],
+        [
+          55,
+          33
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-11",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 94,
+      "top": 72,
+      "width": 6,
+      "height": 6,
+      "door": [
+        99,
+        75
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          101,
+          75
+        ],
+        [
+          100,
+          75
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-12",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 17,
+      "top": 80,
+      "width": 6,
+      "height": 7,
+      "door": [
+        20,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          20,
+          88
+        ],
+        [
+          20,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-13",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 31,
+      "top": 70,
+      "width": 6,
+      "height": 6,
+      "door": [
+        34,
+        70
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          34,
+          63
+        ],
+        [
+          34,
+          64
+        ],
+        [
+          34,
+          65
+        ],
+        [
+          34,
+          66
+        ],
+        [
+          34,
+          67
+        ],
+        [
+          34,
+          68
+        ],
+        [
+          34,
+          69
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-14",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 9,
+      "top": 43,
+      "width": 6,
+      "height": 7,
+      "door": [
+        9,
+        46
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          46
+        ],
+        [
+          8,
+          46
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-15",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 27,
+      "top": 81,
+      "width": 6,
+      "height": 6,
+      "door": [
+        30,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          30,
+          88
+        ],
+        [
+          30,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-16",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 38,
+      "top": 29,
+      "width": 6,
+      "height": 7,
+      "door": [
+        43,
+        32
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          45,
+          32
+        ],
+        [
+          44,
+          32
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-17",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 94,
+      "top": 21,
+      "width": 6,
+      "height": 7,
+      "door": [
+        97,
+        27
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          97,
+          29
+        ],
+        [
+          97,
+          28
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-18",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 91,
+      "top": 37,
+      "width": 7,
+      "height": 6,
+      "door": [
+        97,
+        40
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          101,
+          40
+        ],
+        [
+          100,
+          40
+        ],
+        [
+          99,
+          40
+        ],
+        [
+          98,
+          40
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-19",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 61,
+      "top": 80,
+      "width": 6,
+      "height": 7,
+      "door": [
+        64,
+        86
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          64,
+          88
+        ],
+        [
+          64,
+          87
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-20",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 9,
+      "top": 74,
+      "width": 6,
+      "height": 7,
+      "door": [
+        9,
+        77
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          77
+        ],
+        [
+          8,
+          77
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-21",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 49,
+      "top": 9,
+      "width": 6,
+      "height": 7,
+      "door": [
+        49,
+        12
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          48,
+          12
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-22",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    },
+    {
+      "left": 60,
+      "top": 41,
+      "width": 6,
+      "height": 6,
+      "door": [
+        65,
+        44
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          70,
+          45
+        ],
+        [
+          70,
+          44
+        ],
+        [
+          69,
+          44
+        ],
+        [
+          68,
+          44
+        ],
+        [
+          67,
+          44
+        ],
+        [
+          66,
+          44
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-23",
+      "district_type": "culdesac-suburb",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1
+    },
+    {
+      "left": 61,
+      "top": 9,
+      "width": 6,
+      "height": 6,
+      "door": [
+        64,
+        9
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          64,
+          7
+        ],
+        [
+          64,
+          8
+        ]
+      ],
+      "parcel_id": "culdesac-suburb-24",
+      "district_type": "culdesac-suburb",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1
+    }
+  ],
+  "source_block_count": 1,
+  "target_coverage": 0.1,
+  "setback_cells": 4.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 2,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 1807557907,
+    "lots": 494402251,
+    "uses": 235199824
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "culdesac-suburb",
+    "seed": 215,
+    "name": "Cul-de-sac suburb",
+    "category": "suburban",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 36,
+      "block_height_cells": 32,
+      "block_variation": 0.3,
+      "loop_chance": 0.1,
+      "dead_end_chance": 0.85,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.1,
+      "setback_cells": 4.0,
+      "park_fraction": 0.12,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 96,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "suburban-dead-ends",
+      "seed": 215
+    },
+    "footprint_sizes": [
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        6,
+        7
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 2,
+    "uses": {
+      "detached-home": 98,
+      "retail": 2
+    },
+    "storeys": [
+      1,
+      2
+    ],
+    "reference_id": "naperville-suburb",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a"
+  },
+  "recipe_id": "7ecef3cfefbd",
+  "district_type": "culdesac-suburb",
+  "category": "suburban",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          235.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          25.0
+        ],
+        [
+          360.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          25.0
+        ],
+        [
+          520.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          132.31017963541672,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          155.0
+        ],
+        [
+          360.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          155.0
+        ],
+        [
+          463.4441005885601,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          310.0
+        ],
+        [
+          152.911487438716,
+          310.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          310.0
+        ],
+        [
+          418.3247904255986,
+          310.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          455.0
+        ],
+        [
+          235.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          455.0
+        ],
+        [
+          360.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          455.0
+        ],
+        [
+          520.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          25.0,
+          310.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          310.0
+        ],
+        [
+          25.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          25.0
+        ],
+        [
+          235.0,
+          70.63171019265428
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          155.0
+        ],
+        [
+          235.0,
+          219.3217189826537
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          235.0,
+          310.0
+        ],
+        [
+          235.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          25.0
+        ],
+        [
+          360.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          310.0
+        ],
+        [
+          360.0,
+          232.99789560679346
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          360.0,
+          310.0
+        ],
+        [
+          360.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          25.0
+        ],
+        [
+          520.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          155.0
+        ],
+        [
+          520.0,
+          310.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          310.0
+        ],
+        [
+          520.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.082099,
+  "use_counts": {
+    "detached-home": 23,
+    "retail": 1
+  }
+}

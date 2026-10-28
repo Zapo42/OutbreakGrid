@@ -1,0 +1,3377 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 215,
+  "reference_id": "dense-urban",
+  "reference": {
+    "id": "dense-urban",
+    "name": "Dense urban core",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "8f74465f9c345805006b899e2ad2834be5102b20aa30443545d6e019341aa485",
+    "processed_utc": "2026-10-27T05:04:13.162905+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:55:00Z",
+    "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 162,
+    "height": 85,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 46,
+      "top": 18,
+      "width": 8,
+      "height": 6,
+      "door": [
+        53,
+        21
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          54,
+          21
+        ]
+      ],
+      "parcel_id": "dense-urban-1",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 17,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        20,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          20,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-2",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 13
+    },
+    {
+      "left": 29,
+      "top": 18,
+      "width": 8,
+      "height": 6,
+      "door": [
+        33,
+        23
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          33,
+          29
+        ],
+        [
+          33,
+          28
+        ],
+        [
+          33,
+          27
+        ],
+        [
+          33,
+          26
+        ],
+        [
+          33,
+          25
+        ],
+        [
+          33,
+          24
+        ]
+      ],
+      "parcel_id": "dense-urban-3",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 12
+    },
+    {
+      "left": 48,
+      "top": 11,
+      "width": 6,
+      "height": 4,
+      "door": [
+        53,
+        13
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          54,
+          13
+        ]
+      ],
+      "parcel_id": "dense-urban-4",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 15
+    },
+    {
+      "left": 42,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        45,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          45,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-5",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 11
+    },
+    {
+      "left": 16,
+      "top": 9,
+      "width": 4,
+      "height": 6,
+      "door": [
+        18,
+        9
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          18,
+          7
+        ],
+        [
+          18,
+          8
+        ]
+      ],
+      "parcel_id": "dense-urban-6",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 23,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        25,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-7",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 41,
+      "top": 13,
+      "width": 4,
+      "height": 6,
+      "door": [
+        43,
+        13
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          43,
+          7
+        ],
+        [
+          43,
+          8
+        ],
+        [
+          43,
+          9
+        ],
+        [
+          43,
+          10
+        ],
+        [
+          43,
+          11
+        ],
+        [
+          43,
+          12
+        ]
+      ],
+      "parcel_id": "dense-urban-8",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 9
+    },
+    {
+      "left": 23,
+      "top": 14,
+      "width": 4,
+      "height": 6,
+      "door": [
+        25,
+        14
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          7
+        ],
+        [
+          25,
+          8
+        ],
+        [
+          25,
+          9
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          25,
+          11
+        ],
+        [
+          25,
+          12
+        ],
+        [
+          25,
+          13
+        ]
+      ],
+      "parcel_id": "dense-urban-9",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 10,
+      "top": 16,
+      "width": 10,
+      "height": 8,
+      "door": [
+        10,
+        20
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          20
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          20
+        ]
+      ],
+      "parcel_id": "dense-urban-10",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 29,
+      "top": 10,
+      "width": 8,
+      "height": 6,
+      "door": [
+        33,
+        10
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          33,
+          7
+        ],
+        [
+          33,
+          8
+        ],
+        [
+          33,
+          9
+        ]
+      ],
+      "parcel_id": "dense-urban-11",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12
+    },
+    {
+      "left": 40,
+      "top": 20,
+      "width": 6,
+      "height": 4,
+      "door": [
+        43,
+        23
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          41,
+          29
+        ],
+        [
+          41,
+          28
+        ],
+        [
+          41,
+          27
+        ],
+        [
+          41,
+          26
+        ],
+        [
+          41,
+          25
+        ],
+        [
+          41,
+          24
+        ],
+        [
+          42,
+          24
+        ],
+        [
+          43,
+          24
+        ]
+      ],
+      "parcel_id": "dense-urban-12",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8
+    },
+    {
+      "left": 10,
+      "top": 9,
+      "width": 4,
+      "height": 6,
+      "door": [
+        12,
+        9
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          12,
+          7
+        ],
+        [
+          12,
+          8
+        ]
+      ],
+      "parcel_id": "dense-urban-13",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 17,
+      "top": 33,
+      "width": 8,
+      "height": 6,
+      "door": [
+        21,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          21,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-14",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 5
+    },
+    {
+      "left": 44,
+      "top": 47,
+      "width": 10,
+      "height": 8,
+      "door": [
+        49,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          49,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-15",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 27,
+      "top": 33,
+      "width": 8,
+      "height": 10,
+      "door": [
+        31,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          31,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-16",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 15,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        17,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          17,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-17",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 48,
+      "top": 33,
+      "width": 6,
+      "height": 8,
+      "door": [
+        51,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          51,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-18",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15
+    },
+    {
+      "left": 11,
+      "top": 38,
+      "width": 6,
+      "height": 4,
+      "door": [
+        11,
+        40
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          40
+        ],
+        [
+          8,
+          40
+        ],
+        [
+          9,
+          40
+        ],
+        [
+          10,
+          40
+        ]
+      ],
+      "parcel_id": "dense-urban-19",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 24,
+      "top": 47,
+      "width": 6,
+      "height": 8,
+      "door": [
+        27,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          27,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-20",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 6
+    },
+    {
+      "left": 30,
+      "top": 44,
+      "width": 8,
+      "height": 10,
+      "door": [
+        34,
+        53
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          34,
+          55
+        ],
+        [
+          34,
+          54
+        ]
+      ],
+      "parcel_id": "dense-urban-21",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 15
+    },
+    {
+      "left": 37,
+      "top": 33,
+      "width": 4,
+      "height": 6,
+      "door": [
+        39,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          39,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-22",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 8
+    },
+    {
+      "left": 38,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        40,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          40,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-23",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12
+    },
+    {
+      "left": 46,
+      "top": 41,
+      "width": 8,
+      "height": 6,
+      "door": [
+        53,
+        44
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          54,
+          44
+        ]
+      ],
+      "parcel_id": "dense-urban-24",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12
+    },
+    {
+      "left": 41,
+      "top": 34,
+      "width": 4,
+      "height": 6,
+      "door": [
+        43,
+        34
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          43,
+          32
+        ],
+        [
+          43,
+          33
+        ]
+      ],
+      "parcel_id": "dense-urban-25",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 20,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        22,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          22,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-26",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 17,
+      "top": 59,
+      "width": 8,
+      "height": 10,
+      "door": [
+        21,
+        59
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          21,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-27",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 44,
+      "top": 63,
+      "width": 10,
+      "height": 8,
+      "door": [
+        53,
+        67
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          54,
+          67
+        ]
+      ],
+      "parcel_id": "dense-urban-28",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 26,
+      "top": 59,
+      "width": 10,
+      "height": 8,
+      "door": [
+        31,
+        59
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          31,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-29",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 10,
+      "top": 63,
+      "width": 6,
+      "height": 8,
+      "door": [
+        10,
+        67
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          7,
+          67
+        ],
+        [
+          8,
+          67
+        ],
+        [
+          9,
+          67
+        ]
+      ],
+      "parcel_id": "dense-urban-30",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 43,
+      "top": 71,
+      "width": 6,
+      "height": 4,
+      "door": [
+        46,
+        74
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          46,
+          76
+        ],
+        [
+          46,
+          75
+        ]
+      ],
+      "parcel_id": "dense-urban-31",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 40,
+      "top": 59,
+      "width": 6,
+      "height": 4,
+      "door": [
+        43,
+        59
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          43,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-32",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12
+    },
+    {
+      "left": 16,
+      "top": 69,
+      "width": 6,
+      "height": 4,
+      "door": [
+        19,
+        72
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          19,
+          76
+        ],
+        [
+          19,
+          75
+        ],
+        [
+          19,
+          74
+        ],
+        [
+          19,
+          73
+        ]
+      ],
+      "parcel_id": "dense-urban-33",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 47,
+      "top": 59,
+      "width": 6,
+      "height": 4,
+      "door": [
+        50,
+        59
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          50,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-34",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 13
+    },
+    {
+      "left": 29,
+      "top": 68,
+      "width": 4,
+      "height": 6,
+      "door": [
+        31,
+        73
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          31,
+          76
+        ],
+        [
+          31,
+          75
+        ],
+        [
+          31,
+          74
+        ]
+      ],
+      "parcel_id": "dense-urban-35",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 9,
+      "top": 59,
+      "width": 6,
+      "height": 4,
+      "door": [
+        12,
+        59
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          12,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-36",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 38,
+      "top": 65,
+      "width": 6,
+      "height": 4,
+      "door": [
+        41,
+        68
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          41,
+          76
+        ],
+        [
+          41,
+          75
+        ],
+        [
+          41,
+          74
+        ],
+        [
+          41,
+          73
+        ],
+        [
+          41,
+          72
+        ],
+        [
+          41,
+          71
+        ],
+        [
+          41,
+          70
+        ],
+        [
+          41,
+          69
+        ]
+      ],
+      "parcel_id": "dense-urban-37",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14
+    },
+    {
+      "left": 97,
+      "top": 16,
+      "width": 10,
+      "height": 8,
+      "door": [
+        106,
+        20
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          107,
+          20
+        ]
+      ],
+      "parcel_id": "dense-urban-38",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 66,
+      "top": 21,
+      "width": 6,
+      "height": 8,
+      "door": [
+        69,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          69,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-39",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 89,
+      "top": 10,
+      "width": 8,
+      "height": 10,
+      "door": [
+        93,
+        10
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          93,
+          7
+        ],
+        [
+          93,
+          8
+        ],
+        [
+          93,
+          9
+        ]
+      ],
+      "parcel_id": "dense-urban-40",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 5
+    },
+    {
+      "left": 58,
+      "top": 16,
+      "width": 8,
+      "height": 10,
+      "door": [
+        58,
+        21
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          57,
+          21
+        ]
+      ],
+      "parcel_id": "dense-urban-41",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 5
+    },
+    {
+      "left": 58,
+      "top": 10,
+      "width": 6,
+      "height": 4,
+      "door": [
+        58,
+        12
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          57,
+          12
+        ]
+      ],
+      "parcel_id": "dense-urban-42",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 76,
+      "top": 11,
+      "width": 6,
+      "height": 8,
+      "door": [
+        79,
+        11
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          79,
+          7
+        ],
+        [
+          79,
+          8
+        ],
+        [
+          79,
+          9
+        ],
+        [
+          79,
+          10
+        ]
+      ],
+      "parcel_id": "dense-urban-43",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 86,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        89,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          89,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-44",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 9
+    },
+    {
+      "left": 73,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        75,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          75,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-45",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 8
+    },
+    {
+      "left": 93,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        96,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          96,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-46",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14
+    },
+    {
+      "left": 80,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        83,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          83,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-47",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 4
+    },
+    {
+      "left": 101,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        104,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          104,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-48",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 103,
+      "top": 9,
+      "width": 4,
+      "height": 6,
+      "door": [
+        106,
+        12
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          107,
+          12
+        ]
+      ],
+      "parcel_id": "dense-urban-49",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 5
+    },
+    {
+      "left": 68,
+      "top": 13,
+      "width": 6,
+      "height": 8,
+      "door": [
+        71,
+        13
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          71,
+          7
+        ],
+        [
+          71,
+          8
+        ],
+        [
+          71,
+          9
+        ],
+        [
+          71,
+          10
+        ],
+        [
+          71,
+          11
+        ],
+        [
+          71,
+          12
+        ]
+      ],
+      "parcel_id": "dense-urban-50",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11
+    },
+    {
+      "left": 58,
+      "top": 35,
+      "width": 8,
+      "height": 6,
+      "door": [
+        58,
+        38
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          57,
+          38
+        ]
+      ],
+      "parcel_id": "dense-urban-51",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 98,
+      "top": 33,
+      "width": 8,
+      "height": 10,
+      "door": [
+        102,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          102,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-52",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 13
+    },
+    {
+      "left": 99,
+      "top": 49,
+      "width": 8,
+      "height": 6,
+      "door": [
+        103,
+        54
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          103,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-53",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 91,
+      "top": 45,
+      "width": 8,
+      "height": 10,
+      "door": [
+        95,
+        54
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          95,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-54",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 74,
+      "top": 34,
+      "width": 4,
+      "height": 6,
+      "door": [
+        76,
+        34
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          76,
+          32
+        ],
+        [
+          76,
+          33
+        ]
+      ],
+      "parcel_id": "dense-urban-55",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6
+    },
+    {
+      "left": 83,
+      "top": 47,
+      "width": 6,
+      "height": 8,
+      "door": [
+        86,
+        54
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          86,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-56",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 81,
+      "top": 33,
+      "width": 6,
+      "height": 8,
+      "door": [
+        84,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          84,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-57",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 6
+    },
+    {
+      "left": 58,
+      "top": 48,
+      "width": 6,
+      "height": 4,
+      "door": [
+        58,
+        50
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          57,
+          50
+        ]
+      ],
+      "parcel_id": "dense-urban-58",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 66,
+      "top": 33,
+      "width": 4,
+      "height": 6,
+      "door": [
+        68,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          68,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-59",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 12
+    },
+    {
+      "left": 76,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        78,
+        54
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          78,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-60",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 66,
+      "top": 45,
+      "width": 6,
+      "height": 4,
+      "door": [
+        69,
+        48
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          69,
+          55
+        ],
+        [
+          69,
+          54
+        ],
+        [
+          69,
+          53
+        ],
+        [
+          69,
+          52
+        ],
+        [
+          69,
+          51
+        ],
+        [
+          69,
+          50
+        ],
+        [
+          69,
+          49
+        ]
+      ],
+      "parcel_id": "dense-urban-61",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 58,
+      "top": 42,
+      "width": 8,
+      "height": 6,
+      "door": [
+        58,
+        45
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          57,
+          45
+        ]
+      ],
+      "parcel_id": "dense-urban-62",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 82,
+      "top": 41,
+      "width": 6,
+      "height": 4,
+      "door": [
+        87,
+        43
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          88,
+          32
+        ],
+        [
+          88,
+          33
+        ],
+        [
+          88,
+          34
+        ],
+        [
+          88,
+          35
+        ],
+        [
+          88,
+          36
+        ],
+        [
+          88,
+          37
+        ],
+        [
+          88,
+          38
+        ],
+        [
+          88,
+          39
+        ],
+        [
+          88,
+          40
+        ],
+        [
+          88,
+          41
+        ],
+        [
+          88,
+          42
+        ],
+        [
+          88,
+          43
+        ]
+      ],
+      "parcel_id": "dense-urban-63",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 4
+    },
+    {
+      "left": 58,
+      "top": 61,
+      "width": 6,
+      "height": 8,
+      "door": [
+        58,
+        65
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          57,
+          65
+        ]
+      ],
+      "parcel_id": "dense-urban-64",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 93,
+      "top": 59,
+      "width": 10,
+      "height": 8,
+      "door": [
+        98,
+        59
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          98,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-65",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11
+    },
+    {
+      "left": 99,
+      "top": 67,
+      "width": 8,
+      "height": 6,
+      "door": [
+        106,
+        70
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          107,
+          70
+        ]
+      ],
+      "parcel_id": "dense-urban-66",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 83,
+      "top": 61,
+      "width": 8,
+      "height": 6,
+      "door": [
+        87,
+        61
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          87,
+          58
+        ],
+        [
+          87,
+          59
+        ],
+        [
+          87,
+          60
+        ]
+      ],
+      "parcel_id": "dense-urban-67",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 16
+    },
+    {
+      "left": 73,
+      "top": 59,
+      "width": 4,
+      "height": 6,
+      "door": [
+        75,
+        59
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          75,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-68",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11
+    },
+    {
+      "left": 58,
+      "top": 70,
+      "width": 8,
+      "height": 6,
+      "door": [
+        62,
+        75
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          62,
+          76
+        ]
+      ],
+      "parcel_id": "dense-urban-69",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 66,
+      "top": 66,
+      "width": 6,
+      "height": 8,
+      "door": [
+        69,
+        73
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          69,
+          76
+        ],
+        [
+          69,
+          75
+        ],
+        [
+          69,
+          74
+        ]
+      ],
+      "parcel_id": "dense-urban-70",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 67,
+      "top": 59,
+      "width": 6,
+      "height": 4,
+      "door": [
+        70,
+        59
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          70,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-71",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11
+    },
+    {
+      "left": 77,
+      "top": 70,
+      "width": 4,
+      "height": 6,
+      "door": [
+        79,
+        75
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          79,
+          76
+        ]
+      ],
+      "parcel_id": "dense-urban-72",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 16
+    },
+    {
+      "left": 86,
+      "top": 69,
+      "width": 4,
+      "height": 6,
+      "door": [
+        88,
+        74
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          88,
+          76
+        ],
+        [
+          88,
+          75
+        ]
+      ],
+      "parcel_id": "dense-urban-73",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 103,
+      "top": 61,
+      "width": 4,
+      "height": 6,
+      "door": [
+        106,
+        64
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          107,
+          64
+        ]
+      ],
+      "parcel_id": "dense-urban-74",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 111,
+      "top": 22,
+      "width": 8,
+      "height": 6,
+      "door": [
+        111,
+        25
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          110,
+          25
+        ]
+      ],
+      "parcel_id": "dense-urban-75",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 7
+    },
+    {
+      "left": 142,
+      "top": 21,
+      "width": 10,
+      "height": 8,
+      "door": [
+        147,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          147,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-76",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12
+    },
+    {
+      "left": 127,
+      "top": 21,
+      "width": 6,
+      "height": 4,
+      "door": [
+        130,
+        24
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          130,
+          29
+        ],
+        [
+          130,
+          28
+        ],
+        [
+          130,
+          27
+        ],
+        [
+          130,
+          26
+        ],
+        [
+          130,
+          25
+        ]
+      ],
+      "parcel_id": "dense-urban-77",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12
+    },
+    {
+      "left": 113,
+      "top": 10,
+      "width": 6,
+      "height": 4,
+      "door": [
+        116,
+        10
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          116,
+          7
+        ],
+        [
+          116,
+          8
+        ],
+        [
+          116,
+          9
+        ]
+      ],
+      "parcel_id": "dense-urban-78",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 125,
+      "top": 10,
+      "width": 8,
+      "height": 10,
+      "door": [
+        129,
+        10
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          129,
+          7
+        ],
+        [
+          129,
+          8
+        ],
+        [
+          129,
+          9
+        ]
+      ],
+      "parcel_id": "dense-urban-79",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 6
+    },
+    {
+      "left": 111,
+      "top": 14,
+      "width": 8,
+      "height": 6,
+      "door": [
+        111,
+        17
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          110,
+          17
+        ]
+      ],
+      "parcel_id": "dense-urban-80",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15
+    },
+    {
+      "left": 119,
+      "top": 23,
+      "width": 8,
+      "height": 6,
+      "door": [
+        123,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          123,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-81",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14
+    },
+    {
+      "left": 134,
+      "top": 25,
+      "width": 6,
+      "height": 4,
+      "door": [
+        137,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          137,
+          29
+        ]
+      ],
+      "parcel_id": "dense-urban-82",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 15
+    },
+    {
+      "left": 146,
+      "top": 11,
+      "width": 6,
+      "height": 8,
+      "door": [
+        151,
+        15
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          153,
+          15
+        ],
+        [
+          152,
+          15
+        ]
+      ],
+      "parcel_id": "dense-urban-83",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 11
+    },
+    {
+      "left": 138,
+      "top": 17,
+      "width": 6,
+      "height": 4,
+      "door": [
+        141,
+        20
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          141,
+          29
+        ],
+        [
+          141,
+          28
+        ],
+        [
+          141,
+          27
+        ],
+        [
+          141,
+          26
+        ],
+        [
+          141,
+          25
+        ],
+        [
+          141,
+          24
+        ],
+        [
+          141,
+          23
+        ],
+        [
+          141,
+          22
+        ],
+        [
+          141,
+          21
+        ]
+      ],
+      "parcel_id": "dense-urban-84",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 15
+    },
+    {
+      "left": 142,
+      "top": 11,
+      "width": 4,
+      "height": 6,
+      "door": [
+        144,
+        11
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          144,
+          7
+        ],
+        [
+          144,
+          8
+        ],
+        [
+          144,
+          9
+        ],
+        [
+          144,
+          10
+        ]
+      ],
+      "parcel_id": "dense-urban-85",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 12
+    },
+    {
+      "left": 135,
+      "top": 10,
+      "width": 6,
+      "height": 4,
+      "door": [
+        138,
+        10
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          138,
+          7
+        ],
+        [
+          138,
+          8
+        ],
+        [
+          138,
+          9
+        ]
+      ],
+      "parcel_id": "dense-urban-86",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 4
+    },
+    {
+      "left": 111,
+      "top": 36,
+      "width": 6,
+      "height": 4,
+      "door": [
+        111,
+        38
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          110,
+          38
+        ]
+      ],
+      "parcel_id": "dense-urban-87",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 5
+    },
+    {
+      "left": 126,
+      "top": 51,
+      "width": 6,
+      "height": 4,
+      "door": [
+        129,
+        54
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          129,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-88",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 137,
+      "top": 39,
+      "width": 4,
+      "height": 6,
+      "door": [
+        139,
+        39
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          139,
+          32
+        ],
+        [
+          139,
+          33
+        ],
+        [
+          139,
+          34
+        ],
+        [
+          139,
+          35
+        ],
+        [
+          139,
+          36
+        ],
+        [
+          139,
+          37
+        ],
+        [
+          139,
+          38
+        ]
+      ],
+      "parcel_id": "dense-urban-89",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 6
+    },
+    {
+      "left": 111,
+      "top": 45,
+      "width": 6,
+      "height": 4,
+      "door": [
+        111,
+        47
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          110,
+          47
+        ]
+      ],
+      "parcel_id": "dense-urban-90",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 127,
+      "top": 33,
+      "width": 8,
+      "height": 10,
+      "door": [
+        131,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          131,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-91",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 15
+    },
+    {
+      "left": 142,
+      "top": 45,
+      "width": 8,
+      "height": 10,
+      "door": [
+        146,
+        54
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          146,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-92",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 13
+    },
+    {
+      "left": 130,
+      "top": 47,
+      "width": 6,
+      "height": 4,
+      "door": [
+        133,
+        50
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          133,
+          55
+        ],
+        [
+          133,
+          54
+        ],
+        [
+          133,
+          53
+        ],
+        [
+          133,
+          52
+        ],
+        [
+          133,
+          51
+        ]
+      ],
+      "parcel_id": "dense-urban-93",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 9
+    },
+    {
+      "left": 111,
+      "top": 49,
+      "width": 4,
+      "height": 6,
+      "door": [
+        113,
+        54
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          113,
+          55
+        ]
+      ],
+      "parcel_id": "dense-urban-94",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 7
+    },
+    {
+      "left": 121,
+      "top": 33,
+      "width": 4,
+      "height": 6,
+      "door": [
+        123,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          123,
+          32
+        ]
+      ],
+      "parcel_id": "dense-urban-95",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 10
+    },
+    {
+      "left": 142,
+      "top": 34,
+      "width": 8,
+      "height": 10,
+      "door": [
+        146,
+        34
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          146,
+          32
+        ],
+        [
+          146,
+          33
+        ]
+      ],
+      "parcel_id": "dense-urban-96",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 4
+    },
+    {
+      "left": 111,
+      "top": 40,
+      "width": 6,
+      "height": 4,
+      "door": [
+        111,
+        42
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          110,
+          42
+        ]
+      ],
+      "parcel_id": "dense-urban-97",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 120,
+      "top": 45,
+      "width": 8,
+      "height": 6,
+      "door": [
+        124,
+        50
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          124,
+          55
+        ],
+        [
+          124,
+          54
+        ],
+        [
+          124,
+          53
+        ],
+        [
+          124,
+          52
+        ],
+        [
+          124,
+          51
+        ]
+      ],
+      "parcel_id": "dense-urban-98",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 7
+    },
+    {
+      "left": 111,
+      "top": 65,
+      "width": 8,
+      "height": 10,
+      "door": [
+        111,
+        70
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          110,
+          70
+        ]
+      ],
+      "parcel_id": "dense-urban-99",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 10
+    },
+    {
+      "left": 130,
+      "top": 59,
+      "width": 10,
+      "height": 8,
+      "door": [
+        135,
+        59
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          135,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-100",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 10
+    },
+    {
+      "left": 137,
+      "top": 70,
+      "width": 8,
+      "height": 6,
+      "door": [
+        141,
+        75
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          141,
+          76
+        ]
+      ],
+      "parcel_id": "dense-urban-101",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 16
+    },
+    {
+      "left": 112,
+      "top": 59,
+      "width": 8,
+      "height": 6,
+      "door": [
+        116,
+        59
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          116,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-102",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 16
+    },
+    {
+      "left": 120,
+      "top": 59,
+      "width": 6,
+      "height": 8,
+      "door": [
+        123,
+        59
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          123,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-103",
+      "district_type": "dense-urban",
+      "use_hint": "office",
+      "game_building_use_hint": null,
+      "storeys_hint": 11
+    },
+    {
+      "left": 142,
+      "top": 59,
+      "width": 6,
+      "height": 8,
+      "door": [
+        145,
+        59
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          145,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-104",
+      "district_type": "dense-urban",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 10
+    },
+    {
+      "left": 148,
+      "top": 65,
+      "width": 4,
+      "height": 6,
+      "door": [
+        151,
+        68
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          153,
+          68
+        ],
+        [
+          152,
+          68
+        ]
+      ],
+      "parcel_id": "dense-urban-105",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 8
+    },
+    {
+      "left": 126,
+      "top": 60,
+      "width": 4,
+      "height": 6,
+      "door": [
+        128,
+        60
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          128,
+          58
+        ],
+        [
+          128,
+          59
+        ]
+      ],
+      "parcel_id": "dense-urban-106",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    },
+    {
+      "left": 125,
+      "top": 68,
+      "width": 6,
+      "height": 8,
+      "door": [
+        128,
+        75
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          128,
+          76
+        ]
+      ],
+      "parcel_id": "dense-urban-107",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 14
+    },
+    {
+      "left": 149,
+      "top": 59,
+      "width": 4,
+      "height": 6,
+      "door": [
+        151,
+        59
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          151,
+          58
+        ]
+      ],
+      "parcel_id": "dense-urban-108",
+      "district_type": "dense-urban",
+      "use_hint": "apartments",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 7
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.48,
+  "setback_cells": 2.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 1807557907,
+    "lots": 494402251,
+    "uses": 235199824
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "dense-urban",
+    "seed": 215,
+    "name": "Dense urban core",
+    "category": "urban",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 48,
+      "block_height_cells": 24,
+      "block_variation": 0.1,
+      "loop_chance": 1.0,
+      "dead_end_chance": 0.0,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.48,
+      "setback_cells": 2.0,
+      "park_fraction": 0.03,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 192,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 215
+    },
+    "footprint_sizes": [
+      [
+        4,
+        6
+      ],
+      [
+        6,
+        8
+      ],
+      [
+        8,
+        10
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 0,
+    "uses": {
+      "apartments": 60,
+      "retail": 20,
+      "office": 20
+    },
+    "storeys": [
+      4,
+      16
+    ],
+    "reference_id": "midtown-manhattan",
+    "reference_profile_sha256": "6d2d62bb211cd06bc2a17770f56b7f97518828a58da69e157d33d1b736236718"
+  },
+  "recipe_id": "011c8a0fbe47",
+  "district_type": "dense-urban",
+  "category": "urban",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          280.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          25.0
+        ],
+        [
+          545.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          25.0
+        ],
+        [
+          780.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          280.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          155.0
+        ],
+        [
+          545.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          155.0
+        ],
+        [
+          780.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          285.0
+        ],
+        [
+          280.0,
+          285.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          285.0
+        ],
+        [
+          545.0,
+          285.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          285.0
+        ],
+        [
+          780.0,
+          285.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          395.0
+        ],
+        [
+          280.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          395.0
+        ],
+        [
+          545.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          395.0
+        ],
+        [
+          780.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          25.0,
+          285.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          285.0
+        ],
+        [
+          25.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          25.0
+        ],
+        [
+          280.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          155.0
+        ],
+        [
+          280.0,
+          285.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          280.0,
+          285.0
+        ],
+        [
+          280.0,
+          395.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          25.0
+        ],
+        [
+          545.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          155.0
+        ],
+        [
+          545.0,
+          285.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          545.0,
+          285.0
+        ],
+        [
+          545.0,
+          395.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          780.0,
+          25.0
+        ],
+        [
+          780.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          780.0,
+          155.0
+        ],
+        [
+          780.0,
+          285.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          780.0,
+          285.0
+        ],
+        [
+          780.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.323602,
+  "use_counts": {
+    "apartments": 69,
+    "retail": 18,
+    "office": 21
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "naperville-suburb",
+    "name": "Naperville — suburban residential sample",
+    "form": "detached residential streets",
+    "bbox": [
+      41.767,
+      -88.146,
+      41.773,
+      -88.138
+    ]
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "e70dc7b1b72ff229f3e71c075c968ccaadfe2c797226f7697724b7f07661552a",
+    "processed_utc": "2026-10-27T05:04:19.974708+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:59:02Z"
+  },
+  "grid": {
+    "width": 134,
+    "height": 134,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      41.767,
+      -88.146,
+      41.773,
+      -88.138
+    ],
+    "projected_origin_x": -332.6092535591742,
+    "projected_origin_y": 333.2142793379735,
+    "projection": "+proj=aeqd +lat_0=41.77 +lon_0=-88.142 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.44329,
+    "feature_counts": {
+      "road": 59,
+      "building": 279,
+      "landuse": 11,
+      "water": 1
+    },
+    "street_length_km": 7.2093,
+    "street_density_km_per_km2": 16.2631,
+    "median_noded_street_segment_metres": 52.59,
+    "fourfold_orientation_alignment": 0.7521,
+    "curved_street_length_share": 0.1389,
+    "interior_junctions": 49,
+    "interior_dead_ends": 18,
+    "interior_dead_end_share": 0.2687,
+    "building_coverage": 0.18771498653606547,
+    "closed_street_blocks": 12,
+    "median_closed_block_area_m2": 13494.98,
+    "median_closed_block_aspect_ratio": 1.96,
+    "generation_hint": {
+      "existing_street_layout": "Neighborhood",
+      "observed_segment_cells": 10.52,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

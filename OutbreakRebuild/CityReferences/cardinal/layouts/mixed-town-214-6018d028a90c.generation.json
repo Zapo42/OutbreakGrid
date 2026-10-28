@@ -1,0 +1,1746 @@
+{
+  "schema_version": 2,
+  "generator_version": "cardinal-city-2",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "mixed-town",
+  "reference": {
+    "id": "mixed-town",
+    "name": "Mixed Town",
+    "fictional": true
+  },
+  "provenance": {
+    "attribution": "Momepy sample data; © 2018–2021 Martin Fleischmann and PySAL Developers, BSD-3-Clause. Upstream geometry lineage unspecified; not claimed as OSM.",
+    "reference_profile_sha256": "61b0bf275d31095b9d8e2a3089faad99cfb27b940e92ce41f5fcc86a230fffa4",
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/bubenec.gpkg",
+    "sha256": "fab4f3047ce5a63dec99943a09e3c8dba1f18d9a4e3b7b21ea377e28a67a55a4",
+    "processed_utc": "2026-10-26T00:15:59.666548+00:00",
+    "skipped": {
+      "note": "Published morphology sample. Upstream street/building lineage is not specified; no OSM district claims."
+    },
+    "scope": "Historical published sample",
+    "adaptation": "New cardinal street network using adapted reference block dimensions; not a geographic replica. Density and street pruning are explicit design controls."
+  },
+  "grid": {
+    "width": 112,
+    "height": 100,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 8,
+      "top": 38,
+      "width": 7,
+      "height": 8,
+      "door": [
+        8,
+        42
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          42
+        ]
+      ]
+    },
+    {
+      "left": 17,
+      "top": 42,
+      "width": 7,
+      "height": 6,
+      "door": [
+        20,
+        47
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          22,
+          50
+        ],
+        [
+          22,
+          49
+        ],
+        [
+          22,
+          48
+        ],
+        [
+          21,
+          48
+        ],
+        [
+          20,
+          48
+        ]
+      ]
+    },
+    {
+      "left": 17,
+      "top": 49,
+      "width": 4,
+      "height": 5,
+      "door": [
+        20,
+        51
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          21,
+          51
+        ]
+      ]
+    },
+    {
+      "left": 23,
+      "top": 54,
+      "width": 5,
+      "height": 4,
+      "door": [
+        25,
+        54
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          25,
+          53
+        ]
+      ]
+    },
+    {
+      "left": 15,
+      "top": 63,
+      "width": 4,
+      "height": 5,
+      "door": [
+        15,
+        65
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          65
+        ],
+        [
+          8,
+          65
+        ],
+        [
+          9,
+          65
+        ],
+        [
+          10,
+          65
+        ],
+        [
+          11,
+          65
+        ],
+        [
+          12,
+          65
+        ],
+        [
+          13,
+          65
+        ],
+        [
+          14,
+          65
+        ]
+      ]
+    },
+    {
+      "left": 22,
+      "top": 64,
+      "width": 6,
+      "height": 5,
+      "door": [
+        27,
+        66
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          32,
+          66
+        ],
+        [
+          31,
+          66
+        ],
+        [
+          30,
+          66
+        ],
+        [
+          29,
+          66
+        ],
+        [
+          28,
+          66
+        ]
+      ]
+    },
+    {
+      "left": 10,
+      "top": 53,
+      "width": 6,
+      "height": 5,
+      "door": [
+        10,
+        55
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          55
+        ],
+        [
+          8,
+          55
+        ],
+        [
+          9,
+          55
+        ]
+      ]
+    },
+    {
+      "left": 61,
+      "top": 84,
+      "width": 8,
+      "height": 7,
+      "door": [
+        65,
+        90
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          65,
+          92
+        ],
+        [
+          65,
+          91
+        ]
+      ]
+    },
+    {
+      "left": 9,
+      "top": 85,
+      "width": 7,
+      "height": 6,
+      "door": [
+        12,
+        90
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          12,
+          92
+        ],
+        [
+          12,
+          91
+        ]
+      ]
+    },
+    {
+      "left": 41,
+      "top": 84,
+      "width": 6,
+      "height": 7,
+      "door": [
+        44,
+        90
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          44,
+          92
+        ],
+        [
+          44,
+          91
+        ]
+      ]
+    },
+    {
+      "left": 49,
+      "top": 83,
+      "width": 6,
+      "height": 7,
+      "door": [
+        52,
+        83
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          52,
+          81
+        ],
+        [
+          52,
+          82
+        ]
+      ]
+    },
+    {
+      "left": 21,
+      "top": 83,
+      "width": 6,
+      "height": 7,
+      "door": [
+        24,
+        83
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          24,
+          81
+        ],
+        [
+          24,
+          82
+        ]
+      ]
+    },
+    {
+      "left": 73,
+      "top": 84,
+      "width": 4,
+      "height": 5,
+      "door": [
+        76,
+        86
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          78,
+          86
+        ],
+        [
+          77,
+          86
+        ]
+      ]
+    },
+    {
+      "left": 43,
+      "top": 12,
+      "width": 5,
+      "height": 6,
+      "door": [
+        47,
+        15
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          50,
+          15
+        ],
+        [
+          49,
+          15
+        ],
+        [
+          48,
+          15
+        ]
+      ]
+    },
+    {
+      "left": 42,
+      "top": 20,
+      "width": 5,
+      "height": 4,
+      "door": [
+        44,
+        23
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          44,
+          25
+        ],
+        [
+          44,
+          24
+        ]
+      ]
+    },
+    {
+      "left": 45,
+      "top": 56,
+      "width": 6,
+      "height": 5,
+      "door": [
+        48,
+        56
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          48,
+          53
+        ],
+        [
+          48,
+          54
+        ],
+        [
+          48,
+          55
+        ]
+      ]
+    },
+    {
+      "left": 55,
+      "top": 55,
+      "width": 7,
+      "height": 6,
+      "door": [
+        58,
+        55
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          58,
+          53
+        ],
+        [
+          58,
+          54
+        ]
+      ]
+    },
+    {
+      "left": 42,
+      "top": 36,
+      "width": 5,
+      "height": 4,
+      "door": [
+        42,
+        38
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          35,
+          38
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          38,
+          38
+        ],
+        [
+          39,
+          38
+        ],
+        [
+          40,
+          38
+        ],
+        [
+          41,
+          38
+        ]
+      ]
+    },
+    {
+      "left": 72,
+      "top": 69,
+      "width": 5,
+      "height": 6,
+      "door": [
+        74,
+        74
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          74,
+          76
+        ],
+        [
+          74,
+          75
+        ]
+      ]
+    },
+    {
+      "left": 57,
+      "top": 45,
+      "width": 5,
+      "height": 4,
+      "door": [
+        59,
+        48
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          59,
+          50
+        ],
+        [
+          59,
+          49
+        ]
+      ]
+    },
+    {
+      "left": 56,
+      "top": 31,
+      "width": 5,
+      "height": 4,
+      "door": [
+        58,
+        31
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          58,
+          28
+        ],
+        [
+          58,
+          29
+        ],
+        [
+          58,
+          30
+        ]
+      ]
+    },
+    {
+      "left": 41,
+      "top": 62,
+      "width": 7,
+      "height": 8,
+      "door": [
+        41,
+        66
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          35,
+          66
+        ],
+        [
+          36,
+          66
+        ],
+        [
+          37,
+          66
+        ],
+        [
+          38,
+          66
+        ],
+        [
+          39,
+          66
+        ],
+        [
+          40,
+          66
+        ]
+      ]
+    },
+    {
+      "left": 64,
+      "top": 42,
+      "width": 7,
+      "height": 8,
+      "door": [
+        67,
+        49
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          67,
+          50
+        ]
+      ]
+    },
+    {
+      "left": 69,
+      "top": 31,
+      "width": 7,
+      "height": 8,
+      "door": [
+        72,
+        31
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          72,
+          28
+        ],
+        [
+          72,
+          29
+        ],
+        [
+          72,
+          30
+        ]
+      ]
+    },
+    {
+      "left": 52,
+      "top": 65,
+      "width": 6,
+      "height": 7,
+      "door": [
+        55,
+        71
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          55,
+          76
+        ],
+        [
+          55,
+          75
+        ],
+        [
+          55,
+          74
+        ],
+        [
+          55,
+          73
+        ],
+        [
+          55,
+          72
+        ]
+      ]
+    },
+    {
+      "left": 69,
+      "top": 60,
+      "width": 6,
+      "height": 5,
+      "door": [
+        74,
+        62
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          78,
+          62
+        ],
+        [
+          77,
+          62
+        ],
+        [
+          76,
+          62
+        ],
+        [
+          75,
+          62
+        ]
+      ]
+    },
+    {
+      "left": 61,
+      "top": 36,
+      "width": 6,
+      "height": 5,
+      "door": [
+        64,
+        36
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          64,
+          28
+        ],
+        [
+          64,
+          29
+        ],
+        [
+          64,
+          30
+        ],
+        [
+          64,
+          31
+        ],
+        [
+          64,
+          32
+        ],
+        [
+          64,
+          33
+        ],
+        [
+          64,
+          34
+        ],
+        [
+          64,
+          35
+        ]
+      ]
+    },
+    {
+      "left": 59,
+      "top": 9,
+      "width": 5,
+      "height": 6,
+      "door": [
+        61,
+        9
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          61,
+          7
+        ],
+        [
+          61,
+          8
+        ]
+      ]
+    },
+    {
+      "left": 69,
+      "top": 16,
+      "width": 7,
+      "height": 8,
+      "door": [
+        72,
+        23
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          72,
+          25
+        ],
+        [
+          72,
+          24
+        ]
+      ]
+    },
+    {
+      "left": 66,
+      "top": 9,
+      "width": 6,
+      "height": 5,
+      "door": [
+        69,
+        9
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          69,
+          7
+        ],
+        [
+          69,
+          8
+        ]
+      ]
+    },
+    {
+      "left": 90,
+      "top": 42,
+      "width": 5,
+      "height": 6,
+      "door": [
+        90,
+        45
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          83,
+          45
+        ],
+        [
+          84,
+          45
+        ],
+        [
+          85,
+          45
+        ],
+        [
+          86,
+          45
+        ],
+        [
+          87,
+          45
+        ],
+        [
+          88,
+          45
+        ],
+        [
+          89,
+          45
+        ]
+      ]
+    },
+    {
+      "left": 95,
+      "top": 68,
+      "width": 8,
+      "height": 7,
+      "door": [
+        99,
+        74
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          99,
+          76
+        ],
+        [
+          99,
+          75
+        ]
+      ]
+    },
+    {
+      "left": 84,
+      "top": 66,
+      "width": 5,
+      "height": 4,
+      "door": [
+        84,
+        68
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          83,
+          68
+        ]
+      ]
+    },
+    {
+      "left": 89,
+      "top": 49,
+      "width": 5,
+      "height": 4,
+      "door": [
+        91,
+        49
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          89,
+          45
+        ],
+        [
+          89,
+          46
+        ],
+        [
+          89,
+          47
+        ],
+        [
+          89,
+          48
+        ],
+        [
+          90,
+          48
+        ],
+        [
+          91,
+          48
+        ]
+      ]
+    },
+    {
+      "left": 94,
+      "top": 60,
+      "width": 5,
+      "height": 6,
+      "door": [
+        98,
+        63
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          104,
+          63
+        ],
+        [
+          103,
+          63
+        ],
+        [
+          102,
+          63
+        ],
+        [
+          101,
+          63
+        ],
+        [
+          100,
+          63
+        ],
+        [
+          99,
+          63
+        ]
+      ]
+    },
+    {
+      "left": 85,
+      "top": 54,
+      "width": 6,
+      "height": 5,
+      "door": [
+        85,
+        56
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          83,
+          56
+        ],
+        [
+          84,
+          56
+        ]
+      ]
+    },
+    {
+      "left": 90,
+      "top": 84,
+      "width": 6,
+      "height": 7,
+      "door": [
+        93,
+        90
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          93,
+          92
+        ],
+        [
+          93,
+          91
+        ]
+      ]
+    },
+    {
+      "left": 97,
+      "top": 82,
+      "width": 6,
+      "height": 7,
+      "door": [
+        100,
+        82
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          100,
+          81
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.18,
+  "setback_cells": 3.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "New fictional cardinal streets, seeded building lots, doors and paths. No NPCs, jobs, supplies or directed vehicle lanes.",
+  "recipe": {
+    "generator_version": "cardinal-city-2",
+    "settings": {
+      "columns": 4,
+      "rows": 4,
+      "block_width_cells": 24,
+      "block_height_cells": 21,
+      "block_variation": 0.3,
+      "loop_chance": 0.65,
+      "dead_end_chance": 0.3,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.18,
+      "setback_cells": 3.0,
+      "park_fraction": 0.08,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 128,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": "prague-bubenec",
+      "preset": "mixed-town",
+      "seed": 214
+    },
+    "reference_profile_sha256": "61b0bf275d31095b9d8e2a3089faad99cfb27b940e92ce41f5fcc86a230fffa4",
+    "recipe_id": "6018d028a90c"
+  },
+  "recipe_id": "6018d028a90c",
+  "street_segments": [
+    {
+      "points": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          170.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          170.0,
+          25.0
+        ],
+        [
+          260.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          260.0,
+          25.0
+        ],
+        [
+          405.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          405.0,
+          25.0
+        ],
+        [
+          530.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          135.0
+        ],
+        [
+          170.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          135.0
+        ],
+        [
+          260.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          135.0
+        ],
+        [
+          405.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          405.0,
+          135.0
+        ],
+        [
+          530.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          260.0
+        ],
+        [
+          114.7869745825883,
+          260.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          260.0
+        ],
+        [
+          221.98872233973816,
+          260.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          260.0
+        ],
+        [
+          405.0,
+          260.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          25.0,
+          395.0
+        ],
+        [
+          170.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          170.0,
+          395.0
+        ],
+        [
+          260.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          260.0,
+          395.0
+        ],
+        [
+          405.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          405.0,
+          395.0
+        ],
+        [
+          530.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          470.0
+        ],
+        [
+          170.0,
+          470.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          470.0
+        ],
+        [
+          260.0,
+          470.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          470.0
+        ],
+        [
+          405.0,
+          470.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          405.0,
+          470.0
+        ],
+        [
+          530.0,
+          470.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          135.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          135.0
+        ],
+        [
+          25.0,
+          260.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          260.0
+        ],
+        [
+          25.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          395.0
+        ],
+        [
+          25.0,
+          470.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          170.0,
+          25.0
+        ],
+        [
+          170.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          135.0
+        ],
+        [
+          170.0,
+          260.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          260.0
+        ],
+        [
+          170.0,
+          395.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          170.0,
+          470.0
+        ],
+        [
+          170.0,
+          435.1483681250829
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          25.0
+        ],
+        [
+          260.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          260.0,
+          260.0
+        ],
+        [
+          260.0,
+          214.11028964444995
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          405.0,
+          25.0
+        ],
+        [
+          405.0,
+          135.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          405.0,
+          135.0
+        ],
+        [
+          405.0,
+          260.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          405.0,
+          260.0
+        ],
+        [
+          405.0,
+          395.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          405.0,
+          395.0
+        ],
+        [
+          405.0,
+          470.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          530.0,
+          25.0
+        ],
+        [
+          530.0,
+          135.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          530.0,
+          135.0
+        ],
+        [
+          530.0,
+          260.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          530.0,
+          260.0
+        ],
+        [
+          530.0,
+          395.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          530.0,
+          395.0
+        ],
+        [
+          530.0,
+          470.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    }
+  ],
+  "blocks": [
+    {
+      "bounds_metres": [
+        25.0,
+        25.0,
+        170.0,
+        135.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        25.0,
+        135.0,
+        170.0,
+        395.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        25.0,
+        395.0,
+        405.0,
+        470.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        170.0,
+        25.0,
+        260.0,
+        135.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        170.0,
+        135.0,
+        405.0,
+        395.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        260.0,
+        25.0,
+        405.0,
+        135.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        405.0,
+        25.0,
+        530.0,
+        135.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        405.0,
+        135.0,
+        530.0,
+        395.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        405.0,
+        395.0,
+        530.0,
+        470.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    }
+  ]
+}

@@ -1,0 +1,2941 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "terrace-residential",
+  "reference": {
+    "id": "terrace-residential",
+    "name": "Compact terrace residential",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "f433e24a21869e2392f7a68b756e04295ab1eb232fb2eb458eabf09b014eb6d2",
+    "processed_utc": "2026-10-27T05:04:15.929745+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:58:02Z",
+    "reference_profile_sha256": "23ba5d643f7ef0db76499be2b5051c21a577a4b426a292fe626555832f4f90fb",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 93,
+    "height": 87,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 24,
+      "top": 8,
+      "width": 4,
+      "height": 5,
+      "door": [
+        26,
+        8
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          26,
+          7
+        ]
+      ],
+      "parcel_id": "terrace-residential-1",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 23,
+      "top": 23,
+      "width": 5,
+      "height": 6,
+      "door": [
+        25,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-2",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 15,
+      "top": 13,
+      "width": 4,
+      "height": 6,
+      "door": [
+        17,
+        13
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          17,
+          7
+        ],
+        [
+          17,
+          8
+        ],
+        [
+          17,
+          9
+        ],
+        [
+          17,
+          10
+        ],
+        [
+          17,
+          11
+        ],
+        [
+          17,
+          12
+        ]
+      ],
+      "parcel_id": "terrace-residential-3",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 22,
+      "top": 14,
+      "width": 6,
+      "height": 5,
+      "door": [
+        27,
+        16
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          28,
+          16
+        ]
+      ],
+      "parcel_id": "terrace-residential-4",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 19,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        21,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          21,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-5",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3
+    },
+    {
+      "left": 11,
+      "top": 23,
+      "width": 5,
+      "height": 6,
+      "door": [
+        13,
+        28
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          13,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-6",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 8,
+      "top": 12,
+      "width": 5,
+      "height": 6,
+      "door": [
+        8,
+        15
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          15
+        ]
+      ],
+      "parcel_id": "terrace-residential-7",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 11,
+      "top": 19,
+      "width": 6,
+      "height": 4,
+      "door": [
+        11,
+        21
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          21
+        ],
+        [
+          9,
+          21
+        ],
+        [
+          10,
+          21
+        ]
+      ],
+      "parcel_id": "terrace-residential-8",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 11,
+      "top": 8,
+      "width": 5,
+      "height": 4,
+      "door": [
+        13,
+        8
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          13,
+          7
+        ]
+      ],
+      "parcel_id": "terrace-residential-9",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 22,
+      "top": 19,
+      "width": 6,
+      "height": 4,
+      "door": [
+        27,
+        21
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          28,
+          21
+        ]
+      ],
+      "parcel_id": "terrace-residential-10",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 20,
+      "top": 33,
+      "width": 6,
+      "height": 4,
+      "door": [
+        23,
+        33
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          23,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-11",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 13,
+      "top": 49,
+      "width": 6,
+      "height": 4,
+      "door": [
+        16,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          16,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-12",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 21,
+      "top": 45,
+      "width": 5,
+      "height": 6,
+      "door": [
+        23,
+        50
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          23,
+          53
+        ],
+        [
+          23,
+          52
+        ],
+        [
+          23,
+          51
+        ]
+      ],
+      "parcel_id": "terrace-residential-13",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 10,
+      "top": 36,
+      "width": 6,
+      "height": 4,
+      "door": [
+        10,
+        38
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          38
+        ],
+        [
+          8,
+          38
+        ],
+        [
+          9,
+          38
+        ]
+      ],
+      "parcel_id": "terrace-residential-14",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 24,
+      "top": 40,
+      "width": 4,
+      "height": 5,
+      "door": [
+        27,
+        42
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          28,
+          42
+        ]
+      ],
+      "parcel_id": "terrace-residential-15",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 10,
+      "top": 40,
+      "width": 6,
+      "height": 5,
+      "door": [
+        10,
+        42
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          42
+        ],
+        [
+          8,
+          42
+        ],
+        [
+          9,
+          42
+        ]
+      ],
+      "parcel_id": "terrace-residential-16",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 16,
+      "top": 40,
+      "width": 5,
+      "height": 6,
+      "door": [
+        18,
+        40
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          18,
+          32
+        ],
+        [
+          18,
+          33
+        ],
+        [
+          18,
+          34
+        ],
+        [
+          18,
+          35
+        ],
+        [
+          18,
+          36
+        ],
+        [
+          18,
+          37
+        ],
+        [
+          18,
+          38
+        ],
+        [
+          18,
+          39
+        ]
+      ],
+      "parcel_id": "terrace-residential-17",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 10,
+      "top": 45,
+      "width": 5,
+      "height": 4,
+      "door": [
+        10,
+        47
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          47
+        ],
+        [
+          8,
+          47
+        ],
+        [
+          9,
+          47
+        ]
+      ],
+      "parcel_id": "terrace-residential-18",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 8,
+      "top": 49,
+      "width": 5,
+      "height": 4,
+      "door": [
+        10,
+        52
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          10,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-19",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 15,
+      "top": 57,
+      "width": 5,
+      "height": 4,
+      "door": [
+        17,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          17,
+          56
+        ]
+      ],
+      "parcel_id": "terrace-residential-20",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 21,
+      "top": 57,
+      "width": 5,
+      "height": 4,
+      "door": [
+        23,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          23,
+          56
+        ]
+      ],
+      "parcel_id": "terrace-residential-21",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 22,
+      "top": 66,
+      "width": 6,
+      "height": 4,
+      "door": [
+        27,
+        68
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          28,
+          68
+        ]
+      ],
+      "parcel_id": "terrace-residential-22",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 22,
+      "top": 73,
+      "width": 6,
+      "height": 5,
+      "door": [
+        25,
+        77
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          25,
+          78
+        ]
+      ],
+      "parcel_id": "terrace-residential-23",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 11,
+      "top": 72,
+      "width": 4,
+      "height": 6,
+      "door": [
+        13,
+        77
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          13,
+          78
+        ]
+      ],
+      "parcel_id": "terrace-residential-24",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 10,
+      "top": 57,
+      "width": 4,
+      "height": 6,
+      "door": [
+        12,
+        57
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          12,
+          56
+        ]
+      ],
+      "parcel_id": "terrace-residential-25",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 3
+    },
+    {
+      "left": 15,
+      "top": 71,
+      "width": 5,
+      "height": 6,
+      "door": [
+        17,
+        76
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          17,
+          78
+        ],
+        [
+          17,
+          77
+        ]
+      ],
+      "parcel_id": "terrace-residential-26",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 11,
+      "top": 67,
+      "width": 6,
+      "height": 4,
+      "door": [
+        11,
+        69
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          7,
+          69
+        ],
+        [
+          8,
+          69
+        ],
+        [
+          9,
+          69
+        ],
+        [
+          10,
+          69
+        ]
+      ],
+      "parcel_id": "terrace-residential-27",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 21,
+      "top": 61,
+      "width": 6,
+      "height": 4,
+      "door": [
+        26,
+        63
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          28,
+          63
+        ],
+        [
+          27,
+          63
+        ]
+      ],
+      "parcel_id": "terrace-residential-28",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 15,
+      "top": 62,
+      "width": 4,
+      "height": 5,
+      "door": [
+        15,
+        64
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          7,
+          64
+        ],
+        [
+          8,
+          64
+        ],
+        [
+          9,
+          64
+        ],
+        [
+          10,
+          64
+        ],
+        [
+          11,
+          64
+        ],
+        [
+          12,
+          64
+        ],
+        [
+          13,
+          64
+        ],
+        [
+          14,
+          64
+        ]
+      ],
+      "parcel_id": "terrace-residential-29",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 32,
+      "top": 24,
+      "width": 6,
+      "height": 5,
+      "door": [
+        35,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          35,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-30",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 51,
+      "top": 9,
+      "width": 5,
+      "height": 4,
+      "door": [
+        55,
+        11
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          56,
+          11
+        ]
+      ],
+      "parcel_id": "terrace-residential-31",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 43,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        45,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          45,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-32",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 35,
+      "top": 14,
+      "width": 6,
+      "height": 4,
+      "door": [
+        35,
+        16
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          31,
+          16
+        ],
+        [
+          32,
+          16
+        ],
+        [
+          33,
+          16
+        ],
+        [
+          34,
+          16
+        ]
+      ],
+      "parcel_id": "terrace-residential-33",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 51,
+      "top": 24,
+      "width": 5,
+      "height": 4,
+      "door": [
+        55,
+        26
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          56,
+          26
+        ]
+      ],
+      "parcel_id": "terrace-residential-34",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 48,
+      "top": 16,
+      "width": 5,
+      "height": 6,
+      "door": [
+        52,
+        19
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          56,
+          19
+        ],
+        [
+          55,
+          19
+        ],
+        [
+          54,
+          19
+        ],
+        [
+          53,
+          19
+        ]
+      ],
+      "parcel_id": "terrace-residential-35",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 38,
+      "top": 23,
+      "width": 5,
+      "height": 6,
+      "door": [
+        40,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          40,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-36",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 41,
+      "top": 16,
+      "width": 4,
+      "height": 5,
+      "door": [
+        43,
+        16
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          43,
+          7
+        ],
+        [
+          43,
+          8
+        ],
+        [
+          43,
+          9
+        ],
+        [
+          43,
+          10
+        ],
+        [
+          43,
+          11
+        ],
+        [
+          43,
+          12
+        ],
+        [
+          43,
+          13
+        ],
+        [
+          43,
+          14
+        ],
+        [
+          43,
+          15
+        ]
+      ],
+      "parcel_id": "terrace-residential-37",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 32,
+      "top": 18,
+      "width": 5,
+      "height": 6,
+      "door": [
+        32,
+        21
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          31,
+          21
+        ]
+      ],
+      "parcel_id": "terrace-residential-38",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 36,
+      "top": 9,
+      "width": 6,
+      "height": 5,
+      "door": [
+        39,
+        9
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          39,
+          7
+        ],
+        [
+          39,
+          8
+        ]
+      ],
+      "parcel_id": "terrace-residential-39",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 47,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        49,
+        28
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          49,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-40",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 44,
+      "top": 9,
+      "width": 5,
+      "height": 6,
+      "door": [
+        44,
+        12
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          43,
+          12
+        ]
+      ],
+      "parcel_id": "terrace-residential-41",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 32,
+      "top": 35,
+      "width": 4,
+      "height": 6,
+      "door": [
+        32,
+        38
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          31,
+          38
+        ]
+      ],
+      "parcel_id": "terrace-residential-42",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 44,
+      "top": 33,
+      "width": 6,
+      "height": 5,
+      "door": [
+        47,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          47,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-43",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 51,
+      "top": 44,
+      "width": 5,
+      "height": 6,
+      "door": [
+        55,
+        47
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          56,
+          47
+        ]
+      ],
+      "parcel_id": "terrace-residential-44",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 40,
+      "top": 47,
+      "width": 4,
+      "height": 6,
+      "door": [
+        42,
+        52
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          42,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-45",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 33,
+      "top": 46,
+      "width": 5,
+      "height": 6,
+      "door": [
+        35,
+        51
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          35,
+          53
+        ],
+        [
+          35,
+          52
+        ]
+      ],
+      "parcel_id": "terrace-residential-46",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 52,
+      "top": 37,
+      "width": 4,
+      "height": 6,
+      "door": [
+        55,
+        40
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          56,
+          40
+        ]
+      ],
+      "parcel_id": "terrace-residential-47",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 40,
+      "top": 41,
+      "width": 6,
+      "height": 5,
+      "door": [
+        43,
+        41
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          43,
+          32
+        ],
+        [
+          43,
+          33
+        ],
+        [
+          43,
+          34
+        ],
+        [
+          43,
+          35
+        ],
+        [
+          43,
+          36
+        ],
+        [
+          43,
+          37
+        ],
+        [
+          43,
+          38
+        ],
+        [
+          43,
+          39
+        ],
+        [
+          43,
+          40
+        ]
+      ],
+      "parcel_id": "terrace-residential-48",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 36,
+      "top": 33,
+      "width": 6,
+      "height": 5,
+      "door": [
+        39,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          39,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-49",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 46,
+      "top": 47,
+      "width": 4,
+      "height": 6,
+      "door": [
+        48,
+        52
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          48,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-50",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 50,
+      "top": 33,
+      "width": 6,
+      "height": 4,
+      "door": [
+        53,
+        33
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          53,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-51",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 46,
+      "top": 42,
+      "width": 5,
+      "height": 4,
+      "door": [
+        48,
+        42
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          43,
+          40
+        ],
+        [
+          44,
+          40
+        ],
+        [
+          45,
+          40
+        ],
+        [
+          46,
+          40
+        ],
+        [
+          47,
+          40
+        ],
+        [
+          48,
+          40
+        ],
+        [
+          48,
+          41
+        ]
+      ],
+      "parcel_id": "terrace-residential-52",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 32,
+      "top": 62,
+      "width": 6,
+      "height": 5,
+      "door": [
+        32,
+        64
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          31,
+          64
+        ]
+      ],
+      "parcel_id": "terrace-residential-53",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 43,
+      "top": 57,
+      "width": 6,
+      "height": 5,
+      "door": [
+        46,
+        57
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          46,
+          56
+        ]
+      ],
+      "parcel_id": "terrace-residential-54",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 52,
+      "top": 67,
+      "width": 4,
+      "height": 5,
+      "door": [
+        55,
+        69
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          56,
+          69
+        ]
+      ],
+      "parcel_id": "terrace-residential-55",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 36,
+      "top": 69,
+      "width": 4,
+      "height": 6,
+      "door": [
+        38,
+        74
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          38,
+          78
+        ],
+        [
+          38,
+          77
+        ],
+        [
+          38,
+          76
+        ],
+        [
+          38,
+          75
+        ]
+      ],
+      "parcel_id": "terrace-residential-56",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 52,
+      "top": 59,
+      "width": 4,
+      "height": 6,
+      "door": [
+        55,
+        62
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          56,
+          62
+        ]
+      ],
+      "parcel_id": "terrace-residential-57",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 37,
+      "top": 57,
+      "width": 5,
+      "height": 4,
+      "door": [
+        39,
+        57
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          39,
+          56
+        ]
+      ],
+      "parcel_id": "terrace-residential-58",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 50,
+      "top": 73,
+      "width": 6,
+      "height": 5,
+      "door": [
+        53,
+        77
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          53,
+          78
+        ]
+      ],
+      "parcel_id": "terrace-residential-59",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 40,
+      "top": 65,
+      "width": 4,
+      "height": 5,
+      "door": [
+        42,
+        65
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          42,
+          56
+        ],
+        [
+          42,
+          57
+        ],
+        [
+          42,
+          58
+        ],
+        [
+          42,
+          59
+        ],
+        [
+          42,
+          60
+        ],
+        [
+          42,
+          61
+        ],
+        [
+          42,
+          62
+        ],
+        [
+          42,
+          63
+        ],
+        [
+          42,
+          64
+        ]
+      ],
+      "parcel_id": "terrace-residential-60",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 46,
+      "top": 72,
+      "width": 4,
+      "height": 6,
+      "door": [
+        48,
+        77
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          48,
+          78
+        ]
+      ],
+      "parcel_id": "terrace-residential-61",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 32,
+      "top": 69,
+      "width": 4,
+      "height": 5,
+      "door": [
+        32,
+        71
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          31,
+          71
+        ]
+      ],
+      "parcel_id": "terrace-residential-62",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 44,
+      "top": 66,
+      "width": 4,
+      "height": 6,
+      "door": [
+        46,
+        66
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          42,
+          64
+        ],
+        [
+          43,
+          64
+        ],
+        [
+          44,
+          64
+        ],
+        [
+          45,
+          64
+        ],
+        [
+          46,
+          64
+        ],
+        [
+          46,
+          65
+        ]
+      ],
+      "parcel_id": "terrace-residential-63",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 40,
+      "top": 72,
+      "width": 5,
+      "height": 4,
+      "door": [
+        42,
+        75
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          42,
+          78
+        ],
+        [
+          42,
+          77
+        ],
+        [
+          42,
+          76
+        ]
+      ],
+      "parcel_id": "terrace-residential-64",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 60,
+      "top": 9,
+      "width": 4,
+      "height": 6,
+      "door": [
+        60,
+        12
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          59,
+          12
+        ]
+      ],
+      "parcel_id": "terrace-residential-65",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 62,
+      "top": 25,
+      "width": 5,
+      "height": 4,
+      "door": [
+        64,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          64,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-66",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 76,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        78,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          78,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-67",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 71,
+      "top": 22,
+      "width": 5,
+      "height": 4,
+      "door": [
+        73,
+        25
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          73,
+          29
+        ],
+        [
+          73,
+          28
+        ],
+        [
+          73,
+          27
+        ],
+        [
+          73,
+          26
+        ]
+      ],
+      "parcel_id": "terrace-residential-68",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 60,
+      "top": 15,
+      "width": 6,
+      "height": 4,
+      "door": [
+        60,
+        17
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          59,
+          17
+        ]
+      ],
+      "parcel_id": "terrace-residential-69",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 72,
+      "top": 13,
+      "width": 5,
+      "height": 4,
+      "door": [
+        74,
+        13
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          74,
+          7
+        ],
+        [
+          74,
+          8
+        ],
+        [
+          74,
+          9
+        ],
+        [
+          74,
+          10
+        ],
+        [
+          74,
+          11
+        ],
+        [
+          74,
+          12
+        ]
+      ],
+      "parcel_id": "terrace-residential-70",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 68,
+      "top": 10,
+      "width": 4,
+      "height": 6,
+      "door": [
+        70,
+        10
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          70,
+          7
+        ],
+        [
+          70,
+          8
+        ],
+        [
+          70,
+          9
+        ]
+      ],
+      "parcel_id": "terrace-residential-71",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 60,
+      "top": 20,
+      "width": 6,
+      "height": 5,
+      "door": [
+        60,
+        22
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          59,
+          22
+        ]
+      ],
+      "parcel_id": "terrace-residential-72",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 67,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        69,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          69,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-73",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 70,
+      "top": 17,
+      "width": 6,
+      "height": 5,
+      "door": [
+        75,
+        19
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          84,
+          19
+        ],
+        [
+          83,
+          19
+        ],
+        [
+          82,
+          19
+        ],
+        [
+          81,
+          19
+        ],
+        [
+          80,
+          19
+        ],
+        [
+          79,
+          19
+        ],
+        [
+          78,
+          19
+        ],
+        [
+          77,
+          19
+        ],
+        [
+          76,
+          19
+        ]
+      ],
+      "parcel_id": "terrace-residential-74",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 77,
+      "top": 12,
+      "width": 5,
+      "height": 4,
+      "door": [
+        81,
+        14
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          84,
+          14
+        ],
+        [
+          83,
+          14
+        ],
+        [
+          82,
+          14
+        ]
+      ],
+      "parcel_id": "terrace-residential-75",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 78,
+      "top": 8,
+      "width": 5,
+      "height": 4,
+      "door": [
+        80,
+        8
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          80,
+          7
+        ]
+      ],
+      "parcel_id": "terrace-residential-76",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 80,
+      "top": 23,
+      "width": 4,
+      "height": 6,
+      "door": [
+        82,
+        28
+      ],
+      "block": 6,
+      "path_cells": [
+        [
+          82,
+          29
+        ]
+      ],
+      "parcel_id": "terrace-residential-77",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 60,
+      "top": 33,
+      "width": 6,
+      "height": 5,
+      "door": [
+        63,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          63,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-78",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 72,
+      "top": 33,
+      "width": 4,
+      "height": 5,
+      "door": [
+        74,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          74,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-79",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 65,
+      "top": 47,
+      "width": 5,
+      "height": 6,
+      "door": [
+        67,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          67,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-80",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 60,
+      "top": 42,
+      "width": 6,
+      "height": 5,
+      "door": [
+        60,
+        44
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          59,
+          44
+        ]
+      ],
+      "parcel_id": "terrace-residential-81",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 74,
+      "top": 49,
+      "width": 6,
+      "height": 4,
+      "door": [
+        77,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          77,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-82",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 60,
+      "top": 47,
+      "width": 5,
+      "height": 4,
+      "door": [
+        60,
+        49
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          59,
+          49
+        ]
+      ],
+      "parcel_id": "terrace-residential-83",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    },
+    {
+      "left": 75,
+      "top": 41,
+      "width": 6,
+      "height": 4,
+      "door": [
+        80,
+        43
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          84,
+          43
+        ],
+        [
+          83,
+          43
+        ],
+        [
+          82,
+          43
+        ],
+        [
+          81,
+          43
+        ]
+      ],
+      "parcel_id": "terrace-residential-84",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 68,
+      "top": 33,
+      "width": 4,
+      "height": 6,
+      "door": [
+        70,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          70,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-85",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 78,
+      "top": 33,
+      "width": 5,
+      "height": 4,
+      "door": [
+        80,
+        33
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          80,
+          32
+        ]
+      ],
+      "parcel_id": "terrace-residential-86",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 70,
+      "top": 46,
+      "width": 4,
+      "height": 6,
+      "door": [
+        72,
+        51
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          72,
+          53
+        ],
+        [
+          72,
+          52
+        ]
+      ],
+      "parcel_id": "terrace-residential-87",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 3
+    },
+    {
+      "left": 69,
+      "top": 39,
+      "width": 5,
+      "height": 6,
+      "door": [
+        69,
+        42
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          59,
+          41
+        ],
+        [
+          60,
+          41
+        ],
+        [
+          61,
+          41
+        ],
+        [
+          62,
+          41
+        ],
+        [
+          63,
+          41
+        ],
+        [
+          64,
+          41
+        ],
+        [
+          65,
+          41
+        ],
+        [
+          66,
+          41
+        ],
+        [
+          67,
+          41
+        ],
+        [
+          68,
+          41
+        ],
+        [
+          68,
+          42
+        ]
+      ],
+      "parcel_id": "terrace-residential-88",
+      "district_type": "terrace-residential",
+      "use_hint": "terrace-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 2
+    },
+    {
+      "left": 80,
+      "top": 48,
+      "width": 4,
+      "height": 5,
+      "door": [
+        82,
+        52
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          82,
+          53
+        ]
+      ],
+      "parcel_id": "terrace-residential-89",
+      "district_type": "terrace-residential",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 2
+    }
+  ],
+  "source_block_count": 9,
+  "target_coverage": 0.42,
+  "setback_cells": 2.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.",
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "fair_block_budget": true,
+  "stream_seeds": {
+    "streets": 3576230011,
+    "lots": 986699797,
+    "uses": 3524669001
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "terrace-residential",
+    "seed": 214,
+    "name": "Compact terrace residential",
+    "category": "residential",
+    "street_settings": {
+      "columns": 3,
+      "rows": 3,
+      "block_width_cells": 27,
+      "block_height_cells": 24,
+      "block_variation": 0.08,
+      "loop_chance": 1.0,
+      "dead_end_chance": 0.0,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.42,
+      "setback_cells": 2.0,
+      "park_fraction": 0.05,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 192,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 214
+    },
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "placement_mode": "frontage",
+    "lot_gap_cells": 0,
+    "uses": {
+      "terrace-home": 90,
+      "retail": 10
+    },
+    "storeys": [
+      2,
+      3
+    ],
+    "reference_id": "philadelphia-rowhouses",
+    "reference_profile_sha256": "23ba5d643f7ef0db76499be2b5051c21a577a4b426a292fe626555832f4f90fb"
+  },
+  "recipe_id": "62915937c6f5",
+  "district_type": "terrace-residential",
+  "category": "residential",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          150.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          25.0
+        ],
+        [
+          290.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          25.0
+        ],
+        [
+          435.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          150.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          155.0
+        ],
+        [
+          290.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          155.0
+        ],
+        [
+          435.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          275.0
+        ],
+        [
+          150.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          275.0
+        ],
+        [
+          290.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          275.0
+        ],
+        [
+          435.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          405.0
+        ],
+        [
+          150.0,
+          405.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          405.0
+        ],
+        [
+          290.0,
+          405.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          405.0
+        ],
+        [
+          435.0,
+          405.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          155.0
+        ],
+        [
+          25.0,
+          275.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          275.0
+        ],
+        [
+          25.0,
+          405.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          25.0
+        ],
+        [
+          150.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          155.0
+        ],
+        [
+          150.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          150.0,
+          275.0
+        ],
+        [
+          150.0,
+          405.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          25.0
+        ],
+        [
+          290.0,
+          155.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          155.0
+        ],
+        [
+          290.0,
+          275.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          290.0,
+          275.0
+        ],
+        [
+          290.0,
+          405.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          435.0,
+          25.0
+        ],
+        [
+          435.0,
+          155.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          435.0,
+          155.0
+        ],
+        [
+          435.0,
+          275.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          435.0,
+          275.0
+        ],
+        [
+          435.0,
+          405.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    }
+  ],
+  "actual_building_coverage": 0.272649,
+  "use_counts": {
+    "terrace-home": 75,
+    "retail": 14
+  }
+}

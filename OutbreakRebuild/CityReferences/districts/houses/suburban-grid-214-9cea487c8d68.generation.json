@@ -1,0 +1,4797 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "suburban-grid",
+  "reference": {
+    "id": "suburban-grid",
+    "name": "Connected residential suburb",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "e70dc7b1b72ff229f3e71c075c968ccaadfe2c797226f7697724b7f07661552a",
+    "processed_utc": "2026-10-27T05:04:19.974708+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:59:02Z",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 70,
+    "height": 72,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 8,
+      "top": 8,
+      "width": 10,
+      "height": 9,
+      "door": [
+        14,
+        8
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          14,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-1",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          13,
+          7
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r2",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 2,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  8,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  2,
+                  7
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                6,
+                0
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                3,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  1,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  6
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                8,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          8,
+          8
+        ],
+        "instance_id": "suburban-grid-1",
+        "room_keys": {
+          "living": "suburban-grid-1/living",
+          "storage": "suburban-grid-1/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 19,
+      "top": 8,
+      "width": 10,
+      "height": 9,
+      "door": [
+        25,
+        8
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          25,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-2",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          24,
+          7
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r2",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 2,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  8,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  2,
+                  7
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                6,
+                0
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                3,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  1,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  6
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                8,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          19,
+          8
+        ],
+        "instance_id": "suburban-grid-2",
+        "room_keys": {
+          "living": "suburban-grid-2/living",
+          "storage": "suburban-grid-2/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 8,
+      "top": 19,
+      "width": 10,
+      "height": 9,
+      "door": [
+        11,
+        27
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          11,
+          31
+        ],
+        [
+          11,
+          30
+        ],
+        [
+          11,
+          29
+        ],
+        [
+          11,
+          28
+        ]
+      ],
+      "parcel_id": "suburban-grid-3",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          7,
+          23
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r0",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 0,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  7,
+                  1
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              1
+            ],
+            [
+              6,
+              2
+            ],
+            [
+              6,
+              3
+            ],
+            [
+              6,
+              5
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              8
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                3,
+                8
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                6,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  8,
+                  2
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  2
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                1,
+                7
+              ],
+              [
+                2,
+                7
+              ],
+              [
+                3,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                5,
+                7
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          8,
+          19
+        ],
+        "instance_id": "suburban-grid-3",
+        "room_keys": {
+          "living": "suburban-grid-3/living",
+          "storage": "suburban-grid-3/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 35,
+      "top": 8,
+      "width": 10,
+      "height": 9,
+      "door": [
+        41,
+        8
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          41,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-4",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          40,
+          7
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r2",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 2,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  8,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  2,
+                  7
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                6,
+                0
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                3,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  1,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  6
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                8,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          35,
+          8
+        ],
+        "instance_id": "suburban-grid-4",
+        "room_keys": {
+          "living": "suburban-grid-4/living",
+          "storage": "suburban-grid-4/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 46,
+      "top": 8,
+      "width": 10,
+      "height": 9,
+      "door": [
+        52,
+        8
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          52,
+          7
+        ]
+      ],
+      "parcel_id": "suburban-grid-5",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          51,
+          7
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r2",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 2,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  8,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  2,
+                  7
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                6,
+                0
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                3,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  1,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  6
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                8,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          46,
+          8
+        ],
+        "instance_id": "suburban-grid-5",
+        "room_keys": {
+          "living": "suburban-grid-5/living",
+          "storage": "suburban-grid-5/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 35,
+      "top": 36,
+      "width": 9,
+      "height": 10,
+      "door": [
+        35,
+        39
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          33,
+          39
+        ],
+        [
+          34,
+          39
+        ]
+      ],
+      "parcel_id": "suburban-grid-6",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          39,
+          34
+        ],
+        [
+          39,
+          35
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r1",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 1,
+          "width": 9,
+          "height": 10,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  7,
+                  1
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  7,
+                  7
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  1,
+                  8
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              8,
+              1
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              8,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              8,
+              3
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              8,
+              5
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              8,
+              6
+            ],
+            [
+              7,
+              6
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              8,
+              7
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              0,
+              9
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                0,
+                3
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                4,
+                6
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  6,
+                  2
+                ],
+                [
+                  6,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  5,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  6,
+                  8
+                ]
+              ],
+              "approach_cells": [
+                [
+                  6,
+                  7
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                7,
+                1
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                3,
+                1
+              ],
+              [
+                3,
+                2
+              ],
+              [
+                3,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                2,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                2,
+                4
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          35,
+          36
+        ],
+        "instance_id": "suburban-grid-6",
+        "room_keys": {
+          "living": "suburban-grid-6/living",
+          "storage": "suburban-grid-6/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    },
+    {
+      "left": 46,
+      "top": 36,
+      "width": 10,
+      "height": 9,
+      "door": [
+        52,
+        36
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          52,
+          34
+        ],
+        [
+          52,
+          35
+        ]
+      ],
+      "parcel_id": "suburban-grid-7",
+      "district_type": "suburban-grid",
+      "use_hint": "detached-home",
+      "game_building_use_hint": "Home",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          51,
+          34
+        ],
+        [
+          51,
+          35
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "house-compact-r2",
+          "building_type": "house",
+          "variant": "compact",
+          "rotation_quarter_turns": 2,
+          "width": 10,
+          "height": 9,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "living",
+              "role": "living-area",
+              "cells": [
+                [
+                  8,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ]
+              ]
+            },
+            {
+              "id": "storage",
+              "role": "household-storage",
+              "cells": [
+                [
+                  2,
+                  7
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  1
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              9,
+              8
+            ],
+            [
+              9,
+              7
+            ],
+            [
+              9,
+              6
+            ],
+            [
+              9,
+              5
+            ],
+            [
+              9,
+              4
+            ],
+            [
+              9,
+              3
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              9,
+              1
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              3,
+              1
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "doors": [
+            {
+              "id": "front",
+              "cell": [
+                6,
+                0
+              ],
+              "connects": [
+                "living",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "storage-door",
+              "cell": [
+                3,
+                4
+              ],
+              "connects": [
+                "living",
+                "storage"
+              ],
+              "external": false
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "seating",
+              "role": "seating",
+              "room_id": "living",
+              "cells": [
+                [
+                  7,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "home-storage",
+              "role": "storage-shelf",
+              "room_id": "storage",
+              "cells": [
+                [
+                  1,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  6
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract",
+          "recovery_area": {
+            "room_id": "living",
+            "cells": [
+              [
+                8,
+                7
+              ],
+              [
+                7,
+                7
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                4,
+                7
+              ],
+              [
+                8,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                8,
+                5
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                6,
+                5
+              ],
+              [
+                5,
+                5
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                5,
+                4
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                8,
+                3
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                6,
+                3
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                4,
+                3
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                7,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                4,
+                1
+              ]
+            ],
+            "intended_effect": "energy recovery in living area; activation and rates owned by Lead/NPC coder"
+          }
+        },
+        "origin_cells": [
+          46,
+          36
+        ],
+        "instance_id": "suburban-grid-7",
+        "room_keys": {
+          "living": "suburban-grid-7/living",
+          "storage": "suburban-grid-7/storage"
+        },
+        "storage_materialized": true,
+        "living_recovery_materialized": true,
+        "seating_materialized": false
+      }
+    }
+  ],
+  "source_block_count": 3,
+  "target_coverage": 0.17,
+  "setback_cells": 3.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Seeded multi-room homes with explicit building identity, empty finite storage and living-area rest spots; no population or NPC decision changes.",
+  "placement_mode": "residential",
+  "lot_gap_cells": 1,
+  "fair_block_budget": true,
+  "house_layout": "compact",
+  "expected_physical_room_count": 14,
+  "expected_building_count": 7,
+  "active_features": [
+    "building-room-membership",
+    "living-area-rest-spots",
+    "household-storage"
+  ],
+  "seating_materialized": false,
+  "stream_seeds": {
+    "streets": 3576230011,
+    "lots": 986699797,
+    "uses": 3524669001
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "suburban-grid",
+    "seed": 214,
+    "name": "Connected residential suburb",
+    "category": "suburban",
+    "street_settings": {
+      "columns": 2,
+      "rows": 2,
+      "block_width_cells": 32,
+      "block_height_cells": 28,
+      "block_variation": 0.18,
+      "loop_chance": 0.9,
+      "dead_end_chance": 0.1,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.17,
+      "setback_cells": 3.0,
+      "park_fraction": 0.12,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 124,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 214
+    },
+    "footprint_sizes": [
+      [
+        10,
+        9
+      ]
+    ],
+    "placement_mode": "residential",
+    "lot_gap_cells": 1,
+    "uses": {
+      "detached-home": 100
+    },
+    "storeys": [
+      1,
+      1
+    ],
+    "reference_id": "naperville-suburb",
+    "reference_profile_sha256": "b65149c8412f5f5fb7fa77807981c92dfef78afc7299cab9049a5c52032ed76a",
+    "house_layout": "compact",
+    "house_layout_version": "building-layouts-draft-1"
+  },
+  "recipe_id": "9cea487c8d68",
+  "district_type": "suburban-grid",
+  "category": "suburban",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          160.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          25.0
+        ],
+        [
+          320.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          165.0
+        ],
+        [
+          82.74799251393415,
+          165.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          165.0
+        ],
+        [
+          320.0,
+          165.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          330.0
+        ],
+        [
+          160.0,
+          330.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          330.0
+        ],
+        [
+          320.0,
+          330.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          165.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          25.0,
+          165.0
+        ],
+        [
+          25.0,
+          330.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          25.0
+        ],
+        [
+          160.0,
+          165.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          160.0,
+          165.0
+        ],
+        [
+          160.0,
+          330.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          25.0
+        ],
+        [
+          320.0,
+          165.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          320.0,
+          165.0
+        ],
+        [
+          320.0,
+          330.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    }
+  ],
+  "actual_building_coverage": 0.125,
+  "use_counts": {
+    "detached-home": 7
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "generator_version": "district-city-3",
+  "kind": "district",
+  "district_type": "urban-apartments",
+  "seed": 214,
+  "name": "Urban apartment district",
+  "category": "residential",
+  "street_settings": {
+    "columns": 3,
+    "rows": 3,
+    "block_width_cells": 26,
+    "block_height_cells": 24,
+    "block_variation": 0.12,
+    "loop_chance": 1.0,
+    "dead_end_chance": 0.0,
+    "road_width_cells": 2.0,
+    "arterial_width_cells": 4.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.0,
+    "building_coverage": 0.38,
+    "setback_cells": 2.0,
+    "park_fraction": 0.08,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 160,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": null,
+    "preset": "compact-grid",
+    "seed": 214
+  },
+  "footprint_sizes": [
+    [
+      6,
+      8
+    ],
+    [
+      8,
+      10
+    ],
+    [
+      10,
+      10
+    ]
+  ],
+  "placement_mode": "frontage",
+  "lot_gap_cells": 0,
+  "uses": {
+    "apartments": 85,
+    "retail": 15
+  },
+  "storeys": [
+    3,
+    7
+  ],
+  "reference_id": "prague-bubenec",
+  "reference_profile_sha256": "61b0bf275d31095b9d8e2a3089faad99cfb27b940e92ce41f5fcc86a230fffa4"
+}

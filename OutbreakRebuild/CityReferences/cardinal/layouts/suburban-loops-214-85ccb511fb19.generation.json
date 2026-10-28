@@ -1,0 +1,1881 @@
+{
+  "schema_version": 2,
+  "generator_version": "cardinal-city-2",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 214,
+  "reference_id": "suburban-loops",
+  "reference": {
+    "id": "suburban-loops",
+    "name": "Suburban Loops",
+    "fictional": true
+  },
+  "provenance": {
+    "attribution": "Fictional designed city preset; no new geographic survey.",
+    "reference_profile_sha256": null
+  },
+  "grid": {
+    "width": 153,
+    "height": 127,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 24,
+      "top": 34,
+      "width": 7,
+      "height": 8,
+      "door": [
+        30,
+        38
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          33,
+          38
+        ],
+        [
+          32,
+          38
+        ],
+        [
+          31,
+          38
+        ]
+      ]
+    },
+    {
+      "left": 9,
+      "top": 72,
+      "width": 7,
+      "height": 6,
+      "door": [
+        9,
+        75
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          75
+        ],
+        [
+          8,
+          75
+        ]
+      ]
+    },
+    {
+      "left": 10,
+      "top": 81,
+      "width": 5,
+      "height": 6,
+      "door": [
+        12,
+        86
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          12,
+          88
+        ],
+        [
+          12,
+          87
+        ]
+      ]
+    },
+    {
+      "left": 25,
+      "top": 51,
+      "width": 4,
+      "height": 5,
+      "door": [
+        28,
+        53
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          33,
+          53
+        ],
+        [
+          32,
+          53
+        ],
+        [
+          31,
+          53
+        ],
+        [
+          30,
+          53
+        ],
+        [
+          29,
+          53
+        ]
+      ]
+    },
+    {
+      "left": 12,
+      "top": 61,
+      "width": 4,
+      "height": 5,
+      "door": [
+        12,
+        63
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          7,
+          63
+        ],
+        [
+          8,
+          63
+        ],
+        [
+          9,
+          63
+        ],
+        [
+          10,
+          63
+        ],
+        [
+          11,
+          63
+        ]
+      ]
+    },
+    {
+      "left": 23,
+      "top": 80,
+      "width": 7,
+      "height": 6,
+      "door": [
+        26,
+        85
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          26,
+          88
+        ],
+        [
+          26,
+          87
+        ],
+        [
+          26,
+          86
+        ]
+      ]
+    },
+    {
+      "left": 13,
+      "top": 104,
+      "width": 6,
+      "height": 5,
+      "door": [
+        13,
+        106
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          7,
+          106
+        ],
+        [
+          8,
+          106
+        ],
+        [
+          9,
+          106
+        ],
+        [
+          10,
+          106
+        ],
+        [
+          11,
+          106
+        ],
+        [
+          12,
+          106
+        ]
+      ]
+    },
+    {
+      "left": 28,
+      "top": 107,
+      "width": 4,
+      "height": 5,
+      "door": [
+        31,
+        109
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          33,
+          109
+        ],
+        [
+          32,
+          109
+        ]
+      ]
+    },
+    {
+      "left": 18,
+      "top": 111,
+      "width": 6,
+      "height": 7,
+      "door": [
+        21,
+        117
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          21,
+          119
+        ],
+        [
+          21,
+          118
+        ]
+      ]
+    },
+    {
+      "left": 55,
+      "top": 64,
+      "width": 6,
+      "height": 5,
+      "door": [
+        58,
+        64
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          58,
+          61
+        ],
+        [
+          58,
+          62
+        ],
+        [
+          58,
+          63
+        ]
+      ]
+    },
+    {
+      "left": 47,
+      "top": 66,
+      "width": 6,
+      "height": 7,
+      "door": [
+        50,
+        66
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          50,
+          61
+        ],
+        [
+          50,
+          62
+        ],
+        [
+          50,
+          63
+        ],
+        [
+          50,
+          64
+        ],
+        [
+          50,
+          65
+        ]
+      ]
+    },
+    {
+      "left": 49,
+      "top": 81,
+      "width": 6,
+      "height": 5,
+      "door": [
+        52,
+        85
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          52,
+          88
+        ],
+        [
+          52,
+          87
+        ],
+        [
+          52,
+          86
+        ]
+      ]
+    },
+    {
+      "left": 43,
+      "top": 102,
+      "width": 4,
+      "height": 5,
+      "door": [
+        43,
+        104
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          36,
+          104
+        ],
+        [
+          37,
+          104
+        ],
+        [
+          38,
+          104
+        ],
+        [
+          39,
+          104
+        ],
+        [
+          40,
+          104
+        ],
+        [
+          41,
+          104
+        ],
+        [
+          42,
+          104
+        ]
+      ]
+    },
+    {
+      "left": 46,
+      "top": 94,
+      "width": 8,
+      "height": 7,
+      "door": [
+        50,
+        94
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          50,
+          93
+        ]
+      ]
+    },
+    {
+      "left": 38,
+      "top": 96,
+      "width": 6,
+      "height": 5,
+      "door": [
+        38,
+        98
+      ],
+      "block": 4,
+      "path_cells": [
+        [
+          36,
+          98
+        ],
+        [
+          37,
+          98
+        ]
+      ]
+    },
+    {
+      "left": 78,
+      "top": 17,
+      "width": 7,
+      "height": 8,
+      "door": [
+        81,
+        24
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          81,
+          27
+        ],
+        [
+          81,
+          26
+        ],
+        [
+          81,
+          25
+        ]
+      ]
+    },
+    {
+      "left": 70,
+      "top": 8,
+      "width": 5,
+      "height": 4,
+      "door": [
+        72,
+        8
+      ],
+      "block": 5,
+      "path_cells": [
+        [
+          72,
+          7
+        ]
+      ]
+    },
+    {
+      "left": 80,
+      "top": 113,
+      "width": 5,
+      "height": 4,
+      "door": [
+        82,
+        116
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          82,
+          119
+        ],
+        [
+          82,
+          118
+        ],
+        [
+          82,
+          117
+        ]
+      ]
+    },
+    {
+      "left": 70,
+      "top": 95,
+      "width": 7,
+      "height": 6,
+      "door": [
+        73,
+        95
+      ],
+      "block": 7,
+      "path_cells": [
+        [
+          73,
+          93
+        ],
+        [
+          73,
+          94
+        ]
+      ]
+    },
+    {
+      "left": 128,
+      "top": 19,
+      "width": 5,
+      "height": 6,
+      "door": [
+        130,
+        24
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          131,
+          27
+        ],
+        [
+          131,
+          26
+        ],
+        [
+          131,
+          25
+        ],
+        [
+          130,
+          25
+        ]
+      ]
+    },
+    {
+      "left": 121,
+      "top": 28,
+      "width": 6,
+      "height": 5,
+      "door": [
+        121,
+        30
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          117,
+          30
+        ],
+        [
+          118,
+          30
+        ],
+        [
+          119,
+          30
+        ],
+        [
+          120,
+          30
+        ]
+      ]
+    },
+    {
+      "left": 126,
+      "top": 13,
+      "width": 5,
+      "height": 4,
+      "door": [
+        128,
+        13
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          128,
+          7
+        ],
+        [
+          128,
+          8
+        ],
+        [
+          128,
+          9
+        ],
+        [
+          128,
+          10
+        ],
+        [
+          128,
+          11
+        ],
+        [
+          128,
+          12
+        ]
+      ]
+    },
+    {
+      "left": 133,
+      "top": 49,
+      "width": 5,
+      "height": 6,
+      "door": [
+        135,
+        54
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          135,
+          58
+        ],
+        [
+          135,
+          57
+        ],
+        [
+          135,
+          56
+        ],
+        [
+          135,
+          55
+        ]
+      ]
+    },
+    {
+      "left": 121,
+      "top": 35,
+      "width": 4,
+      "height": 5,
+      "door": [
+        121,
+        37
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          117,
+          37
+        ],
+        [
+          118,
+          37
+        ],
+        [
+          119,
+          37
+        ],
+        [
+          120,
+          37
+        ]
+      ]
+    },
+    {
+      "left": 135,
+      "top": 15,
+      "width": 7,
+      "height": 8,
+      "door": [
+        141,
+        19
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          145,
+          19
+        ],
+        [
+          144,
+          19
+        ],
+        [
+          143,
+          19
+        ],
+        [
+          142,
+          19
+        ]
+      ]
+    },
+    {
+      "left": 133,
+      "top": 33,
+      "width": 6,
+      "height": 5,
+      "door": [
+        136,
+        33
+      ],
+      "block": 8,
+      "path_cells": [
+        [
+          136,
+          30
+        ],
+        [
+          136,
+          31
+        ],
+        [
+          136,
+          32
+        ]
+      ]
+    },
+    {
+      "left": 108,
+      "top": 40,
+      "width": 5,
+      "height": 6,
+      "door": [
+        112,
+        43
+      ],
+      "block": 9,
+      "path_cells": [
+        [
+          114,
+          43
+        ],
+        [
+          113,
+          43
+        ]
+      ]
+    },
+    {
+      "left": 101,
+      "top": 51,
+      "width": 7,
+      "height": 6,
+      "door": [
+        104,
+        56
+      ],
+      "block": 9,
+      "path_cells": [
+        [
+          104,
+          58
+        ],
+        [
+          104,
+          57
+        ]
+      ]
+    },
+    {
+      "left": 96,
+      "top": 50,
+      "width": 4,
+      "height": 5,
+      "door": [
+        96,
+        52
+      ],
+      "block": 9,
+      "path_cells": [
+        [
+          93,
+          52
+        ],
+        [
+          94,
+          52
+        ],
+        [
+          95,
+          52
+        ]
+      ]
+    },
+    {
+      "left": 94,
+      "top": 68,
+      "width": 6,
+      "height": 5,
+      "door": [
+        94,
+        70
+      ],
+      "block": 10,
+      "path_cells": [
+        [
+          93,
+          70
+        ]
+      ]
+    },
+    {
+      "left": 105,
+      "top": 76,
+      "width": 5,
+      "height": 4,
+      "door": [
+        109,
+        78
+      ],
+      "block": 10,
+      "path_cells": [
+        [
+          114,
+          78
+        ],
+        [
+          113,
+          78
+        ],
+        [
+          112,
+          78
+        ],
+        [
+          111,
+          78
+        ],
+        [
+          110,
+          78
+        ]
+      ]
+    },
+    {
+      "left": 102,
+      "top": 66,
+      "width": 7,
+      "height": 8,
+      "door": [
+        105,
+        66
+      ],
+      "block": 10,
+      "path_cells": [
+        [
+          105,
+          61
+        ],
+        [
+          105,
+          62
+        ],
+        [
+          105,
+          63
+        ],
+        [
+          105,
+          64
+        ],
+        [
+          105,
+          65
+        ]
+      ]
+    },
+    {
+      "left": 139,
+      "top": 104,
+      "width": 5,
+      "height": 4,
+      "door": [
+        143,
+        106
+      ],
+      "block": 13,
+      "path_cells": [
+        [
+          145,
+          106
+        ],
+        [
+          144,
+          106
+        ]
+      ]
+    },
+    {
+      "left": 134,
+      "top": 94,
+      "width": 5,
+      "height": 6,
+      "door": [
+        136,
+        94
+      ],
+      "block": 13,
+      "path_cells": [
+        [
+          136,
+          93
+        ]
+      ]
+    },
+    {
+      "left": 122,
+      "top": 109,
+      "width": 7,
+      "height": 8,
+      "door": [
+        125,
+        116
+      ],
+      "block": 13,
+      "path_cells": [
+        [
+          125,
+          119
+        ],
+        [
+          125,
+          118
+        ],
+        [
+          125,
+          117
+        ]
+      ]
+    }
+  ],
+  "source_block_count": 14,
+  "target_coverage": 0.12,
+  "setback_cells": 3.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "New fictional cardinal streets, seeded building lots, doors and paths. No NPCs, jobs, supplies or directed vehicle lanes.",
+  "recipe": {
+    "generator_version": "cardinal-city-2",
+    "settings": {
+      "columns": 5,
+      "rows": 4,
+      "block_width_cells": 30,
+      "block_height_cells": 26,
+      "block_variation": 0.2,
+      "loop_chance": 0.45,
+      "dead_end_chance": 0.45,
+      "road_width_cells": 2.0,
+      "arterial_width_cells": 4.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.0,
+      "building_coverage": 0.12,
+      "setback_cells": 3.0,
+      "park_fraction": 0.15,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 128,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "suburban-loops",
+      "seed": 214
+    },
+    "reference_profile_sha256": null,
+    "recipe_id": "85ccb511fb19"
+  },
+  "recipe_id": "85ccb511fb19",
+  "street_segments": [
+    {
+      "points": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          175.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          175.0,
+          25.0
+        ],
+        [
+          335.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          335.0,
+          25.0
+        ],
+        [
+          455.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          455.0,
+          25.0
+        ],
+        [
+          580.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          580.0,
+          25.0
+        ],
+        [
+          735.0,
+          25.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          145.0
+        ],
+        [
+          175.0,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          145.0
+        ],
+        [
+          266.2415871322155,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          145.0
+        ],
+        [
+          455.0,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          455.0,
+          145.0
+        ],
+        [
+          580.0,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          735.0,
+          145.0
+        ],
+        [
+          659.6924188530538,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          175.0,
+          300.0
+        ],
+        [
+          335.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          300.0
+        ],
+        [
+          455.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          455.0,
+          300.0
+        ],
+        [
+          580.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          580.0,
+          300.0
+        ],
+        [
+          735.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          25.0,
+          455.0
+        ],
+        [
+          175.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          175.0,
+          455.0
+        ],
+        [
+          335.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          335.0,
+          455.0
+        ],
+        [
+          455.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          455.0,
+          455.0
+        ],
+        [
+          580.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          580.0,
+          455.0
+        ],
+        [
+          735.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          605.0
+        ],
+        [
+          175.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          175.0,
+          605.0
+        ],
+        [
+          335.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          605.0
+        ],
+        [
+          455.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          455.0,
+          605.0
+        ],
+        [
+          580.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          580.0,
+          605.0
+        ],
+        [
+          735.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          25.0,
+          25.0
+        ],
+        [
+          25.0,
+          145.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          145.0
+        ],
+        [
+          25.0,
+          300.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          300.0
+        ],
+        [
+          25.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          25.0,
+          455.0
+        ],
+        [
+          25.0,
+          605.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          175.0,
+          145.0
+        ],
+        [
+          175.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          175.0,
+          300.0
+        ],
+        [
+          175.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          175.0,
+          455.0
+        ],
+        [
+          175.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          25.0
+        ],
+        [
+          335.0,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          145.0
+        ],
+        [
+          335.0,
+          228.84116887347773
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          300.0
+        ],
+        [
+          335.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          335.0,
+          455.0
+        ],
+        [
+          335.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          455.0,
+          25.0
+        ],
+        [
+          455.0,
+          145.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          455.0,
+          145.0
+        ],
+        [
+          455.0,
+          300.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          455.0,
+          300.0
+        ],
+        [
+          455.0,
+          455.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          455.0,
+          455.0
+        ],
+        [
+          455.0,
+          605.0
+        ]
+      ],
+      "width_cells": 4.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points": [
+        [
+          580.0,
+          25.0
+        ],
+        [
+          580.0,
+          82.9100333917886
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": true,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          580.0,
+          145.0
+        ],
+        [
+          580.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          580.0,
+          300.0
+        ],
+        [
+          580.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          580.0,
+          455.0
+        ],
+        [
+          580.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          735.0,
+          25.0
+        ],
+        [
+          735.0,
+          145.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          735.0,
+          145.0
+        ],
+        [
+          735.0,
+          300.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          735.0,
+          300.0
+        ],
+        [
+          735.0,
+          455.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points": [
+        [
+          735.0,
+          455.0
+        ],
+        [
+          735.0,
+          605.0
+        ]
+      ],
+      "width_cells": 2.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    }
+  ],
+  "blocks": [
+    {
+      "bounds_metres": [
+        25.0,
+        25.0,
+        455.0,
+        300.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        25.0,
+        145.0,
+        175.0,
+        455.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        25.0,
+        455.0,
+        175.0,
+        605.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        175.0,
+        300.0,
+        335.0,
+        455.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        175.0,
+        455.0,
+        335.0,
+        605.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        335.0,
+        25.0,
+        455.0,
+        145.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        335.0,
+        300.0,
+        455.0,
+        455.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        335.0,
+        455.0,
+        455.0,
+        605.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        455.0,
+        25.0,
+        735.0,
+        300.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        455.0,
+        145.0,
+        580.0,
+        300.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        455.0,
+        300.0,
+        580.0,
+        455.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        455.0,
+        455.0,
+        580.0,
+        605.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        580.0,
+        300.0,
+        735.0,
+        455.0
+      ],
+      "open_space": true,
+      "density_multiplier": 1.0
+    },
+    {
+      "bounds_metres": [
+        580.0,
+        455.0,
+        735.0,
+        605.0
+      ],
+      "open_space": false,
+      "density_multiplier": 1.0
+    }
+  ]
+}

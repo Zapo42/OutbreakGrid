@@ -1,0 +1,94 @@
+{
+  "layout_version": "building-layouts-draft-1",
+  "seed": 214,
+  "templates": [
+    {
+      "id": "house-compact-r3",
+      "type": "house",
+      "variant": "compact",
+      "blueprint": "house-compact-r3.blueprint.json",
+      "map": "house-compact-r3.obmap2",
+      "plan": "house-compact-r3.svg"
+    },
+    {
+      "id": "house-spacious-r0",
+      "type": "house",
+      "variant": "spacious",
+      "blueprint": "house-spacious-r0.blueprint.json",
+      "map": "house-spacious-r0.obmap2",
+      "plan": "house-spacious-r0.svg"
+    },
+    {
+      "id": "store-compact-r2",
+      "type": "store",
+      "variant": "compact",
+      "blueprint": "store-compact-r2.blueprint.json",
+      "map": "store-compact-r2.obmap2",
+      "plan": "store-compact-r2.svg"
+    },
+    {
+      "id": "store-spacious-r2",
+      "type": "store",
+      "variant": "spacious",
+      "blueprint": "store-spacious-r2.blueprint.json",
+      "map": "store-spacious-r2.obmap2",
+      "plan": "store-spacious-r2.svg"
+    },
+    {
+      "id": "distribution-center-compact-r1",
+      "type": "distribution-center",
+      "variant": "compact",
+      "blueprint": "distribution-center-compact-r1.blueprint.json",
+      "map": "distribution-center-compact-r1.obmap2",
+      "plan": "distribution-center-compact-r1.svg"
+    },
+    {
+      "id": "distribution-center-spacious-r0",
+      "type": "distribution-center",
+      "variant": "spacious",
+      "blueprint": "distribution-center-spacious-r0.blueprint.json",
+      "map": "distribution-center-spacious-r0.obmap2",
+      "plan": "distribution-center-spacious-r0.svg"
+    },
+    {
+      "id": "restaurant-bar-compact-r2",
+      "type": "restaurant-bar",
+      "variant": "compact",
+      "blueprint": "restaurant-bar-compact-r2.blueprint.json",
+      "map": "restaurant-bar-compact-r2.obmap2",
+      "plan": "restaurant-bar-compact-r2.svg"
+    },
+    {
+      "id": "restaurant-bar-spacious-r2",
+      "type": "restaurant-bar",
+      "variant": "spacious",
+      "blueprint": "restaurant-bar-spacious-r2.blueprint.json",
+      "map": "restaurant-bar-spacious-r2.obmap2",
+      "plan": "restaurant-bar-spacious-r2.svg"
+    },
+    {
+      "id": "church-compact-r1",
+      "type": "church",
+      "variant": "compact",
+      "blueprint": "church-compact-r1.blueprint.json",
+      "map": "church-compact-r1.obmap2",
+      "plan": "church-compact-r1.svg"
+    },
+    {
+      "id": "church-spacious-r2",
+      "type": "church",
+      "variant": "spacious",
+      "blueprint": "church-spacious-r2.blueprint.json",
+      "map": "church-spacious-r2.obmap2",
+      "plan": "church-spacious-r2.svg"
+    }
+  ],
+  "status": "Geometry review pack; no runtime fixture/behavior integration",
+  "lead_decisions": [
+    "Group multiple rooms under one building/home identity without changing old saves",
+    "Approve room recovery semantics and rates with NPC coder",
+    "Map proposed sales/storage fixtures to finite-inventory game objects",
+    "Agree order-computer visit/claim protocol with NPC coder",
+    "Agree cook/waiter counter transfer protocol and fixture collision/visibility"
+  ]
+}

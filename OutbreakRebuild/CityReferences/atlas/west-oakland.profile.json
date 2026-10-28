@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "west-oakland",
+    "name": "West Oakland — published street/building sample",
+    "bbox": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/gboeing/osmnx/main/tests/input_data/West-Oakland.osm.bz2",
+    "sha256": "92efe9ed4f803961e1b552d0e769fc10703814efa827e9a6fb013004e00bbeae",
+    "processed_utc": "2026-10-26T00:15:56.738785+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 77,
+    "height": 67,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      37.80615,
+      -122.30258,
+      37.80914,
+      -122.29825
+    ],
+    "projected_origin_x": -190.65674063952352,
+    "projected_origin_y": 165.9365247306189,
+    "projection": "+proj=aeqd +lat_0=37.807645 +lon_0=-122.300415 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.126543,
+    "feature_counts": {
+      "road": 23,
+      "landuse": 7,
+      "building": 23
+    },
+    "street_length_km": 2.5931,
+    "street_density_km_per_km2": 20.4918,
+    "median_noded_street_segment_metres": 42.81,
+    "fourfold_orientation_alignment": 0.8559,
+    "curved_street_length_share": 0.069,
+    "interior_junctions": 18,
+    "interior_dead_ends": 1,
+    "interior_dead_end_share": 0.0526,
+    "building_coverage": 0.09620115922714494,
+    "closed_street_blocks": 6,
+    "median_closed_block_area_m2": 7818.5,
+    "median_closed_block_aspect_ratio": 2.02,
+    "generation_hint": {
+      "existing_street_layout": "Grid",
+      "observed_segment_cells": 8.56,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

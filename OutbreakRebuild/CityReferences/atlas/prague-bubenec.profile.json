@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "sample": {
+    "id": "prague-bubenec",
+    "name": "Prague — Bubeneč residential quarter sample",
+    "bbox": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ]
+  },
+  "provenance": {
+    "source_url": "https://raw.githubusercontent.com/pysal/momepy/main/momepy/datasets/bubenec.gpkg",
+    "sha256": "fab4f3047ce5a63dec99943a09e3c8dba1f18d9a4e3b7b21ea377e28a67a55a4",
+    "processed_utc": "2026-10-26T00:15:59.666548+00:00",
+    "attribution": "Momepy sample data; © 2018–2021 Martin Fleischmann and PySAL Developers, BSD-3-Clause. Upstream geometry lineage unspecified; not claimed as OSM.",
+    "skipped": {
+      "note": "Published morphology sample. Upstream street/building lineage is not specified; no OSM district claims."
+    },
+    "scope": "Historical published sample"
+  },
+  "grid": {
+    "width": 117,
+    "height": 128,
+    "cell_metres": 5,
+    "survey_bbox_south_west_north_east": [
+      50.10007700000001,
+      14.398981599999999,
+      50.1057945,
+      14.407143600000008
+    ],
+    "projected_origin_x": -291.9825544163759,
+    "projected_origin_y": 317.9898120674864,
+    "projection": "+proj=aeqd +lat_0=50.10293575000001 +lon_0=14.403062600000004 +datum=WGS84 +units=m +type=crs",
+    "north_up": true
+  },
+  "metrics": {
+    "area_km2": 0.371358,
+    "feature_counts": {
+      "building": 144,
+      "road": 35
+    },
+    "street_length_km": 3.8168,
+    "street_density_km_per_km2": 10.2778,
+    "median_noded_street_segment_metres": 120.33,
+    "fourfold_orientation_alignment": 0.1594,
+    "curved_street_length_share": 0.0,
+    "interior_junctions": 14,
+    "interior_dead_ends": 7,
+    "interior_dead_end_share": 0.3333,
+    "building_coverage": 0.11628672938234258,
+    "closed_street_blocks": 7,
+    "median_closed_block_area_m2": 12491.74,
+    "median_closed_block_aspect_ratio": 1.11,
+    "generation_hint": {
+      "existing_street_layout": "Neighborhood",
+      "observed_segment_cells": 24.07,
+      "zoning": "NeighborhoodCenters",
+      "note": "Measured reference hint only; runtime presets are not automatically changed."
+    },
+    "limitations": [
+      "Sample windows are not administrative districts.",
+      "Missing buildings or land-use tags mean unknown, not zero.",
+      "Boundary junctions are excluded; disconnected or incomplete extracts can bias metrics.",
+      "Crossings are geometric within tagged layers; this is not a routable traffic model.",
+      "Median segment length is not a measured block-size distribution."
+    ]
+  }
+}

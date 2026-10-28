@@ -1,0 +1,294 @@
+{
+  "generator_version": "district-city-3",
+  "examples": [
+    {
+      "stem": "dense-urban-214-a809e43bf11b",
+      "name": "Dense urban core",
+      "kind": "dense-urban",
+      "category": "urban",
+      "seed": 214,
+      "buildings": 99,
+      "coverage": 0.306306,
+      "reference_id": "midtown-manhattan",
+      "use_counts": {
+        "apartments": 52,
+        "office": 25,
+        "retail": 22
+      }
+    },
+    {
+      "stem": "dense-urban-215-011c8a0fbe47",
+      "name": "Dense urban core",
+      "kind": "dense-urban",
+      "category": "urban",
+      "seed": 215,
+      "buildings": 108,
+      "coverage": 0.323602,
+      "reference_id": "midtown-manhattan",
+      "use_counts": {
+        "apartments": 69,
+        "retail": 18,
+        "office": 21
+      }
+    },
+    {
+      "stem": "urban-apartments-214-7d1b89a54e33",
+      "name": "Urban apartment district",
+      "kind": "urban-apartments",
+      "category": "residential",
+      "seed": 214,
+      "buildings": 27,
+      "coverage": 0.2224,
+      "reference_id": "prague-bubenec",
+      "use_counts": {
+        "apartments": 25,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "urban-apartments-215-ed81ebd9c722",
+      "name": "Urban apartment district",
+      "kind": "urban-apartments",
+      "category": "residential",
+      "seed": 215,
+      "buildings": 26,
+      "coverage": 0.235795,
+      "reference_id": "prague-bubenec",
+      "use_counts": {
+        "apartments": 21,
+        "retail": 5
+      }
+    },
+    {
+      "stem": "terrace-residential-214-62915937c6f5",
+      "name": "Compact terrace residential",
+      "kind": "terrace-residential",
+      "category": "residential",
+      "seed": 214,
+      "buildings": 89,
+      "coverage": 0.272649,
+      "reference_id": "philadelphia-rowhouses",
+      "use_counts": {
+        "terrace-home": 75,
+        "retail": 14
+      }
+    },
+    {
+      "stem": "terrace-residential-215-1a1f022fa217",
+      "name": "Compact terrace residential",
+      "kind": "terrace-residential",
+      "category": "residential",
+      "seed": 215,
+      "buildings": 90,
+      "coverage": 0.294118,
+      "reference_id": "philadelphia-rowhouses",
+      "use_counts": {
+        "terrace-home": 78,
+        "retail": 12
+      }
+    },
+    {
+      "stem": "garden-suburb-214-6070efd8ebee",
+      "name": "Garden suburb",
+      "kind": "garden-suburb",
+      "category": "suburban",
+      "seed": 214,
+      "buildings": 32,
+      "coverage": 0.095535,
+      "reference_id": "woodbridge-suburb",
+      "use_counts": {
+        "detached-home": 30,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "garden-suburb-215-8d271e946bcd",
+      "name": "Garden suburb",
+      "kind": "garden-suburb",
+      "category": "suburban",
+      "seed": 215,
+      "buildings": 31,
+      "coverage": 0.082011,
+      "reference_id": "woodbridge-suburb",
+      "use_counts": {
+        "detached-home": 30,
+        "retail": 1
+      }
+    },
+    {
+      "stem": "culdesac-suburb-214-4e737fe51589",
+      "name": "Cul-de-sac suburb",
+      "kind": "culdesac-suburb",
+      "category": "suburban",
+      "seed": 214,
+      "buildings": 24,
+      "coverage": 0.060236,
+      "reference_id": "naperville-suburb",
+      "use_counts": {
+        "detached-home": 24
+      }
+    },
+    {
+      "stem": "culdesac-suburb-215-7ecef3cfefbd",
+      "name": "Cul-de-sac suburb",
+      "kind": "culdesac-suburb",
+      "category": "suburban",
+      "seed": 215,
+      "buildings": 24,
+      "coverage": 0.082099,
+      "reference_id": "naperville-suburb",
+      "use_counts": {
+        "detached-home": 23,
+        "retail": 1
+      }
+    },
+    {
+      "stem": "suburban-grid-214-8575bdf55e8b",
+      "name": "Connected residential suburb",
+      "kind": "suburban-grid",
+      "category": "suburban",
+      "seed": 214,
+      "buildings": 31,
+      "coverage": 0.117584,
+      "reference_id": "naperville-suburb",
+      "use_counts": {
+        "detached-home": 29,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "suburban-grid-215-389c9e784fdf",
+      "name": "Connected residential suburb",
+      "kind": "suburban-grid",
+      "category": "suburban",
+      "seed": 215,
+      "buildings": 33,
+      "coverage": 0.134305,
+      "reference_id": "naperville-suburb",
+      "use_counts": {
+        "detached-home": 31,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "business-core-214-25ef40e679fe",
+      "name": "Central business district",
+      "kind": "business-core",
+      "category": "business",
+      "seed": 214,
+      "buildings": 26,
+      "coverage": 0.244275,
+      "reference_id": "chicago-loop",
+      "use_counts": {
+        "office": 17,
+        "retail": 6,
+        "hotel": 3
+      }
+    },
+    {
+      "stem": "business-core-215-6785a5ab92d2",
+      "name": "Central business district",
+      "kind": "business-core",
+      "category": "business",
+      "seed": 215,
+      "buildings": 26,
+      "coverage": 0.251669,
+      "reference_id": "chicago-loop",
+      "use_counts": {
+        "office": 17,
+        "retail": 8,
+        "hotel": 1
+      }
+    },
+    {
+      "stem": "business-campus-214-d443514e3582",
+      "name": "Business campus",
+      "kind": "business-campus",
+      "category": "business",
+      "seed": 214,
+      "buildings": 18,
+      "coverage": 0.220455,
+      "reference_id": null,
+      "use_counts": {
+        "office": 16,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "business-campus-215-1acdfd561820",
+      "name": "Business campus",
+      "kind": "business-campus",
+      "category": "business",
+      "seed": 215,
+      "buildings": 11,
+      "coverage": 0.144374,
+      "reference_id": null,
+      "use_counts": {
+        "office": 9,
+        "retail": 2
+      }
+    },
+    {
+      "stem": "retail-corridor-214-fa947ca5d7cc",
+      "name": "Retail and local business",
+      "kind": "retail-corridor",
+      "category": "business",
+      "seed": 214,
+      "buildings": 26,
+      "coverage": 0.199898,
+      "reference_id": "chicago-loop",
+      "use_counts": {
+        "retail": 19,
+        "office": 7
+      }
+    },
+    {
+      "stem": "retail-corridor-215-80b064c46086",
+      "name": "Retail and local business",
+      "kind": "retail-corridor",
+      "category": "business",
+      "seed": 215,
+      "buildings": 33,
+      "coverage": 0.202944,
+      "reference_id": "chicago-loop",
+      "use_counts": {
+        "retail": 28,
+        "office": 5
+      }
+    },
+    {
+      "stem": "mixed-city-214-a09de43f48f3",
+      "name": "Connected mixed-district city",
+      "kind": "mixed-city",
+      "category": "mixed",
+      "seed": 214,
+      "buildings": 178,
+      "districts": 4,
+      "use_counts": {
+        "apartments": 38,
+        "retail": 22,
+        "office": 35,
+        "hotel": 1,
+        "terrace-home": 60,
+        "detached-home": 22
+      }
+    },
+    {
+      "stem": "mixed-city-215-2da85371bc12",
+      "name": "Connected mixed-district city",
+      "kind": "mixed-city",
+      "category": "mixed",
+      "seed": 215,
+      "buildings": 190,
+      "districts": 4,
+      "use_counts": {
+        "retail": 34,
+        "apartments": 42,
+        "office": 22,
+        "hotel": 3,
+        "terrace-home": 56,
+        "detached-home": 33
+      }
+    }
+  ]
+}

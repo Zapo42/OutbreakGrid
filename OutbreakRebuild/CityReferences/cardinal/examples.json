@@ -1,0 +1,394 @@
+{
+  "generator_version": "cardinal-city-2",
+  "examples": [
+    {
+      "folder": "aligned",
+      "stem": "west-oakland-214-cardinal",
+      "label": "west-oakland — aligned reference",
+      "buildings": 4,
+      "rotation_degrees": -20.822174923623862
+    },
+    {
+      "folder": "aligned",
+      "stem": "manhattan-214-cardinal",
+      "label": "manhattan — aligned reference",
+      "buildings": 41,
+      "rotation_degrees": -29.118240983026556
+    },
+    {
+      "folder": "aligned",
+      "stem": "prague-bubenec-214-cardinal",
+      "label": "prague-bubenec — aligned reference",
+      "buildings": 20,
+      "rotation_degrees": -3.654889742579398
+    },
+    {
+      "folder": "layouts",
+      "stem": "compact-grid-214-890ace031b6b",
+      "label": "compact-grid — seed 214",
+      "buildings": 22,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 18,
+        "block_height_cells": 18,
+        "block_variation": 0.12,
+        "loop_chance": 1.0,
+        "dead_end_chance": 0.0,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.24,
+        "setback_cells": 3.0,
+        "park_fraction": 0.08,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": "west-oakland",
+        "preset": "compact-grid",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "long-block-grid-214-03d6c14fb988",
+      "label": "long-block-grid — seed 214",
+      "buildings": 38,
+      "settings": {
+        "columns": 4,
+        "rows": 4,
+        "block_width_cells": 37,
+        "block_height_cells": 16,
+        "block_variation": 0.12,
+        "loop_chance": 1.0,
+        "dead_end_chance": 0.0,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.23,
+        "setback_cells": 3.0,
+        "park_fraction": 0.08,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": "manhattan",
+        "preset": "long-block-grid",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "mixed-town-214-6018d028a90c",
+      "label": "mixed-town — seed 214",
+      "buildings": 38,
+      "settings": {
+        "columns": 4,
+        "rows": 4,
+        "block_width_cells": 24,
+        "block_height_cells": 21,
+        "block_variation": 0.3,
+        "loop_chance": 0.65,
+        "dead_end_chance": 0.3,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.18,
+        "setback_cells": 3.0,
+        "park_fraction": 0.08,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": "prague-bubenec",
+        "preset": "mixed-town",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "town-centre-214-446d9321e0e0",
+      "label": "town-centre — seed 214",
+      "buildings": 59,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 25,
+        "block_height_cells": 23,
+        "block_variation": 0.2,
+        "loop_chance": 0.85,
+        "dead_end_chance": 0.15,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.18,
+        "setback_cells": 3.0,
+        "park_fraction": 0.15,
+        "centre_density_multiplier": 2.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "town-centre",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "suburban-loops-214-85ccb511fb19",
+      "label": "suburban-loops — seed 214",
+      "buildings": 35,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 30,
+        "block_height_cells": 26,
+        "block_variation": 0.2,
+        "loop_chance": 0.45,
+        "dead_end_chance": 0.45,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.12,
+        "setback_cells": 3.0,
+        "park_fraction": 0.15,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "suburban-loops",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "suburban-dead-ends-214-cc4261a0cca7",
+      "label": "suburban-dead-ends — seed 214",
+      "buildings": 30,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 32,
+        "block_height_cells": 27,
+        "block_variation": 0.2,
+        "loop_chance": 0.1,
+        "dead_end_chance": 0.85,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.1,
+        "setback_cells": 3.0,
+        "park_fraction": 0.12,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "suburban-dead-ends",
+        "seed": 214
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "compact-grid-215-700607f73bf8",
+      "label": "compact-grid — seed 215",
+      "buildings": 27,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 18,
+        "block_height_cells": 18,
+        "block_variation": 0.12,
+        "loop_chance": 1.0,
+        "dead_end_chance": 0.0,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.24,
+        "setback_cells": 3.0,
+        "park_fraction": 0.08,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": "west-oakland",
+        "preset": "compact-grid",
+        "seed": 215
+      }
+    },
+    {
+      "folder": "layouts",
+      "stem": "suburban-dead-ends-215-95ddb33323fd",
+      "label": "suburban-dead-ends — seed 215",
+      "buildings": 43,
+      "settings": {
+        "columns": 5,
+        "rows": 4,
+        "block_width_cells": 32,
+        "block_height_cells": 27,
+        "block_variation": 0.2,
+        "loop_chance": 0.1,
+        "dead_end_chance": 0.85,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.1,
+        "setback_cells": 3.0,
+        "park_fraction": 0.12,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 128,
+        "cell_metres": 5.0,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "suburban-dead-ends",
+        "seed": 215
+      }
+    }
+  ]
+}
