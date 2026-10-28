@@ -2,6 +2,11 @@
 
 Append one section per completed or blocked task.
 
+## UI-PRES-01A — tiny-map layout decision
+- Date: 2026-10-28 (America/Chicago). Inspected actual DrawWorld/OnGUI and confirmed need bars receive reduced terrain visible bounds, while allocated map panel has minimum64×64.
+- Lead policy/ownership saved in harness/UI_PRES_01A_ASSIGNMENT.md and PLANS.md: retain readable selected H/F/E stack and pass allocated bounds. Graphics owns original two files plus only the call-site argument/comment in FoundationApp.cs. Reconcile against80fcaa6 without overwriting NPC/World changes; no overlap with NPC-F141-R1.
+- Specialist-reported original checks4816 Legacy/3 NewOnly are not Lead-rerun or accepted artifacts; combined follow-up handoff pending. No production changes/tests run for this documentation-only decision; git diff --check and source-preservation check performed. Native testing paused, main unchanged.
+
 ## NPC-F141-R1 — correction assignment
 - Date: 2026-10-28 (America/Chicago). User selected dedicated NPC fix before main release.
 - Lead created harness/NPC_F141_R1_ASSIGNMENT.md and linked it from agents/simulation.md and PLANS.md. Exact base2aeac34, seven exclusive NPC implementation/test/diagnostic paths, contracts/legacy constraints, paired evidence, cartographer observations and return handoff recorded. Existing NPC coder retains behavior ownership; no replacement spawned or cross-chat delivery claimed.
