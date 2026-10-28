@@ -1,0 +1,4 @@
+Cartographer supplied seed214 save: current integrated reader; no source/geometry/stock intervention. Observation/replay, not survival acceptance.
+encounter-prototype-106: replay/roundtrip PASS; ticks=14400 actors=11 deaths=8 retainedOrderCredits=40 foodRemaining=24 needsPriority=False
+encounter-prototype-107: replay/roundtrip PASS; ticks=14400 actors=11 deaths=7 retainedOrderCredits=38 foodRemaining=25 needsPriority=True
+No behavioral success threshold or starvation-prevention claim. Native Unity NOT RUN.

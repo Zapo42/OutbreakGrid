@@ -1,0 +1,53 @@
+{
+  "integrationSource": "eb630f125339d458d005dcbc62d529c3d7486052",
+  "mainBaseline": "1b05a73c0994720230524c519dac84fc58d0bbd3",
+  "transferHead": "b37a589ab6df1f220d6786c35581ad08514dad65",
+  "npcImplementation": "c6902e059e8ac6a6fe2bfa8a8bbad2b238589830",
+  "rules": 107,
+  "sourceBuildChecks": "PASS",
+  "releaseStatus": "BLOCKED: generated-city courier throughput regression; main unchanged",
+  "coreCases": 701,
+  "coreAssertions": 743092,
+  "windowsABI": "PASS hosted only",
+  "uiLegacyAssertions": 2477,
+  "uiNewOnlyAssertions": 3,
+  "explicitLegacyUpgradeAndRestartUiAssertions": 75,
+  "worldBuildingInfrastructureAssertions": 1264,
+  "worldRenderingDoubleAssertions": 20,
+  "pythonGeneratorTests": 40,
+  "dailyObserverReplay": "PASS; not survival acceptance",
+  "courierAuditAccountingReplay": "PASS; generated4 short12 larger20 credited meals",
+  "integrated107FinalMatchesTransfer": true,
+  "integrated107FinalSha256": "25367fd9e7824af1a64c6f39bf24bce69632ce267f97b04561a1cf0c518c58c1",
+  "pairedRegression": "regression/RESULTS.json",
+  "nativeUnity": "NOT RUN: user-paused",
+  "windowsPlayer": "NOT RUN: no EXE",
+  "behavioralFixByLead": false,
+  "cartographerSaveReplay": {
+    "sourceWorld": "20380bec26bf680865a2b22662872db115a390c4",
+    "suppliedSaveRules": 106,
+    "suppliedSaveExactRoundtrip": true,
+    "rulesTested": [
+      106,
+      107
+    ],
+    "ticksEach": 14400,
+    "actors": 11,
+    "saveContinuation": "PASS twenty-tick replay windows every600 ticks",
+    "sourceStockGeometryUnchanged": true,
+    "survivalAcceptance": false,
+    "report": "cartographer/CARTOGRAPHER_REPLAY.txt",
+    "observedDeaths": {
+      "106": 8,
+      "107": 7
+    },
+    "foodRemaining": {
+      "106": 24,
+      "107": 25
+    },
+    "retainedOrderCredits": {
+      "106": 40,
+      "107": 38
+    }
+  }
+}

@@ -40,7 +40,7 @@ Role scopes guide assignments; they do not grant blanket ownership of folders. B
 - Keep authoritative simulation decisions in the core, outside UI and animation code.
 - Keep Unity 6000.6.3f1 and dependency versions unchanged without authorization. Preserve asset GUIDs and .meta files.
 - RESTORE42 permanently identifies pre-team Foundation 130 at 49fc25b05567c4ec6b22acb03a9df98da3b39c76. Foundation 82 remains the last user-reported working native Unity checkpoint (foundation-82-unity-checkpoint). Do not move these tags or overwrite main to test an older build.
-- Last published completed build: Foundation 131, f1b170bab2d6565097b292d0d83883f3c352afd6. User reports unpublished Foundation 132 happiness partially integrated at 72a80e6 with specialist checks passed and full QA unfinished. That commit is absent here; preserve unfinished work if found and do not call Foundation 132 completed or release-validated.
+- Published main baseline: Foundation131 plus World integration at1b05a73c0994720230524c519dac84fc58d0bbd3. NPC132–141 source is integrated only on lead/npc-f141-integration-20261028 for review; code/build checks pass, but generated-city delivery7→4 regression blocks main release. Preserve all unpublished work. Do not describe this candidate as released or the city supply problems as resolved.
 - Record completed work in OutbreakRebuild/Docs/BUILD_VALIDATION.md and harness/build-log.md. Continue the authorized incremental GitHub publication workflow after validation and QA. Include https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip with completed published builds; never claim publication or a Windows EXE without evidence.
 
 ## Required handoff

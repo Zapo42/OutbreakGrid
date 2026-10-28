@@ -2,6 +2,18 @@
 
 The user reported Foundation 82 working, then instructed that later incremental builds will go untested in Unity until they say otherwise. Acknowledging or continuing development does not establish Unity validation. Continue automated checks for each change and record native validation separately.
 
+## NPC-F141 integration candidate — not published to main
+
+Exact source `eb630f125339d458d005dcbc62d529c3d7486052` merges NPC implementation `c6902e0` (including prerequisites132–140) with main `1b05a73` and World schema14. Lead repaired explicit UI upgrade/restart gates and persistent occupation display. No NPC behavioral fix was made by Lead. This candidate is **release-blocked**, not a completed Foundation141 release.
+
+Lead-executed checks PASS:701 core cases /743092 assertions; hosted Windows ABI; UI Legacy2477/NewOnly3; separate rules100–106 upgrade/restart/schema14 UI75 assertions; retained World room checks1264 and bed/area drawing20; Python generator40 tests. Current daily/courier observer, accounting and replay checks exit0, but generated city still has two deaths and four credited delivery meals. The integrated107 final save is byte-identical to the transfer's final state.
+
+Independent same-initial-state106/107 review reproduces credited meals7→4, deaths4→2, source stock20→25 and courier health100→69. Traces connect all three missing credits to eaten carried stock/personal reserve and a later hungry empty-return claim held until expiry. Main remains `1b05a73` pending a dedicated NPC fix or explicit acceptance of the tradeoff. [Full integration review](NPC_F141_INTEGRATION_REVIEW.md) · [current evidence](../../harness/validation/npc-f141/RESULTS.json).
+
+Supplied cartographer64×36 save tested separately: original106 exact roundtrip;14400ticks under both106 and explicit107 with repeated20tick replay windows and exact final roundtrips. Runtime observation remains poor:8/11 deaths under106 versus7/11 under107, food remaining24/25. This is a different fixture from the generated city; replay PASS does not mean survival acceptance. [Cartographer replay](../../harness/validation/npc-f141/cartographer/CARTOGRAPHER_REPLAY.txt).
+
+Native Unity compilation/input/rendering/dialogs and Windows player: **NOT RUN**, user-paused. No Windows EXE. Passed source, replay or accounting checks do not establish city-health/supply acceptance.
+
 ## Last user-tested checkpoint
 
 Role coordination update ROLE-SPLIT-02 is documentation only: three additional non-NPC roles (World, Graphics/UI, Engine/Tools) support the Lead alongside the existing dedicated NPC coder. It does not change the gameplay build, certify Foundation 132 or resume native testing. Validation for this update is instruction consistency, local links, scope and diff checks; see harness/build-log.md for evidence. The separate cloud setup run at Foundation 131 passed 627 core cases / 737155 assertions, Windows ABI, UI Legacy 2463 and NewOnly 3; these remain hosted results, not new native evidence.

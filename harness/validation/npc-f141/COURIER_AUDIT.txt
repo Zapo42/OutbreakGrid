@@ -1,0 +1,45 @@
+NPC-F140 observational audit. Phase totals partition simulated ticks; hunger/energy flags overlap phases. Pickup includes personal reserve, so it is not delivery credit. Meal events are hunger decreases, not a full food-flow attribution. No gameplay intervention. Native Unity NOT RUN.
+generated-day: rules=encounter-prototype-107, observedTicks=14400, creditedMeals=4, completedOrders=0, outstandingMeals=20, firstCredit=871, lastCredit=3661
+  initial center=1724 stock=40 dispatchable=36
+  final center=1724 stock=25 dispatchable=21
+  observed per-tick center outflow=17 inflow=2 netOutflow=15
+  order=1 requested=12 creditedDuringRun=2
+  order=2 requested=12 creditedDuringRun=2
+  courier=1 claims=5 sourcePickups=6 sourcePickupMeals=17 creditedDeliveryEvents=3 delivered=4 observedMealEvents=14 moves=1939 hungerAtLeast40Ticks=8230 energyAtMost40Ticks=7680 loadedHungryTaskTicks=22
+    collecting ticks=240 scheduledWindowTicks=240 movedPositionTicks=43 stationaryTicks=197
+    off-duty-no-delivery ticks=225 scheduledWindowTicks=0 movedPositionTicks=16 stationaryTicks=209
+    on-duty-no-delivery ticks=930 scheduledWindowTicks=930 movedPositionTicks=73 stationaryTicks=857
+    personal-shopping ticks=3755 scheduledWindowTicks=1 movedPositionTicks=585 stationaryTicks=3170
+    returning-delivery ticks=6340 scheduledWindowTicks=3434 movedPositionTicks=757 stationaryTicks=5583
+    work-home-commute ticks=2910 scheduledWindowTicks=2595 movedPositionTicks=465 stationaryTicks=2445
+short-route-control: rules=encounter-prototype-107, observedTicks=2400, creditedMeals=12, completedOrders=3, outstandingMeals=0, firstCredit=116, lastCredit=2316
+  initial center=183 stock=30 dispatchable=24
+  final center=183 stock=16 dispatchable=10
+  observed per-tick center outflow=14 inflow=0 netOutflow=14
+  order=1 requested=4 creditedDuringRun=4
+  order=2 requested=4 creditedDuringRun=4
+  order=3 requested=4 creditedDuringRun=4
+  courier=1 claims=7 sourcePickups=7 sourcePickupMeals=14 creditedDeliveryEvents=7 delivered=12 observedMealEvents=2 moves=141 hungerAtLeast40Ticks=6 energyAtMost40Ticks=0 loadedHungryTaskTicks=5
+    collecting ticks=465 scheduledWindowTicks=465 movedPositionTicks=50 stationaryTicks=415
+    on-duty-no-delivery ticks=1260 scheduledWindowTicks=1260 movedPositionTicks=20 stationaryTicks=1240
+    returning-delivery ticks=675 scheduledWindowTicks=675 movedPositionTicks=71 stationaryTicks=604
+larger-district-control: rules=encounter-prototype-107, observedTicks=2400, creditedMeals=20, completedOrders=2, outstandingMeals=10, firstCredit=156, lastCredit=2387
+  initial center=964 stock=80 dispatchable=74
+  final center=964 stock=52 dispatchable=46
+  observed per-tick center outflow=28 inflow=0 netOutflow=28
+  order=1 requested=6 creditedDuringRun=6
+  order=2 requested=6 creditedDuringRun=6
+  order=3 requested=6 creditedDuringRun=4
+  order=4 requested=6 creditedDuringRun=2
+  order=5 requested=6 creditedDuringRun=2
+  courier=1 claims=6 sourcePickups=6 sourcePickupMeals=15 creditedDeliveryEvents=5 delivered=10 observedMealEvents=3 moves=347 hungerAtLeast40Ticks=7 energyAtMost40Ticks=275 loadedHungryTaskTicks=0
+    collecting ticks=50 scheduledWindowTicks=50 movedPositionTicks=10 stationaryTicks=40
+    on-duty-no-delivery ticks=140 scheduledWindowTicks=140 movedPositionTicks=8 stationaryTicks=132
+    returning-delivery ticks=1140 scheduledWindowTicks=1140 movedPositionTicks=168 stationaryTicks=972
+    work-home-commute ticks=1070 scheduledWindowTicks=1070 movedPositionTicks=161 stationaryTicks=909
+  courier=2 claims=6 sourcePickups=6 sourcePickupMeals=13 creditedDeliveryEvents=6 delivered=10 observedMealEvents=3 moves=340 hungerAtLeast40Ticks=6 energyAtMost40Ticks=0 loadedHungryTaskTicks=4
+    collecting ticks=35 scheduledWindowTicks=35 movedPositionTicks=7 stationaryTicks=28
+    on-duty-no-delivery ticks=41 scheduledWindowTicks=41 movedPositionTicks=0 stationaryTicks=41
+    returning-delivery ticks=1295 scheduledWindowTicks=1295 movedPositionTicks=186 stationaryTicks=1109
+    work-home-commute ticks=1029 scheduledWindowTicks=1029 movedPositionTicks=147 stationaryTicks=882
+Audit accounting/replay checks PASS; does not certify healthy NPCs, pathfinding performance, or show that adding couriers alone fixes the generated city.

@@ -1,5 +1,7 @@
 # OutbreakGrid
 
+**NPC-F141 source-review candidate; not a release.** This branch integrates needs priority and NPC prerequisites with the World reader, but the same-city delivery regression (7→4 credited meals) blocks main publication. [Integration review and NPC follow-up](OutbreakRebuild/Docs/NPC_F141_INTEGRATION_REVIEW.md). Native Unity testing remains paused. The published baseline below is unchanged on main.
+
 Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 World integration adds opt-in seeded two-room house maps, living-area recovery markers and separate household storage. [Generation, loadable examples, compatibility and validation limits](OutbreakRebuild/Docs/WORLD_HOUSES_INTEGRATION.md). NPC Foundations 132–137 and their daily-routine behavior are not included in this Foundation131 integration.

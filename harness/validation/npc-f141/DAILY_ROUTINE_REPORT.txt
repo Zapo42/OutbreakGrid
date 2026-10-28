@@ -1,0 +1,33 @@
+NPC daily-routine observation — hosted core only; not native Unity or a performance certification.
+CSV hunger is internal hunger burden (0 fed,100 starved); energyRemaining is100-energySpent. Review flags are heuristic, not acceptance failures. Food totals/meal counts are observations, not a conservation proof. Dead actors have needs reset by existing cleanup; hunger0 on a corpse does not mean it was fed.
+controlled-workers: PASS observation and replay; ticks=1000, actors=3, food start=33, end=30, observed meals=3
+  id=1 moves=112 homeReturns=2 work=True shopping=False leisure=True longestActiveWait=45 rapidRoomChanges=10 finalHealth=100 hunger=19 energy=100
+  REVIEW id=1: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=2 moves=46 homeReturns=2 work=True shopping=False leisure=True longestActiveWait=24 rapidRoomChanges=4 finalHealth=100 hunger=10 energy=100
+  id=3 moves=18 homeReturns=0 work=False shopping=False leisure=True longestActiveWait=22 rapidRoomChanges=0 finalHealth=100 hunger=4 energy=84
+controlled-shopping: PASS observation and replay; ticks=1800, actors=1, food start=535, end=533, observed meals=2
+  id=198 moves=295 homeReturns=1 work=False shopping=True leisure=False longestActiveWait=40 rapidRoomChanges=0 finalHealth=100 hunger=26 energy=59
+controlled-leisure: PASS observation and replay; ticks=500, actors=1, food start=25, end=25, observed meals=0
+  id=1 moves=16 homeReturns=1 work=False shopping=False leisure=True longestActiveWait=9 rapidRoomChanges=1 finalHealth=100 hunger=18 energy=100
+generated-city-day: PASS observation and replay; ticks=14400, actors=10, food start=78, end=25, observed meals=53
+  id=1 moves=1939 homeReturns=2 work=True shopping=True leisure=False longestActiveWait=69 rapidRoomChanges=35 finalHealth=69 hunger=100 energy=57
+  REVIEW id=1: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=2 moves=1482 homeReturns=2 work=True shopping=True leisure=False longestActiveWait=144 rapidRoomChanges=1 finalHealth=100 hunger=100 energy=49
+  REVIEW id=2: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=3 moves=1463 homeReturns=2 work=True shopping=True leisure=False longestActiveWait=154 rapidRoomChanges=2 finalHealth=100 hunger=100 energy=48
+  REVIEW id=3: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=4 moves=1793 homeReturns=5 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=2 finalHealth=95 hunger=100 energy=54
+  REVIEW id=4: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=5 moves=1798 homeReturns=17 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=25 finalHealth=36 hunger=100 energy=48
+  REVIEW id=5: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=6 moves=1255 homeReturns=3 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=1 finalHealth=0 hunger=0 energy=100
+  REVIEW id=6: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=7 moves=1528 homeReturns=19 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=36 finalHealth=0 hunger=0 energy=100
+  REVIEW id=7: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=8 moves=1959 homeReturns=4 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=0 finalHealth=76 hunger=100 energy=41
+  REVIEW id=8: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=9 moves=1965 homeReturns=4 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=3 finalHealth=82 hunger=100 energy=56
+  REVIEW id=9: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+  id=10 moves=1948 homeReturns=3 work=False shopping=True leisure=True longestActiveWait=40 rapidRoomChanges=1 finalHealth=62 hunger=100 energy=6
+  REVIEW id=10: inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.
+Cartographer-supplied map acceptance: pending user relay/map review; generated baseline is not a substitute for that coordination.

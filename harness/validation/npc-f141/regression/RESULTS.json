@@ -1,0 +1,40 @@
+{
+  "source": "c6902e059e8ac6a6fe2bfa8a8bbad2b238589830",
+  "seed": 214,
+  "dimensions": "4x2 blocks,2 residents/house",
+  "ticksEach": 14400,
+  "initialEqualExceptRulesVersion": true,
+  "rules106": {
+    "creditedMeals": 7,
+    "deaths": 4,
+    "centerStock": 20,
+    "courierHealth": 100,
+    "orderCredits": {
+      "1": 3,
+      "2": 4
+    }
+  },
+  "rules107": {
+    "creditedMeals": 4,
+    "deaths": 2,
+    "centerStock": 25,
+    "courierHealth": 69,
+    "orderCredits": {
+      "1": 2,
+      "2": 2
+    }
+  },
+  "rules107FinalByteIdenticalTransfer": true,
+  "firstCourierDivergenceTick": 661,
+  "lastSuccessful107CreditTick": 3661,
+  "emptyReturningTask": {
+    "startClaimTick": 6506,
+    "hungerAtStart": 38,
+    "carriedAtStart": 0,
+    "phaseReturningBy": 6556,
+    "sourcePickup": false,
+    "deadlineAndExpiry": 10106
+  },
+  "productionBehaviorEdits": false,
+  "nativeUnity": "NOT RUN user-paused"
+}
