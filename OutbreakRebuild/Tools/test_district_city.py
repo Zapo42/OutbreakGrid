@@ -11,6 +11,57 @@ import generate_reference_city as lots
 
 
 class DistrictChecks(unittest.TestCase):
+    def test_live_store_layouts_replay_and_fixtures(self):
+        for variant in lots.BUILDING_VARIANTS:
+            for seed in (1,214,0xffffffff):
+                recipe=districts.district_recipe("business-core",seed,{"columns":2,"rows":2,"max_buildings":8,"park_fraction":0},store_layout=variant)
+                document,metadata,_=districts.generate_district(recipe)
+                self.assertTrue(metadata["buildings"])
+                self.assertEqual(streets.canonical(document),streets.canonical(districts.generate_district(copy.deepcopy(recipe))[0]))
+                self.assertEqual(len(document["storageBoxes"]),len(metadata["buildings"]))
+                self.assertEqual(len(document["phoneBlocks"]),len(metadata["buildings"]))
+                self.assertEqual(len(document["shelves"]),len(metadata["buildings"])*(6 if variant=="compact" else 8))
+                self.assertTrue(all(s["food"]==0 and s["searched"] for s in document["shelves"]))
+                self.assertTrue(all(not b["items"] for b in document["storageBoxes"]))
+                districts.assert_usable(document,metadata)
+                missing=copy.deepcopy(document);missing["shelves"].pop()
+                with self.assertRaises(ValueError):districts.assert_usable(missing,metadata)
+                broken=copy.deepcopy(document);cells=lots.unpack(broken)
+                b=metadata["buildings"][0];d=next(d for d in b["interior_layout"]["blueprint"]["doors"] if not d["external"])
+                cells[(b["top"]+d["cell"][1])*document["width"]+b["left"]+d["cell"][0]]=8;lots.pack(broken,cells)
+                with self.assertRaises(ValueError):districts.assert_usable(broken,metadata)
+
+    def test_live_store_all_rotations_and_access(self):
+        for variant in lots.BUILDING_VARIANTS:
+            for rotation in range(4):
+                blueprint=lots.building_blueprint("store",variant,rotation);w,h=blueprint["width"],blueprint["height"]
+                width,height=w+12,h+12;cells=bytearray(width*height)
+                targets={(x,y) for y in range(1,height-1) for x in range(1,width-1) if x in (1,width-2) or y in (1,height-2)}
+                for x,y in targets:cells[y*width+x]=6
+                document={"width":width,"height":height,"chunkSize":32,"chunks":[]}
+                lots.pack(document,cells)
+                metadata={"buildings":[{"left":6,"top":6,"width":w,"height":h,"parcel_id":"store-1","path_cells":[],"use_hint":"retail"}]}
+                # Restrict candidates to exercise each rotation independently.
+                original=lots.building_blueprint
+                with patch.object(lots,"building_blueprint",side_effect=lambda kind,v,r=0: original(kind,v,rotation)):
+                    lots.materialize_store_layouts(document,metadata,variant,targets)
+                self.assertEqual(metadata["buildings"][0]["interior_layout"]["blueprint"]["rotation_quarter_turns"],rotation)
+                districts.assert_usable(document,metadata)
+
+    def test_live_store_city_composition_preserves_fixtures(self):
+        recipe=districts.city_recipe(["garden-suburb","business-core"],214,house_layout="compact",store_layout="spacious")
+        document,metadata,_=districts.compose_city(recipe)
+        self.assertTrue(document["restSpots"]);self.assertTrue(document["shelves"])
+        self.assertEqual(len(document["phoneBlocks"]),sum(b["game_building_use_hint"]=="Store" for b in metadata["buildings"]))
+        self.assertEqual(streets.canonical(document),streets.canonical(districts.compose_city(copy.deepcopy(recipe))[0]))
+        districts.assert_usable(document,metadata)
+
+    def test_live_store_recipe_validation(self):
+        with self.assertRaises(ValueError):districts.district_recipe("business-core",214,house_layout="compact",store_layout="compact")
+        for field,value in (("store_layout_version","unknown"),("uses",{"office":100}),("storeys",[1,2])):
+            recipe=districts.district_recipe("business-core",214,store_layout="compact");recipe[field]=value
+            with self.assertRaises(ValueError):districts.generate_district(recipe)
+
     def test_residential_modules_respect_spacing_setbacks_and_replay(self):
         for kind in ("terrace-residential","garden-suburb","suburban-grid"):
             for seed in (1,214,0xffffffff):

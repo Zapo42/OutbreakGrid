@@ -438,6 +438,63 @@ def materialize_house_layouts(document,metadata,variant,street_targets):
     pack(document,cells)
 
 
+def materialize_store_layouts(document,metadata,variant,street_targets):
+    """Emit real shelves, one authoritative stock box and a phone per two-room store."""
+    cells=unpack(document);width,height=document["width"],document["height"]
+    groups=[];storage=[];shelves=[];phones=[]
+    for building in metadata["buildings"]:
+        left,top,w,h=(building[k] for k in ("left","top","width","height"))
+        choices=[]
+        for rotation in range(4):
+            blueprint=building_blueprint("store",variant,rotation)
+            if (blueprint["width"],blueprint["height"])!=(w,h):continue
+            connections=[]
+            for entry in blueprint["doors"]:
+                if not entry["external"]:continue
+                x,y=entry["cell"];dx=-1 if x==0 else 1 if x==w-1 else 0;dy=-1 if y==0 else 1 if y==h-1 else 0
+                connection=entrance_path(cells,width,height,left,top,w,h,street_targets,[(left+x,top+y,dx,dy)])
+                if connection is None:break
+                connections.append(connection)
+            else:
+                choices.append((sum(len(c[1]) for c in connections),rotation,blueprint,connections))
+        if not choices:raise ValueError("Store public and service entrances must both reach the street")
+        _,_,blueprint,connections=min(choices,key=lambda c:c[:2])
+        for room in blueprint["rooms"]:
+            for x,y in room["cells"]:cells[(top+y)*width+left+x]=7
+        for x,y in blueprint["walls"]:cells[(top+y)*width+left+x]=8
+        for entry in blueprint["doors"]:
+            x,y=entry["cell"];cells[(top+y)*width+left+x]=9
+        paths=[]
+        for door,path in connections:
+            paths.extend(path)
+            for x,y in path:
+                if cells[y*width+x]==0:cells[y*width+x]=5
+        identity=building["parcel_id"]
+        groups.append({"id":identity,"rooms":[{"id":r["id"],"role":r["role"],"x":left+r["cells"][0][0],"y":top+r["cells"][0][1]} for r in blueprint["rooms"]]})
+        for fixture in blueprint["fixtures"]:
+            if fixture["role"]=="sales-shelf":
+                x,y=fixture["cells"][0];shelves.append({"x":left+x,"y":top+y,"food":0,"searched":True})
+        # Stores have one supplyBox identity in the existing runtime contract. The
+        # remaining rack cells stay floor hints, not competing store inventories.
+        rack=next(f for f in blueprint["fixtures"] if f["role"]=="storage-shelf")
+        x,y=rack["cells"][0];storage.append({"x":left+x,"y":top+y,"capacity":30,"foodReserve":6,"items":[]})
+        # Rotate the phone with the template, in a clear sales-floor corner.
+        x,y=2,2;bw,bh=(h,w) if blueprint["rotation_quarter_turns"]%2 else (w,h)
+        for _ in range(blueprint["rotation_quarter_turns"]):x,y,bw,bh=bh-1-y,x,bh,bw
+        phones.append({"x":left+x,"y":top+y})
+        building.update(door=list(connections[0][0][:2]),path_cells=[list(p) for p in sorted(set(map(tuple,paths)))],
+            retained_walk_cells=building["path_cells"],
+            interior_layout={"blueprint":blueprint,"origin_cells":[left,top],"instance_id":identity,
+                "room_keys":{r["id"]:identity+"/"+r["id"] for r in blueprint["rooms"]},
+                "sales_shelves_materialized":True,"stockroom_storage_materialized":True,"phone_materialized":True,
+                "stock_box_cells":[storage[-1]["x"],storage[-1]["y"]],"phone_cells":[phones[-1]["x"],phones[-1]["y"]]})
+    document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])),
+        shelves=sorted(shelves,key=lambda p:(p["y"],p["x"])),phoneBlocks=sorted(phones,key=lambda p:(p["y"],p["x"])))
+    metadata.update(store_layout=variant,expected_physical_room_count=2*len(groups),expected_building_count=len(groups),
+        active_features=["building-room-membership","sales-shelves","stockroom-storage","store-phones"])
+    pack(document,cells)
+
+
 def generate_on_layout(sample,projected,grid,metrics,provenance,seed,max_buildings=128,
                        density=None,setback_cells=2,footprint_sizes=None,road_width_cells=1.5,
                        sidewalk_width_cells=.75,placement_mode="scatter",lot_gap_cells=1,
