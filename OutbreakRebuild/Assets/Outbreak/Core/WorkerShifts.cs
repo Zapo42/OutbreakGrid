@@ -9,7 +9,20 @@ namespace Outbreak.Core
         {
             return actor.clerkStoreId!=0?HumanOccupation.Clerk:actor.courierBoxes!=null || actor.distributionCenterId!=0?HumanOccupation.Courier:HumanOccupation.Consumer;
         }
-        public HumanOccupation Occupation(int index){return OccupationOf(ActorAt(index));}
+        public HumanOccupation AssignedOccupation(int index){return OccupationOf(ActorAt(index));}
+        public HumanOccupation EffectiveOccupation(int index){return EffectiveOccupationOf(ActorAt(index));}
+        public HumanOccupation Occupation(int index){return EffectiveOccupation(index);}
+        private HumanOccupation EffectiveOccupationOf(ActorState actor)
+        {
+            // Employment persists; only an off-clock worker free of work cargo joins consumer routines.
+            HumanOccupation assigned=OccupationOf(actor);
+            return OffDutyConsumersEnabled && assigned!=HumanOccupation.Consumer && !WorkerClockOn(actor) && !FinishingWorkerLoad(actor)?HumanOccupation.Consumer:assigned;
+        }
+        private bool IdleOffDutyWorkVehicle(int index,ActorState actor)
+        {
+            int vehicle=AssignedVehicle(index);if(!OffDutyConsumersEnabled || EffectiveOccupationOf(actor)!=HumanOccupation.Consumer || OccupationOf(actor)==HumanOccupation.Consumer || vehicle<0)return false;
+            var car=vehicles[vehicle];return !car.consumerDriver && !car.driverAboard && car.deliveryPhase==VehicleDeliveryPhase.None && car.cargoFood==0 && car.handFood==0;
+        }
         private bool ClerkWorkingNow(ActorState actor)
         {
             if(!WorkerShiftsEnabled || actor.clerkShiftHours==0)return true;
@@ -18,7 +31,9 @@ namespace Outbreak.Core
         private bool WorkerClockOn(ActorState actor){return actor.clerkStoreId!=0?ClerkWorkingNow(actor):CourierWorkingNow(actor);}
         private bool FinishingWorkerLoad(ActorState actor)
         {
-            return !IsShopping(actor) && actor.restockPhase!=RestockPhase.None || actor.clerkShelf!=0 && actor.carriedFood>FoodReserve(actor);
+            if(!IsShopping(actor) && actor.restockPhase!=RestockPhase.None || actor.clerkShelf!=0 && actor.carriedFood>FoodReserve(actor))return true;
+            if(OffDutyConsumersEnabled)foreach(var car in vehicles)if(car.driverId==actor.id && !car.consumerDriver && (car.deliveryPhase!=VehicleDeliveryPhase.None || car.driverAboard || car.cargoFood>0 || car.handFood>0))return true;
+            return false;
         }
         private bool WorkerMayShopOffDuty(ActorState actor)
         {
@@ -36,6 +51,7 @@ namespace Outbreak.Core
             if(!WorkerClockOn(actor) && FinishingWorkerLoad(actor))return actor.clerkStoreId!=0?"Finishing current shelf load":"Finishing current delivery";
             if(IsShopping(actor))return "Finishing personal shopping";
             if(actor.workerCommuteId!=0)return actor.workerCommuteId==actor.assignedHouseId?"Off duty: returning home":"On duty: commuting to work";
+            if(OffDutyConsumersEnabled && !WorkerClockOn(actor) && actor.leisurePhase!=HumanLeisurePhase.None)return "Off duty: "+LeisureStatus(index);
             if(!WorkerClockOn(actor))return HouseAt(actor.x,actor.y)==actor.assignedHouseId?"Off duty: home/rest":"Off duty: return home when safe";
             return "On duty";
         }
@@ -52,7 +68,7 @@ namespace Outbreak.Core
         }
         private bool WorkerDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return WorkerShiftsEnabled && actor.workerCommuteId!=0 && actor.workerCommuteId!=room.id && SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy;
+            return WorkerShiftsEnabled && actor.workerCommuteId!=0 && actor.workerCommuteId!=room.id && (SafeNeedsHomeReturn(actor,threat) || SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy);
         }
         private bool TryWorkerRoutine(int index,ref ActorState actor,int threat,out int direction)
         {
@@ -73,6 +89,12 @@ namespace Outbreak.Core
                 actors[index]=actor;
             }
             if(actor.assignedHouseId==0)return false;
+            if(OffDutyConsumersEnabled && !working && EffectiveOccupationOf(actor)==HumanOccupation.Consumer && ((actual!=null && actual.id==actor.assignedHouseId) || actor.leisurePhase!=HumanLeisurePhase.None))
+            {
+                // Once home, or on an optional walk, consumer routines take over; preserve the established physical commute from work.
+                if(actor.workerCommuteId!=0){actor.workerCommuteId=0;actor.courierReturningHome=false;actor.homeShelterId=0;ClearShelterDeparture(ref actor);actors[index]=actor;}
+                return false;
+            }
             int desired=working?Workplace(actor):actor.assignedHouseId;Room destination=FindRoom(desired);if(destination==null)return false;
             if(actual==destination)
             {
@@ -80,8 +102,11 @@ namespace Outbreak.Core
                 if(working && actor.clerkStoreId==0 && actor.carriedFood>FoodReserve(actor) && SafeRestock(actor,threat))return TryUseStorage(index,ref actor,threat,destination,true,out direction,actor.courierSourceBox);
                 return false;
             }
-            if(!SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy)return false;
+            bool needsHomeReturn=SafeNeedsHomeReturn(actor,threat);
+            if(!needsHomeReturn && (!SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy))return false;
+            if(needsHomeReturn && actor.foodExploreRoomId!=0)CancelFoodExploration(index,ref actor); // Release the old foraging goal atomically before taking ownership of the home route.
             if(actor.workerCommuteId!=desired){actor.workerCommuteId=desired;actor.courierReturningHome=false;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);}
+            if(needsHomeReturn && TryHomeReturnRest(index,ref actor))return true;
             Room current=FindRoom(actor.shelterId);
             if(actual!=null && actual!=destination && (current==null || current.id!=actual.id)){actor.shelterId=actual.id;actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;current=actual;}
             if(current!=null && current!=destination && (current.Contains(Key(actor.x,actor.y)) || actor.shelterExitPhase!=ShelterExitPhase.None)){actors[index]=actor;return TryShelter(index,ref actor,threat,out direction);}

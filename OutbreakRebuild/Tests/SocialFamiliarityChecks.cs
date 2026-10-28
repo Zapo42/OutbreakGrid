@@ -1,0 +1,53 @@
+using System;
+using System.Text;
+using System.Security.Cryptography;
+using Outbreak.Contracts;
+using Outbreak.Core;
+using Outbreak.Persistence;
+public static partial class Program
+{
+    private static World KnownPairWithStranger()
+    {
+        World w=SocialPair();w.Step();var s=w.Capture();var map=WorldMap.Restore(s.map);for(int x=3;x<=7;x++)map.Set(x,3,Terrain.Floor);map.Set(8,3,Terrain.DoorClosed);s.map=map.Capture();s.actors[1].x=5;w=World.Restore(s);int id;Require(w.TrySpawn(Species.Human,3,3,out id),"Could not place unfamiliar partner.");s=w.Capture();s.actors[2].assignedHouseId=s.actors[0].assignedHouseId;s.actors[2].charisma=5;s.actors[2].carriedFood=1;s.actors[2].nextLeisureTick=600;return World.Restore(s);
+    }
+    private static string WithoutFamiliarity(World w)
+    {
+        var s=w.Capture();s.rulesVersion=EncounterRules.ParkPreferencesVersion;for(int i=0;i<s.actors.Length;i++)s.actors[i].familiarPeople=null;return Documents.Encode(s);
+    }
+    private static void CheckSocialFamiliarityCases()
+    {
+        Check("Actual greetings create mutual personal familiarity while mere visible company does not",()=>{
+            World w=SocialPair();Require(!w.RecognizesPerson(0,w.ActorAt(1).id) && w.FamiliarPeopleKnownBy(0).Length==0,"People started with invented acquaintances.");w.Step();var a=w.ActorAt(0);var b=w.ActorAt(1);Require(w.RecognizesPerson(0,b.id) && w.RecognizesPerson(1,a.id),"Greeting did not establish mutual familiarity.");var notes=w.FamiliarPeopleKnownBy(0);Require(notes.Length==1 && notes[0].actorId==b.id && notes[0].lastGreetedTick==w.Tick,"Familiarity lost actual identity or encounter time.");
+            w=SocialPair(8,2);Run(w,3);Require(w.FamiliarPeopleKnownBy(0).Length==0 && w.FamiliarPeopleKnownBy(1).Length==0,"Unwilling visible company was remembered as a greeting.");
+        });
+        Check("Familiarity survives greeting cooldown expiry and a later greeting refreshes rather than duplicates it",()=>{
+            World w=SocialPair();w.Step();var s=w.Capture();s.actors[1].charisma=2;w=World.Restore(s);Run(w,240);Require(w.ActorAt(0).nextSocialTick==0 && w.RecognizesPerson(0,w.ActorAt(1).id) && w.FamiliarPeopleKnownBy(0)[0].lastGreetedTick==1,"Cooldown expiry erased encounter memory or invented another meeting.");s=w.Capture();s.actors[1].charisma=5;w=World.Restore(s);Run(w,120);var notes=w.FamiliarPeopleKnownBy(0);Require(notes.Length==1 && notes[0].lastGreetedTick>241 && notes[0].lastGreetedTick==w.FamiliarPeopleKnownBy(1)[0].lastGreetedTick,"Repeat greeting did not refresh a single mutual memory.");
+        });
+        Check("A visible willing familiar partner is preferred to a closer stranger without increasing the reward",()=>{
+            World w=KnownPairWithStranger();Run(w,240);var a=w.ActorAt(0);Require(a.lastSocialPartnerId==w.ActorAt(1).id && a.lastSocialGain==2 && w.ActorAt(1).lastSocialGain==1,"Familiarity did not beat distance or changed reward tuning.");Require(!w.RecognizesPerson(0,w.ActorAt(2).id) && w.ActorAt(2).nextSocialTick==0,"A nearby stranger was silently greeted too.");
+            var s=KnownPairWithStranger().Capture();s.actors[0].familiarPeople=new[]{new FamiliarPersonRecord{actorId=s.actors[1].id,lastGreetedTick=1},new FamiliarPersonRecord{actorId=s.actors[2].id,lastGreetedTick=1}};w=World.Restore(s);Run(w,240);Require(w.ActorAt(0).lastSocialPartnerId==w.ActorAt(2).id,"Equal familiarity ignored distance.");s=KnownPairWithStranger().Capture();s.actors[0].familiarPeople=new[]{new FamiliarPersonRecord{actorId=s.actors[1].id,lastGreetedTick=1},new FamiliarPersonRecord{actorId=s.actors[2].id,lastGreetedTick=1}};s.actors[2].x=5;w=World.Restore(s);Run(w,240);Require(w.ActorAt(0).lastSocialPartnerId==w.ActorAt(1).id,"Equal familiar distance ignored stable identity.");
+        });
+        Check("Remembered people must still be willing visible nearby and free of urgent needs",()=>{
+            foreach(int condition in new[]{0,1,2,3,4}){World w=KnownPairWithStranger();Run(w,239);var s=w.Capture();if(condition==0)s.actors[1].charisma=2;if(condition==1)s.actors[1].x=6;if(condition==2){var map=WorldMap.Restore(s.map);map.Set(4,3,Terrain.Wall);for(int x=3;x<=5;x++)map.Set(x,4,Terrain.Floor);s.map=map.Capture();}if(condition==3)s.actors[1].health=70;if(condition==4){s.actors[1].hunger=100;s.actors[1].carriedFood=0;}w=World.Restore(s);w.Step();Require(w.ActorAt(0).lastSocialPartnerId==w.ActorAt(2).id,"Recognition bypassed eligibility, range or visibility: "+condition);Require(w.RecognizesPerson(0,w.ActorAt(1).id),"A partner's unseen state remotely erased the observer's memory.");}
+        });
+        Check("Bounded canonical acquaintance memory evicts least recent encounters with deterministic ties",()=>{
+            foreach(bool tie in new[]{false,true}){World w=SocialPair();w.Step();var s=w.Capture();var map=WorldMap.Restore(s.map);for(int y=3;y<=6;y++)for(int x=3;x<=7;x++)map.Set(x,y,Terrain.Floor);map.Set(8,3,Terrain.DoorClosed);s.map=map.Capture();w=World.Restore(s);int id;for(int i=2;i<=9;i++)Require(w.TrySpawn(Species.Human,3+i%4,4+i/4,out id),"Could not place acquaintance bound fixture.");s=w.Capture();for(int i=1;i<s.actors.Length;i++)s.actors[i].charisma=2;w=World.Restore(s);Run(w,239);s=w.Capture();s.actors[0].familiarPeople=new FamiliarPersonRecord[8];for(int i=0;i<8;i++)s.actors[0].familiarPeople[i]=new FamiliarPersonRecord{actorId=s.actors[i+1].id,lastGreetedTick=tie || i==0?1:2};int stranger=s.actors.Length-1;s.actors[stranger].x=3;s.actors[stranger].y=3;s.actors[stranger].charisma=5;s.actors[stranger].assignedHouseId=s.actors[0].assignedHouseId;s.actors[stranger].carriedFood=1;s.actors[stranger].energySpent=0;s.actors[stranger].nextLeisureTick=600;w=World.Restore(s);w.Step();var notes=w.FamiliarPeopleKnownBy(0);Require(notes.Length==SocialFamiliarityRules.Limit && w.RecognizesPerson(0,w.ActorAt(stranger).id),"New greeting exceeded memory bounds or was not retained.");Require(!w.RecognizesPerson(0,tie?s.actors[8].id:s.actors[1].id),"Eviction did not use encounter age and stable ties.");for(int i=1;i<notes.Length;i++)Require(notes[i].actorId>notes[i-1].actorId,"Encounter memory is not canonical.");Require(State(w)==State(Documents.ParseSave(State(w))),"Bounded memory cannot save.");}
+        });
+        Check("All familiarity query capture and restore arrays remain detached from authoritative state",()=>{
+            World w=SocialPair();w.Step();string state=State(w);var a=w.ActorAt(0);a.familiarPeople[0].actorId=999;var query=w.FamiliarPeopleKnownBy(0);query[0].lastGreetedTick=999;var captured=w.Capture();captured.actors[0].familiarPeople[0].actorId=999;Require(State(w)==state,"Familiarity escaped through an inspector or capture alias.");var saved=w.Capture();World restored=World.Restore(saved);saved.actors[0].familiarPeople[0].actorId=999;Require(State(restored)==state,"Restore retained caller-owned acquaintance arrays.");for(int i=0;i<20;i++){w.RecognizesPerson(0,w.ActorAt(1).id);w.FamiliarPeopleKnownBy(0);}Require(State(w)==state && !w.RecognizesPerson(0,-1) && !w.RecognizesPerson(0,999),"Read-only knowledge queries changed state or revealed unknown identities.");Reject(()=>w.RecognizesPerson(-1,1));Reject(()=>w.FamiliarPeopleKnownBy(99));
+        });
+        Check("Familiar partner choice and refreshed encounter histories continue exactly across saves",()=>{
+            World w=KnownPairWithStranger(),copy=Documents.ParseSave(State(w));string paused=State(w);new TickClock().Advance(999,w.Step);Require(State(w)==paused,"Paused time changed acquaintances.");for(int t=0;t<500;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Saved familiarity selection or memory diverged.");if(t%83==0)copy=Documents.ParseSave(State(w));}
+            World current=SocialPair();var s=current.Capture();s.rulesVersion=EncounterRules.ParkPreferencesVersion;World previous=World.Restore(s);for(int t=0;t<500;t++){current.Step();previous.Step();Require(WithoutFamiliarity(current)==State(previous),"Recognition changed rewards, needs, energy, inventory, movement or RNG for the same pair.");}
+        });
+        Check("Death and turning clear the affected person's familiarity while a survivor retains real encounter history",()=>{
+            foreach(bool turn in new[]{false,true}){World w=SocialPair();w.Step();var s=w.Capture();if(turn)s.actors[0].turnAtTick=s.tick+1;else{s.actors[0].health=1;s.actors[0].hunger=100;s.actors[0].carriedFood=0;s.actors[0].energySpent=100;}w=World.Restore(s);Run(w,turn?1:30);Require(w.ActorAt(0).familiarPeople==null && w.FamiliarPeopleKnownBy(0).Length==0 && !w.RecognizesPerson(0,w.ActorAt(1).id),"Dead or turned owner kept human acquaintance memory.");Require(w.RecognizesPerson(1,w.ActorAt(0).id),"Survivor's genuine history was erased based on remote partner state.");Require(State(w)==State(Documents.ParseSave(State(w))),"Historical dead/turned acquaintance broke save validation.");}
+        });
+        Check("Familiarity validation rejects invalid owners counts identities ordering times and older rules",()=>{
+            Action<Action<SaveDocument>> bad=change=>{World w=SocialPair();w.Step();var s=w.Capture();change(s);Reject(()=>World.Restore(s));};bad(s=>s.actors[0].familiarPeople=new FamiliarPersonRecord[0]);bad(s=>s.actors[0].familiarPeople=new FamiliarPersonRecord[9]);bad(s=>s.actors[0].familiarPeople[0].actorId=0);bad(s=>s.actors[0].familiarPeople[0].actorId=999);bad(s=>s.actors[0].familiarPeople[0].actorId=s.actors[0].id);bad(s=>s.actors[0].familiarPeople[0].lastGreetedTick=0);bad(s=>s.actors[0].familiarPeople[0].lastGreetedTick=-1);bad(s=>s.actors[0].familiarPeople[0].lastGreetedTick=s.tick+1);bad(s=>s.actors[0].familiarPeople=new[]{s.actors[0].familiarPeople[0],s.actors[0].familiarPeople[0]});bad(s=>s.rulesVersion=EncounterRules.ParkPreferencesVersion);
+        });
+        Check("Rules105 retains independently recorded pre-familiarity social continuation",()=>{
+            var s=SocialPair().Capture();s.rulesVersion=EncounterRules.ParkPreferencesVersion;World w=World.Restore(s);Require(!w.SocialFamiliarityEnabled && w.FamiliarPeopleKnownBy(0).Length==0,"Older rules silently enabled acquaintances.");Run(w,500);Require(!w.RecognizesPerson(0,w.ActorAt(1).id) && w.ActorAt(0).familiarPeople==null,"Older greeting silently learned new-style familiarity.");string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(State(w)))).Replace("-","");Require(hash=="8193FC4D32CDD150E71205712FC426B78E293D7F49535536C8C83AEE4E7775EE","Rules105 changed from the independent baseline.");
+        });
+    }
+}

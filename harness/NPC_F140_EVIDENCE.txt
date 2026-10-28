@@ -1,0 +1,45 @@
+NPC-F140 observational audit. Phase totals partition simulated ticks; hunger/energy flags overlap phases. Pickup includes personal reserve, so it is not delivery credit. Meal events are hunger decreases, not a full food-flow attribution. No gameplay intervention. Native Unity NOT RUN.
+generated-day: observedTicks=14400, creditedMeals=7, completedOrders=0, outstandingMeals=17, firstCredit=871, lastCredit=7126
+  initial center=1724 stock=40 dispatchable=36
+  final center=1724 stock=20 dispatchable=16
+  observed per-tick center outflow=23 inflow=3 netOutflow=20
+  order=1 requested=12 creditedDuringRun=3
+  order=2 requested=12 creditedDuringRun=4
+  courier=1 claims=5 sourcePickups=8 sourcePickupMeals=23 creditedDeliveryEvents=5 delivered=7 observedMealEvents=16 moves=2096 hungerAtLeast40Ticks=5549 energyAtMost40Ticks=4545 loadedHungryTaskTicks=542
+    collecting ticks=260 scheduledWindowTicks=260 movedPositionTicks=45 stationaryTicks=215
+    off-duty-no-delivery ticks=785 scheduledWindowTicks=0 movedPositionTicks=12 stationaryTicks=773
+    on-duty-no-delivery ticks=1150 scheduledWindowTicks=1150 movedPositionTicks=95 stationaryTicks=1055
+    personal-shopping ticks=5855 scheduledWindowTicks=1 movedPositionTicks=933 stationaryTicks=4922
+    returning-delivery ticks=3155 scheduledWindowTicks=3155 movedPositionTicks=487 stationaryTicks=2668
+    work-home-commute ticks=3195 scheduledWindowTicks=2634 movedPositionTicks=524 stationaryTicks=2671
+short-route-control: observedTicks=2400, creditedMeals=12, completedOrders=3, outstandingMeals=0, firstCredit=116, lastCredit=2316
+  initial center=183 stock=30 dispatchable=24
+  final center=183 stock=16 dispatchable=10
+  observed per-tick center outflow=14 inflow=0 netOutflow=14
+  order=1 requested=4 creditedDuringRun=4
+  order=2 requested=4 creditedDuringRun=4
+  order=3 requested=4 creditedDuringRun=4
+  courier=1 claims=7 sourcePickups=7 sourcePickupMeals=14 creditedDeliveryEvents=7 delivered=12 observedMealEvents=2 moves=141 hungerAtLeast40Ticks=56 energyAtMost40Ticks=0 loadedHungryTaskTicks=55
+    collecting ticks=465 scheduledWindowTicks=465 movedPositionTicks=50 stationaryTicks=415
+    on-duty-no-delivery ticks=1285 scheduledWindowTicks=1285 movedPositionTicks=20 stationaryTicks=1265
+    returning-delivery ticks=650 scheduledWindowTicks=650 movedPositionTicks=71 stationaryTicks=579
+larger-district-control: observedTicks=2400, creditedMeals=19, completedOrders=2, outstandingMeals=11, firstCredit=156, lastCredit=2352
+  initial center=964 stock=80 dispatchable=74
+  final center=964 stock=53 dispatchable=47
+  observed per-tick center outflow=27 inflow=0 netOutflow=27
+  order=1 requested=6 creditedDuringRun=6
+  order=2 requested=6 creditedDuringRun=6
+  order=3 requested=6 creditedDuringRun=4
+  order=4 requested=6 creditedDuringRun=2
+  order=5 requested=6 creditedDuringRun=1
+  courier=1 claims=6 sourcePickups=6 sourcePickupMeals=15 creditedDeliveryEvents=5 delivered=10 observedMealEvents=3 moves=347 hungerAtLeast40Ticks=7 energyAtMost40Ticks=275 loadedHungryTaskTicks=0
+    collecting ticks=50 scheduledWindowTicks=50 movedPositionTicks=10 stationaryTicks=40
+    on-duty-no-delivery ticks=140 scheduledWindowTicks=140 movedPositionTicks=8 stationaryTicks=132
+    returning-delivery ticks=1140 scheduledWindowTicks=1140 movedPositionTicks=168 stationaryTicks=972
+    work-home-commute ticks=1070 scheduledWindowTicks=1070 movedPositionTicks=161 stationaryTicks=909
+  courier=2 claims=6 sourcePickups=6 sourcePickupMeals=12 creditedDeliveryEvents=6 delivered=9 observedMealEvents=3 moves=340 hungerAtLeast40Ticks=279 energyAtMost40Ticks=0 loadedHungryTaskTicks=279
+    collecting ticks=35 scheduledWindowTicks=35 movedPositionTicks=7 stationaryTicks=28
+    on-duty-no-delivery ticks=41 scheduledWindowTicks=41 movedPositionTicks=0 stationaryTicks=41
+    returning-delivery ticks=1265 scheduledWindowTicks=1265 movedPositionTicks=186 stationaryTicks=1079
+    work-home-commute ticks=1059 scheduledWindowTicks=1059 movedPositionTicks=147 stationaryTicks=912
+Audit accounting/replay checks PASS; does not certify healthy NPCs, pathfinding performance, or show that adding couriers alone fixes the generated city.

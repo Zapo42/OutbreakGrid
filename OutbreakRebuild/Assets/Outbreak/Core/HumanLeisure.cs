@@ -13,16 +13,16 @@ namespace Outbreak.Core
         private int[] leisureQueue,leisureSeen,leisureFirst,leisureDistance;private int leisureStamp;
         private static void ClearLeisure(ref ActorState actor)
         {
-            actor.leisurePhase=HumanLeisurePhase.None;actor.leisureDoor=actor.leisureHomeCell=actor.leisureX=actor.leisureY=0;actor.nextLeisureTick=actor.leisureUntilTick=0;
+            actor.leisureParkVisit=false;actor.leisurePhase=HumanLeisurePhase.None;actor.leisureDoor=actor.leisureHomeCell=actor.leisureX=actor.leisureY=0;actor.nextLeisureTick=actor.leisureUntilTick=0;
         }
         private void EndLeisure(ref ActorState actor)
         {
-            ClearLeisure(ref actor);actor.nextLeisureTick=Tick+HumanLeisureRules.CooldownTicks+actor.id%HumanLeisureRules.StaggerTicks;
+            ClearLeisure(ref actor);actor.nextLeisureTick=Tick+PreferredLeisureDelay(actor,HumanLeisureRules.CooldownTicks)+actor.id%HumanLeisureRules.StaggerTicks;
         }
         private bool LeisureSafe(ActorState actor,int threat,bool starting)
         {
-            // This first slice is consumer leisure; workers retain their established work/home routine.
-            return actor.species==Species.Human && actor.health==100 && actor.turnAtTick==0 && actor.grappledById==0 && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor) && actor.assignedHouseId!=0 && OccupationOf(actor)==HumanOccupation.Consumer && actor.workerCommuteId==0 && actor.restockPhase==RestockPhase.None && !IsShopping(actor) && actor.foodUntilTick==0 && actor.foodExploreRoomId==0 && actor.homeShelterId==0 && actor.hunger<(starting?HumanLeisureRules.MaxHunger:35) && EnergyRules.Remaining(actor)>=(starting?HumanLeisureRules.MinimumEnergy:40);
+            // Scheduled workers share consumer leisure off duty while retaining their permanent employment.
+            return actor.species==Species.Human && actor.health==100 && actor.turnAtTick==0 && actor.grappledById==0 && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor) && actor.assignedHouseId!=0 && EffectiveOccupationOf(actor)==HumanOccupation.Consumer && actor.workerCommuteId==0 && actor.restockPhase==RestockPhase.None && !IsShopping(actor) && actor.foodUntilTick==0 && actor.foodExploreRoomId==0 && actor.homeShelterId==0 && actor.hunger<(starting?HumanLeisureRules.MaxHunger:35) && EnergyRules.Remaining(actor)>=(starting?HumanLeisureRules.MinimumEnergy:40);
         }
         private void AdvanceLeisure(ref ActorState actor)
         {
@@ -45,8 +45,9 @@ namespace Outbreak.Core
         public string LeisureStatus(int index)
         {
             ActorState actor=ActorAt(index);if(!LeisureEnabled)return "Leisure unavailable: older rules";
+            if(actor.leisureParkVisit){switch(actor.leisurePhase){case HumanLeisurePhase.Outbound:return "Walking to known park";case HumanLeisurePhase.Pausing:return "Visiting park";case HumanLeisurePhase.Returning:return "Returning home from park";}}
             switch(actor.leisurePhase){case HumanLeisurePhase.Outbound:return "Taking a walk";case HumanLeisurePhase.Pausing:return "Pausing outside";case HumanLeisurePhase.Returning:return "Returning home";}
-            return actor.species==Species.Human && actor.health>0 && actor.assignedHouseId!=0 && HouseAt(actor.x,actor.y)==actor.assignedHouseId && OccupationOf(actor)==HumanOccupation.Consumer?"Free time: at home":"Waiting for free time";
+            return actor.species==Species.Human && actor.health>0 && actor.assignedHouseId!=0 && HouseAt(actor.x,actor.y)==actor.assignedHouseId && EffectiveOccupationOf(actor)==HumanOccupation.Consumer?"Free time: at home":"Waiting for free time";
         }
         private bool LeisureOutdoor(int x,int y)
         {
@@ -63,6 +64,7 @@ namespace Outbreak.Core
         {
             goal=-1;int door=actor.leisureDoor-1,cx=door%Width,cy=door/Width,r=HumanLeisureRules.Radius;
             if(Math.Abs(actor.x-cx)>r || Math.Abs(actor.y-cy)>r)return -1;
+            if(chooseTarget)PrepareParkPreferences(actor);
             if(leisureQueue==null){leisureQueue=new int[LeisureCells];leisureSeen=new int[LeisureCells];leisureFirst=new int[LeisureCells];leisureDistance=new int[LeisureCells];}
             if(leisureStamp==int.MaxValue){Array.Clear(leisureSeen,0,leisureSeen.Length);leisureStamp=0;}int stamp=++leisureStamp;
             int start=(actor.y-cy+r)*LeisureSide+actor.x-cx+r,head=0,tail=0,best=int.MaxValue;leisureQueue[tail++]=start;leisureSeen[start]=stamp;leisureFirst[start]=8;leisureDistance[start]=0;
@@ -71,10 +73,11 @@ namespace Outbreak.Core
             {
                 int cell=leisureQueue[head++],x=cx+cell%LeisureSide-r,y=cy+cell/LeisureSide-r,key=Key(x,y),distance=leisureDistance[cell];
                 if(!chooseTarget && key==target){goal=key;return leisureFirst[cell];}
-                if(chooseTarget && LeisureOutdoor(x,y) && Math.Abs(x-cx)+Math.Abs(y-cy)>=4 && distance<=20)
+                if(chooseTarget && LeisureOutdoor(x,y) && (KnowsPark(actor,key) || Math.Abs(x-cx)+Math.Abs(y-cy)>=4) && distance<=20)
                 {
                     // Prefer a modest six-cell radius; stable identity/time-based ties vary destinations without changing simulation RNG.
                     int score=Math.Abs(Math.Abs(x-cx)+Math.Abs(y-cy)-6)*1024+(int)(((uint)x*73856093u^(uint)y*19349663u^(uint)actor.id*83492791u^(uint)Tick*2654435761u)%1024);
+                    if(KnowsPark(actor,key))score=ParkPreferencesEnabled?-131072+distance*1024-ParkSocialContribution(actor,key)*32768:-32768+distance*1024; // Keep known parks ahead of generic walks; actual observed company reorders reachable parks.
                     if(score<best){best=score;goal=key;}
                 }
                 for(int d=0;d<8;d+=2)
@@ -96,7 +99,8 @@ namespace Outbreak.Core
             if(door<0)return false;
             actor.leisureDoor=door+1;actor.leisureHomeCell=Key(actor.x,actor.y)+1;int goal;
             if(LeisureSearch(actor,home,true,out goal)<0){EndLeisure(ref actor);return false;}
-            actor.leisureX=goal%Width;actor.leisureY=goal/Width;actor.leisurePhase=HumanLeisurePhase.Outbound;actor.leisureUntilTick=Tick+HumanLeisureRules.MaxTripTicks;actor.nextLeisureTick=0;
+            if(ParkPreferencesEnabled && HappinessRules.Preference(actor.charisma)<0 && KnowsPark(actor,goal) && ParkSocialContribution(actor,goal)<0){EndLeisure(ref actor);return false;} // A visibly busy park can wait; do not force an indoor-preferring resident out.
+            actor.leisureParkVisit=KnowsPark(actor,goal);actor.leisureX=goal%Width;actor.leisureY=goal/Width;actor.leisurePhase=HumanLeisurePhase.Outbound;actor.leisureUntilTick=Tick+HumanLeisureRules.MaxTripTicks;actor.nextLeisureTick=0;
             ClearShelterDeparture(ref actor);actor.homeShelterId=0;actor.shelterId=home.id;actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;return true;
         }
         private bool TryLeisureRoutine(int index,ref ActorState actor,int threat,out int direction)
@@ -106,12 +110,12 @@ namespace Outbreak.Core
             {
                 if(home==null || !home.Contains(Key(actor.x,actor.y)) || !LeisureSafe(actor,threat,true))return false;
                 if(actor.energySpent>0)return false; // Existing shelter rest replenishes movement energy before waiting or starting another walk.
-                if(actor.nextLeisureTick==0){actor.nextLeisureTick=Tick+HumanLeisureRules.InitialDelayTicks+actor.id%HumanLeisureRules.StaggerTicks;actors[index]=actor;return true;}
+                if(actor.nextLeisureTick==0){actor.nextLeisureTick=Tick+PreferredLeisureDelay(actor,HumanLeisureRules.InitialDelayTicks)+actor.id%HumanLeisureRules.StaggerTicks;actors[index]=actor;return true;}
                 if(Tick<actor.nextLeisureTick)return true; // Stay home between deliberate walks rather than falling through to the old automatic departure.
                 if(!StartLeisure(ref actor,home)){EndLeisure(ref actor);actors[index]=actor;return true;}
             }
             if(!LeisureSafe(actor,threat,false) || home==null){EndLeisure(ref actor);actors[index]=actor;return false;}
-            if(actor.leisurePhase==HumanLeisurePhase.Outbound && actor.x==actor.leisureX && actor.y==actor.leisureY){actor.leisurePhase=HumanLeisurePhase.Pausing;actor.leisureUntilTick=Tick+HumanLeisureRules.PauseTicks;}
+            if(actor.leisurePhase==HumanLeisurePhase.Outbound && actor.x==actor.leisureX && actor.y==actor.leisureY){actor.leisurePhase=HumanLeisurePhase.Pausing;actor.leisureUntilTick=Tick+(actor.leisureParkVisit?ParkVisitRules.StayTicks:HumanLeisureRules.PauseTicks);}
             if(actor.leisurePhase==HumanLeisurePhase.Pausing)
             {
                 if(Tick<actor.leisureUntilTick){actors[index]=actor;return true;}
@@ -132,10 +136,10 @@ namespace Outbreak.Core
             {
                 ActorState actor=actors[i];bool active=actor.leisurePhase!=HumanLeisurePhase.None;bool any=active || actor.nextLeisureTick!=0 || actor.leisureUntilTick!=0 || actor.leisureDoor!=0 || actor.leisureHomeCell!=0 || actor.leisureX!=0 || actor.leisureY!=0;
                 if(!any)continue;
-                if(!LeisureEnabled || actor.species!=Species.Human || actor.health<=0 || actor.assignedHouseId==0 || actor.nextLeisureTick<0 || actor.nextLeisureTick>Tick+HumanLeisureRules.CooldownTicks+HumanLeisureRules.StaggerTicks || actor.leisurePhase<HumanLeisurePhase.None || actor.leisurePhase>HumanLeisurePhase.Returning)throw new ArgumentException("Invalid leisure identity or cooldown.");
+                if(!LeisureEnabled || actor.species!=Species.Human || actor.health<=0 || actor.assignedHouseId==0 || actor.nextLeisureTick<0 || actor.nextLeisureTick>Tick+(ParkPreferencesEnabled?2:1)*HumanLeisureRules.CooldownTicks+HumanLeisureRules.StaggerTicks || actor.leisurePhase<HumanLeisurePhase.None || actor.leisurePhase>HumanLeisurePhase.Returning)throw new ArgumentException("Invalid leisure identity or cooldown.");
                 if(!active){if(actor.leisureUntilTick!=0 || actor.leisureDoor!=0 || actor.leisureHomeCell!=0 || actor.leisureX!=0 || actor.leisureY!=0)throw new ArgumentException("Inactive leisure contains stale geometry.");continue;}
                 Room home=FindRoom(actor.assignedHouseId);int door=actor.leisureDoor-1;
-                if(home==null || actor.nextLeisureTick!=0 || actor.leisureHomeCell<=0 || !home.Contains(actor.leisureHomeCell-1) || door<0 || Array.BinarySearch(home.doors,door)<0 || !LeisureOutdoor(actor.leisureX,actor.leisureY) || actor.leisureUntilTick<1 || actor.leisureUntilTick<Tick-HumanLeisureRules.MaxTripTicks || actor.leisureUntilTick>Tick+(actor.leisurePhase==HumanLeisurePhase.Pausing?HumanLeisureRules.PauseTicks:HumanLeisureRules.MaxTripTicks) || Math.Abs(actor.leisureX-door%Width)>HumanLeisureRules.Radius || Math.Abs(actor.leisureY-door/Width)>HumanLeisureRules.Radius || !LeisureCell(actor,home,actor.x,actor.y))throw new ArgumentException("Invalid leisure route or deadline.");
+                if(home==null || actor.nextLeisureTick!=0 || actor.leisureHomeCell<=0 || !home.Contains(actor.leisureHomeCell-1) || door<0 || Array.BinarySearch(home.doors,door)<0 || !LeisureOutdoor(actor.leisureX,actor.leisureY) || actor.leisureUntilTick<1 || actor.leisureUntilTick<Tick-HumanLeisureRules.MaxTripTicks || actor.leisureUntilTick>Tick+(actor.leisurePhase==HumanLeisurePhase.Pausing?(actor.leisureParkVisit?ParkVisitRules.StayTicks:HumanLeisureRules.PauseTicks):HumanLeisureRules.MaxTripTicks) || Math.Abs(actor.leisureX-door%Width)>HumanLeisureRules.Radius || Math.Abs(actor.leisureY-door/Width)>HumanLeisureRules.Radius || !LeisureCell(actor,home,actor.x,actor.y))throw new ArgumentException("Invalid leisure route or deadline.");
                 if(actor.leisurePhase==HumanLeisurePhase.Pausing && (actor.x!=actor.leisureX || actor.y!=actor.leisureY))throw new ArgumentException("Leisure pause is not at its destination.");
             }
         }

@@ -11,7 +11,8 @@ namespace Outbreak.UnityAdapter
         private void DrawOccupationOutline(int index,ActorState actor,Rect body,float cell)
         {
             if(actor.species!=Species.Human || actor.health<=0)return;
-            HumanOccupation job=world.Occupation(index);bool active=world.WorkerOnDuty(index);
+            // Employment identity remains visible while an off-duty worker temporarily follows consumer routines.
+            HumanOccupation job=world.AssignedOccupation(index);bool active=world.WorkerOnDuty(index);
             Color upper=job==HumanOccupation.Consumer?Color.white:!active?new Color(0.55f,0.55f,0.55f):job==HumanOccupation.Courier?new Color(0.50f,0.32f,0.18f):new Color(0.95f,0.80f,0.20f);
             Color lower=job==HumanOccupation.Clerk && active?new Color(0.20f,0.45f,0.90f):upper;
             float edge=Mathf.Clamp(cell*0.035f,1,2);Rect area=new Rect(body.x-edge,body.y-edge,body.width+edge*2,body.height+edge*2);

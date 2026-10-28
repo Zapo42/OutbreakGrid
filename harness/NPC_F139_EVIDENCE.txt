@@ -1,0 +1,19 @@
+NPC-F139 investigation only. Counterfactuals below modify diagnostic copies, never production behavior. Native Unity NOT RUN.
+Generated day: deaths=4 foodStart=78 foodEnd=24
+Remaining box=81,9 house=1400 meals=2
+Remaining box=116,11 house=1724 meals=20
+Remaining box=67,30 house=4472 meals=2
+Store=1480 shelfMeals=0 crateMeals=0
+Store=7139 shelfMeals=0 crateMeals=0
+PASS exact supplied baseline continuation.
+hungry commute: tick=7205 id=2 health=100 hunger=60 energy=98 hand=0 house=0 assignedHome=4472 commute=0 restock=None
+fed commute control: tick=7205 id=2 health=100 hunger=0 energy=99 hand=0 house=0 assignedHome=4472 commute=4472 restock=None
+hungry after500: tick=7700 id=2 health=100 hunger=87 energy=0 hand=0 house=1480 assignedHome=4472 commute=0 restock=None
+fed after500: tick=7700 id=2 health=100 hunger=21 energy=100 hand=0 house=4472 assignedHome=4472 commute=0 restock=None
+CONFIRMED: ordinary commute safety reuses restocking hunger/health gates; home location is known, but no hidden home stock is revealed to the NPC.
+courier before: tick=3600 id=1 health=100 hunger=60 energy=0 hand=3 house=0 assignedHome=1219 commute=0 restock=Returning
+normal next decision: tick=3601 id=1 health=100 hunger=60 energy=0 hand=3 house=0 assignedHome=1219 commute=0 restock=Returning
+test-only return-flag bypass: tick=3600 id=1 health=100 hunger=10 energy=0 hand=2 house=0 assignedHome=1219 commute=0 restock=Returning
+CONFIRMED: ReturnFromFoodDanger can preempt consumption of an already carried meal before TryForage reaches its eating branch. No extra meal, teleport, supply transfer or shipment completion was created.
+Budget: ten actors start hunger10; natural gain480/day requires at least8 meals each to finish below100, or80 total before additional recovery costs. Initial78 cannot meet that target even with perfect delivery. This is not proof every death is unavoidable.
+Result: investigative contrasts PASS; daily routine health FAIL/needs repair. No production rules or map edits. Cartographer package still pending.

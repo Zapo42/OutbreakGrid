@@ -13,6 +13,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="HumanReactionChecks.cs" />
     <Compile Include="HumanLeisureChecks.cs" />
+    <Compile Include="HappinessChecks.cs" />
+    <Compile Include="OffDutyConsumerChecks.cs" />
+    <Compile Include="ParkVisitChecks.cs" />
+    <Compile Include="ParkPreferenceChecks.cs" />
+    <Compile Include="SocialInteractionChecks.cs" />
+    <Compile Include="SocialFamiliarityChecks.cs" />
+    <Compile Include="NeedsPriorityChecks.cs" />
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />
     <Compile Include="ShelterChecks.cs" />
