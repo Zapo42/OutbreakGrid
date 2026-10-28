@@ -34,6 +34,7 @@ namespace Outbreak.Core
             Room current=FindRoom(actor.shelterId);if(current==null || !current.Contains(Key(actor.x,actor.y)))return false;
             int key=actor.courierSourceBox-1,food,space;StorageBoxDocument source=map.StorageBoxAt(key%Width,key/Width);
             if(source==null || source.blockDonations || (KnownStorageState(actor,source,out food,out space) && food>=0 && food<=EffectiveFoodReserve(source)))return false;
+            if(!CourierPickupReady(actor,source))return false; // Resolve an imminent personal meal before reserving a delivery window.
             SupplyOrderDocument chosen=null;
             foreach(SupplyOrderDocument order in supplyOrders.Values)
             {

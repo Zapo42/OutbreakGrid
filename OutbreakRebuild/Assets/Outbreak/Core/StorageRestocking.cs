@@ -53,6 +53,7 @@ namespace Outbreak.Core
             {
                 actor.carriedFood--;actor.hunger=Math.Max(0,actor.hunger-HungerRules.MealRelief);ClearFoodMemory(ref actor);actors[index]=actor;return true;
             }
+            ReleaseUnusableCourierClaim(index,ref actor,threat); // Resolve failed pickups before the old hunger/return guards can retain an empty claim.
             if(actor.courierOrderId!=0 && ActiveSupplyOrder(actor)==null){ClearRestocking(ref actor);ClearFoodMemory(ref actor);actors[index]=actor;}
             bool hasHouse=CourierAssignmentsEnabled && actor.assignedHouseId!=0;
             bool assigned=hasHouse && (actor.courierBoxes!=null || (DistributionCentersEnabled && actor.distributionCenterId!=0)) && !(WorkerShiftsEnabled && (IsShopping(actor) || (!CourierWorkingNow(actor) && actor.restockPhase==RestockPhase.None)));
@@ -87,6 +88,7 @@ namespace Outbreak.Core
             if(ShoppingContinuityEnabled && IsShopping(actor) && SafeRestock(actor,threat) && TryShoppingRest(index,ref actor))return true;
             if(actor.restockPhase==RestockPhase.Returning)
             {
+                if(actor.courierOrderId!=0 && TryCourierRouteRest(index,ref actor,threat))return true;
                 if(SupplyDeliveriesEnabled && actor.restockSourceBox!=0 && SafeRestock(actor,threat))
                 {
                     Room sourceRoom=DeliverySourceRoom(actor);if(sourceRoom!=null && sourceRoom.id!=home.id && (sourceRoom.Contains(Key(actor.x,actor.y)) || (actor.shelterId==sourceRoom.id && actor.shelterExitPhase!=ShelterExitPhase.None)))return TryShelter(index,ref actor,threat,out direction);

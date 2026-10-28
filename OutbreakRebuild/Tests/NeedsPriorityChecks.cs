@@ -43,6 +43,41 @@ public static partial class Program
         Check("New meal and rest home-route states continue exactly through saves",()=>{
             foreach(World initial in new[]{LoadedNeedsCourier(),HungryHomeWorker(true,100,40)}){World w=initial,copy=Documents.ParseSave(State(w));for(int t=0;t<260;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Needs priority save continuation diverged.");if(t%37==0)copy=Documents.ParseSave(State(w));}}
         });
+        Check("Exhausted loaded couriers take a paid safe break without consuming delivery stock",()=>{
+            var s=LoadedNeedsCourier().Capture();s.actors[0].x=8;s.actors[0].y=5;s.actors[0].hunger=20;s.actors[0].energySpent=98;World w=World.Restore(s);var before=w.ActorAt(0);int food=w.FoodSupplies().RemainingMeals;
+            for(int t=0;t<5 && w.ActorAt(0).energySpent>=before.energySpent;t++)w.Step();var a=w.ActorAt(0);
+            Require(a.energySpent==before.energySpent-EnergyRules.RestGain/2 && a.hunger>=before.hunger+1,"Courier did not exchange hunger for a normal-action recovery break.");Require(a.x==before.x && a.y==before.y && a.carriedFood==before.carriedFood && food==w.FoodSupplies().RemainingMeals && a.courierOrderId==before.courierOrderId,"Break moved stock, consumed cargo or lost the claim.");Require(State(w)==State(Documents.ParseSave(State(w))),"Courier break invalidated save.");
+        });
+        Check("Empty and reserve-only returns promptly release real claims without credit or discarded food",()=>{
+            foreach(int hand in new[]{0,1})foreach(bool offDuty in new[]{false,true}){
+                var s=LoadedNeedsCourier().Capture();s.actors[0].hunger=90;s.actors[0].carriedFood=hand;if(offDuty){s.actors[0].courierShiftStartHour=8;s.actors[0].courierShiftHours=1;}
+                World w=World.Restore(s);int order=w.ActorAt(0).courierOrderId;int requested=0,credit=0;foreach(var o in w.PendingSupplyOrders()){requested+=o.requestedMeals;credit+=o.deliveredMeals;}
+                bool released=false;for(int t=0;t<20;t++){w.Step();Require(State(w)==State(Documents.ParseSave(State(w))),"Claim release left an invalid immediate save.");if(w.SupplyOrderCourier(order)==0){released=true;break;}}
+                int remainingRequests=0,afterCredit=0;foreach(var o in w.PendingSupplyOrders()){remainingRequests+=o.requestedMeals;afterCredit+=o.deliveredMeals;}
+                Require(released && requested==remainingRequests && credit==afterCredit,"Unusable claim retained/order changed: hand="+hand+" offDuty="+offDuty+" released="+released+" requested="+requested+"/"+remainingRequests+" credit="+credit+"/"+afterCredit+" phase="+w.ActorAt(0).restockPhase);Require(w.ActorAt(0).carriedFood==0,"Needed meal was withheld or food was created.");
+            }
+        });
+        Check("Hunger before pickup releases the collecting claim instead of routing an empty delivery",()=>{
+            var s=LoadedNeedsCourier().Capture();s.actors[0].hunger=60;s.actors[0].carriedFood=0;s.actors[0].restockPhase=RestockPhase.Collecting;s.actors[0].homeShelterId=0;World w=World.Restore(s);int order=w.ActorAt(0).courierOrderId;
+            Run(w,5);Require(w.SupplyOrderCourier(order)==0 && w.ActorAt(0).restockPhase==RestockPhase.None,"Hungry collection became an empty held delivery.");Require(State(w)==State(Documents.ParseSave(State(w))),"Failed collection cleanup left invalid state.");
+        });
+        Check("Dispatch waits for imminent personal hunger instead of reserving a meal-less pickup",()=>{
+            foreach(bool current in new[]{true,false}){
+                var s=LoadedNeedsCourier(current).Capture();object[] cleared={s.actors[0]};typeof(World).GetMethod("ClearRestocking",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static).Invoke(null,cleared);var a=(ActorState)cleared[0];
+                a.x=3;a.y=5;a.shelterId=a.assignedHouseId;a.shelterX=3;a.shelterY=5;a.shelterState=ShelterState.Inside;a.homeShelterId=0;a.hunger=39;a.carriedFood=0;a.energySpent=0;cleared[0]=a;typeof(World).GetMethod("ClearShelterDeparture",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static).Invoke(null,cleared);s.actors[0]=(ActorState)cleared[0];World w=World.Restore(s);
+                object[] arguments={0,w.ActorAt(0),-1};bool started=(bool)typeof(World).GetMethod("StartSupplyOrderTrip",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(w,arguments);
+                Require(started!=current,"Hunger-marginal dispatch guard absent or leaked into106.");Require(State(w)==State(Documents.ParseSave(State(w))),"Dispatch check left invalid claim state.");
+            }
+        });
+        Check("A courier resumes paid travel after rest and credits only food physically unloaded",()=>{
+            var s=LoadedNeedsCourier().Capture();s.actors[0].x=8;s.actors[0].y=5;s.actors[0].hunger=20;s.actors[0].energySpent=98;World w=World.Restore(s);int credited=0,moves=0;bool rested=false;
+            Func<int> total=()=>{int n=0;foreach(var o in w.PendingSupplyOrders())n+=o.deliveredMeals;foreach(var o in w.CompletedSupplyOrders())n+=o.deliveredMeals;return n;};
+            for(int t=0;t<400 && credited<2;t++){var before=w.ActorAt(0);int old=total();w.Step();var a=w.ActorAt(0);int delta=total()-old;Require(delta>=0,"Credits decreased.");if(delta>0){Require(before.carriedFood-a.carriedFood>=delta,"Consumed meal was credited as delivery.");credited+=delta;}if(a.energySpent<before.energySpent)rested=true;if(a.x!=before.x || a.y!=before.y){moves++;Require(a.energySpent>before.energySpent || before.energySpent==100 && (a.hunger>before.hunger || before.hunger==100),"Courier movement was free.");}if(t%13==0)Require(State(w)==State(Documents.ParseSave(State(w))),"Loaded rest/return save invalid.");}
+            Require(rested && moves>0 && credited>=2,"Rested courier failed to physically unload deliverable stock.");World copy=Documents.ParseSave(State(w));for(int t=0;t<100;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Courier recovery continuation diverged.");}
+        });
+        Check("Rules106 keeps the historical hungry empty-return claim until its old lifecycle resolves",()=>{
+            var s=LoadedNeedsCourier(false).Capture();s.actors[0].hunger=90;s.actors[0].carriedFood=0;World w=World.Restore(s);int order=w.ActorAt(0).courierOrderId;Run(w,5);Require(w.SupplyOrderCourier(order)==w.ActorAt(0).id,"Empty return correction leaked into legacy106.");
+        });
         Check("Rules106 preserves independently recorded full worker continuation",()=>{
             var s=EncounterScenarios.WorkerShiftTest(true).Capture();s.rulesVersion=EncounterRules.SocialFamiliarityVersion;World w=World.Restore(s);Run(w,1000);string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(State(w)))).Replace("-","");Require(!w.NeedsPriorityEnabled && hash=="DA53D4E02C456E017E76D4FCB2BDA12DA704EE6F8D3F6888E640689688C824EE","Old106 continuation changed from independent pre-fix source.");
         });
