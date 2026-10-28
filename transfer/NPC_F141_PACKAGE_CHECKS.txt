@@ -1,0 +1,17 @@
+NPC-F141 transfer package verification: PASS
+Archive: NPC_F141_transfer.zip
+Bytes: 1470093
+SHA256: 0ab8525ad2e0436e44306053a86105c0c41e5981d3058638b8bb484c7f69316d
+Implementation/source commit: c6902e059e8ac6a6fe2bfa8a8bbad2b238589830
+Branch: transfer/npc-f141-needs-priority
+ZIP CRC and relative-path safety: PASS
+44 payload SHA256/byte-count checks: PASS
+Full source bundle verification and offline clone: PASS
+Bundle HEAD equals stated source commit: PASS
+Four patches apply to published NPC-F137 prerequisite0aa8ec34aa168e4797bfcd672053755dcdfaa034: PASS
+Reconstructed Git tree equals bundled source tree: PASS
+All28changed-file hashes match reconstructed checkout: PASS
+Production/test code changes introduced by packaging: NONE
+Core: PASS701cases/743092assertions; focused final PASS9/738
+Native Unity/player: NOT RUN; paused
+Known issue: generated deliveries7→4; attribution unresolved; not a global food-system fix
