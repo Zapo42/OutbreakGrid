@@ -2,6 +2,13 @@
 
 Append one section per completed or blocked task.
 
+## UI-PRES-01 — Graphics & UI assignment
+- Assigned selected need-bar edge-placement hardening and focused regression coverage against reported clean Foundation 131 baseline; not happiness or the pixel-art rollout.
+- Exclusive implementation files: OutbreakRebuild/Assets/Outbreak/Unity/NeedBarsPresentation.cs and OutbreakRebuild/Tests/UiHarness.cs. Lead owns coordination records. Shared UiHarness ownership must be sequenced with any active Foundation 132 specialist before writing; preserve unpublished assertions.
+- Acceptance, supported-viewport geometry checks, selected-only/optional/descending-food semantics, read-only NPC interfaces, World independence and handoff details recorded in PLANS.md. No new NPC commands/state, core behavior or generated geometry changes.
+- Assignment inspection: current production bar renderer and UI harness read; no defect claimed without reproduction. If existing behavior meets criteria, meaningful missing regression coverage is sufficient. Documentation diff check performed; no code changes, UI runs or native tests performed for this handoff.
+- Lead retains integration, final sequential unified validation, QA coordination and GitHub publication. Native Unity testing remains paused.
+
 ## WORLD-RES-01 — source verified and instructions prepared for publication
 - Source baseline: 8e92e361206507219a725d698fca55dd26de5ff9 on maps/city-reference-pack-20261026. git ls-remote confirmed the branch SHA; git fetch --no-tags and git ls-tree verified all four assigned paths without changing the checkout.
 - Exclusive World ownership: OutbreakRebuild/Tools/generate_reference_city.py, OutbreakRebuild/Tools/generate_district_city.py, OutbreakRebuild/Tools/test_district_city.py, OutbreakRebuild/CityReferences/districts/README.md.
