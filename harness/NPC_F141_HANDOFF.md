@@ -1,0 +1,42 @@
+# NPC-F141 — urgent meals, off-duty home return and lead transfer
+
+Baseline3a5fe89934539a2da2f70cd4c0e80cb2b0f5a3f8. Single NPC writer in /workspace/npc-f141, branch transfer/npc-f141-needs-priority. User explicitly authorized this fix, transfer packaging and pushing the transfer commit/branch to GitHub. This is a specific exception to the local-only default; main is not to be merged or pushed.
+
+Scope: safe carried-meal action before routine work/return travel; off-duty unencumbered worker home commute despite hunger/low health, with finite paid movement and hunger-cost rest. No remote inventory, free supplies, map edits, staffing/capacity/speed changes, on-duty meal-trip scheduler, UI/art or native release. Older106 behavior retains exact continuation until explicit107 upgrade.
+
+Owned: new Core/NeedsPriority.cs; minimal HumanReactions.cs/Hunger.cs meal hooks and WorkerShifts.cs return safety/rest hooks; World.cs/Encounter.cs saved-rule gate; behavior tests/registration; diagnostic legacy/current-mode support; handoff, evidence and transfer artifacts. Shared save gate/tick/contract integration remains lead-reviewed. No new actor fields expected. Single writer, no overlapping writes.
+
+Acceptance: normal-tick courier eating consumes one actual meal and preserves job/cargo; hungry off-duty workers physically reach assigned homes without hidden stock knowledge, recover energy at hunger cost and still pay every step; hazards/infection/grapples remain higher priority; exact saves; old106 independent continuation; focused/full core regression and daily/throughput reruns; validated package with prerequisites, manifest and source/test evidence, then push transfer branch only. Native Unity remains paused. Cartographer package test remains queued.
+
+## Implemented behavior
+
+- Rules107 `NeedsPriorityEnabled` gates the fix; SocialFamiliarityVersion aliases106. No actor/map fields or schema changes.
+- Safe on-foot humans with a carried meal and hunger>=40 spend one ordinary action eating before routine work/vehicle boarding/return travel. The carried stock and total meals decrease by exactly1; hunger drops by the existing50point relief. Claims, destinations, deadlines and remaining cargo stay intact. General foraging also tries this action before its return-route guard.
+- Stress, observed threats, warnings/door noise, infection, active grapple/freeze, dead/nonhuman owners and riding exclude this new priority action. Existing downstream behavior remains legacy-compatible; the helper is not a new vehicle-rider meal scheduler.
+- Off-duty workers with no unfinished load can start/continue a directed trip to their authored home despite hunger or injury. It does not query live home inventory or grant hidden knowledge. Work shifts, existing shopping and unfinished shipment obligations retain their established ownership.
+- Low-energy home commuters take short normal-action breaks off roads and doorways: existing shopping-rest exchange rate5energy recovered/1hunger. Actual steps use existing movement charges, including hunger charges when energy is saturated. No teleport, free supplies or reserved-stock access changes.
+- Taking the home route cancels competing food exploration atomically to preserve immediate save validity. Already-home workers yield to ordinary consumer/home routines.
+- This does not add on-duty home meal breaks, rebalance city stock, increase payload/speed/staffing, or guarantee a healthy full day.
+
+## Verification
+
+- Full production core suite PASS, exit0: **701 cases /743092 assertions**. Command: `dotnet run --project OutbreakRebuild/Tests/FoundationChecks.csproj -- <output-directory>` using the existing .NET8 toolchain. Report /workspace/artifacts/npc141-core/FOUNDATION_CHECKS.txt; log /workspace/artifacts/npc141-core.log.
+- Focused final needs suite PASS9cases/738assertions, /workspace/artifacts/npc141-focus.log. Covers real courier meal and retained cargo claim; old/current contrast; both off-duty occupations physically returning without inventory knowledge; injured/exhausted hunger-cost rest and paid movement; visible danger/infection; stress; competing exploration cleanup; exact saves; independent old1061000-tick continuation digest DA53D4E02C456E017E76D4FCB2BDA12DA704EE6F8D3F6888E640689688C824EE.
+- Existing storage interruption test now represents hunger with no carried meal, so it continues to assert an unmet need aborts collection. Other assertions are retained. The final focused movement test was strengthened following review to check hunger charges at saturated energy.
+- Read-only independent source review: accepted, no blocking defect. Reviewer did not run builds/runtime. Grapple/freeze/warning/noise helper exclusions were inspected rather than individually added as new end-to-end cases; existing full core checks still run. No native Unity/player verification; testing remains paused at Foundation82. No Windows binary is provided.
+- Daily routine observer PASS exit0 on controlled work/shopping/leisure goals and replay windows. Same generated24-hour city: deaths4→2; both clerks now have2home returns and health100, versus no home return/death under106. Consumer ids6/7 still die; survivors end hungry. Stock and geometry unchanged, initial78meals still inadequate for a below-max-hunger day.
+- **Material unresolved throughput regression:** generated credited deliveries7→4, outstanding17→20, source stock20→25, courier final health100→69. Short control12→12; larger two-courier district19→20. This is an observed regression with unresolved attribution, not proof of a harmless or globally beneficial tradeoff. Source review found no concrete additional blocking defect but recommends paired trials. Lead must review this limitation before treating the branch as a food-system improvement/release.
+- Current audit and its replay/accounting checks PASS exit0; /workspace/artifacts/npc141-courier-audit. Generated loaded-hungry restock ticks542→22, but whole-day hunger/energy problems remain. These overlapping counters are not proof of the cause of delivery loss.
+- Historical NpcHungerInvestigation now explicitly selects106 to keep its known-bug reproduction valid; it PASSes and matches prior final byte-for-byte. Current audits no longer demand historical7/17/20 totals when107 is active. /workspace/artifacts/npc141-legacy-investigation.
+
+## Lead integration
+
+The transfer includes unpublished NPC-F138 diagnostics, F139/F140 investigations, and this F141 fix atop the last published NPC-F137 source0aa8ec34aa168e4797bfcd672053755dcdfaa034. GitHub main was still Foundation131 at inspection; do not blindly overlay changed files onto main or a divergent cartographer checkout. The bundle carries full source ancestry; the cumulative patch and files payload are relative to NPC-F137. Earlier happiness/off-duty/park/social/familiarity work and its pending shared/UI integration are prerequisites, not newly validated UI release work.
+
+Review World/Encounter saved-rule wiring, HumanReactions/Hunger ordering and WorkerShifts route ownership as shared integration points. Add explicit NeedsPriorityEnabled upgrade handling and include SocialFamiliarityVersion106 plus pending101–105 aliases in RestartScenario legacy-energy exclusions. Existing saves remain on their prior rules until explicitly upgraded. Review/resolve shared files with one writer rather than wholesale replacing lead changes. Update menu/build labels and run UI/Unity checks before publication.
+
+Transfer README records the tested source commit, package SHA, prerequisite, commands and manifest. Fetching the transfer branch is the recommended handoff; the package also includes a full Git bundle, cumulative patch, changed files and bounded evidence. The transfer commit adds packaging metadata/artifacts after the tested implementation tree; no production changes are introduced by packaging.
+
+User authorization dated2026-10-28 explicitly permits pushing this transfer branch and commit. Main, RESTORE42 and Unity6000.6.3f1 remain unchanged by publication. General local-only default remains in force for future work. Cartographer-package test is already authorized and queued; no package from that agent has arrived.
+
+Recommended follow-up: paired same-map delivery-stage/inventory trials to attribute7→4 regression, then staffing/vehicle-capacity choices with explicit finite supply budgets. Do not mask it by silently refilling the map.

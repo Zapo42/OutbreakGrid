@@ -1,0 +1,51 @@
+{
+  "rules": 107,
+  "core": {
+    "status": "PASS",
+    "cases": 701,
+    "assertions": 743092
+  },
+  "focused": {
+    "status": "PASS",
+    "cases": 9,
+    "assertions": 738
+  },
+  "source_review": "ACCEPTED; no blocking defect; no reviewer runtime tests",
+  "native_unity": "NOT RUN; paused",
+  "generated_day": {
+    "initial_meals": 78,
+    "deaths": {
+      "106": 4,
+      "107": 2
+    },
+    "deliveries": {
+      "106": 7,
+      "107": 4
+    },
+    "outstanding_meals": {
+      "106": 17,
+      "107": 20
+    },
+    "center_stock": {
+      "106": 20,
+      "107": 25
+    },
+    "courier_health": {
+      "106": 100,
+      "107": 69
+    },
+    "known_issue": "Material throughput regression; attribution unresolved"
+  },
+  "controlled_delivery_meals": {
+    "short": {
+      "106": 12,
+      "107": 12
+    },
+    "larger_district": {
+      "106": 19,
+      "107": 20
+    }
+  },
+  "legacy_106_reproduction": "PASS; exact historical final",
+  "cartographer_package": "PENDING; test already authorized"
+}

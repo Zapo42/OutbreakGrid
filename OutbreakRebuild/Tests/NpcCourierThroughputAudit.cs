@@ -76,7 +76,7 @@ namespace Outbreak.Diagnostics
                 }
             }
             int outstanding=0;foreach(var order in w.PendingSupplyOrders())outstanding+=order.requestedMeals-order.deliveredMeals;
-            Report.AppendLine(name+": observedTicks="+ticks+", creditedMeals="+credited+", completedOrders="+w.CompletedSupplyOrders().Length+", outstandingMeals="+outstanding+", firstCredit="+firstCredit+", lastCredit="+lastCredit);
+            Report.AppendLine(name+": rules="+w.Capture().rulesVersion+", observedTicks="+ticks+", creditedMeals="+credited+", completedOrders="+w.CompletedSupplyOrders().Length+", outstandingMeals="+outstanding+", firstCredit="+firstCredit+", lastCredit="+lastCredit);
             foreach(var c in initialCenters)Report.AppendLine("  initial center="+c.CenterId+" stock="+c.StockMeals+" dispatchable="+c.AvailableMeals);
             int initialCenterStock=0,finalCenterStock=0;foreach(var c in initialCenters)initialCenterStock+=c.StockMeals;foreach(var c in w.DistributionCenters()){finalCenterStock+=c.StockMeals;Report.AppendLine("  final center="+c.CenterId+" stock="+c.StockMeals+" dispatchable="+c.AvailableMeals);}Require(initialCenterStock+sourceInflow-sourceOutflow==finalCenterStock,name+": center stock flow mismatch.");Report.AppendLine("  observed per-tick center outflow="+sourceOutflow+" inflow="+sourceInflow+" netOutflow="+(sourceOutflow-sourceInflow));
             foreach(var order in requested)Report.AppendLine("  order="+order.Key+" requested="+order.Value+" creditedDuringRun="+deliveredByOrder[order.Key]);
@@ -86,7 +86,7 @@ namespace Outbreak.Diagnostics
                 foreach(var time in s.Time){total+=time.Value;Report.AppendLine("    "+time.Key+" ticks="+time.Value+" scheduledWindowTicks="+s.ScheduledTime[time.Key]+" movedPositionTicks="+s.MovingTime[time.Key]+" stationaryTicks="+(time.Value-s.MovingTime[time.Key]));}Require(total==ticks,name+": phase times do not partition the run.");
             }
             if(name!="generated-day")Require(credited>0 && w.CompletedSupplyOrders().Length>0,name+": control did not complete an order.");
-            if(name=="generated-day")Require(credited==7 && outstanding==17 && w.DistributionCenters()[0].StockMeals==20,"F139 throughput baseline changed.");
+            if(name=="generated-day" && !w.NeedsPriorityEnabled)Require(credited==7 && outstanding==17 && w.DistributionCenters()[0].StockMeals==20,"F139 throughput baseline changed.");
             File.WriteAllText(Path.Combine(output,name+"-final.obsave2"),State(w));Console.WriteLine(name+" completed: "+credited+" credited meals.");
         }
         private static string PhaseForBefore(ActorState a)

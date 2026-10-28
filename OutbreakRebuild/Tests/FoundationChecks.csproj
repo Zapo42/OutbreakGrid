@@ -19,6 +19,7 @@
     <Compile Include="ParkPreferenceChecks.cs" />
     <Compile Include="SocialInteractionChecks.cs" />
     <Compile Include="SocialFamiliarityChecks.cs" />
+    <Compile Include="NeedsPriorityChecks.cs" />
     <Compile Include="MovementChecks.cs" />
     <Compile Include="InfectedEscapeChecks.cs" />
     <Compile Include="ShelterChecks.cs" />

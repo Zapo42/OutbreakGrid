@@ -53,6 +53,7 @@ namespace Outbreak.Core
         {
             direction=8;if(CarefulSearch && (actor.turnAtTick!=0 || actor.hunger<HungerRules.SeekAt || actor.carriedFood>0 || !CanRiskFoodTrip(actor,threat))){actor.shelfSearchProgress=0;actors[index]=actor;}if(actor.turnAtTick!=0)return false;
             if(FoodExploration && actor.foodExploreRoomId!=0 && (actor.turnAtTick!=0 || actor.hunger<HungerRules.SeekAt || actor.carriedFood>0 || !CanRiskFoodTrip(actor,threat)))CancelFoodExploration(index,ref actor);
+            if(TryPriorityMeal(index,ref actor,threat))return true; // Returning to shelter must not preempt a safe meal already in hand.
             if(FoodTripRetreat && ReturnFromFoodDanger(index,ref actor,threat))return false;
             if(actor.carriedFood>0 && actor.homeShelterId!=0 && actor.hunger<HungerRules.SeekAt && actor.shelterId==0){Room home=FindRoom(actor.homeShelterId);if(home!=null && !KnownRoomDanger(actor,home) && RoomAdmissions(home,actor.id)<home.Capacity){int goal=PickShelterCell(home,actor);if(goal>=0){actor.shelterId=home.id;actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=ShelterState.Seeking;}}else{actor.homeShelterId=0;actor.reaction=HumanReaction.Flight;}actors[index]=actor;return false;}
             if(actor.hunger<HungerRules.SeekAt)return false;

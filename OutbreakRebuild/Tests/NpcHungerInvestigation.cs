@@ -29,6 +29,7 @@ namespace Outbreak.Diagnostics
             {
                 Note("NPC-F139 investigation only. Counterfactuals below modify diagnostic copies, never production behavior. Native Unity NOT RUN.");
                 World city=CitySetup.Create(214,4,2,2,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters),courier=null,closing=null;
+                var historical=city.Capture();historical.rulesVersion=EncounterRules.SocialFamiliarityVersion;city=World.Restore(historical);Note("Historical rules106 reproduction; current107 repair deliberately disabled.");
                 int initialFood=city.FoodSupplies().RemainingMeals;File.WriteAllText(Path.Combine(output,"initial.obsave2"),State(city));
                 for(int t=1;t<=14400;t++){city.Step();if(t==3600)courier=Copy(city);if(t==7200)closing=Copy(city);}
                 int deaths=0;for(int i=0;i<city.Count;i++)if(city.ActorAt(i).health==0)deaths++;
