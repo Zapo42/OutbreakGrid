@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "f31a56e133069c6baefa958e0b784d7398fa8bca",
+  "transferCommit": "28dcbab",
+  "worldImplementation": "20380bec26bf680865a2b22662872db115a390c4",
+  "productionBase": "Foundation131",
+  "pythonTests": 40,
+  "legacyRecipesCanonicalIdentical": 20,
+  "houseMapsFreshReplayByteIdentical": 4,
+  "coreCases": 627,
+  "coreAssertions": 737155,
+  "windowsABI": "PASS hosted only",
+  "uiLegacyAssertions": 2463,
+  "uiNewOnlyAssertions": 3,
+  "buildingInfrastructureAssertions": 1264,
+  "standaloneRoutine": {
+    "npcSource": "0aa8ec34aa168e4797bfcd672053755dcdfaa034",
+    "actors": 11,
+    "staticRoutes": 21,
+    "mapSaveManifestByteIdentical": true,
+    "behaviorTicksExecuted": 0
+  },
+  "nativeUnity": "NOT RUN: user-paused",
+  "windowsPlayer": "NOT RUN: no EXE",
+  "npc132Through137Integrated": false,
+  "houseUiDoubleAssertions": 20
+}

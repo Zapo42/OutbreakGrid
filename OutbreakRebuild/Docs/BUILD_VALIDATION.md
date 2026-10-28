@@ -16,6 +16,16 @@ Extract that archive into a separate folder and open its OutbreakRebuild project
 
 ## Builds after the checkpoint
 
+### World transfer integration — October 28, 2026
+
+Source `f31a56e133069c6baefa958e0b784d7398fa8bca` integrates World implementation `20380be` selectively onto Foundation131, preserving current NPC rules100 and the unified runner. It adds seeded generator/reference tooling and opt-in schema14 two-room houses, living recovery areas and separate empty storage. It does **not** integrate/certify NPC132–137 or resume native testing. [Usage and compatibility](WORLD_HOUSES_INTEGRATION.md).
+
+Lead-executed checks: Python40 tests PASS;20 old recipes canonical-identical;4 fresh house-map replays byte-identical; full sequential hosted runner PASS (627 core cases /737155 assertions, strict Windows ABI, Legacy UI2463 and NewOnly3); separate BuildingRoomChecks PASS1264 assertions against freshly regenerated maps; separate production drawing/API-double check PASS20 assertions distinguishing recovery areas from ordinary bed furniture. Independent source QA found no blocker. Source GUIDs preserved; editor/dependencies/settings unchanged.
+
+Standalone NPC137 routine fixture: build PASS with0 warnings/errors;11 assigned actors and21 static routes; map/save/manifest byte-identical to supplied outputs. No decision ticks or survival outcome tested; its rules106 save is not compatible with this Foundation131 release. Transfer-reported NPC137 Legacy UI occupation-outline failure remains separate and is not a passing NPC137 release result.
+
+Native Unity compilation, rendering/input, native dialogs, Windows player and Mono execution: **NOT RUN**. Prototype non-house layouts remain inactive geometry hints. See [current run evidence](../../harness/validation/world-20380be/RESULTS.json) and [build log](../../harness/build-log.md). No Windows EXE supplied.
+
 | Build | Change | Automated validation | Unity validation |
 | --- | --- | --- | --- |
 | 83 | Pending-turn focus, corpse and get-up counts, outbreak summary correction | UI harness: 1306 assertions; NewOnly input: 3 assertions; project configuration and diff checks | Untested, per user instruction |

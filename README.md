@@ -2,6 +2,8 @@
 
 Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
+World integration adds opt-in seeded two-room house maps, living-area recovery markers and separate household storage. [Generation, loadable examples, compatibility and validation limits](OutbreakRebuild/Docs/WORLD_HOUSES_INTEGRATION.md). NPC Foundations 132–137 and their daily-routine behavior are not included in this Foundation131 integration.
+
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 
 [Current development preferences](OutbreakRebuild/Docs/DEVELOPMENT_PREFERENCES.md): incremental builds, next-step options, and food-only storage.

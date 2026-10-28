@@ -1,5 +1,7 @@
 Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return, with normal energy costs and urgent tasks taking priority. [Walking preview, rules and older-run upgrade](Docs/HUMAN_LEISURE.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
+[World generator and two-room house integration](Docs/WORLD_HOUSES_INTEGRATION.md): opt-in schema14 maps with living-area recovery and separate storage, paired with the matching reader. Default recipes stay compatible. NPC Foundations 132–137 and their routine fixture remain separate; native Unity testing stays paused.
+
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 
 ## Historical foundation notes

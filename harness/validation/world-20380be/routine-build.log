@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored /workspace/review/world-transfer-20380be/OutbreakGrid-lead-transfer/daily-routine/source/RoutineFixture.csproj (in 77 ms).
+  RoutineFixture -> /workspace/review/world-transfer-20380be/routine-build/bin/RoutineFixture.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.96

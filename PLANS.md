@@ -1,6 +1,6 @@
 # Development Plan — Existing Roadmap Only
 
-Status: Acting Lead coordinates the existing dedicated NPC coder plus three non-NPC roles. User selected WORLD-RES-01 residential-block generation; ownership/acceptance are below. Sources and exact owned paths are verified at 8e92e361206507219a725d698fca55dd26de5ff9 on maps/city-reference-pack-20261026; the prior source-location limitation is resolved.
+Status: Lead selectively integrated and hosted-validated World transfer20380be on Foundation131; see WORLD-INTEGRATE-20380BE. Existing dedicated NPC coder and three non-NPC roles retain exclusive assignments. UI-PRES-01 remains separately assigned; NPC132–137 are not certified/integrated by this World increment.
 
 Before implementation, identify the existing roadmap and latest accepted task from project documentation, Git history, issue tracker and available Codex handoffs. Present evidence and unresolved ambiguities. Do not invent, reorder or expand the next task. The user must approve changes to task order or scope.
 
@@ -31,6 +31,15 @@ Before implementation, identify the existing roadmap and latest accepted task fr
 
 ## Approved assignments
 Record each task ID, owner, branch/worktree, file ownership, acceptance criteria, verification and merge status.
+
+## WORLD-INTEGRATE-20380BE — Lead assembly
+
+- User authorized Lead final assembly, verification and GitHub publication; transfer branch world/lead-transfer-20261028 at28dcbab supplies implementation20380be and prerequisite generators/reference profiles.
+- Lead owns selective five-file shared C# patch integration, new room-group assets/.meta, focused test inclusion, generator/reference snapshots and final documentation/evidence. Excluded older maps game ancestry and older test runner; did not import NPC137 routine source into production. Source commit f31a56e133069c6baefa958e0b784d7398fa8bca on lead/world-integration-20261028.
+- Independent QA read-only, no concurrent writers/builds. Full hosted runner PASS627 cases/737155 assertions, ABI PASS, UI2463+3; Python40 PASS;20 legacy recipes canonical-identical;4 house maps fresh-replay byte-identical; focused infrastructure1264 assertions PASS; new Lead-owned BuildingRoomUiChecks.cs/.csproj PASS20 assertions through production rendering with API doubles. UiHarness.cs itself remains unchanged and Graphics-owned. Standalone NPC137 static fixture reproduced separately with11 actors/21 routes and byte-identical map/save/manifest, no behavioral ticks.
+- World source handoff includes user-directed follow-ons beyond initial four-file residential scope: parks, prototype layouts and live two-room-house metadata. Integrated only explicit delivered implementation; do not infer new restaurant/church/order-computer mechanics or alter roadmap order.
+- Status: selective source integration and hosted validation complete; Lead owns normal GitHub publication and verification. Native Unity/player testing remains paused. Schema14 maps require the matching reader; rules106 routine save belongs to separate NPC137 source, not this rules100 release. NPC137 reported Legacy UI failure remains unresolved outside this increment.
+- UI-PRES-01 and all NPC behavior/tests remain with their assigned coders. Future NPC integration must preserve these World changes and obtain full integrated QA rather than merge old branches wholesale. Source/evidence/limits recorded in BUILD_VALIDATION.md and harness/build-log.md.
 
 ## UI-PRES-01 — selected need-bar edge placement and regression checks
 

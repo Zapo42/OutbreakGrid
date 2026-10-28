@@ -1,0 +1,6 @@
+PASS building grouping, internal/exterior doors, schema, aliases, corrupt input and legacy/map/save compatibility
+PASS active house spatial identity and exact map/save round-trip: suburban-grid-214-9cea487c8d68.obmap2
+PASS active house spatial identity and exact map/save round-trip: mixed-city-214-604e8b25aa96.obmap2
+PASS active house spatial identity and exact map/save round-trip: suburban-grid-215-5de8d85f88e7.obmap2
+PASS active house spatial identity and exact map/save round-trip: garden-suburb-214-15c0242beada.obmap2
+Building infrastructure assertions: 1264
