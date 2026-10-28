@@ -2,6 +2,11 @@
 
 Append one section per completed or blocked task.
 
+## NPC-F141-R1 — correction assignment
+- Date: 2026-10-28 (America/Chicago). User selected dedicated NPC fix before main release.
+- Lead created harness/NPC_F141_R1_ASSIGNMENT.md and linked it from agents/simulation.md and PLANS.md. Exact base2aeac34, seven exclusive NPC implementation/test/diagnostic paths, contracts/legacy constraints, paired evidence, cartographer observations and return handoff recorded. Existing NPC coder retains behavior ownership; no replacement spawned or cross-chat delivery claimed.
+- No production/test/fixture changes. Documentation consistency and git diff --check only; suites not rerun for assignment-only update. Current validated production source remains eb630f1. Main remains1b05a73; native testing paused and checkpoints untouched.
+
 ## NPC-F141-INTEGRATE — source validation PASS, release BLOCKED
 - Date: 2026-10-28 (America/Chicago). User requested integration/review of transfer branch transfer/npc-f141-needs-priority at b37a589ab6df1f220d6786c35581ad08514dad65, explicitly requiring review of the delivery regression before release.
 - Main inspected clean at1b05a73c0994720230524c519dac84fc58d0bbd3. New integration branch lead/npc-f141-integration-20261028. Preserved World code, all unrelated changes and permanent tags. No reset, worktree creation or force push. Main publication is held.

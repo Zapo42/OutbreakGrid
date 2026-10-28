@@ -32,6 +32,14 @@ Before implementation, identify the existing roadmap and latest accepted task fr
 ## Approved assignments
 Record each task ID, owner, branch/worktree, file ownership, acceptance criteria, verification and merge status.
 
+## NPC-F141-R1 — user-selected courier regression correction
+
+- Authorization: user chose option1, dedicated NPC correction before main promotion. Baseline2aeac34 on lead/npc-f141-integration-20261028; production source eb630f1. Main remains1b05a73.
+- Existing NPC coder exclusively owns the seven exact implementation/test/diagnostic paths in harness/NPC_F141_R1_ASSIGNMENT.md; only change necessary files. Lead owns shared version/persistence/UI/manifests and final records/publication. No new NPC agent or simultaneous shared-checkout writer started.
+- Scope: meal/reserve/departure interaction and empty-return claim lifecycle behind the reproduced7→4 delivery loss. Preserve safe eating, paid movement/rest, finite inventory, danger priorities, off-duty home return, exact old106 behavior and World/UI integration. No food/staffing/capacity/speed tuning or accounting workaround.
+- Acceptance/evidence: focused failing-before/passing-after cases; exact saves/legacy digest; paired unchanged-input trials resolving loss and claim waste; current controls, core/daily/courier diagnostics; separate supplied cartographer observations. No unapproved roadmap expansion or native testing. Full handoff requirements are in the assignment file.
+- Status: assignment published for user relay to the existing NPC coder; no direct cross-chat contact or implementation start claimed. Release remains blocked. Lead will integrate/revalidate the returned correction before main publication.
+
 ## NPC-F141-INTEGRATE — source candidate, release blocked by delivery regression
 
 - Authorization: user requested integration of transfer/npc-f141-needs-priority at b37a589ab6df1f220d6786c35581ad08514dad65, including prerequisites and diagnostic review before release. Current main inspected at1b05a73 (Foundation131+World), clean. New branch lead/npc-f141-integration-20261028; no worktrees created, no tag moves/resets.
