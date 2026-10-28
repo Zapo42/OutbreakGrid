@@ -1,0 +1,6 @@
+Fixture branch: world/store-validation-fixture
+Fixture revision: efa363489e0a2694bae645908169cf69d8f404b7
+World baseline: 19e18e74e54db7bb13a888a8ae9090c832af9bbf
+NPC baseline: 0aa8ec34aa168e4797bfcd672053755dcdfaa034 + World20380be schema14 changes
+Seed:214
+Publication:local only; not pushed or merged
