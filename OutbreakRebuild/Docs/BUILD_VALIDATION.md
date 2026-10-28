@@ -4,6 +4,8 @@ The user reported Foundation 82 working, then instructed that later incremental 
 
 ## Last user-tested checkpoint
 
+Role coordination update ROLE-SPLIT-02 is documentation only: three additional non-NPC roles (World, Graphics/UI, Engine/Tools) support the Lead alongside the existing dedicated NPC coder. It does not change the gameplay build, certify Foundation 132 or resume native testing. Validation for this update is instruction consistency, local links, scope and diff checks; see harness/build-log.md for evidence. The separate cloud setup run at Foundation 131 passed 627 core cases / 737155 assertions, Windows ABI, UI Legacy 2463 and NewOnly 3; these remain hosted results, not new native evidence.
+
 - Foundation 82 / reanimation awareness
 - Commit: `0fc9522513593d7585de88d9fc2a356dcd52dfe7`
 - Permanent Git tag: `foundation-82-unity-checkpoint`
