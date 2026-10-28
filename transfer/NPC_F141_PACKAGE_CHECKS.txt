@@ -15,3 +15,4 @@ Production/test code changes introduced by packaging: NONE
 Core: PASS701cases/743092assertions; focused final PASS9/738
 Native Unity/player: NOT RUN; paused
 Known issue: generated deliveries7→4; attribution unresolved; not a global food-system fix
+Post-push observation: origin/main independently advanced to1b05a73c0994720230524c519dac84fc58d0bbd3. Source bundle/patch stay pinned to their stated prerequisite; no automatic rebase/merge performed. Lead must inspect current main before integration.

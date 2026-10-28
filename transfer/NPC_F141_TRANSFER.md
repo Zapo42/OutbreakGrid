@@ -67,3 +67,7 @@ SHA256: `0ab8525ad2e0436e44306053a86105c0c41e5981d3058638b8bb484c7f69316d`
 Bytes: 1470093
 
 Package verification completed: ZIP CRC/path checks,44payload hashes, offline full-bundle clone, four patches applied to the prerequisite, and exact reconstructed source-tree/28file hash equality all PASS. See NPC_F141_PACKAGE_CHECKS.txt beside this archive.
+
+## Concurrent main update observed after upload
+
+Post-push verification on2026-10-28 observed origin/main at1b05a73c0994720230524c519dac84fc58d0bbd3, advanced independently from the Foundation131revision seen at initial inspection. This transfer was NOT rebased onto or merged into that main. Fetch and inspect current main/prerequisites before integrating; do not blindly overlay payload files. The archive's pinned source/prerequisite IDs, hashes and verification results remain unchanged. Only the transfer branch was pushed by this task.
