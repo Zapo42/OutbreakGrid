@@ -1,0 +1,7 @@
+Cloning into '/tmp/outbreak-consolidation-bundle-verify'...
+From /workspace/shared/outbreak-consolidation/OutbreakGrid-history.bundle
+ * [new ref]         origin/main                   -> lead/main
+ * [new ref]         refs/transfer/npc137-baseline -> npc/f137
+d499d033d437b72a6de96be21e60acd932a301d2
+1b05a73c0994720230524c519dac84fc58d0bbd3
+0aa8ec34aa168e4797bfcd672053755dcdfaa034

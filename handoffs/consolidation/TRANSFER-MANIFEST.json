@@ -1,0 +1,121 @@
+{
+  "worldCodeRevision": "d499d033d437b72a6de96be21e60acd932a301d2",
+  "leadMainRevision": "1b05a73c0994720230524c519dac84fc58d0bbd3",
+  "npcBaselineRevision": "0aa8ec34aa168e4797bfcd672053755dcdfaa034",
+  "bundleCompleteHistory": true,
+  "originalDirtyStatePreserved": true,
+  "npcStoreTrialResults": "pending/not received or verified",
+  "nativeUnityTesting": "paused",
+  "files": [
+    {
+      "path": "BUNDLE-VERIFICATION.txt",
+      "bytes": 384,
+      "sha256": "9801aab08a1d60acdc370b71a2c2294e192f7e03abd087a524f880f5031eaa61"
+    },
+    {
+      "path": "CURRENT_STATE.md",
+      "bytes": 7752,
+      "sha256": "0290ba5b409f6b28be7c1012eb49219ac78b4fcd22442983cd58aac7591f0286"
+    },
+    {
+      "path": "ONE_AGENT_PROMPT.md",
+      "bytes": 2089,
+      "sha256": "4ae6a0f99a5473ece7d1ee0d59e70e10d07b71594394863f97931b5eaf1df393"
+    },
+    {
+      "path": "OutbreakGrid-history.bundle",
+      "bytes": 7009336,
+      "sha256": "76629f1545cba187384136feaea98d8c18a5336d44c9c783c67176f01df5e156"
+    },
+    {
+      "path": "RESUME_INSTRUCTIONS.md",
+      "bytes": 4900,
+      "sha256": "7709c10f8f5874822a169f3db60aca4bc8b7cbeed31641b206bddcafab075d28"
+    },
+    {
+      "path": "START_HERE.md",
+      "bytes": 4302,
+      "sha256": "73dcca6eb77ace58d35633d6ff5dea6474d33c863375bf12fd283501b6100d1e"
+    },
+    {
+      "path": "handoffs/distribution-centers/HANDOFF.md",
+      "bytes": 10097,
+      "sha256": "868c131048389c126bbd873c371af9868e1b665e2fe4fc2e959c1d11d5670bca"
+    },
+    {
+      "path": "handoffs/distribution-centers/SOURCE-REVISION.txt",
+      "bytes": 315,
+      "sha256": "2e04c9ebea1a243c28679cc44bb947e03a9d8254a5b1f576b741b37d00ec8c82"
+    },
+    {
+      "path": "handoffs/store-validation/DIAGNOSTIC_RESULTS.md",
+      "bytes": 1324,
+      "sha256": "3b6c5f16ac6f55624251f5ef400fc2feaebcbf4fc116602ff23a3f25abc28cf7"
+    },
+    {
+      "path": "handoffs/store-validation/NPC_HANDOFF.md",
+      "bytes": 9989,
+      "sha256": "ad5ae0128f9e13799e7224a77a52b6c88f50a30f8b8fbe7685d1ad604cac5a55"
+    },
+    {
+      "path": "handoffs/store-validation/SOURCE-REVISION.txt",
+      "bytes": 304,
+      "sha256": "4883a946068eab110388822b9838e57bb937c3af2890cb42b0344809844856e7"
+    },
+    {
+      "path": "handoffs/store-validation/VALIDATION.md",
+      "bytes": 5988,
+      "sha256": "c0af3b933bbe1f275f00268f09eccc25c6163096e59e823f3b837ae9f00e1db8"
+    },
+    {
+      "path": "handoffs/stores/HANDOFF.md",
+      "bytes": 7828,
+      "sha256": "014acc7f141faeba97b791a60ac374c6cdf5477e1434313ff8e04a4d3e2d579e"
+    },
+    {
+      "path": "handoffs/stores/SOURCE-REVISION.txt",
+      "bytes": 219,
+      "sha256": "35411dd4db4dc3bdc3c8145864d5031fc61ce548d449e588cfe4272198fc2c44"
+    },
+    {
+      "path": "packages/OutbreakGrid-distribution-centers-d499d03.zip",
+      "bytes": 695546,
+      "sha256": "5962d73b6d77d66343144cfa00077b31fe6d2ee1a2fa659728bf3549efd79a55"
+    },
+    {
+      "path": "packages/OutbreakGrid-lead-transfer-20380be.zip",
+      "bytes": 2502951,
+      "sha256": "2d979ff77364533892047ab97da18ea750707d22cf6bd6e1ccc8e65e0a475582"
+    },
+    {
+      "path": "packages/OutbreakGrid-store-interiors-19e18e7.zip",
+      "bytes": 235486,
+      "sha256": "a3e512797aeab9d23895e643c5d151cd261fde67167328c62b6bd3361e35d137"
+    },
+    {
+      "path": "packages/OutbreakGrid-store-validation-efa3634.zip",
+      "bytes": 472397,
+      "sha256": "f50a4fb877fa008eecb1b140250269fa922b53d9db5aa35d638b54ba67b05ff3"
+    },
+    {
+      "path": "preserved-original-work/README.md",
+      "bytes": 704,
+      "sha256": "8cd94f825182666dfd1886123f269e049cec78eaaa8fa61fe58d73809b507730"
+    },
+    {
+      "path": "preserved-original-work/STATUS.txt",
+      "bytes": 735,
+      "sha256": "dc9633d7d8e40af2c8a6b185ea44af869876a7a0b6cbd22836949c7a73309d34"
+    },
+    {
+      "path": "preserved-original-work/TRACKED-CHANGES.patch",
+      "bytes": 1837,
+      "sha256": "9d163d28e04e9c343fbd26f15d962d24940bd634c12e7e6245880026ccff97e9"
+    },
+    {
+      "path": "preserved-original-work/UNTRACKED-FILES.zip",
+      "bytes": 1723011,
+      "sha256": "c43ed6b11c7ed415f295f038e9ce57167aa1c9ac20e6c02d57775bca561d0462"
+    }
+  ]
+}
