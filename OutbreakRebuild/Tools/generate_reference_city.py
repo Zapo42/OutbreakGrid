@@ -440,13 +440,23 @@ def materialize_house_layouts(document,metadata,variant,street_targets):
 
 def materialize_store_layouts(document,metadata,variant,street_targets):
     """Emit real shelves, one authoritative stock box and a phone per two-room store."""
+    _materialize_supply_layouts(document,metadata,variant,street_targets,"store")
+
+
+def materialize_distribution_layouts(document,metadata,variant,street_targets):
+    """Emit a grouped dispatch/warehouse shell and one existing DC supply box."""
+    _materialize_supply_layouts(document,metadata,variant,street_targets,"distribution-center")
+
+
+def _materialize_supply_layouts(document,metadata,variant,street_targets,kind):
+    """Share placement geometry without adding courier decisions or computer mechanics."""
     cells=unpack(document);width,height=document["width"],document["height"]
     groups=[];storage=[];shelves=[];phones=[]
     for building in metadata["buildings"]:
         left,top,w,h=(building[k] for k in ("left","top","width","height"))
         choices=[]
         for rotation in range(4):
-            blueprint=building_blueprint("store",variant,rotation)
+            blueprint=building_blueprint(kind,variant,rotation)
             if (blueprint["width"],blueprint["height"])!=(w,h):continue
             connections=[]
             for entry in blueprint["doors"]:
@@ -457,7 +467,7 @@ def materialize_store_layouts(document,metadata,variant,street_targets):
                 connections.append(connection)
             else:
                 choices.append((sum(len(c[1]) for c in connections),rotation,blueprint,connections))
-        if not choices:raise ValueError("Store public and service entrances must both reach the street")
+        if not choices:raise ValueError("Supply building public and service entrances must both reach the street")
         _,_,blueprint,connections=min(choices,key=lambda c:c[:2])
         for room in blueprint["rooms"]:
             for x,y in room["cells"]:cells[(top+y)*width+left+x]=7
@@ -469,29 +479,49 @@ def materialize_store_layouts(document,metadata,variant,street_targets):
             paths.extend(path)
             for x,y in path:
                 if cells[y*width+x]==0:cells[y*width+x]=5
+        # A Wall cell reserves a solid computer footprint, not a live computer
+        # object. It persists without misusing food shelves or request phones.
+        reserved=[]
+        if kind=="distribution-center":
+            computer=next(f for f in blueprint["fixtures"] if f["role"]=="order-computer")
+            for x,y in computer["cells"]:
+                cells[(top+y)*width+left+x]=8;reserved.append([left+x,top+y])
         identity=building["parcel_id"]
         groups.append({"id":identity,"rooms":[{"id":r["id"],"role":r["role"],"x":left+r["cells"][0][0],"y":top+r["cells"][0][1]} for r in blueprint["rooms"]]})
         for fixture in blueprint["fixtures"]:
             if fixture["role"]=="sales-shelf":
                 x,y=fixture["cells"][0];shelves.append({"x":left+x,"y":top+y,"food":0,"searched":True})
-        # Stores have one supplyBox identity in the existing runtime contract. The
+        # Stores and centers select one supplyBox in the existing runtime contract. The
         # remaining rack cells stay floor hints, not competing store inventories.
         rack=next(f for f in blueprint["fixtures"] if f["role"]=="storage-shelf")
-        x,y=rack["cells"][0];storage.append({"x":left+x,"y":top+y,"capacity":30,"foodReserve":6,"items":[]})
-        # Rotate the phone with the template, in a clear sales-floor corner.
-        x,y=2,2;bw,bh=(h,w) if blueprint["rotation_quarter_turns"]%2 else (w,h)
-        for _ in range(blueprint["rotation_quarter_turns"]):x,y,bw,bh=bh-1-y,x,bh,bw
-        phones.append({"x":left+x,"y":top+y})
+        x,y=rack["cells"][0];storage.append({"x":left+x,"y":top+y,"capacity":30 if kind=="store" else 100,"foodReserve":6,"items":[]})
+        if kind=="store":
+            # Rotate the phone with the template, in a clear sales-floor corner.
+            x,y=2,2;bw,bh=(h,w) if blueprint["rotation_quarter_turns"]%2 else (w,h)
+            for _ in range(blueprint["rotation_quarter_turns"]):x,y,bw,bh=bh-1-y,x,bh,bw
+            phones.append({"x":left+x,"y":top+y})
         building.update(door=list(connections[0][0][:2]),path_cells=[list(p) for p in sorted(set(map(tuple,paths)))],
             retained_walk_cells=building["path_cells"],
             interior_layout={"blueprint":blueprint,"origin_cells":[left,top],"instance_id":identity,
                 "room_keys":{r["id"]:identity+"/"+r["id"] for r in blueprint["rooms"]},
-                "sales_shelves_materialized":True,"stockroom_storage_materialized":True,"phone_materialized":True,
-                "stock_box_cells":[storage[-1]["x"],storage[-1]["y"]],"phone_cells":[phones[-1]["x"],phones[-1]["y"]]})
-    document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])),
-        shelves=sorted(shelves,key=lambda p:(p["y"],p["x"])),phoneBlocks=sorted(phones,key=lambda p:(p["y"],p["x"])))
-    metadata.update(store_layout=variant,expected_physical_room_count=2*len(groups),expected_building_count=len(groups),
-        active_features=["building-room-membership","sales-shelves","stockroom-storage","store-phones"])
+                "stock_box_cells":[storage[-1]["x"],storage[-1]["y"]]})
+        layout=building["interior_layout"]
+        if kind=="store":
+            layout.update(sales_shelves_materialized=True,stockroom_storage_materialized=True,phone_materialized=True,
+                phone_cells=[phones[-1]["x"],phones[-1]["y"]])
+        else:
+            layout.update(warehouse_storage_materialized=True,reserved_fixture_cells=reserved,
+                order_computer={"id":identity+"/order-computer","cell":reserved[0],
+                    "approach_cells":[[left+x,top+y] for x,y in computer["approach_cells"]],
+                    "room_role":"dispatch-office","representation":"reserved-solid-terrain","interaction_implemented":False},
+                auxiliary_racks_materialized=False)
+    document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])))
+    if kind=="store":
+        document.update(shelves=sorted(shelves,key=lambda p:(p["y"],p["x"])),phoneBlocks=sorted(phones,key=lambda p:(p["y"],p["x"])))
+        metadata.update(store_layout=variant,active_features=["building-room-membership","sales-shelves","stockroom-storage","store-phones"])
+    else:
+        metadata.update(distribution_layout=variant,active_features=["building-room-membership","warehouse-storage","reserved-order-computer"])
+    metadata.update(expected_physical_room_count=2*len(groups),expected_building_count=len(groups))
     pack(document,cells)
 
 

@@ -11,6 +11,62 @@ import generate_reference_city as lots
 
 
 class DistrictChecks(unittest.TestCase):
+    def test_live_distribution_layouts_replay_and_access(self):
+        for variant in lots.BUILDING_VARIANTS:
+            for seed in (1,214,0xffffffff):
+                recipe=districts.district_recipe("business-core",seed,{"columns":2,"rows":2,"park_fraction":0},distribution_layout=variant)
+                document,metadata,_=districts.generate_district(recipe)
+                self.assertEqual(len(metadata["buildings"]),1)
+                self.assertEqual(streets.canonical(document),streets.canonical(districts.generate_district(copy.deepcopy(recipe))[0]))
+                self.assertEqual(len(document["storageBoxes"]),1)
+                self.assertEqual(document["storageBoxes"][0]["capacity"],100)
+                self.assertFalse(document["storageBoxes"][0]["items"])
+                self.assertFalse(document.get("shelves"));self.assertFalse(document.get("phoneBlocks"))
+                b=metadata["buildings"][0];layout=b["interior_layout"];computer=layout["order_computer"]
+                self.assertEqual(b["game_building_use_hint"],"DistributionCenter")
+                self.assertFalse(computer["interaction_implemented"])
+                self.assertEqual({r["role"] for r in document["buildingRooms"][0]["rooms"]},{"dispatch-office","warehouse"})
+                districts.assert_usable(document,metadata)
+                broken=copy.deepcopy(document);cells=lots.unpack(broken);x,y=computer["cell"];cells[y*document["width"]+x]=7;lots.pack(broken,cells)
+                with self.assertRaises(ValueError):districts.assert_usable(broken,metadata)
+                blocked=copy.deepcopy(document);cells=lots.unpack(blocked);x,y=computer["approach_cells"][0];cells[y*document["width"]+x]=8;lots.pack(blocked,cells)
+                with self.assertRaises(ValueError):districts.assert_usable(blocked,metadata)
+
+    def test_live_distribution_all_rotations(self):
+        original=lots.building_blueprint
+        for variant in lots.BUILDING_VARIANTS:
+            for rotation in range(4):
+                blueprint=original("distribution-center",variant,rotation);w,h=blueprint["width"],blueprint["height"]
+                width,height=w+12,h+12;cells=bytearray(width*height)
+                targets={(x,y) for y in range(1,height-1) for x in range(1,width-1) if x in (1,width-2) or y in (1,height-2)}
+                for x,y in targets:cells[y*width+x]=6
+                document={"width":width,"height":height,"chunkSize":32,"chunks":[]};lots.pack(document,cells)
+                metadata={"buildings":[{"left":6,"top":6,"width":w,"height":h,"parcel_id":"dc-1","path_cells":[],"use_hint":"office"}]}
+                with patch.object(lots,"building_blueprint",side_effect=lambda kind,v,r=0:original(kind,v,rotation)):
+                    lots.materialize_distribution_layouts(document,metadata,variant,targets)
+                self.assertEqual(metadata["buildings"][0]["interior_layout"]["blueprint"]["rotation_quarter_turns"],rotation)
+                districts.assert_usable(document,metadata)
+
+    def test_live_distribution_city_preserves_references(self):
+        recipe=districts.city_recipe(["garden-suburb","business-core","business-core"],214,house_layout="compact",store_layout="compact",distribution_layout="spacious")
+        self.assertEqual(sum("distribution_layout" in r for r in recipe["districts"]),1)
+        document,metadata,_=districts.compose_city(recipe)
+        self.assertTrue(document["shelves"]);self.assertTrue(document["restSpots"])
+        centers=[b for b in metadata["buildings"] if b["game_building_use_hint"]=="DistributionCenter"]
+        self.assertEqual(len(centers),1)
+        for b in centers:self.assertEqual(b["interior_layout"]["order_computer"]["id"],b["parcel_id"]+"/order-computer")
+        self.assertEqual(streets.canonical(document),streets.canonical(districts.compose_city(copy.deepcopy(recipe))[0]))
+        districts.assert_usable(document,metadata)
+
+    def test_live_distribution_recipe_validation(self):
+        for args in ({"house_layout":"compact"},{"store_layout":"compact"}):
+            with self.assertRaises(ValueError):districts.district_recipe("business-core",214,distribution_layout="compact",**args)
+        with self.assertRaises(ValueError):districts.city_recipe(["garden-suburb"],214,distribution_layout="compact")
+        with self.assertRaises(ValueError):districts.district_recipe("garden-suburb",214,distribution_layout="compact")
+        for field,value in (("distribution_layout_version","unknown"),("uses",{"retail":100}),("storeys",[1,2])):
+            recipe=districts.district_recipe("business-core",214,distribution_layout="compact");recipe[field]=value
+            with self.assertRaises(ValueError):districts.generate_district(recipe)
+
     def test_live_store_layouts_replay_and_fixtures(self):
         for variant in lots.BUILDING_VARIANTS:
             for seed in (1,214,0xffffffff):
