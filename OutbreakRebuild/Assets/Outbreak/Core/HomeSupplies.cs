@@ -69,7 +69,7 @@ namespace Outbreak.Core
             }
             if(face<0)return false;
             actor.homeShelterId=0;actor.shelterId=home.id;actor.shelterState=ShelterState.Inside;actor.shelterX=face%Width;actor.shelterY=face/Width;ClearShelterDeparture(ref actor);
-            direction=route;actors[index]=actor;return true; // Replanned each opportunity; normal sight/adjacency records the actual stock.
+            direction=FurnitureDoorAction(actor,route);actors[index]=actor;return true; // Open the next door as an action; only normal sight/adjacency records the actual stock.
         }
     }
 }

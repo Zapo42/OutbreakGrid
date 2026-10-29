@@ -51,6 +51,15 @@ namespace Outbreak.Core
             }
             return direction;
         }
+        private int FurnitureDoorAction(ActorState actor,int direction)
+        {
+            if(!NeedsPriorityEnabled || direction<0 || direction>=8)return direction;
+            int x=actor.x+dx[direction],y=actor.y+dy[direction];
+            // Furniture routes plan through ordinary closed doors just like shelter routes. Opening owns this action;
+            // the unchanged collision/movement commit enters on a later opportunity and charges its normal energy.
+            if(map.Get(x,y)==Terrain.DoorClosed){SetDoor(x,y,true);return 8;}
+            return direction;
+        }
         private bool TryClerkWork(int index,ref ActorState actor,int threat,out int direction)
         {
             direction=8;if(actor.clerkStoreId==0 || (WorkerShiftsEnabled && IsShopping(actor)))return false;StoreDocument store;Room room=FindRoom(actor.clerkStoreId);
@@ -89,7 +98,7 @@ namespace Outbreak.Core
             int routeDirection=StoreFurnitureRoute(actor,room,x,y,out face,out steps);
             if(routeDirection<0){actor.clerkShelf=0;actors[index]=actor;return false;}
             actor.shelterId=room.id;actor.shelterX=face%Width;actor.shelterY=face/Width;actor.shelterState=ShelterState.Inside;ClearShelterDeparture(ref actor);
-            if(steps>0){direction=routeDirection;actors[index]=actor;return true;}
+            if(steps>0){direction=FurnitureDoorAction(actor,routeDirection);actors[index]=actor;return true;}
             if(stocking)
             {
                 int amount=Math.Min(actor.carriedFood-FoodReserve(actor),store.shelfTarget-target.food);
