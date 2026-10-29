@@ -2,6 +2,14 @@
 
 The user reported Foundation 82 working, then instructed that later incremental builds will go untested in Unity until they say otherwise. Acknowledging or continuing development does not establish Unity validation. Continue automated checks for each change and record native validation separately.
 
+## UI-PRES-01/01A integration — candidate only
+
+Transfer `1826dc6` merged into the existing NPC/World candidate as `e95d5b338f904aec6e983cf321783c76f7c8d26b`, preserving newer happiness/worker assertions, NPC upgrade/restart handling and World area markers. Only the two need-bar production hunks and UI-harness regressions changed. [Placement policy and limits](NEED_BAR_PLACEMENT.md).
+
+Lead full unified run exit0:701 core cases /743092 assertions, Windows ABI PASS, Legacy UI4899/NewOnly3 PASS. The14 assertions above the transfer's4885 result are retained newer happiness coverage. Separate NPC upgrade/restart/schema14 UI75 and World recovery/bed UI20 PASS. In an isolated source copy, reverting only the caller to `visible` exits1 at the intended tiny-map alignment assertion; that is an expected negative-control failure, not a candidate failure. [Current evidence](../../harness/validation/ui-pres-01a/RESULTS.json).
+
+API-double checks establish submitted rectangles/dispatch/state invariants, not native glyph metrics/rendering/input. Native testing remains paused, no EXE. The UI task passes hosted validation; main remains at1b05a73 because the independent NPC-F141 delivery/survival issue is still open.
+
 ## NPC-F141 integration candidate — not published to main
 
 Exact source `eb630f125339d458d005dcbc62d529c3d7486052` merges NPC implementation `c6902e0` (including prerequisites132–140) with main `1b05a73` and World schema14. Lead repaired explicit UI upgrade/restart gates and persistent occupation display. No NPC behavioral fix was made by Lead. This candidate is **release-blocked**, not a completed Foundation141 release.

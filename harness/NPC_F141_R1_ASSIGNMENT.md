@@ -5,6 +5,7 @@ User selected the dedicated NPC-coder correction before main release. This is a 
 ## Baseline and ownership
 
 - Use `lead/npc-f141-integration-20261028`, source-review baseline `2aeac34bd3c9750ceac610c9f60f47a4f1971d87` (compiled integration source `eb630f125339d458d005dcbc62d529c3d7486052`). Later assignment-only commits do not change production code. Inspect actual HEAD/status and preserve unfinished work.
+- UI integration note: e95d5b3 adds the validated three-file UI-PRES-01/01A merge. Your seven NPC-owned files remain unchanged from the assigned source; keep the new UI hunks when returning a focused fix.
 - Do not base a broad replacement on the older transfer branch. This candidate includes World schema14 and reviewed UI integration that must survive the fix.
 - Existing dedicated NPC coder is the sole implementation writer for:
   - `OutbreakRebuild/Assets/Outbreak/Core/NeedsPriority.cs`

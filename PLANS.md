@@ -32,12 +32,19 @@ Before implementation, identify the existing roadmap and latest accepted task fr
 ## Approved assignments
 Record each task ID, owner, branch/worktree, file ownership, acceptance criteria, verification and merge status.
 
+## UI-PRES-01/01A-INTEGRATE — three-file merge onto current candidate
+
+- User supplied transfer/ui-pres-01-01a at1826dc6fbb8b9b122816dcca0f93177e6622be0b, based on Foundation131. Current candidate clean atc67eeca. Merged original history without file replacements into source e95d5b338f904aec6e983cf321783c76f7c8d26b; only NeedBarsPresentation.cs, authorized FoundationApp caller/comment and UiHarness.cs changed.
+- Lead owns merge/evidence/docs; Graphics implementation ownership fulfilled on handoff. Existing newer happiness assertions, NPC upgrade/restart/occupation fixes and World recovery-area rendering retained. Core/contracts/World assets, dependencies, settings and current runner unchanged. NPC-F141-R1 remains a separate seven-file assignment.
+- Read-only QA found no code blocker; meaningful geometry/selection/toggle/state cases and actual7×5/span256 caller coverage verified by inspection. Lead negative control on an isolated git-archive copy reverts only bounds→visible and exits1 at the intended tiny-map alignment assertion. No worktree or active candidate mutation used.
+- Validation complete on exact source e95d5b3: full unified PASS701 cases/743092 assertions, Windows ABI, Legacy UI4899/NewOnly3; separate NPC upgrade UI75 and World UI20 PASS. Old-call negative control exits1 at intended tiny-map alignment assertion. Newer happiness coverage retained (14 assertions beyond the transfer baseline). Evidence at harness/validation/ui-pres-01a. Native Unity paused; publish candidate only, main remains1b05a73 pending independent NPC correction.
+
 ## UI-PRES-01A — Lead decision on tiny-map overlay bounds
 
 - Authorize full allocated map-panel `bounds` for selected need bars, rather than terrain `visible`. Keep readable33px H/F/E stack; no font shrink, hidden rows, zoom restriction or terrain resizing. Actual panel minimum64×64 supplies room even when7×5 terrain at span256 is about27×19px.
 - Exact exclusive Graphics files: NeedBarsPresentation.cs, UiHarness.cs, and FoundationApp.cs limited to the DrawWorld→DrawNpcBars argument/comment. Full paths, baseline80fcaa6, reconciliation rules and acceptance are in harness/UI_PRES_01A_ASSIGNMENT.md. Lead hands over that narrow shared-file change; NPC-F141-R1 ownership is nonoverlapping. No concurrent FoundationApp writer.
 - Test real DrawWorld caller, tiny-map maximum zoom-out, panel containment including blank padding, no sidebar/toolbar overlap, unchanged culling/input/terrain and selected-only optional semantics. Preserve current NPC/World UI assertions and state invariants; run Legacy/NewOnly, config/diff and candidate focused UI checks. Native testing stays paused.
-- Graphics reports original two-file4816/3 checks passed; artifact has not arrived for Lead review/integration. Request combined three-file patch/local commit and exact evidence; no source changes or acceptance claimed by this policy handoff. Main remains held for the separate NPC-F141 regression.
+- Completion: combined three-file transfer1826dc6 received and merged as e95d5b3; Lead validation/QA evidence recorded under UI-PRES-01/01A-INTEGRATE. Original specialist counts remain historical; current integrated Legacy4899/NewOnly3 pass. Main still held for the separate NPC-F141 regression.
 
 ## NPC-F141-R1 — user-selected courier regression correction
 

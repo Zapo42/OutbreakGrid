@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "e95d5b338f904aec6e983cf321783c76f7c8d26b",
+  "transferCommit": "1826dc6fbb8b9b122816dcca0f93177e6622be0b",
+  "priorCandidate": "c67eecaa9c914e57429fd6d335b6677538ede1a8",
+  "changedImplementationFiles": [
+    "OutbreakRebuild/Assets/Outbreak/Unity/NeedBarsPresentation.cs",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs",
+    "OutbreakRebuild/Tests/UiHarness.cs"
+  ],
+  "unifiedExit": 0,
+  "coreCases": 701,
+  "coreAssertions": 743092,
+  "windowsABI": "PASS hosted only",
+  "uiLegacyAssertions": 4899,
+  "uiNewOnlyAssertions": 3,
+  "npcUpgradeUiAssertions": 75,
+  "worldUiAssertions": 20,
+  "oldCallNegativeControl": {
+    "exit": 1,
+    "expectedFailure": "Small-map bars were clamped to terrain bounds instead of the allocated panel.",
+    "source": "isolated archive of integrated source; only bounds argument reverted to visible"
+  },
+  "newerHappinessAssertionsRetained": true,
+  "mainRelease": "HELD: separate NPC-F141 regression",
+  "nativeUnity": "NOT RUN: user-paused",
+  "windowsPlayer": "NOT RUN: no EXE"
+}

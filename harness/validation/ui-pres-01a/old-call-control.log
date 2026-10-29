@@ -1,0 +1,4 @@
+System.Exception: Small-map bars were clamped to terrain bounds instead of the allocated panel.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/ui-pres-01a/old-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 55
+   at UiHarness.CheckSmallMapNeedBars() in /workspace/review/ui-pres-01a/old-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 229
+   at UiHarness.Main(String[] args) in /workspace/review/ui-pres-01a/old-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 326
