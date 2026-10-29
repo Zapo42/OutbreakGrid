@@ -21,8 +21,9 @@ namespace UnityEngine // Supply signatures and deterministic UI responses, not a
     public class GUIStyleState { public Color textColor; } public class GUIStyle { public int fontSize; public GUIStyleState normal=new GUIStyleState(); } public class GUISkin { public GUIStyle box = new GUIStyle(); } public class GUIContent { public string text; public GUIContent(string value, string help) { text = value; } } public class GUILayoutOption { } // Retain the small set of content/layout signatures used by production.
     public struct Matrix4x4 { public float angle,pivotX,pivotY; }
     public static class GUIUtility { public static void RotateAroundPivot(float angle,Vector2 pivot){GUI.matrix=new Matrix4x4{angle=GUI.matrix.angle+angle,pivotX=pivot.x,pivotY=pivot.y};} }
+    public struct LabelRecord { public Rect rect; public string text; } // Record submitted label bounds; native glyph metrics remain unverified.
     public struct DrawRecord { public Rect rect; public Color color; public float angle; }
-    public static class GUI { public static Matrix4x4 matrix; public static List<DrawRecord> draws = new List<DrawRecord>(); public static bool enabled = true; public static Color color; public static GUISkin skin = new GUISkin(); public static string tooltip = ""; public static List<string> labels = new List<string>(); public static void DrawTexture(Rect rect, Texture2D texture, ScaleMode mode = ScaleMode.StretchToFill) { double radians=matrix.angle*Math.PI/180,c=Math.Cos(radians),s=Math.Sin(radians),cx=rect.x+rect.width/2-matrix.pivotX,cy=rect.y+rect.height/2-matrix.pivotY;float w=(float)(Math.Abs(c)*rect.width+Math.Abs(s)*rect.height),h=(float)(Math.Abs(s)*rect.width+Math.Abs(c)*rect.height);draws.Add(new DrawRecord { rect=new Rect(matrix.pivotX+(float)(cx*c-cy*s)-w/2,matrix.pivotY+(float)(cx*s+cy*c)-h/2,w,h),color=color,angle=matrix.angle }); } public static void Label(Rect rect, string text) { labels.Add(text); } public static void Label(Rect rect,string text,GUIStyle style){labels.Add(text);} } // Record visible recovery messages while excluding actual layout rendering.
+    public static class GUI { public static List<LabelRecord> labelDraws = new List<LabelRecord>(); public static Matrix4x4 matrix; public static List<DrawRecord> draws = new List<DrawRecord>(); public static bool enabled = true; public static Color color; public static GUISkin skin = new GUISkin(); public static string tooltip = ""; public static List<string> labels = new List<string>(); public static void DrawTexture(Rect rect, Texture2D texture, ScaleMode mode = ScaleMode.StretchToFill) { double radians=matrix.angle*Math.PI/180,c=Math.Cos(radians),s=Math.Sin(radians),cx=rect.x+rect.width/2-matrix.pivotX,cy=rect.y+rect.height/2-matrix.pivotY;float w=(float)(Math.Abs(c)*rect.width+Math.Abs(s)*rect.height),h=(float)(Math.Abs(s)*rect.width+Math.Abs(c)*rect.height);draws.Add(new DrawRecord { rect=new Rect(matrix.pivotX+(float)(cx*c-cy*s)-w/2,matrix.pivotY+(float)(cx*s+cy*c)-h/2,w,h),color=color,angle=matrix.angle }); } public static void Label(Rect rect, string text) { labels.Add(text); } public static void Label(Rect rect,string text,GUIStyle style){labels.Add(text);labelDraws.Add(new LabelRecord{rect=rect,text=text});} } // Record visible recovery messages while excluding actual layout rendering.
     public static class GUILayoutUtility { public static Rect GetRect(float width,float height) { return new Rect(1000,200,width,height); } } // Supply graph layout bounds; native Unity layout remains unverified.
     public static class GUILayout // Dispatch chosen control labels through the real production OnGUI method.
     { // Begin control response recording.
@@ -57,7 +58,7 @@ public static class UiHarness // Check actual application commands while making 
     private static void Render(FoundationApp app, string click = "", UnityEngine.Event input = null) // Run one actual OnGUI pass with an explicit requested button or map event.
     { // Begin a controlled UI pass.
         if(!compactUi)typeof(FoundationApp).GetField("sectionDefault",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(app,(bool?)true);
-        UnityEngine.GUILayout.click = click; UnityEngine.GUILayout.controls.Clear(); UnityEngine.GUI.labels.Clear(); UnityEngine.GUI.draws.Clear(); UnityEngine.Event.current = input ?? new UnityEngine.Event { type = UnityEngine.EventType.Repaint }; UnityEditor.EditorUtility.duringGui = true; // Record the event context and requested interaction.
+        UnityEngine.GUILayout.click = click; UnityEngine.GUILayout.controls.Clear(); UnityEngine.GUI.labels.Clear(); UnityEngine.GUI.draws.Clear(); UnityEngine.GUI.labelDraws.Clear(); UnityEngine.Event.current = input ?? new UnityEngine.Event { type = UnityEngine.EventType.Repaint }; UnityEditor.EditorUtility.duringGui = true; // Record the event context and requested interaction.
         try { Call(app, "OnGUI"); } finally { UnityEditor.EditorUtility.duringGui = false; } // Prove desktop dialogs are not called from within this traversal.
     } // Finish the controlled UI pass.
     private static void Press(FoundationApp app, string label) { Render(app, label); if(UnityEngine.GUILayout.click!="" && UnityEngine.GUILayout.controls.ContainsKey("Show Old Test Scenarios")){Render(app,"Show Old Test Scenarios");Require(UnityEngine.GUILayout.click=="","Archive toggle was disabled.");Call(app,"Update");Render(app,label);} Require(UnityEngine.GUILayout.click == "", "Button was missing or disabled: " + label); Call(app, "Update"); } // Require the actual control to dispatch before applying its queued command.
@@ -69,6 +70,169 @@ public static class UiHarness // Check actual application commands while making 
     { // Begin one form edit event.
         UnityEngine.GUILayout.textInputs.Enqueue(humans); UnityEngine.GUILayout.textInputs.Enqueue(zombies); UnityEngine.GUILayout.textInputs.Enqueue(seed); UnityEngine.GUILayout.textInputs.Enqueue(bats); Render(app); Require(UnityEngine.GUILayout.textInputs.Count == 0, "Setup did not render all editable number fields."); // Keep parsing and validation in the production handler.
     } // Finish form editing.
+    private static void SetNeedBarOptions(FoundationApp app,int mask,int selection=0)
+    {
+        // Set presentation-local options independently so each visibility combination is exercised.
+        string[] fields={"showHealthBar","showHungerBar","showEnergyBar"};
+        for(int i=0;i<fields.Length;i++)typeof(FoundationApp).GetField(fields[i],BindingFlags.Instance|BindingFlags.NonPublic).SetValue(app,(mask&(1<<i))!=0);
+        typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(app,selection);
+    }
+    private static void RequireNeedRectInside(UnityEngine.Rect rect,UnityEngine.Rect viewport,string context)
+    {
+        const float tolerance=0.001f;
+        Require(rect.width>0 && rect.height>0 && rect.x>=viewport.x-tolerance && rect.y>=viewport.y-tolerance && rect.x+rect.width<=viewport.x+viewport.width+tolerance && rect.y+rect.height<=viewport.y+viewport.height+tolerance,"Need-bar bounds escaped viewport: "+context);
+    }
+    private static void CheckNeedBarSample(FoundationApp app,int index,UnityEngine.Rect body,UnityEngine.Rect viewport,float cell,string letters,float[] fractions,string context)
+    {
+        // Invoke the production draw method, recording both label rectangles and textured fills.
+        World world=Field<World>(app,"world");long tick=world.Tick;string before=Documents.Encode(world.Capture());
+        UnityEngine.GUI.matrix=new UnityEngine.Matrix4x4();UnityEngine.GUI.draws.Clear();UnityEngine.GUI.labels.Clear();UnityEngine.GUI.labelDraws.Clear();
+        typeof(FoundationApp).GetMethod("DrawNpcBars",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{index,body,world.ActorAt(index),viewport,cell});
+        Require(UnityEngine.GUI.labelDraws.Count==letters.Length && string.Concat(UnityEngine.GUI.labels)==letters,"Wrong need-bar labels/visibility: "+context);
+        int draw=0;
+        for(int row=0;row<letters.Length;row++)
+        {
+            UnityEngine.LabelRecord label=UnityEngine.GUI.labelDraws[row];RequireNeedRectInside(label.rect,viewport,context+" label "+letters[row]);
+            Require(draw<UnityEngine.GUI.draws.Count,"Missing need-bar background: "+context);UnityEngine.DrawRecord background=UnityEngine.GUI.draws[draw++];RequireNeedRectInside(background.rect,viewport,context+" background");
+            Require(background.color.r==0.1f && background.color.g==0.1f && background.color.b==0.12f && label.text==letters[row].ToString() && Math.Abs(label.rect.x+label.rect.width-background.rect.x)<0.001f && Math.Abs(label.rect.y+4-background.rect.y)<0.001f,"Need-bar color, order or label alignment changed: "+context);
+            if(row>0)Require(Math.Abs(label.rect.y-UnityEngine.GUI.labelDraws[row-1].rect.y-11)<0.001f,"Need-bar row spacing changed: "+context);
+            float fraction=fractions[row];
+            if(fraction>0)
+            {
+                Require(draw<UnityEngine.GUI.draws.Count,"Missing need-bar fill: "+context);UnityEngine.DrawRecord fill=UnityEngine.GUI.draws[draw++];RequireNeedRectInside(fill.rect,viewport,context+" fill");
+                UnityEngine.Color expected=letters[row]=='H'?new UnityEngine.Color(0.85f-0.35f*fraction,0.25f+0.4f*fraction,0.2f):letters[row]=='F'?new UnityEngine.Color(0.90f,0.70f,0.25f):new UnityEngine.Color(0.30f,0.70f,0.95f);
+                Require(Math.Abs(fill.rect.width/background.rect.width-fraction)<0.0001f && fill.rect.x==background.rect.x && fill.rect.y==background.rect.y && fill.rect.height==background.rect.height && fill.color.r==expected.r && fill.color.g==expected.g && fill.color.b==expected.b,"Need-bar fill fraction or color changed: "+context);
+            }
+        }
+        Require(draw==UnityEngine.GUI.draws.Count,"Unexpected fill for an empty or disabled need bar: "+context);
+        Require(world.Tick==tick && Documents.Encode(world.Capture())==before,"Drawing need bars changed authoritative state/tick: "+context);
+    }
+    private static void CheckNeedBarEdges()
+    {
+        // The app allocates at least 64x64 map space and supports spans 16..256. Use those
+        // real bounds, plus normal window sizes; a full-size world avoids inventing tiny viewports.
+        FoundationApp app=new FoundationApp();Call(app,"Awake");
+        World world=new World(new WorldMap(256,256),214,encounter:true,hunger:true);int id;
+        Require(world.TrySpawn(Outbreak.Contracts.Species.Human,5,5,out id) && world.TrySpawn(Outbreak.Contracts.Species.Zombie,6,5,out id),"Could not prepare need-bar actors.");
+        typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{world});
+        try
+        {
+            Require(world.HungerEnabled && world.EnergyEnabled,"Need-bar fixture omitted enabled needs.");
+            UnityEngine.Rect center=new UnityEngine.Rect(240,240,16,16),viewport=new UnityEngine.Rect(12,138,980,616);
+            CheckNeedBarSample(app,0,center,viewport,25,"",new float[0],"defaults off");
+            // Traverse every toggle combination without changing simulation state or another option.
+            for(int mask=0;mask<8;mask++)
+            {
+                SetNeedBarOptions(app,mask);string letters="";List<float> fractions=new List<float>();
+                for(int bit=0;bit<3;bit++)if((mask&(1<<bit))!=0){letters+="HFE"[bit];fractions.Add(1);}
+                CheckNeedBarSample(app,0,center,viewport,25,letters,fractions.ToArray(),"toggle mask "+mask);
+            }
+            SetNeedBarOptions(app,7);
+            foreach(int[] screen in new[]{new[]{364,248},new[]{1280,800},new[]{1920,1080}})
+            foreach(float span in new[]{16f,256f})
+            {
+                float width=Math.Max(64,screen[0]-300),height=Math.Max(64,screen[1]-184),cell=width/span;
+                UnityEngine.Rect visible=new UnityEngine.Rect(12,138,width,Math.Min(256,(float)Math.Ceiling(height/cell))*cell);
+                float size=cell*0.64f;
+                for(int y=0;y<3;y++)for(int x=0;x<3;x++)
+                {
+                    UnityEngine.Rect body=new UnityEngine.Rect(visible.x+(visible.width-size)*x/2,visible.y+(visible.height-size)*y/2,size,size);
+                    CheckNeedBarSample(app,0,body,visible,cell,"HFE",new[]{1f,1f,1f},screen[0]+"x"+screen[1]+" span "+span+" edge "+x+","+y);
+                }
+                // DrawWorld culls before applying shove/struggle offsets. A visual body can
+                // cross the bottom edge after culling; its indicators must still remain inside.
+                UnityEngine.Rect shifted=new UnityEngine.Rect(visible.x+visible.width-size/2,visible.y+visible.height+cell*0.1f,size,size);
+                for(int mask=1;mask<8;mask++)
+                {
+                    SetNeedBarOptions(app,mask);string letters="";List<float> fractions=new List<float>();
+                    for(int bit=0;bit<3;bit++)if((mask&(1<<bit))!=0){letters+="HFE"[bit];fractions.Add(1);}
+                    CheckNeedBarSample(app,0,shifted,visible,cell,letters,fractions.ToArray(),screen[0]+"x"+screen[1]+" post-cull bottom/right, span "+span+" mask "+mask);
+                }
+                SetNeedBarOptions(app,7);
+            }
+            CheckNeedBarSample(app,0,center,viewport,25,"HFE",new[]{1f,1f,1f},"unchanged interior placement");
+            UnityEngine.Rect interior=UnityEngine.GUI.labelDraws[0].rect;
+            Require(interior.x==230 && interior.y==205 && interior.width==10 && interior.height==11 && Field<UnityEngine.GUIStyle>(app,"needLetterStyle").fontSize==9,"Interior need-label placement or text size changed.");
+            for(int value=0;value<=100;value+=50)
+            {
+                Outbreak.Contracts.SaveDocument saved=world.Capture();saved.actors[0].health=Math.Max(1,value);saved.actors[0].hunger=100-value;saved.actors[0].energySpent=100-value;
+                World sample=World.Restore(saved);typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{sample});SetNeedBarOptions(app,7);
+                CheckNeedBarSample(app,0,center,viewport,25,"HFE",new[]{Math.Max(1,value)/100f,value/100f,value/100f},"need values "+value);
+            }
+            typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{world});SetNeedBarOptions(app,7,-1);
+            CheckNeedBarSample(app,0,center,viewport,25,"",new float[0],"no selection");SetNeedBarOptions(app,7,1);
+            CheckNeedBarSample(app,0,center,viewport,25,"",new float[0],"unselected human");
+            CheckNeedBarSample(app,1,center,viewport,25,"H",new[]{1f},"selected zombie");
+            Outbreak.Contracts.SaveDocument dead=world.Capture();dead.actors[0].health=0;
+            typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{World.Restore(dead)});SetNeedBarOptions(app,7);
+            CheckNeedBarSample(app,0,center,viewport,25,"",new float[0],"dead human");
+            dead.actors[1].health=0;
+            typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{World.Restore(dead)});SetNeedBarOptions(app,7,1);
+            CheckNeedBarSample(app,1,center,viewport,25,"",new float[0],"dead zombie");
+            foreach(bool hunger in new[]{false,true})
+            {
+                World disabled=new World(new WorldMap(32,18),214,encounter:true,hunger:hunger,energy:false);Require(disabled.TrySpawn(Outbreak.Contracts.Species.Human,5,5,out id),"Could not prepare disabled-needs actor.");
+                Require(disabled.HungerEnabled==hunger && !disabled.EnergyEnabled,"Disabled-needs fixture has the wrong feature flags.");
+                typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{disabled});SetNeedBarOptions(app,7);
+                CheckNeedBarSample(app,0,center,viewport,25,hunger?"HF":"H",hunger?new[]{1f,1f}:new[]{1f},"feature-disabled needs");
+            }
+            // Exercise the actual deferred buttons as well as the independent visibility matrix.
+            typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{world});SetNeedBarOptions(app,0);
+            string before=Documents.Encode(world.Capture());long tick=world.Tick;
+            string[] buttons={"Show health bar","Show hunger bar","Show energy bar","Hide health bar","Hide hunger bar","Hide energy bar"};int[] masks={1,3,7,6,4,0};
+            for(int i=0;i<buttons.Length;i++)
+            {
+                Press(app,buttons[i]);Render(app);
+                Require(Field<bool>(app,"showHealthBar")==((masks[i]&1)!=0) && Field<bool>(app,"showHungerBar")==((masks[i]&2)!=0) && Field<bool>(app,"showEnergyBar")==((masks[i]&4)!=0),"Need-bar button changed another toggle.");
+                Require(world.Tick==tick && Documents.Encode(world.Capture())==before,"Need-bar button/render changed authoritative state/tick.");
+            }
+        }
+        finally{Call(app,"OnDestroy");}
+    }
+    private static void CheckSmallMapNeedBars()
+    {
+        // Exercise the real caller: a tiny terrain rectangle must not become the overlay's
+        // clipping area. Its labels may use blank map-panel padding, but no adjacent UI area.
+        FoundationApp app=new FoundationApp();Call(app,"Awake");int screenWidth=UnityEngine.Screen.width,screenHeight=UnityEngine.Screen.height;
+        World world=EncounterScenarios.CombatFootworkTest();
+        typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{world});
+        typeof(FoundationApp).GetField("span",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(app,256f);SetNeedBarOptions(app,7);
+        try
+        {
+            Require(world.Width==7 && world.Height==5 && world.HungerEnabled && world.EnergyEnabled,"Small-map fixture must exercise all three needs on a 7x5 map.");
+            foreach(int[] screen in new[]{new[]{364,248},new[]{1280,800},new[]{1920,1080}})
+            {
+                UnityEngine.Screen.width=screen[0];UnityEngine.Screen.height=screen[1];
+                UnityEngine.Rect panel=new UnityEngine.Rect(12,138,Math.Max(64,screen[0]-300),Math.Max(64,screen[1]-184));float cell=panel.width/256;
+                string before=Documents.Encode(world.Capture());long tick=world.Tick;
+                UnityEngine.GUI.matrix=new UnityEngine.Matrix4x4();UnityEngine.GUI.draws.Clear();UnityEngine.GUI.labels.Clear();UnityEngine.GUI.labelDraws.Clear();UnityEngine.Event.current=new UnityEngine.Event{type=UnityEngine.EventType.Repaint};
+                typeof(FoundationApp).GetMethod("DrawWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{panel});
+                Require(string.Concat(UnityEngine.GUI.labels)=="HFE" && UnityEngine.GUI.labelDraws.Count==3,"Actual DrawWorld lost the selected human's H/F/E labels.");
+                var backgrounds=UnityEngine.GUI.draws.FindAll(value=>value.color.r==0.1f && value.color.g==0.1f && value.color.b==0.12f);
+                Require(backgrounds.Count==3,"Actual DrawWorld must draw exactly three selected-actor bar backgrounds.");
+                for(int row=0;row<3;row++)
+                {
+                    UnityEngine.Rect label=UnityEngine.GUI.labelDraws[row].rect;UnityEngine.DrawRecord background=backgrounds[row];
+                    RequireNeedRectInside(label,panel,"7x5/span256 label");RequireNeedRectInside(background.rect,panel,"7x5/span256 background");
+                    int draw=UnityEngine.GUI.draws.IndexOf(background);Require(draw>=0 && draw+1<UnityEngine.GUI.draws.Count,"Missing full-value need fill in DrawWorld.");
+                    UnityEngine.Rect fill=UnityEngine.GUI.draws[draw+1].rect;RequireNeedRectInside(fill,panel,"7x5/span256 fill");
+                    Require(fill.x==background.rect.x && fill.y==background.rect.y && fill.width==background.rect.width && fill.height==background.rect.height,"Actual DrawWorld changed a full-value need fill.");
+                    Require(label.y>=128 && label.x+label.width<=screen[0]-276 && label.y+label.height<=screen[1]-36 && background.rect.y>=128 && background.rect.x+background.rect.width<=screen[0]-276 && background.rect.y+background.rect.height<=screen[1]-36,"Need overlay entered the toolbar, inspector or status area.");
+                }
+                Require(UnityEngine.GUI.labelDraws[2].rect.y+UnityEngine.GUI.labelDraws[2].rect.height>panel.y+world.Height*cell,"Small-map check did not exercise permitted blank panel padding.");
+                if(screen[0]==1280)
+                {
+                    // At this scale the selected body has ample panel room for its normal
+                    // alignment. The old terrain-bound call incorrectly shifted its bars left.
+                    var bodies=UnityEngine.GUI.draws.FindAll(value=>value.color.r==1 && value.color.g==1 && value.color.b==0 && Math.Abs(value.rect.width-cell*0.64f)<0.001f && Math.Abs(value.rect.height-cell*0.64f)<0.001f);
+                    Require(bodies.Count==1 && bodies[0].rect.x>panel.x+10,"Could not identify the selected body for panel-relative alignment.");
+                    Require(Math.Abs(backgrounds[0].rect.x-bodies[0].rect.x)<0.001f,"Small-map bars were clamped to terrain bounds instead of the allocated panel.");
+                }
+                Require(world.Tick==tick && Documents.Encode(world.Capture())==before,"Actual DrawWorld changed simulation state or tick on a small map.");
+            }
+        }
+        finally{UnityEngine.Screen.width=screenWidth;UnityEngine.Screen.height=screenHeight;Call(app,"OnDestroy");}
+    }
     public static int Main(string[] args) // Test compatible and new-input-only builds independently.
     { // Begin UI acceptance.
         try // Fail honestly if a production handler or configuration guard does not behave as specified.
@@ -158,6 +322,8 @@ public static class UiHarness // Check actual application commands while making 
             FoundationApp idle108=new FoundationApp();Call(idle108,"Awake");Press(idle108,"Inspect Idle Motion Paused");Press(idle108,"Run");UnityEngine.Time.unscaledDeltaTime=0.2f;for(int i=0;i<25;i++)Call(idle108,"Update");UnityEngine.Time.unscaledDeltaTime=0;World idleWorld108=Field<World>(idle108,"world");Render(idle108);var idleA108=UnityEngine.GUI.draws.Find(value=>value.color.r==1 && value.color.g==1 && value.color.b==0).rect;string idleState108=Documents.Encode(idleWorld108.Capture());UnityEngine.Time.unscaledDeltaTime=0.1f;Call(idle108,"Update");UnityEngine.Time.unscaledDeltaTime=0;Render(idle108);var idleB108=UnityEngine.GUI.draws.Find(value=>value.color.r==1 && value.color.g==1 && value.color.b==0).rect;Require(Math.Abs(idleA108.x-idleB108.x)+Math.Abs(idleA108.y-idleB108.y)>0.01 && Documents.Encode(idleWorld108.Capture())==idleState108,"Idle shift failed to animate or changed authoritative state.");Require(idleWorld108.ActorAt(0).x==1 && idleWorld108.ActorAt(0).y==1 && EnergyRules.Remaining(idleWorld108.ActorAt(0))==100,"Visual idling moved cells or spent energy.");Press(idle108,"Pause");Render(idle108);var idlePaused108=UnityEngine.GUI.draws.Find(value=>value.color.r==1 && value.color.g==1 && value.color.b==0).rect;Render(idle108);var idleAgain108=UnityEngine.GUI.draws.Find(value=>value.color.r==1 && value.color.g==1 && value.color.b==0).rect;Require(idlePaused108.x==idleAgain108.x && idlePaused108.y==idleAgain108.y,"Paused human retained advancing idle motion.");MovementPresentation bounded108=new MovementPresentation();bounded108.Snap(1,1,0);for(int t=0;t<100;t++){Require(Math.Abs(bounded108.IdleX(t,1))<=0.0571 && Math.Abs(bounded108.IdleY(t,1))<=0.0421,"Idle motion left the collision-safe within-cell margin.");}bounded108.Observe(2,1,100);Require(bounded108.IdleX(105,1)==0 && bounded108.IdleY(105,1)==0,"Idle sway appeared during walking interpolation.");Call(idle108,"OnDestroy");
             FoundationApp discover107=new FoundationApp();Call(discover107,"Awake");Press(discover107,"Inspect Store Discovery Paused");Render(discover107);World discoverWorld107=Field<World>(discover107,"world");Require(discoverWorld107.StoreDiscoveryEnabled && Field<TickClock>(discover107,"clock").Paused && UnityEngine.GUI.labels.Contains("Known store entrances: 0 | Recent unsuccessful stores: 0"),"Discovery fixture seeded knowledge or omitted its paused inspector.");Press(discover107,"Step 1 tick");Render(discover107);Require(UnityEngine.GUI.labels.Exists(value=>value.StartsWith("Shopping: Looking for store entrances")) && UnityEngine.GUI.labels.Exists(value=>value.StartsWith("Current target: Looking for stores:")),"Survey stage omitted its purpose or map target.");Press(discover107,"Step 50 ticks");Render(discover107);Require(UnityEngine.GUI.labels.Contains("Known store entrances: 2 | Recent unsuccessful stores: 0") && UnityEngine.GUI.labels.Exists(value=>value.StartsWith("Shopping: Investigating store #")),"Visible entrances failed to update personal knowledge and investigation status.");string discoverRead107=Documents.Encode(discoverWorld107.Capture());Render(discover107);Require(Documents.Encode(discoverWorld107.Capture())==discoverRead107,"Discovery inspector changed observations.");for(int i=0;i<250 && discoverWorld107.ActorAt(0).storeFailures==null;i++)Call(discover107,"StepWorld");Render(discover107);Require(UnityEngine.GUI.labels.Contains("Known store entrances: 2 | Recent unsuccessful stores: 1"),"Failed shop visit was hidden from inspection.");for(int i=0;i<500 && StorageRules.Count(discoverWorld107.StorageBoxAt(4,7),Outbreak.Contracts.InventoryItem.Food)<2;i++)Call(discover107,"StepWorld");Require(StorageRules.Count(discoverWorld107.StorageBoxAt(4,7),Outbreak.Contracts.InventoryItem.Food)==2,"UI discovery trial did not bring food from an alternative shop.");Press(discover107,"Restart scenario");Require(Field<World>(discover107,"world").ActorAt(0).storeMemory==null && Field<World>(discover107,"world").ActorAt(0).storeFailures==null && Field<World>(discover107,"world").ActorAt(0).shoppingMeals==0,"Restart retained discovered markets or shopping progress.");Outbreak.Contracts.SaveDocument oldDiscover107=EncounterScenarios.StoreDiscoveryTest().Capture();oldDiscover107.rulesVersion=EncounterRules.StoreShoppingVersion;typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(discover107,new object[]{World.Restore(oldDiscover107)});Press(discover107,"Enable store discovery");Require(Field<World>(discover107,"world").StoreDiscoveryEnabled && Field<TickClock>(discover107,"clock").Paused,"Old shopping run could not explicitly enable store discovery.");Call(discover107,"OnDestroy");
             FoundationApp shop106=new FoundationApp();Call(shop106,"Awake");Press(shop106,"Inspect Store Shopping Paused");Render(shop106);World shopWorld106=Field<World>(shop106,"world");Require(shopWorld106.StoreShoppingEnabled && Field<TickClock>(shop106,"clock").Paused && shopWorld106.FoodSupplies().RemainingMeals==20,"Shopping fixture omitted finite food, rules or paused start.");Press(shop106,"Step 1 tick");Render(shop106);Require(UnityEngine.GUI.labels.Exists(value=>value.StartsWith("Shopping: Collecting from store shelf")) && UnityEngine.GUI.labels.Contains("Current target: Shopping shelf: 13, 7"),"Inspector omitted the shopping phase or source shelf target.");string shopRead106=Documents.Encode(shopWorld106.Capture());Render(shop106);Require(Documents.Encode(shopWorld106.Capture())==shopRead106,"Shopping inspector changed NPC decisions.");for(int i=0;i<150 && shopWorld106.ActorAt(0).restockPhase!=Outbreak.Contracts.RestockPhase.Returning;i++)Call(shop106,"StepWorld");Render(shop106);Require(UnityEngine.GUI.labels.Exists(value=>value.StartsWith("Shopping: Returning food home")) && UnityEngine.GUI.labels.Contains("Current target: Home food deposit: 4, 3"),"Loaded shopper lost home-deposit target or status.");for(int i=0;i<500 && StorageRules.Count(shopWorld106.StorageBoxAt(4,3),Outbreak.Contracts.InventoryItem.Food)<4;i++)Call(shop106,"StepWorld");Require(StorageRules.Count(shopWorld106.StorageBoxAt(4,3),Outbreak.Contracts.InventoryItem.Food)==4,"UI shopping trial never refilled home storage.");Press(shop106,"Restart scenario");Require(Field<World>(shop106,"world").Tick==0 && Field<World>(shop106,"world").ActorAt(0).shoppingShelf==0 && StorageRules.Count(Field<World>(shop106,"world").StorageBoxAt(4,3),Outbreak.Contracts.InventoryItem.Food)==0,"Restart retained grocery cargo/task or delivered home stock.");Outbreak.Contracts.SaveDocument oldShop106=EncounterScenarios.StoreShoppingTest().Capture();oldShop106.rulesVersion=EncounterRules.HomeSuppliesVersion;typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(shop106,new object[]{World.Restore(oldShop106)});Press(shop106,"Enable store shopping");Require(Field<World>(shop106,"world").StoreShoppingEnabled && Field<TickClock>(shop106,"clock").Paused,"Old run could not explicitly enable store shopping.");Call(shop106,"OnDestroy");
+            CheckNeedBarEdges();
+            CheckSmallMapNeedBars();
             FoundationApp bars105=new FoundationApp();Call(bars105,"Awake");Outbreak.Contracts.SaveDocument barsSave105=EncounterScenarios.HomeSupplyInspectionTest().Capture();barsSave105.actors[0].health=80;barsSave105.actors[0].hunger=20;barsSave105.actors[0].energySpent=30;typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(bars105,new object[]{World.Restore(barsSave105)});typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(bars105,0);Render(bars105);Require(UnityEngine.GUI.labels.Contains("Hunger: 80/100 (100 fed, 0 starving)") && !UnityEngine.GUI.labels.Contains("H") && !UnityEngine.GUI.labels.Contains("F") && !UnityEngine.GUI.labels.Contains("E"),"Need bars were enabled by default or hunger display increased with depletion.");string barsState105=Documents.Encode(Field<World>(bars105,"world").Capture());Press(bars105,"Show health bar");Press(bars105,"Show hunger bar");Press(bars105,"Show energy bar");Render(bars105);Require(UnityEngine.GUI.labels.Contains("H") && UnityEngine.GUI.labels.Contains("F") && UnityEngine.GUI.labels.Contains("E") && UnityEngine.GUI.draws.FindAll(value=>value.color.r==0.1f && value.color.g==0.1f && value.color.b==0.12f).Count==3,"Selected human did not receive exactly three labeled bars.");var f105=UnityEngine.GUI.draws.Find(value=>value.color.r==0.9f && value.color.g==0.7f && value.color.b==0.25f);var e105=UnityEngine.GUI.draws.Find(value=>value.color.r==0.3f && value.color.g==0.7f && value.color.b==0.95f);Require(f105.rect.y<e105.rect.y && Math.Abs(f105.rect.width/e105.rect.width-0.8f/0.7f)<0.0001f,"Hunger/energy bar order or proportions were incorrect.");Require(Documents.Encode(Field<World>(bars105,"world").Capture())==barsState105,"Need toggles changed NPC state.");Press(bars105,"Hide hunger bar");Render(bars105);Require(!UnityEngine.GUI.labels.Contains("F") && UnityEngine.GUI.labels.Contains("H") && UnityEngine.GUI.labels.Contains("E"),"Hunger toggle changed unrelated bars.");typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(bars105,-1);Render(bars105);Require(!UnityEngine.GUI.labels.Contains("H") && !UnityEngine.GUI.labels.Contains("E"),"Need bars survived deselection.");typeof(FoundationApp).GetMethod("UseWorld",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(bars105,new object[]{EncounterScenarios.CombatFootworkTest()});typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(bars105,1);Render(bars105);Require(UnityEngine.GUI.labels.Contains("H") && !UnityEngine.GUI.labels.Contains("E") && !UnityEngine.GUI.labels.Contains("F"),"Zombie gained human needs bars.");Call(bars105,"OnDestroy");
             FoundationApp home105=new FoundationApp();Call(home105,"Awake");Press(home105,"Inspect Home Supplies Paused");Render(home105);World homeWorld105=Field<World>(home105,"world");Require(UnityEngine.GUI.labels.Contains("Home supplies: 0/1 boxes recently checked | Known food: 0 meals") && UnityEngine.GUI.labels.Contains("Unknown: 1 | Stale: 0 | Reported, not checked: 0"),"Home inspector revealed unobserved stock.");string beforeHome105=Documents.Encode(homeWorld105.Capture());Render(home105);Require(Documents.Encode(homeWorld105.Capture())==beforeHome105,"Home inspector mutated knowledge.");Press(home105,"Step 50 ticks");Render(home105);Require(UnityEngine.GUI.labels.Contains("Home supplies: 1/1 boxes recently checked | Known food: 6 meals"),"Home check did not update the selected resident's observations.");Press(home105,"Restart scenario");Require(Field<World>(home105,"world").HomeSuppliesKnownBy(0).UnknownBoxes==1,"Restart retained later home observations.");
             foreach(double fast105 in new[]{5.0,10.0,20.0,50.0})
