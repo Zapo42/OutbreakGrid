@@ -12,6 +12,7 @@ namespace Outbreak.Diagnostics
         private sealed class Trace
         {
             public int Moves,Meals,HomeReturns,BoundaryChanges,RapidChanges,LongestActiveWait,ActiveWait;
+            public string FirstDamage="none",Death="none";
             public long LastBoundary=-1000;public bool Work,Leisure,Shopping,Left,ReturnedFromLeisure;
         }
         private static string State(World world){return Documents.Encode(world.Capture());}
@@ -32,7 +33,7 @@ namespace Outbreak.Diagnostics
             File.WriteAllText(Path.Combine(directory,name+"-initial.obsave2"),State(world)); // Keep the exact reproducible starting point beside the observations.
             using(var csv=new StreamWriter(Path.Combine(directory,name+".csv")))
             {
-                csv.WriteLine("tick,id,x,y,house,assignedHome,assignedOccupation,effectiveOccupation,onDuty,health,hunger,energyRemaining,carriedFood,commute,shoppingStore,restockPhase,leisurePhase,shoppingResting");
+                csv.WriteLine("tick,id,x,y,house,assignedHome,assignedOccupation,effectiveOccupation,onDuty,health,hunger,energyRemaining,carriedFood,commute,shoppingStore,restockPhase,leisurePhase,shoppingResting,courierOrder,restockDeadline,restockTarget,homeShelter,shelter,foodExploreRoom");
                 for(int t=0;t<ticks;t++)
                 {
                     // A bounded replay window tests all saved state without doubling the entire long run.
@@ -42,13 +43,17 @@ namespace Outbreak.Diagnostics
                     {
                         ActorState a=world.ActorAt(i),before=previous[i];Trace r=trace[i];int house=world.HouseAt(a.x,a.y),oldHouse=world.HouseAt(before.x,before.y);bool moved=a.x!=before.x || a.y!=before.y;
                         Require(a.id==before.id && a.hunger>=0 && a.hunger<=100 && a.energySpent>=0 && a.energySpent<=100,name+": identity/needs bounds failed.");
+                        // Keep first harm/death context so a compatibility replay cannot be mistaken for successful survival.
+                        string context="tick="+world.Tick+" pos="+a.x+","+a.y+" house="+house+" hunger="+before.hunger+" energy="+(100-before.energySpent)+" hand="+before.carriedFood+" order="+before.courierOrderId+" restock="+before.restockPhase+" target="+before.restockBox+" commute="+before.workerCommuteId;
+                        if(a.health<before.health && r.FirstDamage=="none")r.FirstDamage=context;
+                        if(a.health==0 && before.health>0)r.Death=context;
                         if(moved)r.Moves++;if(a.hunger<before.hunger && a.health>0 && before.health>0){r.Meals++;eaten++;}
                         if(house!=oldHouse){r.BoundaryChanges++;if(world.Tick-r.LastBoundary<=100)r.RapidChanges++;r.LastBoundary=world.Tick;if(house==a.assignedHouseId && oldHouse!=house)r.HomeReturns++;}
                         r.Left|=house!=a.assignedHouseId;r.Work|=world.WorkerOnDuty(i) && house==(a.clerkStoreId!=0?a.clerkStoreId:a.distributionCenterId);r.Leisure|=a.leisurePhase!=HumanLeisurePhase.None;r.Shopping|=a.shoppingStoreId!=0;r.ReturnedFromLeisure|=r.Leisure && a.leisurePhase==HumanLeisurePhase.None && house==a.assignedHouseId;
                         bool waiting=a.health>0 && Traveling(a) && !a.shoppingResting && a.stress==0 && a.turnAtTick==0 && a.energySpent<=20 && !moved && a.carriedFood==before.carriedFood && TaskKey(a)==TaskKey(before);
                         r.ActiveWait=waiting?r.ActiveWait+1:0;r.LongestActiveWait=Math.Max(r.LongestActiveWait,r.ActiveWait);
                         if(t%30==0 || house!=oldHouse || a.health==0 && before.health>0)
-                            csv.WriteLine(world.Tick+","+a.id+","+a.x+","+a.y+","+house+","+a.assignedHouseId+","+world.AssignedOccupation(i)+","+world.EffectiveOccupation(i)+","+world.WorkerOnDuty(i)+","+a.health+","+a.hunger+","+(100-a.energySpent)+","+a.carriedFood+","+a.workerCommuteId+","+a.shoppingStoreId+","+a.restockPhase+","+a.leisurePhase+","+a.shoppingResting);
+                            csv.WriteLine(world.Tick+","+a.id+","+a.x+","+a.y+","+house+","+a.assignedHouseId+","+world.AssignedOccupation(i)+","+world.EffectiveOccupation(i)+","+world.WorkerOnDuty(i)+","+a.health+","+a.hunger+","+(100-a.energySpent)+","+a.carriedFood+","+a.workerCommuteId+","+a.shoppingStoreId+","+a.restockPhase+","+a.leisurePhase+","+a.shoppingResting+","+a.courierOrderId+","+a.restockUntilTick+","+a.restockBox+","+a.homeShelterId+","+a.shelterId+","+a.foodExploreRoomId);
                         previous[i]=a;
                     }
                 }
@@ -57,7 +62,7 @@ namespace Outbreak.Diagnostics
             if(control=="shopping")Require(trace[0].Shopping && trace[0].HomeReturns>0 && HomeFood(world,world.ActorAt(0).assignedHouseId)>0,name+": controlled shopper failed physical home resupply.");
             if(control=="leisure")Require(trace[0].Left && trace[0].ReturnedFromLeisure && trace[0].Moves>0,name+": controlled leisure did not physically leave and return.");
             report.AppendLine(name+": PASS observation and replay; ticks="+ticks+", actors="+count+", food start="+startingFood+", end="+world.FoodSupplies().RemainingMeals+", observed meals="+eaten);
-            for(int i=0;i<count;i++){var a=world.ActorAt(i);var r=trace[i];report.AppendLine("  id="+a.id+" moves="+r.Moves+" homeReturns="+r.HomeReturns+" work="+r.Work+" shopping="+r.Shopping+" leisure="+r.Leisure+" longestActiveWait="+r.LongestActiveWait+" rapidRoomChanges="+r.RapidChanges+" finalHealth="+a.health+" hunger="+a.hunger+" energy="+(100-a.energySpent));if(r.LongestActiveWait>=300 || r.RapidChanges>=6 || a.health<100 || a.hunger>=75)report.AppendLine("  REVIEW id="+a.id+": inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.");}
+            for(int i=0;i<count;i++){var a=world.ActorAt(i);var r=trace[i];report.AppendLine("  id="+a.id+" moves="+r.Moves+" homeReturns="+r.HomeReturns+" work="+r.Work+" shopping="+r.Shopping+" leisure="+r.Leisure+" longestActiveWait="+r.LongestActiveWait+" rapidRoomChanges="+r.RapidChanges+" finalHealth="+a.health+" hunger="+a.hunger+" energy="+(100-a.energySpent)+" firstDamage=["+r.FirstDamage+"] death=["+r.Death+"]");if(r.LongestActiveWait>=300 || r.RapidChanges>=6 || a.health<100 || a.hunger>=75)report.AppendLine("  REVIEW id="+a.id+": inspect timeline and supply/work/rest context; this flag is not proof of a navigation bug.");}
             File.WriteAllText(Path.Combine(directory,name+"-final.obsave2"),State(world));Console.WriteLine(name+" completed.");
         }
         public static int Main(string[] args)
@@ -73,7 +78,7 @@ namespace Outbreak.Diagnostics
                     Run("controlled-leisure",EncounterScenarios.HumanLeisureTest(),500,directory,report,"leisure");
                     Run("generated-city-day",CitySetup.Create(214,4,2,2,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters),14400,directory,report);
                 }
-                report.AppendLine("Cartographer-supplied map acceptance: pending user relay/map review; generated baseline is not a substitute for that coordination.");File.WriteAllText(Path.Combine(directory,"DAILY_ROUTINE_REPORT.txt"),report.ToString());return 0;
+                report.AppendLine(args.Length>1?"Supplied map observed without stock/geometry changes; replay pass is not survival acceptance.":"Generated baseline only; use the supplied-map argument for separate cartographer observations.");File.WriteAllText(Path.Combine(directory,"DAILY_ROUTINE_REPORT.txt"),report.ToString());return 0;
             }
             catch(Exception error){report.AppendLine("FAIL: "+error);File.WriteAllText(Path.Combine(directory,"DAILY_ROUTINE_REPORT.txt"),report.ToString());Console.Error.WriteLine(error);return 1;}
         }

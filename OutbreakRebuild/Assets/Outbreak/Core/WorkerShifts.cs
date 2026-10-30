@@ -74,6 +74,7 @@ namespace Outbreak.Core
         {
             direction=8;if(!WorkerShiftsEnabled || OccupationOf(actor)==HumanOccupation.Consumer)return false;
             if(actor.turnAtTick!=0){actor.workerCommuteId=0;actors[index]=actor;return false;}
+            ReleaseUnusableCourierClaim(index,ref actor,threat); // Empty work must not masquerade as a finishing load or block the home commute.
             if(actor.restockPhase!=RestockPhase.None || IsShopping(actor))return false;
             if(OccupationOf(actor)==HumanOccupation.Courier && actor.courierShiftHours==0 && actor.assignedHouseId==Workplace(actor))return false;
             bool working=WorkerClockOn(actor);Room actual=FindRoom(HouseAt(actor.x,actor.y));
@@ -107,6 +108,7 @@ namespace Outbreak.Core
             if(needsHomeReturn && actor.foodExploreRoomId!=0)CancelFoodExploration(index,ref actor); // Release the old foraging goal atomically before taking ownership of the home route.
             if(actor.workerCommuteId!=desired){actor.workerCommuteId=desired;actor.courierReturningHome=false;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);}
             if(needsHomeReturn && TryHomeReturnRest(index,ref actor))return true;
+            if(working && TryCourierRouteRest(index,ref actor,threat))return true;
             Room current=FindRoom(actor.shelterId);
             if(actual!=null && actual!=destination && (current==null || current.id!=actual.id)){actor.shelterId=actual.id;actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;current=actual;}
             if(current!=null && current!=destination && (current.Contains(Key(actor.x,actor.y)) || actor.shelterExitPhase!=ShelterExitPhase.None)){actors[index]=actor;return TryShelter(index,ref actor,threat,out direction);}

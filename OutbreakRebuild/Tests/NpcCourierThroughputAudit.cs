@@ -12,6 +12,7 @@ namespace Outbreak.Diagnostics
         private sealed class Stats
         {
             public readonly SortedDictionary<string,int> Time=new SortedDictionary<string,int>(),ScheduledTime=new SortedDictionary<string,int>(),MovingTime=new SortedDictionary<string,int>();
+            public int EmptyReturnTicks,EmptyReturnStreak,MaxEmptyReturnStreak,ExpiredClaims;
             public int Starts,PickupEvents,SourcePickupMeals,DeliveryEvents,Delivered,MealEvents,Moves,HungryTicks,LowEnergyTicks,LoadedHungryTicks;
         }
         private static readonly StringBuilder Report=new StringBuilder();
@@ -61,6 +62,10 @@ namespace Outbreak.Diagnostics
                         var a=w.ActorAt(i);var before=previous[i];if(!stats.ContainsKey(a.id))continue;var s=stats[a.id];string phase=Phase(w,i,a);if(!s.Time.ContainsKey(phase))s.Time[phase]=0;s.Time[phase]++;
                         bool moved=a.x!=before.x || a.y!=before.y;if(!s.ScheduledTime.ContainsKey(phase)){s.ScheduledTime[phase]=0;s.MovingTime[phase]=0;}if(w.CourierOnDuty(i))s.ScheduledTime[phase]++;if(moved){s.Moves++;s.MovingTime[phase]++;}if(a.hunger>=40)s.HungryTicks++;if(a.energySpent>=60)s.LowEnergyTicks++;
                         if(a.carriedFood>0 && a.hunger>=40 && a.restockPhase!=RestockPhase.None)s.LoadedHungryTicks++;
+                        bool emptyReturn=a.courierOrderId!=0 && a.restockPhase==RestockPhase.Returning && a.carriedFood==0;
+                        s.EmptyReturnStreak=emptyReturn?s.EmptyReturnStreak+1:0;if(emptyReturn)s.EmptyReturnTicks++;s.MaxEmptyReturnStreak=Math.Max(s.MaxEmptyReturnStreak,s.EmptyReturnStreak);
+                        if(before.courierOrderId!=0 && a.courierOrderId!=before.courierOrderId){if(before.restockUntilTick<=w.Tick)s.ExpiredClaims++;csv.WriteLine(w.Tick+",claim-release,"+a.id+","+before.courierOrderId+",0,0,"+a.hunger+","+(100-a.energySpent)+","+a.carriedFood);}
+
                         if(a.health>0 && before.health>0 && a.hunger<before.hunger)s.MealEvents++;
                         if(a.courierOrderId!=0 && (a.courierOrderId!=before.courierOrderId || a.restockUntilTick>before.restockUntilTick)){s.Starts++;csv.WriteLine(w.Tick+",trip-claim,"+a.id+","+a.courierOrderId+",0,0,"+a.hunger+","+(100-a.energySpent)+","+a.carriedFood);}
                         int key=before.courierSourceBox-1;
@@ -76,19 +81,27 @@ namespace Outbreak.Diagnostics
                 }
             }
             int outstanding=0;foreach(var order in w.PendingSupplyOrders())outstanding+=order.requestedMeals-order.deliveredMeals;
-            Report.AppendLine(name+": rules="+w.Capture().rulesVersion+", observedTicks="+ticks+", creditedMeals="+credited+", completedOrders="+w.CompletedSupplyOrders().Length+", outstandingMeals="+outstanding+", firstCredit="+firstCredit+", lastCredit="+lastCredit);
+            int deaths=0;for(int i=0;i<w.Count;i++)if(w.ActorAt(i).health<=0)deaths++;
+            Report.AppendLine(name+": deaths="+deaths+", rules="+w.Capture().rulesVersion+", observedTicks="+ticks+", creditedMeals="+credited+", completedOrders="+w.CompletedSupplyOrders().Length+", outstandingMeals="+outstanding+", firstCredit="+firstCredit+", lastCredit="+lastCredit);
             foreach(var c in initialCenters)Report.AppendLine("  initial center="+c.CenterId+" stock="+c.StockMeals+" dispatchable="+c.AvailableMeals);
             int initialCenterStock=0,finalCenterStock=0;foreach(var c in initialCenters)initialCenterStock+=c.StockMeals;foreach(var c in w.DistributionCenters()){finalCenterStock+=c.StockMeals;Report.AppendLine("  final center="+c.CenterId+" stock="+c.StockMeals+" dispatchable="+c.AvailableMeals);}Require(initialCenterStock+sourceInflow-sourceOutflow==finalCenterStock,name+": center stock flow mismatch.");Report.AppendLine("  observed per-tick center outflow="+sourceOutflow+" inflow="+sourceInflow+" netOutflow="+(sourceOutflow-sourceInflow));
             foreach(var order in requested)Report.AppendLine("  order="+order.Key+" requested="+order.Value+" creditedDuringRun="+deliveredByOrder[order.Key]);
             foreach(var pair in stats)
             {
-                var s=pair.Value;int total=0;Report.AppendLine("  courier="+pair.Key+" claims="+s.Starts+" sourcePickups="+s.PickupEvents+" sourcePickupMeals="+s.SourcePickupMeals+" creditedDeliveryEvents="+s.DeliveryEvents+" delivered="+s.Delivered+" observedMealEvents="+s.MealEvents+" moves="+s.Moves+" hungerAtLeast40Ticks="+s.HungryTicks+" energyAtMost40Ticks="+s.LowEnergyTicks+" loadedHungryTaskTicks="+s.LoadedHungryTicks);
+                var s=pair.Value;int total=0;Report.AppendLine("  courier="+pair.Key+" claims="+s.Starts+" sourcePickups="+s.PickupEvents+" sourcePickupMeals="+s.SourcePickupMeals+" creditedDeliveryEvents="+s.DeliveryEvents+" delivered="+s.Delivered+" observedMealEvents="+s.MealEvents+" moves="+s.Moves+" hungerAtLeast40Ticks="+s.HungryTicks+" energyAtMost40Ticks="+s.LowEnergyTicks+" loadedHungryTaskTicks="+s.LoadedHungryTicks+" emptyReturnTicks="+s.EmptyReturnTicks+" longestEmptyReturn="+s.MaxEmptyReturnStreak+" expiredClaims="+s.ExpiredClaims+" finalHealth="+FindCourierHealth(w,pair.Key));
                 foreach(var time in s.Time){total+=time.Value;Report.AppendLine("    "+time.Key+" ticks="+time.Value+" scheduledWindowTicks="+s.ScheduledTime[time.Key]+" movedPositionTicks="+s.MovingTime[time.Key]+" stationaryTicks="+(time.Value-s.MovingTime[time.Key]));}Require(total==ticks,name+": phase times do not partition the run.");
             }
             if(name!="generated-day")Require(credited>0 && w.CompletedSupplyOrders().Length>0,name+": control did not complete an order.");
             if(name=="generated-day" && !w.NeedsPriorityEnabled)Require(credited==7 && outstanding==17 && w.DistributionCenters()[0].StockMeals==20,"F139 throughput baseline changed.");
+            if(w.NeedsPriorityEnabled)
+            {
+                int minimum=name=="generated-day"?7:name=="short-route-control"?12:20;
+                Require(credited>=minimum,name+": needs correction regressed credited meals below its established comparison.");
+                if(name=="generated-day")foreach(var s in stats.Values)Require(s.MaxEmptyReturnStreak<=EncounterRules.MoveInterval*2,"Empty courier return retained a claim beyond the next available exhausted action.");
+            }
             File.WriteAllText(Path.Combine(output,name+"-final.obsave2"),State(w));Console.WriteLine(name+" completed: "+credited+" credited meals.");
         }
+        private static int FindCourierHealth(World w,int id){for(int i=0;i<w.Count;i++)if(w.ActorAt(i).id==id)return w.ActorAt(i).health;throw new InvalidOperationException("Missing courier identity.");}
         private static string PhaseForBefore(ActorState a)
         {return a.shoppingMeals>0?"personal-shopping":a.restockPhase==RestockPhase.Collecting?"collecting":a.restockPhase==RestockPhase.Returning?"returning-delivery":"other";}
         public static int Main(string[] args)
