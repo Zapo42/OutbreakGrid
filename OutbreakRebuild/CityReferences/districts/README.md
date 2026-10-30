@@ -277,3 +277,93 @@ defensive records, schema and corrupt-data handling, actual storage collision,
 empty finite inventory, and exact map/save round-trips. It adds no NPC behavior
 tests. Source `.meta` GUIDs for new assets are supplied and must be preserved.
 Unity stays6000.6.3f1 and native Unity testing remains paused.
+
+### Live store sales floors and stockrooms
+
+`--store-layout compact|spacious` is opt-in. A district becomes one-storey retail
+lots with two real rooms: sales floor and stockroom, joined by an internal door.
+Both rooms share the schema14 building identity introduced for houses. Compact
+stores have six real, solid sales shelves; spacious stores have eight. Each store
+has one real capacity30 stockroom supply box (reserve6) and one solid sales-floor
+phone. Public and service entrances both connect to the original street network.
+Extra draft rack cells remain floor hints: the existing store contract has one
+supplyBox, so this does not invent multiple competing supply inventories.
+
+```sh
+python Tools/generate_district_city.py --output /tmp/stores district --type business-core --seed 214 --store-layout compact
+python Tools/generate_district_city.py --output /tmp/stores city --seed 214 --districts garden-suburb business-core --house-layout compact --store-layout spacious
+```
+
+City mode applies store layouts to urban/business districts and house layouts to
+residential/suburban districts. A single district cannot use both flags. Recipe
+layout/version fields record the choice for exact replay. Store defaults reserve
+larger blocks for aligned modules and street clearance; explicitly supplied block
+dimensions are honored and can fail with the existing no-safe-lot error. Defaults
+without the flag and old recipes retain their previous output. Room budgets count
+two physical rooms per store; city assembly moves every shelf, box, phone, room
+anchor and fixture reference together.
+
+Generated maps contain empty finite shelves/stock and no staff or supply creation.
+After map loading, use existing `World.TryConfigureStore(stockX,stockY)` and
+`TryAssignClerk(actorIndex,storeId)` APIs; `HouseAt` returns the same ID in sales
+and stockroom. Persist configured roles/stores in a save, not a map-only document.
+`Tests/StoreLayoutChecks.csproj` verifies these contracts and exports separate
+inspection saves alongside the input examples: one clerk per store,24 finite meals
+in each stock box, empty shelves, no invented homes/shifts or behavior ticks. These
+are paused inspection fixtures, not daily-survival acceptance tests.
+
+Geometry checks treat shelves, boxes and phones as solid; verify both exterior
+entrances, the internal doorway, all shelf/stock approaches and phone adjacency.
+Focused C# checks exercise the real collision map, shared store identity, clerk
+assignment, store overview and exact map/save roundtrips. NPC restocking, shopping,
+phone calls, delivery choices and behavioral diagnostics retain their existing
+owner. This increment uses the previous schema14 reader and introduces no new
+contracts, save schema, NPC decisions, scene/settings changes or Unity upgrades.
+
+### Distribution-center dispatch and warehouse interiors
+
+`--distribution-layout compact|spacious` materializes two physical rooms under one
+schema14 building identity: dispatch office and warehouse, with an internal door,
+a public entrance and a service entrance. Both exterior doors reach the original
+street network. A real empty capacity100 warehouse supply box uses the existing
+reserve6 policy. The current DC contract selects one supplyBox; auxiliary rack
+locations remain hints rather than competing inventories.
+
+```sh
+python Tools/generate_district_city.py --output /tmp/dc district --type business-core --seed 214 --distribution-layout compact
+python Tools/generate_district_city.py --output /tmp/dc city --seed 214 --districts garden-suburb business-core business-core --house-layout compact --store-layout compact --distribution-layout spacious
+```
+
+Standalone distribution districts default to one center. Explicit recipe/Python
+max_buildings overrides may request more within the128-building/256-room budget.
+City mode reserves the **first business district** for one center, applying store
+layouts to subsequent urban/business districts and house layouts to residential
+ones. A distribution flag without any business district is rejected. A single
+district cannot combine house, store and distribution layout flags. Choices and
+layout versions are recorded in each child recipe for deterministic replay.
+
+The dispatch office includes a **reserved solid computer footprint**, represented
+by Wall terrain8 rather than a fake phone or food shelf. This is geometry only:
+it looks like a placeholder wall in the existing native renderer. There is no new
+computer object, sprite, UI, order generation, visit requirement or claim mechanic.
+Graphics and the NPC developer own those later integrations. The adjacent approach
+remains walkable and belongs to the center. Use the approach cell to obtain the
+runtime room identity; the blocked computer cell itself is not a floor member.
+
+Per-building `interior_layout.order_computer` authoring metadata contains the
+namespaced fixture id, world cell, approach_cells, dispatch role, representation
+and `interaction_implemented:false`. `reserved_fixture_cells` identifies its solid
+footprint. City composition moves these records, namespaces, room anchors and the
+warehouse stock coordinate together. Opaque authoring metadata already survives
+map/save capture; no new contract, map schema or NPC decision code is introduced.
+
+Activate the center after import with existing `TryConfigureDistributionCenter`
+at `stock_box_cells`. Assign a courier with the existing API and a genuine separate
+home. `Tests/DistributionLayoutChecks.csproj` verifies grouping, real collisions,
+internal/exterior doors, computer/warehouse approaches, reserve accounting,
+courier assignment and exact map/save roundtrips. It emits configured inspection
+saves with80 finite warehouse meals, plus `distribution-sites.json` containing the
+actual center/supply IDs and computer approaches. Standalone maps have no invented
+courier homes; the mixed map supplies one courier/home/07:00–19:00 shift and
+configured but unstaffed/empty stores. These are paused geometry inspection saves,
+not successful order-processing or daily-routine trials.

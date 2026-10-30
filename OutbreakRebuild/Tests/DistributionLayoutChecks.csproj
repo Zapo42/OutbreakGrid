@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><UseAppHost>false</UseAppHost><TargetFramework>net8.0</TargetFramework><EnableDefaultCompileItems>false</EnableDefaultCompileItems><TreatWarningsAsErrors>true</TreatWarningsAsErrors></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Assets/Outbreak/Contracts/*.cs" />
+    <Compile Include="../Assets/Outbreak/Core/*.cs" />
+    <Compile Include="../Assets/Outbreak/Persistence/*.cs" />
+    <Compile Include="DistributionLayoutChecks.cs" />
+  </ItemGroup>
+</Project>

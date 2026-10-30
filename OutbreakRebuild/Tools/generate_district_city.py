@@ -39,7 +39,7 @@ def load_profile(identity):
     return json.loads((atlas.ROOT/"CityReferences/atlas"/(identity+".profile.json")).read_text())
 
 
-def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=None,house_layout=None):
+def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=None,house_layout=None,store_layout=None,distribution_layout=None):
     catalogue=json.loads(CATALOGUE.read_text())
     if kind not in catalogue["districts"]:raise ValueError("Unknown district type")
     spec=copy.deepcopy(catalogue["districts"][kind]);profile=load_profile(spec["reference_id"])
@@ -74,12 +74,36 @@ def district_recipe(kind,seed=214,overrides=None,*,residential_lots=False,parks=
         if overrides and "max_buildings" in overrides and settings["max_buildings"]>lots.house_layout_budget(house_layout):
             raise ValueError("Requested house count exceeds room/rest limits")
         settings["max_buildings"]=min(settings["max_buildings"],lots.house_layout_budget(house_layout))
+    if store_layout is not None:
+        if house_layout is not None:raise ValueError("Choose house or store layout per district")
+        blueprint=lots.building_blueprint("store",store_layout)
+        recipe.update(store_layout=store_layout,store_layout_version=lots.BUILDING_LAYOUT_VERSION,
+            placement_mode="residential",footprint_sizes=[[blueprint["width"],blueprint["height"]]],uses={"retail":100},storeys=[1,1])
+        if overrides and "max_buildings" in overrides and settings["max_buildings"]>128:raise ValueError("Store room budget exceeds 256")
+        settings["max_buildings"]=min(settings["max_buildings"],128)
+        # Larger stockroom templates need room for their square aligned module,
+        # street reservations and setbacks. Explicit user dimensions still win.
+        for key in ("block_width_cells","block_height_cells"):
+            if not overrides or key not in overrides:settings[key]=max(settings[key],max(blueprint["width"],blueprint["height"])+30)
+        streets.validate(settings)
+    if distribution_layout is not None:
+        if house_layout is not None or store_layout is not None:raise ValueError("Choose one building layout per district")
+        if recipe["category"]!="business":raise ValueError("Distribution layouts require a business district")
+        blueprint=lots.building_blueprint("distribution-center",distribution_layout)
+        recipe.update(distribution_layout=distribution_layout,distribution_layout_version=lots.BUILDING_LAYOUT_VERSION,
+            placement_mode="residential",footprint_sizes=[[blueprint["width"],blueprint["height"]]],uses={"office":100},storeys=[1,1])
+        if overrides and "max_buildings" in overrides:
+            if settings["max_buildings"]>128:raise ValueError("Distribution room budget exceeds 256")
+        else:settings["max_buildings"]=1
+        for key in ("block_width_cells","block_height_cells"):
+            if not overrides or key not in overrides:settings[key]=max(settings[key],max(blueprint["width"],blueprint["height"])+30)
+        streets.validate(settings)
     return recipe
 
 
 def validate_recipe(recipe):
     required={"generator_version","kind","district_type","seed","name","category","street_settings", "footprint_sizes","placement_mode","lot_gap_cells","uses","storeys","reference_id","reference_profile_sha256"}
-    if set(recipe)-{"parks","house_layout","house_layout_version"}!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
+    if set(recipe)-{"parks","house_layout","house_layout_version","store_layout","store_layout_version","distribution_layout","distribution_layout_version"}!=required or recipe["generator_version"]!=VERSION or recipe["kind"]!="district":
         raise ValueError("Unsupported or incomplete district recipe")
     if not isinstance(recipe["district_type"],str) or not recipe["district_type"] or any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in recipe["district_type"]):
         raise ValueError("District ids must contain only lowercase letters, digits and hyphens")
@@ -112,6 +136,16 @@ def validate_recipe(recipe):
         blueprint=lots.building_blueprint("house",recipe["house_layout"])
         if recipe["category"] not in ("residential","suburban") or recipe["placement_mode"]!="residential" or recipe["footprint_sizes"]!=[[blueprint["width"],blueprint["height"]]] or any(HINTS[use]!="Home" for use in recipe["uses"]) or recipe["storeys"]!=[1,1] or recipe["street_settings"]["max_buildings"]>lots.house_layout_budget(recipe["house_layout"]):
             raise ValueError("House layout recipe conflicts with template or room/rest budget")
+    if ("store_layout" in recipe)!=("store_layout_version" in recipe):raise ValueError("Store recipes require layout version")
+    if "store_layout" in recipe:
+        blueprint=lots.building_blueprint("store",recipe["store_layout"])
+        if "house_layout" in recipe or recipe["store_layout_version"]!=lots.BUILDING_LAYOUT_VERSION or recipe["placement_mode"]!="residential" or recipe["uses"]!={"retail":100} or recipe["storeys"]!=[1,1] or recipe["footprint_sizes"]!=[[blueprint["width"],blueprint["height"]]] or recipe["street_settings"]["max_buildings"]>128:
+            raise ValueError("Store recipe conflicts with layout or room budget")
+    if ("distribution_layout" in recipe)!=("distribution_layout_version" in recipe):raise ValueError("Distribution recipes require layout version")
+    if "distribution_layout" in recipe:
+        blueprint=lots.building_blueprint("distribution-center",recipe["distribution_layout"])
+        if "house_layout" in recipe or "store_layout" in recipe or recipe["category"]!="business" or recipe["distribution_layout_version"]!=lots.BUILDING_LAYOUT_VERSION or recipe["placement_mode"]!="residential" or recipe["uses"]!={"office":100} or recipe["storeys"]!=[1,1] or recipe["footprint_sizes"]!=[[blueprint["width"],blueprint["height"]]] or recipe["street_settings"]["max_buildings"]>128:
+            raise ValueError("Distribution recipe conflicts with layout or room budget")
     profile=load_profile(recipe["reference_id"])
     if (digest(profile) if profile else None)!=recipe["reference_profile_sha256"]:
         raise ValueError("Reference profile changed; preserve the bundled snapshot for exact replay")
@@ -169,6 +203,44 @@ def assert_usable(document,metadata):
             raise ValueError("Building has no physical entrance path")
         if (building["width"]-2)*(building["height"]-2)>256:raise ValueError("Room is too large")
 
+        layout=building.get("interior_layout",{})
+        if layout.get("sales_shelves_materialized") or layout.get("warehouse_storage_materialized"):
+            # Verify the actual runtime-solid furniture, not just draft approach hints.
+            blueprint=layout["blueprint"];blocked={(p["x"],p["y"]) for key in ("shelves","storageBoxes","phoneBlocks") for p in document.get(key,[])}
+            reserved={tuple(p) for p in layout.get("reserved_fixture_cells",[])}
+            blocked|=reserved
+            floors={(left+x,top+y) for r in blueprint["rooms"] for x,y in r["cells"]}-reserved
+            doors={(left+d["cell"][0],top+d["cell"][1]) for d in blueprint["doors"]}
+            if any(cells[py*width+px]!=7 for px,py in floors) or any(cells[py*width+px]!=9 for px,py in doors):raise ValueError("Store room/door terrain differs from its layout")
+            if any(cells[py*width+px]!=8 for px,py in reserved):raise ValueError("Reserved computer footprint is not solid terrain")
+            if layout.get("warehouse_storage_materialized"):
+                expected_reserved={(left+px,top+py) for f in blueprint["fixtures"] if f["role"]=="order-computer" for px,py in f["cells"]}
+                computer=layout["order_computer"]
+                if reserved!=expected_reserved or {tuple(computer["cell"])}!=reserved or computer["id"]!=layout["instance_id"]+"/order-computer" or computer["interaction_implemented"] is not False:raise ValueError("Distribution computer geometry/identity is inconsistent")
+                expected_approaches=[[left+x,top+y] for f in blueprint["fixtures"] if f["role"]=="order-computer" for x,y in f["approach_cells"]]
+                if computer["approach_cells"]!=expected_approaches:raise ValueError("Computer approach differs from dispatch template")
+            actual=[(p["x"],p["y"]) for key in ("shelves","storageBoxes","phoneBlocks") for p in document.get(key,[]) if (p["x"],p["y"]) in footprint]
+            if len(actual)!=len(set(actual)) or any(p not in floors for p in actual):raise ValueError("Store fixtures overlap or leave floor")
+            expected_shelves={(left+px,top+py) for f in blueprint["fixtures"] if f["role"]=="sales-shelf" for px,py in f["cells"]}
+            for key,expected in (("shelves",expected_shelves),("storageBoxes",{tuple(layout["stock_box_cells"])}),("phoneBlocks",{tuple(layout["phone_cells"])} if "phone_cells" in layout else set())):
+                if {(p["x"],p["y"]) for p in document.get(key,[]) if (p["x"],p["y"]) in footprint}!=expected:raise ValueError("Store live fixture records are missing or misplaced")
+            allowed=(floors|doors)-blocked;start=(x,y);inside={start};pending=deque([start])
+            while pending:
+                px,py=pending.popleft()
+                for point in ((px-1,py),(px+1,py),(px,py-1),(px,py+1)):
+                    if point in allowed and point not in inside:inside.add(point);pending.append(point)
+            if allowed!=inside:raise ValueError("Store fixtures disconnect interior circulation")
+            for entry in blueprint["doors"]:
+                if not entry["external"]:continue
+                ex,ey=left+entry["cell"][0],top+entry["cell"][1]
+                if not any(0<=nx<width and 0<=ny<height and ny*width+nx in reachable for nx,ny in ((ex-1,ey),(ex+1,ey),(ex,ey-1),(ex,ey+1))):
+                    raise ValueError("Store entrance lacks connected exterior access")
+            for fixture in blueprint["fixtures"]:
+                if not any((left+ax,top+ay) in inside for ax,ay in fixture["approach_cells"]):raise ValueError("Store shelf/stock approach blocked")
+            for key in (("stock_box_cells","phone_cells") if "phone_cells" in layout else ("stock_box_cells",)):
+                fx,fy=layout[key]
+                if not any(p in inside for p in ((fx-1,fy),(fx+1,fy),(fx,fy-1),(fx,fy+1))):raise ValueError("Store fixture has no interaction access")
+
 
 def render_map(document,metadata):
     """Accurate terrain raster plus colour-coded building-use hints; all geometry in map metres."""
@@ -194,6 +266,13 @@ def render_map(document,metadata):
         parts.append(f'<circle cx="{(spot["x"]+.5)*scale}" cy="{(spot["y"]+.5)*scale}" r="{scale*.12}" fill="#31985a"/>')
     for storage in document.get("storageBoxes",[]):
         parts.append(f'<rect x="{(storage["x"]+.15)*scale}" y="{(storage["y"]+.15)*scale}" width="{scale*.7}" height="{scale*.7}" fill="#9a673e"/>')
+    for shelf in document.get("shelves",[]):
+        parts.append(f'<rect x="{(shelf["x"]+.2)*scale}" y="{(shelf["y"]+.2)*scale}" width="{scale*.6}" height="{scale*.6}" fill="#b83b38"/>')
+    for building in metadata["buildings"]:
+        computer=building.get("interior_layout",{}).get("order_computer")
+        if computer:
+            x,y=computer["cell"]
+            parts.append(f'<rect x="{x*scale}" y="{y*scale}" width="{scale}" height="{scale}" fill="#323d60"><title>Reserved order-computer footprint; interaction pending</title></rect>')
     for district in metadata.get("districts",[]):
         x,y,w,h=district["bounds_cells"]
         parts.append(f'<rect x="{x*scale}" y="{y*scale}" width="{w*scale}" height="{h*scale}" fill="none" stroke="#ffffff" stroke-opacity=".45" stroke-width="2"/>')
@@ -229,17 +308,22 @@ def generate_district(recipe):
             if roll<0:break
         b.update(parcel_id=f'{recipe["district_type"]}-{index+1}',district_type=recipe["district_type"],use_hint=use,
                  game_building_use_hint=HINTS[use],storeys_hint=rng.randint(*recipe["storeys"]))
-    if "house_layout" in recipe:
+        if "distribution_layout" in recipe:b["game_building_use_hint"]="DistributionCenter"
+    if "house_layout" in recipe or "store_layout" in recipe or "distribution_layout" in recipe:
         # The original street raster remains the entrance target even when other houses have paths.
         backbone=[(g,p) for g,p in projected if p["category"] in ("road","water")]
         corridor=atlas.export_map({"id":"house-streets","name":"House streets"},backbone,grid,provenance,settings["road_width_cells"],settings["sidewalk_width_cells"])
         targets={(i%grid["width"],i//grid["width"]) for i,t in enumerate(lots.unpack(corridor)) if t in (5,6)}
-        lots.materialize_house_layouts(document,metadata,recipe["house_layout"],targets)
+        if "house_layout" in recipe:lots.materialize_house_layouts(document,metadata,recipe["house_layout"],targets)
+        elif "store_layout" in recipe:lots.materialize_store_layouts(document,metadata,recipe["store_layout"],targets)
+        else:lots.materialize_distribution_layouts(document,metadata,recipe["distribution_layout"],targets)
     fingerprint=digest(recipe)[:12]
     metadata.update(generator_version=VERSION,seed=recipe["seed"],stream_seeds=streams,recipe=copy.deepcopy(recipe),recipe_id=fingerprint,
                     district_type=recipe["district_type"],category=recipe["category"],
                     scope="Fictional seeded district with parcel/use/height hints. No assigned jobs, inhabitants, inventory, upper-floor simulation or directed traffic lanes.")
     if "house_layout" in recipe:metadata["scope"]="Seeded multi-room homes with explicit building identity, empty finite storage and living-area rest spots; no population or NPC decision changes."
+    if "store_layout" in recipe:metadata["scope"]="Live two-room store geometry with empty shelves, finite stockroom storage and phone; configure store/staff through existing World APIs."
+    if "distribution_layout" in recipe:metadata["scope"]="Live dispatch/warehouse geometry, finite empty DC storage and reserved solid computer position; computer interactions and NPC orders unchanged."
     if open_space_recovery is not None:metadata["open_space_recovery"]=open_space_recovery
     metadata["street_segments"]=[{"points_metres":list(g.coords),"width_cells":p["width_cells"],**p["tags"]} for g,p in projected if p["category"]=="road"]
     metadata["actual_building_coverage"]=round(sum(b["width"]*b["height"] for b in metadata["buildings"])/(document["width"]*document["height"]),6)
@@ -250,19 +334,25 @@ def generate_district(recipe):
     return document,metadata,render_map(document,metadata)
 
 
-def city_recipe(kinds,seed=214,columns=2,gap=12,cell_metres=5,house_layout=None):
+def city_recipe(kinds,seed=214,columns=2,gap=12,cell_metres=5,house_layout=None,store_layout=None,distribution_layout=None):
     if not 1<=len(kinds)<=9 or type(columns) is not int or not 1<=columns<=3 or not 6<=gap<=30:
         raise ValueError("Compose 1–9 districts in 1–3 columns with 6–30 cells between slots")
     if type(seed) is not int or not 1<=seed<=0xffffffff:raise ValueError("Invalid city seed")
     rng=lots.StableRandom(stream_seed(seed,"city-districts"))
-    budget=256//(len(kinds)*(2 if house_layout else 1))
+    budget=256//(len(kinds)*(2 if house_layout or store_layout or distribution_layout else 1))
     if house_layout:budget=min(budget,lots.house_layout_budget(house_layout)//len(kinds))
-    districts=[]
+    districts=[];distribution_placed=False
     for kind in kinds:
         child=district_recipe(kind,rng.word() or 1,{"cell_metres":cell_metres,"max_buildings":min(budget,64)})
         if house_layout and child["category"] in ("residential","suburban"):
             child=district_recipe(kind,child["seed"],{"cell_metres":cell_metres,"max_buildings":min(budget,64)},house_layout=house_layout)
+        if distribution_layout and not distribution_placed and child["category"]=="business":
+            child=district_recipe(kind,child["seed"],{"cell_metres":cell_metres,"max_buildings":1},distribution_layout=distribution_layout)
+            distribution_placed=True
+        elif store_layout and child["category"] in ("urban","business"):
+            child=district_recipe(kind,child["seed"],{"cell_metres":cell_metres,"max_buildings":min(budget,64)},store_layout=store_layout)
         districts.append(child)
+    if distribution_layout and not distribution_placed:raise ValueError("City distribution layout needs a business district")
     return {"generator_version":VERSION,"kind":"city","seed":seed,"columns":columns,"gap_cells":gap,"districts":districts}
 
 
@@ -273,7 +363,7 @@ def compose_city(recipe):
     if type(recipe["seed"]) is not int or not 1<=recipe["seed"]<=0xffffffff or not 1<=len(districts)<=9 or type(columns) is not int or not 1<=columns<=3 or type(gap) is not int or not 6<=gap<=30:
         raise ValueError("Invalid city seed, district count or slot layout")
     if sum(r["street_settings"]["max_buildings"] for r in districts)>256:raise ValueError("City building budgets exceed 256")
-    if sum(r["street_settings"]["max_buildings"]*(2 if "house_layout" in r else 1) for r in districts)>256:
+    if sum(r["street_settings"]["max_buildings"]*(2 if "house_layout" in r or "store_layout" in r or "distribution_layout" in r else 1) for r in districts)>256:
         raise ValueError("City physical room budgets exceed 256")
     if sum(r["street_settings"]["max_buildings"]*len(lots.building_blueprint("house",r["house_layout"])["recovery_area"]["cells"]) for r in districts if "house_layout" in r)>4096:
         raise ValueError("City living-area rest budget exceeds 4096")
@@ -284,7 +374,7 @@ def compose_city(recipe):
     rows=math.ceil(len(districts)/columns);margin=4
     width=margin*2+columns*slot_width+(columns-1)*gap;height=margin*2+rows*slot_height+(rows-1)*gap
     if width*height>atlas.MAX_CELLS:raise ValueError("Composed map exceeds the one-million-cell limit")
-    cells=bytearray(width*height);placements=[];buildings=[];segments=[];parks=[];omitted_parks=[];groups=[];storage=[];rest=[]
+    cells=bytearray(width*height);placements=[];buildings=[];segments=[];parks=[];omitted_parks=[];groups=[];storage=[];rest=[];shelves=[];phones=[]
     for i,(document,metadata,_) in enumerate(generated):
         ox=margin+(i%columns)*(slot_width+gap);oy=margin+(i//columns)*(slot_height+gap)
         tile=lots.unpack(document)
@@ -296,13 +386,20 @@ def compose_city(recipe):
             if "interior_layout" in moved:
                 layout=moved["interior_layout"];lx,ly=layout["origin_cells"]
                 layout.update(origin_cells=[lx+ox,ly+oy],instance_id=moved["parcel_id"],room_keys={k:moved["parcel_id"]+"/"+k for k in layout["room_keys"]})
+                for key in ("stock_box_cells","phone_cells"):
+                    if key in layout:layout[key]=[layout[key][0]+ox,layout[key][1]+oy]
+                if "order_computer" in layout:
+                    computer=layout["order_computer"];computer["id"]=moved["parcel_id"]+"/order-computer"
+                    computer["cell"]=[computer["cell"][0]+ox,computer["cell"][1]+oy]
+                    computer["approach_cells"]=[[x+ox,y+oy] for x,y in computer["approach_cells"]]
+                    layout["reserved_fixture_cells"]=[[x+ox,y+oy] for x,y in layout["reserved_fixture_cells"]]
                 moved["retained_walk_cells"]=[[x+ox,y+oy] for x,y in b["retained_walk_cells"]]
             buildings.append(moved)
         for group in document.get("buildingRooms",[]):
             moved=copy.deepcopy(group);moved["id"]=f'd{i}-'+group["id"]
             for room in moved["rooms"]:room["x"]+=ox;room["y"]+=oy
             groups.append(moved)
-        for key,destination in (("storageBoxes",storage),("restSpots",rest)):
+        for key,destination in (("storageBoxes",storage),("restSpots",rest),("shelves",shelves),("phoneBlocks",phones)):
             for item in document.get(key,[]):
                 moved=copy.deepcopy(item);moved["x"]+=ox;moved["y"]+=oy;destination.append(moved)
         for park in metadata.get("parks",[]):
@@ -356,7 +453,10 @@ def compose_city(recipe):
               "width":width,"height":height,"chunkSize":32,"chunks":[],"authoringJson":json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)}
     if groups:
         document.update(schemaVersion=14,buildingRooms=groups,storageBoxes=sorted(storage,key=lambda p:(p["y"],p["x"])),restSpots=sorted(rest,key=lambda p:(p["y"],p["x"])))
+        if shelves:document["shelves"]=sorted(shelves,key=lambda p:(p["y"],p["x"]))
+        if phones:document["phoneBlocks"]=sorted(phones,key=lambda p:(p["y"],p["x"]))
         metadata.update(expected_building_count=len(buildings),expected_physical_room_count=len(buildings)+len(groups),active_features=["building-room-membership","living-area-rest-spots","household-storage"])
+        if shelves or any("distribution_layout" in r for r in districts):metadata["active_features"]=sorted({feature for _,child,_ in generated for feature in child.get("active_features",[])})
         document["authoringJson"]=json.dumps(metadata,sort_keys=True,ensure_ascii=False,allow_nan=False)
     lots.pack(document,cells);assert_usable(document,metadata)
     return document,metadata,render_map(document,metadata)
@@ -471,12 +571,16 @@ def main():
     sub=parser.add_subparsers(dest="command",required=True)
     district=sub.add_parser("district");district.add_argument("--type",required=True);district.add_argument("--seed",type=int,default=214)
     district.add_argument("--house-layout",choices=lots.BUILDING_VARIANTS,help="Place live two-room houses with living rest areas and storage")
+    district.add_argument("--store-layout",choices=lots.BUILDING_VARIANTS,help="Place live sales floors and separate stockrooms")
+    district.add_argument("--distribution-layout",choices=lots.BUILDING_VARIANTS,help="Place a dispatch office and warehouse with reserved computer position")
     district.add_argument("--residential-lots",action="store_true",help="Use aligned residential lot modules")
     district.add_argument("--park",action="append",default=[],metavar="SIZE:VARIANT",help="Repeat up to six times; sizes small/medium/large, variants cross/loop")
     district.add_argument("--block-width-cells",type=int);district.add_argument("--block-height-cells",type=int)
     district.add_argument("--coverage",type=float);district.add_argument("--blocks-across",type=int);district.add_argument("--blocks-down",type=int)
     city=sub.add_parser("city");city.add_argument("--districts",nargs='+',default=["dense-urban","business-core","terrace-residential","garden-suburb"]);city.add_argument("--seed",type=int,default=214);city.add_argument("--city-columns",type=int,default=2)
     city.add_argument("--house-layout",choices=lots.BUILDING_VARIANTS)
+    city.add_argument("--store-layout",choices=lots.BUILDING_VARIANTS)
+    city.add_argument("--distribution-layout",choices=lots.BUILDING_VARIANTS,help="Reserve the first business district for one DC")
     pack=sub.add_parser("building-pack",help="Export draft multi-room templates and technical map shells")
     pack.add_argument("--directory",type=Path,required=True);pack.add_argument("--seed",type=int,default=214)
     replay=sub.add_parser("replay");replay.add_argument("recipe",type=Path)
@@ -492,8 +596,8 @@ def main():
             parts=value.split(":")
             if len(parts)!=2:parser.error("--park requires SIZE:VARIANT")
             parks.append({"size":parts[0],"variant":parts[1]})
-        recipe=district_recipe(args.type,args.seed,overrides,residential_lots=args.residential_lots,parks=parks if args.park else None,house_layout=args.house_layout)
-    elif args.command=="city":recipe=city_recipe(args.districts,args.seed,args.city_columns,house_layout=args.house_layout)
+        recipe=district_recipe(args.type,args.seed,overrides,residential_lots=args.residential_lots,parks=parks if args.park else None,house_layout=args.house_layout,store_layout=args.store_layout,distribution_layout=args.distribution_layout)
+    elif args.command=="city":recipe=city_recipe(args.districts,args.seed,args.city_columns,house_layout=args.house_layout,store_layout=args.store_layout,distribution_layout=args.distribution_layout)
     else:recipe=json.loads(args.recipe.read_text())
     save(compose_city(recipe) if recipe["kind"]=="city" else generate_district(recipe),args.output)
 

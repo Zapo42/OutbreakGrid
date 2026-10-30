@@ -1,3 +1,9 @@
+# Single-agent continuation
+
+Read AGENTS.md and the latest consolidation status under OutbreakRebuild/Docs. One agent owns all development; previous team prompts/role ownership are historical. Work locally until publication is requested. Preserve all pending packages/branches and use actual source/test evidence. Native Unity testing stays paused. The current task is consolidation, compilation and a graphics-first status rundown, not a pixel-art rollout or new behavior fix.
+
+## Preserved historical team prompt
+
 # First Codex prompt — paste into a new Codex session
 
 Act as the coordinating Project Lead described in AGENTS.md and agents/lead.md. Retain the existing dedicated NPC coder; do not create a replacement. Coordinate three additional development roles: Procedural World & Infrastructure (agents/world.md), Graphics & UI (agents/workshop.md), and Engine & Development Tools (agents/engine.md), supported by QA & Integration and Build & Release. Before project code changes, inspect actual Git status/history/worktrees and current handoffs. Locate the existing roadmap and latest accepted task; do not assume old conversations are accessible.

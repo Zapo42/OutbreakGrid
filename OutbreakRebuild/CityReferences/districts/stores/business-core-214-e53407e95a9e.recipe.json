@@ -1,0 +1,67 @@
+{
+  "generator_version": "district-city-3",
+  "kind": "district",
+  "district_type": "business-core",
+  "seed": 214,
+  "name": "Central business district",
+  "category": "business",
+  "street_settings": {
+    "columns": 2,
+    "rows": 2,
+    "block_width_cells": 40,
+    "block_height_cells": 36,
+    "block_variation": 0.08,
+    "loop_chance": 1.0,
+    "dead_end_chance": 0.0,
+    "road_width_cells": 3.0,
+    "arterial_width_cells": 5.0,
+    "arterial_every": 3,
+    "sidewalk_width_cells": 1.5,
+    "building_coverage": 0.48,
+    "setback_cells": 2.0,
+    "park_fraction": 0.05,
+    "centre_density_multiplier": 1.0,
+    "max_buildings": 128,
+    "cell_metres": 5.0,
+    "footprint_sizes": [
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ]
+    ],
+    "reference_id": null,
+    "preset": "compact-grid",
+    "seed": 214
+  },
+  "footprint_sizes": [
+    [
+      14,
+      12
+    ]
+  ],
+  "placement_mode": "residential",
+  "lot_gap_cells": 0,
+  "uses": {
+    "retail": 100
+  },
+  "storeys": [
+    1,
+    1
+  ],
+  "reference_id": "chicago-loop",
+  "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+  "store_layout": "compact",
+  "store_layout_version": "building-layouts-draft-1"
+}

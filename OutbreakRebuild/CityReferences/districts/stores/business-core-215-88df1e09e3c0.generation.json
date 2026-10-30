@@ -1,0 +1,6060 @@
+{
+  "schema_version": 2,
+  "generator_version": "district-city-3",
+  "rng_algorithm": "xorshift32/rejection-v1",
+  "seed": 215,
+  "reference_id": "business-core",
+  "reference": {
+    "id": "business-core",
+    "name": "Central business district",
+    "fictional": true
+  },
+  "provenance": {
+    "source_url": "https://overpass-api.de/api/interpreter",
+    "sha256": "d87709ab254214ea9640a91682b8ee1993ce4c2fc701dd364e15ef9618fae029",
+    "processed_utc": "2026-10-27T05:04:14.845857+00:00",
+    "attribution": "© OpenStreetMap contributors — https://www.openstreetmap.org/copyright (ODbL 1.0)",
+    "skipped": {},
+    "scope": "Overpass survey response",
+    "osm_base_timestamp_utc": "2026-10-27T04:56:50Z",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+    "calibration": "Block dimensions, source building coverage and street form are references. Layout, use weights and heights are explicit fictional design choices."
+  },
+  "grid": {
+    "width": 111,
+    "height": 111,
+    "cell_metres": 5.0,
+    "north_up": true,
+    "projection": "fictional local metric grid; game north is up, no geographic CRS",
+    "projected_origin_x": 0,
+    "projected_origin_y": 0
+  },
+  "buildings": [
+    {
+      "left": 26,
+      "top": 26,
+      "width": 18,
+      "height": 14,
+      "door": [
+        35,
+        26
+      ],
+      "block": 0,
+      "path_cells": [
+        [
+          35,
+          25
+        ],
+        [
+          36,
+          25
+        ],
+        [
+          37,
+          25
+        ],
+        [
+          38,
+          25
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          40,
+          25
+        ],
+        [
+          41,
+          25
+        ],
+        [
+          42,
+          25
+        ],
+        [
+          43,
+          25
+        ],
+        [
+          44,
+          25
+        ],
+        [
+          44,
+          37
+        ],
+        [
+          45,
+          25
+        ],
+        [
+          45,
+          37
+        ],
+        [
+          46,
+          25
+        ],
+        [
+          46,
+          37
+        ],
+        [
+          47,
+          25
+        ],
+        [
+          47,
+          37
+        ],
+        [
+          48,
+          25
+        ],
+        [
+          48,
+          37
+        ],
+        [
+          49,
+          25
+        ],
+        [
+          49,
+          37
+        ]
+      ],
+      "parcel_id": "business-core-1",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          49,
+          33
+        ],
+        [
+          48,
+          33
+        ],
+        [
+          47,
+          33
+        ],
+        [
+          46,
+          33
+        ],
+        [
+          45,
+          33
+        ],
+        [
+          44,
+          33
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "store-spacious-r0",
+          "building_type": "store",
+          "variant": "spacious",
+          "rotation_quarter_turns": 0,
+          "width": 18,
+          "height": 14,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "front",
+              "role": "sales-floor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  9,
+                  1
+                ],
+                [
+                  10,
+                  1
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  12,
+                  1
+                ],
+                [
+                  13,
+                  1
+                ],
+                [
+                  14,
+                  1
+                ],
+                [
+                  15,
+                  1
+                ],
+                [
+                  16,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  9,
+                  2
+                ],
+                [
+                  10,
+                  2
+                ],
+                [
+                  11,
+                  2
+                ],
+                [
+                  12,
+                  2
+                ],
+                [
+                  13,
+                  2
+                ],
+                [
+                  14,
+                  2
+                ],
+                [
+                  15,
+                  2
+                ],
+                [
+                  16,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  12,
+                  3
+                ],
+                [
+                  13,
+                  3
+                ],
+                [
+                  14,
+                  3
+                ],
+                [
+                  15,
+                  3
+                ],
+                [
+                  16,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  13,
+                  4
+                ],
+                [
+                  14,
+                  4
+                ],
+                [
+                  15,
+                  4
+                ],
+                [
+                  16,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  9,
+                  5
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  13,
+                  5
+                ],
+                [
+                  14,
+                  5
+                ],
+                [
+                  15,
+                  5
+                ],
+                [
+                  16,
+                  5
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  13,
+                  6
+                ],
+                [
+                  14,
+                  6
+                ],
+                [
+                  15,
+                  6
+                ],
+                [
+                  16,
+                  6
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  13,
+                  7
+                ],
+                [
+                  14,
+                  7
+                ],
+                [
+                  15,
+                  7
+                ],
+                [
+                  16,
+                  7
+                ],
+                [
+                  1,
+                  8
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  8
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  13,
+                  8
+                ],
+                [
+                  14,
+                  8
+                ],
+                [
+                  15,
+                  8
+                ],
+                [
+                  16,
+                  8
+                ]
+              ]
+            },
+            {
+              "id": "rear",
+              "role": "stockroom",
+              "cells": [
+                [
+                  1,
+                  10
+                ],
+                [
+                  2,
+                  10
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  10,
+                  10
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  13,
+                  10
+                ],
+                [
+                  14,
+                  10
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  16,
+                  10
+                ],
+                [
+                  1,
+                  11
+                ],
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  11
+                ],
+                [
+                  12,
+                  11
+                ],
+                [
+                  13,
+                  11
+                ],
+                [
+                  14,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  16,
+                  11
+                ],
+                [
+                  1,
+                  12
+                ],
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ],
+                [
+                  5,
+                  12
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  7,
+                  12
+                ],
+                [
+                  8,
+                  12
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  10,
+                  12
+                ],
+                [
+                  11,
+                  12
+                ],
+                [
+                  12,
+                  12
+                ],
+                [
+                  13,
+                  12
+                ],
+                [
+                  14,
+                  12
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  16,
+                  12
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              13
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              13
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              13
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              5,
+              13
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              6,
+              13
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              7,
+              13
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              13
+            ],
+            [
+              9,
+              9
+            ],
+            [
+              9,
+              13
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              10,
+              9
+            ],
+            [
+              10,
+              13
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              13
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              9
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              13,
+              0
+            ],
+            [
+              13,
+              9
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              9
+            ],
+            [
+              14,
+              13
+            ],
+            [
+              15,
+              0
+            ],
+            [
+              15,
+              13
+            ],
+            [
+              16,
+              0
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              0
+            ],
+            [
+              17,
+              1
+            ],
+            [
+              17,
+              2
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              17,
+              4
+            ],
+            [
+              17,
+              5
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              7
+            ],
+            [
+              17,
+              8
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              13
+            ]
+          ],
+          "doors": [
+            {
+              "id": "public-entrance",
+              "cell": [
+                9,
+                0
+              ],
+              "connects": [
+                "front",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "internal-door",
+              "cell": [
+                15,
+                9
+              ],
+              "connects": [
+                "front",
+                "rear"
+              ],
+              "external": false
+            },
+            {
+              "id": "service-entrance",
+              "cell": [
+                17,
+                11
+              ],
+              "connects": [
+                "rear",
+                "outside"
+              ],
+              "external": true
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "sales-shelf-3-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-3-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "store-stock",
+              "role": "storage-shelf",
+              "room_id": "rear",
+              "cells": [
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract"
+        },
+        "origin_cells": [
+          26,
+          26
+        ],
+        "instance_id": "business-core-1",
+        "room_keys": {
+          "front": "business-core-1/front",
+          "rear": "business-core-1/rear"
+        },
+        "sales_shelves_materialized": true,
+        "stockroom_storage_materialized": true,
+        "phone_materialized": true,
+        "stock_box_cells": [
+          28,
+          38
+        ],
+        "phone_cells": [
+          28,
+          28
+        ]
+      }
+    },
+    {
+      "left": 26,
+      "top": 73,
+      "width": 14,
+      "height": 18,
+      "door": [
+        39,
+        82
+      ],
+      "block": 1,
+      "path_cells": [
+        [
+          28,
+          91
+        ],
+        [
+          28,
+          92
+        ],
+        [
+          28,
+          93
+        ],
+        [
+          28,
+          94
+        ],
+        [
+          28,
+          95
+        ],
+        [
+          28,
+          96
+        ],
+        [
+          28,
+          97
+        ],
+        [
+          28,
+          98
+        ],
+        [
+          28,
+          99
+        ],
+        [
+          28,
+          100
+        ],
+        [
+          28,
+          101
+        ],
+        [
+          40,
+          82
+        ],
+        [
+          41,
+          82
+        ],
+        [
+          42,
+          82
+        ],
+        [
+          43,
+          82
+        ],
+        [
+          44,
+          82
+        ],
+        [
+          45,
+          82
+        ],
+        [
+          46,
+          82
+        ],
+        [
+          47,
+          82
+        ],
+        [
+          48,
+          82
+        ],
+        [
+          49,
+          82
+        ]
+      ],
+      "parcel_id": "business-core-2",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          49,
+          82
+        ],
+        [
+          48,
+          82
+        ],
+        [
+          47,
+          82
+        ],
+        [
+          46,
+          82
+        ],
+        [
+          45,
+          82
+        ],
+        [
+          44,
+          82
+        ],
+        [
+          43,
+          82
+        ],
+        [
+          42,
+          82
+        ],
+        [
+          41,
+          82
+        ],
+        [
+          40,
+          82
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "store-spacious-r1",
+          "building_type": "store",
+          "variant": "spacious",
+          "rotation_quarter_turns": 1,
+          "width": 14,
+          "height": 18,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "front",
+              "role": "sales-floor",
+              "cells": [
+                [
+                  12,
+                  1
+                ],
+                [
+                  12,
+                  2
+                ],
+                [
+                  12,
+                  3
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  12,
+                  9
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  12,
+                  11
+                ],
+                [
+                  12,
+                  12
+                ],
+                [
+                  12,
+                  13
+                ],
+                [
+                  12,
+                  14
+                ],
+                [
+                  12,
+                  15
+                ],
+                [
+                  12,
+                  16
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  11,
+                  2
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  11,
+                  9
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  11,
+                  11
+                ],
+                [
+                  11,
+                  12
+                ],
+                [
+                  11,
+                  13
+                ],
+                [
+                  11,
+                  14
+                ],
+                [
+                  11,
+                  15
+                ],
+                [
+                  11,
+                  16
+                ],
+                [
+                  10,
+                  1
+                ],
+                [
+                  10,
+                  2
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  10,
+                  9
+                ],
+                [
+                  10,
+                  10
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  10,
+                  12
+                ],
+                [
+                  10,
+                  13
+                ],
+                [
+                  10,
+                  14
+                ],
+                [
+                  10,
+                  15
+                ],
+                [
+                  10,
+                  16
+                ],
+                [
+                  9,
+                  1
+                ],
+                [
+                  9,
+                  2
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  9,
+                  5
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  9,
+                  9
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  9,
+                  13
+                ],
+                [
+                  9,
+                  14
+                ],
+                [
+                  9,
+                  15
+                ],
+                [
+                  9,
+                  16
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  8,
+                  8
+                ],
+                [
+                  8,
+                  9
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  8,
+                  12
+                ],
+                [
+                  8,
+                  13
+                ],
+                [
+                  8,
+                  14
+                ],
+                [
+                  8,
+                  15
+                ],
+                [
+                  8,
+                  16
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  7,
+                  9
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  7,
+                  12
+                ],
+                [
+                  7,
+                  13
+                ],
+                [
+                  7,
+                  14
+                ],
+                [
+                  7,
+                  15
+                ],
+                [
+                  7,
+                  16
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  6,
+                  9
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  6,
+                  13
+                ],
+                [
+                  6,
+                  14
+                ],
+                [
+                  6,
+                  15
+                ],
+                [
+                  6,
+                  16
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  5,
+                  9
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  5,
+                  12
+                ],
+                [
+                  5,
+                  13
+                ],
+                [
+                  5,
+                  14
+                ],
+                [
+                  5,
+                  15
+                ],
+                [
+                  5,
+                  16
+                ]
+              ]
+            },
+            {
+              "id": "rear",
+              "role": "stockroom",
+              "cells": [
+                [
+                  3,
+                  1
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  3,
+                  9
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  3,
+                  13
+                ],
+                [
+                  3,
+                  14
+                ],
+                [
+                  3,
+                  15
+                ],
+                [
+                  3,
+                  16
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  2,
+                  9
+                ],
+                [
+                  2,
+                  10
+                ],
+                [
+                  2,
+                  11
+                ],
+                [
+                  2,
+                  12
+                ],
+                [
+                  2,
+                  13
+                ],
+                [
+                  2,
+                  14
+                ],
+                [
+                  2,
+                  15
+                ],
+                [
+                  2,
+                  16
+                ],
+                [
+                  1,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  1,
+                  8
+                ],
+                [
+                  1,
+                  9
+                ],
+                [
+                  1,
+                  10
+                ],
+                [
+                  1,
+                  11
+                ],
+                [
+                  1,
+                  12
+                ],
+                [
+                  1,
+                  13
+                ],
+                [
+                  1,
+                  14
+                ],
+                [
+                  1,
+                  15
+                ],
+                [
+                  1,
+                  16
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              13,
+              0
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              9,
+              0
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              13,
+              1
+            ],
+            [
+              4,
+              1
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              13,
+              2
+            ],
+            [
+              4,
+              2
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              13,
+              3
+            ],
+            [
+              4,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              13,
+              4
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              13,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              13,
+              6
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              13,
+              7
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              13,
+              8
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              13,
+              10
+            ],
+            [
+              4,
+              10
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              13,
+              11
+            ],
+            [
+              4,
+              11
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              13,
+              12
+            ],
+            [
+              4,
+              12
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              0,
+              13
+            ],
+            [
+              13,
+              14
+            ],
+            [
+              4,
+              14
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              13,
+              15
+            ],
+            [
+              0,
+              15
+            ],
+            [
+              13,
+              16
+            ],
+            [
+              4,
+              16
+            ],
+            [
+              0,
+              16
+            ],
+            [
+              13,
+              17
+            ],
+            [
+              12,
+              17
+            ],
+            [
+              11,
+              17
+            ],
+            [
+              10,
+              17
+            ],
+            [
+              9,
+              17
+            ],
+            [
+              8,
+              17
+            ],
+            [
+              7,
+              17
+            ],
+            [
+              6,
+              17
+            ],
+            [
+              5,
+              17
+            ],
+            [
+              4,
+              17
+            ],
+            [
+              3,
+              17
+            ],
+            [
+              1,
+              17
+            ],
+            [
+              0,
+              17
+            ]
+          ],
+          "doors": [
+            {
+              "id": "public-entrance",
+              "cell": [
+                13,
+                9
+              ],
+              "connects": [
+                "front",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "internal-door",
+              "cell": [
+                4,
+                15
+              ],
+              "connects": [
+                "front",
+                "rear"
+              ],
+              "external": false
+            },
+            {
+              "id": "service-entrance",
+              "cell": [
+                2,
+                17
+              ],
+              "connects": [
+                "rear",
+                "outside"
+              ],
+              "external": true
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "sales-shelf-3-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  10,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  4
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  10,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  7
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  10,
+                  9
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  10
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  10,
+                  12
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  13
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-3-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  8,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  8,
+                  4
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  8,
+                  6
+                ]
+              ],
+              "approach_cells": [
+                [
+                  8,
+                  7
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  8,
+                  9
+                ]
+              ],
+              "approach_cells": [
+                [
+                  8,
+                  10
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  8,
+                  12
+                ]
+              ],
+              "approach_cells": [
+                [
+                  8,
+                  13
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "store-stock",
+              "role": "storage-shelf",
+              "room_id": "rear",
+              "cells": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  2,
+                  4
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract"
+        },
+        "origin_cells": [
+          26,
+          73
+        ],
+        "instance_id": "business-core-2",
+        "room_keys": {
+          "front": "business-core-2/front",
+          "rear": "business-core-2/rear"
+        },
+        "sales_shelves_materialized": true,
+        "stockroom_storage_materialized": true,
+        "phone_materialized": true,
+        "stock_box_cells": [
+          27,
+          75
+        ],
+        "phone_cells": [
+          37,
+          75
+        ]
+      }
+    },
+    {
+      "left": 72,
+      "top": 26,
+      "width": 18,
+      "height": 14,
+      "door": [
+        81,
+        26
+      ],
+      "block": 2,
+      "path_cells": [
+        [
+          81,
+          9
+        ],
+        [
+          81,
+          10
+        ],
+        [
+          81,
+          11
+        ],
+        [
+          81,
+          12
+        ],
+        [
+          81,
+          13
+        ],
+        [
+          81,
+          14
+        ],
+        [
+          81,
+          15
+        ],
+        [
+          81,
+          16
+        ],
+        [
+          81,
+          17
+        ],
+        [
+          81,
+          18
+        ],
+        [
+          81,
+          19
+        ],
+        [
+          81,
+          20
+        ],
+        [
+          81,
+          21
+        ],
+        [
+          81,
+          22
+        ],
+        [
+          81,
+          23
+        ],
+        [
+          81,
+          24
+        ],
+        [
+          81,
+          25
+        ],
+        [
+          90,
+          37
+        ],
+        [
+          91,
+          37
+        ],
+        [
+          92,
+          37
+        ],
+        [
+          93,
+          37
+        ],
+        [
+          94,
+          37
+        ],
+        [
+          95,
+          37
+        ],
+        [
+          96,
+          37
+        ],
+        [
+          97,
+          37
+        ],
+        [
+          98,
+          37
+        ],
+        [
+          99,
+          37
+        ],
+        [
+          100,
+          37
+        ],
+        [
+          101,
+          37
+        ]
+      ],
+      "parcel_id": "business-core-3",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          81,
+          50
+        ],
+        [
+          81,
+          49
+        ],
+        [
+          81,
+          48
+        ],
+        [
+          81,
+          47
+        ],
+        [
+          81,
+          46
+        ],
+        [
+          81,
+          45
+        ],
+        [
+          81,
+          44
+        ],
+        [
+          81,
+          43
+        ],
+        [
+          81,
+          42
+        ],
+        [
+          81,
+          41
+        ],
+        [
+          81,
+          40
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "store-spacious-r0",
+          "building_type": "store",
+          "variant": "spacious",
+          "rotation_quarter_turns": 0,
+          "width": 18,
+          "height": 14,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "front",
+              "role": "sales-floor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  9,
+                  1
+                ],
+                [
+                  10,
+                  1
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  12,
+                  1
+                ],
+                [
+                  13,
+                  1
+                ],
+                [
+                  14,
+                  1
+                ],
+                [
+                  15,
+                  1
+                ],
+                [
+                  16,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  9,
+                  2
+                ],
+                [
+                  10,
+                  2
+                ],
+                [
+                  11,
+                  2
+                ],
+                [
+                  12,
+                  2
+                ],
+                [
+                  13,
+                  2
+                ],
+                [
+                  14,
+                  2
+                ],
+                [
+                  15,
+                  2
+                ],
+                [
+                  16,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  12,
+                  3
+                ],
+                [
+                  13,
+                  3
+                ],
+                [
+                  14,
+                  3
+                ],
+                [
+                  15,
+                  3
+                ],
+                [
+                  16,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  13,
+                  4
+                ],
+                [
+                  14,
+                  4
+                ],
+                [
+                  15,
+                  4
+                ],
+                [
+                  16,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  9,
+                  5
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  13,
+                  5
+                ],
+                [
+                  14,
+                  5
+                ],
+                [
+                  15,
+                  5
+                ],
+                [
+                  16,
+                  5
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  13,
+                  6
+                ],
+                [
+                  14,
+                  6
+                ],
+                [
+                  15,
+                  6
+                ],
+                [
+                  16,
+                  6
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  13,
+                  7
+                ],
+                [
+                  14,
+                  7
+                ],
+                [
+                  15,
+                  7
+                ],
+                [
+                  16,
+                  7
+                ],
+                [
+                  1,
+                  8
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  8
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  13,
+                  8
+                ],
+                [
+                  14,
+                  8
+                ],
+                [
+                  15,
+                  8
+                ],
+                [
+                  16,
+                  8
+                ]
+              ]
+            },
+            {
+              "id": "rear",
+              "role": "stockroom",
+              "cells": [
+                [
+                  1,
+                  10
+                ],
+                [
+                  2,
+                  10
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  10,
+                  10
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  13,
+                  10
+                ],
+                [
+                  14,
+                  10
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  16,
+                  10
+                ],
+                [
+                  1,
+                  11
+                ],
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  11
+                ],
+                [
+                  12,
+                  11
+                ],
+                [
+                  13,
+                  11
+                ],
+                [
+                  14,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  16,
+                  11
+                ],
+                [
+                  1,
+                  12
+                ],
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ],
+                [
+                  5,
+                  12
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  7,
+                  12
+                ],
+                [
+                  8,
+                  12
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  10,
+                  12
+                ],
+                [
+                  11,
+                  12
+                ],
+                [
+                  12,
+                  12
+                ],
+                [
+                  13,
+                  12
+                ],
+                [
+                  14,
+                  12
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  16,
+                  12
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              13
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              13
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              13
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              5,
+              13
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              6,
+              13
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              7,
+              13
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              13
+            ],
+            [
+              9,
+              9
+            ],
+            [
+              9,
+              13
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              10,
+              9
+            ],
+            [
+              10,
+              13
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              13
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              9
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              13,
+              0
+            ],
+            [
+              13,
+              9
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              9
+            ],
+            [
+              14,
+              13
+            ],
+            [
+              15,
+              0
+            ],
+            [
+              15,
+              13
+            ],
+            [
+              16,
+              0
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              0
+            ],
+            [
+              17,
+              1
+            ],
+            [
+              17,
+              2
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              17,
+              4
+            ],
+            [
+              17,
+              5
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              7
+            ],
+            [
+              17,
+              8
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              13
+            ]
+          ],
+          "doors": [
+            {
+              "id": "public-entrance",
+              "cell": [
+                9,
+                0
+              ],
+              "connects": [
+                "front",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "internal-door",
+              "cell": [
+                15,
+                9
+              ],
+              "connects": [
+                "front",
+                "rear"
+              ],
+              "external": false
+            },
+            {
+              "id": "service-entrance",
+              "cell": [
+                17,
+                11
+              ],
+              "connects": [
+                "rear",
+                "outside"
+              ],
+              "external": true
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "sales-shelf-3-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-3-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "store-stock",
+              "role": "storage-shelf",
+              "room_id": "rear",
+              "cells": [
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract"
+        },
+        "origin_cells": [
+          72,
+          26
+        ],
+        "instance_id": "business-core-3",
+        "room_keys": {
+          "front": "business-core-3/front",
+          "rear": "business-core-3/rear"
+        },
+        "sales_shelves_materialized": true,
+        "stockroom_storage_materialized": true,
+        "phone_materialized": true,
+        "stock_box_cells": [
+          74,
+          38
+        ],
+        "phone_cells": [
+          74,
+          28
+        ]
+      }
+    },
+    {
+      "left": 72,
+      "top": 73,
+      "width": 18,
+      "height": 14,
+      "door": [
+        81,
+        73
+      ],
+      "block": 3,
+      "path_cells": [
+        [
+          81,
+          55
+        ],
+        [
+          81,
+          56
+        ],
+        [
+          81,
+          57
+        ],
+        [
+          81,
+          58
+        ],
+        [
+          81,
+          59
+        ],
+        [
+          81,
+          60
+        ],
+        [
+          81,
+          61
+        ],
+        [
+          81,
+          62
+        ],
+        [
+          81,
+          63
+        ],
+        [
+          81,
+          64
+        ],
+        [
+          81,
+          65
+        ],
+        [
+          81,
+          66
+        ],
+        [
+          81,
+          67
+        ],
+        [
+          81,
+          68
+        ],
+        [
+          81,
+          69
+        ],
+        [
+          81,
+          70
+        ],
+        [
+          81,
+          71
+        ],
+        [
+          81,
+          72
+        ],
+        [
+          90,
+          84
+        ],
+        [
+          91,
+          84
+        ],
+        [
+          92,
+          84
+        ],
+        [
+          93,
+          84
+        ],
+        [
+          94,
+          84
+        ],
+        [
+          95,
+          84
+        ],
+        [
+          96,
+          84
+        ],
+        [
+          97,
+          84
+        ],
+        [
+          98,
+          84
+        ],
+        [
+          99,
+          84
+        ],
+        [
+          100,
+          84
+        ],
+        [
+          101,
+          84
+        ]
+      ],
+      "parcel_id": "business-core-4",
+      "district_type": "business-core",
+      "use_hint": "retail",
+      "game_building_use_hint": "Store",
+      "storeys_hint": 1,
+      "retained_walk_cells": [
+        [
+          101,
+          80
+        ],
+        [
+          100,
+          80
+        ],
+        [
+          99,
+          80
+        ],
+        [
+          98,
+          80
+        ],
+        [
+          97,
+          80
+        ],
+        [
+          96,
+          80
+        ],
+        [
+          95,
+          80
+        ],
+        [
+          94,
+          80
+        ],
+        [
+          93,
+          80
+        ],
+        [
+          92,
+          80
+        ],
+        [
+          91,
+          80
+        ],
+        [
+          90,
+          80
+        ]
+      ],
+      "interior_layout": {
+        "blueprint": {
+          "kind": "outbreak.building-blueprint.draft",
+          "layout_version": "building-layouts-draft-1",
+          "id": "store-spacious-r0",
+          "building_type": "store",
+          "variant": "spacious",
+          "rotation_quarter_turns": 0,
+          "width": 18,
+          "height": 14,
+          "coordinate_units": "local simulation cells; use the destination map's metres-per-cell scale",
+          "rooms": [
+            {
+              "id": "front",
+              "role": "sales-floor",
+              "cells": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  4,
+                  1
+                ],
+                [
+                  5,
+                  1
+                ],
+                [
+                  6,
+                  1
+                ],
+                [
+                  7,
+                  1
+                ],
+                [
+                  8,
+                  1
+                ],
+                [
+                  9,
+                  1
+                ],
+                [
+                  10,
+                  1
+                ],
+                [
+                  11,
+                  1
+                ],
+                [
+                  12,
+                  1
+                ],
+                [
+                  13,
+                  1
+                ],
+                [
+                  14,
+                  1
+                ],
+                [
+                  15,
+                  1
+                ],
+                [
+                  16,
+                  1
+                ],
+                [
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  3,
+                  2
+                ],
+                [
+                  4,
+                  2
+                ],
+                [
+                  5,
+                  2
+                ],
+                [
+                  6,
+                  2
+                ],
+                [
+                  7,
+                  2
+                ],
+                [
+                  8,
+                  2
+                ],
+                [
+                  9,
+                  2
+                ],
+                [
+                  10,
+                  2
+                ],
+                [
+                  11,
+                  2
+                ],
+                [
+                  12,
+                  2
+                ],
+                [
+                  13,
+                  2
+                ],
+                [
+                  14,
+                  2
+                ],
+                [
+                  15,
+                  2
+                ],
+                [
+                  16,
+                  2
+                ],
+                [
+                  1,
+                  3
+                ],
+                [
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  3
+                ],
+                [
+                  4,
+                  3
+                ],
+                [
+                  5,
+                  3
+                ],
+                [
+                  6,
+                  3
+                ],
+                [
+                  7,
+                  3
+                ],
+                [
+                  8,
+                  3
+                ],
+                [
+                  9,
+                  3
+                ],
+                [
+                  10,
+                  3
+                ],
+                [
+                  11,
+                  3
+                ],
+                [
+                  12,
+                  3
+                ],
+                [
+                  13,
+                  3
+                ],
+                [
+                  14,
+                  3
+                ],
+                [
+                  15,
+                  3
+                ],
+                [
+                  16,
+                  3
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ],
+                [
+                  3,
+                  4
+                ],
+                [
+                  4,
+                  4
+                ],
+                [
+                  5,
+                  4
+                ],
+                [
+                  6,
+                  4
+                ],
+                [
+                  7,
+                  4
+                ],
+                [
+                  8,
+                  4
+                ],
+                [
+                  9,
+                  4
+                ],
+                [
+                  10,
+                  4
+                ],
+                [
+                  11,
+                  4
+                ],
+                [
+                  12,
+                  4
+                ],
+                [
+                  13,
+                  4
+                ],
+                [
+                  14,
+                  4
+                ],
+                [
+                  15,
+                  4
+                ],
+                [
+                  16,
+                  4
+                ],
+                [
+                  1,
+                  5
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  3,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ],
+                [
+                  5,
+                  5
+                ],
+                [
+                  6,
+                  5
+                ],
+                [
+                  7,
+                  5
+                ],
+                [
+                  8,
+                  5
+                ],
+                [
+                  9,
+                  5
+                ],
+                [
+                  10,
+                  5
+                ],
+                [
+                  11,
+                  5
+                ],
+                [
+                  12,
+                  5
+                ],
+                [
+                  13,
+                  5
+                ],
+                [
+                  14,
+                  5
+                ],
+                [
+                  15,
+                  5
+                ],
+                [
+                  16,
+                  5
+                ],
+                [
+                  1,
+                  6
+                ],
+                [
+                  2,
+                  6
+                ],
+                [
+                  3,
+                  6
+                ],
+                [
+                  4,
+                  6
+                ],
+                [
+                  5,
+                  6
+                ],
+                [
+                  6,
+                  6
+                ],
+                [
+                  7,
+                  6
+                ],
+                [
+                  8,
+                  6
+                ],
+                [
+                  9,
+                  6
+                ],
+                [
+                  10,
+                  6
+                ],
+                [
+                  11,
+                  6
+                ],
+                [
+                  12,
+                  6
+                ],
+                [
+                  13,
+                  6
+                ],
+                [
+                  14,
+                  6
+                ],
+                [
+                  15,
+                  6
+                ],
+                [
+                  16,
+                  6
+                ],
+                [
+                  1,
+                  7
+                ],
+                [
+                  2,
+                  7
+                ],
+                [
+                  3,
+                  7
+                ],
+                [
+                  4,
+                  7
+                ],
+                [
+                  5,
+                  7
+                ],
+                [
+                  6,
+                  7
+                ],
+                [
+                  7,
+                  7
+                ],
+                [
+                  8,
+                  7
+                ],
+                [
+                  9,
+                  7
+                ],
+                [
+                  10,
+                  7
+                ],
+                [
+                  11,
+                  7
+                ],
+                [
+                  12,
+                  7
+                ],
+                [
+                  13,
+                  7
+                ],
+                [
+                  14,
+                  7
+                ],
+                [
+                  15,
+                  7
+                ],
+                [
+                  16,
+                  7
+                ],
+                [
+                  1,
+                  8
+                ],
+                [
+                  2,
+                  8
+                ],
+                [
+                  3,
+                  8
+                ],
+                [
+                  4,
+                  8
+                ],
+                [
+                  5,
+                  8
+                ],
+                [
+                  6,
+                  8
+                ],
+                [
+                  7,
+                  8
+                ],
+                [
+                  8,
+                  8
+                ],
+                [
+                  9,
+                  8
+                ],
+                [
+                  10,
+                  8
+                ],
+                [
+                  11,
+                  8
+                ],
+                [
+                  12,
+                  8
+                ],
+                [
+                  13,
+                  8
+                ],
+                [
+                  14,
+                  8
+                ],
+                [
+                  15,
+                  8
+                ],
+                [
+                  16,
+                  8
+                ]
+              ]
+            },
+            {
+              "id": "rear",
+              "role": "stockroom",
+              "cells": [
+                [
+                  1,
+                  10
+                ],
+                [
+                  2,
+                  10
+                ],
+                [
+                  3,
+                  10
+                ],
+                [
+                  4,
+                  10
+                ],
+                [
+                  5,
+                  10
+                ],
+                [
+                  6,
+                  10
+                ],
+                [
+                  7,
+                  10
+                ],
+                [
+                  8,
+                  10
+                ],
+                [
+                  9,
+                  10
+                ],
+                [
+                  10,
+                  10
+                ],
+                [
+                  11,
+                  10
+                ],
+                [
+                  12,
+                  10
+                ],
+                [
+                  13,
+                  10
+                ],
+                [
+                  14,
+                  10
+                ],
+                [
+                  15,
+                  10
+                ],
+                [
+                  16,
+                  10
+                ],
+                [
+                  1,
+                  11
+                ],
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ],
+                [
+                  5,
+                  11
+                ],
+                [
+                  6,
+                  11
+                ],
+                [
+                  7,
+                  11
+                ],
+                [
+                  8,
+                  11
+                ],
+                [
+                  9,
+                  11
+                ],
+                [
+                  10,
+                  11
+                ],
+                [
+                  11,
+                  11
+                ],
+                [
+                  12,
+                  11
+                ],
+                [
+                  13,
+                  11
+                ],
+                [
+                  14,
+                  11
+                ],
+                [
+                  15,
+                  11
+                ],
+                [
+                  16,
+                  11
+                ],
+                [
+                  1,
+                  12
+                ],
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ],
+                [
+                  5,
+                  12
+                ],
+                [
+                  6,
+                  12
+                ],
+                [
+                  7,
+                  12
+                ],
+                [
+                  8,
+                  12
+                ],
+                [
+                  9,
+                  12
+                ],
+                [
+                  10,
+                  12
+                ],
+                [
+                  11,
+                  12
+                ],
+                [
+                  12,
+                  12
+                ],
+                [
+                  13,
+                  12
+                ],
+                [
+                  14,
+                  12
+                ],
+                [
+                  15,
+                  12
+                ],
+                [
+                  16,
+                  12
+                ]
+              ]
+            }
+          ],
+          "walls": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              0,
+              11
+            ],
+            [
+              0,
+              12
+            ],
+            [
+              0,
+              13
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              13
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              2,
+              13
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              3,
+              13
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              4,
+              13
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              5,
+              13
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              6,
+              13
+            ],
+            [
+              7,
+              0
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              7,
+              13
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              9
+            ],
+            [
+              8,
+              13
+            ],
+            [
+              9,
+              9
+            ],
+            [
+              9,
+              13
+            ],
+            [
+              10,
+              0
+            ],
+            [
+              10,
+              9
+            ],
+            [
+              10,
+              13
+            ],
+            [
+              11,
+              0
+            ],
+            [
+              11,
+              9
+            ],
+            [
+              11,
+              13
+            ],
+            [
+              12,
+              0
+            ],
+            [
+              12,
+              9
+            ],
+            [
+              12,
+              13
+            ],
+            [
+              13,
+              0
+            ],
+            [
+              13,
+              9
+            ],
+            [
+              13,
+              13
+            ],
+            [
+              14,
+              0
+            ],
+            [
+              14,
+              9
+            ],
+            [
+              14,
+              13
+            ],
+            [
+              15,
+              0
+            ],
+            [
+              15,
+              13
+            ],
+            [
+              16,
+              0
+            ],
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              13
+            ],
+            [
+              17,
+              0
+            ],
+            [
+              17,
+              1
+            ],
+            [
+              17,
+              2
+            ],
+            [
+              17,
+              3
+            ],
+            [
+              17,
+              4
+            ],
+            [
+              17,
+              5
+            ],
+            [
+              17,
+              6
+            ],
+            [
+              17,
+              7
+            ],
+            [
+              17,
+              8
+            ],
+            [
+              17,
+              9
+            ],
+            [
+              17,
+              10
+            ],
+            [
+              17,
+              12
+            ],
+            [
+              17,
+              13
+            ]
+          ],
+          "doors": [
+            {
+              "id": "public-entrance",
+              "cell": [
+                9,
+                0
+              ],
+              "connects": [
+                "front",
+                "outside"
+              ],
+              "external": true
+            },
+            {
+              "id": "internal-door",
+              "cell": [
+                15,
+                9
+              ],
+              "connects": [
+                "front",
+                "rear"
+              ],
+              "external": false
+            },
+            {
+              "id": "service-entrance",
+              "cell": [
+                17,
+                11
+              ],
+              "connects": [
+                "rear",
+                "outside"
+              ],
+              "external": true
+            }
+          ],
+          "fixtures": [
+            {
+              "id": "sales-shelf-3-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-3",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  3
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  3
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-3-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  3,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  4,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-6-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  6,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  7,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-9-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  9,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  10,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "sales-shelf-12-5",
+              "role": "sales-shelf",
+              "room_id": "front",
+              "cells": [
+                [
+                  12,
+                  5
+                ]
+              ],
+              "approach_cells": [
+                [
+                  13,
+                  5
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            },
+            {
+              "id": "store-stock",
+              "role": "storage-shelf",
+              "room_id": "rear",
+              "cells": [
+                [
+                  2,
+                  12
+                ],
+                [
+                  3,
+                  12
+                ],
+                [
+                  4,
+                  12
+                ]
+              ],
+              "approach_cells": [
+                [
+                  2,
+                  11
+                ],
+                [
+                  3,
+                  11
+                ],
+                [
+                  4,
+                  11
+                ]
+              ],
+              "blocks_movement": true,
+              "status": "proposed fixture; no game object instantiated"
+            }
+          ],
+          "interactions": [],
+          "integration_status": "draft authoring geometry, not an agreed persisted gameplay contract"
+        },
+        "origin_cells": [
+          72,
+          73
+        ],
+        "instance_id": "business-core-4",
+        "room_keys": {
+          "front": "business-core-4/front",
+          "rear": "business-core-4/rear"
+        },
+        "sales_shelves_materialized": true,
+        "stockroom_storage_materialized": true,
+        "phone_materialized": true,
+        "stock_box_cells": [
+          74,
+          85
+        ],
+        "phone_cells": [
+          74,
+          75
+        ]
+      }
+    }
+  ],
+  "source_block_count": 4,
+  "target_coverage": 0.48,
+  "setback_cells": 2.0,
+  "footprint_recipe_source": "explicit recipe",
+  "scope": "Live two-room store geometry with empty shelves, finite stockroom storage and phone; configure store/staff through existing World APIs.",
+  "placement_mode": "residential",
+  "lot_gap_cells": 0,
+  "fair_block_budget": true,
+  "store_layout": "spacious",
+  "expected_physical_room_count": 8,
+  "expected_building_count": 4,
+  "active_features": [
+    "building-room-membership",
+    "sales-shelves",
+    "stockroom-storage",
+    "store-phones"
+  ],
+  "stream_seeds": {
+    "streets": 1807557907,
+    "lots": 494402251,
+    "uses": 235199824
+  },
+  "recipe": {
+    "generator_version": "district-city-3",
+    "kind": "district",
+    "district_type": "business-core",
+    "seed": 215,
+    "name": "Central business district",
+    "category": "business",
+    "street_settings": {
+      "columns": 2,
+      "rows": 2,
+      "block_width_cells": 48,
+      "block_height_cells": 48,
+      "block_variation": 0.08,
+      "loop_chance": 1.0,
+      "dead_end_chance": 0.0,
+      "road_width_cells": 3.0,
+      "arterial_width_cells": 5.0,
+      "arterial_every": 3,
+      "sidewalk_width_cells": 1.5,
+      "building_coverage": 0.48,
+      "setback_cells": 2.0,
+      "park_fraction": 0.05,
+      "centre_density_multiplier": 1.0,
+      "max_buildings": 128,
+      "cell_metres": 5.0,
+      "footprint_sizes": [
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          8
+        ]
+      ],
+      "reference_id": null,
+      "preset": "compact-grid",
+      "seed": 215
+    },
+    "footprint_sizes": [
+      [
+        18,
+        14
+      ]
+    ],
+    "placement_mode": "residential",
+    "lot_gap_cells": 0,
+    "uses": {
+      "retail": 100
+    },
+    "storeys": [
+      1,
+      1
+    ],
+    "reference_id": "chicago-loop",
+    "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+    "store_layout": "spacious",
+    "store_layout_version": "building-layouts-draft-1"
+  },
+  "recipe_id": "88df1e09e3c0",
+  "district_type": "business-core",
+  "category": "business",
+  "street_segments": [
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          260.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          260.0,
+          30.0
+        ],
+        [
+          520.0,
+          30.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          265.0
+        ],
+        [
+          260.0,
+          265.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          260.0,
+          265.0
+        ],
+        [
+          520.0,
+          265.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          520.0
+        ],
+        [
+          260.0,
+          520.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          260.0,
+          520.0
+        ],
+        [
+          520.0,
+          520.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          30.0
+        ],
+        [
+          30.0,
+          265.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          30.0,
+          265.0
+        ],
+        [
+          30.0,
+          520.0
+        ]
+      ],
+      "width_cells": 5.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": true
+    },
+    {
+      "points_metres": [
+        [
+          260.0,
+          30.0
+        ],
+        [
+          260.0,
+          265.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          260.0,
+          265.0
+        ],
+        [
+          260.0,
+          520.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          30.0
+        ],
+        [
+          520.0,
+          265.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    },
+    {
+      "points_metres": [
+        [
+          520.0,
+          265.0
+        ],
+        [
+          520.0,
+          520.0
+        ]
+      ],
+      "width_cells": 3.0,
+      "synthetic": true,
+      "dead_end": false,
+      "arterial": false
+    }
+  ],
+  "actual_building_coverage": 0.081812,
+  "use_counts": {
+    "retail": 4
+  }
+}

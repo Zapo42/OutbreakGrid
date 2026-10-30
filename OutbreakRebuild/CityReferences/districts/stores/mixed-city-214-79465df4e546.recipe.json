@@ -1,0 +1,143 @@
+{
+  "generator_version": "district-city-3",
+  "kind": "city",
+  "seed": 214,
+  "columns": 2,
+  "gap_cells": 12,
+  "districts": [
+    {
+      "generator_version": "district-city-3",
+      "kind": "district",
+      "district_type": "garden-suburb",
+      "seed": 2929897962,
+      "name": "Garden suburb",
+      "category": "suburban",
+      "street_settings": {
+        "columns": 3,
+        "rows": 3,
+        "block_width_cells": 34,
+        "block_height_cells": 30,
+        "block_variation": 0.28,
+        "loop_chance": 0.5,
+        "dead_end_chance": 0.4,
+        "road_width_cells": 2.0,
+        "arterial_width_cells": 4.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.0,
+        "building_coverage": 0.13,
+        "setback_cells": 4.0,
+        "park_fraction": 0.2,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 62,
+        "cell_metres": 5,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "suburban-loops",
+        "seed": 2929897962
+      },
+      "footprint_sizes": [
+        [
+          10,
+          9
+        ]
+      ],
+      "placement_mode": "residential",
+      "lot_gap_cells": 2,
+      "uses": {
+        "detached-home": 100
+      },
+      "storeys": [
+        1,
+        1
+      ],
+      "reference_id": "woodbridge-suburb",
+      "reference_profile_sha256": "8f1282f29be84b446e9cd2b57f42ae2e11376de845ac36266860449305753cd6",
+      "house_layout": "compact",
+      "house_layout_version": "building-layouts-draft-1"
+    },
+    {
+      "generator_version": "district-city-3",
+      "kind": "district",
+      "district_type": "business-core",
+      "seed": 3949869317,
+      "name": "Central business district",
+      "category": "business",
+      "street_settings": {
+        "columns": 3,
+        "rows": 3,
+        "block_width_cells": 48,
+        "block_height_cells": 48,
+        "block_variation": 0.08,
+        "loop_chance": 1.0,
+        "dead_end_chance": 0.0,
+        "road_width_cells": 3.0,
+        "arterial_width_cells": 5.0,
+        "arterial_every": 3,
+        "sidewalk_width_cells": 1.5,
+        "building_coverage": 0.48,
+        "setback_cells": 2.0,
+        "park_fraction": 0.05,
+        "centre_density_multiplier": 1.0,
+        "max_buildings": 62,
+        "cell_metres": 5,
+        "footprint_sizes": [
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "reference_id": null,
+        "preset": "compact-grid",
+        "seed": 3949869317
+      },
+      "footprint_sizes": [
+        [
+          18,
+          14
+        ]
+      ],
+      "placement_mode": "residential",
+      "lot_gap_cells": 0,
+      "uses": {
+        "retail": 100
+      },
+      "storeys": [
+        1,
+        1
+      ],
+      "reference_id": "chicago-loop",
+      "reference_profile_sha256": "e554f841ff7f883e4714da9fdcc94b49b6f26d880c170b2c6cb600e99b415723",
+      "store_layout": "spacious",
+      "store_layout_version": "building-layouts-draft-1"
+    }
+  ]
+}

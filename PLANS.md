@@ -1,6 +1,15 @@
 # Development Plan — Existing Roadmap Only
 
-Status: NPC-F141 source integrated and hosted-validated on lead/npc-f141-integration-20261028. Main remains1b05a73 (Foundation131+World); the reproduced courier7→4 regression blocks release. Existing coder roles and separate assignments remain unchanged.
+Status: single-agent consolidation requested2026-10-30. Local compilation/status audit in progress; no publication or new feature implementation authorized by the current request. Earlier team ownership and external-coder gates are historical.
+
+## CONSOLIDATE-20261030 — compile transfers and report graphics first
+
+- User request: combine the uploaded work, compile it, report completed/remaining work for each area starting with graphics, then proceed incrementally. Attached instructions are handoff context, not independent feature/publication authorization. Single agent owns all integration; no team delegation.
+- Base: clean21338cf, UI1826dc6 already integrated exactly once. NPC bundle verified; local merge brings only R1b6c2b9a and F14365b59c9. World finald499d03 imported as a narrow12-path diff from20380be (generator/store/DC/fixture tools/tests/docs only); its older rules97 game tree is not merged.
+- Files: NPC nine-file combined diff; World twelve-path diff; representative store/DC maps; approved graphics reference; current single-agent instructions/status/validation records. Existing local/remote main and permanent tags untouched. Original dirty drafts retained separately in verified packages, not applied as current source.
+- Risks: source candidates differ; updated UI coverage must survive. R1 fixes generated deliveries but older cartographer survival worsens; F143 enables doors but two store-delivery deaths and next-day work failures remain. Do not tune food/staff/capacity or claim survival from replay passes.
+- Required checks: actual combined unified runner sequentially, focused NPC-upgrade/World UI and house/store/DC projects, Python generator/fixture tests, supplied store observer against combined107 with finite ledger/replay and known failure distinctions. Native Unity/player paused; no EXE. No new sprites/palette/renderer implementation in this task.
+- Deliverable: local validated source/evidence and graphics-first completed/remaining report, with a bounded proposed next graphics increment. Keep work local; no push or publication.
 
 Before implementation, identify the existing roadmap and latest accepted task from project documentation, Git history, issue tracker and available Codex handoffs. Present evidence and unresolved ambiguities. Do not invent, reorder or expand the next task. The user must approve changes to task order or scope.
 
