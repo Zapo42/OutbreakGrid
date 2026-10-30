@@ -1,5 +1,7 @@
 # World generators and two-room house integration
 
+Historical World/131 record. The [current local consolidation](CONSOLIDATION_STATUS_2026-10-30.md) additionally includes NPC R1/F143 and store/DC interiors; statements below describe this earlier increment and its original validation.
+
 The World transfer at `28dcbab` (implementation `20380bec26bf680865a2b22662872db115a390c4`) is integrated selectively against Foundation 131. This does not import or certify NPC Foundations 132–137, change simulation rules100, or resume native Unity testing. The maps branch has older game ancestry and must not be merged wholesale over current NPC/Lead work.
 
 ## What is available

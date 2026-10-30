@@ -41,7 +41,7 @@ Work locally until the user requests publication. Earlier incremental GitHub aut
 ## Required handoff
 Task ID; baseline Git commit; scope; owned files; changed files; acceptance criteria; validation evidence; unresolved issues; integration instructions; next authorized task (if known).
 
-Read the applicable role file before performing specialist work.
+Historical role files provide context only; they do not delegate ownership or require approval from another coder.
 
 ## Approved visual direction
 

@@ -1,0 +1,8359 @@
+{
+  "name": "delivery",
+  "source": "R1 baseline b6c2b9a / NPC-F143 candidate; rules107",
+  "start": 0,
+  "end": 15600,
+  "finalHour": 9,
+  "internalDoorCoordinates": [
+    {
+      "k": 1210,
+      "x": 10,
+      "y": 12
+    },
+    {
+      "k": 1278,
+      "x": 78,
+      "y": 12
+    }
+  ],
+  "actors": [
+    {
+      "Id": 1,
+      "Home": 3745,
+      "Work": 842,
+      "InternalEntries": 10,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 0,
+      "HomeDeposited": 2,
+      "ShoppingDeposited": 0,
+      "Moves": 2066,
+      "Meals": 16,
+      "OffHome": 7831,
+      "NextWork": -1,
+      "FirstDamage": 14700,
+      "Death": -1,
+      "ShopChoices": [
+        978,
+        910
+      ],
+      "finalHealth": 69,
+      "hunger": 100,
+      "energy": 0
+    },
+    {
+      "Id": 2,
+      "Home": 3710,
+      "Work": 910,
+      "InternalEntries": 26,
+      "Withdrawn": 7,
+      "ShelfDeposits": 6,
+      "DistinctStockedShelves": [
+        1413
+      ],
+      "ShelfBought": 5,
+      "HomeDeposited": 0,
+      "ShoppingDeposited": 0,
+      "Moves": 1163,
+      "Meals": 7,
+      "OffHome": 7457,
+      "NextWork": -1,
+      "FirstDamage": 10080,
+      "Death": -1,
+      "ShopChoices": [
+        910,
+        978
+      ],
+      "finalHealth": 43,
+      "hunger": 100,
+      "energy": 0
+    },
+    {
+      "Id": 3,
+      "Home": 3778,
+      "Work": 978,
+      "InternalEntries": 10,
+      "Withdrawn": 6,
+      "ShelfDeposits": 2,
+      "DistinctStockedShelves": [
+        1481
+      ],
+      "ShelfBought": 1,
+      "HomeDeposited": 0,
+      "ShoppingDeposited": 0,
+      "Moves": 584,
+      "Meals": 7,
+      "OffHome": 7468,
+      "NextWork": -1,
+      "FirstDamage": 10290,
+      "Death": 13260,
+      "ShopChoices": [],
+      "finalHealth": 0,
+      "hunger": 0,
+      "energy": 100
+    },
+    {
+      "Id": 4,
+      "Home": 3710,
+      "Work": 0,
+      "InternalEntries": 14,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 1,
+      "HomeDeposited": 2,
+      "ShoppingDeposited": 0,
+      "Moves": 1424,
+      "Meals": 8,
+      "OffHome": 11194,
+      "NextWork": -1,
+      "FirstDamage": 6090,
+      "Death": 13740,
+      "ShopChoices": [
+        910,
+        978
+      ],
+      "finalHealth": 0,
+      "hunger": 0,
+      "energy": 100
+    },
+    {
+      "Id": 5,
+      "Home": 3778,
+      "Work": 0,
+      "InternalEntries": 12,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 1,
+      "HomeDeposited": 4,
+      "ShoppingDeposited": 1,
+      "Moves": 1503,
+      "Meals": 7,
+      "OffHome": 8260,
+      "NextWork": -1,
+      "FirstDamage": 8100,
+      "Death": -1,
+      "ShopChoices": [
+        978,
+        910
+      ],
+      "finalHealth": 19,
+      "hunger": 100,
+      "energy": 0
+    }
+  ],
+  "initialFood": 203,
+  "remainingFood": 158,
+  "meals": 45,
+  "discarded": 0,
+  "unattributed": 0,
+  "credited": 15,
+  "sourceOut": 24,
+  "sourceIn": 0,
+  "sourceFinal": 156,
+  "sourceFirstDelivery": 516,
+  "sourceFirstStore": 910,
+  "replayStages": [
+    "internal-door",
+    "courier-travel",
+    "periodic-300",
+    "clerk-stock-handling",
+    "shopping",
+    "periodic-7200",
+    "periodic-14400"
+  ],
+  "stocked": [
+    {
+      "tick": 587,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 2
+    },
+    {
+      "tick": 1463,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 2307,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 2
+    },
+    {
+      "tick": 4023,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 4867,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 6572,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    }
+  ],
+  "withdrawals": [
+    {
+      "tick": 151,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 522,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 1021,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1403,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 1856,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1920,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1924,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 2242,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 2741,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 3153,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 3576,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 3963,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 4080,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 4084,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 4411,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 4802,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 5301,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 5683,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 6120,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 6121,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 6124,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 6507,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 7006,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 7593,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "stockroom": false
+    },
+    {
+      "tick": 8371,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 10531,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 12121,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 2,
+      "stockroom": false
+    }
+  ],
+  "shopPickups": [
+    {
+      "tick": 1887,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 3088,
+      "id": 3,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 1,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4137,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4280,
+      "id": 5,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 1,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 6387,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 1,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 6599,
+      "id": 4,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 1,
+      "shoppingStore": 910
+    }
+  ],
+  "homeDeposits": [
+    {
+      "tick": 1930,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 1934,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4090,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4094,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4485,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 6130,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 8381,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 10541,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    }
+  ],
+  "creditEvents": [
+    {
+      "tick": 516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 1401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 2236,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 3126,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 3961,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 4796,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 1
+    },
+    {
+      "tick": 5676,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 6501,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 7386,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    }
+  ],
+  "events": [
+    {
+      "tick": 67,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 68,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 77,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 78,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 197,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 198,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 466,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 572,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 597,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 1401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 1448,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 1473,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 1872,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 1902,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2186,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2236,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 2292,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2317,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 3073,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3103,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3126,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 3739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "",
+      "after": "910:3739"
+    },
+    {
+      "tick": 3744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3739",
+      "after": "910:3744"
+    },
+    {
+      "tick": 3749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3744",
+      "after": "910:3749"
+    },
+    {
+      "tick": 3754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3749",
+      "after": "910:3754"
+    },
+    {
+      "tick": 3759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3754",
+      "after": "910:3759"
+    },
+    {
+      "tick": 3764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3759",
+      "after": "910:3764"
+    },
+    {
+      "tick": 3769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3764",
+      "after": "910:3769"
+    },
+    {
+      "tick": 3961,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 4008,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 4033,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 4122,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4152,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3769",
+      "after": "910:4189"
+    },
+    {
+      "tick": 4194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4189",
+      "after": "910:4194"
+    },
+    {
+      "tick": 4199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4194",
+      "after": "910:4199"
+    },
+    {
+      "tick": 4204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4199",
+      "after": "910:4204"
+    },
+    {
+      "tick": 4209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4204",
+      "after": "910:4209"
+    },
+    {
+      "tick": 4214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4209",
+      "after": "910:4214"
+    },
+    {
+      "tick": 4219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4214",
+      "after": "910:4219"
+    },
+    {
+      "tick": 4224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4219",
+      "after": "910:4224"
+    },
+    {
+      "tick": 4229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4224",
+      "after": "910:4229"
+    },
+    {
+      "tick": 4234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4229",
+      "after": "910:4234"
+    },
+    {
+      "tick": 4239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4234",
+      "after": "910:4239"
+    },
+    {
+      "tick": 4244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4239",
+      "after": "910:4244"
+    },
+    {
+      "tick": 4249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4244",
+      "after": "910:4249"
+    },
+    {
+      "tick": 4254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4249",
+      "after": "910:4254"
+    },
+    {
+      "tick": 4259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4254",
+      "after": "910:4259"
+    },
+    {
+      "tick": 4264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4259",
+      "after": "910:4264"
+    },
+    {
+      "tick": 4269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4264",
+      "after": "910:4269"
+    },
+    {
+      "tick": 4274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4269",
+      "after": "910:4274"
+    },
+    {
+      "tick": 4279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4274",
+      "after": "910:4279"
+    },
+    {
+      "tick": 4284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4279",
+      "after": "910:4284"
+    },
+    {
+      "tick": 4289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4284",
+      "after": "910:4289"
+    },
+    {
+      "tick": 4294,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4289",
+      "after": "910:4294"
+    },
+    {
+      "tick": 4299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4294",
+      "after": "910:4299"
+    },
+    {
+      "tick": 4304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4299",
+      "after": "910:4304"
+    },
+    {
+      "tick": 4309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4304",
+      "after": "910:4309"
+    },
+    {
+      "tick": 4314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4309",
+      "after": "910:4314"
+    },
+    {
+      "tick": 4319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4314",
+      "after": "910:4319"
+    },
+    {
+      "tick": 4324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4319",
+      "after": "910:4324"
+    },
+    {
+      "tick": 4329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4324",
+      "after": "910:4329"
+    },
+    {
+      "tick": 4334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4329",
+      "after": "910:4334"
+    },
+    {
+      "tick": 4339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4334",
+      "after": "910:4339"
+    },
+    {
+      "tick": 4344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4339",
+      "after": "910:4344"
+    },
+    {
+      "tick": 4349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4344",
+      "after": "910:4349"
+    },
+    {
+      "tick": 4354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4349",
+      "after": "910:4354"
+    },
+    {
+      "tick": 4359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4354",
+      "after": "910:4359"
+    },
+    {
+      "tick": 4364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4359",
+      "after": "910:4364"
+    },
+    {
+      "tick": 4369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4364",
+      "after": "910:4369"
+    },
+    {
+      "tick": 4374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4369",
+      "after": "910:4374"
+    },
+    {
+      "tick": 4379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4374",
+      "after": "910:4379"
+    },
+    {
+      "tick": 4384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4379",
+      "after": "910:4384"
+    },
+    {
+      "tick": 4389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4384",
+      "after": "910:4389"
+    },
+    {
+      "tick": 4394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4389",
+      "after": "910:4394"
+    },
+    {
+      "tick": 4399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4394",
+      "after": "910:4399"
+    },
+    {
+      "tick": 4404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4399",
+      "after": "910:4404"
+    },
+    {
+      "tick": 4409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4404",
+      "after": "910:4409"
+    },
+    {
+      "tick": 4414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4409",
+      "after": "910:4414"
+    },
+    {
+      "tick": 4419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4414",
+      "after": "910:4419"
+    },
+    {
+      "tick": 4424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4419",
+      "after": "910:4424"
+    },
+    {
+      "tick": 4429,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4424",
+      "after": "910:4429"
+    },
+    {
+      "tick": 4434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4429",
+      "after": "910:4434"
+    },
+    {
+      "tick": 4439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4434",
+      "after": "910:4439"
+    },
+    {
+      "tick": 4444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4439",
+      "after": "910:4444"
+    },
+    {
+      "tick": 4449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4444",
+      "after": "910:4449"
+    },
+    {
+      "tick": 4454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4449",
+      "after": "910:4454"
+    },
+    {
+      "tick": 4459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4454",
+      "after": "910:4459"
+    },
+    {
+      "tick": 4464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4459",
+      "after": "910:4464"
+    },
+    {
+      "tick": 4469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4464",
+      "after": "910:4469"
+    },
+    {
+      "tick": 4474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4469",
+      "after": "910:4474"
+    },
+    {
+      "tick": 4479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4474",
+      "after": "910:4479"
+    },
+    {
+      "tick": 4484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4479",
+      "after": "910:4484"
+    },
+    {
+      "tick": 4489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4484",
+      "after": "910:4489"
+    },
+    {
+      "tick": 4494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4489",
+      "after": "910:4494"
+    },
+    {
+      "tick": 4499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4494",
+      "after": "910:4499"
+    },
+    {
+      "tick": 4504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4499",
+      "after": "910:4504"
+    },
+    {
+      "tick": 4509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4504",
+      "after": "910:4509"
+    },
+    {
+      "tick": 4514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4509",
+      "after": "910:4514"
+    },
+    {
+      "tick": 4519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4514",
+      "after": "910:4519"
+    },
+    {
+      "tick": 4524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4519",
+      "after": "910:4524"
+    },
+    {
+      "tick": 4529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4524",
+      "after": "910:4529"
+    },
+    {
+      "tick": 4534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4529",
+      "after": "910:4534"
+    },
+    {
+      "tick": 4539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4534",
+      "after": "910:4539"
+    },
+    {
+      "tick": 4544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4539",
+      "after": "910:4544"
+    },
+    {
+      "tick": 4549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4544",
+      "after": "910:4549"
+    },
+    {
+      "tick": 4554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4549",
+      "after": "910:4554"
+    },
+    {
+      "tick": 4559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4554",
+      "after": "910:4559"
+    },
+    {
+      "tick": 4564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4559",
+      "after": "910:4564"
+    },
+    {
+      "tick": 4569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4564",
+      "after": "910:4569"
+    },
+    {
+      "tick": 4574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4569",
+      "after": "910:4574"
+    },
+    {
+      "tick": 4579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4574",
+      "after": "910:4579"
+    },
+    {
+      "tick": 4584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4579",
+      "after": "910:4584"
+    },
+    {
+      "tick": 4589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4584",
+      "after": "910:4589"
+    },
+    {
+      "tick": 4594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4589",
+      "after": "910:4594"
+    },
+    {
+      "tick": 4599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4594",
+      "after": "910:4599"
+    },
+    {
+      "tick": 4604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4599",
+      "after": "910:4604"
+    },
+    {
+      "tick": 4609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4604",
+      "after": "910:4609"
+    },
+    {
+      "tick": 4614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4609",
+      "after": "910:4614"
+    },
+    {
+      "tick": 4619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4614",
+      "after": "910:4619"
+    },
+    {
+      "tick": 4624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4619",
+      "after": "910:4624"
+    },
+    {
+      "tick": 4629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4624",
+      "after": "910:4629"
+    },
+    {
+      "tick": 4634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4629",
+      "after": "910:4634"
+    },
+    {
+      "tick": 4639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4634",
+      "after": "910:4639"
+    },
+    {
+      "tick": 4644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4639",
+      "after": "910:4644"
+    },
+    {
+      "tick": 4649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4644",
+      "after": "910:4649"
+    },
+    {
+      "tick": 4654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4649",
+      "after": "910:4654"
+    },
+    {
+      "tick": 4659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4654",
+      "after": "910:4659"
+    },
+    {
+      "tick": 4664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4659",
+      "after": "910:4664"
+    },
+    {
+      "tick": 4669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4664",
+      "after": "910:4669"
+    },
+    {
+      "tick": 4674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4669",
+      "after": "910:4674"
+    },
+    {
+      "tick": 4679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4674",
+      "after": "910:4679"
+    },
+    {
+      "tick": 4684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4679",
+      "after": "910:4684"
+    },
+    {
+      "tick": 4689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4684",
+      "after": "910:4689"
+    },
+    {
+      "tick": 4694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4689",
+      "after": "910:4694"
+    },
+    {
+      "tick": 4699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4694",
+      "after": "910:4699"
+    },
+    {
+      "tick": 4704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4699",
+      "after": "910:4704"
+    },
+    {
+      "tick": 4709,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4704",
+      "after": "910:4709"
+    },
+    {
+      "tick": 4714,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4709",
+      "after": "910:4714"
+    },
+    {
+      "tick": 4719,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4714",
+      "after": "910:4719"
+    },
+    {
+      "tick": 4724,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4719",
+      "after": "910:4724"
+    },
+    {
+      "tick": 4729,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4724",
+      "after": "910:4729"
+    },
+    {
+      "tick": 4734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4729",
+      "after": "910:4734"
+    },
+    {
+      "tick": 4739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4734",
+      "after": "910:4739"
+    },
+    {
+      "tick": 4744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4739",
+      "after": "910:4744"
+    },
+    {
+      "tick": 4746,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4744",
+      "after": "910:4749"
+    },
+    {
+      "tick": 4754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4749",
+      "after": "910:4754"
+    },
+    {
+      "tick": 4759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4754",
+      "after": "910:4759"
+    },
+    {
+      "tick": 4764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4759",
+      "after": "910:4764"
+    },
+    {
+      "tick": 4769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4764",
+      "after": "910:4769"
+    },
+    {
+      "tick": 4774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4769",
+      "after": "910:4774"
+    },
+    {
+      "tick": 4779,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4774",
+      "after": "910:4779"
+    },
+    {
+      "tick": 4784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4779",
+      "after": "910:4784"
+    },
+    {
+      "tick": 4789,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4784",
+      "after": "910:4789"
+    },
+    {
+      "tick": 4794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4789",
+      "after": "910:4794"
+    },
+    {
+      "tick": 4796,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 1
+    },
+    {
+      "tick": 4799,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4794",
+      "after": "910:4799"
+    },
+    {
+      "tick": 4809,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4799",
+      "after": "910:4809"
+    },
+    {
+      "tick": 4814,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4809",
+      "after": "910:4814"
+    },
+    {
+      "tick": 4819,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4814",
+      "after": "910:4819"
+    },
+    {
+      "tick": 4824,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4819",
+      "after": "910:4824"
+    },
+    {
+      "tick": 4829,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4824",
+      "after": "910:4829"
+    },
+    {
+      "tick": 4834,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4829",
+      "after": "910:4834"
+    },
+    {
+      "tick": 4839,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4834",
+      "after": "910:4839"
+    },
+    {
+      "tick": 4844,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4839",
+      "after": "910:4844"
+    },
+    {
+      "tick": 4849,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4844",
+      "after": "910:4849"
+    },
+    {
+      "tick": 4852,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4854,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4849",
+      "after": "910:4854"
+    },
+    {
+      "tick": 4859,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4854",
+      "after": "910:4859"
+    },
+    {
+      "tick": 4864,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4859",
+      "after": "910:4864"
+    },
+    {
+      "tick": 4869,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4864",
+      "after": "910:4869"
+    },
+    {
+      "tick": 4874,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4869",
+      "after": "910:4874"
+    },
+    {
+      "tick": 4877,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4879,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4874",
+      "after": "910:4879"
+    },
+    {
+      "tick": 4884,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4879",
+      "after": "910:4884"
+    },
+    {
+      "tick": 4889,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4884",
+      "after": "910:4889"
+    },
+    {
+      "tick": 5094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889",
+      "after": "910:4889;978:5094"
+    },
+    {
+      "tick": 5099,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5094",
+      "after": "910:4889;978:5099"
+    },
+    {
+      "tick": 5104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5099",
+      "after": "910:4889;978:5104"
+    },
+    {
+      "tick": 5109,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5104",
+      "after": "910:4889;978:5109"
+    },
+    {
+      "tick": 5114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5109",
+      "after": "910:4889;978:5114"
+    },
+    {
+      "tick": 5119,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5114",
+      "after": "910:4889;978:5119"
+    },
+    {
+      "tick": 5124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5119",
+      "after": "910:4889;978:5124"
+    },
+    {
+      "tick": 5129,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5124",
+      "after": "910:4889;978:5129"
+    },
+    {
+      "tick": 5134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5129",
+      "after": "910:4889;978:5134"
+    },
+    {
+      "tick": 5139,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5134",
+      "after": "910:4889;978:5139"
+    },
+    {
+      "tick": 5144,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5139",
+      "after": "910:4889;978:5144"
+    },
+    {
+      "tick": 5149,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5144",
+      "after": "910:4889;978:5149"
+    },
+    {
+      "tick": 5154,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5149",
+      "after": "910:4889;978:5154"
+    },
+    {
+      "tick": 5159,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5154",
+      "after": "910:4889;978:5159"
+    },
+    {
+      "tick": 5164,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5159",
+      "after": "910:4889;978:5164"
+    },
+    {
+      "tick": 5169,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5164",
+      "after": "910:4889;978:5169"
+    },
+    {
+      "tick": 5174,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5169",
+      "after": "910:4889;978:5174"
+    },
+    {
+      "tick": 5179,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5174",
+      "after": "910:4889;978:5179"
+    },
+    {
+      "tick": 5184,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5179",
+      "after": "910:4889;978:5184"
+    },
+    {
+      "tick": 5189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5184",
+      "after": "910:4889;978:5189"
+    },
+    {
+      "tick": 5194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5189",
+      "after": "910:4889;978:5194"
+    },
+    {
+      "tick": 5199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5194",
+      "after": "910:4889;978:5199"
+    },
+    {
+      "tick": 5204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5199",
+      "after": "910:4889;978:5204"
+    },
+    {
+      "tick": 5209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5204",
+      "after": "910:4889;978:5209"
+    },
+    {
+      "tick": 5214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5209",
+      "after": "910:4889;978:5214"
+    },
+    {
+      "tick": 5219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5214",
+      "after": "910:4889;978:5219"
+    },
+    {
+      "tick": 5224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5219",
+      "after": "910:4889;978:5224"
+    },
+    {
+      "tick": 5229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5224",
+      "after": "910:4889;978:5229"
+    },
+    {
+      "tick": 5234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5229",
+      "after": "910:4889;978:5234"
+    },
+    {
+      "tick": 5239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5234",
+      "after": "910:4889;978:5239"
+    },
+    {
+      "tick": 5244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5239",
+      "after": "910:4889;978:5244"
+    },
+    {
+      "tick": 5249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5244",
+      "after": "910:4889;978:5249"
+    },
+    {
+      "tick": 5254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5249",
+      "after": "910:4889;978:5254"
+    },
+    {
+      "tick": 5259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5254",
+      "after": "910:4889;978:5259"
+    },
+    {
+      "tick": 5264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5259",
+      "after": "910:4889;978:5264"
+    },
+    {
+      "tick": 5269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5264",
+      "after": "910:4889;978:5269"
+    },
+    {
+      "tick": 5274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5269",
+      "after": "910:4889;978:5274"
+    },
+    {
+      "tick": 5279,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 5279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5274",
+      "after": "910:4889;978:5279"
+    },
+    {
+      "tick": 5284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5279",
+      "after": "910:4889;978:5284"
+    },
+    {
+      "tick": 5289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5284",
+      "after": "910:4889;978:5289"
+    },
+    {
+      "tick": 5294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5289",
+      "after": "910:4889;978:5294"
+    },
+    {
+      "tick": 5299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5294",
+      "after": "910:4889;978:5299"
+    },
+    {
+      "tick": 5304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5299",
+      "after": "910:4889;978:5304"
+    },
+    {
+      "tick": 5309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5304",
+      "after": "910:4889;978:5309"
+    },
+    {
+      "tick": 5314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5309",
+      "after": "910:4889;978:5314"
+    },
+    {
+      "tick": 5319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5314",
+      "after": "910:4889;978:5319"
+    },
+    {
+      "tick": 5324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5319",
+      "after": "910:4889;978:5324"
+    },
+    {
+      "tick": 5329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5324",
+      "after": "910:4889;978:5329"
+    },
+    {
+      "tick": 5334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5329",
+      "after": "910:4889;978:5334"
+    },
+    {
+      "tick": 5339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5334",
+      "after": "910:4889;978:5339"
+    },
+    {
+      "tick": 5344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5339",
+      "after": "910:4889;978:5344"
+    },
+    {
+      "tick": 5349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5344",
+      "after": "910:4889;978:5349"
+    },
+    {
+      "tick": 5353,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 5354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5349",
+      "after": "910:4889;978:5354"
+    },
+    {
+      "tick": 5359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5354",
+      "after": "910:4889;978:5359"
+    },
+    {
+      "tick": 5364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5359",
+      "after": "910:4889;978:5364"
+    },
+    {
+      "tick": 5369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5364",
+      "after": "910:4889;978:5369"
+    },
+    {
+      "tick": 5374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5369",
+      "after": "910:4889;978:5374"
+    },
+    {
+      "tick": 5379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5374",
+      "after": "910:4889;978:5379"
+    },
+    {
+      "tick": 5384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5379",
+      "after": "910:4889;978:5384"
+    },
+    {
+      "tick": 5389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5384",
+      "after": "910:4889;978:5389"
+    },
+    {
+      "tick": 5394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5389",
+      "after": "910:4889;978:5394"
+    },
+    {
+      "tick": 5399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5394",
+      "after": "910:4889;978:5399"
+    },
+    {
+      "tick": 5404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5399",
+      "after": "910:4889;978:5404"
+    },
+    {
+      "tick": 5409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5404",
+      "after": "910:4889;978:5409"
+    },
+    {
+      "tick": 5414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5409",
+      "after": "910:4889;978:5414"
+    },
+    {
+      "tick": 5419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5414",
+      "after": "910:4889;978:5419"
+    },
+    {
+      "tick": 5424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5419",
+      "after": "910:4889;978:5424"
+    },
+    {
+      "tick": 5429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5424",
+      "after": "910:4889;978:5429"
+    },
+    {
+      "tick": 5434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5429",
+      "after": "910:4889;978:5434"
+    },
+    {
+      "tick": 5439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5434",
+      "after": "910:4889;978:5439"
+    },
+    {
+      "tick": 5444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5439",
+      "after": "910:4889;978:5444"
+    },
+    {
+      "tick": 5449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5444",
+      "after": "910:4889;978:5449"
+    },
+    {
+      "tick": 5454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5449",
+      "after": "910:4889;978:5454"
+    },
+    {
+      "tick": 5459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5454",
+      "after": "910:4889;978:5459"
+    },
+    {
+      "tick": 5464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5459",
+      "after": "910:4889;978:5464"
+    },
+    {
+      "tick": 5469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5464",
+      "after": "910:4889;978:5469"
+    },
+    {
+      "tick": 5474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5469",
+      "after": "910:4889;978:5474"
+    },
+    {
+      "tick": 5479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5474",
+      "after": "910:4889;978:5479"
+    },
+    {
+      "tick": 5484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5479",
+      "after": "910:4889;978:5484"
+    },
+    {
+      "tick": 5489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5484",
+      "after": "910:4889;978:5489"
+    },
+    {
+      "tick": 5494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5489",
+      "after": "910:4889;978:5494"
+    },
+    {
+      "tick": 5499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5494",
+      "after": "910:4889;978:5499"
+    },
+    {
+      "tick": 5504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5499",
+      "after": "910:4889;978:5504"
+    },
+    {
+      "tick": 5509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5504",
+      "after": "910:4889;978:5509"
+    },
+    {
+      "tick": 5514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5509",
+      "after": "910:4889;978:5514"
+    },
+    {
+      "tick": 5519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5514",
+      "after": "910:4889;978:5519"
+    },
+    {
+      "tick": 5524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5519",
+      "after": "910:4889;978:5524"
+    },
+    {
+      "tick": 5529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5524",
+      "after": "910:4889;978:5529"
+    },
+    {
+      "tick": 5534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5529",
+      "after": "910:4889;978:5534"
+    },
+    {
+      "tick": 5539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5534",
+      "after": "910:4889;978:5539"
+    },
+    {
+      "tick": 5544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5539",
+      "after": "910:4889;978:5544"
+    },
+    {
+      "tick": 5676,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 5734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4889;978:5544",
+      "after": "910:5734;978:5544"
+    },
+    {
+      "tick": 5744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5734;978:5544",
+      "after": "910:5744;978:5544"
+    },
+    {
+      "tick": 5754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5744;978:5544",
+      "after": "910:5754;978:5544"
+    },
+    {
+      "tick": 5764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5754;978:5544",
+      "after": "910:5764;978:5544"
+    },
+    {
+      "tick": 5774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5764;978:5544",
+      "after": "910:5774;978:5544"
+    },
+    {
+      "tick": 5784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5774;978:5544",
+      "after": "910:5784;978:5544"
+    },
+    {
+      "tick": 5794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5784;978:5544",
+      "after": "910:5794;978:5544"
+    },
+    {
+      "tick": 5804,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5794;978:5544",
+      "after": "910:5804;978:5544"
+    },
+    {
+      "tick": 5814,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5804;978:5544",
+      "after": "910:5814;978:5544"
+    },
+    {
+      "tick": 5824,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5814;978:5544",
+      "after": "910:5824;978:5544"
+    },
+    {
+      "tick": 5834,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5824;978:5544",
+      "after": "910:5834;978:5544"
+    },
+    {
+      "tick": 5844,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5834;978:5544",
+      "after": "910:5844;978:5544"
+    },
+    {
+      "tick": 5854,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5844;978:5544",
+      "after": "910:5854;978:5544"
+    },
+    {
+      "tick": 5864,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5854;978:5544",
+      "after": "910:5864;978:5544"
+    },
+    {
+      "tick": 5874,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5864;978:5544",
+      "after": "910:5874;978:5544"
+    },
+    {
+      "tick": 5884,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5874;978:5544",
+      "after": "910:5884;978:5544"
+    },
+    {
+      "tick": 5894,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5884;978:5544",
+      "after": "910:5894;978:5544"
+    },
+    {
+      "tick": 5904,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5894;978:5544",
+      "after": "910:5904;978:5544"
+    },
+    {
+      "tick": 5914,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5904;978:5544",
+      "after": "910:5914;978:5544"
+    },
+    {
+      "tick": 5924,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5914;978:5544",
+      "after": "910:5924;978:5544"
+    },
+    {
+      "tick": 5934,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5924;978:5544",
+      "after": "910:5934;978:5544"
+    },
+    {
+      "tick": 5944,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5934;978:5544",
+      "after": "910:5944;978:5544"
+    },
+    {
+      "tick": 5954,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5944;978:5544",
+      "after": "910:5954;978:5544"
+    },
+    {
+      "tick": 5964,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5954;978:5544",
+      "after": "910:5964;978:5544"
+    },
+    {
+      "tick": 5974,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5964;978:5544",
+      "after": "910:5974;978:5544"
+    },
+    {
+      "tick": 5984,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5974;978:5544",
+      "after": "910:5984;978:5544"
+    },
+    {
+      "tick": 5994,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5984;978:5544",
+      "after": "910:5994;978:5544"
+    },
+    {
+      "tick": 6090,
+      "id": 4,
+      "kind": "first-damage",
+      "x": 12,
+      "y": 40,
+      "hungerBefore": 100,
+      "energyBefore": 0,
+      "hand": 0,
+      "phase": "Returning",
+      "order": 0,
+      "target": 4210,
+      "commute": 0
+    },
+    {
+      "tick": 6345,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 6349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:5994;978:5544",
+      "after": "910:6349;978:5544"
+    },
+    {
+      "tick": 6354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6349;978:5544",
+      "after": "910:6354;978:5544"
+    },
+    {
+      "tick": 6359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6354;978:5544",
+      "after": "910:6359;978:5544"
+    },
+    {
+      "tick": 6364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6359;978:5544",
+      "after": "910:6364;978:5544"
+    },
+    {
+      "tick": 6369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6364;978:5544",
+      "after": "910:6369;978:5544"
+    },
+    {
+      "tick": 6372,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6369;978:5544",
+      "after": "910:6374;978:5544"
+    },
+    {
+      "tick": 6379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6374;978:5544",
+      "after": "910:6379;978:5544"
+    },
+    {
+      "tick": 6384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6379;978:5544",
+      "after": "910:6384;978:5544"
+    },
+    {
+      "tick": 6389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6384;978:5544",
+      "after": "910:6389;978:5544"
+    },
+    {
+      "tick": 6394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6389;978:5544",
+      "after": "910:6394;978:5544"
+    },
+    {
+      "tick": 6399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6394;978:5544",
+      "after": "910:6399;978:5544"
+    },
+    {
+      "tick": 6402,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6399;978:5544",
+      "after": "910:6404;978:5544"
+    },
+    {
+      "tick": 6409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6404;978:5544",
+      "after": "910:6409;978:5544"
+    },
+    {
+      "tick": 6414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6409;978:5544",
+      "after": "910:6414;978:5544"
+    },
+    {
+      "tick": 6419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6414;978:5544",
+      "after": "910:6419;978:5544"
+    },
+    {
+      "tick": 6424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6419;978:5544",
+      "after": "910:6424;978:5544"
+    },
+    {
+      "tick": 6429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6424;978:5544",
+      "after": "910:6429;978:5544"
+    },
+    {
+      "tick": 6434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6429;978:5544",
+      "after": "910:6434;978:5544"
+    },
+    {
+      "tick": 6439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6434;978:5544",
+      "after": "910:6439;978:5544"
+    },
+    {
+      "tick": 6444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6439;978:5544",
+      "after": "910:6444;978:5544"
+    },
+    {
+      "tick": 6449,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6444;978:5544",
+      "after": "910:6449;978:5544"
+    },
+    {
+      "tick": 6451,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6449;978:5544",
+      "after": "910:6454;978:5544"
+    },
+    {
+      "tick": 6459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6454;978:5544",
+      "after": "910:6459;978:5544"
+    },
+    {
+      "tick": 6464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6459;978:5544",
+      "after": "910:6464;978:5544"
+    },
+    {
+      "tick": 6469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6464;978:5544",
+      "after": "910:6469;978:5544"
+    },
+    {
+      "tick": 6474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6469;978:5544",
+      "after": "910:6474;978:5544"
+    },
+    {
+      "tick": 6475,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 6479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6474;978:5544",
+      "after": "910:6479;978:5544"
+    },
+    {
+      "tick": 6484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6479;978:5544",
+      "after": "910:6484;978:5544"
+    },
+    {
+      "tick": 6489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6484;978:5544",
+      "after": "910:6489;978:5544"
+    },
+    {
+      "tick": 6494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6489;978:5544",
+      "after": "910:6494;978:5544"
+    },
+    {
+      "tick": 6499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6494;978:5544",
+      "after": "910:6499;978:5544"
+    },
+    {
+      "tick": 6501,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 6504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6499;978:5544",
+      "after": "910:6504;978:5544"
+    },
+    {
+      "tick": 6509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6504;978:5544",
+      "after": "910:6509;978:5544"
+    },
+    {
+      "tick": 6514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6509;978:5544",
+      "after": "910:6514;978:5544"
+    },
+    {
+      "tick": 6519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6514;978:5544",
+      "after": "910:6519;978:5544"
+    },
+    {
+      "tick": 6524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6519;978:5544",
+      "after": "910:6524;978:5544"
+    },
+    {
+      "tick": 6529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6524;978:5544",
+      "after": "910:6529;978:5544"
+    },
+    {
+      "tick": 6534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6529;978:5544",
+      "after": "910:6534;978:5544"
+    },
+    {
+      "tick": 6539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6534;978:5544",
+      "after": "910:6539;978:5544"
+    },
+    {
+      "tick": 6544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6539;978:5544",
+      "after": "910:6544;978:5544"
+    },
+    {
+      "tick": 6549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6544;978:5544",
+      "after": "910:6549;978:5544"
+    },
+    {
+      "tick": 6554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6549;978:5544",
+      "after": "910:6554;978:5544"
+    },
+    {
+      "tick": 6557,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6554;978:5544",
+      "after": "910:6559;978:5544"
+    },
+    {
+      "tick": 6564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6559;978:5544",
+      "after": "910:6564;978:5544"
+    },
+    {
+      "tick": 6569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6564;978:5544",
+      "after": "910:6569;978:5544"
+    },
+    {
+      "tick": 6574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6569;978:5544",
+      "after": "910:6574;978:5544"
+    },
+    {
+      "tick": 6579,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6574;978:5544",
+      "after": "910:6579;978:5544"
+    },
+    {
+      "tick": 6582,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6579;978:5544",
+      "after": "910:6584;978:5544"
+    },
+    {
+      "tick": 6589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6584;978:5544",
+      "after": "910:6589;978:5544"
+    },
+    {
+      "tick": 6594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6589;978:5544",
+      "after": "910:6594;978:5544"
+    },
+    {
+      "tick": 6599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6594;978:5544",
+      "after": "910:6599;978:5544"
+    },
+    {
+      "tick": 6604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6599;978:5544",
+      "after": "910:6604;978:5544"
+    },
+    {
+      "tick": 6609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6604;978:5544",
+      "after": "910:6609;978:5544"
+    },
+    {
+      "tick": 6614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6609;978:5544",
+      "after": "910:6614;978:5544"
+    },
+    {
+      "tick": 6619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6614;978:5544",
+      "after": "910:6619;978:5544"
+    },
+    {
+      "tick": 6624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6619;978:5544",
+      "after": "910:6624;978:5544"
+    },
+    {
+      "tick": 6629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6624;978:5544",
+      "after": "910:6629;978:5544"
+    },
+    {
+      "tick": 6639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6629;978:5544",
+      "after": "910:6639;978:5544"
+    },
+    {
+      "tick": 6644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6639;978:5544",
+      "after": "910:6644;978:5544"
+    },
+    {
+      "tick": 6649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6644;978:5544",
+      "after": "910:6649;978:5544"
+    },
+    {
+      "tick": 6654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6649;978:5544",
+      "after": "910:6654;978:5544"
+    },
+    {
+      "tick": 6659,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6654;978:5544",
+      "after": "910:6659;978:5544"
+    },
+    {
+      "tick": 6664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6659;978:5544",
+      "after": "910:6664;978:5544"
+    },
+    {
+      "tick": 6669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6664;978:5544",
+      "after": "910:6669;978:5544"
+    },
+    {
+      "tick": 6674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6669;978:5544",
+      "after": "910:6674;978:5544"
+    },
+    {
+      "tick": 6679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6674;978:5544",
+      "after": "910:6679;978:5544"
+    },
+    {
+      "tick": 6684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6679;978:5544",
+      "after": "910:6684;978:5544"
+    },
+    {
+      "tick": 6689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6684;978:5544",
+      "after": "910:6689;978:5544"
+    },
+    {
+      "tick": 6694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6689;978:5544",
+      "after": "910:6694;978:5544"
+    },
+    {
+      "tick": 6699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6694;978:5544",
+      "after": "910:6699;978:5544"
+    },
+    {
+      "tick": 6704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6699;978:5544",
+      "after": "910:6704;978:5544"
+    },
+    {
+      "tick": 6709,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6704;978:5544",
+      "after": "910:6709;978:5544"
+    },
+    {
+      "tick": 6714,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6709;978:5544",
+      "after": "910:6714;978:5544"
+    },
+    {
+      "tick": 6719,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6714;978:5544",
+      "after": "910:6719;978:5544"
+    },
+    {
+      "tick": 6724,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6719;978:5544",
+      "after": "910:6724;978:5544"
+    },
+    {
+      "tick": 6729,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6724;978:5544",
+      "after": "910:6729;978:5544"
+    },
+    {
+      "tick": 6734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6729;978:5544",
+      "after": "910:6734;978:5544"
+    },
+    {
+      "tick": 6739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6734;978:5544",
+      "after": "910:6739;978:5544"
+    },
+    {
+      "tick": 6744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6739;978:5544",
+      "after": "910:6744;978:5544"
+    },
+    {
+      "tick": 6749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6744;978:5544",
+      "after": "910:6749;978:5544"
+    },
+    {
+      "tick": 6754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6749;978:5544",
+      "after": "910:6754;978:5544"
+    },
+    {
+      "tick": 6759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6754;978:5544",
+      "after": "910:6759;978:5544"
+    },
+    {
+      "tick": 6764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6759;978:5544",
+      "after": "910:6764;978:5544"
+    },
+    {
+      "tick": 6769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6764;978:5544",
+      "after": "910:6769;978:5544"
+    },
+    {
+      "tick": 6774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6769;978:5544",
+      "after": "910:6774;978:5544"
+    },
+    {
+      "tick": 6779,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6774;978:5544",
+      "after": "910:6779;978:5544"
+    },
+    {
+      "tick": 6784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6779;978:5544",
+      "after": "910:6784;978:5544"
+    },
+    {
+      "tick": 6789,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6784;978:5544",
+      "after": "910:6789;978:5544"
+    },
+    {
+      "tick": 6794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6789;978:5544",
+      "after": "910:6794;978:5544"
+    },
+    {
+      "tick": 6799,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6794;978:5544",
+      "after": "910:6799;978:5544"
+    },
+    {
+      "tick": 6804,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6799;978:5544",
+      "after": "910:6804;978:5544"
+    },
+    {
+      "tick": 6809,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6804;978:5544",
+      "after": "910:6809;978:5544"
+    },
+    {
+      "tick": 6814,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6809;978:5544",
+      "after": "910:6814;978:5544"
+    },
+    {
+      "tick": 6819,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6814;978:5544",
+      "after": "910:6819;978:5544"
+    },
+    {
+      "tick": 6824,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6819;978:5544",
+      "after": "910:6824;978:5544"
+    },
+    {
+      "tick": 7009,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6824;978:5544",
+      "after": "910:7009;978:5544"
+    },
+    {
+      "tick": 7014,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7009;978:5544",
+      "after": "910:7014;978:5544"
+    },
+    {
+      "tick": 7019,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7014;978:5544",
+      "after": "910:7019;978:5544"
+    },
+    {
+      "tick": 7024,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7019;978:5544",
+      "after": "910:7024;978:5544"
+    },
+    {
+      "tick": 7029,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7024;978:5544",
+      "after": "910:7029;978:5544"
+    },
+    {
+      "tick": 7034,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7029;978:5544",
+      "after": "910:7034;978:5544"
+    },
+    {
+      "tick": 7039,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7034;978:5544",
+      "after": "910:7039;978:5544"
+    },
+    {
+      "tick": 7044,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7039;978:5544",
+      "after": "910:7044;978:5544"
+    },
+    {
+      "tick": 7049,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7044;978:5544",
+      "after": "910:7049;978:5544"
+    },
+    {
+      "tick": 7054,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7049;978:5544",
+      "after": "910:7054;978:5544"
+    },
+    {
+      "tick": 7059,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7054;978:5544",
+      "after": "910:7059;978:5544"
+    },
+    {
+      "tick": 7064,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7059;978:5544",
+      "after": "910:7064;978:5544"
+    },
+    {
+      "tick": 7069,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7064;978:5544",
+      "after": "910:7069;978:5544"
+    },
+    {
+      "tick": 7074,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7069;978:5544",
+      "after": "910:7074;978:5544"
+    },
+    {
+      "tick": 7079,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7074;978:5544",
+      "after": "910:7079;978:5544"
+    },
+    {
+      "tick": 7084,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7079;978:5544",
+      "after": "910:7084;978:5544"
+    },
+    {
+      "tick": 7089,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7084;978:5544",
+      "after": "910:7089;978:5544"
+    },
+    {
+      "tick": 7094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7089;978:5544",
+      "after": "910:7094;978:5544"
+    },
+    {
+      "tick": 7099,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7094;978:5544",
+      "after": "910:7099;978:5544"
+    },
+    {
+      "tick": 7104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7099;978:5544",
+      "after": "910:7104;978:5544"
+    },
+    {
+      "tick": 7109,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7104;978:5544",
+      "after": "910:7109;978:5544"
+    },
+    {
+      "tick": 7114,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 7114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7109;978:5544",
+      "after": "910:7114;978:5544"
+    },
+    {
+      "tick": 7119,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7114;978:5544",
+      "after": "910:7119;978:5544"
+    },
+    {
+      "tick": 7124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7119;978:5544",
+      "after": "910:7124;978:5544"
+    },
+    {
+      "tick": 7129,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7124;978:5544",
+      "after": "910:7129;978:5544"
+    },
+    {
+      "tick": 7134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7129;978:5544",
+      "after": "910:7134;978:5544"
+    },
+    {
+      "tick": 7139,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7134;978:5544",
+      "after": "910:7139;978:5544"
+    },
+    {
+      "tick": 7144,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7139;978:5544",
+      "after": "910:7144;978:5544"
+    },
+    {
+      "tick": 7149,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7144;978:5544",
+      "after": "910:7149;978:5544"
+    },
+    {
+      "tick": 7154,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7149;978:5544",
+      "after": "910:7154;978:5544"
+    },
+    {
+      "tick": 7159,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7154;978:5544",
+      "after": "910:7159;978:5544"
+    },
+    {
+      "tick": 7164,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7159;978:5544",
+      "after": "910:7164;978:5544"
+    },
+    {
+      "tick": 7169,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7164;978:5544",
+      "after": "910:7169;978:5544"
+    },
+    {
+      "tick": 7174,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7169;978:5544",
+      "after": "910:7174;978:5544"
+    },
+    {
+      "tick": 7179,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7174;978:5544",
+      "after": "910:7179;978:5544"
+    },
+    {
+      "tick": 7184,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7179;978:5544",
+      "after": "910:7184;978:5544"
+    },
+    {
+      "tick": 7189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7184;978:5544",
+      "after": "910:7189;978:5544"
+    },
+    {
+      "tick": 7194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7189;978:5544",
+      "after": "910:7194;978:5544"
+    },
+    {
+      "tick": 7199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7194;978:5544",
+      "after": "910:7199;978:5544"
+    },
+    {
+      "tick": 7204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7199;978:5544",
+      "after": "910:7204;978:5544"
+    },
+    {
+      "tick": 7209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7204;978:5544",
+      "after": "910:7209;978:5544"
+    },
+    {
+      "tick": 7214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7209;978:5544",
+      "after": "910:7214;978:5544"
+    },
+    {
+      "tick": 7219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7214;978:5544",
+      "after": "910:7219;978:5544"
+    },
+    {
+      "tick": 7224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7219;978:5544",
+      "after": "910:7224;978:5544"
+    },
+    {
+      "tick": 7229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7224;978:5544",
+      "after": "910:7229;978:5544"
+    },
+    {
+      "tick": 7234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7229;978:5544",
+      "after": "910:7234;978:5544"
+    },
+    {
+      "tick": 7239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7234;978:5544",
+      "after": "910:7239;978:5544"
+    },
+    {
+      "tick": 7244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7239;978:5544",
+      "after": "910:7244;978:5544"
+    },
+    {
+      "tick": 7249,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 7249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7244;978:5544",
+      "after": "910:7249;978:5544"
+    },
+    {
+      "tick": 7254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7249;978:5544",
+      "after": "910:7254;978:5544"
+    },
+    {
+      "tick": 7259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7254;978:5544",
+      "after": "910:7259;978:5544"
+    },
+    {
+      "tick": 7264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7259;978:5544",
+      "after": "910:7264;978:5544"
+    },
+    {
+      "tick": 7269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7264;978:5544",
+      "after": "910:7269;978:5544"
+    },
+    {
+      "tick": 7274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7269;978:5544",
+      "after": "910:7274;978:5544"
+    },
+    {
+      "tick": 7279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7274;978:5544",
+      "after": "910:7279;978:5544"
+    },
+    {
+      "tick": 7284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7279;978:5544",
+      "after": "910:7284;978:5544"
+    },
+    {
+      "tick": 7289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7284;978:5544",
+      "after": "910:7289;978:5544"
+    },
+    {
+      "tick": 7294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7289;978:5544",
+      "after": "910:7294;978:5544"
+    },
+    {
+      "tick": 7299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7294;978:5544",
+      "after": "910:7299;978:5544"
+    },
+    {
+      "tick": 7304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7299;978:5544",
+      "after": "910:7304;978:5544"
+    },
+    {
+      "tick": 7309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7304;978:5544",
+      "after": "910:7309;978:5544"
+    },
+    {
+      "tick": 7314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7309;978:5544",
+      "after": "910:7314;978:5544"
+    },
+    {
+      "tick": 7319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7314;978:5544",
+      "after": "910:7319;978:5544"
+    },
+    {
+      "tick": 7324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7319;978:5544",
+      "after": "910:7324;978:5544"
+    },
+    {
+      "tick": 7325,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 7329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7324;978:5544",
+      "after": "910:7329;978:5544"
+    },
+    {
+      "tick": 7334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7329;978:5544",
+      "after": "910:7334;978:5544"
+    },
+    {
+      "tick": 7339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7334;978:5544",
+      "after": "910:7339;978:5544"
+    },
+    {
+      "tick": 7344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7339;978:5544",
+      "after": "910:7344;978:5544"
+    },
+    {
+      "tick": 7349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7344;978:5544",
+      "after": "910:7349;978:5544"
+    },
+    {
+      "tick": 7354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7349;978:5544",
+      "after": "910:7354;978:5544"
+    },
+    {
+      "tick": 7359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7354;978:5544",
+      "after": "910:7359;978:5544"
+    },
+    {
+      "tick": 7364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7359;978:5544",
+      "after": "910:7364;978:5544"
+    },
+    {
+      "tick": 7369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7364;978:5544",
+      "after": "910:7369;978:5544"
+    },
+    {
+      "tick": 7374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7369;978:5544",
+      "after": "910:7374;978:5544"
+    },
+    {
+      "tick": 7379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7374;978:5544",
+      "after": "910:7379;978:5544"
+    },
+    {
+      "tick": 7384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7379;978:5544",
+      "after": "910:7384;978:5544"
+    },
+    {
+      "tick": 7386,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 7389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7384;978:5544",
+      "after": "910:7389;978:5544"
+    },
+    {
+      "tick": 7394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7389;978:5544",
+      "after": "910:7394;978:5544"
+    },
+    {
+      "tick": 7399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7394;978:5544",
+      "after": "910:7399;978:5544"
+    },
+    {
+      "tick": 7404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7399;978:5544",
+      "after": "910:7404;978:5544"
+    },
+    {
+      "tick": 7409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7404;978:5544",
+      "after": "910:7409;978:5544"
+    },
+    {
+      "tick": 7414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7409;978:5544",
+      "after": "910:7414;978:5544"
+    },
+    {
+      "tick": 7419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7414;978:5544",
+      "after": "910:7419;978:5544"
+    },
+    {
+      "tick": 7424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7419;978:5544",
+      "after": "910:7424;978:5544"
+    },
+    {
+      "tick": 7429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7424;978:5544",
+      "after": "910:7429;978:5544"
+    },
+    {
+      "tick": 7434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7429;978:5544",
+      "after": "910:7434;978:5544"
+    },
+    {
+      "tick": 7439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7434;978:5544",
+      "after": "910:7439;978:5544"
+    },
+    {
+      "tick": 7444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7439;978:5544",
+      "after": "910:7444;978:5544"
+    },
+    {
+      "tick": 7449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7444;978:5544",
+      "after": "910:7449;978:5544"
+    },
+    {
+      "tick": 7454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7449;978:5544",
+      "after": "910:7454;978:5544"
+    },
+    {
+      "tick": 7459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7454;978:5544",
+      "after": "910:7459;978:5544"
+    },
+    {
+      "tick": 7464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7459;978:5544",
+      "after": "910:7464;978:5544"
+    },
+    {
+      "tick": 7469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7464;978:5544",
+      "after": "910:7469;978:5544"
+    },
+    {
+      "tick": 7474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7469;978:5544",
+      "after": "910:7474;978:5544"
+    },
+    {
+      "tick": 7479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7474;978:5544",
+      "after": "910:7479;978:5544"
+    },
+    {
+      "tick": 7484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7479;978:5544",
+      "after": "910:7484;978:5544"
+    },
+    {
+      "tick": 7489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7484;978:5544",
+      "after": "910:7489;978:5544"
+    },
+    {
+      "tick": 7494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7489;978:5544",
+      "after": "910:7494;978:5544"
+    },
+    {
+      "tick": 7499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7494;978:5544",
+      "after": "910:7499;978:5544"
+    },
+    {
+      "tick": 7504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7499;978:5544",
+      "after": "910:7504;978:5544"
+    },
+    {
+      "tick": 7509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7504;978:5544",
+      "after": "910:7509;978:5544"
+    },
+    {
+      "tick": 7514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7509;978:5544",
+      "after": "910:7514;978:5544"
+    },
+    {
+      "tick": 7519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7514;978:5544",
+      "after": "910:7519;978:5544"
+    },
+    {
+      "tick": 7524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7519;978:5544",
+      "after": "910:7524;978:5544"
+    },
+    {
+      "tick": 7529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7524;978:5544",
+      "after": "910:7529;978:5544"
+    },
+    {
+      "tick": 7534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7529;978:5544",
+      "after": "910:7534;978:5544"
+    },
+    {
+      "tick": 7539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7534;978:5544",
+      "after": "910:7539;978:5544"
+    },
+    {
+      "tick": 7544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7539;978:5544",
+      "after": "910:7544;978:5544"
+    },
+    {
+      "tick": 7549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7544;978:5544",
+      "after": "910:7549;978:5544"
+    },
+    {
+      "tick": 7554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7549;978:5544",
+      "after": "910:7554;978:5544"
+    },
+    {
+      "tick": 7559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7554;978:5544",
+      "after": "910:7559;978:5544"
+    },
+    {
+      "tick": 7564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7559;978:5544",
+      "after": "910:7564;978:5544"
+    },
+    {
+      "tick": 7569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7564;978:5544",
+      "after": "910:7569;978:5544"
+    },
+    {
+      "tick": 7574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7569;978:5544",
+      "after": "910:7574;978:5544"
+    },
+    {
+      "tick": 7579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7574;978:5544",
+      "after": "910:7579;978:5544"
+    },
+    {
+      "tick": 7584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7579;978:5544",
+      "after": "910:7584;978:5544"
+    },
+    {
+      "tick": 7589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7584;978:5544",
+      "after": "910:7589;978:5544"
+    },
+    {
+      "tick": 7594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7589;978:5544",
+      "after": "910:7594;978:5544"
+    },
+    {
+      "tick": 7599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7594;978:5544",
+      "after": "910:7599;978:5544"
+    },
+    {
+      "tick": 7604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7599;978:5544",
+      "after": "910:7604;978:5544"
+    },
+    {
+      "tick": 7609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7604;978:5544",
+      "after": "910:7609;978:5544"
+    },
+    {
+      "tick": 7614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7609;978:5544",
+      "after": "910:7614;978:5544"
+    },
+    {
+      "tick": 7619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7614;978:5544",
+      "after": "910:7619;978:5544"
+    },
+    {
+      "tick": 7624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7619;978:5544",
+      "after": "910:7624;978:5544"
+    },
+    {
+      "tick": 7629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7624;978:5544",
+      "after": "910:7629;978:5544"
+    },
+    {
+      "tick": 7634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7629;978:5544",
+      "after": "910:7634;978:5544"
+    },
+    {
+      "tick": 7639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7634;978:5544",
+      "after": "910:7639;978:5544"
+    },
+    {
+      "tick": 7644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7639;978:5544",
+      "after": "910:7644;978:5544"
+    },
+    {
+      "tick": 7649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7644;978:5544",
+      "after": "910:7649;978:5544"
+    },
+    {
+      "tick": 7654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7649;978:5544",
+      "after": "910:7654;978:5544"
+    },
+    {
+      "tick": 7659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7654;978:5544",
+      "after": "910:7659;978:5544"
+    },
+    {
+      "tick": 7664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7659;978:5544",
+      "after": "910:7664;978:5544"
+    },
+    {
+      "tick": 7669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7664;978:5544",
+      "after": "910:7669;978:5544"
+    },
+    {
+      "tick": 7674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7669;978:5544",
+      "after": "910:7674;978:5544"
+    },
+    {
+      "tick": 7679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7674;978:5544",
+      "after": "910:7679;978:5544"
+    },
+    {
+      "tick": 7684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7679;978:5544",
+      "after": "910:7684;978:5544"
+    },
+    {
+      "tick": 7689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7684;978:5544",
+      "after": "910:7689;978:5544"
+    },
+    {
+      "tick": 7694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7689;978:5544",
+      "after": "910:7694;978:5544"
+    },
+    {
+      "tick": 7699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7694;978:5544",
+      "after": "910:7699;978:5544"
+    },
+    {
+      "tick": 7704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7699;978:5544",
+      "after": "910:7704;978:5544"
+    },
+    {
+      "tick": 7909,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:5544",
+      "after": "910:7704;978:7909"
+    },
+    {
+      "tick": 7914,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7909",
+      "after": "910:7704;978:7914"
+    },
+    {
+      "tick": 7919,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7914",
+      "after": "910:7704;978:7919"
+    },
+    {
+      "tick": 7924,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7919",
+      "after": "910:7704;978:7924"
+    },
+    {
+      "tick": 7929,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7924",
+      "after": "910:7704;978:7929"
+    },
+    {
+      "tick": 7934,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7929",
+      "after": "910:7704;978:7934"
+    },
+    {
+      "tick": 7939,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7934",
+      "after": "910:7704;978:7939"
+    },
+    {
+      "tick": 7944,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7939",
+      "after": "910:7704;978:7944"
+    },
+    {
+      "tick": 7949,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7944",
+      "after": "910:7704;978:7949"
+    },
+    {
+      "tick": 7954,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7949",
+      "after": "910:7704;978:7954"
+    },
+    {
+      "tick": 7959,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7954",
+      "after": "910:7704;978:7959"
+    },
+    {
+      "tick": 7964,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7959",
+      "after": "910:7704;978:7964"
+    },
+    {
+      "tick": 7969,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7964",
+      "after": "910:7704;978:7969"
+    },
+    {
+      "tick": 7974,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7969",
+      "after": "910:7704;978:7974"
+    },
+    {
+      "tick": 7979,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7974",
+      "after": "910:7704;978:7979"
+    },
+    {
+      "tick": 7984,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7979",
+      "after": "910:7704;978:7984"
+    },
+    {
+      "tick": 7989,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7984",
+      "after": "910:7704;978:7989"
+    },
+    {
+      "tick": 7994,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7989",
+      "after": "910:7704;978:7994"
+    },
+    {
+      "tick": 7999,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7994",
+      "after": "910:7704;978:7999"
+    },
+    {
+      "tick": 8004,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:7999",
+      "after": "910:7704;978:8004"
+    },
+    {
+      "tick": 8009,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8004",
+      "after": "910:7704;978:8009"
+    },
+    {
+      "tick": 8014,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8009",
+      "after": "910:7704;978:8014"
+    },
+    {
+      "tick": 8019,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8014",
+      "after": "910:7704;978:8019"
+    },
+    {
+      "tick": 8024,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8019",
+      "after": "910:7704;978:8024"
+    },
+    {
+      "tick": 8029,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8024",
+      "after": "910:7704;978:8029"
+    },
+    {
+      "tick": 8034,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8029",
+      "after": "910:7704;978:8034"
+    },
+    {
+      "tick": 8039,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8034",
+      "after": "910:7704;978:8039"
+    },
+    {
+      "tick": 8044,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8039",
+      "after": "910:7704;978:8044"
+    },
+    {
+      "tick": 8049,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8044",
+      "after": "910:7704;978:8049"
+    },
+    {
+      "tick": 8054,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8049",
+      "after": "910:7704;978:8054"
+    },
+    {
+      "tick": 8059,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8054",
+      "after": "910:7704;978:8059"
+    },
+    {
+      "tick": 8064,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8059",
+      "after": "910:7704;978:8064"
+    },
+    {
+      "tick": 8069,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8064",
+      "after": "910:7704;978:8069"
+    },
+    {
+      "tick": 8074,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8069",
+      "after": "910:7704;978:8074"
+    },
+    {
+      "tick": 8079,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8074",
+      "after": "910:7704;978:8079"
+    },
+    {
+      "tick": 8084,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8079",
+      "after": "910:7704;978:8084"
+    },
+    {
+      "tick": 8089,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8084",
+      "after": "910:7704;978:8089"
+    },
+    {
+      "tick": 8094,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 8094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8089",
+      "after": "910:7704;978:8094"
+    },
+    {
+      "tick": 8099,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8094",
+      "after": "910:7704;978:8099"
+    },
+    {
+      "tick": 8100,
+      "id": 5,
+      "kind": "first-damage",
+      "x": 78,
+      "y": 25,
+      "hungerBefore": 100,
+      "energyBefore": 0,
+      "hand": 0,
+      "phase": "Returning",
+      "order": 0,
+      "target": 4278,
+      "commute": 0
+    },
+    {
+      "tick": 8104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8099",
+      "after": "910:7704;978:8104"
+    },
+    {
+      "tick": 8109,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8104",
+      "after": "910:7704;978:8109"
+    },
+    {
+      "tick": 8114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8109",
+      "after": "910:7704;978:8114"
+    },
+    {
+      "tick": 8119,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8114",
+      "after": "910:7704;978:8119"
+    },
+    {
+      "tick": 8124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8119",
+      "after": "910:7704;978:8124"
+    },
+    {
+      "tick": 8129,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8124",
+      "after": "910:7704;978:8129"
+    },
+    {
+      "tick": 8134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8129",
+      "after": "910:7704;978:8134"
+    },
+    {
+      "tick": 8139,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8134",
+      "after": "910:7704;978:8139"
+    },
+    {
+      "tick": 8144,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8139",
+      "after": "910:7704;978:8144"
+    },
+    {
+      "tick": 8149,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8144",
+      "after": "910:7704;978:8149"
+    },
+    {
+      "tick": 8154,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8149",
+      "after": "910:7704;978:8154"
+    },
+    {
+      "tick": 8159,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8154",
+      "after": "910:7704;978:8159"
+    },
+    {
+      "tick": 8164,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8159",
+      "after": "910:7704;978:8164"
+    },
+    {
+      "tick": 8169,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8164",
+      "after": "910:7704;978:8169"
+    },
+    {
+      "tick": 8174,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8169",
+      "after": "910:7704;978:8174"
+    },
+    {
+      "tick": 8179,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8174",
+      "after": "910:7704;978:8179"
+    },
+    {
+      "tick": 8184,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8179",
+      "after": "910:7704;978:8184"
+    },
+    {
+      "tick": 8189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8184",
+      "after": "910:7704;978:8189"
+    },
+    {
+      "tick": 8194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8189",
+      "after": "910:7704;978:8194"
+    },
+    {
+      "tick": 8199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8194",
+      "after": "910:7704;978:8199"
+    },
+    {
+      "tick": 8204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8199",
+      "after": "910:7704;978:8204"
+    },
+    {
+      "tick": 8209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8204",
+      "after": "910:7704;978:8209"
+    },
+    {
+      "tick": 8214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8209",
+      "after": "910:7704;978:8214"
+    },
+    {
+      "tick": 8219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8214",
+      "after": "910:7704;978:8219"
+    },
+    {
+      "tick": 8224,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 8224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8219",
+      "after": "910:7704;978:8224"
+    },
+    {
+      "tick": 8229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8224",
+      "after": "910:7704;978:8229"
+    },
+    {
+      "tick": 8234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8229",
+      "after": "910:7704;978:8234"
+    },
+    {
+      "tick": 8239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8234",
+      "after": "910:7704;978:8239"
+    },
+    {
+      "tick": 8244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8239",
+      "after": "910:7704;978:8244"
+    },
+    {
+      "tick": 8249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8244",
+      "after": "910:7704;978:8249"
+    },
+    {
+      "tick": 8254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8249",
+      "after": "910:7704;978:8254"
+    },
+    {
+      "tick": 8259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8254",
+      "after": "910:7704;978:8259"
+    },
+    {
+      "tick": 8264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8259",
+      "after": "910:7704;978:8264"
+    },
+    {
+      "tick": 8269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8264",
+      "after": "910:7704;978:8269"
+    },
+    {
+      "tick": 8274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8269",
+      "after": "910:7704;978:8274"
+    },
+    {
+      "tick": 8279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8274",
+      "after": "910:7704;978:8279"
+    },
+    {
+      "tick": 8284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8279",
+      "after": "910:7704;978:8284"
+    },
+    {
+      "tick": 8289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8284",
+      "after": "910:7704;978:8289"
+    },
+    {
+      "tick": 8294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8289",
+      "after": "910:7704;978:8294"
+    },
+    {
+      "tick": 8299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8294",
+      "after": "910:7704;978:8299"
+    },
+    {
+      "tick": 8304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8299",
+      "after": "910:7704;978:8304"
+    },
+    {
+      "tick": 8309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8304",
+      "after": "910:7704;978:8309"
+    },
+    {
+      "tick": 8314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8309",
+      "after": "910:7704;978:8314"
+    },
+    {
+      "tick": 8319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8314",
+      "after": "910:7704;978:8319"
+    },
+    {
+      "tick": 8324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8319",
+      "after": "910:7704;978:8324"
+    },
+    {
+      "tick": 8329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8324",
+      "after": "910:7704;978:8329"
+    },
+    {
+      "tick": 8334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8329",
+      "after": "910:7704;978:8334"
+    },
+    {
+      "tick": 8339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8334",
+      "after": "910:7704;978:8339"
+    },
+    {
+      "tick": 8344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8339",
+      "after": "910:7704;978:8344"
+    },
+    {
+      "tick": 8349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8344",
+      "after": "910:7704;978:8349"
+    },
+    {
+      "tick": 8354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8349",
+      "after": "910:7704;978:8354"
+    },
+    {
+      "tick": 8359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8354",
+      "after": "910:7704;978:8359"
+    },
+    {
+      "tick": 8364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8359",
+      "after": "910:7704;978:8364"
+    },
+    {
+      "tick": 8369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8364",
+      "after": "910:7704;978:8369"
+    },
+    {
+      "tick": 8374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8369",
+      "after": "910:7704;978:8374"
+    },
+    {
+      "tick": 8379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8374",
+      "after": "910:7704;978:8379"
+    },
+    {
+      "tick": 8384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8379",
+      "after": "910:7704;978:8384"
+    },
+    {
+      "tick": 8389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8384",
+      "after": "910:7704;978:8389"
+    },
+    {
+      "tick": 8394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8389",
+      "after": "910:7704;978:8394"
+    },
+    {
+      "tick": 8399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8394",
+      "after": "910:7704;978:8399"
+    },
+    {
+      "tick": 8404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8399",
+      "after": "910:7704;978:8404"
+    },
+    {
+      "tick": 8409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8404",
+      "after": "910:7704;978:8409"
+    },
+    {
+      "tick": 8414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8409",
+      "after": "910:7704;978:8414"
+    },
+    {
+      "tick": 8419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8414",
+      "after": "910:7704;978:8419"
+    },
+    {
+      "tick": 8424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8419",
+      "after": "910:7704;978:8424"
+    },
+    {
+      "tick": 8429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8424",
+      "after": "910:7704;978:8429"
+    },
+    {
+      "tick": 8434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8429",
+      "after": "910:7704;978:8434"
+    },
+    {
+      "tick": 8439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8434",
+      "after": "910:7704;978:8439"
+    },
+    {
+      "tick": 8444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8439",
+      "after": "910:7704;978:8444"
+    },
+    {
+      "tick": 8449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8444",
+      "after": "910:7704;978:8449"
+    },
+    {
+      "tick": 8454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8449",
+      "after": "910:7704;978:8454"
+    },
+    {
+      "tick": 8459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8454",
+      "after": "910:7704;978:8459"
+    },
+    {
+      "tick": 8464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8459",
+      "after": "910:7704;978:8464"
+    },
+    {
+      "tick": 8469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8464",
+      "after": "910:7704;978:8469"
+    },
+    {
+      "tick": 8474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8469",
+      "after": "910:7704;978:8474"
+    },
+    {
+      "tick": 8479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8474",
+      "after": "910:7704;978:8479"
+    },
+    {
+      "tick": 8484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8479",
+      "after": "910:7704;978:8484"
+    },
+    {
+      "tick": 8489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8484",
+      "after": "910:7704;978:8489"
+    },
+    {
+      "tick": 8494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8489",
+      "after": "910:7704;978:8494"
+    },
+    {
+      "tick": 8499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8494",
+      "after": "910:7704;978:8499"
+    },
+    {
+      "tick": 8504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8499",
+      "after": "910:7704;978:8504"
+    },
+    {
+      "tick": 8509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8504",
+      "after": "910:7704;978:8509"
+    },
+    {
+      "tick": 8514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8509",
+      "after": "910:7704;978:8514"
+    },
+    {
+      "tick": 8519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8514",
+      "after": "910:7704;978:8519"
+    },
+    {
+      "tick": 8524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8519",
+      "after": "910:7704;978:8524"
+    },
+    {
+      "tick": 8529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8524",
+      "after": "910:7704;978:8529"
+    },
+    {
+      "tick": 8534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8529",
+      "after": "910:7704;978:8534"
+    },
+    {
+      "tick": 8539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8534",
+      "after": "910:7704;978:8539"
+    },
+    {
+      "tick": 8544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8539",
+      "after": "910:7704;978:8544"
+    },
+    {
+      "tick": 8549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8544",
+      "after": "910:7704;978:8549"
+    },
+    {
+      "tick": 8554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8549",
+      "after": "910:7704;978:8554"
+    },
+    {
+      "tick": 8559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8554",
+      "after": "910:7704;978:8559"
+    },
+    {
+      "tick": 8564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8559",
+      "after": "910:7704;978:8564"
+    },
+    {
+      "tick": 8569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8564",
+      "after": "910:7704;978:8569"
+    },
+    {
+      "tick": 8574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8569",
+      "after": "910:7704;978:8574"
+    },
+    {
+      "tick": 8579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8574",
+      "after": "910:7704;978:8579"
+    },
+    {
+      "tick": 8584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8579",
+      "after": "910:7704;978:8584"
+    },
+    {
+      "tick": 8589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8584",
+      "after": "910:7704;978:8589"
+    },
+    {
+      "tick": 8594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8589",
+      "after": "910:7704;978:8594"
+    },
+    {
+      "tick": 8599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8594",
+      "after": "910:7704;978:8599"
+    },
+    {
+      "tick": 8604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8599",
+      "after": "910:7704;978:8604"
+    },
+    {
+      "tick": 8609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8604",
+      "after": "910:7704;978:8609"
+    },
+    {
+      "tick": 8614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8609",
+      "after": "910:7704;978:8614"
+    },
+    {
+      "tick": 8619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8614",
+      "after": "910:7704;978:8619"
+    },
+    {
+      "tick": 8624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8619",
+      "after": "910:7704;978:8624"
+    },
+    {
+      "tick": 8629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8624",
+      "after": "910:7704;978:8629"
+    },
+    {
+      "tick": 8634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8629",
+      "after": "910:7704;978:8634"
+    },
+    {
+      "tick": 8639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8634",
+      "after": "910:7704;978:8639"
+    },
+    {
+      "tick": 8644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8639",
+      "after": "910:7704;978:8644"
+    },
+    {
+      "tick": 8649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8644",
+      "after": "910:7704;978:8649"
+    },
+    {
+      "tick": 8654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8649",
+      "after": "910:7704;978:8654"
+    },
+    {
+      "tick": 8659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8654",
+      "after": "910:7704;978:8659"
+    },
+    {
+      "tick": 8664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8659",
+      "after": "910:7704;978:8664"
+    },
+    {
+      "tick": 8669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8664",
+      "after": "910:7704;978:8669"
+    },
+    {
+      "tick": 8674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8669",
+      "after": "910:7704;978:8674"
+    },
+    {
+      "tick": 8679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8674",
+      "after": "910:7704;978:8679"
+    },
+    {
+      "tick": 8684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8679",
+      "after": "910:7704;978:8684"
+    },
+    {
+      "tick": 8689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8684",
+      "after": "910:7704;978:8689"
+    },
+    {
+      "tick": 8694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8689",
+      "after": "910:7704;978:8694"
+    },
+    {
+      "tick": 8879,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:7704;978:8694",
+      "after": "910:8879;978:8694"
+    },
+    {
+      "tick": 8884,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8879;978:8694",
+      "after": "910:8884;978:8694"
+    },
+    {
+      "tick": 8889,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8884;978:8694",
+      "after": "910:8889;978:8694"
+    },
+    {
+      "tick": 8894,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8889;978:8694",
+      "after": "910:8894;978:8694"
+    },
+    {
+      "tick": 8899,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8894;978:8694",
+      "after": "910:8899;978:8694"
+    },
+    {
+      "tick": 8904,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8899;978:8694",
+      "after": "910:8904;978:8694"
+    },
+    {
+      "tick": 8909,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8904;978:8694",
+      "after": "910:8909;978:8694"
+    },
+    {
+      "tick": 8914,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8909;978:8694",
+      "after": "910:8914;978:8694"
+    },
+    {
+      "tick": 8919,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8914;978:8694",
+      "after": "910:8919;978:8694"
+    },
+    {
+      "tick": 8924,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8919;978:8694",
+      "after": "910:8924;978:8694"
+    },
+    {
+      "tick": 8929,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8924;978:8694",
+      "after": "910:8929;978:8694"
+    },
+    {
+      "tick": 8934,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8929;978:8694",
+      "after": "910:8934;978:8694"
+    },
+    {
+      "tick": 8939,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8934;978:8694",
+      "after": "910:8939;978:8694"
+    },
+    {
+      "tick": 8944,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8939;978:8694",
+      "after": "910:8944;978:8694"
+    },
+    {
+      "tick": 8949,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8944;978:8694",
+      "after": "910:8949;978:8694"
+    },
+    {
+      "tick": 8954,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8949;978:8694",
+      "after": "910:8954;978:8694"
+    },
+    {
+      "tick": 8959,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8954;978:8694",
+      "after": "910:8959;978:8694"
+    },
+    {
+      "tick": 8964,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8959;978:8694",
+      "after": "910:8964;978:8694"
+    },
+    {
+      "tick": 8969,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8964;978:8694",
+      "after": "910:8969;978:8694"
+    },
+    {
+      "tick": 8974,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8969;978:8694",
+      "after": "910:8974;978:8694"
+    },
+    {
+      "tick": 8979,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8974;978:8694",
+      "after": "910:8979;978:8694"
+    },
+    {
+      "tick": 8984,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8979;978:8694",
+      "after": "910:8984;978:8694"
+    },
+    {
+      "tick": 8989,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8984;978:8694",
+      "after": "910:8989;978:8694"
+    },
+    {
+      "tick": 8994,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8989;978:8694",
+      "after": "910:8994;978:8694"
+    },
+    {
+      "tick": 8999,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8994;978:8694",
+      "after": "910:8999;978:8694"
+    },
+    {
+      "tick": 9004,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8999;978:8694",
+      "after": "910:9004;978:8694"
+    },
+    {
+      "tick": 9009,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9004;978:8694",
+      "after": "910:9009;978:8694"
+    },
+    {
+      "tick": 9014,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9009;978:8694",
+      "after": "910:9014;978:8694"
+    },
+    {
+      "tick": 9019,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9014;978:8694",
+      "after": "910:9019;978:8694"
+    },
+    {
+      "tick": 9024,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9019;978:8694",
+      "after": "910:9024;978:8694"
+    },
+    {
+      "tick": 9029,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9024;978:8694",
+      "after": "910:9029;978:8694"
+    },
+    {
+      "tick": 9034,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9029;978:8694",
+      "after": "910:9034;978:8694"
+    },
+    {
+      "tick": 9039,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9034;978:8694",
+      "after": "910:9039;978:8694"
+    },
+    {
+      "tick": 9044,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9039;978:8694",
+      "after": "910:9044;978:8694"
+    },
+    {
+      "tick": 9049,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9044;978:8694",
+      "after": "910:9049;978:8694"
+    },
+    {
+      "tick": 9054,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9049;978:8694",
+      "after": "910:9054;978:8694"
+    },
+    {
+      "tick": 9059,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9054;978:8694",
+      "after": "910:9059;978:8694"
+    },
+    {
+      "tick": 9064,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9059;978:8694",
+      "after": "910:9064;978:8694"
+    },
+    {
+      "tick": 9069,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 9069,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9064;978:8694",
+      "after": "910:9069;978:8694"
+    },
+    {
+      "tick": 9074,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9069;978:8694",
+      "after": "910:9074;978:8694"
+    },
+    {
+      "tick": 9079,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9074;978:8694",
+      "after": "910:9079;978:8694"
+    },
+    {
+      "tick": 9084,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9079;978:8694",
+      "after": "910:9084;978:8694"
+    },
+    {
+      "tick": 9089,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9084;978:8694",
+      "after": "910:9089;978:8694"
+    },
+    {
+      "tick": 9094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9089;978:8694",
+      "after": "910:9094;978:8694"
+    },
+    {
+      "tick": 9099,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9094;978:8694",
+      "after": "910:9099;978:8694"
+    },
+    {
+      "tick": 9104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9099;978:8694",
+      "after": "910:9104;978:8694"
+    },
+    {
+      "tick": 9109,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9104;978:8694",
+      "after": "910:9109;978:8694"
+    },
+    {
+      "tick": 9114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9109;978:8694",
+      "after": "910:9114;978:8694"
+    },
+    {
+      "tick": 9119,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9114;978:8694",
+      "after": "910:9119;978:8694"
+    },
+    {
+      "tick": 9124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9119;978:8694",
+      "after": "910:9124;978:8694"
+    },
+    {
+      "tick": 9129,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9124;978:8694",
+      "after": "910:9129;978:8694"
+    },
+    {
+      "tick": 9134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9129;978:8694",
+      "after": "910:9134;978:8694"
+    },
+    {
+      "tick": 9139,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9134;978:8694",
+      "after": "910:9139;978:8694"
+    },
+    {
+      "tick": 9144,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9139;978:8694",
+      "after": "910:9144;978:8694"
+    },
+    {
+      "tick": 9149,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9144;978:8694",
+      "after": "910:9149;978:8694"
+    },
+    {
+      "tick": 9154,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9149;978:8694",
+      "after": "910:9154;978:8694"
+    },
+    {
+      "tick": 9159,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9154;978:8694",
+      "after": "910:9159;978:8694"
+    },
+    {
+      "tick": 9164,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9159;978:8694",
+      "after": "910:9164;978:8694"
+    },
+    {
+      "tick": 9169,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9164;978:8694",
+      "after": "910:9169;978:8694"
+    },
+    {
+      "tick": 9174,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9169;978:8694",
+      "after": "910:9174;978:8694"
+    },
+    {
+      "tick": 9179,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9174;978:8694",
+      "after": "910:9179;978:8694"
+    },
+    {
+      "tick": 9184,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9179;978:8694",
+      "after": "910:9184;978:8694"
+    },
+    {
+      "tick": 9189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9184;978:8694",
+      "after": "910:9189;978:8694"
+    },
+    {
+      "tick": 9194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9189;978:8694",
+      "after": "910:9194;978:8694"
+    },
+    {
+      "tick": 9199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9194;978:8694",
+      "after": "910:9199;978:8694"
+    },
+    {
+      "tick": 9204,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 9204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9199;978:8694",
+      "after": "910:9204;978:8694"
+    },
+    {
+      "tick": 9209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9204;978:8694",
+      "after": "910:9209;978:8694"
+    },
+    {
+      "tick": 9214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9209;978:8694",
+      "after": "910:9214;978:8694"
+    },
+    {
+      "tick": 9219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9214;978:8694",
+      "after": "910:9219;978:8694"
+    },
+    {
+      "tick": 9224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9219;978:8694",
+      "after": "910:9224;978:8694"
+    },
+    {
+      "tick": 9229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9224;978:8694",
+      "after": "910:9229;978:8694"
+    },
+    {
+      "tick": 9234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9229;978:8694",
+      "after": "910:9234;978:8694"
+    },
+    {
+      "tick": 9239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9234;978:8694",
+      "after": "910:9239;978:8694"
+    },
+    {
+      "tick": 9244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9239;978:8694",
+      "after": "910:9244;978:8694"
+    },
+    {
+      "tick": 9249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9244;978:8694",
+      "after": "910:9249;978:8694"
+    },
+    {
+      "tick": 9254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9249;978:8694",
+      "after": "910:9254;978:8694"
+    },
+    {
+      "tick": 9259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9254;978:8694",
+      "after": "910:9259;978:8694"
+    },
+    {
+      "tick": 9264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9259;978:8694",
+      "after": "910:9264;978:8694"
+    },
+    {
+      "tick": 9269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9264;978:8694",
+      "after": "910:9269;978:8694"
+    },
+    {
+      "tick": 9274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9269;978:8694",
+      "after": "910:9274;978:8694"
+    },
+    {
+      "tick": 9279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9274;978:8694",
+      "after": "910:9279;978:8694"
+    },
+    {
+      "tick": 9284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9279;978:8694",
+      "after": "910:9284;978:8694"
+    },
+    {
+      "tick": 9289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9284;978:8694",
+      "after": "910:9289;978:8694"
+    },
+    {
+      "tick": 9294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9289;978:8694",
+      "after": "910:9294;978:8694"
+    },
+    {
+      "tick": 9299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9294;978:8694",
+      "after": "910:9299;978:8694"
+    },
+    {
+      "tick": 9304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9299;978:8694",
+      "after": "910:9304;978:8694"
+    },
+    {
+      "tick": 9309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9304;978:8694",
+      "after": "910:9309;978:8694"
+    },
+    {
+      "tick": 9314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9309;978:8694",
+      "after": "910:9314;978:8694"
+    },
+    {
+      "tick": 9319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9314;978:8694",
+      "after": "910:9319;978:8694"
+    },
+    {
+      "tick": 9324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9319;978:8694",
+      "after": "910:9324;978:8694"
+    },
+    {
+      "tick": 9329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9324;978:8694",
+      "after": "910:9329;978:8694"
+    },
+    {
+      "tick": 9334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9329;978:8694",
+      "after": "910:9334;978:8694"
+    },
+    {
+      "tick": 9339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9334;978:8694",
+      "after": "910:9339;978:8694"
+    },
+    {
+      "tick": 9344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9339;978:8694",
+      "after": "910:9344;978:8694"
+    },
+    {
+      "tick": 9349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9344;978:8694",
+      "after": "910:9349;978:8694"
+    },
+    {
+      "tick": 9354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9349;978:8694",
+      "after": "910:9354;978:8694"
+    },
+    {
+      "tick": 9359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9354;978:8694",
+      "after": "910:9359;978:8694"
+    },
+    {
+      "tick": 9364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9359;978:8694",
+      "after": "910:9364;978:8694"
+    },
+    {
+      "tick": 9369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9364;978:8694",
+      "after": "910:9369;978:8694"
+    },
+    {
+      "tick": 9374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9369;978:8694",
+      "after": "910:9374;978:8694"
+    },
+    {
+      "tick": 9379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9374;978:8694",
+      "after": "910:9379;978:8694"
+    },
+    {
+      "tick": 9384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9379;978:8694",
+      "after": "910:9384;978:8694"
+    },
+    {
+      "tick": 9389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9384;978:8694",
+      "after": "910:9389;978:8694"
+    },
+    {
+      "tick": 9394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9389;978:8694",
+      "after": "910:9394;978:8694"
+    },
+    {
+      "tick": 9399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9394;978:8694",
+      "after": "910:9399;978:8694"
+    },
+    {
+      "tick": 9404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9399;978:8694",
+      "after": "910:9404;978:8694"
+    },
+    {
+      "tick": 9409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9404;978:8694",
+      "after": "910:9409;978:8694"
+    },
+    {
+      "tick": 9414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9409;978:8694",
+      "after": "910:9414;978:8694"
+    },
+    {
+      "tick": 9419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9414;978:8694",
+      "after": "910:9419;978:8694"
+    },
+    {
+      "tick": 9424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9419;978:8694",
+      "after": "910:9424;978:8694"
+    },
+    {
+      "tick": 9429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9424;978:8694",
+      "after": "910:9429;978:8694"
+    },
+    {
+      "tick": 9434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9429;978:8694",
+      "after": "910:9434;978:8694"
+    },
+    {
+      "tick": 9439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9434;978:8694",
+      "after": "910:9439;978:8694"
+    },
+    {
+      "tick": 9444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9439;978:8694",
+      "after": "910:9444;978:8694"
+    },
+    {
+      "tick": 9449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9444;978:8694",
+      "after": "910:9449;978:8694"
+    },
+    {
+      "tick": 9454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9449;978:8694",
+      "after": "910:9454;978:8694"
+    },
+    {
+      "tick": 9459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9454;978:8694",
+      "after": "910:9459;978:8694"
+    },
+    {
+      "tick": 9464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9459;978:8694",
+      "after": "910:9464;978:8694"
+    },
+    {
+      "tick": 9469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9464;978:8694",
+      "after": "910:9469;978:8694"
+    },
+    {
+      "tick": 9474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9469;978:8694",
+      "after": "910:9474;978:8694"
+    },
+    {
+      "tick": 9479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9474;978:8694",
+      "after": "910:9479;978:8694"
+    },
+    {
+      "tick": 9484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9479;978:8694",
+      "after": "910:9484;978:8694"
+    },
+    {
+      "tick": 9489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9484;978:8694",
+      "after": "910:9489;978:8694"
+    },
+    {
+      "tick": 9494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9489;978:8694",
+      "after": "910:9494;978:8694"
+    },
+    {
+      "tick": 9499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9494;978:8694",
+      "after": "910:9499;978:8694"
+    },
+    {
+      "tick": 9504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9499;978:8694",
+      "after": "910:9504;978:8694"
+    },
+    {
+      "tick": 9509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9504;978:8694",
+      "after": "910:9509;978:8694"
+    },
+    {
+      "tick": 9514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9509;978:8694",
+      "after": "910:9514;978:8694"
+    },
+    {
+      "tick": 9519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9514;978:8694",
+      "after": "910:9519;978:8694"
+    },
+    {
+      "tick": 9524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9519;978:8694",
+      "after": "910:9524;978:8694"
+    },
+    {
+      "tick": 9529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9524;978:8694",
+      "after": "910:9529;978:8694"
+    },
+    {
+      "tick": 9534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9529;978:8694",
+      "after": "910:9534;978:8694"
+    },
+    {
+      "tick": 9539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9534;978:8694",
+      "after": "910:9539;978:8694"
+    },
+    {
+      "tick": 9544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9539;978:8694",
+      "after": "910:9544;978:8694"
+    },
+    {
+      "tick": 9549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9544;978:8694",
+      "after": "910:9549;978:8694"
+    },
+    {
+      "tick": 9554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9549;978:8694",
+      "after": "910:9554;978:8694"
+    },
+    {
+      "tick": 9559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9554;978:8694",
+      "after": "910:9559;978:8694"
+    },
+    {
+      "tick": 9564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9559;978:8694",
+      "after": "910:9564;978:8694"
+    },
+    {
+      "tick": 9569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9564;978:8694",
+      "after": "910:9569;978:8694"
+    },
+    {
+      "tick": 9574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9569;978:8694",
+      "after": "910:9574;978:8694"
+    },
+    {
+      "tick": 9579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9574;978:8694",
+      "after": "910:9579;978:8694"
+    },
+    {
+      "tick": 9584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9579;978:8694",
+      "after": "910:9584;978:8694"
+    },
+    {
+      "tick": 9589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9584;978:8694",
+      "after": "910:9589;978:8694"
+    },
+    {
+      "tick": 9594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9589;978:8694",
+      "after": "910:9594;978:8694"
+    },
+    {
+      "tick": 9599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9594;978:8694",
+      "after": "910:9599;978:8694"
+    },
+    {
+      "tick": 9604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9599;978:8694",
+      "after": "910:9604;978:8694"
+    },
+    {
+      "tick": 9609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9604;978:8694",
+      "after": "910:9609;978:8694"
+    },
+    {
+      "tick": 9614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9609;978:8694",
+      "after": "910:9614;978:8694"
+    },
+    {
+      "tick": 9619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9614;978:8694",
+      "after": "910:9619;978:8694"
+    },
+    {
+      "tick": 9624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9619;978:8694",
+      "after": "910:9624;978:8694"
+    },
+    {
+      "tick": 9629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9624;978:8694",
+      "after": "910:9629;978:8694"
+    },
+    {
+      "tick": 9634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9629;978:8694",
+      "after": "910:9634;978:8694"
+    },
+    {
+      "tick": 9639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9634;978:8694",
+      "after": "910:9639;978:8694"
+    },
+    {
+      "tick": 9644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9639;978:8694",
+      "after": "910:9644;978:8694"
+    },
+    {
+      "tick": 9649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9644;978:8694",
+      "after": "910:9649;978:8694"
+    },
+    {
+      "tick": 9654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9649;978:8694",
+      "after": "910:9654;978:8694"
+    },
+    {
+      "tick": 9659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9654;978:8694",
+      "after": "910:9659;978:8694"
+    },
+    {
+      "tick": 9664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9659;978:8694",
+      "after": "910:9664;978:8694"
+    },
+    {
+      "tick": 9669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9664;978:8694",
+      "after": "910:9669;978:8694"
+    },
+    {
+      "tick": 9674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9669;978:8694",
+      "after": "910:9674;978:8694"
+    },
+    {
+      "tick": 9679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9674;978:8694",
+      "after": "910:9679;978:8694"
+    },
+    {
+      "tick": 9864,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:8694",
+      "after": "910:9679;978:9864"
+    },
+    {
+      "tick": 9869,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9864",
+      "after": "910:9679;978:9869"
+    },
+    {
+      "tick": 9874,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9869",
+      "after": "910:9679;978:9874"
+    },
+    {
+      "tick": 9879,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9874",
+      "after": "910:9679;978:9879"
+    },
+    {
+      "tick": 9884,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9879",
+      "after": "910:9679;978:9884"
+    },
+    {
+      "tick": 9889,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9884",
+      "after": "910:9679;978:9889"
+    },
+    {
+      "tick": 9894,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9889",
+      "after": "910:9679;978:9894"
+    },
+    {
+      "tick": 9899,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9894",
+      "after": "910:9679;978:9899"
+    },
+    {
+      "tick": 9904,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9899",
+      "after": "910:9679;978:9904"
+    },
+    {
+      "tick": 9909,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9904",
+      "after": "910:9679;978:9909"
+    },
+    {
+      "tick": 9914,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9909",
+      "after": "910:9679;978:9914"
+    },
+    {
+      "tick": 9919,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9914",
+      "after": "910:9679;978:9919"
+    },
+    {
+      "tick": 9924,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9919",
+      "after": "910:9679;978:9924"
+    },
+    {
+      "tick": 9929,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9924",
+      "after": "910:9679;978:9929"
+    },
+    {
+      "tick": 9934,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9929",
+      "after": "910:9679;978:9934"
+    },
+    {
+      "tick": 9939,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9934",
+      "after": "910:9679;978:9939"
+    },
+    {
+      "tick": 9944,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9939",
+      "after": "910:9679;978:9944"
+    },
+    {
+      "tick": 9949,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9944",
+      "after": "910:9679;978:9949"
+    },
+    {
+      "tick": 9954,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9949",
+      "after": "910:9679;978:9954"
+    },
+    {
+      "tick": 9959,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9954",
+      "after": "910:9679;978:9959"
+    },
+    {
+      "tick": 9964,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9959",
+      "after": "910:9679;978:9964"
+    },
+    {
+      "tick": 9969,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9964",
+      "after": "910:9679;978:9969"
+    },
+    {
+      "tick": 9974,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9969",
+      "after": "910:9679;978:9974"
+    },
+    {
+      "tick": 9979,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9974",
+      "after": "910:9679;978:9979"
+    },
+    {
+      "tick": 9984,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9979",
+      "after": "910:9679;978:9984"
+    },
+    {
+      "tick": 9989,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9984",
+      "after": "910:9679;978:9989"
+    },
+    {
+      "tick": 9994,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9989",
+      "after": "910:9679;978:9994"
+    },
+    {
+      "tick": 9999,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9994",
+      "after": "910:9679;978:9999"
+    },
+    {
+      "tick": 10004,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:9999",
+      "after": "910:9679;978:10004"
+    },
+    {
+      "tick": 10005,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 10009,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10004",
+      "after": "910:9679;978:10009"
+    },
+    {
+      "tick": 10014,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10009",
+      "after": "910:9679;978:10014"
+    },
+    {
+      "tick": 10019,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10014",
+      "after": "910:9679;978:10019"
+    },
+    {
+      "tick": 10024,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10019",
+      "after": "910:9679;978:10024"
+    },
+    {
+      "tick": 10029,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10024",
+      "after": "910:9679;978:10029"
+    },
+    {
+      "tick": 10034,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10029",
+      "after": "910:9679;978:10034"
+    },
+    {
+      "tick": 10039,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10034",
+      "after": "910:9679;978:10039"
+    },
+    {
+      "tick": 10044,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10039",
+      "after": "910:9679;978:10044"
+    },
+    {
+      "tick": 10049,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 10049,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10044",
+      "after": "910:9679;978:10049"
+    },
+    {
+      "tick": 10054,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10049",
+      "after": "910:9679;978:10054"
+    },
+    {
+      "tick": 10059,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10054",
+      "after": "910:9679;978:10059"
+    },
+    {
+      "tick": 10064,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10059",
+      "after": "910:9679;978:10064"
+    },
+    {
+      "tick": 10069,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10064",
+      "after": "910:9679;978:10069"
+    },
+    {
+      "tick": 10074,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10069",
+      "after": "910:9679;978:10074"
+    },
+    {
+      "tick": 10079,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10074",
+      "after": "910:9679;978:10079"
+    },
+    {
+      "tick": 10080,
+      "id": 2,
+      "kind": "first-damage",
+      "x": 14,
+      "y": 37,
+      "hungerBefore": 99,
+      "energyBefore": 0,
+      "hand": 0,
+      "phase": "None",
+      "order": 0,
+      "target": 0,
+      "commute": 0
+    },
+    {
+      "tick": 10084,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10079",
+      "after": "910:9679;978:10084"
+    },
+    {
+      "tick": 10089,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10084",
+      "after": "910:9679;978:10089"
+    },
+    {
+      "tick": 10094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10089",
+      "after": "910:9679;978:10094"
+    },
+    {
+      "tick": 10099,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10094",
+      "after": "910:9679;978:10099"
+    },
+    {
+      "tick": 10104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10099",
+      "after": "910:9679;978:10104"
+    },
+    {
+      "tick": 10109,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10104",
+      "after": "910:9679;978:10109"
+    },
+    {
+      "tick": 10114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10109",
+      "after": "910:9679;978:10114"
+    },
+    {
+      "tick": 10119,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10114",
+      "after": "910:9679;978:10119"
+    },
+    {
+      "tick": 10124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10119",
+      "after": "910:9679;978:10124"
+    },
+    {
+      "tick": 10129,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10124",
+      "after": "910:9679;978:10129"
+    },
+    {
+      "tick": 10134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10129",
+      "after": "910:9679;978:10134"
+    },
+    {
+      "tick": 10135,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 10139,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10134",
+      "after": "910:9679;978:10139"
+    },
+    {
+      "tick": 10144,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10139",
+      "after": "910:9679;978:10144"
+    },
+    {
+      "tick": 10149,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10144",
+      "after": "910:9679;978:10149"
+    },
+    {
+      "tick": 10154,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10149",
+      "after": "910:9679;978:10154"
+    },
+    {
+      "tick": 10159,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10154",
+      "after": "910:9679;978:10159"
+    },
+    {
+      "tick": 10164,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10159",
+      "after": "910:9679;978:10164"
+    },
+    {
+      "tick": 10169,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10164",
+      "after": "910:9679;978:10169"
+    },
+    {
+      "tick": 10174,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10169",
+      "after": "910:9679;978:10174"
+    },
+    {
+      "tick": 10179,
+      "id": 4,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 10179,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10174",
+      "after": "910:9679;978:10179"
+    },
+    {
+      "tick": 10184,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10179",
+      "after": "910:9679;978:10184"
+    },
+    {
+      "tick": 10189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10184",
+      "after": "910:9679;978:10189"
+    },
+    {
+      "tick": 10194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10189",
+      "after": "910:9679;978:10194"
+    },
+    {
+      "tick": 10199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10194",
+      "after": "910:9679;978:10199"
+    },
+    {
+      "tick": 10204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10199",
+      "after": "910:9679;978:10204"
+    },
+    {
+      "tick": 10209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10204",
+      "after": "910:9679;978:10209"
+    },
+    {
+      "tick": 10214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10209",
+      "after": "910:9679;978:10214"
+    },
+    {
+      "tick": 10219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10214",
+      "after": "910:9679;978:10219"
+    },
+    {
+      "tick": 10224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10219",
+      "after": "910:9679;978:10224"
+    },
+    {
+      "tick": 10229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10224",
+      "after": "910:9679;978:10229"
+    },
+    {
+      "tick": 10234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10229",
+      "after": "910:9679;978:10234"
+    },
+    {
+      "tick": 10239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10234",
+      "after": "910:9679;978:10239"
+    },
+    {
+      "tick": 10244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10239",
+      "after": "910:9679;978:10244"
+    },
+    {
+      "tick": 10249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10244",
+      "after": "910:9679;978:10249"
+    },
+    {
+      "tick": 10254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10249",
+      "after": "910:9679;978:10254"
+    },
+    {
+      "tick": 10259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10254",
+      "after": "910:9679;978:10259"
+    },
+    {
+      "tick": 10264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10259",
+      "after": "910:9679;978:10264"
+    },
+    {
+      "tick": 10269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10264",
+      "after": "910:9679;978:10269"
+    },
+    {
+      "tick": 10274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10269",
+      "after": "910:9679;978:10274"
+    },
+    {
+      "tick": 10279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10274",
+      "after": "910:9679;978:10279"
+    },
+    {
+      "tick": 10284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10279",
+      "after": "910:9679;978:10284"
+    },
+    {
+      "tick": 10289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10284",
+      "after": "910:9679;978:10289"
+    },
+    {
+      "tick": 10290,
+      "id": 3,
+      "kind": "first-damage",
+      "x": 82,
+      "y": 37,
+      "hungerBefore": 99,
+      "energyBefore": 0,
+      "hand": 0,
+      "phase": "None",
+      "order": 0,
+      "target": 0,
+      "commute": 3778
+    },
+    {
+      "tick": 10294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10289",
+      "after": "910:9679;978:10294"
+    },
+    {
+      "tick": 10299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10294",
+      "after": "910:9679;978:10299"
+    },
+    {
+      "tick": 10304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10299",
+      "after": "910:9679;978:10304"
+    },
+    {
+      "tick": 10309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10304",
+      "after": "910:9679;978:10309"
+    },
+    {
+      "tick": 10314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10309",
+      "after": "910:9679;978:10314"
+    },
+    {
+      "tick": 10319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10314",
+      "after": "910:9679;978:10319"
+    },
+    {
+      "tick": 10324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10319",
+      "after": "910:9679;978:10324"
+    },
+    {
+      "tick": 10329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10324",
+      "after": "910:9679;978:10329"
+    },
+    {
+      "tick": 10334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10329",
+      "after": "910:9679;978:10334"
+    },
+    {
+      "tick": 10339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10334",
+      "after": "910:9679;978:10339"
+    },
+    {
+      "tick": 10344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10339",
+      "after": "910:9679;978:10344"
+    },
+    {
+      "tick": 10349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10344",
+      "after": "910:9679;978:10349"
+    },
+    {
+      "tick": 10354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10349",
+      "after": "910:9679;978:10354"
+    },
+    {
+      "tick": 10359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10354",
+      "after": "910:9679;978:10359"
+    },
+    {
+      "tick": 10364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10359",
+      "after": "910:9679;978:10364"
+    },
+    {
+      "tick": 10369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10364",
+      "after": "910:9679;978:10369"
+    },
+    {
+      "tick": 10374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10369",
+      "after": "910:9679;978:10374"
+    },
+    {
+      "tick": 10379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10374",
+      "after": "910:9679;978:10379"
+    },
+    {
+      "tick": 10384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10379",
+      "after": "910:9679;978:10384"
+    },
+    {
+      "tick": 10389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10384",
+      "after": "910:9679;978:10389"
+    },
+    {
+      "tick": 10394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10389",
+      "after": "910:9679;978:10394"
+    },
+    {
+      "tick": 10399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10394",
+      "after": "910:9679;978:10399"
+    },
+    {
+      "tick": 10404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10399",
+      "after": "910:9679;978:10404"
+    },
+    {
+      "tick": 10409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10404",
+      "after": "910:9679;978:10409"
+    },
+    {
+      "tick": 10414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10409",
+      "after": "910:9679;978:10414"
+    },
+    {
+      "tick": 10419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10414",
+      "after": "910:9679;978:10419"
+    },
+    {
+      "tick": 10424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10419",
+      "after": "910:9679;978:10424"
+    },
+    {
+      "tick": 10429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10424",
+      "after": "910:9679;978:10429"
+    },
+    {
+      "tick": 10434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10429",
+      "after": "910:9679;978:10434"
+    },
+    {
+      "tick": 10439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10434",
+      "after": "910:9679;978:10439"
+    },
+    {
+      "tick": 10444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10439",
+      "after": "910:9679;978:10444"
+    },
+    {
+      "tick": 10449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10444",
+      "after": "910:9679;978:10449"
+    },
+    {
+      "tick": 10454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10449",
+      "after": "910:9679;978:10454"
+    },
+    {
+      "tick": 10459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10454",
+      "after": "910:9679;978:10459"
+    },
+    {
+      "tick": 10464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10459",
+      "after": "910:9679;978:10464"
+    },
+    {
+      "tick": 10469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10464",
+      "after": "910:9679;978:10469"
+    },
+    {
+      "tick": 10474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10469",
+      "after": "910:9679;978:10474"
+    },
+    {
+      "tick": 10479,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10474",
+      "after": "910:9679;978:10479"
+    },
+    {
+      "tick": 10484,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10479",
+      "after": "910:9679;978:10484"
+    },
+    {
+      "tick": 10489,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10484",
+      "after": "910:9679;978:10489"
+    },
+    {
+      "tick": 10494,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10489",
+      "after": "910:9679;978:10494"
+    },
+    {
+      "tick": 10499,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10494",
+      "after": "910:9679;978:10499"
+    },
+    {
+      "tick": 10504,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10499",
+      "after": "910:9679;978:10504"
+    },
+    {
+      "tick": 10509,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10504",
+      "after": "910:9679;978:10509"
+    },
+    {
+      "tick": 10514,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10509",
+      "after": "910:9679;978:10514"
+    },
+    {
+      "tick": 10519,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10514",
+      "after": "910:9679;978:10519"
+    },
+    {
+      "tick": 10524,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10519",
+      "after": "910:9679;978:10524"
+    },
+    {
+      "tick": 10529,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10524",
+      "after": "910:9679;978:10529"
+    },
+    {
+      "tick": 10534,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10529",
+      "after": "910:9679;978:10534"
+    },
+    {
+      "tick": 10539,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10534",
+      "after": "910:9679;978:10539"
+    },
+    {
+      "tick": 10544,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10539",
+      "after": "910:9679;978:10544"
+    },
+    {
+      "tick": 10549,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10544",
+      "after": "910:9679;978:10549"
+    },
+    {
+      "tick": 10554,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10549",
+      "after": "910:9679;978:10554"
+    },
+    {
+      "tick": 10559,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10554",
+      "after": "910:9679;978:10559"
+    },
+    {
+      "tick": 10564,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10559",
+      "after": "910:9679;978:10564"
+    },
+    {
+      "tick": 10569,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10564",
+      "after": "910:9679;978:10569"
+    },
+    {
+      "tick": 10574,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10569",
+      "after": "910:9679;978:10574"
+    },
+    {
+      "tick": 10579,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10574",
+      "after": "910:9679;978:10579"
+    },
+    {
+      "tick": 10584,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10579",
+      "after": "910:9679;978:10584"
+    },
+    {
+      "tick": 10589,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10584",
+      "after": "910:9679;978:10589"
+    },
+    {
+      "tick": 10594,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10589",
+      "after": "910:9679;978:10594"
+    },
+    {
+      "tick": 10599,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10594",
+      "after": "910:9679;978:10599"
+    },
+    {
+      "tick": 10604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10599",
+      "after": "910:9679;978:10604"
+    },
+    {
+      "tick": 10609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10604",
+      "after": "910:9679;978:10609"
+    },
+    {
+      "tick": 10614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10609",
+      "after": "910:9679;978:10614"
+    },
+    {
+      "tick": 10619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10614",
+      "after": "910:9679;978:10619"
+    },
+    {
+      "tick": 10624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10619",
+      "after": "910:9679;978:10624"
+    },
+    {
+      "tick": 10629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10624",
+      "after": "910:9679;978:10629"
+    },
+    {
+      "tick": 10634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10629",
+      "after": "910:9679;978:10634"
+    },
+    {
+      "tick": 10639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10634",
+      "after": "910:9679;978:10639"
+    },
+    {
+      "tick": 10644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10639",
+      "after": "910:9679;978:10644"
+    },
+    {
+      "tick": 10649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10644",
+      "after": "910:9679;978:10649"
+    },
+    {
+      "tick": 10874,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:9679;978:10649",
+      "after": "910:10874;978:10649"
+    },
+    {
+      "tick": 10884,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10874;978:10649",
+      "after": "910:10884;978:10649"
+    },
+    {
+      "tick": 10894,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10884;978:10649",
+      "after": "910:10894;978:10649"
+    },
+    {
+      "tick": 10904,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10894;978:10649",
+      "after": "910:10904;978:10649"
+    },
+    {
+      "tick": 10914,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10904;978:10649",
+      "after": "910:10914;978:10649"
+    },
+    {
+      "tick": 10924,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10914;978:10649",
+      "after": "910:10924;978:10649"
+    },
+    {
+      "tick": 10926,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 10934,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10924;978:10649",
+      "after": "910:10934;978:10649"
+    },
+    {
+      "tick": 10944,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10934;978:10649",
+      "after": "910:10944;978:10649"
+    },
+    {
+      "tick": 10952,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 10954,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10944;978:10649",
+      "after": "910:10954;978:10649"
+    },
+    {
+      "tick": 10964,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10954;978:10649",
+      "after": "910:10964;978:10649"
+    },
+    {
+      "tick": 10974,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10964;978:10649",
+      "after": "910:10974;978:10649"
+    },
+    {
+      "tick": 10980,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 10984,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10974;978:10649",
+      "after": "910:10984;978:10649"
+    },
+    {
+      "tick": 10994,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10984;978:10649",
+      "after": "910:10994;978:10649"
+    },
+    {
+      "tick": 11004,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10994;978:10649",
+      "after": "910:11004;978:10649"
+    },
+    {
+      "tick": 11014,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11004;978:10649",
+      "after": "910:11014;978:10649"
+    },
+    {
+      "tick": 11024,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11014;978:10649",
+      "after": "910:11024;978:10649"
+    },
+    {
+      "tick": 11034,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11024;978:10649",
+      "after": "910:11034;978:10649"
+    },
+    {
+      "tick": 11044,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11034;978:10649",
+      "after": "910:11044;978:10649"
+    },
+    {
+      "tick": 11054,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11044;978:10649",
+      "after": "910:11054;978:10649"
+    },
+    {
+      "tick": 11056,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 11064,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11054;978:10649",
+      "after": "910:11064;978:10649"
+    },
+    {
+      "tick": 11074,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11064;978:10649",
+      "after": "910:11074;978:10649"
+    },
+    {
+      "tick": 11082,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 11084,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11074;978:10649",
+      "after": "910:11084;978:10649"
+    },
+    {
+      "tick": 11094,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11084;978:10649",
+      "after": "910:11094;978:10649"
+    },
+    {
+      "tick": 11104,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11094;978:10649",
+      "after": "910:11104;978:10649"
+    },
+    {
+      "tick": 11110,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 11114,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11104;978:10649",
+      "after": "910:11114;978:10649"
+    },
+    {
+      "tick": 11124,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11114;978:10649",
+      "after": "910:11124;978:10649"
+    },
+    {
+      "tick": 11134,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11124;978:10649",
+      "after": "910:11134;978:10649"
+    },
+    {
+      "tick": 11927,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 11995,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 12057,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 12125,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 12626,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 12761,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 12902,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 12970,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 13057,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 13100,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 13435,
+      "id": 5,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 13606,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 13740,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:11134;978:10649",
+      "after": ""
+    },
+    {
+      "tick": 13761,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 13902,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14032,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14142,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14700,
+      "id": 1,
+      "kind": "first-damage",
+      "x": 46,
+      "y": 40,
+      "hungerBefore": 100,
+      "energyBefore": 0,
+      "hand": 0,
+      "phase": "Returning",
+      "order": 0,
+      "target": 4245,
+      "commute": 0
+    }
+  ]
+}

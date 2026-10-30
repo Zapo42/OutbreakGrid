@@ -1,0 +1,733 @@
+Check output: /workspace/review/single-agent-20261030/results/unified
+RUN /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 /workspace/OutbreakGrid/OutbreakRebuild/Tools/check_project_config.py
+PASS Unity 6000.6.3f1 target and documented Unity module baseline; actual Unity Package Manager resolution remains unverified.
+RUN /workspace/toolchains/dotnet/dotnet run --project /workspace/OutbreakGrid/OutbreakRebuild/Tests/FoundationChecks.csproj --no-launch-profile -- /workspace/review/single-agent-20261030/results/unified
+PASS Sparse dimensions and defensive map ownership
+PASS Map corruption and version rejection before replacement
+PASS Clock pause, exact stepping and game-time ratio
+PASS All speeds, frame partitioning and retained catch-up debt
+PASS Deterministic movement and exact JSON save continuation
+PASS Spawn limits, failed-command stability and all SPECIAL bounds
+PASS Solid barriers and diagonal corner exclusion
+PASS Running-save corruption, duplicate IDs and wrong kind
+PASS Real UTF-8 file replacement and cleanup on failure
+PASS Fifteen-thousand-tick run at one thousand bodies
+PASS Locked baseline bravery formula
+PASS Encounter pursuit and fleeing
+PASS Encounter walls and diagonal contact occlusion
+PASS Encounter bite, pause, delayed turning and exact continuation
+PASS Encounter save validation and old-save compatibility
+PASS Encounter local route, sight radius and crowded conversion
+PASS Encounter thousand-body deterministic soak
+PASS Pursuit remembers only the observed cell after a corner escape
+PASS Pursuit expires blocked searches exactly on the simulation deadline
+PASS Pursuit switches only to a closer visible human
+PASS Pursuit memory rejects malformed and incompatible saves
+PASS Original encounter saves retain exact prototype-one continuation
+PASS Shelter occupants spread shared corner destinations while retaining their room
+PASS Rooms require enclosed authored floors and bounded discovery
+PASS Human opens, enters, closes and retains its chosen shelter
+PASS Closed doorway pursuit reaches the door, resumes on opening and expires without sight
+PASS Prototype-six saves retain independent continuation
+PASS Door closure never traps a body in its solid cell
+PASS Full room admission and goal-cell reservations stay bounded
+PASS Visible danger rejects a selected shelter and chooses another
+PASS Unsafe room can be evacuated without another room
+PASS A turning occupant makes a shelter visibly unsafe
+PASS Shelter corruption rejects and turning releases reservations
+PASS Prototype-five saves preserve independent continuation
+PASS Mixed shelter encounter remains deterministic with doors enabled
+PASS Shelter recovery waits for calm, inspects, leaves and closes behind
+PASS A zombie concealed behind the door cancels exit only when observed
+PASS A fresh sighting while crossing the exit sends the human back inside
+PASS Infection prevents routine shelter departure and turning clears progress
+PASS Crowded exits wait without entering or closing on another body
+PASS A shared doorway remains open after a recovered human leaves
+PASS Recovery save validation rejects incompatible phase, timing and geometry
+PASS Prototype-seven saves preserve independently recorded continuation
+PASS Configured bat supplies honor exact counts, map limits and passable spawn cells
+PASS Supply placement repeats by seed without changing actors, food or simulation random streams
+PASS Ordinary humans collect finite configured supplies through real actions
+PASS Configured default preserves the quick encounter's map and starting actors
+PASS The district supports 1000 actual bodies in separate outdoor spawn regions
+PASS Small-map spawn limits reject requests rather than drop actors
+PASS Invalid settings reject and single-species scenarios remain playable
+PASS Configured seeds repeat exactly and district defaults begin a real encounter
+PASS Running a configured world cannot alter a later fresh start
+PASS Idle zombies alternate occasional local movement with pauses
+PASS Idle movement respects solid corners, closed doors, bounds and full cells
+PASS Active pursuit has priority and does not consume idle random draws
+PASS A zombie investigates until expiry and then wanders without tracking the hidden human
+PASS Wandering pauses exactly and resumes from the saved random state
+PASS Prototype-eight saves retain their independent stationary-idle continuation
+PASS Remembered-door attacks consume opportunities and eventually allow contact
+PASS Expired memory, idle wandering and solid windows do not cause door attacks
+PASS Door damage uses strength, respects stagger and combines attackers deterministically
+PASS Door conditions survive map export, opening and ownership boundaries
+PASS Visible breaches invalidate shelters without revealing hidden structural damage
+PASS Malformed sparse door records reject before replacing map or run state
+PASS Prototype-nine saves retain independently recorded indestructible-door behavior
+PASS An unseen door strike raises stress, delays departure and expires exactly
+PASS Impact hearing follows bounded paths through doors and windows but not solid walls
+PASS Repeated impacts refresh recent hearing and clamp stress
+PASS A heard impact cancels an already open exit inspection
+PASS Hearing pauses and resumes exactly through further impacts and quiet
+PASS Hearing preserves infected visual avoidance and clears on turning
+PASS Malformed hearing rejects and memory expiry alone emits no impact
+PASS Prototype-ten saves preserve independent pre-hearing continuation
+PASS An idle zombie follows actual impacts and acquires the human only after sight opens
+PASS Expired sound memory returns a blocked investigator to occasional wandering
+PASS Visible humans and remembered sightings override a different sound source
+PASS Zombie listeners obey acoustic reach and cannot walk through a transmitting window
+PASS Reaching an open sound source ends its investigation
+PASS Sound investigation pauses, resumes exactly and ignores hidden human movement
+PASS Zombie hearing rejects stale sources and pre-investigation rules
+PASS Prototype-eleven saves retain independent human-only hearing behavior
+PASS A witnessed zombie prompts a local warning without hidden target knowledge
+PASS Warnings respect enclosing walls and eight-step acoustic reach
+PASS Warnings pause, expire exactly, resume deterministically and allow quiet recovery
+PASS Hearing alone never relays a warning and conversion clears human communication
+PASS A continuing witness waits fifty ticks before repeating its warning
+PASS Warning validation rejects unsupported rules, stale memory and invalid deadlines
+PASS Prototype-twelve saves preserve independent pre-warning continuation
+PASS A zombie hears a human warning through a door without learning a hidden target
+PASS Warning investigation expires, pauses and resumes exactly
+PASS Arriving at an empty warning source clears it without tracking the speaker
+PASS Current sight and remembered humans override warning investigation
+PASS The newest sound wins and warning hearing respects acoustic walls and range
+PASS Zombie warning saves reject unsupported rules, cooldowns and invalid sources
+PASS Prototype-thirteen saves retain independent human-only warning behavior
+PASS A sheltered listener braces only after hearing a real strike and halves later damage
+PASS Bracing buys time but sustained attacks still break the door and release defense
+PASS Quiet ends bracing at the hearing deadline and ordinary recovery resumes
+PASS Bracing pauses and survives exact save continuation including breach
+PASS Infection and distance prevent physical defense
+PASS A different heard door impact releases the old brace without invalidating a save
+PASS Door brace validation rejects unsupported, stale and impossible actions
+PASS Prototype-fourteen saves retain independent unbraced-door behavior
+PASS An outdoor human hears a real warning and enters a shelter without seeing the zombie
+PASS A remembered warning suffices after the speaker leaves and quiet later permits departure
+PASS No warning and an already expired warning do not trigger shelter seeking
+PASS A heard door impact also prompts cover without an unseen zombie target
+PASS Full and unreachable shelters do not overbook or teleport warned listeners
+PASS Warning shelter travel pauses and saves exactly through entry and recovery
+PASS Prototype-fifteen saves retain independently recorded bracing behavior
+PASS A calm sheltered human repairs five HP per normal opportunity without moving
+PASS Full repair clamps health, canonicalizes map conditions and permits quiet departure
+PASS Broken doors remain broken and open doors must close before repair
+PASS Stress, infection, visible zombies and distance prevent repair
+PASS Recent warnings and impacts postpone repair until their exact quiet deadline
+PASS Repairs pause and continue exactly after save through full restoration and exit
+PASS Prototype-sixteen saves retain independent pre-repair warning shelter behavior
+PASS Tired foragers return physically, save their route and recover before exhaustion
+PASS Longer home routes trigger an earlier energy return
+PASS Urgent hunger and food within reach take priority over energy returns
+PASS Low-energy returns reuse a guarded alternative when home is full
+PASS Previous energy-risk rules do not silently gain energy returns
+PASS Low energy delays risky food departures until stress subsides
+PASS Energy changes observed danger tolerance without inventing danger on clear routes
+PASS Prior food-rest rules retain their original risk and continuation
+PASS Hunger advances on exact simulation ticks, pauses and caps at one hundred
+PASS A stocked room supplies inventory through a search action followed by a separate meal
+PASS An empty-room forager leaves, searches, eats and returns with spare meals
+PASS Bravery and increasing hunger independently raise accepted food-trip risk
+PASS Close visible zombies override hunger and carried meals
+PASS Hunger does not abandon a brace when a food trip is still too dangerous
+PASS Unopened shelf contents do not affect decisions until the actual search
+PASS Competing searchers cannot duplicate stock or exceed inventory capacity
+PASS Solid shelves block placement and hidden shelves do not reveal targets
+PASS Shelf maps preserve search state, finite stock, metadata and defensive ownership
+PASS Need, inventory and shelf memory validate and conversion clears human possessions
+PASS Shelf memory expires exactly and food trips pause and continue through saves
+PASS Configured encounters supply shelves and hunger remains deterministic across a mixed run
+PASS Prototype-seventeen saves retain independently recorded pre-hunger repair behavior
+PASS Shelter deliveries feed a distant roommate and preserve saved continuation
+PASS Delivery stops when donor is hungry or warned and older saves keep pantry behavior
+PASS A safe supplied human transfers one real meal and the recipient eats separately
+PASS Donors keep a reserve meal and satisfy their own hunger first
+PASS Sharing chooses the hungriest adjacent human and stable identity breaks ties
+PASS People who already carry food or are not hungry do not receive spare meals
+PASS Infection, visible zombies and recent danger cues prevent sharing
+PASS Remote people and danger visible only to the receiver do not cause unsafe transfers
+PASS Receiving a meal cancels an impending food trip before the recipient opens its exit
+PASS Food sharing pauses and saves exactly without losing inventory conservation
+PASS Prototype-eighteen saves retain independent hunger behavior without sharing
+PASS Known portable yield can justify one extra food-route step and resumes exactly
+PASS Adjacent meals and short trips beat large stocks beyond useful carrying capacity
+PASS Yield choice reads remembered amounts without revealing hidden or unopened stocks
+PASS Visible search coordination uses yield for alternatives without interrupting committed tasks
+PASS Large food yields do not override observed zombie clearance
+PASS Actual searches persist empty and stocked shelf notes across later hunger
+PASS Hidden stock changes do not update memory until the human sees the shelf again
+PASS Confirmed remembered supplies take priority over a closer unsearched shelf
+PASS Personal notes learn unopened locations without revealing hidden contents
+PASS An empty note refreshes when exposed food is personally seen again
+PASS Shelf notes expire exactly between actor opportunities without automatic remote refresh
+PASS Memory remains bounded and deterministic after different shelf insertion orders
+PASS Another human's observations do not automatically appear in a hidden observer's notebook
+PASS Actor reads, captures and restores never expose mutable live memory arrays
+PASS Remembered supplies beyond one local route query remain reachable using bounded waypoints
+PASS Notebook validation rejects unsupported, duplicate, stale and impossible records
+PASS Notebook continuation pauses exactly and turning clears personal shelf knowledge
+PASS Prototype-nineteen saves retain independent single-target food behavior
+PASS A safe neighbor learns a dated food report and follows it without seeing the shelf
+PASS Reports preserve stale beliefs rather than reading hidden current stocks
+PASS Hearsay is not relayed to another neighbor
+PASS Unchanged facts do not consume every action and meaningful fresh sightings can refresh them
+PASS Older reports cannot overwrite fresher personal stock knowledge
+PASS An empty-shelf report cancels a stale target without reading hidden locations
+PASS Unknown shelf contents are not reported as confirmed supplies
+PASS Distance, infection and recent danger prevent shelf conversations
+PASS Real meal sharing and the speaker's own hunger have priority over reports
+PASS Shared notes expire from the original sighting time and survive a source turning
+PASS Report source validation rejects self, future identities and incompatible rules
+PASS Reports pause and continue exactly through learned travel and direct correction
+PASS Prototype-twenty saves retain independently recorded personal-only shelf behavior
+PASS Full food-trip homes yield to reachable alternative shelters and save exactly
+PASS Food retreats prefer usable homes and preserve generation 34 behavior
+PASS Blocked and rejected food-trip homes can use alternatives without forcing unsafe admission
+PASS Calming foragers complete alternate returns and replace newly full destinations
+PASS Alternate-return rules let willing foragers finish outgoing doorway crossings
+PASS Overwhelmed food foragers return home without collecting and resume exactly after saving
+PASS A committed return survives reduced stress while old rules keep the prior response
+PASS Safe food trips still leave, collect, eat and return without premature retreat
+PASS Full or inaccessible homes do not receive forced food-trip returns
+PASS Food routes avoid visible zombie contact zones and preserve exact continuation
+PASS A newly guarded committed destination can be replaced before the next move
+PASS Unseen zombies do not create global shelf danger knowledge
+PASS Scarce shelf food is left for visible hungry neighbors and all transfers conserve stock
+PASS Considerate pickup never withholds the last meal and keeps full bags when stock is ample
+PASS Fed, infected, hidden and distant people do not reserve food; older saves retain full pickup
+PASS Food choices compare walkable path lengths rather than distance across a wall
+PASS Locally reachable unknown food outranks unreachable confirmed supplies
+PASS Route comparisons do not reveal unopened stock quantities
+PASS Closing a door attracts an unseen zombie without granting visual pursuit or door attacks
+PASS Opening a door emits one local movement cue and old rules retain quiet doors
+PASS Door movement hearing rejects invalid kinds, locations and incompatible versions
+PASS Exposed shelf food takes one action while unopened shelves still take three
+PASS Newly exposed shelves finish partial work without duplicating food
+PASS Earlier food route generations retain three-action exposed searches
+PASS Failed food routes yield to reachable supplies and resume exactly from saves
+PASS Blocked food memory expires exactly and a reopened route can be retried
+PASS Blocked food state validates, clears on turning and stays disabled in old saves
+PASS Visible searchers split available shelves and save their continuation exactly
+PASS A sole shelf remains usable and older rules preserve simultaneous searches
+PASS Hidden searchers do not reserve shelves and unreachable alternatives are ignored
+PASS Careful searches require three actions and resume exactly after saving
+PASS Danger cancels partial searches and recovery starts a fresh search
+PASS Search progress validates, clears on conversion and keeps old single-action rules
+PASS Shelf searches attract unseen zombies without revealing a target or damaging doors
+PASS Search noise respects range, walls and explicit old-run rules
+PASS Search hearing rejects malformed and unsupported saved state
+PASS Pantry trips route inside the room, conserve food and resume exactly
+PASS Pantry trips stop for hunger and old rules keep adjacent-only storage
+PASS Recent warnings interrupt pantry work and disconnected shelves cannot pull humans outside
+PASS Pantry deposits conserve meals and retain a personal reserve
+PASS Hungry or infected occupants keep their food; older saves preserve behavior
+PASS Pantry capacity limits conserve excess carried food
+PASS Box reports share one dated observation and guide hungry allies to real food
+PASS Box conversations require adjacent safe available humans
+PASS Empty reports correct stale stock while older reports cannot overwrite fresher knowledge
+PASS Box reports cannot relay hearsay or repeatedly refresh unchanged facts
+PASS Shared box reports do not reveal hidden current inventory
+PASS Box report age expires from the source observation and provenance validates
+PASS A full box notebook retains fresher facts instead of accepting an obsolete report
+PASS Humans return to remembered boxes around walls and resume exactly
+PASS Unseen box stock changes cannot guide movement or update memories
+PASS Remembered boxes refresh at sight and empty observations stop repeated withdrawals
+PASS Box memory supports hidden in-room deposits and restock assignment
+PASS Box memories are bounded canonical detached and expire on the tick clock
+PASS Storage memory validation conversion and older rules preserve state boundaries
+PASS Storage reserve targets are independent saved settings with legacy defaults
+PASS Invalid reserve edits and map formats reject without changing inventories
+PASS Zero targets disable deliberate trips while normal food transfers remain available
+PASS Custom reserve targets stop new assignments when their stock goal is met
+PASS Turning restocking off sends collectors home and preserves collected cargo
+PASS Earlier restocking rules retain fixed targets until explicitly upgraded
+PASS Restockers collect known shelf food and return actual surplus to shelter boxes
+PASS Restocking starts only with known supplies a low box and enough personal safety
+PASS Shared box claims prevent duplicate restock departures
+PASS Restocking does not reveal hidden current shelf quantities
+PASS Infection timeout and conversion release saved restock claims
+PASS Restockers abandon collection for stress low energy or unmet personal hunger
+PASS Restock return cargo resumes exactly and stale empty shelves stop new tasks
+PASS Restock save validation rejects malformed tasks and older rules retain box-only behavior
+PASS Storage inventories are independent detached finite map records
+PASS Storage placement works outside rooms and rejects furniture bodies and reservations
+PASS Safe shelter occupants deposit real surplus in their storage box
+PASS Hungry humans withdraw finite box stock then eat on a later action
+PASS Storage capacity and recovery reserves bound actual deposits
+PASS Multiple hungry humans cannot duplicate a shared box inventory
+PASS Storage tasks route to an accessible face and resume exactly mid-trip
+PASS Storage use respects infection freezes and observed danger
+PASS Malformed storage saves reject atomically and old rules remain unchanged
+PASS Donation controls persist independently and reject incompatible maps and rules
+PASS Blocking donations stops new and approaching pickups but allows reactivation
+PASS Loaded deliveries survive a donation block and local meals remain available
+PASS Supply couriers walk between shelter boxes and deliver conserved food
+PASS Only remembered surplus in a different shelter can start a delivery
+PASS Couriers recheck donor reserves at pickup without learning hidden stock changes
+PASS Saved return cargo survives target cancellation without lost or duplicated food
+PASS Concurrent delivery pickups cannot remove a donor reserve
+PASS A zombie revealed at the donor door stops collection and closes the inspection door
+PASS Couriers keep their own meals when hunger interrupts a loaded return
+PASS Delivery source validation infection and old rules preserve task boundaries
+PASS Assigned couriers serve near and distant boxes then return to their own house
+PASS Courier assignments are detached editable bounded and persisted
+PASS Explicit box assignments give locations without revealing remote inventories
+PASS Courier destination lists support multiple boxes in the same house
+PASS Courier source and destination may share a house without moving food magically
+PASS Assigned couriers respect donation blocks both before and after pickup
+PASS A home assignment alone preserves ordinary shelter restocking
+PASS Courier safety and legacy validation keep assignments out of old rules
+PASS Household rosters separate assigned residents away couriers and physical visitors
+PASS Moving a resident preserves courier routes cargo position and exact saved continuation
+PASS Removing a home is explicit and protects courier routes and return goals
+PASS Household roster excludes dead and converted humans and identifies infected members
+PASS Household food targets count away residents and balance one total across boxes
+PASS Manual box overrides remain protected and insufficient capacity is visible
+PASS Resident restocking uses household reserves and resumes exactly from saves
+PASS Delivery pickup rechecks the donor household reserve after a target increase
+PASS Household policy persistence is detached versioned and strictly validated
+PASS Household reserve demand follows conversion and flags empty houses with away members
+PASS Courier schedules follow displayed game hours across shift ends midnight and new days
+PASS Shift end finishes cargo delivery then returns home without another pickup
+PASS Off-duty couriers rest with normal hunger cost and can still eat
+PASS Schedule edits change future jobs without changing an active task or cargo
+PASS Couriers resume at shift start while unscheduled and old-rule couriers retain behavior
+PASS Saved schedules reject invalid configurations and clear with routes or conversion
+PASS Consumers empty store shelves and clerks physically refill from finite back stock
+PASS Consumers cannot pull meals directly from a store's secondary supply crate
+PASS Empty crates stop clerk replenishment without manufacturing food
+PASS Concurrent clerks recheck actual supply and shelf counts before transferring food
+PASS Clerk assignment edits preserve carried stock and exclude simultaneous courier roles
+PASS Store and clerk records validate old rules geometry and conversion cleanup
+PASS Distribution-center courier delivers finite stock to a store and clerk replenishes its shelf
+PASS Distribution-center membership preserves independent home destinations and schedules
+PASS Center stock-box replacement and source overrides cannot invalidate assigned couriers
+PASS Ordinary consumers cannot withdraw center stock while staff retain personal-meal access
+PASS Centers support different courier assignments and detached saved configurations
+PASS Distribution-center records validate legacy rules geometry roles and conversion cleanup
+PASS Clerks walk to a phone and make one saved replenishment order for an empty crate
+PASS No phone or an unreachable phone prevents calls and does not teleport the clerk
+PASS Multiple clerks share one pending order and snapshots detach order records
+PASS Refilled crates cancel an unfinished call and infection interrupts phone use
+PASS Phone blocks are solid preserved map furniture with strict overlap and version checks
+PASS Order validation rejects wrong phones crates identities and unsupported rules
+PASS Phone orders dispatch center couriers for partial deliveries and saved completion
+PASS Only one courier claims a phone order and expiry releases it for another courier
+PASS Center reserves donation blocks and shifts govern automatic fulfillment
+PASS Loaded couriers retain cargo if store configuration changes or the target becomes full
+PASS The final small load is capped to remaining order quantity despite reserve-zero destination
+PASS Active orders finish their current load at shift end and preserve partial progress
+PASS A clerk beside the entrance does not repeatedly shut out an order courier
+PASS Completed order history and claim records reject malformed and legacy state
+PASS Maximum hunger and zero energy cause periodic saved health loss
+PASS Food or remaining energy prevent deprivation damage while legacy runs retain behavior
+PASS Deprivation deaths clean up equipment and infected corpses retain their turn deadline
+PASS Courier deprivation death releases its claim without completing undelivered orders
+PASS Larger district serves three separate homes and near/far stores without creating food
+PASS Supply chain visual preview separates assigned home from work without changing saved food
+PASS Shortage dispatch serves the least fulfilled reported share and preserves legacy order
+PASS Multi-store district starts with explicit finite stock roles phones and different travel distances
+MULTISTORE seed 214: tick 2400, eaten 17, food left 17, completed 4, pending 3, center available 0.
+MULTISTORE seed 123: tick 2400, eaten 17, food left 17, completed 4, pending 3, center available 0.
+MULTISTORE seed 999: tick 2400, eaten 17, food left 17, completed 4, pending 3, center available 0.
+PASS Four-hour multi-store trials conserve food and leave genuine shortages across three seeds
+PASS Multi-store saves resume exactly while couriers share the center and stores consume deliveries
+PASS Seeded city streets repeat and connect every sidewalk road and crosswalk
+PASS Long routes reach beyond the old square and preserve old saved rules
+PASS Long route detours respect walls and fully blocked destinations
+PASS Generated city courier completes physical long deliveries and resumes deterministically
+PASS Generated building roles have distinct sizes and all four street-facing entrances
+PASS Generated lots preserve streets and connect every enclosed building to a sidewalk
+PASS Furnished generated buildings retain usable paths through every street-facing door
+PASS Workers physically leave varied entrances and reach their separate generated homes
+PASS Generated building preview binds homes and jobs with explicit finite supplies
+PASS Empty-home intelligent shopper finds nearby stocked shop despite its hidden doorway
+PASS Visible storefront recognition reveals no stock and respects intervening walls
+PASS Dense residential blocks contain separate reachable houses and preserve the street network
+PASS Density limits reject oversized catalogs and dense clerk jobs continue after saves
+PASS Neighborhood streets repeat across seeds with connected roads pedestrian links and fewer grid crossings
+PASS Neighborhood layouts preserve furnished entrances and support both residential densities
+PASS Crosswalks remain shared road surfaces and street layout validation is bounded
+PASS Staggered streets offset side roads while roads sidewalks and directed lanes remain connected
+PASS Reclaimed roads do not become oversized solid sidewalk slabs
+PASS Vehicles clear staggered T-junctions and save their turns exactly
+PASS Staggered lots preserve streets food housing and reachable entrances
+PASS Compact three and four-home blocks have separate rooms and clear outward entrances
+PASS Varied staggered block dimensions match setup measurements and preserve seeded generation
+PASS Routing optimizations preserve pre-optimization simulation hashes
+PASS Warm long-route queries reuse bounded scratch without per-node allocations
+PASS Expanded city recognizes 247 buildings with distinct homes finite supplies and exact saves
+PASS District routing crosses old radius on connected sidewalks and compresses the network
+PASS District local movement rechecks live furniture obstacles
+PASS Disconnected district walkways do not produce imaginary long-distance links
+PASS Old rules retain their routing radius and room catalog until explicit upgrade
+PASS Expanded district couriers physically credit distant store deliveries
+PASS Derived district plans rebuild identically after a save and do not consume RNG
+PASS City setup rejects unsupported dimensions and seeds before constructing a city
+PASS City setup summaries match generated geometry population homes jobs and finite food
+PASS Custom rectangular city resumes active clerk requests and courier work exactly
+PASS Neighborhood zoning keeps roles staffed and improves worst home-to-shop block distance
+PASS Zoned generated cities preserve entrances independent homes food and repeatable jobs
+PASS Large and small zoning retain catalog limits and existing fixed generation
+PASS Vehicle route follows only roads crosses zebra tiles turns and arrives exactly
+PASS Vehicle yields for a pedestrian on either half of its crossing then resumes
+PASS Vehicles and bodies cannot occupy or be placed in each other's cells
+PASS Vehicle commands reject non-road unreachable and occupied targets without changing state
+PASS Vehicle save validation rejects corruption overlap legacy data and stale movement clocks
+PASS Vehicle routing uses generated neighborhood roads and respects entity count bounds
+PASS Faster cars finish the same route sooner while old rules retain their pace
+PASS Eight vehicle paints persist and invalid paints are rejected transactionally
+PASS Faster turn presentation completes over the two-tick movement interval
+PASS Vehicle home routes deliver physically to two reserve targets and resume exactly
+PASS Home reserve changes during transit return excess food without overfilling
+PASS Courier physically loads boards drives and credits both finite store orders
+PASS Courier vehicle saves resume exactly during walking loading riding and unloading
+PASS Autonomous vehicle pause retains rider and shipment and resumes without manual steering
+PASS Vehicle driver and cargo validation rejects corrupt occupancy clocks assignments and legacy fields
+PASS Cancelling a store request atomically retains the loaded vehicle shipment
+PASS A full destination sends its untouched excess shipment back to the source
+PASS An incapacitated courier drops a recoverable finite shipment without deleting cargo
+PASS A starving seated driver stops and exits without leaving invalid overlapping state
+PASS Vehicle exit waits for the arrival movement to finish and driving consumes energy
+PASS Blocked traffic waits then follows a real alternate road with exact saved recovery
+PASS No alternate road leaves traffic safely waiting until its blocker moves
+PASS Parking bays persist independently reserve destinations and allow return to the lane
+PASS Courier bays preserve physical home delivery and exact saved journeys
+PASS A parked car yields to a blocked bay exit and merges after traffic clears
+PASS Traffic recovery cannot use the opposing marked lane to bypass a blocker
+PASS Legacy traffic and corrupt bay or recovery records stay explicit
+PASS Lane traffic preserves a following gap and exact saved continuation
+PASS Generated directed lanes remain connected across layouts and seeds
+PASS Lane metadata rejects corrupt catalogs and preserves explicit legacy rules
+PASS Vehicle headings rotate smoothly by the shortest angle without frame resets
+PASS Simultaneous junction arrivals yield deterministically and clear without overlap
+PASS Independent intersections allow traffic at the same time
+PASS Junction priority uses waiting age before vehicle identity
+PASS Blocked exits hold cars outside while a different clear approach proceeds
+PASS Junction queues and occupants resume exactly across saves
+PASS Junction commands clear queues reject junction destinations and preserve legacy opt-in
+PASS Junction save validation rejects malformed and unsupported queue fields
+PASS Pedestrians on an intended junction path retain priority
+PASS Safe assigned walkers keep a straight final approach instead of switching to local zigzags
+PASS Safe pedestrian routes use a nearby crosswalk instead of a shorter road crossing
+PASS Missing and blocked crosswalks allow ordinary road crossing without trapping walkers
+PASS Threat-aware routing bypasses pedestrian preference and retains old local choices
+PASS Off-duty worker physically follows the crossing home with finite energy and exact saves
+PASS Assigned residents inspect unknown home storage with exact saved continuation
+PASS A safe consumer returns to its assigned residence and checks that home instead of nearby distribution stock
+PASS Away residents retain observed quantities and distinguish stale reported and missing knowledge
+PASS Hunger energy infection and visible danger interrupt deliberate home inspection
+PASS Consumers avoid distribution food exploration and entry while legacy visitors can still shop there
+PASS Center staff and emergency shelter retain physical access without granting ordinary consumers supplies
+PASS Home shopping makes finite shelf pickups and home deposits while the clerk refills shelves
+PASS Intelligence plans earlier while empty supplies still trigger less intelligent residents
+PASS Store shopping requires fresh personal home knowledge and a known consumer shelf
+PASS Empty stale store shelves cause a safe empty return and full home boxes retain carried food
+PASS Shopping keeps a personal meal when the resident starts without a ration
+PASS A household does not send two shoppers to fill the same home box
+PASS Hunger danger infection expiry and invalid shopping saves do not fabricate deliveries
+PASS Larger city shopping reproduces old empty departures and completes a real shelf-to-home trip
+PASS Familiar shops reveal locations without revealing hidden shelf stock
+PASS Shopping rest saves retain their destination and danger interrupts the break
+PASS Existing saves can explicitly gain location familiarity without gaining food knowledge
+PASS Hungry shoppers with empty homes try a farther familiar store after the nearest is depleted
+PASS Shopping continuity validates unfamiliar ids rest state and older rules
+PASS Vehicle shoppers physically haul multiple carts and conserve food through home unloading
+PASS Consumer cargo carries more than the courier load through repeated six-meal cart trips
+PASS Consumer shopping phases resume exactly after saved driving cart loading and unloading
+PASS Paused shopper keeps finite cargo occupant and reservation without manual steering
+PASS A reduced home reserve keeps excess in the vehicle and later uses it without another purchase
+PASS An empty shop cannot fabricate cart contents or replenish the home
+PASS A vehicle shopper tries a farther familiar shop after the nearest shelf is exhausted
+PASS An incapacitated shopper leaves a finite cart for an assigned household replacement
+PASS Consumer vehicle capacity role clock and older-rule validation reject corrupt saves
+PASS No-memory shoppers discover entrances check an empty store and use an alternative before returning home
+PASS Hidden stock cannot influence initial store discovery or the chosen entrance
+PASS All empty stores lead to a remembered failure and a bounded retry delay
+PASS Legacy shopping rules preserve known-shelf-only choices and active trips upgrade without new knowledge
+PASS Discovery notes are detached expire and reject malformed or old-rule save data
+PASS Blocked store doors and low energy do not force entry or conjure supplies
+PASS Workers finish loaded work at shift end and commute to a separate home with exact continuation
+PASS A clerk carrying a shelf load completes it after closing before returning home
+PASS A new shift commutes home-based workers to their actual workplaces before beginning work
+PASS A resident beside the home doorway does not shut out a commuting worker
+PASS Clerk schedules follow day overnight and repeated-day boundaries and require an assigned home
+PASS Off-duty clerks can shop as residents without erasing their occupation
+PASS Off-duty center couriers can shop for home without rewriting their source or destinations
+PASS Blocked commutes and danger preserve geometry while invalid worker saves reject
+PASS Food overview distinguishes room investigations and reports remaining supplies read-only
+PASS Food overview follows actual pickup and eating without changing the run
+PASS Food overview counts need thresholds, infection and active searches separately
+PASS Empty shelves and converted humans update live totals
+PASS Shelter supply census reports actual food hungry occupants and assigned trips read-only
+PASS Shelter supply thresholds distinguish meals per occupant from box reserve gaps
+PASS Shelter supply census excludes corpses zombies and inbound humans from occupancy
+PASS Reserve gaps remain per-box and active away restockers keep their shortage visible
+PASS Shelter supply rows refresh after deposits meals conversion and save restore
+PASS Supply reporting supports old food rules and empty room catalogs without rule changes
+PASS Food exploration checks an empty room then discovers hidden supplies and saves exactly
+PASS Unseen food quantities cannot choose which room gets investigated
+PASS Food exploration preserves remembered food priority and prior rule generations
+PASS Exploration risk cancellation releases outdoor admission and can return home
+PASS Explorers respect full rooms and cannot select entrances hidden behind walls
+PASS Room exploration deadlines and recent-room avoidance expire at exact ticks
+PASS Recent room history advances exploration instead of repeating the nearest empty room
+PASS Room history retains only eight visits with deterministic oldest-note eviction
+PASS Room exploration snapshots detach history and reject invalid saved tasks
+PASS Turning clears active exploration and remembered room history
+SCARCITY seed 214: all 12 fed by tick 181, all 24 meals eaten by tick 1474, 12-hour checkpoint tick 7200, remaining meals 0; all humans moved after depletion; deprivation deaths 12.
+SCARCITY seed 123: all 12 fed by tick 181, all 24 meals eaten by tick 1474, 12-hour checkpoint tick 7200, remaining meals 0; all humans moved after depletion; deprivation deaths 12.
+SCARCITY seed 999: all 12 fed by tick 181, all 24 meals eaten by tick 1474, 12-hour checkpoint tick 7200, remaining meals 0; all humans moved after depletion; deprivation deaths 12.
+PASS Twelve-hour crowded food trials conserve every meal across three seeds
+PASS Crowded scarcity saves resume exactly across feeding and exhausted-food phases
+PASS New visible food restarts eating after prolonged total depletion
+PASS Unarmed survivors make space before a corpse finishes reanimating
+PASS Reanimation awareness respects walls and existing freezes
+PASS Previous rise rules preserve their saved behavior
+PASS Reanimated corpses complete a saved get-up delay before acting
+PASS Rising zombies remain vulnerable and death clears their transition
+PASS Rise state rejects incompatible species deadlines and older rules
+PASS Previous reanimation rules retain immediate zombie activity
+PASS Infected corpses remain dead until their saved deadline then reanimate at fifty health
+PASS A lethal first bite creates a reanimation deadline and never duplicates the dropped bat
+PASS Day-paced corpse infection retains its long countdown across saves
+PASS Previous mauling rules preserve corpses until explicitly upgraded
+PASS Infected victims remain pursued, lose health to mauling and can die before turning
+PASS Grappled humans can struggle free and keep escaping after infection
+PASS Staggering the grappling zombie releases its victim
+PASS Converted zombie health inherits surviving human health with a fifty-percent minimum
+PASS Strength endurance and luck extend actual infection deadlines and day pacing persists
+PASS Mauling deaths drop bats and preserve canonical corpse state
+PASS Grapples infection pacing and corpses reject malformed or incompatible saves
+PASS Previous cornered-shove rules retain their pre-mauling contact and conversion
+PASS Cornered flight uses a nonlethal shove without becoming Fight
+PASS Available escape steps take priority before and after a cornered shove
+PASS Cornered shoves respect energy, infection, freezing and combat cooldowns
+PASS Walls stop displacement and a cornered shove cannot guarantee safety
+PASS Previous footstep rules retain their original cornered flight
+PASS Hungry humans prepare energy in beds then resume their food trip
+PASS Preparation uses ordinary rest when beds are unavailable
+PASS Urgency, courage, carried meals and local supplies take priority over preparation
+PASS Danger interrupts preparation and prior bed rules retain hungry behavior
+PASS Tired humans use beds, recover faster, then release them
+PASS Occupied beds leave ordinary shelter rest available
+PASS Bed authoring validates shelter floor and persists independently
+PASS Every committed human move spends energy while blocked moves and zombies do not
+PASS Energy fuels real shoves and swings while sheltered rest consumes hunger
+PASS Low energy, hunger, danger and old rules govern recovery safely
+PASS Actual shoves add fatigue and exhaustion favors escape without extra randomness
+PASS Quiet recovery is cooldown-bound, saved exactly and clears on turning
+PASS Fatigue saves reject corrupt or unsupported state while older rules remain exact
+PASS Shove events describe real contact without changing saved state or damage
+PASS Shove presentation closes to contact before a fast recoil and clears on snap
+PASS Unarmed fighters create space instead of charging and resume exactly after saving
+PASS Unarmed spacing holds a blocked retreat and preserves ready contact shoves
+PASS Real bat impacts attract hidden listeners to the impact cell without granting a target
+PASS Combat hearing respects acoustic barriers, misses and previous rules
+PASS Recovery reserves retain finite meals, eat separately and continue shelter healing through saves
+PASS Recovery reserves release surplus and previous healing saves keep their original storage
+PASS Badly injured donors share only above their recovery reserve
+PASS Food deliveries do not pull a badly injured human away with only recovery meals
+PASS Safe shelter rest heals through real actions, consumes hunger and resumes exactly after saving
+PASS Injured humans seek real shelter and hunger interrupts further healing
+PASS Rest yields to hunger, infection, stress and visible danger while previous saves retain old health
+PASS Confrontation inspection uses live close visible opponents and preserves every saved field
+PASS Equally close unarmed humans get supply preference over replacement seekers
+PASS First weapon preference preserves previous rules, same-need ordering and only-supply fallback
+PASS Unarmed humans favor separate first bats and resume exactly after saving
+PASS Unarmed courtesy accepts worn stock, sufficient piles and the only available bat
+PASS Foundation 55 retains unarmed seeking while preserving armed courtesy
+PASS Replacement trips favor separate supplies and preserve finite equipment through save continuation
+PASS Courtesy considers reachable visible peers, pile quantity and older rules
+PASS A contested bat remains usable when no alternative exists
+PASS Replacement trips walk to visible supplies, swap separately and resume exactly after saving
+PASS Replacement trips abandon taken supplies and yield to newly visible threats
+PASS Replacement trips require a useful improvement, calm readiness and current rules
+PASS New supply routes reject seven-step crowding detours while older unarmed rules remain exact
+PASS Calm humans replace a nearly broken bat with a better nearby one in one finite action
+PASS Replacement chooses the best local condition and preserves every member of a mixed pile
+PASS Replacement yields to danger, stress, infection, freeze, recovery and useful existing condition
+PASS Food actions and closed doors take priority while doorway swaps preserve dropped condition
+PASS Previous footwork saves retain their original equipment decisions
+PASS Armed recovery backsteps after blocked knockback and resumes attacks exactly when ready
+PASS Previous durability generation retains stationary recovery and its original contact risk
+PASS Recovery footwork respects solid cells, closed doors, furniture and full destinations
+PASS Backsteps improve contact clearance without approaching another visible zombie or cutting corners
+PASS Weapon readiness, freeze, infected escape and unarmed defense retain priority over recovery footwork
+PASS Successful hits wear bats, misses do not, and older rules retain unworn equipment
+PASS The final bat hit deals full damage, preserves skill and swing recovery, then permits replacement
+PASS Individual bat condition survives turning, mixed piles, saving and separate recovery actions
+PASS Doorway drops preserve wear through closure and reopening
+PASS Durability saves reject invalid wear and malformed or incompatible pile conditions
+PASS A seeded dodge consumes contact without damage, infection, displacement or extra actions
+PASS Previous cornered-shove rules retain single-bite damage, deadline and flight response
+PASS Agility, zombie agility and stress change evasion while frozen humans cannot dodge
+PASS Evasion respects old rules, closed corners and defeated attackers
+PASS Turning stacks dropped bats exactly once and survivors recover one bat per action
+PASS Dropped bats survive door movement and cannot be collected through a closed door
+PASS Older saves retain their rules and upgraded zombies release previously retained bats
+PASS A full ground supply plus one thousand turning carriers conserves every bat
+PASS Pile saves reject invalid quantities, old schemas and impossible global bat totals
+PASS Successful bat hits advance saved practice and each level improves later damage
+PASS Partial combat experience resumes exactly and uses no extra randomness
+PASS Misses, corpses and maximum skill cannot generate practice while fatal hits can
+PASS Practice survives turning but invalid and older-generation progress is rejected
+PASS Calm humans approach a visible bat, collect it once and resume exactly after saving
+PASS Equipment seeking respects knowledge, closed doors, urgent reactions and older rules
+PASS Transient weapon actions report actual pickups, hits and misses without entering saves
+PASS Finite bat pickup leads to timed damaging swings, defeat and exact continuation
+PASS Weapon maps preserve sparse equipment, furniture and doors without aliasing
+PASS Competing humans cannot duplicate one ground bat and danger delays pickup
+PASS A missed swing consumes its action and cooldown without phantom damage
+PASS Blocked knockback still damages and staggers without bypassing cooldown
+PASS Armed fleeing, frozen and infected humans keep their existing survival priorities
+PASS Strength and blunt skill change real damage while unarmed defense stays nonlethal
+PASS Defeated zombies permit movement and do not hear searches or threaten foragers
+PASS Conversion drops finite equipment and clears human combat cooldown
+PASS Melee saves reject corrupt equipment, timers and noncanonical deaths
+PASS Bitten humans override courage and freezing with escape
+PASS A real bite immediately replaces fight or freeze with escape
+PASS Bitten humans prefer reachable obstacle cover
+PASS Bitten humans use a human screen without approaching zombies
+PASS Infected avoidance survives sight loss, pause and exact expiry
+PASS Infected escape avoids every currently observed zombie
+PASS Previous cautious saves retain their independent continuation
+PASS Invalid avoidance saves reject and conversion clears memory
+PASS Sprint footsteps attract hidden listeners to the actual step without granting pursuit
+PASS Walking, blocked sprints, walls and distance do not emit audible sprint cues
+PASS Footstep hearing expires and never displaces direct visual pursuit
+PASS Footstep saves validate sound kinds, sources, deadlines and earlier sprint rules
+PASS Escape sprints add movement between decisions without speeding zombie pursuit
+PASS Sprint energy reserve stops extra steps before exhaustion
+PASS Walls, door crossings and lost sight block bonus escape movement
+PASS Sprint presentation remains continuous and follows the previous corner
+PASS Previous energy-return rules retain walking cadence
+PASS Doorway presentation stays continuous until the whole rendered body clears
+PASS Bat presentation lifts pickups, follows facing, swings and settles without changing gameplay
+PASS Wary supported humans hold distance instead of charging
+PASS Cautious humans back away nearby and defend on contact
+PASS Direct retreat and pursuit avoid gratuitous diagonal zigzags
+PASS Visual motion spans the movement interval without wall shortcuts
+PASS Prototype-three reaction saves keep their independent continuation
+PASS Human bravery yields fight, freeze and flight
+PASS Human awareness, stress labels and recovery
+PASS Visible ally support is cached and cowards contribute at most minus one
+PASS Freeze varies, pauses, resolves once and resumes exactly
+PASS Fight shoves nonlethally with cooldown, stagger and solid collision
+PASS Infection conversion clears human reaction state
+PASS Reaction save validation rejects corrupt state without changing the live world
+PASS Prototype-two saves retain independently recorded continuation
+PASS All manual tick batches are exact and stay paused
+PASS Human reactions thousand-body save continuation
+PASS A free-time walk physically leaves home pauses outdoors and returns with paid movement
+PASS A normal unscheduled resident waits at home before occasionally taking a walk
+PASS Changing or clearing an assigned home immediately clears saved leisure geometry
+PASS Leisure save continuation is exact during outbound pause return and cooldown
+PASS Hunger low energy injury and stress prevent optional departures
+PASS Urgent needs and danger interrupt an existing optional outdoor pause
+PASS A bitten walker abandons leisure between movement decisions and clears it on turning
+PASS A visible zombie interrupts optional leisure promptly
+PASS Assigned work and home shopping retain priority over optional walking
+PASS Newly observed empty home supplies interrupt an outbound walk for real shopping
+PASS An enclosed home with no safe outdoor destination does not create a leisure trip
+PASS Leisure save validation rejects malformed state and incompatible older rules
+PASS Legacy rules99 retains independently recorded pre-leisure continuation
+PASS Happiness starts neutral and reflects opposing social and environment preferences
+PASS Happiness updates on a bounded cadence and observer queries cannot advance it
+PASS Visible living companions count while walls and dead people do not
+PASS Vehicle riders pause their own happiness and are excluded from pedestrian company
+PASS Happiness clamps at both signed limits and danger cannot produce a positive gain
+PASS Only an observed living zombie blocks otherwise positive happiness
+PASS Happiness save continuation retains both pulse timing and all existing simulation state
+PASS Death and turning clear saved human happiness and make the observer unavailable
+PASS Happiness rejects corrupt ranges clocks and older-rule state transactionally
+PASS Legacy rules100 retains independently recorded pre-happiness continuation
+PASS Off-duty clerks and couriers expose consumer roles without erasing employment
+PASS Both off-duty occupations complete paid leisure outings and physically return home
+PASS New shifts interrupt optional walks and restore the permanent job commute
+PASS Off-duty routines save exactly through leisure and the next shift
+PASS Overnight shifts and zero-hour always-on schedules preserve work identity
+PASS A loaded clerk finishes the finite shelf load before joining consumer routines
+PASS An idle assigned work van does not trap an off-duty courier at home
+PASS Off-duty workers shop for their own empty home instead of taking a leisure walk
+PASS A courier finishes a loaded vehicle shipment before becoming an off-duty consumer
+PASS Legacy rules101 retains independently recorded worker shift continuation
+PASS A known park attracts a physical paid visit and a return to the assigned home
+PASS A park stay is bounded and does not spend movement energy while stationary
+PASS Unknown parks are not invented and farther known locations do not trigger remote trips
+PASS Nearest reachable known park wins while blocked knowledge falls back safely
+PASS Park visits retain exact outbound stay return and cooldown save continuation
+PASS Needs danger and a new worker shift interrupt optional park visits
+PASS Forgetting an active park ends the outing without corrupting its save
+PASS Park knowledge is bounded detached canonical and rejects invalid input without mutation
+PASS Turning and deprivation death clear human park familiarity and visit state
+PASS Rules102 keeps independently recorded pre-park continuation
+PASS A nearby willing pair receives one bounded charisma-based greeting reward
+PASS Solitude preferences decline optional greetings without an imposed mood bonus
+PASS Needs injuries infection fear and frozen reactions take priority over social rewards
+PASS Only visible partners within greeting range can interact
+PASS Actual visible danger blocks greetings while a hidden zombie grants no remote danger knowledge
+PASS Walking and vehicle shopping cannot be interrupted by optional greetings
+PASS Park visitors can greet without changing their destinations pause or travel costs
+PASS Off-duty workers share consumer greetings while on-duty employment stays authoritative
+PASS Pair choice is stable and rewards cannot exceed the happiness limit
+PASS Greeting snapshots are read-only and exact saves retain cooldown and subsequent exchanges
+PASS Death and turning clear social state without erasing the surviving person's observed history
+PASS Social history validates owner partner cadence and legacy fields before restore
+PASS Greeting changes only mood and saved social history, preserving movement needs inventory and RNG
+PASS Rules103 retains the independently recorded pre-social pair continuation
+PASS Company seekers choose visible company while solitude and neutral NPCs choose the nearer quiet park
+PASS Walls keep crowd state unknown and hidden people cannot change the selected destination
+PASS Only observed living on-foot people influence park company
+PASS Unknown distant and blocked parks cannot bypass familiarity visibility or route limits
+PASS Indoor outdoor and neutral preferences schedule bounded distinct waits and cooldowns
+PASS A solitude-preferring resident defers a visibly busy park without creating stale route state
+PASS Changing company does not retarget an existing outing and actual steps still cost energy
+PASS Needs and a new worker shift retain priority over preferred parks
+PASS Preference snapshots do not mutate choice scratch or authoritative state
+PASS Preference routes and long indoor cooldowns save exactly and reject incompatible clocks
+PASS Rules104 retains independently recorded nearest-park behavior and its original outing cadence
+PASS Actual greetings create mutual personal familiarity while mere visible company does not
+PASS Familiarity survives greeting cooldown expiry and a later greeting refreshes rather than duplicates it
+PASS A visible willing familiar partner is preferred to a closer stranger without increasing the reward
+PASS Remembered people must still be willing visible nearby and free of urgent needs
+PASS Bounded canonical acquaintance memory evicts least recent encounters with deterministic ties
+PASS All familiarity query capture and restore arrays remain detached from authoritative state
+PASS Familiar partner choice and refreshed encounter histories continue exactly across saves
+PASS Death and turning clear the affected person's familiarity while a survivor retains real encounter history
+PASS Familiarity validation rejects invalid owners counts identities ordering times and older rules
+PASS Rules105 retains independently recorded pre-familiarity social continuation
+PASS A hungry courier eats one physical meal before returning and retains its shipment claim
+PASS An upgraded loaded return eats while its rules106 copy preserves old return-before-eating
+PASS Off-duty hungry clerks and couriers start real home commutes without knowing home inventory
+PASS Injured exhausted off-duty workers rest at hunger cost and pay for each homeward step
+PASS Visible danger and infection retain priority over the new meal action
+PASS Stress does not authorize a forced home commute
+PASS Taking a home commute releases an earlier food exploration goal before any save
+PASS New meal and rest home-route states continue exactly through saves
+PASS Exhausted loaded couriers take a paid safe break without consuming delivery stock
+PASS Empty and reserve-only returns promptly release real claims without credit or discarded food
+PASS Hunger before pickup releases the collecting claim instead of routing an empty delivery
+PASS Dispatch waits for imminent personal hunger instead of reserving a meal-less pickup
+PASS A courier resumes paid travel after rest and credits only food physically unloaded
+PASS Rules106 keeps the historical hungry empty-return claim until its old lifecycle resolves
+PASS Clerk and pantry routes open an internal door as an action before paying for entry
+PASS An internal-door clerk physically withdraws stock and fills multiple shelves promptly
+PASS Pantry inspection learns only after physical access and all door states resume exactly
+PASS Rules106 furniture tasks retain their independently reproduced closed-door behavior
+PASS Rules106 preserves independently recorded full worker continuation
+BENCH 100x100, 1000 bodies, 2000 movement ticks: 171.88 ms total, 0.0859 ms/tick; terrain chunks 0
+BENCH 250x250, 1000 bodies, 2000 movement ticks: 185.51 ms total, 0.0928 ms/tick; terrain chunks 0
+BENCH 500x500, 1000 bodies, 2000 movement ticks: 170.93 ms total, 0.0855 ms/tick; terrain chunks 0
+BENCH 1000x1000, 1000 bodies, 2000 movement ticks: 160.62 ms total, 0.0803 ms/tick; terrain chunks 0
+Executed 711 acceptance cases and 743692 assertions.
+RUN /workspace/toolchains/dotnet/dotnet run --project /workspace/OutbreakGrid/OutbreakRebuild/Tests/WindowsDialogChecks.csproj --no-launch-profile -- /workspace/review/single-agent-20261030/results/unified/FOUNDATION_CHECKS.txt
+PASS Windows Open/Save branch strict compilation and 64-bit OPENFILENAMEW layout. Native Windows dialogs were not executed.
+RUN /workspace/toolchains/dotnet/dotnet run --project /workspace/OutbreakGrid/OutbreakRebuild/Tests/UiChecks.csproj --no-launch-profile -p:InputMode=Legacy -- /workspace/review/single-agent-20261030/results/unified/FOUNDATION_CHECKS.txt
+PASS UI dispatch/input-setup harness: 4899 assertions. Narrow API doubles; actual Unity layout, native input and desktop dialogs remain unverified.
+RUN /workspace/toolchains/dotnet/dotnet run --project /workspace/OutbreakGrid/OutbreakRebuild/Tests/UiChecks.csproj --no-launch-profile -p:InputMode=NewOnly -- /workspace/review/single-agent-20261030/results/unified/FOUNDATION_CHECKS.txt
+PASS UI dispatch/input-setup harness: 3 assertions. Narrow API doubles; actual Unity layout, native input and desktop dialogs remain unverified.
+PASS all hosted checks. Native Unity, native dialogs and Windows player builds were NOT RUN.

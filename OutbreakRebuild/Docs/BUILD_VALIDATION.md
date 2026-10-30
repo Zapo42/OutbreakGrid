@@ -2,6 +2,16 @@
 
 The user reported Foundation 82 working, then instructed that later incremental builds will go untested in Unity until they say otherwise. Acknowledging or continuing development does not establish Unity validation. Continue automated checks for each change and record native validation separately.
 
+## Single-agent consolidation — October 30, 2026, local only
+
+Compiled source `1628f24715337fd8f72d75431236f80fc7470bfa` combines prior UI21338cf with NPC R1/F143 and the narrow World store/DC generator/fixture changes throughd499d03. Runtime Core/Contracts/Persistence matches65b59c9;12 World paths matchd499d03. Existing UI transfer is included once, not reapplied. Prior multi-agent ownership/publication instructions are superseded by the user's single-agent/local-only direction.
+
+Fresh unified runner exit0:711 core cases /743692 assertions; strict hosted Windows ABI; Legacy UI4899/NewOnly3. Python48 city tests plus2 fixture tests;39 canonical recipe replays PASS. Additional checks PASS: upgrade/restart UI75, World area/bed UI20, house1264/store857/DC93 infrastructure assertions; standalone fixture-authoring project builds with0 warnings/errors.
+
+Fresh generated courier diagnostic:9 credits, courier health100,1 death; controls12/20. Four supplied26-hour store trials reproduce all four authoritative F143 final saves byte-for-byte. Credits9/17/15/15 and deaths0/0/2/0; zero unexplained food creation/loss;28 checkpoint groups/840 replay steps. The delivery case still has158 meals remaining,156 at DC, and two later deaths. Next-day work and empty-personal-shopping returns remain incomplete. Older R1 cartographer survival worsening7→9 is packaged prior evidence, not freshly rerun here. **Compilation/replay/accounting PASS is not survival acceptance.**
+
+All three packages and nested store/DC payloads verified; historical dirty drafts preserved separately. No new art implementation, GitHub push, release, native Unity compile/render/input/dialogs, Windows player or EXE. Unity6000.6.3f1/dependencies/GUIDs and permanent tags unchanged. [Graphics-first rundown](CONSOLIDATION_STATUS_2026-10-30.md) · [current evidence](../../harness/validation/consolidation-20261030/RESULTS.json).
+
 ## UI-PRES-01/01A integration — candidate only
 
 Transfer `1826dc6` merged into the existing NPC/World candidate as `e95d5b338f904aec6e983cf321783c76f7c8d26b`, preserving newer happiness/worker assertions, NPC upgrade/restart handling and World area markers. Only the two need-bar production hunks and UI-harness regressions changed. [Placement policy and limits](NEED_BAR_PLACEMENT.md).

@@ -1,0 +1,5 @@
+restocking: ticks=15600 remaining=124 meals=79 credits=9 deaths=0 replayStages=7
+shopping: ticks=15600 remaining=125 meals=78 credits=17 deaths=0 replayStages=7
+delivery: ticks=15600 remaining=158 meals=45 credits=15 deaths=2 replayStages=7
+long-shopping: ticks=15600 remaining=144 meals=59 credits=15 deaths=0 replayStages=7
+Observation/accounting/replay complete. Behavioral outcomes require review; native Unity NOT RUN.

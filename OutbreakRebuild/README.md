@@ -1,8 +1,9 @@
-**NPC-F141 integration candidate, not a release:** delivery regression7→4 remains a publication blocker. [Review and evidence](Docs/NPC_F141_INTEGRATION_REVIEW.md). The following describes the published Foundation131 baseline, not certification of this candidate.
+**Current local consolidation:** one agent, UI+NPC R1/F143+World store/DC interiors. [Completed and remaining work, graphics first](Docs/CONSOLIDATION_STATUS_2026-10-30.md). Hosted checks pass; survival issues remain. No publication or native Unity run.
 
-Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return, with normal energy costs and urgent tasks taking priority. [Walking preview, rules and older-run upgrade](Docs/HUMAN_LEISURE.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
-[World generator and two-room house integration](Docs/WORLD_HOUSES_INTEGRATION.md): opt-in schema14 maps with living-area recovery and separate storage, paired with the matching reader. Default recipes stay compatible. NPC Foundations 132–137 and their routine fixture remain separate; native Unity testing stays paused.
+Historical published baseline: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return, with normal energy costs and urgent tasks taking priority. [Walking preview, rules and older-run upgrade](Docs/HUMAN_LEISURE.md) · [Vehicle shopping](Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+
+[World generator and two-room house integration](Docs/WORLD_HOUSES_INTEGRATION.md): opt-in schema14 maps with living-area recovery and separate storage, paired with the matching reader. Default recipes stay compatible. That describes the historical World integration; the current local consolidation adds later NPC prerequisites/corrections and store/DC layouts. Native Unity testing stays paused.
 
 Unity testing paused after Foundation 82. [Validation record and rollback checkpoint](Docs/BUILD_VALIDATION.md).
 

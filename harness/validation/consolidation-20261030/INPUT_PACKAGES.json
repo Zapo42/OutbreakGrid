@@ -1,0 +1,27 @@
+{
+  "archives": [
+    {
+      "name": "OutbreakGrid-single-agent-transfer (1).zip",
+      "bytes": 28636987,
+      "sha256": "3d8b99f3c20be26212eff7a001f85b2f6f4cfdb3744c5a5ef905abd72ec712d4"
+    },
+    {
+      "name": "OutbreakGrid-single-agent-transfer.zip",
+      "bytes": 2801434,
+      "sha256": "c8451f77c1135b3be7c4dbbf02c5f8e6f710689145c7481fba3f398137598df3"
+    },
+    {
+      "name": "OutbreakGrid-complete-single-agent-transfer-d499d03.zip",
+      "bytes": 12270617,
+      "sha256": "fc8010b6491b43616033d0200c9748f418f11949d3c70c1d630c700aa0a115f3"
+    }
+  ],
+  "verification": {
+    "npcPayloads": 2795,
+    "graphicsPayloads": 23,
+    "worldPayloads": 22,
+    "nestedStores": 41,
+    "nestedDC": 220
+  },
+  "originalDirtyDrafts": "195 untracked files and tracked patches preserved separately, not overlaid"
+}

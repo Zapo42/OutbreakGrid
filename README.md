@@ -1,10 +1,11 @@
 # OutbreakGrid
 
-**NPC-F141 source-review candidate; not a release.** This branch integrates needs priority and NPC prerequisites with the World reader, but the same-city delivery regression (7→4 credited meals) blocks main publication. [Integration review and NPC follow-up](OutbreakRebuild/Docs/NPC_F141_INTEGRATION_REVIEW.md). Native Unity testing remains paused. The published baseline below is unchanged on main.
+**Local single-agent consolidation:** UI, NPC R1/F143 and World store/DC source are combined and hosted-validated. [Graphics-first completed/remaining rundown](OutbreakRebuild/Docs/CONSOLIDATION_STATUS_2026-10-30.md). This is not a published release; survival issues remain and native Unity testing is paused.
 
-Current build: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
-World integration adds opt-in seeded two-room house maps, living-area recovery markers and separate household storage. [Generation, loadable examples, compatibility and validation limits](OutbreakRebuild/Docs/WORLD_HOUSES_INTEGRATION.md). NPC Foundations 132–137 and their daily-routine behavior are not included in this Foundation131 integration.
+Published baseline: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+
+World integration adds opt-in seeded two-room house maps, living-area recovery markers and separate household storage. [Generation, loadable examples, compatibility and validation limits](OutbreakRebuild/Docs/WORLD_HOUSES_INTEGRATION.md). That historical Foundation131 increment did not include NPC132–137; the current local consolidation includes those prerequisites and later corrections. See the current status report for the actual source and remaining failures.
 
 **Unity testing checkpoint:** Foundation 82 is the last build the user reported working in Unity. Builds starting with Foundation 83 are untested in Unity until the user explicitly resumes testing. [Checkpoint, rollback download and build validation record](OutbreakRebuild/Docs/BUILD_VALIDATION.md).
 

@@ -1,4 +1,6 @@
-# NPC-F141 integration candidate — release blocked
+# NPC-F141 integration candidate — historical release review
+
+Superseded for current local source by [single-agent consolidation](CONSOLIDATION_STATUS_2026-10-30.md). R1 corrects the original generated7→4 delivery regression, while older-fixture survival and later personal-shopping/delivery failures remain. The original report/evidence below is preserved, not relabeled as a fresh current run.
 
 This source-review branch integrates the NPC transfer into World-aware main. It is **not a released Foundation141 build**. Main remains `1b05a73c0994720230524c519dac84fc58d0bbd3` until the material courier regression is resolved or explicitly accepted. Native Unity/player testing remains paused.
 

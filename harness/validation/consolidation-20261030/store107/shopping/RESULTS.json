@@ -1,0 +1,3285 @@
+{
+  "name": "shopping",
+  "source": "R1 baseline b6c2b9a / NPC-F143 candidate; rules107",
+  "start": 0,
+  "end": 15600,
+  "finalHour": 9,
+  "internalDoorCoordinates": [
+    {
+      "k": 1210,
+      "x": 10,
+      "y": 12
+    },
+    {
+      "k": 1278,
+      "x": 78,
+      "y": 12
+    }
+  ],
+  "actors": [
+    {
+      "Id": 1,
+      "Home": 3745,
+      "Work": 842,
+      "InternalEntries": 5,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 5,
+      "HomeDeposited": 9,
+      "ShoppingDeposited": 5,
+      "Moves": 1873,
+      "Meals": 18,
+      "OffHome": 7846,
+      "NextWork": 15136,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        978
+      ],
+      "finalHealth": 100,
+      "hunger": 35,
+      "energy": 73
+    },
+    {
+      "Id": 2,
+      "Home": 3710,
+      "Work": 910,
+      "InternalEntries": 18,
+      "Withdrawn": 9,
+      "ShelfDeposits": 10,
+      "DistinctStockedShelves": [
+        1413,
+        1613
+      ],
+      "ShelfBought": 20,
+      "HomeDeposited": 5,
+      "ShoppingDeposited": 5,
+      "Moves": 722,
+      "Meals": 15,
+      "OffHome": 7457,
+      "NextWork": 14772,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        910
+      ],
+      "finalHealth": 100,
+      "hunger": 12,
+      "energy": 90
+    },
+    {
+      "Id": 3,
+      "Home": 3778,
+      "Work": 978,
+      "InternalEntries": 18,
+      "Withdrawn": 8,
+      "ShelfDeposits": 8,
+      "DistinctStockedShelves": [
+        1481,
+        1684
+      ],
+      "ShelfBought": 17,
+      "HomeDeposited": 6,
+      "ShoppingDeposited": 5,
+      "Moves": 679,
+      "Meals": 15,
+      "OffHome": 7453,
+      "NextWork": 14568,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        978
+      ],
+      "finalHealth": 100,
+      "hunger": 13,
+      "energy": 100
+    },
+    {
+      "Id": 4,
+      "Home": 3710,
+      "Work": 0,
+      "InternalEntries": 0,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 8,
+      "HomeDeposited": 15,
+      "ShoppingDeposited": 8,
+      "Moves": 687,
+      "Meals": 15,
+      "OffHome": 7200,
+      "NextWork": -1,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        910
+      ],
+      "finalHealth": 100,
+      "hunger": 8,
+      "energy": 60
+    },
+    {
+      "Id": 5,
+      "Home": 3778,
+      "Work": 0,
+      "InternalEntries": 0,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 7,
+      "HomeDeposited": 13,
+      "ShoppingDeposited": 6,
+      "Moves": 605,
+      "Meals": 15,
+      "OffHome": 7200,
+      "NextWork": -1,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        978
+      ],
+      "finalHealth": 100,
+      "hunger": 3,
+      "energy": 88
+    }
+  ],
+  "initialFood": 203,
+  "remainingFood": 125,
+  "meals": 78,
+  "discarded": 0,
+  "unattributed": 0,
+  "credited": 17,
+  "sourceOut": 27,
+  "sourceIn": 0,
+  "sourceFinal": 93,
+  "sourceFirstDelivery": 516,
+  "sourceFirstStore": 910,
+  "replayStages": [
+    "internal-door",
+    "courier-travel",
+    "periodic-300",
+    "clerk-stock-handling",
+    "shopping",
+    "periodic-7200",
+    "periodic-14400"
+  ],
+  "stocked": [
+    {
+      "tick": 587,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 602,
+      "id": 2,
+      "shelf": 1613,
+      "x": 12,
+      "y": 16,
+      "meals": 1
+    },
+    {
+      "tick": 1463,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 1867,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 2307,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 2
+    },
+    {
+      "tick": 3098,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 3218,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 4023,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 4117,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 4867,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 5288,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 5743,
+      "id": 3,
+      "shelf": 1481,
+      "x": 80,
+      "y": 14,
+      "meals": 2
+    },
+    {
+      "tick": 6367,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 1
+    },
+    {
+      "tick": 6587,
+      "id": 2,
+      "shelf": 1413,
+      "x": 12,
+      "y": 14,
+      "meals": 2
+    },
+    {
+      "tick": 14743,
+      "id": 3,
+      "shelf": 1684,
+      "x": 83,
+      "y": 16,
+      "meals": 1
+    }
+  ],
+  "withdrawals": [
+    {
+      "tick": 151,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 522,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 1021,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1403,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 1856,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1920,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 1924,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 2242,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 2741,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 3158,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 3576,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 3963,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 4080,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 4084,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 4411,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 4802,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 1,
+      "stockroom": true
+    },
+    {
+      "tick": 5301,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 5683,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 6136,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 6150,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 6154,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 6522,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 7021,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 7493,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 8194,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 8401,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 8497,
+      "id": 2,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "stockroom": false
+    },
+    {
+      "tick": 9030,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 10114,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 10561,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 11190,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 12154,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 12361,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 13230,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 14131,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 14164,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 14658,
+      "id": 3,
+      "box": 988,
+      "x": 87,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    },
+    {
+      "tick": 15176,
+      "id": 1,
+      "box": 1044,
+      "x": 43,
+      "y": 10,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 15510,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 3,
+      "stockroom": false
+    },
+    {
+      "tick": 15557,
+      "id": 2,
+      "box": 920,
+      "x": 19,
+      "y": 9,
+      "meals": 2,
+      "stockroom": true
+    }
+  ],
+  "shopPickups": [
+    {
+      "tick": 1857,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 3088,
+      "id": 3,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 3,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4107,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4265,
+      "id": 5,
+      "shelf": 1684,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 4269,
+      "id": 4,
+      "shelf": 1616,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 5278,
+      "id": 3,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 3,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 6345,
+      "id": 5,
+      "shelf": 1684,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 6349,
+      "id": 4,
+      "shelf": 1616,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 6357,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 7695,
+      "id": 5,
+      "shelf": 1684,
+      "store": 978,
+      "meals": 1,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 8043,
+      "id": 3,
+      "shelf": 1681,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 8684,
+      "id": 4,
+      "shelf": 1616,
+      "store": 910,
+      "meals": 1,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 9072,
+      "id": 2,
+      "shelf": 1613,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 9213,
+      "id": 3,
+      "shelf": 1681,
+      "store": 978,
+      "meals": 3,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 10297,
+      "id": 2,
+      "shelf": 1613,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 10684,
+      "id": 4,
+      "shelf": 1613,
+      "store": 910,
+      "meals": 1,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 10956,
+      "id": 1,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 11378,
+      "id": 3,
+      "shelf": 1687,
+      "store": 978,
+      "meals": 3,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 11775,
+      "id": 5,
+      "shelf": 1687,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 12342,
+      "id": 2,
+      "shelf": 1619,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 12729,
+      "id": 4,
+      "shelf": 1619,
+      "store": 910,
+      "meals": 2,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 12766,
+      "id": 1,
+      "shelf": 1484,
+      "store": 978,
+      "meals": 2,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 13423,
+      "id": 3,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 3,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 14357,
+      "id": 2,
+      "shelf": 1413,
+      "store": 910,
+      "meals": 3,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 14516,
+      "id": 1,
+      "shelf": 1481,
+      "store": 978,
+      "meals": 1,
+      "shoppingStore": 978
+    }
+  ],
+  "homeDeposits": [
+    {
+      "tick": 1930,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 1934,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4090,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4094,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 4450,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 2,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 4454,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 6160,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 6164,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 6535,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 2,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 6539,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 7503,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 8204,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 8238,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 2,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 8411,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 8874,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 9040,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 9267,
+      "id": 2,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 9408,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 10124,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 10497,
+      "id": 2,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 10571,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 10879,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 11200,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 11326,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 2,
+      "home": 3745,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 11583,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 11975,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 2,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 12164,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 12371,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 12547,
+      "id": 2,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 12934,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 2,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 13141,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 2,
+      "home": 3745,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 13240,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 13633,
+      "id": 3,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 14141,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 14174,
+      "id": 4,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    },
+    {
+      "tick": 14567,
+      "id": 2,
+      "box": 4210,
+      "x": 9,
+      "y": 42,
+      "meals": 1,
+      "home": 3710,
+      "shoppingReturn": true,
+      "shoppingStore": 910
+    },
+    {
+      "tick": 14886,
+      "id": 1,
+      "box": 4245,
+      "x": 44,
+      "y": 42,
+      "meals": 1,
+      "home": 3745,
+      "shoppingReturn": true,
+      "shoppingStore": 978
+    },
+    {
+      "tick": 15520,
+      "id": 5,
+      "box": 4278,
+      "x": 77,
+      "y": 42,
+      "meals": 1,
+      "home": 3778,
+      "shoppingReturn": false,
+      "shoppingStore": 0
+    }
+  ],
+  "creditEvents": [
+    {
+      "tick": 516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 1401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 2236,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 3126,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 3961,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 4796,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 1
+    },
+    {
+      "tick": 5681,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 6516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 7401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 15556,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    }
+  ],
+  "events": [
+    {
+      "tick": 67,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 68,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 77,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 78,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 197,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 198,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 466,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 572,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 622,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 1401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 1448,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 1473,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 1842,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 1877,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2186,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2236,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 2292,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 2317,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 3073,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3108,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3126,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 3203,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3228,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 3739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "",
+      "after": "910:3739"
+    },
+    {
+      "tick": 3744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3739",
+      "after": "910:3744"
+    },
+    {
+      "tick": 3749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3744",
+      "after": "910:3749"
+    },
+    {
+      "tick": 3754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3749",
+      "after": "910:3754"
+    },
+    {
+      "tick": 3759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3754",
+      "after": "910:3759"
+    },
+    {
+      "tick": 3764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3759",
+      "after": "910:3764"
+    },
+    {
+      "tick": 3769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3764",
+      "after": "910:3769"
+    },
+    {
+      "tick": 3961,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 1
+    },
+    {
+      "tick": 4008,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 4033,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 4092,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4127,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4189,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:3769",
+      "after": "910:4189"
+    },
+    {
+      "tick": 4194,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4189",
+      "after": "910:4194"
+    },
+    {
+      "tick": 4199,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4194",
+      "after": "910:4199"
+    },
+    {
+      "tick": 4204,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4199",
+      "after": "910:4204"
+    },
+    {
+      "tick": 4209,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4204",
+      "after": "910:4209"
+    },
+    {
+      "tick": 4214,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4209",
+      "after": "910:4214"
+    },
+    {
+      "tick": 4219,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4214",
+      "after": "910:4219"
+    },
+    {
+      "tick": 4224,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4219",
+      "after": "910:4224"
+    },
+    {
+      "tick": 4229,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4224",
+      "after": "910:4229"
+    },
+    {
+      "tick": 4234,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4229",
+      "after": "910:4234"
+    },
+    {
+      "tick": 4239,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4234",
+      "after": "910:4239"
+    },
+    {
+      "tick": 4244,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4239",
+      "after": "910:4244"
+    },
+    {
+      "tick": 4249,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4244",
+      "after": "910:4249"
+    },
+    {
+      "tick": 4254,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4249",
+      "after": "910:4254"
+    },
+    {
+      "tick": 4259,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4254",
+      "after": "910:4259"
+    },
+    {
+      "tick": 4264,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4259",
+      "after": "910:4264"
+    },
+    {
+      "tick": 4269,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4264",
+      "after": "910:4269"
+    },
+    {
+      "tick": 4274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4269",
+      "after": "910:4274"
+    },
+    {
+      "tick": 4279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4274",
+      "after": "910:4279"
+    },
+    {
+      "tick": 4284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4279",
+      "after": "910:4284"
+    },
+    {
+      "tick": 4289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4284",
+      "after": "910:4289"
+    },
+    {
+      "tick": 4294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4289",
+      "after": "910:4294"
+    },
+    {
+      "tick": 4299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4294",
+      "after": "910:4299"
+    },
+    {
+      "tick": 4304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4299",
+      "after": "910:4304"
+    },
+    {
+      "tick": 4309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4304",
+      "after": "910:4309"
+    },
+    {
+      "tick": 4314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4309",
+      "after": "910:4314"
+    },
+    {
+      "tick": 4319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4314",
+      "after": "910:4319"
+    },
+    {
+      "tick": 4324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4319",
+      "after": "910:4324"
+    },
+    {
+      "tick": 4329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4324",
+      "after": "910:4329"
+    },
+    {
+      "tick": 4334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4329",
+      "after": "910:4334"
+    },
+    {
+      "tick": 4339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4334",
+      "after": "910:4339"
+    },
+    {
+      "tick": 4344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4339",
+      "after": "910:4344"
+    },
+    {
+      "tick": 4349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4344",
+      "after": "910:4349"
+    },
+    {
+      "tick": 4354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4349",
+      "after": "910:4354"
+    },
+    {
+      "tick": 4359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4354",
+      "after": "910:4359"
+    },
+    {
+      "tick": 4364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4359",
+      "after": "910:4364"
+    },
+    {
+      "tick": 4369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4364",
+      "after": "910:4369"
+    },
+    {
+      "tick": 4374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4369",
+      "after": "910:4374"
+    },
+    {
+      "tick": 4379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4374",
+      "after": "910:4379"
+    },
+    {
+      "tick": 4384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4379",
+      "after": "910:4384"
+    },
+    {
+      "tick": 4389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4384",
+      "after": "910:4389"
+    },
+    {
+      "tick": 4746,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4796,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 1
+    },
+    {
+      "tick": 4852,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 4877,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 5263,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 5298,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 5681,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 5728,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 5753,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 6274,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:4389",
+      "after": "910:6274"
+    },
+    {
+      "tick": 6279,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6274",
+      "after": "910:6279"
+    },
+    {
+      "tick": 6284,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6279",
+      "after": "910:6284"
+    },
+    {
+      "tick": 6289,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6284",
+      "after": "910:6289"
+    },
+    {
+      "tick": 6294,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6289",
+      "after": "910:6294"
+    },
+    {
+      "tick": 6299,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6294",
+      "after": "910:6299"
+    },
+    {
+      "tick": 6304,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6299",
+      "after": "910:6304"
+    },
+    {
+      "tick": 6309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6304",
+      "after": "910:6309"
+    },
+    {
+      "tick": 6314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6309",
+      "after": "910:6314"
+    },
+    {
+      "tick": 6319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6314",
+      "after": "910:6319"
+    },
+    {
+      "tick": 6324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6319",
+      "after": "910:6324"
+    },
+    {
+      "tick": 6329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6324",
+      "after": "910:6329"
+    },
+    {
+      "tick": 6334,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6329",
+      "after": "910:6334"
+    },
+    {
+      "tick": 6339,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6334",
+      "after": "910:6339"
+    },
+    {
+      "tick": 6342,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6344,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6339",
+      "after": "910:6344"
+    },
+    {
+      "tick": 6349,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6344",
+      "after": "910:6349"
+    },
+    {
+      "tick": 6354,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6349",
+      "after": "910:6354"
+    },
+    {
+      "tick": 6359,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6354",
+      "after": "910:6359"
+    },
+    {
+      "tick": 6364,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6359",
+      "after": "910:6364"
+    },
+    {
+      "tick": 6369,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6364",
+      "after": "910:6369"
+    },
+    {
+      "tick": 6374,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6369",
+      "after": "910:6374"
+    },
+    {
+      "tick": 6377,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6379,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6374",
+      "after": "910:6379"
+    },
+    {
+      "tick": 6384,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6379",
+      "after": "910:6384"
+    },
+    {
+      "tick": 6389,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6384",
+      "after": "910:6389"
+    },
+    {
+      "tick": 6394,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6389",
+      "after": "910:6394"
+    },
+    {
+      "tick": 6399,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6394",
+      "after": "910:6399"
+    },
+    {
+      "tick": 6404,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6399",
+      "after": "910:6404"
+    },
+    {
+      "tick": 6409,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6404",
+      "after": "910:6409"
+    },
+    {
+      "tick": 6414,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6409",
+      "after": "910:6414"
+    },
+    {
+      "tick": 6419,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6414",
+      "after": "910:6419"
+    },
+    {
+      "tick": 6424,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6419",
+      "after": "910:6424"
+    },
+    {
+      "tick": 6429,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6424",
+      "after": "910:6429"
+    },
+    {
+      "tick": 6434,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6429",
+      "after": "910:6434"
+    },
+    {
+      "tick": 6439,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6434",
+      "after": "910:6439"
+    },
+    {
+      "tick": 6444,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6439",
+      "after": "910:6444"
+    },
+    {
+      "tick": 6449,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6444",
+      "after": "910:6449"
+    },
+    {
+      "tick": 6454,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6449",
+      "after": "910:6454"
+    },
+    {
+      "tick": 6459,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6454",
+      "after": "910:6459"
+    },
+    {
+      "tick": 6464,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6459",
+      "after": "910:6464"
+    },
+    {
+      "tick": 6466,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6469,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6464",
+      "after": "910:6469"
+    },
+    {
+      "tick": 6474,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6469",
+      "after": "910:6474"
+    },
+    {
+      "tick": 6516,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    },
+    {
+      "tick": 6572,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 6597,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 7401,
+      "id": 1,
+      "order": 2,
+      "store": 978,
+      "box": 988,
+      "meals": 2
+    },
+    {
+      "tick": 8309,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:6474",
+      "after": "910:8309"
+    },
+    {
+      "tick": 8314,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8309",
+      "after": "910:8314"
+    },
+    {
+      "tick": 8319,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8314",
+      "after": "910:8319"
+    },
+    {
+      "tick": 8324,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8319",
+      "after": "910:8324"
+    },
+    {
+      "tick": 8329,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8324",
+      "after": "910:8329"
+    },
+    {
+      "tick": 8614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8329",
+      "after": "910:8614"
+    },
+    {
+      "tick": 8619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8614",
+      "after": "910:8619"
+    },
+    {
+      "tick": 8624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8619",
+      "after": "910:8624"
+    },
+    {
+      "tick": 8629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8624",
+      "after": "910:8629"
+    },
+    {
+      "tick": 8634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8629",
+      "after": "910:8634"
+    },
+    {
+      "tick": 8639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8634",
+      "after": "910:8639"
+    },
+    {
+      "tick": 8644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8639",
+      "after": "910:8644"
+    },
+    {
+      "tick": 8649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8644",
+      "after": "910:8649"
+    },
+    {
+      "tick": 8654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8649",
+      "after": "910:8654"
+    },
+    {
+      "tick": 8659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8654",
+      "after": "910:8659"
+    },
+    {
+      "tick": 8664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8659",
+      "after": "910:8664"
+    },
+    {
+      "tick": 8669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8664",
+      "after": "910:8669"
+    },
+    {
+      "tick": 8674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8669",
+      "after": "910:8674"
+    },
+    {
+      "tick": 8679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8674",
+      "after": "910:8679"
+    },
+    {
+      "tick": 8684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8679",
+      "after": "910:8684"
+    },
+    {
+      "tick": 8689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8684",
+      "after": "910:8689"
+    },
+    {
+      "tick": 8694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8689",
+      "after": "910:8694"
+    },
+    {
+      "tick": 8699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8694",
+      "after": "910:8699"
+    },
+    {
+      "tick": 8704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8699",
+      "after": "910:8704"
+    },
+    {
+      "tick": 8709,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8704",
+      "after": "910:8709"
+    },
+    {
+      "tick": 8714,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8709",
+      "after": "910:8714"
+    },
+    {
+      "tick": 8719,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8714",
+      "after": "910:8719"
+    },
+    {
+      "tick": 8724,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8719",
+      "after": "910:8724"
+    },
+    {
+      "tick": 8729,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8724",
+      "after": "910:8729"
+    },
+    {
+      "tick": 8734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8729",
+      "after": "910:8734"
+    },
+    {
+      "tick": 8739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8734",
+      "after": "910:8739"
+    },
+    {
+      "tick": 8744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8739",
+      "after": "910:8744"
+    },
+    {
+      "tick": 8749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8744",
+      "after": "910:8749"
+    },
+    {
+      "tick": 8754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8749",
+      "after": "910:8754"
+    },
+    {
+      "tick": 8759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8754",
+      "after": "910:8759"
+    },
+    {
+      "tick": 8764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8759",
+      "after": "910:8764"
+    },
+    {
+      "tick": 8769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8764",
+      "after": "910:8769"
+    },
+    {
+      "tick": 8774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8769",
+      "after": "910:8774"
+    },
+    {
+      "tick": 8779,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8774",
+      "after": "910:8779"
+    },
+    {
+      "tick": 8784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8779",
+      "after": "910:8784"
+    },
+    {
+      "tick": 8789,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8784",
+      "after": "910:8789"
+    },
+    {
+      "tick": 8794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8789",
+      "after": "910:8794"
+    },
+    {
+      "tick": 8799,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8794",
+      "after": "910:8799"
+    },
+    {
+      "tick": 8804,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8799",
+      "after": "910:8804"
+    },
+    {
+      "tick": 8809,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8804",
+      "after": "910:8809"
+    },
+    {
+      "tick": 10604,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:8809",
+      "after": "910:10604"
+    },
+    {
+      "tick": 10609,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10604",
+      "after": "910:10609"
+    },
+    {
+      "tick": 10614,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10609",
+      "after": "910:10614"
+    },
+    {
+      "tick": 10619,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10614",
+      "after": "910:10619"
+    },
+    {
+      "tick": 10624,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10619",
+      "after": "910:10624"
+    },
+    {
+      "tick": 10629,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10624",
+      "after": "910:10629"
+    },
+    {
+      "tick": 10634,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10629",
+      "after": "910:10634"
+    },
+    {
+      "tick": 10639,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10634",
+      "after": "910:10639"
+    },
+    {
+      "tick": 10644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10639",
+      "after": "910:10644"
+    },
+    {
+      "tick": 10649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10644",
+      "after": "910:10649"
+    },
+    {
+      "tick": 10654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10649",
+      "after": "910:10654"
+    },
+    {
+      "tick": 10659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10654",
+      "after": "910:10659"
+    },
+    {
+      "tick": 10664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10659",
+      "after": "910:10664"
+    },
+    {
+      "tick": 10669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10664",
+      "after": "910:10669"
+    },
+    {
+      "tick": 10674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10669",
+      "after": "910:10674"
+    },
+    {
+      "tick": 10679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10674",
+      "after": "910:10679"
+    },
+    {
+      "tick": 10684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10679",
+      "after": "910:10684"
+    },
+    {
+      "tick": 10689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10684",
+      "after": "910:10689"
+    },
+    {
+      "tick": 10694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10689",
+      "after": "910:10694"
+    },
+    {
+      "tick": 10699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10694",
+      "after": "910:10699"
+    },
+    {
+      "tick": 10704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10699",
+      "after": "910:10704"
+    },
+    {
+      "tick": 10709,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10704",
+      "after": "910:10709"
+    },
+    {
+      "tick": 10714,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10709",
+      "after": "910:10714"
+    },
+    {
+      "tick": 10719,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10714",
+      "after": "910:10719"
+    },
+    {
+      "tick": 10724,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10719",
+      "after": "910:10724"
+    },
+    {
+      "tick": 10729,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10724",
+      "after": "910:10729"
+    },
+    {
+      "tick": 10734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10729",
+      "after": "910:10734"
+    },
+    {
+      "tick": 10739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10734",
+      "after": "910:10739"
+    },
+    {
+      "tick": 10744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10739",
+      "after": "910:10744"
+    },
+    {
+      "tick": 10749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10744",
+      "after": "910:10749"
+    },
+    {
+      "tick": 10754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10749",
+      "after": "910:10754"
+    },
+    {
+      "tick": 10759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10754",
+      "after": "910:10759"
+    },
+    {
+      "tick": 10764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10759",
+      "after": "910:10764"
+    },
+    {
+      "tick": 10769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10764",
+      "after": "910:10769"
+    },
+    {
+      "tick": 10774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10769",
+      "after": "910:10774"
+    },
+    {
+      "tick": 10779,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10774",
+      "after": "910:10779"
+    },
+    {
+      "tick": 10784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10779",
+      "after": "910:10784"
+    },
+    {
+      "tick": 10789,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10784",
+      "after": "910:10789"
+    },
+    {
+      "tick": 10794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10789",
+      "after": "910:10794"
+    },
+    {
+      "tick": 10799,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10794",
+      "after": "910:10799"
+    },
+    {
+      "tick": 10804,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10799",
+      "after": "910:10804"
+    },
+    {
+      "tick": 10809,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10804",
+      "after": "910:10809"
+    },
+    {
+      "tick": 10814,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10809",
+      "after": "910:10814"
+    },
+    {
+      "tick": 12644,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:10814",
+      "after": "910:12644"
+    },
+    {
+      "tick": 12649,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12644",
+      "after": "910:12649"
+    },
+    {
+      "tick": 12654,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12649",
+      "after": "910:12654"
+    },
+    {
+      "tick": 12659,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12654",
+      "after": "910:12659"
+    },
+    {
+      "tick": 12664,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12659",
+      "after": "910:12664"
+    },
+    {
+      "tick": 12669,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12664",
+      "after": "910:12669"
+    },
+    {
+      "tick": 12674,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12669",
+      "after": "910:12674"
+    },
+    {
+      "tick": 12679,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12674",
+      "after": "910:12679"
+    },
+    {
+      "tick": 12684,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12679",
+      "after": "910:12684"
+    },
+    {
+      "tick": 12689,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12684",
+      "after": "910:12689"
+    },
+    {
+      "tick": 12694,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12689",
+      "after": "910:12694"
+    },
+    {
+      "tick": 12699,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12694",
+      "after": "910:12699"
+    },
+    {
+      "tick": 12704,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12699",
+      "after": "910:12704"
+    },
+    {
+      "tick": 12709,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12704",
+      "after": "910:12709"
+    },
+    {
+      "tick": 12714,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12709",
+      "after": "910:12714"
+    },
+    {
+      "tick": 12719,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12714",
+      "after": "910:12719"
+    },
+    {
+      "tick": 12724,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12719",
+      "after": "910:12724"
+    },
+    {
+      "tick": 12729,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12724",
+      "after": "910:12729"
+    },
+    {
+      "tick": 12734,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12729",
+      "after": "910:12734"
+    },
+    {
+      "tick": 12739,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12734",
+      "after": "910:12739"
+    },
+    {
+      "tick": 12744,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12739",
+      "after": "910:12744"
+    },
+    {
+      "tick": 12749,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12744",
+      "after": "910:12749"
+    },
+    {
+      "tick": 12754,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12749",
+      "after": "910:12754"
+    },
+    {
+      "tick": 12759,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12754",
+      "after": "910:12759"
+    },
+    {
+      "tick": 12764,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12759",
+      "after": "910:12764"
+    },
+    {
+      "tick": 12769,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12764",
+      "after": "910:12769"
+    },
+    {
+      "tick": 12774,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12769",
+      "after": "910:12774"
+    },
+    {
+      "tick": 12779,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12774",
+      "after": "910:12779"
+    },
+    {
+      "tick": 12784,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12779",
+      "after": "910:12784"
+    },
+    {
+      "tick": 12789,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12784",
+      "after": "910:12789"
+    },
+    {
+      "tick": 12794,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12789",
+      "after": "910:12794"
+    },
+    {
+      "tick": 12799,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12794",
+      "after": "910:12799"
+    },
+    {
+      "tick": 12804,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12799",
+      "after": "910:12804"
+    },
+    {
+      "tick": 12809,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12804",
+      "after": "910:12809"
+    },
+    {
+      "tick": 12814,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12809",
+      "after": "910:12814"
+    },
+    {
+      "tick": 12819,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12814",
+      "after": "910:12819"
+    },
+    {
+      "tick": 12824,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12819",
+      "after": "910:12824"
+    },
+    {
+      "tick": 12829,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12824",
+      "after": "910:12829"
+    },
+    {
+      "tick": 12834,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12829",
+      "after": "910:12834"
+    },
+    {
+      "tick": 12839,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12834",
+      "after": "910:12839"
+    },
+    {
+      "tick": 12844,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12839",
+      "after": "910:12844"
+    },
+    {
+      "tick": 12849,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12844",
+      "after": "910:12849"
+    },
+    {
+      "tick": 12854,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12849",
+      "after": "910:12854"
+    },
+    {
+      "tick": 12859,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12854",
+      "after": "910:12859"
+    },
+    {
+      "tick": 12864,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12859",
+      "after": "910:12864"
+    },
+    {
+      "tick": 12869,
+      "id": 4,
+      "kind": "store-notes-changed",
+      "before": "910:12864",
+      "after": "910:12869"
+    },
+    {
+      "tick": 14608,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14703,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14773,
+      "id": 3,
+      "kind": "internal-door-entry",
+      "x": 78,
+      "y": 12
+    },
+    {
+      "tick": 14812,
+      "id": 2,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 15506,
+      "id": 1,
+      "kind": "internal-door-entry",
+      "x": 10,
+      "y": 12
+    },
+    {
+      "tick": 15556,
+      "id": 1,
+      "order": 1,
+      "store": 910,
+      "box": 920,
+      "meals": 2
+    }
+  ]
+}

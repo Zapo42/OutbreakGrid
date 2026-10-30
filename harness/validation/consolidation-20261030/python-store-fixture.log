@@ -1,0 +1,7 @@
+test_invalid_seed (test_store_validation.StoreValidationGeometry.test_invalid_seed) ... ok
+test_replay_and_live_fixtures (test_store_validation.StoreValidationGeometry.test_replay_and_live_fixtures) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.066s
+
+OK

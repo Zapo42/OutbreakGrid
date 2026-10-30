@@ -1,0 +1,9 @@
+  Determining projects to restore...
+  Restored /workspace/OutbreakGrid/OutbreakRebuild/Tests/StoreRoutineFixture.csproj (in 83 ms).
+  StoreRoutineFixture -> /workspace/OutbreakGrid/OutbreakRebuild/Tests/bin/Debug/net8.0/StoreRoutineFixture.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.14
