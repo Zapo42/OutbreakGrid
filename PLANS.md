@@ -4,6 +4,15 @@ Status: single-agent local consolidation compiled/validated2026-10-30. Graphics-
 
 ## CONSOLIDATE-20261030 — compile transfers and report graphics first
 
+## GRAPHICS-3X3-01 — user-selected NPC symbol increment
+
+- User chose3x3 for the first graphics increment. One agent, existing local branch; baseline8a4a6fe. No publication/native testing or unrelated feature work.
+- Files: new Unity/NpcGlyphPresentation.cs and stable.meta; FoundationApp.cs actor/feedback drawing and Current Tests preview; UiHarness.cs actual mask/frame/zoom/state/selection checks and migration of old solid-body assertion; graphics/validation/plan/build records. No Core, Contracts, saves, packages, scenes, existing GUIDs or world/vehicle/terrain artwork changes.
+- Contract:3x3 logical human/zombie/flat-corpse masks with integer-sized screen pixels and snapped glyph origin. Existing identity colors and rise timing retained; rising states use existing Core progress. Under3 physical pixels, use one-pixel distant fallback. Retain logical body anchors/culling/occupation outlines/HFE/feedback; UI clicking also accepts the snapped glyph bounds so a distant dot remains selectable. Simulation hitboxes remain unchanged. Yellow selection frame separate from glyph. Glow off; no global16-color or320x200 pipeline rollout.
+- Acceptance: exact mask occupancy/grid; human/zombie/death/rise distinctions; no full solid actor rectangles or solid flash replacement; actual DrawWorld/selection/toggle/paused/restart and saved-state invariants; distant and zoom bounds; existing UI/NPC/World checks retained. Preview is paused authored data only, all decisions stay in Core. Run sequential hosted validation, not native rendering. Supply factual local report/next steps.
+
+## Consolidation record (completed)
+
 - User request: combine the uploaded work, compile it, report completed/remaining work for each area starting with graphics, then proceed incrementally. Attached instructions are handoff context, not independent feature/publication authorization. Single agent owns all integration; no team delegation.
 - Base: clean21338cf, UI1826dc6 already integrated exactly once. NPC bundle verified; local merge brings only R1b6c2b9a and F14365b59c9. World finald499d03 imported as a narrow12-path diff from20380be (generator/store/DC/fixture tools/tests/docs only); its older rules97 game tree is not merged.
 - Files: NPC nine-file combined diff; World twelve-path diff; representative store/DC maps; approved graphics reference; current single-agent instructions/status/validation records. Existing local/remote main and permanent tags untouched. Original dirty drafts retained separately in verified packages, not applied as current source.
