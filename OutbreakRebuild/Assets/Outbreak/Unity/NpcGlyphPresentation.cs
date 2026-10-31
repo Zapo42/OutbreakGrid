@@ -8,11 +8,12 @@ namespace Outbreak.UnityAdapter
     // Bit zero is the top-left logical pixel. Masks are presentation, never collision or decision geometry.
     public static class NpcGlyphPresentation
     {
-        public const int Size = 3;
-        public const int Human = 2 | 56 | 320;       // .#. / ### / #.#
-        public const int Zombie = 2 | 24 | 384;     // .#. / ##. / .##
-        public const int Corpse = 56;              // ... / ### / ...
-        public const int Rising = 2 | 56;          // .#. / ### / ...
+        public const int Width = 3;
+        public const int Height = 5;
+        public const int Human = 2 | (7 << 6) | (2 << 9) | (5 << 12); // .#. / ... / ### / .#. / #.#
+        public const int Zombie = Human; // Same person-shaped silhouette; species is conveyed by existing ink.
+        public const int Corpse = (7 << 9); // ... / ... / ... / ### / ...
+        public const int Rising = (2 << 3) | (7 << 9) | (5 << 12); // ... / .#. / ... / ### / #.#
 
         public static int Mask(ActorState actor, double tick, bool riseEnabled)
         {
@@ -38,11 +39,13 @@ namespace Outbreak.UnityAdapter
 
         public static Rect PixelBounds(Rect logicalBody)
         {
-            // The mask scales at integer pitch; an undersampled view retains one visible presence mark.
-            float available = Math.Min(logicalBody.width, logicalBody.height);
-            float side = available < Size ? 1 : Size * (float)Math.Floor(available / Size);
-            return new Rect((float)Math.Floor(logicalBody.x + (logicalBody.width - side) / 2 + 0.5f),
-                (float)Math.Floor(logicalBody.y + (logicalBody.height - side) / 2 + 0.5f), side, side);
+            // Fit the reference's upright proportions inside the unchanged logical body.
+            // A single distant mark is retained until five square screen pixels fit vertically.
+            float pitch = (float)Math.Floor(Math.Min(logicalBody.width / Width, logicalBody.height / Height));
+            float width = pitch < 1 ? 1 : Width * pitch;
+            float height = pitch < 1 ? 1 : Height * pitch;
+            return new Rect((float)Math.Floor(logicalBody.x + (logicalBody.width - width) / 2 + 0.5f),
+                (float)Math.Floor(logicalBody.y + (logicalBody.height - height) / 2 + 0.5f), width, height);
         }
 
         public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null)
@@ -54,10 +57,10 @@ namespace Outbreak.UnityAdapter
             else
             {
                 int mask = Mask(actor, tick, riseEnabled);
-                float pitch = pixels.width / Size;
-                for (int y = 0; y < Size; y++)
-                for (int x = 0; x < Size; x++)
-                    if ((mask & (1 << (y * Size + x))) != 0)
+                float pitch = pixels.width / Width;
+                for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
+                    if ((mask & (1 << (y * Width + x))) != 0)
                         GUI.DrawTexture(new Rect(pixels.x + x * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
             }
             GUI.color = previous; // Do not leak actor ink into terrain, occupations, bars or subsequent actors.
@@ -93,7 +96,7 @@ namespace Outbreak.UnityAdapter
             saved.actors[2].health = 0;
             saved.actors[3].turnAtTick = saved.tick + InfectionRules.Delay(saved.actors[3], 1);
             UseWorld(World.Restore(saved)); selected = 0;
-            status = "Left to right: human, zombie, corpse, infected human with existing marker. 3x3 symbols; zoom out for distant dots. Starts paused. Glow off.";
+            status = "Left to right: human, zombie, corpse, infected human with existing marker. Reference-shaped symbols; zoom out for distant dots. Starts paused. Glow off.";
         }
     }
 }

@@ -1,5 +1,14 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-REFERENCE-02 — rejected glyph correction, local
+
+User rejected the literal three-row shapes and authorized a reference correction. Baseline b8ea630. Standing human/zombie now share the same upright 3-column/5-row geometry: detached head, shoulders, torso and separate feet. Existing species colors and Core behavior unchanged; corpse/rise poses use the taller grid. Full-height fitting uses a distant dot below five available screen pixels.
+
+Sequential unified runner PASS: 711 core cases / 743,692 assertions, project configuration, hosted Windows ABI, Legacy UI 5,011 and NewOnly UI 3, exit0. Earlier focused Legacy run also passes 5,011. Evidence/source hashes: harness/validation/reference-correction. No tests disabled; seated-driver coverage now accounts for the five-row glyph's fallback threshold rather than assuming six pixels for every walker. Exact row, square-pixel, selection, combat contact, bars, state and restart checks retained.
+
+The actual-draw SVG was rasterized and visually inspected at enlarged and submitted pixel sizes against the approved sheet. This is hosted draw output, not native Unity rendering/input. Native testing remains paused; no Windows player produced. No simulation/contracts/persistence/settings/packages or existing GUID changes. Corrected source stays local pending visual review/publication request; prior GitHub snapshot retains rejected art until republished.
+
+
 ## PUBLISH-3X3-01 — consolidated source testing snapshot
 
 User requested GitHub publication and a testable build on October 30, 2026. Exact pre-publication source e1768b3 (graphics implementation 1101b5e); subsequent changes are release documentation/evidence only. Fresh sequential unified runner: PASS 711 core cases / 743,692 assertions, configuration, hosted Windows ABI, Legacy UI 4,992 and NewOnly UI 3; exit 0. Evidence: harness/validation/publish-3x3.

@@ -1,0 +1,16 @@
+{
+  "task": "GRAPHICS-REFERENCE-02",
+  "baseline": "b8ea630",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 5011,
+  "newOnlyUiAssertions": 3,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "nativeUnity": "NOT RUN user-paused",
+  "published": false,
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "84863d3172f2269ea338be511532fc5859a1563d6ba5585ff20bfc4a2b8a03fd",
+    "OutbreakRebuild/Tests/UiHarness.cs": "62f33b413af87eea7950266f95cba997acd257471a5ca38414b9475798ff15b0"
+  }
+}

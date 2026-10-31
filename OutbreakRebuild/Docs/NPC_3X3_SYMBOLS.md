@@ -1,37 +1,28 @@
-# 3x3 NPC symbol increment
+# Reference-corrected NPC symbols
 
-The user selected3x3. This local increment replaces solid actor rectangles with small logical masks; it does not implement a new simulation, global pixel canvas,16-color palette conversion or LCD effect.
-
-## Masks
+The published literal three-row experiment was rejected by the user. This correction follows the taller figures in the approved pixel-scale sheet: **three columns by five rows**, with a shared human/zombie silhouette. The historical “3x3” preview button remains for discoverability; it no longer describes the corrected raster height.
 
 ```text
-Human    Zombie   Corpse   Rising
- .#.      .#.      ...      .#.
- ###      ##.      ###      ###
- #.#      .##      ...      ...
+Human/Zombie   Corpse   Rising
+    .#.         ...      ...
+    ...         ...      .#.
+    ###         ...      ...
+    .#.         ###      ###
+    #.#         ...      #.#
 ```
 
-Each occupied cell is one square of ink. The mask scales at integer screen-pixel pitch and its origin snaps to whole pixels. When fewer than3 screen pixels fit the logical body, a one-pixel distant mark is used rather than an unreadable fractional grid. Simulation dimensions, collision and body anchors remain unchanged. Clicking also accepts the snapped glyph bounds, keeping that distant dot selectable.
+The detached head, shoulders, narrow torso and separated feet replace the squat shape and invented asymmetric zombie. Human/zombie identity remains in existing blue/green ink; a pending infection does not change the living human silhouette. Corpse and rising poses use the same five-row grid. Reanimation timing, state, movement, hitboxes and decisions remain in Core.
 
-Existing human, zombie and corpse colors are retained. A living infected human remains a human silhouette with the existing optional infection marker; it does not turn into a zombie visually ahead of Core. Reanimation uses Core's existing rise progress and grey-to-green timing: flat, crouched, then upright. Hit/bite flashes tint occupied glyph cells rather than covering the symbol with a solid square. No glow or new shader/texture allocation.
+The upright glyph fits within the unchanged logical body using square integer screen pixels. When a full five-row figure cannot fit, a one-pixel distant mark is used. Origins snap to pixels. Existing selection/occupation outlines, need bars, carried objects and flash cues remain; flash colors only occupied cells. No glow, global palette, sprite textures, scene/settings or GUID changes.
 
-The yellow selection frame sits outside the unchanged occupation band, leaving the state-colored glyph visible. Existing movement/interpolation, idle/contact cues, carried-object/weapon presentation and role outlines stay on their logical anchors. The glyph snaps to pixels; this is not yet whole-frame pixel scaling or bitmap UI typography. Very dense/far views, actual contrast and native appearance still need native review when testing resumes.
+## Preview
 
-## Find the preview
+Current Tests > **Inspect 3x3 Symbols Paused**. Left to right: human, zombie, corpse, infected human. The name is retained from the earlier trial. Zoom in to inspect the corrected proportions; restart restores the authored paused data.
 
-Choose **Inspect 3x3 Symbols Paused** under **Current Tests**. Left to right: human, zombie, corpse, infected human with the existing marker. It opens paused with the human selected. Run/step begins the existing simulation; Restart restores the authored initial data. Nothing about this preview changes normal NPC decisions or saved rules.
+[Actual-draw sheet, enlarged and at submitted pixel size](VisualReferences/npc-reference-corrected-preview.png). This is rasterized hosted drawing output, not a Unity screenshot. The approved direction remains [the pixel-scale study](VisualReferences/approved-pixel-scale-study.png).
 
-The [enlarged technical sheet](VisualReferences/npc-3x3-draw-preview.svg) is generated from actual hosted draw records. It is not a Unity screenshot or proof of native rendering/input. The [approved direction sheet](VisualReferences/approved-pixel-scale-study.png) remains the visual reference; an exact palette/terrain/object rollout is separate.
+## Verification
 
-## Validation scope
+Independent row expectations verify standing geometry, head gap, feet, corpse/rise stages, square integer pitch and distant fallback. Actual DrawWorld selection/toggle/save-state/restart tests remain. Seated-driver assertions account for glyph-or-distant-dot scale while still excluding the seated driver; shove tests retain contact/recoil checks. See BUILD_VALIDATION.md and harness/build-log.md for final evidence. Native Unity rendering/input/DPI remain unrun under the testing pause.
 
-UI checks assert independent mask rows, exact occupied pixel rectangles, integer pitch/origin, distant fallback, current colors, GUI color restoration, rise states, glyph-only flashes, actual DrawWorld output and preview selection/bars/restart/state invariants. Existing seated-driver checks now count six human mask cells per visible walker, still requiring no pedestrian ink for a seated driver. Contact tests retain exact logical contact/lean/recoil/hands checks while inspecting the snapped zombie pixels and the separate human selection frame.
-
-No Core/Contracts/persistence, old assets/GUIDs, package/editor pins, scene settings, terrain/vehicle art or food/needs behavior changed. A new stable.meta belongs to the new helper script. Current counts and results are in BUILD_VALIDATION.md and harness/build-log.md. Native Unity/editor/input/text metrics and Windows player remain paused/unrun; no EXE or publication.
-
-## Next small options
-
-1. Map the approved restrained palette to the symbols and check state contrast while preserving identity.
-2. Extend the same tiny-symbol language to doors/storage, keeping their existing functional states clear.
-
-Global canvas/zoom scaling, typography and optional LCD treatment remain later work. Do not add glow before symbols are readable.
+Palette mapping and object-symbol rollout remain separate work. This correction stays local until publication is requested.

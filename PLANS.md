@@ -1,6 +1,14 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-3X3-01 implemented and hosted-validated locally.3x3 actor masks/preview ready; no publication/native test. Earlier consolidation records and survival issues remain; single-agent ownership stays active.
+Status: GRAPHICS-REFERENCE-02 corrects the user-rejected published glyphs locally. Shared upright reference proportions; full hosted checks PASS, native testing paused, no correction publication. Prior testing snapshot b8ea630 remains on GitHub; survival issues remain.
+
+## GRAPHICS-REFERENCE-02 — correct rejected symbol proportions
+
+- User rejected published squat/dissimilar masks and explicitly requested correction. Baseline b8ea630. Single agent; local only; native testing remains paused.
+- Scope/files: NpcGlyphPresentation.cs, FoundationApp.cs preview wording, UiHarness.cs; reference preview and symbol/validation/plan/build docs. Preserve Core, colors, motion/selection anchors, GUIDs/settings and all unrelated work.
+- Reference interpretation: use a shared 3-column, 5-row upright body with detached head, shoulders, torso and feet, matching the taller figures in the approved sheet. The earlier literal 3-row shape is superseded by the requested reference correction. Zombie identity comes from existing state ink, not an invented crooked body. No global palette or animation rollout.
+- Complete locally: visually inspected actual-draw sheet; unified PASS711/743692, ABI/config, UI5011+3. No native Unity or publication.
+- Acceptance: visually inspect actual-draw sheet at submitted and enlarged pitches; independently assert identical standing geometry, clear head gap/feet, corpse/rise masks, integer scaling/1px fallback, selection and state invariants; sequential unified hosted validation. Native appearance remains unverified. Record results; no push.
 
 ## PUBLISH-3X3-01 — user-requested testing snapshot
 

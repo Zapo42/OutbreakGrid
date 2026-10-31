@@ -2,7 +2,9 @@
 
 **Testing snapshot:** [download/build instructions and five focused manual tests](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md). Consolidated 3x3 source; experimental survival behavior. No verified Windows player is supplied.
 
-**Local graphics increment:** [3x3 NPC symbols and paused preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md) are implemented and hosted-checked. Native Unity testing remains paused; no release/publication.
+**Local reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Correction is not published.
+
+**Previous graphics increment:** [3x3 NPC symbols and paused preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md) are implemented and hosted-checked. Native Unity testing remains paused; no release/publication.
 
 **Local single-agent consolidation:** UI, NPC R1/F143 and World store/DC source are combined and hosted-validated. [Graphics-first completed/remaining rundown](OutbreakRebuild/Docs/CONSOLIDATION_STATUS_2026-10-30.md). This is not a published release; survival issues remain and native Unity testing is paused.
 
