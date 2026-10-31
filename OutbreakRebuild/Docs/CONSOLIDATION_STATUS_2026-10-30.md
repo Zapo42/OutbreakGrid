@@ -1,5 +1,7 @@
 # OutbreakGrid consolidation — graphics-first status
 
+This snapshot precedes the user-selected [3x3 NPC-symbol increment](NPC_3X3_SYMBOLS.md), now implemented locally. The original tree below records the consolidation audit; it does not mean the later glyph work is still unstarted.
+
 The three uploads are overlapping handoffs for the same project, not three separate applications. They have been reconciled locally on `local/single-agent-consolidation-20261030`. Compiled source: `1628f24715337fd8f72d75431236f80fc7470bfa`. No GitHub push, release, native Unity run or Windows EXE was produced.
 
 “Implemented” below means present in the combined source with the stated hosted evidence. It does not mean native rendering/input or whole-day survival has passed.

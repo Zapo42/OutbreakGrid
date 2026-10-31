@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "1101b5ef0fa22e2f4fd5e976d6d2d1708dda558f",
+  "baseline": "8a4a6fe",
+  "task": "GRAPHICS-3X3-01",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "uiLegacyAssertions": 4992,
+  "uiNewOnlyAssertions": 3,
+  "windowsABI": "PASS hosted only",
+  "upgradeUiAssertions": 75,
+  "worldUiAssertions": 20,
+  "tinyMapNegativeControl": "Expected exit1 at original tiny-map alignment assertion",
+  "maskPixels": {
+    "human": 6,
+    "zombie": 5,
+    "corpse": 3,
+    "rising": 4
+  },
+  "distantFallbackPixels": 1,
+  "simulationChanged": false,
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT RUN no EXE",
+  "published": false,
+  "preview": "OutbreakRebuild/Docs/VisualReferences/npc-3x3-draw-preview.svg"
+}

@@ -2,6 +2,14 @@
 
 The user reported Foundation 82 working, then instructed that later incremental builds will go untested in Unity until they say otherwise. Acknowledging or continuing development does not establish Unity validation. Continue automated checks for each change and record native validation separately.
 
+## GRAPHICS-3X3-01 — local actor-mask increment
+
+User selected3x3. Source `1101b5ef0fa22e2f4fd5e976d6d2d1708dda558f` adds a3x3 logical mask renderer, integer pitch/snapped ink, one-pixel undersampled fallback and paused Current Tests preview. Human/zombie/corpse/rise states and existing colors/feedback retained; separate yellow frame leaves glyph ink visible. Logical body/culling/collision unchanged; UI clicking also accepts the snapped glyph bounds. No Core/Contracts/persistence, old asset GUIDs, editor or dependency changes.
+
+Unified hosted runner exit0:711 core cases /743692 assertions, Windows ABI PASS, Legacy UI4992/NewOnly3 PASS. New mask/grid/state/selection/preview invariants and existing bar/worker/rise/idle/combat behavior checks pass. Two former solid-body assumptions migrated to exact glyph count and logical-contact/snapped-pose checks, not disabled. Separate upgrade/restart UI75 and World UI20 PASS. Isolated old-panel control still exits1 at the intended small-map alignment assertion after frame migration.
+
+[Symbol contract and preview](NPC_3X3_SYMBOLS.md) · [actual draw-record sheet](VisualReferences/npc-3x3-draw-preview.svg) · [results](../../harness/validation/graphics-3x3/RESULTS.json). Technical SVG is enlarged hosted draw output, not a Unity screenshot. Native appearance, text metrics, DPI/visual density and performance remain unverified; native testing paused, no EXE or publication. Full16-color/canvas/terrain rollout is not claimed. Existing survival problems remain unchanged.
+
 ## Single-agent consolidation — October 30, 2026, local only
 
 Compiled source `1628f24715337fd8f72d75431236f80fc7470bfa` combines prior UI21338cf with NPC R1/F143 and the narrow World store/DC generator/fixture changes throughd499d03. Runtime Core/Contracts/Persistence matches65b59c9;12 World paths matchd499d03. Existing UI transfer is included once, not reapplied. Prior multi-agent ownership/publication instructions are superseded by the user's single-agent/local-only direction.
