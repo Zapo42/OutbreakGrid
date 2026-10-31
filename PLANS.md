@@ -2,6 +2,14 @@
 
 Status: GRAPHICS-3X3-01 implemented and hosted-validated locally.3x3 actor masks/preview ready; no publication/native test. Earlier consolidation records and survival issues remain; single-agent ownership stays active.
 
+## PUBLISH-3X3-01 — user-requested testing snapshot
+
+- Baseline e1768b3; user explicitly requested publication and a testable build. Single-agent release, no gameplay changes or version upgrades.
+- Files: this plan, README.md, Docs/TESTING_SNAPSHOT_3X3.md, Docs/BUILD_VALIDATION.md and harness/build-log.md; hosted validation evidence. Dependencies: existing validated combined source, GitHub fast-forward access, Unity 6000.6.3f1 for local player compilation.
+- Acceptance: rerun unified hosted checks sequentially; preserve tags and unrelated work; publish only after PASS; verify remote commit; supply a commit-pinned project ZIP plus focused manual tests. Native testing stays paused. No Unity executable exists here, so do not claim a compiled Windows player.
+- Validation complete on e1768b3: unified exit0, 711/743692, ABI/config and UI4992+3 PASS. Release documentation/evidence only after this run; package/push verification follows.
+- Risk: known survival/next-day work failures remain; publish as an experimental testing snapshot rather than a completed survival release. No food tuning or feature expansion.
+
 ## GRAPHICS-3X3-01 — user-selected NPC symbol increment
 
 - User chose3x3 for the first graphics increment. One agent, existing local branch; baseline8a4a6fe. No publication/native testing or unrelated feature work.

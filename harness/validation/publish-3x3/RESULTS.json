@@ -1,0 +1,16 @@
+{
+  "task": "PUBLISH-3X3-01",
+  "validatedSource": "e1768b3",
+  "productionSource": "1101b5e",
+  "runnerExitCode": 0,
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 4992,
+  "newOnlyUiAssertions": 3,
+  "configuration": "PASS",
+  "windowsABI": "PASS hosted strict compilation/layout only",
+  "nativeUnity": "NOT RUN user-paused; no editor available",
+  "windowsPlayer": "NOT BUILT no Unity executable/Windows build support available",
+  "package": "Unity 6000.6.3f1 source testing snapshot",
+  "knownFailures": "See CONSOLIDATION_STATUS_2026-10-30.md; city survival and next-day work unresolved"
+}

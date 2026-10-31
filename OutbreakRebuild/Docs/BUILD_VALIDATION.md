@@ -1,5 +1,12 @@
 # Build validation and rollback checkpoint
 
+## PUBLISH-3X3-01 — consolidated source testing snapshot
+
+User requested GitHub publication and a testable build on October 30, 2026. Exact pre-publication source e1768b3 (graphics implementation 1101b5e); subsequent changes are release documentation/evidence only. Fresh sequential unified runner: PASS 711 core cases / 743,692 assertions, configuration, hosted Windows ABI, Legacy UI 4,992 and NewOnly UI 3; exit 0. Evidence: harness/validation/publish-3x3.
+
+Publication target is a fast-forward of main from 1b05a73, preserving permanent tags and prior history. Package is a Unity 6000.6.3f1 project ZIP, not a Windows EXE. No Unity editor/build installation is available here; no native compilation/rendering/input/dialog/player results are claimed. Native testing remains paused. This is an experimental snapshot with documented survival/next-day attendance failures, not a completed food-system release. See TESTING_SNAPSHOT_3X3.md for five manual tests and the existing local Windows build menu.
+
+
 The user reported Foundation 82 working, then instructed that later incremental builds will go untested in Unity until they say otherwise. Acknowledging or continuing development does not establish Unity validation. Continue automated checks for each change and record native validation separately.
 
 ## GRAPHICS-3X3-01 — local actor-mask increment
