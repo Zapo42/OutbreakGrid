@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Local 3x3 NPC symbol trial / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Local zoom sprites trial / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; private Color[] terrainPixels; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -224,7 +224,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             if (GUILayout.Button(new GUIContent("Load Map", "Load terrain, then place human or zombie test bodies before clicking Run."))) Queue(() => Browse(false, false)); // Open the blocking native dialog outside the active GUI layout pass.
             if (GUILayout.Button(new GUIContent("Load Run", "Load terrain and saved bodies, then click Run to continue."))) Queue(() => Browse(false, true)); // Distinguish a populated save while preserving GUI event lifetime.
             GUILayout.Space(12);GUILayout.Label("CURRENT TESTS");
-            if(GUILayout.Button("Inspect 3x3 Symbols Paused"))Queue(()=>StartScenario(StartNpcGlyphPreview));
+            if(GUILayout.Button("Inspect Zoom Sprites Paused"))Queue(()=>StartScenario(StartNpcGlyphPreview));
             if(GUILayout.Button("Inspect Needs Priority Paused"))Queue(()=>StartScenario(()=>{
                 // Author a paused comparison setup only; all eating, resting and homeward decisions stay in Core.
                 SaveDocument saved=EncounterScenarios.WorkerShiftTest().Capture();saved.tick=600;

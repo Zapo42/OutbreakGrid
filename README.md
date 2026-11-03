@@ -2,7 +2,9 @@
 
 **Testing snapshot:** [download/build instructions and five focused manual tests](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md). Consolidated 3x3 source; experimental survival behavior. No verified Windows player is supplied.
 
-**Local reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Correction is not published.
+**Local zoom sprites:** 5x5 close, 3x3 medium and 1x1 distant, with matching human/zombie silhouettes. [Guide and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md). Not published.
+
+**Earlier reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Correction is not published.
 
 **Previous graphics increment:** [3x3 NPC symbols and paused preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md) are implemented and hosted-checked. Native Unity testing remains paused; no release/publication.
 

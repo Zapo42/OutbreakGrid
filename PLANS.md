@@ -1,6 +1,14 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-REFERENCE-02 corrects the user-rejected published glyphs locally. Shared upright reference proportions; full hosted checks PASS, native testing paused, no correction publication. Prior testing snapshot b8ea630 remains on GitHub; survival issues remain.
+Status: GRAPHICS-ZOOM-03 implemented locally:5x5/3x3/1x1 zoom sprites with shared species geometry. Hosted validation PASS; native testing paused. No new publication; known survival issues remain.
+
+## GRAPHICS-ZOOM-03 — user-selected 5x5 / 3x3 / 1x1 zoom sprites
+
+- Baseline 2cf7e47; user explicitly requests three zoom sprite sizes. Local only; one agent.
+- Files: NpcGlyphPresentation.cs, FoundationApp.cs preview label, UiHarness.cs, symbol/validation/plan/build docs and generated technical sheet. Preserve .meta, Core, persistence, input, settings and colors.
+- Contract: fit the available logical body in screen pixels. Under3 pixels use1x1; at3–under5 use3x3; at5+ use5x5 with integer pitch. Close tier retains the corrected upright silhouette within a5x5 canvas; medium simplifies it. Human/zombie share geometry at every tier; death/rise/flash colors remain state-derived. Center all tiers without changing hitboxes or actor anchors.
+- Complete locally: visually inspected actual-draw sheet; unified PASS711/743692, config/ABI and UI5166+3. No publication/native testing.
+- Acceptance: exact independent per-tier masks, boundary/zoom-out-and-back checks, actual draw records, square snapped pixels, selection/bars/save/tick invariants, native-size/enlarged visual inspection. Unified runner sequentially. No native test/publication.
 
 ## GRAPHICS-REFERENCE-02 — correct rejected symbol proportions
 

@@ -1,0 +1,24 @@
+{
+  "task": "GRAPHICS-ZOOM-03",
+  "baseline": "2cf7e47",
+  "date": "2026-11-02",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 5166,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "tiers": [
+    5,
+    3,
+    1
+  ],
+  "nativeUnity": "NOT RUN user-paused",
+  "published": false,
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "909773e74bafe0adb071bf0842add1df5e54e18de218d765ddec2ede4355973e",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "8d58b83c566f62130b648c534616ca95b6fd43f23394de30877f6230d0f4bbd1",
+    "OutbreakRebuild/Tests/UiHarness.cs": "6c2751118e34c3d65fd4284c4db4bc24f14344dc1324b60bd030276911350b4b"
+  }
+}

@@ -1,28 +1,32 @@
-# Reference-corrected NPC symbols
+# NPC zoom sprites: 5x5 / 3x3 / 1x1
 
-The published literal three-row experiment was rejected by the user. This correction follows the taller figures in the approved pixel-scale sheet: **three columns by five rows**, with a shared human/zombie silhouette. The historical “3x3” preview button remains for discoverability; it no longer describes the corrected raster height.
+The user selected three raster sizes for zoom. This supersedes the single 3-column/5-row reference correction; the close figure retains that upright silhouette within a 5x5 canvas. Human and zombie use identical geometry at each tier, with their existing state colors. No global palette rollout or glow.
+
+| Available body size in screen pixels (shorter side) | Raster | Scaling |
+| --- | --- | --- |
+| Below 3 | 1x1 distant presence | One screen pixel |
+| 3 to below 5 | 3x3 compact person | One screen pixel per cell |
+| 5 and above | 5x5 upright person | Whole-number pixel pitch, floor(available / 5) |
 
 ```text
-Human/Zombie   Corpse   Rising
-    .#.         ...      ...
-    ...         ...      .#.
-    ###         ...      ...
-    .#.         ###      ###
-    #.#         ...      #.#
+Close 5x5   Medium 3x3   Distant
+  ..#..        .#.         #
+  .....        .#.
+  .###.        #.#
+  ..#..
+  .#.#.
 ```
 
-The detached head, shoulders, narrow torso and separated feet replace the squat shape and invented asymmetric zombie. Human/zombie identity remains in existing blue/green ink; a pending infection does not change the living human silhouette. Corpse and rising poses use the same five-row grid. Reanimation timing, state, movement, hitboxes and decisions remain in Core.
+The close sprite retains a detached head, shoulders, narrow torso and feet. The compact sprite reduces this to a center stem and separated feet. Flat corpse and crouched rise states have dedicated masks in both larger tiers. At one pixel, state is shown through existing ink; a corpse cannot have a separate silhouette at that size. Pending infection keeps the human shape until Core changes species. Rise timing and all decisions remain in Core.
 
-The upright glyph fits within the unchanged logical body using square integer screen pixels. When a full five-row figure cannot fit, a one-pixel distant mark is used. Origins snap to pixels. Existing selection/occupation outlines, need bars, carried objects and flash cues remain; flash colors only occupied cells. No glow, global palette, sprite textures, scene/settings or GUID changes.
+The raster centers inside the unchanged logical body. Pixel origins snap to whole pixels; masks never stretch to fractional pitch. Tier choice is derived from current available screen space, so zooming back restores the richer mask. Logical collision, movement, body/occupation/selection anchors and optional selected H/F/E bars are unchanged. Hit/bite flashes tint occupied cells only. No new textures, asset GUIDs, dependencies or editor settings.
 
-## Preview
+## Inspect
 
-Current Tests > **Inspect 3x3 Symbols Paused**. Left to right: human, zombie, corpse, infected human. The name is retained from the earlier trial. Zoom in to inspect the corrected proportions; restart restores the authored paused data.
+Current Tests > **Inspect Zoom Sprites Paused**. Left to right: human, zombie, corpse, infected human. Zoom in/out and select each. Run/step/restart use the existing controls. This replaces the earlier “Inspect 3x3 Symbols Paused” button.
 
-[Actual-draw sheet, enlarged and at submitted pixel size](VisualReferences/npc-reference-corrected-preview.png). This is rasterized hosted drawing output, not a Unity screenshot. The approved direction remains [the pixel-scale study](VisualReferences/approved-pixel-scale-study.png).
+[Actual-draw technical sheet](VisualReferences/npc-zoom-preview.png) shows all three tiers enlarged and at unit pitch; [SVG](VisualReferences/npc-zoom-preview.svg). These are hosted drawing records, not a Unity screenshot. The [approved pixel-scale study](VisualReferences/approved-pixel-scale-study.png) remains the design reference. Historical reference-correction previews are retained as records of earlier work.
 
-## Verification
+## Verification and limits
 
-Independent row expectations verify standing geometry, head gap, feet, corpse/rise stages, square integer pitch and distant fallback. Actual DrawWorld selection/toggle/save-state/restart tests remain. Seated-driver assertions account for glyph-or-distant-dot scale while still excluding the seated driver; shove tests retain contact/recoil checks. See BUILD_VALIDATION.md and harness/build-log.md for final evidence. Native Unity rendering/input/DPI remain unrun under the testing pause.
-
-Palette mapping and object-symbol rollout remain separate work. This correction stays local until publication is requested.
+Checks independently assert authored rows for every tier/state, exact switch boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment stays local. See BUILD_VALIDATION.md and harness/build-log.md for results.

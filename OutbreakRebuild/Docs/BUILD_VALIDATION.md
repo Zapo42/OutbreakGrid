@@ -1,5 +1,14 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-ZOOM-03 — 5x5 / 3x3 / 1x1 zoom sprites, local
+
+User selected zoom-dependent raster sizes. Baseline 2cf7e47; close5x5 retains the corrected upright figure within a square canvas, medium3x3 simplifies it, distant1x1 keeps a presence dot. Shared human/zombie silhouettes and existing colors; dedicated death/rise masks per larger tier. Thresholds are available logical-body screen pixels: <3 uses1; <5 uses3; otherwise5 with integer pitch. Preview renamed Inspect Zoom Sprites Paused.
+
+Sequential unified runner PASS, exit0: 711 core cases / 743,692 assertions, config, hosted Windows ABI, Legacy UI5,166 and NewOnly3. Focused Legacy5,166 also passed. Evidence/source hashes in harness/validation/zoom-sprites. Independent per-tier masks and threshold/return transitions, unit grids, actual DrawWorld zoom-out/back without state/tick changes and existing UI/combat/selection/bars/save/restart checks retained. The new real-zoom fixture uses a span that keeps all four actors visible; it does not confuse culling with tier selection.
+
+Actual-draw SVG/PNG visually inspected enlarged and at unit pitch; not native Unity screenshots. No Core/contracts/persistence, versions/settings, existing .meta/GUID or palette changes. Native Unity rendering/input/player remain paused/unrun. No publication; source/preview package is local. See NPC_3X3_SYMBOLS.md for thresholds and preview instructions.
+
+
 ## GRAPHICS-REFERENCE-02 — rejected glyph correction, local
 
 User rejected the literal three-row shapes and authorized a reference correction. Baseline b8ea630. Standing human/zombie now share the same upright 3-column/5-row geometry: detached head, shoulders, torso and separate feet. Existing species colors and Core behavior unchanged; corpse/rise poses use the taller grid. Full-height fitting uses a distant dot below five available screen pixels.

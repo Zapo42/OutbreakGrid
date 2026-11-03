@@ -1,5 +1,7 @@
 # 3x3 consolidated testing snapshot
 
+Current local zoom-sprite source supersedes the art in this published snapshot. Use **Inspect Zoom Sprites Paused** for 5x5 / 3x3 / 1x1 transitions; see [current sprite guide](NPC_3X3_SYMBOLS.md). The older published snapshot retains its original button and art.
+
 Testing snapshot prepared October 30, 2026.
 
 Source baseline: e1768b3 (graphics source 1101b5e). This snapshot combines the reconciled NPC R1/F143, World infrastructure, happiness and selected-need-bar work with the first 3x3 glyph increment. It is experimental: city survival and next-day attendance are unfinished.
