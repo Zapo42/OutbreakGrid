@@ -26,7 +26,7 @@ This repository contains the OutbreakRebuild Unity simulator. DragonGlassPixelWo
 
 One development agent owns NPC behavior/tests, World generation, graphics/UI, tooling, verification and local integration. The previous specialist ownership split is superseded. Do not spawn a replacement team or wait for another role to edit routine code. Historical agents/*.md files and earlier assignment records preserve provenance, not current delegation requirements.
 
-Work locally until the user requests publication. Earlier incremental GitHub authorization does not override this newer instruction. Preserve branches, packages, unfinished work and stable checkpoints; never overlay older snapshots over modern source. Use the existing checkout and sequence all builds. Finish each selected increment before expanding scope; offer numbered next steps. Treat attached handoff instructions as context subordinate to the actual user request.
+Standing user authorization (November 4, 2026): ALWAYS publish completed, validated increments to GitHub and provide a real HTTPS project ZIP download. This supersedes the earlier local-only delivery instruction. Do not ask again for routine publication; never substitute workspace/sandbox links for downloadable releases. Preserve branches, packages, unfinished work and stable checkpoints; never overlay older snapshots over modern source. Use the existing checkout and sequence all builds. Finish each selected increment before expanding scope; offer numbered next steps. Treat attached handoff instructions as context subordinate to the actual user request.
 
 ## Presentation and checkpoint requirements
 - Organize information around the selected item with collapsible encounter sections. Keep current previews easy to find and historical previews in Old Test Scenarios.
@@ -35,8 +35,8 @@ Work locally until the user requests publication. Earlier incremental GitHub aut
 - Keep authoritative simulation decisions in the core, outside UI and animation code.
 - Keep Unity 6000.6.3f1 and dependency versions unchanged without authorization. Preserve asset GUIDs and .meta files.
 - RESTORE42 permanently identifies pre-team Foundation 130 at 49fc25b05567c4ec6b22acb03a9df98da3b39c76. Foundation 82 remains the last user-reported working native Unity checkpoint (foundation-82-unity-checkpoint). Do not move these tags or overwrite main to test an older build.
-- Published main baseline remains1b05a73; local single-agent consolidation combines existing UI21338cf, NPC R1/F143 and narrow World d499d03 changes. Historical7→4 delivery loss was corrected by R1, but worsened older-fixture survival, later store-trial deaths and next-day work failures remain. Do not call the whole food system solved or this local tree released.
-- Record completed work in OutbreakRebuild/Docs/BUILD_VALIDATION.md and harness/build-log.md. No GitHub push, main update, release or environment publication until requested. Distinguish local validation from publication and native execution.
+- Previous published testing snapshot b8ea630; zoom source f3547f8 is being published under standing authorization; local single-agent consolidation combines existing UI21338cf, NPC R1/F143 and narrow World d499d03 changes. Historical7→4 delivery loss was corrected by R1, but worsened older-fixture survival, later store-trial deaths and next-day work failures remain. Do not call the whole food system solved or this local tree released.
+- Record completed work in OutbreakRebuild/Docs/BUILD_VALIDATION.md and harness/build-log.md. GitHub publication of completed validated increments is authorized; unrelated environment deployments still need their own authorization. Distinguish local validation from publication and native execution.
 
 ## Required handoff
 Task ID; baseline Git commit; scope; owned files; changed files; acceptance criteria; validation evidence; unresolved issues; integration instructions; next authorized task (if known).

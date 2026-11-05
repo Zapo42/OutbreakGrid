@@ -1,5 +1,10 @@
 # Current development preferences
 
+## Standing publication preference — November 4, 2026
+
+ALWAYS publish completed, validated increments to GitHub automatically and give an actual HTTPS ZIP download. This supersedes the earlier keep-local instruction; routine publication requires no repeated confirmation. Workspace/sandbox links are not acceptable delivery. Preserve existing checkpoints and versions, report known failures, and distinguish Unity project source from compiled players. Native testing remains paused.
+
+
 - Follow the updated [city life and transport workflow](CITY_LIFE_AND_TRANSPORT_PLAN.md). The user selected parking/traffic recovery first, with the large-city failed-shopping report next. Happiness, leisure, transport variety/fuel, pixel presentation and old-test menu organization are queued incremental requirements.
 
 - Target **Unity 6000.6.3f1** for every future build. Preserve this exact ProjectVersion target and run the configuration check; never claim native compatibility without actual Unity validation.

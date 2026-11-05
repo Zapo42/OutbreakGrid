@@ -1,5 +1,10 @@
 # Build validation and rollback checkpoint
 
+## PUBLISH-ZOOM-04 — publish validated zoom source
+
+User “ALWAYS” authorizes automatic publication of completed validated increments and real HTTPS ZIP downloads. Publication source f3547f8; all three recorded source hashes match GRAPHICS-ZOOM-03 evidence exactly. Reuse unified PASS711/743692, config/hosted Windows ABI, UI5166+3; only publication instructions/docs changed. Main advances from b8ea630 without rewriting history. Native Unity/player NOT RUN, no EXE; known survival/next-day work failures retained. GitHub remote/archive delivery verification is saved outside the source archive to avoid self-referential commit identifiers.
+
+
 ## GRAPHICS-ZOOM-03 — 5x5 / 3x3 / 1x1 zoom sprites, local
 
 User selected zoom-dependent raster sizes. Baseline 2cf7e47; close5x5 retains the corrected upright figure within a square canvas, medium3x3 simplifies it, distant1x1 keeps a presence dot. Shared human/zombie silhouettes and existing colors; dedicated death/rise masks per larger tier. Thresholds are available logical-body screen pixels: <3 uses1; <5 uses3; otherwise5 with integer pitch. Preview renamed Inspect Zoom Sprites Paused.

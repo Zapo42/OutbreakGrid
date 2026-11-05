@@ -1,10 +1,13 @@
 # OutbreakGrid
 
+**Current testing snapshot: NPC zoom sprites (5x5 / 3x3 / 1x1).** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Open OutbreakRebuild with Unity 6000.6.3f1, then Current Tests → Inspect Zoom Sprites Paused. Hosted checks passed; native Unity remains unverified. Source project, not a Windows EXE. City survival/next-day work issues remain.
+
+
 **Testing snapshot:** [download/build instructions and five focused manual tests](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md). Consolidated 3x3 source; experimental survival behavior. No verified Windows player is supplied.
 
-**Local zoom sprites:** 5x5 close, 3x3 medium and 1x1 distant, with matching human/zombie silhouettes. [Guide and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md). Not published.
+**Zoom sprites:** 5x5 close, 3x3 medium and 1x1 distant, with matching human/zombie silhouettes. [Guide and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md). Published under standing authorization.
 
-**Earlier reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Correction is not published.
+**Earlier reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Included in the current snapshot.
 
 **Previous graphics increment:** [3x3 NPC symbols and paused preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md) are implemented and hosted-checked. Native Unity testing remains paused; no release/publication.
 

@@ -2,6 +2,12 @@
 
 Status: GRAPHICS-ZOOM-03 implemented locally:5x5/3x3/1x1 zoom sprites with shared species geometry. Hosted validation PASS; native testing paused. No new publication; known survival issues remain.
 
+## PUBLISH-ZOOM-04 — standing publication authorization
+
+- User instruction “ALWAYS” authorizes automatic GitHub publication of completed, validated increments and real HTTPS downloads, superseding local-only delivery. Baseline f3547f8; remote main b8ea630, ancestor of current source.
+- Scope/files: AGENTS.md, DEVELOPMENT_PREFERENCES.md, README.md, this plan, sprite guide, BUILD_VALIDATION.md and harness/build-log.md. Documentation only; verify saved validation/source hashes, fast-forward main, verify remote commit and downloadable GitHub ZIP. Preserve tags/pins and pending work. Native testing remains paused; no player claim.
+- Existing exact zoom source validation: unified exit0,711/743692 core, config/ABI, UI5166+3. No source edits since; reuse recorded evidence, no redundant full run for publication docs. Survival limits remain.
+
 ## GRAPHICS-ZOOM-03 — user-selected 5x5 / 3x3 / 1x1 zoom sprites
 
 - Baseline 2cf7e47; user explicitly requests three zoom sprite sizes. Local only; one agent.

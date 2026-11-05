@@ -29,4 +29,4 @@ Current Tests > **Inspect Zoom Sprites Paused**. Left to right: human, zombie, c
 
 ## Verification and limits
 
-Checks independently assert authored rows for every tier/state, exact switch boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment stays local. See BUILD_VALIDATION.md and harness/build-log.md for results.
+Checks independently assert authored rows for every tier/state, exact switch boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment is published under the user’s standing authorization. See BUILD_VALIDATION.md and harness/build-log.md for results.
