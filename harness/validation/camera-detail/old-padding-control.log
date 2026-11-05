@@ -1,0 +1,5 @@
+System.Exception: Real wheel input failed to reach all sprite tiers at 1280px.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/camera-detail/old-padding-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.CheckCameraNavigation() in /workspace/review/camera-detail/old-padding-control/OutbreakRebuild/Tests/UiHarness.cs:line 259
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/camera-detail/old-padding-control/OutbreakRebuild/Tests/UiHarness.cs:line 376
+   at UiHarness.Main(String[] args) in /workspace/review/camera-detail/old-padding-control/OutbreakRebuild/Tests/UiHarness.cs:line 544

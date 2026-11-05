@@ -1,5 +1,16 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-CAMERA-05 — close detail, real zoom input and keyboard panning
+
+Baseline7735ef4. User requested slightly richer sprites, reported no zoom-tier changes, requested WASD/arrows and a concrete next step. Close5x5 now has a shared16-cell human/zombie silhouette, cream/olive faces and two dark eye cells using approved reference inks. Existing body colors and medium/distant masks remain. Flash overrides all accents; standing rise details blend through existing Core progress. No new simulation rules.
+
+Wheel input now applies over the entire allocated map panel before drawing, honors delta magnitude/zero, and adapts maximum span to panel width so every tier is reachable at1280/1920/3840. This addresses two reproduced host input-path failures: padding was excluded, and the previous256 maximum prevented distant sprites on larger screens. Held WASD/arrows pan at normalized unscaled speed with map-edge clamps and equivalent aliases; text focus, menu/modal, editor pause and application focus suppress camera input. Click map to return keyboard ownership; middle-drag retained. All decisions and saves remain in Core.
+
+Unified sequential runner PASS exit0:711 core cases/743692 assertions, config, hosted Windows ABI, UI5449+3. Focused Legacy5449 and upgrade/restart75 PASS. Separate World recovery-area/bed UI20 PASS. Controls on isolated git-archive copies restore only the old fixed range or padding gate; each fails at the intended real-wheel assertion (1920 and1280 respectively), while the actual candidate passes. Evidence and exact source hashes: harness/validation/camera-detail.
+
+Actual submitted draw records were rasterized and visually inspected at enlarged/unit pitch. No native Unity compilation/rendering/input/DPI/dialog/Windows player execution was performed; native testing remains paused. No EXE. No Core/contracts/persistence/pins/scenes/GUID changes or city-survival claim. Publication authorized by standing preference; verify GitHub commit/archive before delivery. Recommended next increment: two-frame close-tier walking driven by existing movement, static when paused; not implemented here.
+
+
 ## PUBLISH-ZOOM-04 — publish validated zoom source
 
 User “ALWAYS” authorizes automatic publication of completed validated increments and real HTTPS ZIP downloads. Publication source f3547f8; all three recorded source hashes match GRAPHICS-ZOOM-03 evidence exactly. Reuse unified PASS711/743692, config/hosted Windows ABI, UI5166+3; only publication instructions/docs changed. Main advances from b8ea630 without rewriting history. Native Unity/player NOT RUN, no EXE; known survival/next-day work failures retained. GitHub remote/archive delivery verification is saved outside the source archive to avoid self-referential commit identifiers.

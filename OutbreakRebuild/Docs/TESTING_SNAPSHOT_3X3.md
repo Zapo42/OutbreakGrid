@@ -1,5 +1,7 @@
 # 3x3 consolidated testing snapshot
 
+Current camera/detail increment: **Inspect Zoom Sprites Paused**, wheel over the full map panel through all three tiers, click map then hold WASD/arrows while paused. Try a large/high-DPI display and blank panel padding; zoom should still work. Type into an inspector field and verify typing does not pan. Close sprites now have matching fuller bodies and small face/eye details. See NPC_3X3_SYMBOLS.md for the current contract.
+
 Current local zoom-sprite source supersedes the art in this published snapshot. Use **Inspect Zoom Sprites Paused** for 5x5 / 3x3 / 1x1 transitions; see [current sprite guide](NPC_3X3_SYMBOLS.md). The older published snapshot retains its original button and art.
 
 Testing snapshot prepared October 30, 2026.

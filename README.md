@@ -1,20 +1,13 @@
 # OutbreakGrid
 
-**Current testing snapshot: NPC zoom sprites (5x5 / 3x3 / 1x1).** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Open OutbreakRebuild with Unity 6000.6.3f1, then Current Tests → Inspect Zoom Sprites Paused. Hosted checks passed; native Unity remains unverified. Source project, not a Windows EXE. City survival/next-day work issues remain.
+**Current testing snapshot: detailed close sprites + camera controls.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Open OutbreakRebuild with Unity **6000.6.3f1**, then Current Tests → Inspect Zoom Sprites Paused. Click the map and hold WASD/arrows to pan; wheel over the full map panel to see 5x5/3x3/1x1 sprites. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
 
 
-**Testing snapshot:** [download/build instructions and five focused manual tests](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md). Consolidated 3x3 source; experimental survival behavior. No verified Windows player is supplied.
+[Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).
 
-**Zoom sprites:** 5x5 close, 3x3 medium and 1x1 distant, with matching human/zombie silhouettes. [Guide and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md). Published under standing authorization.
+**Integrated source:** UI, NPC R1/F143 and World store/DC work are combined and hosted-validated in the current experimental snapshot. The [October 30 consolidation rundown](OutbreakRebuild/Docs/CONSOLIDATION_STATUS_2026-10-30.md) records that earlier integration and its unresolved survival issues; subsequent sprite/camera changes are documented in BUILD_VALIDATION.md.
 
-**Earlier reference correction:** Shared upright human/zombie figures replace the rejected squat masks; [actual-draw preview](OutbreakRebuild/Docs/VisualReferences/npc-reference-corrected-preview.png). Included in the current snapshot.
-
-**Previous graphics increment:** [3x3 NPC symbols and paused preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md) are implemented and hosted-checked. Native Unity testing remains paused; no release/publication.
-
-**Local single-agent consolidation:** UI, NPC R1/F143 and World store/DC source are combined and hosted-validated. [Graphics-first completed/remaining rundown](OutbreakRebuild/Docs/CONSOLIDATION_STATUS_2026-10-30.md). This is not a published release; survival issues remain and native Unity testing is paused.
-
-
-Published baseline: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
+Historical feature baseline: **Foundation 131 / purposeful neighborhood walks**. Targets **Unity 6000.6.3f1**. Healthy, fed consumers can take short outdoor walks from assigned homes, pause, and return. Actual movement costs energy; urgent needs and safety take priority. [Walking guide and controlled preview](OutbreakRebuild/Docs/HUMAN_LEISURE.md) · [Vehicle shopping](OutbreakRebuild/Docs/CONSUMER_VEHICLE_SHOPPING.md) · [Development workflow](OutbreakRebuild/Docs/CITY_LIFE_AND_TRANSPORT_PLAN.md).
 
 World integration adds opt-in seeded two-room house maps, living-area recovery markers and separate household storage. [Generation, loadable examples, compatibility and validation limits](OutbreakRebuild/Docs/WORLD_HOUSES_INTEGRATION.md). That historical Foundation131 increment did not include NPC132–137; the current local consolidation includes those prerequisites and later corrections. See the current status report for the actual source and remaining failures.
 

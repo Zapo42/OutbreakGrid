@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Local zoom sprites trial / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Detailed zoom sprites + keyboard pan / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; private Color[] terrainPixels; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private double[] hitFlashUntil;
@@ -181,7 +181,28 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             Action action = pendingAction; pendingAction = null; if (action == null) return; // Consume the accepted action exactly once.
             try { action(); executedActions++; actionError = ""; } catch (Exception error) { actionError = error.ToString(); status = "Control failed: " + error.Message; Debug.LogException(error); } // Keep failures visible both on screen and in the native diagnostic report.
         } // Finish command execution.
-        private void Update() { updatePasses++; ProcessPendingAction(); if (world != null) clock.Advance(Time.unscaledDeltaTime, StepWorld); } // Schedule simulation ticks after processing any pending player command.
+        private void Update() { updatePasses++; ProcessPendingAction(); UpdateCameraPan(); if (world != null) clock.Advance(Time.unscaledDeltaTime, StepWorld); } // Schedule simulation ticks after processing any pending player command.
+        private void PanCamera(float dx, float dy)
+        {
+            // Clamp the viewport center itself, so reversing direction at an edge never has a dead zone.
+            float panelWidth = Math.Max(64, Screen.width - 300), panelHeight = Math.Max(64, Screen.height - 184);
+            float width = Math.Min(world.Width, Math.Max(1, (float)Math.Ceiling(span)));
+            float height = Math.Min(world.Height, Math.Max(1, Math.Min(256, (float)Math.Ceiling(panelHeight * span / panelWidth))));
+            centerX = Mathf.Clamp(centerX + dx, width / 2, world.Width - width / 2);
+            centerY = Mathf.Clamp(centerY + dy, height / 2, world.Height - height / 2);
+        }
+        private void UpdateCameraPan()
+        {
+#if ENABLE_LEGACY_INPUT_MANAGER || !ENABLE_INPUT_SYSTEM
+            if (world == null || showStart || confirmReset || HostPaused || !Application.isFocused || GUIUtility.keyboardControl != 0) return;
+            int horizontal = (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) ? 1 : 0) - (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ? 1 : 0);
+            int vertical = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ? 1 : 0) - (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
+            if (horizontal == 0 && vertical == 0) return;
+            // Camera speed uses real time, independent of simulation pause/speed, with normalized diagonals.
+            float distance = span * 0.5f * Math.Min(0.1f, Time.unscaledDeltaTime) / (float)Math.Sqrt(horizontal * horizontal + vertical * vertical);
+            PanCamera(horizontal * distance, vertical * distance);
+#endif
+        }
         private void Browse(bool save, bool running) // Keep native file selection separate from validation and world mutation.
         { // Begin one requested file operation.
             SetPaused(true); // Pause every simulation system and synchronize its visual history before opening a blocking dialog.
@@ -245,7 +266,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             GUILayout.Space(12);
             if(GUILayout.Button(showOldTestScenarios?"Hide Old Test Scenarios":"Show Old Test Scenarios"))Queue(()=>showOldTestScenarios=!showOldTestScenarios);
             if(showOldTestScenarios)DrawOldTestScenarios();
-            GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, middle-drag to pan and wheel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
+            GUILayout.Space(8); GUILayout.Label("During a test: Run / Pause, step 1/10/50/100 ticks, Main Menu, speed controls, save/load, click the map, then hold WASD/arrows or middle-drag to pan; wheel anywhere over the map panel to zoom."); GUILayout.Label(status); GUILayout.EndScrollView(); GUILayout.EndArea(); // Keep cancellation and file errors visible on the start screen too.
         } // Finish the start screen.
         private int NextFightIndex()
         {
@@ -682,6 +703,22 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         { // Begin viewport rendering.
             if(placing.HasValue || shelfBrush>=0 || restBrush || boxBrush || phoneBrush){parkingBrush=false;vehicleBrush=false;routingVehicle=-1;}
             RefreshBuildingPalette();
+            Event navigation = Event.current;
+            if (!confirmReset && bounds.Contains(navigation.mousePosition))
+            {
+                if (navigation.type == EventType.MouseDown) GUI.FocusControl(null); // Return keyboard ownership from inspector fields to the map.
+                if (navigation.type == EventType.ScrollWheel)
+                {
+                    // Whole-panel input and a resolution-aware range keep every sprite tier reachable, even on 4K displays.
+                    span = Mathf.Clamp(span * (float)Math.Pow(1.1, Math.Max(-10, Math.Min(10, navigation.delta.y))), 16, Math.Max(256, bounds.width));
+                    navigation.Use();
+                }
+                else if (navigation.type == EventType.MouseDrag && navigation.button == 2)
+                {
+                    PanCamera(-navigation.delta.x * span / bounds.width, -navigation.delta.y * span / bounds.width);
+                    navigation.Use();
+                }
+            }
             float cell = bounds.width / span; int width = Math.Min(world.Width, Math.Max(1, (int)Math.Ceiling(span))), height = Math.Min(world.Height, Math.Max(1, Math.Min(256, (int)Math.Ceiling(bounds.height / cell)))); // Bound texture memory independently from world dimensions.
             int left = Math.Max(0, Math.Min(world.Width - width, (int)(centerX - width / 2f))), top = Math.Max(0, Math.Min(world.Height - height, (int)(centerY - height / 2f))); // Clamp the camera to real logical cells.
             if (terrain == null || textureWidth != width || textureHeight != height) { if (terrain != null) Destroy(terrain); terrain = new Texture2D(width, height, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point }; terrainPixels=new Color[width*height];textureWidth = width; textureHeight = height; textureX = -1; } // Reuse one small GPU texture until its dimensions change.
@@ -750,8 +787,6 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 int x = left + (int)((input.mousePosition.x - bounds.x) / cell), y = top + (int)((input.mousePosition.y - bounds.y) / cell); Species species = placing.Value; // Capture the chosen cell and species before the GUI event ends.
                 Queue(() => { int id; if (world.TrySpawn(species, x, y, out id)) { selected = world.Count - 1; selectedShelf=0;selectedStorageBox=0;selectedPhone=0; selectedBatCell=-1; previous[selected] = world.ActorAt(selected); motion[selected].Snap(x, y, world.Tick); status = "Placed " + species + " #" + id + ". Click Run to start movement."; placing = null; } else status = "Cannot place here: choose a walkable cell with space, within the population cap."; }); input.Use(); // Synchronize new body history outside OnGUI and retain invalid placement for another attempt.
             } // Finish one placement command.
-            if (input.type == EventType.MouseDrag && input.button == 2) { centerX -= input.delta.x / cell; centerY -= input.delta.y / cell; input.Use(); } // Pan the camera without moving logical bodies.
-            if (input.type == EventType.ScrollWheel) { span = Mathf.Clamp(span * (input.delta.y > 0 ? 1.1f : 0.9f), 16, 256); input.Use(); } // Zoom the bounded viewport around its current camera center.
         } // Finish viewport rendering.
         private void DrawDoorCrossings(Rect bounds,int left,int top,int width,int height,float cell)
         {

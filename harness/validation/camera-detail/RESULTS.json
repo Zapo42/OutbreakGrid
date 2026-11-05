@@ -1,0 +1,24 @@
+{
+  "task": "GRAPHICS-CAMERA-05",
+  "baseline": "7735ef4",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 5449,
+  "newOnlyUiAssertions": 3,
+  "upgradeUiAssertions": 75,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "negativeControls": {
+    "oldZoomLimit": "Expected failure at1920px",
+    "oldPaddingGate": "Expected failure at1280px"
+  },
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "218072e21ad045f0d033f629132344b69f292f3d98cecef8a0893f24980f56c9",
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "61e70dd929a3e6dcf98dd54fa5c1b661cbe1d2725a41821a8c1fc051fe22cd07",
+    "OutbreakRebuild/Tests/UiHarness.cs": "f00ff4ababe337bfca5b5a16f7fc04248d06ec074754d472e9fd0cff2e94c344"
+  },
+  "worldUiAssertions": 20
+}

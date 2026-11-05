@@ -10,7 +10,7 @@ namespace Outbreak.UnityAdapter
     {
         public const int Width = 5;
         public const int Height = 5;
-        public const int Human = 4 | (14 << 10) | (4 << 15) | (10 << 20); // ..#../...../.###./..#../.#.#.
+        public const int Human = 14 | (14 << 5) | (31 << 10) | (14 << 15) | (10 << 20); // .###./.###./#####/.###./.#.#.
         public const int Zombie = Human;
         public const int Corpse = 14 << 15;
         public const int Rising = (4 << 5) | (14 << 15) | (10 << 20);
@@ -48,6 +48,22 @@ namespace Outbreak.UnityAdapter
             return new Color(Mathf.Lerp(0.4f, 0.23f, progress), Mathf.Lerp(0.4f, 0.29f, progress), Mathf.Lerp(0.4f, 0.14f, progress));
         }
 
+        public static Color PixelInk(ActorState actor, double tick, bool riseEnabled, int size, int mask, int x, int y)
+        {
+            Color body = Ink(actor, tick, riseEnabled);
+            // Only the close standing raster carries face details; distant/corpse/crouched masks keep state ink.
+            if (size != 5 || mask != Human || y > 1) return body;
+            Color detail = y == 1 && x != 2 ? new Color(38 / 255f, 51 / 255f, 59 / 255f)
+                : actor.species == Species.Human ? new Color(198 / 255f, 199 / 255f, 174 / 255f)
+                : new Color(135 / 255f, 148 / 255f, 77 / 255f);
+            if (actor.species == Species.Zombie && riseEnabled && actor.riseUntilTick > tick)
+            {
+                float progress = (float)RiseRules.Progress(actor, tick);
+                return new Color(Mathf.Lerp(0.4f, detail.r, progress), Mathf.Lerp(0.4f, detail.g, progress), Mathf.Lerp(0.4f, detail.b, progress));
+            }
+            return detail;
+        }
+
         public static Rect PixelBounds(Rect logicalBody)
         {
             int size = Tier(logicalBody);
@@ -71,7 +87,10 @@ namespace Outbreak.UnityAdapter
                 for (int y = 0; y < size; y++)
                 for (int x = 0; x < size; x++)
                     if ((mask & (1 << (y * size + x))) != 0)
+                    {
+                        GUI.color = flash ?? PixelInk(actor, tick, riseEnabled, size, mask, x, y);
                         GUI.DrawTexture(new Rect(pixels.x + x * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
+                    }
             }
             GUI.color = previous; // Do not leak actor ink into terrain, occupations, bars or subsequent actors.
         }
@@ -96,7 +115,7 @@ namespace Outbreak.UnityAdapter
         private void StartNpcGlyphPreview()
         {
             // This creates finite paused test data. Core alone decides all subsequent behavior.
-            World preview = new World(new WorldMap(64, 24, "3x3 NPC symbols", "glyph-3x3"), 214, encounter: true, hunger: true);
+            World preview = new World(new WorldMap(64, 24, "NPC zoom sprites", "glyph-3x3"), 214, encounter: true, hunger: true);
             int id;
             preview.TrySpawn(Species.Human, 8, 8, out id);
             preview.TrySpawn(Species.Zombie, 16, 8, out id);

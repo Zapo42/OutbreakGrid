@@ -1,6 +1,15 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-ZOOM-03 implemented locally:5x5/3x3/1x1 zoom sprites with shared species geometry. Hosted validation PASS; native testing paused. No new publication; known survival issues remain.
+Status: GRAPHICS-CAMERA-05 implemented; hosted validation PASS, publication under standing authorization. Native testing paused; survival issues remain.
+
+## GRAPHICS-CAMERA-05 — richer close sprites, working zoom, keyboard pan
+
+- User requests slightly richer sprites, reports no visible zoom-tier change, requests WASD/arrow panning and one solid next step afterward. Baseline7735ef4. Standing publication authorization applies after checks.
+- Files: NpcGlyphPresentation.cs, FoundationApp.cs, UiHarness.cs; sprite/control guide, README, plan/build/validation records and actual-draw previews. No Core/contracts/persistence/world/scene/package/GUID changes.
+- Scope: close5x5 gets a fuller shared body/head, cream human/olive zombie faces and two dark eye pixels from the approved palette; existing body identity inks stay. Medium3x3 and distant1x1 unchanged. Flash overrides all occupied pixels; rising accents follow Core progress. No new animation/glow/global palette.
+- Camera: handle wheel over the allocated panel including padding before drawing; respect wheel magnitude/zero and permit enough zoom-out at high resolutions to reach every tier. Add held WASD/arrows at unscaled normalized speed with map-edge clamping; suppress on text focus, menu, modal and app focus loss. Click map releases text focus. Keep middle-drag and existing UI controls.
+- Validation: unified PASS711/743692, config/ABI, UI5449+3; upgrade75 and World UI20 PASS. Both old-zoom controls fail correctly. Visually inspected actual-draw sheet; native still unrun.
+- Acceptance: exact tier masks/colors/flash/rise and native-size/enlarged visual review; actual wheel input across1280/1920/3840 panels and padding/outside boundaries; held/equivalent/diagonal/opposite keys, focus/menu/modal/edge safety and no state/tick change. Unified checks sequentially, additional upgrade/World UI as needed. Native testing paused. Publish verified HTTPS ZIP. Recommend one subsequent increment based on remaining accepted graphics direction.
 
 ## PUBLISH-ZOOM-04 — standing publication authorization
 
