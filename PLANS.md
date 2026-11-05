@@ -1,6 +1,15 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-WALK-06 implemented; full hosted checks PASS and publication follows standing authorization. Native testing paused; survival issues remain.
+Status: GRAPHICS-FACING-07 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+
+## GRAPHICS-FACING-07 — user-selected facing and unselected consumer-box correction
+
+- Baselinee5562f5. User selected left/right facing and reported a box on an unselected human. Publish after validation under standing authorization; native testing paused.
+- Files: MovementPresentation.cs, NpcGlyphPresentation.cs, FoundationApp.cs, WorkerPresentation.cs, UiHarness.cs; guide/README/plan/build/validation docs and actual-draw facing sheet. Preserve Core/contracts/persistence/versions/scenes/GUIDs and unrelated changes.
+- Close5x5 follows the last verified horizontal move: head shifts one cell left/right with one outward eye; body/feet/colors/anchors shared across species. Vertical/stationary movement retains the last side, spawn/load/restart/unsafe snap defaults front, pause/resume position snap preserves direction. Medium/distant tiers and corpse/rise states remain static/front. Animation reads committed movement only.
+- Box diagnosis: DrawOccupationOutline draws a full white rectangle for every consumer. Remove only ordinary consumer outlines; retain actual worker on/off-duty role colors and selected-only yellow frame.
+- Validation: unified PASS711/743692, config/ABI and UI6130+3; upgrade75 and World UI20 PASS. Both front-only-call/consumer-box controls fail correctly. Actual-draw sheet inspected; native unrun.
+- Acceptance: exact front/left/right draw geometry and palette, safe/vertical/idle/push/snap boundaries, real app facing/pause/zoom/restart/state consistency, no unselected consumer outline, worker outlines retained, selected frame remains exclusive. Hosted sequential runner and focused upgrade/World checks; visually inspect sheet, publish and verify HTTPS archive. No simulation decisions or new saved state.
 
 ## GRAPHICS-WALK-06 — user-approved two-frame close walk cycle
 

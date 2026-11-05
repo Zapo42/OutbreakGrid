@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Walking sprites + keyboard pan / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Facing/walking sprites + keyboard pan / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; private Color[] terrainPixels; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private int[] pausedWalkFrames; // Freeze only the foot pose on pause; never serialize presentation state.
@@ -179,7 +179,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 for (int i = 0; i < world.Count; i++) pausedWalkFrames[i] = WalkingFrame(i, world.ActorAt(i), world.Tick + clock.Alpha);
             if (!value)
                 for (int i = 0; i < world.Count; i++) pausedWalkFrames[i] = -1;
-            clock.SetPaused(value);SnapVehicleMotion(); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick);shoveMotion[i].Reset();grabMotion[i].Reset();struggleMotion[i].Reset(); } // Prevent stale interpolation from jumping backward when playback resumes.
+            clock.SetPaused(value);SnapVehicleMotion(); for (int i = 0; i < world.Count; i++) { previous[i] = world.ActorAt(i); motion[i].Snap(previous[i].x, previous[i].y, world.Tick,preserveFacing:true);shoveMotion[i].Reset();grabMotion[i].Reset();struggleMotion[i].Reset(); } // Prevent stale interpolation from jumping backward when playback resumes.
         } // Finish pause presentation synchronization.
         private void Queue(Action action) // Keep GUI mutations outside OnGUI while allowing controls to work during host pause.
         { // Begin one deferred interface command.
@@ -780,14 +780,14 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
                 if (x < left - 0.18f || y < top - 0.18f || x >= left + width - 0.18f || y >= top + height - 0.18f) continue; // Cull bodies outside the camera.
                 if(!clock.Paused && actor.health>0){if(actor.species==Species.Human){x+=(float)(shoveMotion[i].X(time)+0.5*struggleMotion[i].X(time));y+=(float)(shoveMotion[i].Y(time)+0.5*struggleMotion[i].Y(time));}else {x+=(float)grabMotion[i].X(time);y+=(float)grabMotion[i].Y(time);}}
                 Rect body = new Rect(bounds.x + (x - left + 0.18f) * cell, bounds.y + (y - top + 0.18f) * cell, cell * 0.64f, cell * 0.64f);
-                int walkFrame = WalkingFrame(i,actor,time);
-                NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,walkFrame:walkFrame); // Logical hitboxes/motion remain unchanged; only the ink uses a pixel mask.
+                int walkFrame = WalkingFrame(i,actor,time), facing = motion[i].HorizontalFacing;
+                NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,walkFrame:walkFrame,facing:facing); // Logical hitboxes/motion remain unchanged; only the ink uses a pixel mask.
                 if(selected==i)NpcGlyphPresentation.DrawSelection(body,cell);
                 int shipmentVehicle=world.AssignedVehicle(i);if(shipmentVehicle>=0){var shipment=world.VehicleAtIndex(shipmentVehicle);if(shipment.handFood>0 && !shipment.shipmentDropped){if(shipment.consumerDriver)DrawShoppingCart(body.x+body.width*0.55f,body.y+body.height*0.45f,cell);else{GUI.color=new Color(0.66f,0.48f,0.24f);GUI.DrawTexture(new Rect(body.x+body.width*0.55f,body.y+body.height*0.45f,cell*0.27f,cell*0.27f),Texture2D.whiteTexture);}}}
                 DrawOccupationOutline(i,actor,body,cell);
                 DrawNpcBars(i,body,actor,bounds,cell); // Let need bars use blank map-panel padding while staying clear of the surrounding UI.
-                if(time<hitFlashUntil[i]){GUI.color=new Color(1f,0.75f,0.65f);NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,GUI.color,walkFrame);}
-                BiteAction bite= biteFeedback[i];if(actor.species==Species.Human && bite.targetId==actor.id && time>=bite.tick && time<bite.tick+WeaponPresentation.HitFlashTicks){GUI.color=bite.evaded?new Color(0.45f,0.8f,1f):new Color(1f,0.5f,0.5f);NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,GUI.color,walkFrame);}
+                if(time<hitFlashUntil[i]){GUI.color=new Color(1f,0.75f,0.65f);NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,GUI.color,walkFrame,facing);}
+                BiteAction bite= biteFeedback[i];if(actor.species==Species.Human && bite.targetId==actor.id && time>=bite.tick && time<bite.tick+WeaponPresentation.HitFlashTicks){GUI.color=bite.evaded?new Color(0.45f,0.8f,1f):new Color(1f,0.5f,0.5f);NpcGlyphPresentation.Draw(body,actor,time,world.RiseEnabled,GUI.color,walkFrame,facing);}
                 if(!clock.Paused && actor.species==Species.Human && shoveMotion[i].Strength(time)>0)DrawShoveHands(shoveMotion[i],x,y,time,bounds,left,top,cell);
                 if(!clock.Paused && actor.species==Species.Zombie && actor.health>0 && grabMotion[i].Strength(time)>0)DrawGrappleHands(grabMotion[i],x,y,time,bounds,left,top,cell);
                 if(actor.species==Species.Human && (actor.meleeWeapon==MeleeWeapon.Bat || weaponMotion[i].Breaking(time)))DrawBat(weaponMotion[i],x,y,time,bounds,left,top,cell,actor.health>0 && actor.species==Species.Human);

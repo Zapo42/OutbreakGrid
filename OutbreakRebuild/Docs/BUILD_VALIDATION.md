@@ -1,5 +1,16 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-FACING-07 — left/right facing and default consumer box removal
+
+Baselinee5562f5. User selected left/right facing and reported a box on an unselected human. Close5x5 now reads the last verified horizontal movement: the head shifts one logical cell and shows a single outward eye. Same body/feet/anatomy/colors for both species; vertical/idle/camera changes do not turn it. Pause/resume snaps preserve facing; new/load/restart/unsafe/manual inspection snaps default front. Smaller tiers, corpses and active reanimation stay unchanged. No Core decisions or serialized direction.
+
+The reported default white box is reproduced in DrawOccupationOutline for every consumer, independent of selection. Ordinary consumers now emit no occupation frame. Actual courier/clerk role outlines, including off-duty gray and duty colors, remain; yellow stays selected-only. This does not remove worker identity.
+
+Sequential unified runner PASS exit0:711 core cases/743692 assertions, config/hosted Windows ABI, Legacy UI6130/NewOnly3; focused Legacy6130 PASS. Focused upgrade/restart75 and World recovery-area/bed UI20 PASS. New cases assert independent directional geometry/face ink, static smaller tiers and state priority, body/feet anchors, last committed displacement, pause/zoom/manual/restart/state consistency, ordinary selected/unselected consumer no-frame and exclusive yellow selection, and unselected worker role frames. Previous off-duty/on-duty color and full UI cases retained. Isolated archives respectively force front-only rendering or restore consumer framing; each fails at the intended actual-render/consumer-box assertion while real source passes. Evidence/source hashes: harness/validation/facing.
+
+Actual-draw facing sheet inspected enlarged and at unit pitch; final full-run sheet is byte-identical to inspected output. Native Unity compile/render/input/DPI/dialog/player NOT RUN under existing pause; no EXE. No Core/contracts/persistence/settings/versions/scenes/GUID changes; known city survival issues remain. Publish by fast-forward under standing authorization; verify real HTTPS ZIP/source/preview before delivery.
+
+
 ## GRAPHICS-WALK-06 — two-frame close walking
 
 Baseline5a815f1. User selected the proposed two-frame walk cycle. Close5x5 living walkers alternate only the last-row foot pixels while keeping the existing16 occupied cells, head/face/body inks and logical anchors. Medium3x3/distant1x1 remain static. Phase reads the current verified MovementPresentation segment's existing duration; idle bob, unsafe moves/snaps/teleports and pushes cannot drive it. Rise/death/seated/active-grapple presentation takes priority.

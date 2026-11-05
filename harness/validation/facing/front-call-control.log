@@ -1,0 +1,6 @@
+System.Exception: Facing lost body/face ink or visible close tier.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/facing/front-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.RequireRenderedFacing(Int32 species, Int32 facing) in /workspace/review/facing/front-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 243
+   at UiHarness.CheckNpcFacing(String report) in /workspace/review/facing/front-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 308
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/facing/front-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 560
+   at UiHarness.Main(String[] args) in /workspace/review/facing/front-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 729

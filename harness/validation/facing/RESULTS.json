@@ -1,0 +1,26 @@
+{
+  "task": "GRAPHICS-FACING-07",
+  "baseline": "e5562f5",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 6130,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "negativeControls": {
+    "frontOnlyCall": "Expected actual-render face assertion failure",
+    "restoredConsumerBox": "Expected ordinary-human box assertion failure"
+  },
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/MovementPresentation.cs": "1bb5bd2cf80d22bf93ae6830beaf0f71ad33dff642827877b66babaa84540aef",
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "3f9a9c3e3c9b21f736eebd5d7356a0a18bb642d71462b5606359c2f171270b3f",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "8b4719e23afa899ca71f723db3ab8934d4bb880fc01ba6f95b333fd645784ba5",
+    "OutbreakRebuild/Assets/Outbreak/Unity/WorkerPresentation.cs": "67ea02c86b7bcf89e09add302b0df5bdc660c74f3a557f39538faac3f5ee6880",
+    "OutbreakRebuild/Tests/UiHarness.cs": "3f84d96f5d1bd4a73588a8cbc0f14d3013937f051311fcca424870245c427eb1"
+  },
+  "upgradeUiAssertions": 75,
+  "worldUiAssertions": 20
+}

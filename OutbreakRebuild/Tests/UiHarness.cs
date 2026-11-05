@@ -236,6 +236,101 @@ public static class UiHarness // Check actual application commands while making 
         }
         finally{UnityEngine.Screen.width=screenWidth;UnityEngine.Screen.height=screenHeight;Call(app,"OnDestroy");}
     }
+    private static void RequireRenderedFacing(int species,int facing)
+    {
+        var body=UnityEngine.GUI.draws.FindAll(d=>species==0 ? d.color.r==0.75f && d.color.g==0.8f && d.color.b==0.92f : d.color.r==0.23f && d.color.g==0.29f && d.color.b==0.14f);
+        var face=UnityEngine.GUI.draws.FindAll(d=>species==0 ? d.color.r==198/255f && d.color.g==199/255f && d.color.b==174/255f : d.color.r==135/255f && d.color.g==148/255f && d.color.b==77/255f);
+        Require(body.Count==10 && face.Count==(facing==0?4:5),"Facing lost body/face ink or visible close tier.");
+        Require(face[0].rect.x==body[0].rect.x+(facing<0?0:facing>0?2:1)*body[0].rect.width,"Actual DrawWorld head did not follow committed horizontal facing.");
+    }
+    private static void CheckNpcFacing(string report)
+    {
+        var motion=new MovementPresentation();motion.Snap(10,10,0);Require(motion.HorizontalFacing==0,"New actors must start front facing.");
+        motion.Observe(11,10,1);Require(motion.HorizontalFacing==1,"Right move did not turn right.");
+        motion.Observe(11,11,2);Require(motion.HorizontalFacing==1,"Vertical movement changed facing.");
+        motion.Observe(10,11,3);Require(motion.HorizontalFacing==-1,"Left move did not turn left.");
+        motion.Observe(10,11,4);Require(motion.HorizontalFacing==-1,"Idle target changed facing.");
+        motion.Snap(10,11,4,true);Require(motion.HorizontalFacing==-1,"Pause snap discarded facing.");
+        motion.Observe(11,10,5,false);Require(motion.HorizontalFacing==0,"Unsafe movement chose a facing.");
+        motion.Observe(12,10,6);motion.Push(12,10,11.8,10,11,10,7);Require(motion.HorizontalFacing==1,"Push displacement turned the actor.");
+        motion.Snap(10,10,8);motion.Observe(100,100,9);Require(motion.HorizontalFacing==0,"Teleport/load snap retained a stale direction.");
+        string[] shapes={".###./.###./#####/.###./.#.#.","###../###../#####/.###./.#.#.","..###/..###/#####/.###./.#.#."};
+        var sheet=new System.Text.StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='760' height='380' shape-rendering='crispEdges'><rect width='760' height='380' fill='#101820'/><text x='12' y='22' fill='#c6c7ae' font-family='monospace' font-size='12'>Close facing: actual draws, enlarged + unit pitch (not Unity)</text>");
+        for(int species=0;species<2;species++)for(int pose=0;pose<3;pose++)
+        {
+            int facing=new[]{0,-1,1}[pose];var actor=new Outbreak.Contracts.ActorState{species=species==0?Outbreak.Contracts.Species.Human:Outbreak.Contracts.Species.Zombie,health=100};
+            UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,facing:facing);
+            Require(UnityEngine.GUI.draws.Count==16,"Facing changed occupied-cell count.");int n=0;string[] rows=shapes[pose].Split('/');
+            for(int y=0;y<5;y++)for(int x=0;x<5;x++)if(rows[y][x]=='#')
+            {
+                var d=UnityEngine.GUI.draws[n++];Require(d.rect.x==x && d.rect.y==y && d.rect.width==1 && d.rect.height==1,"Facing changed authored geometry or integer grid.");
+                var ink=y<2 ? (y==1 && (facing==0 ? x==1 || x==3 : x==(facing<0?0:4)) ? new UnityEngine.Color(38/255f,51/255f,59/255f)
+                    : species==0 ? new UnityEngine.Color(198/255f,199/255f,174/255f) : new UnityEngine.Color(135/255f,148/255f,77/255f))
+                    : species==0 ? new UnityEngine.Color(0.75f,0.8f,0.92f) : new UnityEngine.Color(0.23f,0.29f,0.14f);
+                Require(d.color.r==ink.r && d.color.g==ink.g && d.color.b==ink.b,"Facing changed eye/face/body identity inks.");
+                string color="rgb("+(int)Math.Round(d.color.r*255)+","+(int)Math.Round(d.color.g*255)+","+(int)Math.Round(d.color.b*255)+")";
+                sheet.Append("<rect x='"+(110+pose*210+x*20)+"' y='"+(60+species*160+y*20)+"' width='20' height='20' fill='"+color+"'/>");
+                sheet.Append("<rect x='"+(110+pose*210+x)+"' y='"+(190+species*160+y)+"' width='1' height='1' fill='"+color+"'/>");
+            }
+            sheet.Append("<text x='"+(110+pose*210)+"' y='"+(180+species*160)+"' fill='#c6c7ae' font-family='monospace' font-size='12'>"+new[]{"Front","Left","Right"}[pose]+"</text>");
+            if(pose==0)sheet.Append("<text x='12' y='"+(100+species*160)+"' fill='#c6c7ae' font-family='monospace'>"+(species==0?"Human":"Zombie")+"</text>");
+            foreach(int step in new[]{0,1})
+            {
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,walkFrame:step,facing:facing);
+                Require(UnityEngine.GUI.draws[14].rect.x==(step==0?1:2) && UnityEngine.GUI.draws[15].rect.x==(step==0?2:3),"Facing moved the walking feet/body anchor.");
+            }
+            foreach(int size in new[]{1,3})
+            {
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,size,size),actor,0,true,facing:-1);var before=new List<UnityEngine.DrawRecord>(UnityEngine.GUI.draws);
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,size,size),actor,0,true,facing:1);
+                Require(before.Count==UnityEngine.GUI.draws.Count,"Facing changed a smaller tier.");for(int a=0;a<before.Count;a++)Require(before[a].rect.x==UnityEngine.GUI.draws[a].rect.x && before[a].color.r==UnityEngine.GUI.draws[a].color.r,"Small tier turned or changed ink.");
+            }
+        }
+        sheet.Append("</svg>");if(report!=null)File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(report)),"NPC_FACING_PREVIEW.svg"),sheet.ToString());
+        var rise=new Outbreak.Contracts.ActorState{species=Outbreak.Contracts.Species.Zombie,health=100,riseUntilTick=5};UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),rise,4,true,facing:1);Require(UnityEngine.GUI.draws[0].rect.x==1,"Active reanimation turned its head.");
+        rise.health=0;UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),rise,6,true,facing:1);Require(UnityEngine.GUI.draws.Count==3 && UnityEngine.GUI.draws[0].rect.x==1,"Corpse mask acquired a facing.");
+        FoundationApp app=new FoundationApp();Call(app,"Awake");float dt=UnityEngine.Time.unscaledDeltaTime;
+        try
+        {
+            Press(app,"Inspect Walking Sprites Paused");World w=Field<World>(app,"world");string initial=Documents.Encode(w.Capture());
+            var role=typeof(FoundationApp).GetMethod("DrawOccupationOutline",BindingFlags.Instance|BindingFlags.NonPublic);
+            foreach(int selected in new[]{-1,0})
+            {
+                typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(app,selected);
+                UnityEngine.GUI.draws.Clear();role.Invoke(app,new object[]{0,w.ActorAt(0),new UnityEngine.Rect(100,100,20,20),30f});Require(UnityEngine.GUI.draws.Count==0,"Ordinary human retained a consumer box.");
+                Render(app);Require(UnityEngine.GUI.draws.FindAll(d=>d.color.r==1 && d.color.g==1 && d.color.b==0).Count==(selected<0?0:4),"Yellow selection frame appeared on an unselected actor or disappeared on selection.");
+            }
+            Press(app,"Run");UnityEngine.Time.unscaledDeltaTime=0.1f;int[] expected={0,0};bool left=false,right=false;
+            for(int t=0;t<200 && !(left && right);t++)
+            {
+                int[] oldX={w.ActorAt(0).x,w.ActorAt(1).x};Call(app,"Update");var moves=Field<MovementPresentation[]>(app,"motion");
+                for(int a=0;a<2;a++){if(w.ActorAt(a).x!=oldX[a])expected[a]=Math.Sign(w.ActorAt(a).x-oldX[a]);Require(moves[a].HorizontalFacing==expected[a],"Real committed displacement/facing mismatch.");left|=expected[a]<0;right|=expected[a]>0;}
+                string before=Documents.Encode(w.Capture());Render(app);RequireRenderedFacing(0,expected[0]);RequireRenderedFacing(1,expected[1]);Require(Documents.Encode(w.Capture())==before,"Facing render changed saved state.");
+            }
+            Require(left && right,"Walking preview never demonstrated both horizontal directions.");string frozen=Documents.Encode(w.Capture());Press(app,"Pause");
+            for(int n=0;n<3;n++){Call(app,"Update");Render(app);RequireRenderedFacing(0,expected[0]);RequireRenderedFacing(1,expected[1]);Require(Documents.Encode(w.Capture())==frozen,"Paused facing advanced state.");}
+            float span=Field<float>(app,"span");var pointer=new UnityEngine.Vector2(UnityEngine.Screen.width-310,UnityEngine.Screen.height-190);
+            for(int n=0;n<30;n++)Render(app,"",new UnityEngine.Event{type=UnityEngine.EventType.ScrollWheel,mousePosition=pointer,delta=new UnityEngine.Vector2(0,3)});
+            for(int n=0;n<40 && Field<float>(app,"span")>span;n++)Render(app,"",new UnityEngine.Event{type=UnityEngine.EventType.ScrollWheel,mousePosition=pointer,delta=new UnityEngine.Vector2(0,-3)});
+            RequireRenderedFacing(0,expected[0]);RequireRenderedFacing(1,expected[1]);Require(Documents.Encode(w.Capture())==frozen,"Zoom changed facing state/tick.");
+            Press(app,"Step 1 tick");Render(app);RequireRenderedFacing(0,0);RequireRenderedFacing(1,0);
+            Press(app,"Restart scenario");Render(app);RequireRenderedFacing(0,0);RequireRenderedFacing(1,0);Require(Documents.Encode(Field<World>(app,"world").Capture())==initial,"Restart retained a stale facing.");
+        }
+        finally{UnityEngine.Time.unscaledDeltaTime=dt;Call(app,"OnDestroy");}
+        FoundationApp workers=new FoundationApp();Call(workers,"Awake");
+        try
+        {
+            Press(workers,"Inspect Worker Shift End Paused");World w=Field<World>(workers,"world");string before=Documents.Encode(w.Capture());typeof(FoundationApp).GetField("selected",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(workers,-1);bool courier=false,clerk=false;
+            for(int i=0;i<w.Count;i++)
+            {
+                var job=w.AssignedOccupation(i);UnityEngine.GUI.draws.Clear();typeof(FoundationApp).GetMethod("DrawOccupationOutline",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(workers,new object[]{i,w.ActorAt(i),new UnityEngine.Rect(100,100,20,20),30f});
+                if(job==HumanOccupation.Consumer)Require(UnityEngine.GUI.draws.Count==0,"Consumer outline remained in worker scene.");
+                else {Require(UnityEngine.GUI.draws.Count==6,"Unselected worker lost occupation outline.");courier|=job==HumanOccupation.Courier;clerk|=job==HumanOccupation.Clerk;}
+            }
+            Require(courier && clerk && Documents.Encode(w.Capture())==before,"Worker role identity/state was not preserved.");
+        }
+        finally{Call(workers,"OnDestroy");}
+    }
     private static void RequireRenderedFeet(int species, int frame)
     {
         var pixels=UnityEngine.GUI.draws.FindAll(d=>species==0 ? d.color.r==0.75f && d.color.g==0.8f && d.color.b==0.92f : d.color.r==0.23f && d.color.g==0.29f && d.color.b==0.14f);
@@ -462,6 +557,7 @@ public static class UiHarness // Check actual application commands while making 
     private static void CheckNpcGlyphs(string report)
     {
         CheckCameraNavigation();
+        CheckNpcFacing(report);
         CheckNpcWalkCycle(report);
         CheckNpcZoomTiers(report);
         // Expected row strings are independent of the implementation masks; inspect actual submitted pixel rectangles.

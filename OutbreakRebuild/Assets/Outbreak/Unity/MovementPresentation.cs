@@ -13,13 +13,16 @@ namespace Outbreak.UnityAdapter // Keep visual motion separate from authoritativ
     }
     public struct MovementPresentation // Retain one bounded visual segment per actor rather than a movement history.
     { // Begin a single safe cell transition.
+        private int horizontalFacing;
+        public int HorizontalFacing { get { return horizontalFacing; } } // Last verified horizontal move; camera/idle offsets cannot turn the head.
         private bool shove;private double contactX,contactY;
         private double duration,viaX,viaY,viaFraction;
         private double fromX, fromY, targetX, targetY, startTick; // Store only the latest rendered segment in simulation tick units.
-        public void Snap(int x, int y, double tick) { shove=false;fromX = targetX = x; fromY = targetY = y; startTick = tick;duration=5;viaFraction=0; } // Synchronize exact positions on load, pause and manual stepping.
+        public void Snap(int x, int y, double tick, bool preserveFacing = false) { if (!preserveFacing) horizontalFacing=0; shove=false;fromX = targetX = x; fromY = targetY = y; startTick = tick;duration=5;viaFraction=0; } // Synchronize exact positions on load, pause and manual stepping.
         public void Observe(int x, int y, double tick, bool safe = true, double interval = 5, bool continuous = false) // Register a committed move without animating across unverified terrain.
         { // Begin one visual update.
             if (x == targetX && y == targetY) return; if (!safe || Math.Abs(x - targetX) > 1 || Math.Abs(y - targetY) > 1) { Snap(x, y, tick); return; } // Snap compound pushes and unsafe corners instead of drawing through walls.
+            if (x != targetX) horizontalFacing = Math.Sign(x - targetX); // Use committed displacement, not interpolated motion or nearby targets.
             double currentX=continuous?X(tick):targetX,currentY=continuous?Y(tick):targetY;
             viaX=targetX;viaY=targetY;double remaining=Math.Sqrt((viaX-currentX)*(viaX-currentX)+(viaY-currentY)*(viaY-currentY)),next=Math.Sqrt((x-viaX)*(x-viaX)+(y-viaY)*(y-viaY));viaFraction=remaining==0?0:remaining/(remaining+next);
             shove=false;fromX=currentX;fromY=currentY;targetX=x;targetY=y;startTick=tick;duration=Math.Max(0.1,interval); // Retain the old waypoint when a faster step interrupts the visible segment.

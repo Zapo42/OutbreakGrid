@@ -1,0 +1,5 @@
+System.Exception: Ordinary human retained a consumer box.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/facing/consumer-box-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.CheckNpcFacing(String report) in /workspace/review/facing/consumer-box-control/OutbreakRebuild/Tests/UiHarness.cs:line 300
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/facing/consumer-box-control/OutbreakRebuild/Tests/UiHarness.cs:line 560
+   at UiHarness.Main(String[] args) in /workspace/review/facing/consumer-box-control/OutbreakRebuild/Tests/UiHarness.cs:line 729

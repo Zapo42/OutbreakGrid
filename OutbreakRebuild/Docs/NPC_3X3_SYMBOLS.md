@@ -50,6 +50,16 @@ Current Tests > **Inspect Walking Sprites Paused** opens a small seeded, non-enc
 
 [Animated technical preview](VisualReferences/npc-walk-preview.gif) · [standing/A/B sheet](VisualReferences/npc-walk-preview.png) · [actual-draw SVG](VisualReferences/npc-walk-preview.svg). These plot hosted drawing records, not Unity capture. The GIF uses a fixed illustrative half-second per frame; the game uses each real movement segment's timing.
 
+## Left/right facing and selection
+
+Close5x5 living sprites face the last verified horizontal movement. Their heads shift one logical pixel toward that side and show a single outward eye. Body/feet, occupied-cell count, species colors and logical anchors stay unchanged. Vertical movement and idle/camera offsets do not change the last side; both species share the same anatomy. Medium3x3/distant1x1 and corpse/reanimation states remain unchanged.
+
+Pause/resume position snapping preserves facing. Initial spawn/load/restart and unsafe/manual inspection snaps use the front pose. Direction is presentation-only and is not saved or used to choose movement, attacks or targets.
+
+[Facing sheet](VisualReferences/npc-facing-preview.png) · [actual-draw SVG](VisualReferences/npc-facing-preview.svg). Use **Inspect Walking Sprites Paused** and Run to see head turns together with the existing foot cycle; Pause holds them for inspection. These are technical previews, not native Unity screenshots.
+
+The default **white consumer box has been removed** from ordinary humans, selected or unselected. Yellow remains the selected-only frame. Actual courier/clerk role outlines remain, including gray off-duty identity and the existing duty colors. Ordinary unselected humans are unframed; removing their default rectangle does not remove worker identity.
+
 ## Verification and limits
 
 Checks independently assert authored rows for every tier/state, exact switch boundaries, both walking frames, pause/zoom/restart and segment/idle/push boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment is published under the user’s standing authorization. See BUILD_VALIDATION.md and harness/build-log.md for results.

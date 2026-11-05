@@ -51,12 +51,12 @@ namespace Outbreak.UnityAdapter
             return new Color(Mathf.Lerp(0.4f, 0.23f, progress), Mathf.Lerp(0.4f, 0.29f, progress), Mathf.Lerp(0.4f, 0.14f, progress));
         }
 
-        public static Color PixelInk(ActorState actor, double tick, bool riseEnabled, int size, int mask, int x, int y)
+        public static Color PixelInk(ActorState actor, double tick, bool riseEnabled, int size, int mask, int x, int y, int facing = 0)
         {
             Color body = Ink(actor, tick, riseEnabled);
             // Only the close standing raster carries face details; distant/corpse/crouched masks keep state ink.
             if (size != 5 || (mask != Human && mask != WalkLeft && mask != WalkRight) || y > 1) return body;
-            Color detail = y == 1 && x != 2 ? new Color(38 / 255f, 51 / 255f, 59 / 255f)
+            Color detail = y == 1 && (facing == 0 ? x != 2 : x == (facing < 0 ? 1 : 3)) ? new Color(38 / 255f, 51 / 255f, 59 / 255f)
                 : actor.species == Species.Human ? new Color(198 / 255f, 199 / 255f, 174 / 255f)
                 : new Color(135 / 255f, 148 / 255f, 77 / 255f);
             if (actor.species == Species.Zombie && riseEnabled && actor.riseUntilTick > tick)
@@ -76,7 +76,7 @@ namespace Outbreak.UnityAdapter
                 (float)Math.Floor(logicalBody.y + (logicalBody.height - side) / 2 + 0.5f), side, side);
         }
 
-        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1)
+        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1, int facing = 0)
         {
             Rect pixels = PixelBounds(logicalBody);
             Color previous = GUI.color;
@@ -88,13 +88,16 @@ namespace Outbreak.UnityAdapter
                 int mask = Mask(actor, tick, riseEnabled, size);
                 if (size == 5 && mask == Human && walkFrame >= 0 && (!riseEnabled || actor.riseUntilTick <= tick))
                     mask = (walkFrame & 1) == 0 ? WalkLeft : WalkRight;
+                // Only live close-tier heads turn. Shift within the same canvas; body/feet/hitboxes never move.
+                int poseFacing = size == 5 && (mask == Human || mask == WalkLeft || mask == WalkRight) &&
+                    (!riseEnabled || actor.riseUntilTick <= tick) ? Math.Sign(facing) : 0;
                 float pitch = pixels.width / size;
                 for (int y = 0; y < size; y++)
                 for (int x = 0; x < size; x++)
                     if ((mask & (1 << (y * size + x))) != 0)
                     {
-                        GUI.color = flash ?? PixelInk(actor, tick, riseEnabled, size, mask, x, y);
-                        GUI.DrawTexture(new Rect(pixels.x + x * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
+                        GUI.color = flash ?? PixelInk(actor, tick, riseEnabled, size, mask, x, y, poseFacing);
+                        GUI.DrawTexture(new Rect(pixels.x + (x + (y < 2 ? poseFacing : 0)) * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
                     }
             }
             GUI.color = previous; // Do not leak actor ink into terrain, occupations, bars or subsequent actors.
@@ -123,7 +126,7 @@ namespace Outbreak.UnityAdapter
             World preview = new World(new WorldMap(32, 16, "NPC walk cycle", "npc-walk-cycle"), 214);
             int id; preview.TrySpawn(Species.Human, 10, 8, out id); preview.TrySpawn(Species.Zombie, 20, 8, out id);
             UseWorld(preview); selected = 0;
-            status = "Run to inspect both species walking with existing seeded movement. Pause freezes the feet; smaller zoom tiers stay static. Click map, then WASD/arrows to pan.";
+            status = "Run to see both species walk and face their horizontal movement. Pause holds feet and facing; smaller zoom tiers stay static. Click map, then WASD/arrows to pan.";
         }
         private void StartNpcGlyphPreview()
         {
