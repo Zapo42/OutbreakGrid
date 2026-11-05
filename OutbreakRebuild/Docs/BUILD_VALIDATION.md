@@ -1,5 +1,16 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-NPC-PALETTE-09 — reference NPC inks and material contrast
+
+Baseline6578df3. User selected NPC palette/readability pass after terrain. Stable body families now use approved light/dark blue7097AE/454F6B for humans, green87944D/556B3C for zombies and gray80877A/454C50 for corpses. Choose the stronger relative-luminance contrast within a family against terrain under the interpolated body center, matching forced-open door presentation during existing crossings. Human face cream retained; zombie face follows selected green, eyes dark slate. No new outline/box/glow/texture or shape change. Cached reference luminance constants and one body choice per draw. Palette is not saved and does not influence Core decisions.
+
+All5x5/3x3/1x1 masks/draw counts, walk/facing/pause/camera and role/selection/needs controls retained. Same surface/position gives same shade at every tier/selection. Crossing surfaces can change shades. Core-timed gray→green rise blending and legacy flash overrides remain deliberate transitional palette exceptions. Doors/storage/other icons/UI/vehicle/terrain/worker inks unchanged; no Core/contracts/persistence/settings/versions/scenes/GUID edits.
+
+Unified sequential PASS exit0:711 cases/743692 assertions, config/hosted Windows ABI, Legacy UI7061/NewOnly3. Focused Legacy7061 PASS; focused upgrade/restart75 and World recovery-area/bed UI20 PASS. Independent per-surface shade goldens/luminance checks cover grass variants, road, sidewalk and home/store/DC at all tiers, stable non-eye pixel ratio>=1.5 and exact masks/no added box. This modest non-text glyph threshold is not a universal-background/native/accessibility claim. Real DrawWorld fixtures verify material input and unchanged saved state/tick. An isolated archive omits backdrop wiring: direct helper matrix still works but real-renderer integration fails as intended. Prior color-dependent tests now recognize stable families and body/head geometry, including merged zombie green face/body and the retained gray/green transition; no tests disabled. Source hashes/logs: harness/validation/npc-palette.
+
+Matrix and refreshed actual terrain-buffer/overlay scenes visually inspected, enlarged/unit pitch. Final full-run SVGs byte-identical to inspected focused output. Current zoom/facing/walk technical sheets and illustrative GIF refreshed from matching full-run records; the matrix illustrates material-dependent choices. Native Unity compile/render/input/DPI/dialog/player NOT RUN under pause, no EXE. Known survival/next-day work failures remain. Publish under standing authorization and verify actual HTTPS archive/source/previews/editor pin before delivery.
+
+
 ## GRAPHICS-PALETTE-08 — terrain-first approved palette
 
 Baseline561a97c. User approved doors/storage as-is and selected the proposed restrained reference-palette pass starting with terrain. ColorFor surface families, BuildingFloorColor and lane/crosswalk paint now use exact approved swatches. Grass IDs quantize into three greens; road/crossing base deep ink, sidewalk stone, walls slate, fences wood, windows aqua and water blue. Home/store/DC floors retain warm/blue/green role identities. No map/generation/state changes or new geometry. This is a terrain pass, not a whole-frame16-color conversion.

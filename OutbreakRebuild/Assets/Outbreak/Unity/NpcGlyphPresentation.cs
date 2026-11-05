@@ -41,30 +41,43 @@ namespace Outbreak.UnityAdapter
             return standing;
         }
 
-        public static Color Ink(ActorState actor, double tick, bool riseEnabled)
+        private static double Linear(float v) { return v <= 0.04045f ? v / 12.92 : Math.Pow((v + 0.055) / 1.055, 2.4); }
+        private static double Luminance(Color c) { return 0.2126 * Linear(c.r) + 0.7152 * Linear(c.g) + 0.0722 * Linear(c.b); }
+        private static readonly double blueLight=Luminance(TerrainPalette.WaterBlue),blueDark=Luminance(TerrainPalette.StoreBlue),
+            greenLight=Luminance(TerrainPalette.Olive),greenDark=Luminance(TerrainPalette.Grass),grayLight=Luminance(TerrainPalette.Stone),grayDark=Luminance(TerrainPalette.Charcoal);
+        private static double Contrast(double a,double b) { return (Math.Max(a,b)+0.05)/(Math.Min(a,b)+0.05); }
+        private static Color Choose(Color light,Color dark,double lightLuma,double darkLuma,double surface)
         {
-            // Retain current species/death colors and the existing grey-to-green rise feedback.
-            if (actor.health <= 0) return new Color(0.4f, 0.4f, 0.4f);
-            if (actor.species == Species.Human) return new Color(0.75f, 0.8f, 0.92f);
-            if (!riseEnabled || actor.riseUntilTick <= tick) return new Color(0.23f, 0.29f, 0.14f);
-            float progress = (float)RiseRules.Progress(actor, tick);
-            return new Color(Mathf.Lerp(0.4f, 0.23f, progress), Mathf.Lerp(0.4f, 0.29f, progress), Mathf.Lerp(0.4f, 0.14f, progress));
+            return Contrast(lightLuma,surface)>=Contrast(darkLuma,surface)?light:dark;
         }
-
-        public static Color PixelInk(ActorState actor, double tick, bool riseEnabled, int size, int mask, int x, int y, int facing = 0)
+        private static Color CorpseInk(Color background) { return Choose(TerrainPalette.Stone,TerrainPalette.Charcoal,grayLight,grayDark,Luminance(background)); }
+        public static Color Ink(ActorState actor, double tick, bool riseEnabled, Color? background = null)
         {
-            Color body = Ink(actor, tick, riseEnabled);
-            // Only the close standing raster carries face details; distant/corpse/crouched masks keep state ink.
-            if (size != 5 || (mask != Human && mask != WalkLeft && mask != WalkRight) || y > 1) return body;
-            Color detail = y == 1 && (facing == 0 ? x != 2 : x == (facing < 0 ? 1 : 3)) ? new Color(38 / 255f, 51 / 255f, 59 / 255f)
-                : actor.species == Species.Human ? new Color(198 / 255f, 199 / 255f, 174 / 255f)
-                : new Color(135 / 255f, 148 / 255f, 77 / 255f);
-            if (actor.species == Species.Zombie && riseEnabled && actor.riseUntilTick > tick)
+            // Only presentation reads the rendered surface. Both shades retain a stable species color family.
+            double surface=Luminance(background ?? TerrainPalette.Ink);
+            Color corpse=Choose(TerrainPalette.Stone,TerrainPalette.Charcoal,grayLight,grayDark,surface);
+            if(actor.health<=0)return corpse;
+            if(actor.species==Species.Human)return Choose(TerrainPalette.WaterBlue,TerrainPalette.StoreBlue,blueLight,blueDark,surface);
+            Color green=Choose(TerrainPalette.Olive,TerrainPalette.Grass,greenLight,greenDark,surface);
+            if(!riseEnabled || actor.riseUntilTick<=tick)return green;
+            float progress=(float)RiseRules.Progress(actor,tick);
+            return new Color(Mathf.Lerp(corpse.r,green.r,progress),Mathf.Lerp(corpse.g,green.g,progress),Mathf.Lerp(corpse.b,green.b,progress));
+        }
+        private static Color CellInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing,Color body,Color corpse)
+        {
+            if(size!=5 || (mask!=Human && mask!=WalkLeft && mask!=WalkRight) || y>1)return body;
+            bool eye=y==1 && (facing==0?x!=2:x==(facing<0?1:3));
+            if(!eye)return actor.species==Species.Human?TerrainPalette.Cream:body;
+            if(actor.species==Species.Zombie && riseEnabled && actor.riseUntilTick>tick)
             {
-                float progress = (float)RiseRules.Progress(actor, tick);
-                return new Color(Mathf.Lerp(0.4f, detail.r, progress), Mathf.Lerp(0.4f, detail.g, progress), Mathf.Lerp(0.4f, detail.b, progress));
+                float progress=(float)RiseRules.Progress(actor,tick);
+                return new Color(Mathf.Lerp(corpse.r,TerrainPalette.Structure.r,progress),Mathf.Lerp(corpse.g,TerrainPalette.Structure.g,progress),Mathf.Lerp(corpse.b,TerrainPalette.Structure.b,progress));
             }
-            return detail;
+            return TerrainPalette.Structure;
+        }
+        public static Color PixelInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing=0,Color? background=null)
+        {
+            return CellInk(actor,tick,riseEnabled,size,mask,x,y,facing,Ink(actor,tick,riseEnabled,background),CorpseInk(background ?? TerrainPalette.Ink));
         }
 
         public static Rect PixelBounds(Rect logicalBody)
@@ -76,11 +89,14 @@ namespace Outbreak.UnityAdapter
                 (float)Math.Floor(logicalBody.y + (logicalBody.height - side) / 2 + 0.5f), side, side);
         }
 
-        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1, int facing = 0)
+        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1, int facing = 0, Color? background = null)
         {
             Rect pixels = PixelBounds(logicalBody);
             Color previous = GUI.color;
-            GUI.color = flash ?? Ink(actor, tick, riseEnabled);
+            // Pick once per body, rather than recomputing surface contrast for every occupied pixel.
+            Color body = Ink(actor,tick,riseEnabled,background);
+            Color corpse = actor.species==Species.Zombie && riseEnabled && actor.riseUntilTick>tick ? CorpseInk(background ?? TerrainPalette.Ink) : TerrainPalette.Stone;
+            GUI.color = flash ?? body;
             if (pixels.width == 1) GUI.DrawTexture(pixels, Texture2D.whiteTexture);
             else
             {
@@ -96,7 +112,7 @@ namespace Outbreak.UnityAdapter
                 for (int x = 0; x < size; x++)
                     if ((mask & (1 << (y * size + x))) != 0)
                     {
-                        GUI.color = flash ?? PixelInk(actor, tick, riseEnabled, size, mask, x, y, poseFacing);
+                        GUI.color = flash ?? CellInk(actor, tick, riseEnabled, size, mask, x, y, poseFacing, body, corpse);
                         GUI.DrawTexture(new Rect(pixels.x + (x + (y < 2 ? poseFacing : 0)) * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
                     }
             }

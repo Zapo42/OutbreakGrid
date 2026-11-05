@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: terrain-first reference palette.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1**. [Material mappings and actual-draw previews](OutbreakRebuild/Docs/TERRAIN_PALETTE.md). Inspect Supply Chain Visuals Paused and Neighborhood Streets Paused to compare buildings and streets. Existing NPC sprites, doors/storage, camera controls and UI identities are preserved. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
+**Current testing snapshot: NPC reference palette and terrain readability.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1**. [Blue/green/gray mappings and actual-draw contrast previews](OutbreakRebuild/Docs/NPC_PALETTE.md). Species retain their color families with surface-aware light/dark shades across all zoom tiers; shapes, walking/facing and controls stay intact. Doors/storage and UI identities are preserved. Source project, not a Windows EXE. Native Unity remains unverified; survival/next-day work issues remain.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).

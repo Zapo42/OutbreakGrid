@@ -1,5 +1,7 @@
 # Terrain-first reference palette
 
+This records the terrain-first increment. The subsequent [NPC palette pass](NPC_PALETTE.md) updates actor colors while leaving these material mappings and approved doors/storage unchanged. Scene previews are refreshed to the current NPC palette.
+
 This increment maps terrain surfaces to swatches from the approved16-color pixel-scale sheet. It is not a global recolor: NPC sprites, doors/gates, storage/phones/furniture, occupation/selection outlines, need bars and interface colors retain their current presentation. The user specifically approved existing doors and storage.
 
 | Surface | Reference swatch |

@@ -1,5 +1,7 @@
 # 3x3 consolidated testing snapshot
 
+Current NPC palette increment: inspect Walking/Zoom Sprites Paused and Supply Chain Visuals Paused. Blue humans, green zombies and gray corpses use the stronger light/dark reference shade for the material beneath them. Check grass, sidewalks, roads and floors at all zooms; ordinary humans stay unboxed, and walking/facing/role/selection cues stay intact. See NPC_PALETTE.md. No doors/storage/UI recolor.
+
 Current terrain palette increment: **Inspect Supply Chain Visuals Paused** for warm homes/slate-blue stores/sage centers, then **Inspect Neighborhood Streets Paused** for dark roads, gray-green sidewalks and cream/gold paint. Door/storage/phone icons and NPCs retain their prior appearance. Click/select/zoom and confirm unchanged identities and controls. See TERRAIN_PALETTE.md; this is a terrain-only reference-palette pass, not a full-frame16-color conversion.
 
 Current facing/selection increment: **Inspect Walking Sprites Paused** → Run. Watch the close-up heads turn with horizontal movement; vertical moves retain the last side. Pause and zoom out/back to inspect the preserved direction. Deselect the human: ordinary consumers should have no white box. Select it again: only the yellow selection frame should appear. Courier/clerk role colors intentionally remain in worker previews. Restart returns front-facing sprites.

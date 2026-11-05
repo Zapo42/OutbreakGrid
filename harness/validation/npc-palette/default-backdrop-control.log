@@ -1,0 +1,5 @@
+System.Exception: Renderer did not adapt NPC ink to the actual terrain surface.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/npc-palette/default-backdrop-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.CheckNpcPaletteContrast(String report) in /workspace/review/npc-palette/default-backdrop-control/OutbreakRebuild/Tests/UiHarness.cs:line 298
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/npc-palette/default-backdrop-control/OutbreakRebuild/Tests/UiHarness.cs:line 704
+   at UiHarness.Main(String[] args) in /workspace/review/npc-palette/default-backdrop-control/OutbreakRebuild/Tests/UiHarness.cs:line 874

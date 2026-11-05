@@ -1,6 +1,15 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-PALETTE-08 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+Status: GRAPHICS-NPC-PALETTE-09 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+
+## GRAPHICS-NPC-PALETTE-09 — user-selected NPC reference-palette/readability pass
+
+- Baseline6578df3. User selected the proposed NPC palette pass against the new terrain. Automatic publication after validation; native testing paused.
+- Files: NpcGlyphPresentation.cs, FoundationApp.cs background sampling/build label only, UiHarness.cs; palette/sprite/README/manual/plan/build/validation docs and actual-draw contrast sheets. Preserve masks/facing/walk/pause/camera logic, UI/worker/door/storage colors, Core/contracts/persistence/versions/scenes/GUIDs.
+- Contract: stable human ink stays in reference light/dark blue (7097AE/454F6B), zombie ink in light/dark green (87944D/556B3C), corpse ink in gray (80877A/454C50). Choose the better luminance-contrast family swatch against the rendered surface beneath the visual body center; no outline/box/glow, shape or extra geometry. Human face stays cream, zombie face follows chosen green, eyes stay dark slate. Same selections at all zoom tiers. Preserve Core-timed gray→green rise interpolation and legacy flash overrides; transitional colors are deliberate palette exceptions.
+- Sample existing ColorForCell with the same forced-open door crossing presentation when relevant; no visibility/AI decision, timer, world data or saved appearance state. Cache palette luminance constants, choose body once per draw.
+- Validation: unified PASS711/743692, config/ABI and UI7061+3; focused Legacy7061, upgrade75 and World UI20 PASS. Missing-backdrop control fails correctly. Actual matrix/scenes inspected, native unrun.
+- Acceptance: independent contrast/approved family matrix over all reference walkable ground/road/sidewalk/home/store/DC surfaces at5/3/1 sizes, both directions/walks/state/flash/pause/integration and unchanged Core/save behavior. No rectangular outlines introduced; existing role/selection semantics retained. Visually inspect actual-draw sheet, run sequential unified and focused UI checks, publish verified HTTPS ZIP. Numeric glyph contrast is not a native/accessibility guarantee.
 
 ## GRAPHICS-PALETTE-08 — user-selected terrain-first reference palette
 

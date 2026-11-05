@@ -1,5 +1,7 @@
 # NPC zoom sprites: 5x5 / 3x3 / 1x1
 
+Current colors use [the NPC reference palette and contrast guide](NPC_PALETTE.md). The zoom/facing/walking technical sheets are refreshed with current default inks on a dark canvas; the current contrast matrix and world scenes show the surface-aware blue/green/gray choices.
+
 The user selected three raster sizes for zoom. The current close tier adds modest detail within the same 5x5 canvas; medium and distant tiers retain their existing simpler masks. Human and zombie use identical geometry at each tier, with their existing state colors. No global palette rollout or glow.
 
 | Available body size in screen pixels (shorter side) | Raster | Scaling |

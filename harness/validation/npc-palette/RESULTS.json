@@ -1,0 +1,23 @@
+{
+  "task": "GRAPHICS-NPC-PALETTE-09",
+  "baseline": "6578df3",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 7061,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "testedStableNonEyeGlyphContrastFloor": 1.5,
+  "contrastClaim": "Only tested reference surfaces; not text/native/accessibility certification",
+  "negativeControl": "Omitted actual backdrop causes intended real-renderer palette assertion failure",
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "f986f8716868bfc332c2bbb3dcd43fcfe540a96c4a539d65b7937d5cf4e20fa2",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "08f65e44618e25da355f95554b1ba508d7d2764c5bc797c33489edd91b19d584",
+    "OutbreakRebuild/Tests/UiHarness.cs": "8a557afbadc70d89eec9a858910ca572016cd174ce547aaa681c8d1276290835"
+  },
+  "upgradeUiAssertions": 75,
+  "worldUiAssertions": 20
+}
