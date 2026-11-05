@@ -1,6 +1,15 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-CAMERA-05 implemented; hosted validation PASS, publication under standing authorization. Native testing paused; survival issues remain.
+Status: GRAPHICS-WALK-06 implemented; full hosted checks PASS and publication follows standing authorization. Native testing paused; survival issues remain.
+
+## GRAPHICS-WALK-06 — user-approved two-frame close walk cycle
+
+- Baseline5a815f1. User selected the proposed next step. Publish automatically after validation; native testing stays paused.
+- Files: MovementPresentation.cs (read-only segment phase), NpcGlyphPresentation.cs, FoundationApp.cs, UiHarness.cs; sprite/manual/README/plan/build/validation docs and actual-draw animation sheet. Preserve .meta, Core/contracts/persistence, camera controls and all unrelated work.
+- Contract: two alternating foot poses only for close5x5 living walkers on verified existing motion segments. Human/zombie anatomy/face/body inks shared; medium3x3/distant1x1 static. Idle bob, snapshots/unsafe moves, pushes, death/rise/active grapples do not trigger walking. Reuse segment timing, not another clock or simulation command. Stationary stance returns when a segment ends.
+- Pause captures the current foot pose before existing motion snapping; repeated redraws/zoom/text controls keep it frozen. Manual ticks/load/restart reset stale pose; playback resumes through existing movement. Bounded presentation-only pause cache, no save schema changes.
+- Validation: unified PASS711/743692, config/ABI and UI5738+3; focused Legacy5738, upgrade75 and World UI20 PASS. Both static-call/pause-cache controls fail correctly. Visual sheet inspected; native unrun.
+- Acceptance: exact frame geometry/face/flash consistency, actual committed movement/idle/unsafe/push/terminal boundaries, real app movement/pause/repeated paint/zoom/restart/state/tick invariants for both species. Visually inspect actual-draw frames enlarged/unit pitch. Unified runner sequentially and focused upgrade/World checks if needed; verify published HTTPS ZIP. No walking decision or movement cost in UI.
 
 ## GRAPHICS-CAMERA-05 — richer close sprites, working zoom, keyboard pan
 

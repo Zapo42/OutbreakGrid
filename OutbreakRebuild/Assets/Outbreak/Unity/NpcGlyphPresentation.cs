@@ -12,6 +12,9 @@ namespace Outbreak.UnityAdapter
         public const int Height = 5;
         public const int Human = 14 | (14 << 5) | (31 << 10) | (14 << 15) | (10 << 20); // .###./.###./#####/.###./.#.#.
         public const int Zombie = Human;
+        // Only the feet move; head, body, colors and logical anchors remain shared across species.
+        public const int WalkLeft = (Human & ~(31 << 20)) | (6 << 20);  // .##..
+        public const int WalkRight = (Human & ~(31 << 20)) | (12 << 20); // ..##.
         public const int Corpse = 14 << 15;
         public const int Rising = (4 << 5) | (14 << 15) | (10 << 20);
 
@@ -52,7 +55,7 @@ namespace Outbreak.UnityAdapter
         {
             Color body = Ink(actor, tick, riseEnabled);
             // Only the close standing raster carries face details; distant/corpse/crouched masks keep state ink.
-            if (size != 5 || mask != Human || y > 1) return body;
+            if (size != 5 || (mask != Human && mask != WalkLeft && mask != WalkRight) || y > 1) return body;
             Color detail = y == 1 && x != 2 ? new Color(38 / 255f, 51 / 255f, 59 / 255f)
                 : actor.species == Species.Human ? new Color(198 / 255f, 199 / 255f, 174 / 255f)
                 : new Color(135 / 255f, 148 / 255f, 77 / 255f);
@@ -73,7 +76,7 @@ namespace Outbreak.UnityAdapter
                 (float)Math.Floor(logicalBody.y + (logicalBody.height - side) / 2 + 0.5f), side, side);
         }
 
-        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null)
+        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1)
         {
             Rect pixels = PixelBounds(logicalBody);
             Color previous = GUI.color;
@@ -83,6 +86,8 @@ namespace Outbreak.UnityAdapter
             {
                 int size = Tier(logicalBody);
                 int mask = Mask(actor, tick, riseEnabled, size);
+                if (size == 5 && mask == Human && walkFrame >= 0 && (!riseEnabled || actor.riseUntilTick <= tick))
+                    mask = (walkFrame & 1) == 0 ? WalkLeft : WalkRight;
                 float pitch = pixels.width / size;
                 for (int y = 0; y < size; y++)
                 for (int x = 0; x < size; x++)
@@ -112,6 +117,14 @@ namespace Outbreak.UnityAdapter
 
     public sealed partial class FoundationApp
     {
+        private void StartNpcWalkPreview()
+        {
+            // Use the existing seeded non-encounter movement fixture; rendering never chooses a destination.
+            World preview = new World(new WorldMap(32, 16, "NPC walk cycle", "npc-walk-cycle"), 214);
+            int id; preview.TrySpawn(Species.Human, 10, 8, out id); preview.TrySpawn(Species.Zombie, 20, 8, out id);
+            UseWorld(preview); selected = 0;
+            status = "Run to inspect both species walking with existing seeded movement. Pause freezes the feet; smaller zoom tiers stay static. Click map, then WASD/arrows to pan.";
+        }
         private void StartNpcGlyphPreview()
         {
             // This creates finite paused test data. Core alone decides all subsequent behavior.

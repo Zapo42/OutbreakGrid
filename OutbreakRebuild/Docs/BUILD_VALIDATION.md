@@ -1,5 +1,16 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-WALK-06 — two-frame close walking
+
+Baseline5a815f1. User selected the proposed two-frame walk cycle. Close5x5 living walkers alternate only the last-row foot pixels while keeping the existing16 occupied cells, head/face/body inks and logical anchors. Medium3x3/distant1x1 remain static. Phase reads the current verified MovementPresentation segment's existing duration; idle bob, unsafe moves/snaps/teleports and pushes cannot drive it. Rise/death/seated/active-grapple presentation takes priority.
+
+SetPaused captures the current foot phase before existing position snapping. A bounded per-actor presentation cache holds that phase across redraws/zoom; no animation state is saved. Manual stepping, load/restart and new movement retain the existing synchronization semantics without stale feet. Current Tests > Inspect Walking Sprites Paused uses existing seeded non-encounter movement for human/zombie inspection, not animation-driven movement.
+
+Sequential unified runner PASS exit0:711 core cases/743692 assertions, config, hosted Windows ABI, UI5738+3. Focused Legacy5738 PASS. Focused upgrade/restart75 and World recovery-area/bed UI20 PASS. Exact source hashes and raw logs: harness/validation/walk-cycle. Tests assert authored frame geometry and stable upper14 cells/colors; both species' real committed movement through both frames; independent Core continuation and unchanged state during draw/pause/zoom; frozen pose and manual/restart reset; timing/faster/continuous/idle/snap/push/rise/death/flash and smaller-tier boundaries. Isolated archive controls that omit the draw hookup or pause capture each fail at the intended actual-feet assertion; actual source passes. No tests disabled.
+
+Actual-draw SVG/PNG/GIF inspected at enlarged/unit pitch; final full-run sheet matches the inspected focused output byte-for-byte. GIF is an illustrative two-frame plot at500ms per pose, not Unity capture. Native Unity compile/render/input/DPI/dialog/player NOT RUN under existing pause; no EXE. Core/contracts/persistence, versions/settings/scenes, GUIDs, camera controls and known survival issues unchanged. Publish under standing authorization and verify the remote/archive before delivery.
+
+
 ## GRAPHICS-CAMERA-05 — close detail, real zoom input and keyboard panning
 
 Baseline7735ef4. User requested slightly richer sprites, reported no zoom-tier changes, requested WASD/arrows and a concrete next step. Close5x5 now has a shared16-cell human/zombie silhouette, cream/olive faces and two dark eye cells using approved reference inks. Existing body colors and medium/distant masks remain. Flash overrides all accents; standing rise details blend through existing Core progress. No new simulation rules.

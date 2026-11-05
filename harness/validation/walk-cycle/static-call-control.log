@@ -1,0 +1,6 @@
+System.Exception: Actual DrawWorld feet differ from the selected gait frame.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/walk-cycle/static-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.RequireRenderedFeet(Int32 species, Int32 frame) in /workspace/review/walk-cycle/static-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 245
+   at UiHarness.CheckNpcWalkCycle(String report) in /workspace/review/walk-cycle/static-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 312
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/walk-cycle/static-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 465
+   at UiHarness.Main(String[] args) in /workspace/review/walk-cycle/static-call-control/OutbreakRebuild/Tests/UiHarness.cs:line 633

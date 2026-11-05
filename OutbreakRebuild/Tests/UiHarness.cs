@@ -236,6 +236,94 @@ public static class UiHarness // Check actual application commands while making 
         }
         finally{UnityEngine.Screen.width=screenWidth;UnityEngine.Screen.height=screenHeight;Call(app,"OnDestroy");}
     }
+    private static void RequireRenderedFeet(int species, int frame)
+    {
+        var pixels=UnityEngine.GUI.draws.FindAll(d=>species==0 ? d.color.r==0.75f && d.color.g==0.8f && d.color.b==0.92f : d.color.r==0.23f && d.color.g==0.29f && d.color.b==0.14f);
+        Require(pixels.Count==10,"Walk preview lost a species' ten body pixels.");
+        float pitch=pixels[0].rect.width,x=pixels[0].rect.x;
+        int left=frame==1?2:1,right=frame==0?2:3;
+        Require(pixels[8].rect.x==x+left*pitch && pixels[9].rect.x==x+right*pitch,"Actual DrawWorld feet differ from the selected gait frame.");
+    }
+    private static void CheckNpcWalkCycle(string report)
+    {
+        MovementPresentation segment=new MovementPresentation();segment.Snap(0,0,0);
+        Require(segment.WalkFrame(0)==-1 && segment.WalkFrame(500)==-1 && segment.IdleX(500,1)!=0,"Idle bob incorrectly drives walking.");
+        segment.Observe(1,0,10,true,5);
+        foreach(double t in new[]{9.9,10,12.49,12.5,14.99,15})Require(segment.WalkFrame(t)==(t<10 || t>=15?-1:t<12.5?0:1),"Movement segment gait boundary wrong.");
+        segment.Observe(1,0,11,true,5);Require(segment.WalkFrame(12.5)==1,"An unchanged target restarted the gait.");
+        segment.Snap(1,0,20);Require(segment.WalkFrame(20)==-1,"Snap retained walking.");
+        segment.Observe(2,1,30,false);Require(segment.WalkFrame(30)==-1,"Unsafe movement animated a walk.");
+        segment.Observe(9,9,35);Require(segment.WalkFrame(35)==-1,"A teleport animated a walk.");
+        segment.Push(9,9,9.2,9,10,9,40);Require(segment.WalkFrame(40.5)==-1,"A shove animated walking.");
+        segment.Snap(0,0,0);segment.Observe(1,0,10,true,2,true);
+        Require(segment.WalkFrame(10)==0 && segment.WalkFrame(11)==1 && segment.WalkFrame(12)==-1,"Gait ignored a faster movement interval.");
+        segment.Observe(2,0,11,true,2,true);Require(segment.WalkFrame(11)==0 && segment.WalkFrame(12)==1 && segment.WalkFrame(13)==-1,"Continuous movement lost its bounded gait phase.");
+        string[] expected={".###./.###./#####/.###./.#.#.",".###./.###./#####/.###./.##..",".###./.###./#####/.###./..##."};
+        var sheet=new System.Text.StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='760' height='380' shape-rendering='crispEdges'><rect width='760' height='380' fill='#101820'/><text x='12' y='22' fill='#c6c7ae' font-family='monospace' font-size='12'>Close walk cycle: actual draws, enlarged + unit pitch (not Unity)</text>");
+        for(int species=0;species<2;species++)
+        {
+            var actor=new Outbreak.Contracts.ActorState{species=species==0?Outbreak.Contracts.Species.Human:Outbreak.Contracts.Species.Zombie,health=100};
+            var standing=new List<UnityEngine.DrawRecord>();
+            for(int pose=0;pose<3;pose++)
+            {
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,walkFrame:pose-1);
+                var draws=new List<UnityEngine.DrawRecord>(UnityEngine.GUI.draws);Require(draws.Count==16,"Walk frame changed close sprite density.");
+                string[] rows=expected[pose].Split('/');int n=0;
+                for(int y=0;y<5;y++)for(int x=0;x<5;x++)if(rows[y][x]=='#')
+                {
+                    var d=draws[n++];Require(d.rect.x==x && d.rect.y==y && d.rect.width==1 && d.rect.height==1,"Walk pose mask or square pixel grid wrong.");
+                    string ink="rgb("+(int)Math.Round(d.color.r*255)+","+(int)Math.Round(d.color.g*255)+","+(int)Math.Round(d.color.b*255)+")";
+                    sheet.Append("<rect x='"+(110+pose*210+x*20)+"' y='"+(60+species*160+y*20)+"' width='20' height='20' fill='"+ink+"'/>");
+                    sheet.Append("<rect x='"+(110+pose*210+x)+"' y='"+(190+species*160+y)+"' width='1' height='1' fill='"+ink+"'/>");
+                }
+                if(pose==0)standing=draws;
+                else for(int cell=0;cell<14;cell++)Require(draws[cell].rect.x==standing[cell].rect.x && draws[cell].rect.y==standing[cell].rect.y && draws[cell].color.r==standing[cell].color.r && draws[cell].color.g==standing[cell].color.g && draws[cell].color.b==standing[cell].color.b,"Walking altered the head/eyes/body ink or anchor.");
+                sheet.Append("<text x='"+(110+pose*210)+"' y='"+(180+species*160)+"' fill='#c6c7ae' font-family='monospace' font-size='12'>"+new[]{"Standing","Step A","Step B"}[pose]+"</text>");
+            }
+            sheet.Append("<text x='12' y='"+(100+species*160)+"' fill='#c6c7ae' font-family='monospace'>"+(species==0?"Human":"Zombie")+"</text>");
+            foreach(int tier in new[]{1,3})
+            {
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,tier,tier),actor,0,true,walkFrame:0);var first=new List<UnityEngine.DrawRecord>(UnityEngine.GUI.draws);
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,tier,tier),actor,0,true,walkFrame:1);
+                Require(first.Count==UnityEngine.GUI.draws.Count,"Gait changed a smaller tier.");
+                for(int n=0;n<first.Count;n++)Require(first[n].rect.x==UnityEngine.GUI.draws[n].rect.x && first[n].rect.y==UnityEngine.GUI.draws[n].rect.y && first[n].color.r==UnityEngine.GUI.draws[n].color.r,"Small tier did not remain static.");
+            }
+            var flash=new UnityEngine.Color(1,0.75f,0.65f);UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,flash,1);
+            Require(UnityEngine.GUI.draws.Count==16 && UnityEngine.GUI.draws.TrueForAll(d=>d.color.r==flash.r && d.color.g==flash.g && d.color.b==flash.b),"Walk flash lost cells or exposed face accents.");
+        }
+        sheet.Append("</svg>");if(report!=null)File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(report)),"NPC_WALK_PREVIEW.svg"),sheet.ToString());
+        var rising=new Outbreak.Contracts.ActorState{species=Outbreak.Contracts.Species.Zombie,health=100,riseUntilTick=5};
+        UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),rising,4,true,walkFrame:0);
+        Require(UnityEngine.GUI.draws.Count==16 && UnityEngine.GUI.draws[14].rect.x==1 && UnityEngine.GUI.draws[15].rect.x==3,"Reanimation gained a walking pose.");
+        rising.health=0;UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),rising,6,true,walkFrame:1);Require(UnityEngine.GUI.draws.Count==3,"A corpse gained walking legs.");
+        FoundationApp app=new FoundationApp();Call(app,"Awake");float dt=UnityEngine.Time.unscaledDeltaTime;
+        try
+        {
+            Press(app,"Inspect Walking Sprites Paused");World w=Field<World>(app,"world");string initial=Documents.Encode(w.Capture());World expectedWorld=World.Restore(w.Capture());
+            Require(w.Count==2 && !w.Encounter && Field<TickClock>(app,"clock").Paused,"Walking preview changed its seeded fixture/paused start.");
+            Render(app);RequireRenderedFeet(0,-1);RequireRenderedFeet(1,-1);
+            Press(app,"Run");UnityEngine.Time.unscaledDeltaTime=0.1f;bool[,] seen=new bool[2,2];int[] frames=new int[2];bool complete=false;
+            for(int n=0;n<160 && !complete;n++)
+            {
+                Call(app,"Update");while(expectedWorld.Tick<w.Tick)expectedWorld.Step();
+                Require(Documents.Encode(w.Capture())==Documents.Encode(expectedWorld.Capture()),"Animation changed committed movement/random continuation.");
+                double time=w.Tick+Field<TickClock>(app,"clock").Alpha;
+                for(int a=0;a<2;a++){frames[a]=(int)typeof(FoundationApp).GetMethod("WalkingFrame",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(app,new object[]{a,w.ActorAt(a),time});if(frames[a]>=0)seen[a,frames[a]]=true;}
+                string before=Documents.Encode(w.Capture());Render(app);RequireRenderedFeet(0,frames[0]);RequireRenderedFeet(1,frames[1]);Require(Documents.Encode(w.Capture())==before,"Drawing walking frames changed state.");
+                complete=seen[0,0] && seen[0,1] && seen[1,0] && seen[1,1] && frames[0]==1;
+            }
+            Require(complete,"Actual committed movement never displayed both poses for both species.");
+            string frozen=Documents.Encode(w.Capture());Press(app,"Pause");
+            for(int n=0;n<4;n++){Call(app,"Update");Render(app);RequireRenderedFeet(0,frames[0]);RequireRenderedFeet(1,frames[1]);Require(Documents.Encode(w.Capture())==frozen,"Paused redraw/update advanced simulation.");}
+            float startSpan=Field<float>(app,"span");var pointer=new UnityEngine.Vector2(UnityEngine.Screen.width-310,UnityEngine.Screen.height-190);
+            for(int n=0;n<30;n++)Render(app,"",new UnityEngine.Event{type=UnityEngine.EventType.ScrollWheel,mousePosition=pointer,delta=new UnityEngine.Vector2(0,3)});
+            for(int n=0;n<40 && Field<float>(app,"span")>startSpan;n++)Render(app,"",new UnityEngine.Event{type=UnityEngine.EventType.ScrollWheel,mousePosition=pointer,delta=new UnityEngine.Vector2(0,-3)});
+            RequireRenderedFeet(0,frames[0]);RequireRenderedFeet(1,frames[1]);Require(Documents.Encode(w.Capture())==frozen,"Paused zoom changed walking state/tick.");
+            Press(app,"Step 1 tick");Render(app);RequireRenderedFeet(0,-1);RequireRenderedFeet(1,-1);
+            Press(app,"Restart scenario");Render(app);RequireRenderedFeet(0,-1);RequireRenderedFeet(1,-1);Require(Documents.Encode(Field<World>(app,"world").Capture())==initial,"Restart retained animation or changed the authored fixture.");
+        }
+        finally{UnityEngine.Time.unscaledDeltaTime=dt;Call(app,"OnDestroy");}
+    }
     private static void CheckCameraNavigation()
     {
         int sw=UnityEngine.Screen.width,sh=UnityEngine.Screen.height;float dt=UnityEngine.Time.unscaledDeltaTime;
@@ -374,6 +462,7 @@ public static class UiHarness // Check actual application commands while making 
     private static void CheckNpcGlyphs(string report)
     {
         CheckCameraNavigation();
+        CheckNpcWalkCycle(report);
         CheckNpcZoomTiers(report);
         // Expected row strings are independent of the implementation masks; inspect actual submitted pixel rectangles.
         var human=new Outbreak.Contracts.ActorState{species=Outbreak.Contracts.Species.Human,health=100};

@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: detailed close sprites + camera controls.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Open OutbreakRebuild with Unity **6000.6.3f1**, then Current Tests → Inspect Zoom Sprites Paused. Click the map and hold WASD/arrows to pan; wheel over the full map panel to see 5x5/3x3/1x1 sprites. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
+**Current testing snapshot: two-frame close-up walking sprites.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Open OutbreakRebuild with Unity **6000.6.3f1**, then Current Tests → Inspect Walking Sprites Paused. Run to see both species walk; Pause holds the current foot pose. The 3×3 and 1×1 tiers stay static. WASD/arrows and wheel zoom are preserved. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).

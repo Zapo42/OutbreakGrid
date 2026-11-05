@@ -33,10 +33,23 @@ Click the map to leave any inspector text field, then hold **WASD or arrow keys*
 
 Use the wheel anywhere over the **allocated map panel**, including blank padding. The wheel magnitude is respected and zoom-out range adapts to panel resolution, so 5x5, 3x3 and 1x1 can all be reached on larger screens. Sidebar/toolbar scrolling does not zoom the map. The close tier may persist across several wheel steps before its physical size reaches the next threshold; this is intentional.
 
-## Recommended next increment
+## Two-frame close walking
 
-A two-frame walk cycle for the close5x5 sprite, driven only by existing committed movement and frozen for paused inspection. Keep both smaller tiers static, share human/zombie anatomy and preserve combat/selection overlays. This is a recommendation, not implementation in this increment.
+The5x5 standing sprite now has two walking foot poses. Head, eyes, body inks, logical dimensions and selection/occupation anchors stay identical. Both species use the same frames. The3x3/1x1 tiers remain static.
+
+```text
+Standing feet   Step A   Step B
+    .#.#.        .##..    ..##.
+```
+
+Feet alternate over the existing verified movement segment, first half then second half. There is no extra timer: ordinary/fast movement uses the segment's existing duration. Idle bob, unsafe/snap/teleport transitions and pushes do not drive walking. Death, active reanimation, vehicle seating and active grapple/shove presentation take precedence. Finishing a segment returns the stationary stance.
+
+**Pause holds the current foot pose.** The existing camera/body snap-on-pause behavior remains; a bounded presentation-only cache holds just the feet. Repeated redraws and zoom out/back keep the same frozen phase. Manual ticks reset to an inspected standing pose; load/restart clears stale gait; resuming uses subsequent committed movement. No animation state is serialized and no movement/food/AI decisions are made by presentation.
+
+Current Tests > **Inspect Walking Sprites Paused** opens a small seeded, non-encounter movement fixture with a human and zombie. Click Run to see both walking; click Pause to freeze them; restart restores the original paused scene. This uses existing baseline wandering, not new NPC behavior or scripted movement forced by animation. Zoom and camera controls remain available.
+
+[Animated technical preview](VisualReferences/npc-walk-preview.gif) · [standing/A/B sheet](VisualReferences/npc-walk-preview.png) · [actual-draw SVG](VisualReferences/npc-walk-preview.svg). These plot hosted drawing records, not Unity capture. The GIF uses a fixed illustrative half-second per frame; the game uses each real movement segment's timing.
 
 ## Verification and limits
 
-Checks independently assert authored rows for every tier/state, exact switch boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment is published under the user’s standing authorization. See BUILD_VALIDATION.md and harness/build-log.md for results.
+Checks independently assert authored rows for every tier/state, exact switch boundaries, both walking frames, pause/zoom/restart and segment/idle/push boundaries, square pixels, GUI ink restoration, real DrawWorld transitions in both directions without saved-state/tick changes, selection, need bars, restart and combat contact. UI API doubles cannot establish actual Unity rendering, DPI/input/dialogs or Windows player execution. Native testing remains paused; this increment is published under the user’s standing authorization. See BUILD_VALIDATION.md and harness/build-log.md for results.

@@ -1,0 +1,26 @@
+{
+  "task": "GRAPHICS-WALK-06",
+  "baseline": "5a815f1",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 5738,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "negativeControls": {
+    "staticDrawCall": "Expected failure at actual rendered feet",
+    "missingPauseCapture": "Expected failure at paused rendered feet"
+  },
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/MovementPresentation.cs": "b3f39c92fd9dc1c42fbabec8fdcfbe6c3c2401e7746935c3e77ad66fd819782e",
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "493f76af88a1e5ba6a0d4c293cca7dc866cd5b254c2feee50f49919a6c9edd11",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "6d75e541b80d790b231ae39dd54329beb2711f5850735a42ccbf27058e6095c3",
+    "OutbreakRebuild/Tests/UiHarness.cs": "56d21b83fb2bb36ecdae6f12de43f4bacad0ae92feb6db885d7e3523f0653f7b"
+  },
+  "preview": "Actual submitted draw records; illustrative GIF duration500ms per pose, not native video",
+  "upgradeUiAssertions": 75,
+  "worldUiAssertions": 20
+}
