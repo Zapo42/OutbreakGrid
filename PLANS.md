@@ -1,6 +1,14 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-NPC-PALETTE-09 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+Status: GRAPHICS-UNIFORMS-10 complete under hosted checks and publishing. Further cosmetic/color expansion is not the default next task; recommend existing shopping/survival work. Native testing paused.
+
+## GRAPHICS-UNIFORMS-10 — user-selected existing-worker uniforms; stop expanding color coding
+
+- Baselinef823527. User requests brown couriers and blue-shirt/pale-yellow-apron clerks, reserves dark-blue LEOs and green-cross medics for future, and questions continuing cosmetic minutiae. Implement only existing courier/clerk uniforms, then recommend returning to documented shopping/survival failures rather than another cosmetic pass. Publish after checks; native testing paused.
+- Files: NpcGlyphPresentation.cs, FoundationApp.cs job draw argument/build label, UiHarness.cs; uniform/preference/README/plan/build/validation records and actual-draw uniform sheet. No new roles, Core/contracts/persistence, saved appearance state, versions/scenes/GUID changes.
+- Close5x5 living employed humans use existing AssignedOccupation: couriers reference brown/tan chosen for terrain contrast; clerks retain adaptive blue sleeves/legs with a fixed pale-yellow apron (center bib and torso). Assigned uniforms persist off duty, existing role bands retain duty status. Ordinary humans/zombies/corpses unchanged. All lower tiers retain species inks; no added markers/boxes/geometry/glow. Flash overrides complete uniform and face; walk/facing/pause/context colors preserve existing behavior.
+- Validation: unified PASS711/743692, config/ABI and UI7222+3; focused Legacy7222 PASS. Missing-job control fails correctly; actual-draw sheet inspected. Native unrun.
+- Acceptance: actual worker appearance from authoritative job getter, exact cells/inks, safe state/zoom/flash/walk/facing handling, no state/tick changes, existing role/selection/legacy cases retained. Inspect sheet; unified sequential runner and verify HTTPS publication. Future LEO/medic conventions documented only, no code enum/state/behavior or speculative color layer.
 
 ## GRAPHICS-NPC-PALETTE-09 — user-selected NPC reference-palette/readability pass
 

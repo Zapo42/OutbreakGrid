@@ -1,5 +1,7 @@
 # NPC reference palette and surface contrast
 
+Existing human jobs now have [close-up uniforms](WORKER_UNIFORMS.md): brown/tan couriers and blue/pale-yellow-apron clerks. The species palette below still applies to ordinary humans, zombies/corpses and all smaller tiers; permanent job data styles only the living close sprite.
+
 Stable NPC ink now uses the approved reference palette, keeping human/zombie/corpse color families:
 
 | State | Light / dark body swatches |

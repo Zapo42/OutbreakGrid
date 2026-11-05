@@ -1,5 +1,7 @@
 # Current development preferences
 
+- User feels color coding is becoming too minute. Finish brown courier / blue-shirt pale-yellow-apron clerk uniforms, then stop extending cosmetic/color layers by default. Future LEO dark blue and medic green crosses are conventions only, not new roles or implementation authorization. Recommend the existing shopping/survival failures next, not another palette pass.
+
 - Doors and storage appearances are approved. Preserve them; do not keep proposing their redesign unless the user revisits it. The user selected a terrain-first reference-palette pass, with other art/identity colors unchanged for this increment.
 
 ## Standing publication preference — November 4, 2026

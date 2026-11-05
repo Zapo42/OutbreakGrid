@@ -1,0 +1,5 @@
+System.Exception: Real renderer did not style the assigned courier.
+   at UiHarness.Require(Boolean value, String message) in /workspace/review/uniforms/missing-role-control/OutbreakRebuild/Tests/UiHarness.cs:line 57
+   at UiHarness.CheckWorkerUniforms(String report) in /workspace/review/uniforms/missing-role-control/OutbreakRebuild/Tests/UiHarness.cs:line 285
+   at UiHarness.CheckNpcGlyphs(String report) in /workspace/review/uniforms/missing-role-control/OutbreakRebuild/Tests/UiHarness.cs:line 759
+   at UiHarness.Main(String[] args) in /workspace/review/uniforms/missing-role-control/OutbreakRebuild/Tests/UiHarness.cs:line 929

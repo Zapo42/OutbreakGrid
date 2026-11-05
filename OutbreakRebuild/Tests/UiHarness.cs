@@ -236,6 +236,60 @@ public static class UiHarness // Check actual application commands while making 
         }
         finally{UnityEngine.Screen.width=screenWidth;UnityEngine.Screen.height=screenHeight;Call(app,"OnDestroy");}
     }
+    private static void CheckWorkerUniforms(string report)
+    {
+        var actor=new Outbreak.Contracts.ActorState{species=Outbreak.Contracts.Species.Human,health=100};
+        var jobs=new[]{HumanOccupation.Consumer,HumanOccupation.Courier,HumanOccupation.Clerk};
+        var sheet=new System.Text.StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='760' height='380' shape-rendering='crispEdges'><rect width='760' height='380' fill='#101820'/><text x='12' y='22' fill='#c6c7ae' font-family='monospace' font-size='12'>Worker uniforms: actual close draws + unit pitch, not Unity</text>");
+        for(int row=0;row<2;row++)
+        {
+            var bg=row==0?TerrainPalette.Grass:TerrainPalette.Sand;PaletteSvgRect(sheet,new UnityEngine.Rect(0,45+row*160,760,150),bg);
+            for(int job=0;job<3;job++)
+            {
+                UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,background:bg,occupation:jobs[job]);
+                Require(UnityEngine.GUI.draws.Count==16,"Uniform added geometry or changed the human silhouette.");int apron=0;
+                foreach(var d in UnityEngine.GUI.draws)
+                {
+                    string expected=d.rect.y<2 ? (d.rect.y==1 && d.rect.x!=2?"#26333B":"#C6C7AE")
+                        : job==1?(row==0?"#BA975F":"#79583D") : job==2 && (d.rect.y==3 || (d.rect.y==2 && d.rect.x==2))?"#E0C87A":row==0?"#7097AE":"#454F6B";
+                    Require(PaletteSvgColor(d.color)==expected,"Worker shirt/apron/skin ink or bib placement wrong.");if(PaletteSvgColor(d.color)=="#E0C87A")apron++;
+                    PaletteSvgRect(sheet,new UnityEngine.Rect(110+job*210+d.rect.x*20,60+row*160+d.rect.y*20,20,20),d.color);
+                    PaletteSvgRect(sheet,new UnityEngine.Rect(110+job*210+d.rect.x,183+row*160+d.rect.y,1,1),d.color);
+                }
+                Require(apron==(job==2?4:0),"Pale apron did not remain exclusive to clerks.");
+                sheet.Append("<text x='"+(110+job*210)+"' y='"+(177+row*160)+"' fill='#101820' font-family='monospace' font-size='12'>"+new[]{"Resident","Courier","Clerk"}[job]+"</text>");
+                foreach(int size in new[]{1,3})
+                {
+                    UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,size,size),actor,0,true,background:bg,occupation:jobs[job]);
+                    Require(UnityEngine.GUI.draws.Count==(size==1?1:4) && UnityEngine.GUI.draws.TrueForAll(d=>IsHumanInk(d.color)),"Uniform replaced species identity in a smaller zoom tier.");
+                }
+                foreach(int facing in new[]{-1,1})foreach(int frame in new[]{0,1})
+                {
+                    UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,walkFrame:frame,facing:facing,background:bg,occupation:jobs[job]);
+                    Require(UnityEngine.GUI.draws[14].rect.x==(frame==0?1:2) && UnityEngine.GUI.draws[15].rect.x==(frame==0?2:3) && UnityEngine.GUI.draws[0].rect.x==1+facing,"Uniform changed walking or facing geometry.");
+                }
+                var flash=new UnityEngine.Color(1,0.75f,0.65f);UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),actor,0,true,flash,occupation:jobs[job]);
+                Require(UnityEngine.GUI.draws.Count==16 && UnityEngine.GUI.draws.TrueForAll(d=>d.color.r==flash.r && d.color.g==flash.g && d.color.b==flash.b),"Uniform survived an overriding hit flash.");
+            }
+        }
+        sheet.Append("</svg>");if(report!=null)File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(report)),"WORKER_UNIFORMS.svg"),sheet.ToString());
+        var zombie=actor;zombie.species=Outbreak.Contracts.Species.Zombie;UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),zombie,0,true,occupation:HumanOccupation.Clerk);
+        Require(!UnityEngine.GUI.draws.Exists(d=>PaletteSvgColor(d.color)=="#E0C87A"),"Zombie retained a living human apron.");
+        var corpse=actor;corpse.health=0;UnityEngine.GUI.draws.Clear();NpcGlyphPresentation.Draw(new UnityEngine.Rect(0,0,5,5),corpse,0,true,occupation:HumanOccupation.Courier);
+        Require(UnityEngine.GUI.draws.Count==3 && UnityEngine.GUI.draws.TrueForAll(d=>IsCorpseInk(d.color)),"Corpse retained a living uniform instead of its dead state.");
+        var app=new FoundationApp();Call(app,"Awake");
+        try
+        {
+            Press(app,"Inspect Worker Uniforms Paused");World w=Field<World>(app,"world");string before=Documents.Encode(w.Capture());Render(app);
+            Require(w.AssignedOccupation(0)==HumanOccupation.Courier && w.AssignedOccupation(1)==HumanOccupation.Clerk && w.AssignedOccupation(2)==HumanOccupation.Consumer,"Uniform preview fabricated/misread existing job assignments.");
+            Require(UnityEngine.GUI.draws.FindAll(d=>PaletteSvgColor(d.color)=="#BA975F" || PaletteSvgColor(d.color)=="#79583D").Count==10,"Real renderer did not style the assigned courier.");
+            Require(UnityEngine.GUI.draws.FindAll(d=>PaletteSvgColor(d.color)=="#E0C87A").Count==4,"Real renderer did not supply the clerk role/apron.");
+            Require(Documents.Encode(w.Capture())==before && Field<TickClock>(app,"clock").Paused,"Uniform drawing changed simulation state/tick.");
+            Press(app,"Step 100 ticks");Require(w.AssignedOccupation(0)==HumanOccupation.Courier && w.AssignedOccupation(1)==HumanOccupation.Clerk,"Uniform source discarded permanent employment at shift end.");
+            Press(app,"Restart scenario");Require(Documents.Encode(Field<World>(app,"world").Capture())==before,"Uniform preview restart altered the authored worker fixture.");
+        }
+        finally{Call(app,"OnDestroy");}
+    }
     private static double NpcTestLuma(UnityEngine.Color c)
     {
         double[] values={c.r,c.g,c.b};for(int i=0;i<3;i++)values[i]=values[i]<=0.04045?values[i]/12.92:Math.Pow((values[i]+0.055)/1.055,2.4);
@@ -702,6 +756,7 @@ public static class UiHarness // Check actual application commands while making 
         CheckCameraNavigation();
         CheckTerrainPalette(report);
         CheckNpcPaletteContrast(report);
+        CheckWorkerUniforms(report);
         CheckNpcFacing(report);
         CheckNpcWalkCycle(report);
         CheckNpcZoomTiers(report);

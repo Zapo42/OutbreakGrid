@@ -44,13 +44,14 @@ namespace Outbreak.UnityAdapter
         private static double Linear(float v) { return v <= 0.04045f ? v / 12.92 : Math.Pow((v + 0.055) / 1.055, 2.4); }
         private static double Luminance(Color c) { return 0.2126 * Linear(c.r) + 0.7152 * Linear(c.g) + 0.0722 * Linear(c.b); }
         private static readonly double blueLight=Luminance(TerrainPalette.WaterBlue),blueDark=Luminance(TerrainPalette.StoreBlue),
-            greenLight=Luminance(TerrainPalette.Olive),greenDark=Luminance(TerrainPalette.Grass),grayLight=Luminance(TerrainPalette.Stone),grayDark=Luminance(TerrainPalette.Charcoal);
+            greenLight=Luminance(TerrainPalette.Olive),greenDark=Luminance(TerrainPalette.Grass),grayLight=Luminance(TerrainPalette.Stone),grayDark=Luminance(TerrainPalette.Charcoal),brownLight=Luminance(TerrainPalette.Sand),brownDark=Luminance(TerrainPalette.Wood);
         private static double Contrast(double a,double b) { return (Math.Max(a,b)+0.05)/(Math.Min(a,b)+0.05); }
         private static Color Choose(Color light,Color dark,double lightLuma,double darkLuma,double surface)
         {
             return Contrast(lightLuma,surface)>=Contrast(darkLuma,surface)?light:dark;
         }
         private static Color CorpseInk(Color background) { return Choose(TerrainPalette.Stone,TerrainPalette.Charcoal,grayLight,grayDark,Luminance(background)); }
+        private static Color CourierInk(Color background) { return Choose(TerrainPalette.Sand,TerrainPalette.Wood,brownLight,brownDark,Luminance(background)); }
         public static Color Ink(ActorState actor, double tick, bool riseEnabled, Color? background = null)
         {
             // Only presentation reads the rendered surface. Both shades retain a stable species color family.
@@ -63,9 +64,19 @@ namespace Outbreak.UnityAdapter
             float progress=(float)RiseRules.Progress(actor,tick);
             return new Color(Mathf.Lerp(corpse.r,green.r,progress),Mathf.Lerp(corpse.g,green.g,progress),Mathf.Lerp(corpse.b,green.b,progress));
         }
-        private static Color CellInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing,Color body,Color corpse)
+        private static Color CellInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing,Color body,Color corpse,HumanOccupation occupation,Color clothes)
         {
-            if(size!=5 || (mask!=Human && mask!=WalkLeft && mask!=WalkRight) || y>1)return body;
+            if(size!=5 || (mask!=Human && mask!=WalkLeft && mask!=WalkRight))return body;
+            if(y>1)
+            {
+                // Existing job identity styles only the close sprite; no behavior or saved uniform state.
+                if(actor.species==Species.Human)
+                {
+                    if(occupation==HumanOccupation.Courier)return clothes;
+                    if(occupation==HumanOccupation.Clerk && (y==3 || (y==2 && x==2)))return TerrainPalette.Gold;
+                }
+                return body;
+            }
             bool eye=y==1 && (facing==0?x!=2:x==(facing<0?1:3));
             if(!eye)return actor.species==Species.Human?TerrainPalette.Cream:body;
             if(actor.species==Species.Zombie && riseEnabled && actor.riseUntilTick>tick)
@@ -75,9 +86,9 @@ namespace Outbreak.UnityAdapter
             }
             return TerrainPalette.Structure;
         }
-        public static Color PixelInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing=0,Color? background=null)
+        public static Color PixelInk(ActorState actor,double tick,bool riseEnabled,int size,int mask,int x,int y,int facing=0,Color? background=null,HumanOccupation occupation=HumanOccupation.Consumer)
         {
-            return CellInk(actor,tick,riseEnabled,size,mask,x,y,facing,Ink(actor,tick,riseEnabled,background),CorpseInk(background ?? TerrainPalette.Ink));
+            return CellInk(actor,tick,riseEnabled,size,mask,x,y,facing,Ink(actor,tick,riseEnabled,background),CorpseInk(background ?? TerrainPalette.Ink),occupation,occupation==HumanOccupation.Courier?CourierInk(background ?? TerrainPalette.Ink):Ink(actor,tick,riseEnabled,background));
         }
 
         public static Rect PixelBounds(Rect logicalBody)
@@ -89,13 +100,14 @@ namespace Outbreak.UnityAdapter
                 (float)Math.Floor(logicalBody.y + (logicalBody.height - side) / 2 + 0.5f), side, side);
         }
 
-        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1, int facing = 0, Color? background = null)
+        public static void Draw(Rect logicalBody, ActorState actor, double tick, bool riseEnabled, Color? flash = null, int walkFrame = -1, int facing = 0, Color? background = null, HumanOccupation occupation = HumanOccupation.Consumer)
         {
             Rect pixels = PixelBounds(logicalBody);
             Color previous = GUI.color;
             // Pick once per body, rather than recomputing surface contrast for every occupied pixel.
             Color body = Ink(actor,tick,riseEnabled,background);
             Color corpse = actor.species==Species.Zombie && riseEnabled && actor.riseUntilTick>tick ? CorpseInk(background ?? TerrainPalette.Ink) : TerrainPalette.Stone;
+            Color clothes = occupation==HumanOccupation.Courier ? CourierInk(background ?? TerrainPalette.Ink) : body;
             GUI.color = flash ?? body;
             if (pixels.width == 1) GUI.DrawTexture(pixels, Texture2D.whiteTexture);
             else
@@ -112,7 +124,7 @@ namespace Outbreak.UnityAdapter
                 for (int x = 0; x < size; x++)
                     if ((mask & (1 << (y * size + x))) != 0)
                     {
-                        GUI.color = flash ?? CellInk(actor, tick, riseEnabled, size, mask, x, y, poseFacing, body, corpse);
+                        GUI.color = flash ?? CellInk(actor, tick, riseEnabled, size, mask, x, y, poseFacing, body, corpse, occupation, clothes);
                         GUI.DrawTexture(new Rect(pixels.x + (x + (y < 2 ? poseFacing : 0)) * pitch, pixels.y + y * pitch, pitch, pitch), Texture2D.whiteTexture);
                     }
             }
@@ -136,6 +148,12 @@ namespace Outbreak.UnityAdapter
 
     public sealed partial class FoundationApp
     {
+        private void StartWorkerUniformPreview()
+        {
+            // Reuse the existing finite worker-shift fixture; the UI only presents its assigned jobs.
+            UseWorld(EncounterScenarios.WorkerShiftTest()); selected=1;
+            status="Brown courier, blue-shirt/pale-yellow-apron clerk, and ordinary resident. Close zoom shows uniforms; smaller views keep species colors. Existing shifts and gray off-duty role bands remain.";
+        }
         private void StartNpcWalkPreview()
         {
             // Use the existing seeded non-encounter movement fixture; rendering never chooses a destination.

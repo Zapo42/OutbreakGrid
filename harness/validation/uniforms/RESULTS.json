@@ -1,0 +1,20 @@
+{
+  "task": "GRAPHICS-UNIFORMS-10",
+  "baseline": "f823527",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 7222,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "negativeControl": "Omitting actual job argument fails actual courier renderer assertion",
+  "futureRoles": "LEO dark blue / medic green cross: notes only, no roles/behavior added",
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/NpcGlyphPresentation.cs": "e191b1cd66ca9f8b729a41984407d9855497aa2d09fdec5ee38c7ff46d70d406",
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "8878d34e2ce57c694063c57dad2078f4d0d09fa0b0f021713a8df1e40f24ed13",
+    "OutbreakRebuild/Tests/UiHarness.cs": "a803d0e91c0f1173c44e9acec0a59f574410a84fa4dee1c69911b052b2be6efd"
+  }
+}

@@ -31,6 +31,7 @@ Standing user authorization (November 4, 2026): ALWAYS publish completed, valida
 ## Presentation and checkpoint requirements
 - Organize information around the selected item with collapsible encounter sections. Keep current previews easy to find and historical previews in Old Test Scenarios.
 - Preserve simulation speed controls, Main Menu, Restart Scenario, selected-only optional H/F/E bars and the descending food display.
+- Color-coding scope: existing cues are sufficient after courier brown and clerk blue/pale-yellow uniforms. Do not keep proposing cosmetic passes; return to the documented gameplay/shopping/survival work when selected. Future LEO dark blue and medic green crosses are conventions only, not implemented roles.
 - Preserve readable building/storage identities, door states and occupation outlines. Doors and storage appearances are explicitly approved; do not redesign or keep suggesting them unless the user reopens that work. Make pixel-art changes incrementally, retaining existing colors and detail.
 - Keep authoritative simulation decisions in the core, outside UI and animation code.
 - Keep Unity 6000.6.3f1 and dependency versions unchanged without authorization. Preserve asset GUIDs and .meta files.

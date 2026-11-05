@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: NPC reference palette and terrain readability.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1**. [Blue/green/gray mappings and actual-draw contrast previews](OutbreakRebuild/Docs/NPC_PALETTE.md). Species retain their color families with surface-aware light/dark shades across all zoom tiers; shapes, walking/facing and controls stay intact. Doors/storage and UI identities are preserved. Source project, not a Windows EXE. Native Unity remains unverified; survival/next-day work issues remain.
+**Current testing snapshot: courier and clerk uniforms.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1** → Current Tests → Inspect Worker Uniforms Paused. Close-up couriers wear brown/tan; clerks wear blue with pale-yellow aprons. [Uniform sheet and scope](OutbreakRebuild/Docs/WORKER_UNIFORMS.md). Smaller tiers retain species colors; existing role bands and controls remain. Future LEO/medic colors are notes, not new roles. Source project, not a Windows EXE. Native Unity remains unverified; survival/next-day work issues remain.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).
