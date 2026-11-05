@@ -1,5 +1,7 @@
 # Current development preferences
 
+- Doors and storage appearances are approved. Preserve them; do not keep proposing their redesign unless the user revisits it. The user selected a terrain-first reference-palette pass, with other art/identity colors unchanged for this increment.
+
 ## Standing publication preference — November 4, 2026
 
 ALWAYS publish completed, validated increments to GitHub automatically and give an actual HTTPS ZIP download. This supersedes the earlier keep-local instruction; routine publication requires no repeated confirmation. Workspace/sandbox links are not acceptable delivery. Preserve existing checkpoints and versions, report known failures, and distinguish Unity project source from compiled players. Native testing remains paused.

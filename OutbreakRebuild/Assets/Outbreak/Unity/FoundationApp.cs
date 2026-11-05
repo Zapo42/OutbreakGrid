@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Facing/walking sprites + keyboard pan / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "Terrain palette + facing/walking sprites / rules 107"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; private Color[] terrainPixels; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private int[] pausedWalkFrames; // Freeze only the foot pose on pause; never serialize presentation state.
@@ -857,10 +857,22 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
         } // Finish terrain feedback.
         private static Color ColorFor(Terrain value) // Keep debug colors in presentation rather than in movement rules.
         { // Begin terrain presentation.
-            if (value == Terrain.Wall || value == Terrain.Fence || value == Terrain.GateClosed) return new Color(0.18f, 0.18f, 0.2f); // Show solid structural cells clearly.
-            if (TerrainRules.RoadSurface(value)) return new Color(0.27f, 0.28f, 0.31f); if (value == Terrain.Sidewalk) return new Color(0.6f, 0.6f, 0.56f); // Distinguish travel surfaces in the fixture.
-            if (value == Terrain.Floor) return new Color(0.55f, 0.45f, 0.32f); if (value == Terrain.Window) return new Color(0.3f, 0.65f, 0.72f); if (value == Terrain.Water) return new Color(0.15f, 0.36f, 0.6f); // Keep room floors, glass, and water visually separate.
-            if (value == Terrain.DoorClosed) return new Color(0.70f, 0.62f, 0.53f); if (value == Terrain.DoorOpen) return new Color(0.39f, 0.33f, 0.28f); if (value == Terrain.GateOpen) return new Color(0.65f, 0.45f, 0.2f); return new Color(0.23f, 0.36f - (int)value * 0.005f, 0.22f); // Supply a stable grass fallback for remaining known terrain.
+            // Terrain families keep their identities while using the approved reference swatches.
+            if (value == Terrain.Wall) return TerrainPalette.Structure;
+            if (value == Terrain.Fence) return TerrainPalette.Wood;
+            if (TerrainRules.RoadSurface(value)) return TerrainPalette.Ink;
+            if (value == Terrain.Sidewalk) return TerrainPalette.Stone;
+            if (value == Terrain.Floor) return TerrainPalette.Sand;
+            if (value == Terrain.Window) return TerrainPalette.Aqua;
+            if (value == Terrain.Water) return TerrainPalette.WaterBlue;
+            // The user approved existing doors/gates; retain their exact colors and damage handling above.
+            if (value == Terrain.GateClosed) return new Color(0.18f, 0.18f, 0.2f);
+            if (value == Terrain.DoorClosed) return new Color(0.70f, 0.62f, 0.53f);
+            if (value == Terrain.DoorOpen) return new Color(0.39f, 0.33f, 0.28f);
+            if (value == Terrain.GateOpen) return new Color(0.65f, 0.45f, 0.2f);
+            if (value == Terrain.Grass2 || value == Terrain.Grass5) return TerrainPalette.Sage;
+            if (value == Terrain.Grass3) return TerrainPalette.Olive;
+            return TerrainPalette.Grass;
         } // Finish terrain presentation.
         private void OnDestroy() // Release presentation resources and any scheduled callback owned by this component.
         { // Begin component cleanup.

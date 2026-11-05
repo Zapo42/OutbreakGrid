@@ -1,5 +1,16 @@
 # Build validation and rollback checkpoint
 
+## GRAPHICS-PALETTE-08 — terrain-first approved palette
+
+Baseline561a97c. User approved doors/storage as-is and selected the proposed restrained reference-palette pass starting with terrain. ColorFor surface families, BuildingFloorColor and lane/crosswalk paint now use exact approved swatches. Grass IDs quantize into three greens; road/crossing base deep ink, sidewalk stone, walls slate, fences wood, windows aqua and water blue. Home/store/DC floors retain warm/blue/green role identities. No map/generation/state changes or new geometry. This is a terrain pass, not a whole-frame16-color conversion.
+
+All existing door/gate goldens remain exact; ColorForCell door damage/open/broken logic and all storage/phone icon functions are byte-identical to baseline. NPC/furniture/selection/occupation/HFE/UI colors remain unchanged. The user preference not to redesign approved doors/storage is saved in instructions/preferences.
+
+Unified sequential runner PASS exit0:711 cases/743692 assertions, config/hosted Windows ABI, Legacy UI6159/NewOnly3; focused Legacy6159 PASS. Focused upgrade/restart75 and World recovery-area/bed UI20 PASS. Evidence and exact source hashes: harness/validation/terrain-palette. Surface/floor goldens and actual terrain buffer samples assert exact role mappings, road/crossing identity, protected doors/gates and unchanged saved state/tick. Existing object/damage/actor/worker/camera/UI/legacy cases retained. Crosswalk tests distinguish rectangular cream stripes from square cream face pixels while retaining positive orientations and stale-paint rejection; no test disabled.
+
+Production-buffer/overlay SVG/PNG scenes visually inspected for building/street contrast. Full-run SVGs byte-identical to inspected focused output. These are hosted technical previews, not native Unity screenshots. Native Unity compile/render/input/DPI/dialog/player NOT RUN under pause; no EXE. No Core/contracts/persistence/settings/versions/scenes/GUID/generator changes, no survival-fix claim. Standing publication authorization applies; verify actual remote/HTTPS archive before delivery.
+
+
 ## GRAPHICS-FACING-07 — left/right facing and default consumer box removal
 
 Baselinee5562f5. User selected left/right facing and reported a box on an unselected human. Close5x5 now reads the last verified horizontal movement: the head shifts one logical cell and shows a single outward eye. Same body/feet/anatomy/colors for both species; vertical/idle/camera changes do not turn it. Pause/resume snaps preserve facing; new/load/restart/unsafe/manual inspection snaps default front. Smaller tiers, corpses and active reanimation stay unchanged. No Core decisions or serialized direction.

@@ -1,6 +1,14 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-FACING-07 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+Status: GRAPHICS-PALETTE-08 implemented; full hosted checks PASS, publication under standing authorization. Native testing paused; survival issues remain.
+
+## GRAPHICS-PALETTE-08 — user-selected terrain-first reference palette
+
+- Baseline561a97c. User said doors/storage are good and selected the proposed restrained16-color palette pass starting with terrain. Publish after validation; native testing paused.
+- Files: FoundationApp.cs ColorFor/build label only, BuildingPresentation.cs palette constants/BuildingFloorColor only, CrosswalkPresentation.cs paint inks only, UiHarness.cs; terrain palette guide/README/plan/build/validation records and actual terrain-buffer/overlay previews. Preserve icon/door/gate functions, all NPC/UI colors, map geometry, Core/contracts/persistence, versions/scenes/GUIDs and unrelated work.
+- Contract: exact approved reference swatches for grass/roads/sidewalk/wall/fence/window/water and home/store/DC floor identities. Existing five grass IDs remain, quantized into three green swatches; no terrain mutation or texture geometry additions. Roads/crosswalk base share deep ink; cream stripes/gold lane paint retain existing geometry. This is terrain-only, not a claim that the entire frame now uses16colors. Legacy doors/gates and storage/phone/furniture/actor/selection/need colors remain deliberately unchanged.
+- Validation: unified PASS711/743692, config/ABI and UI6159+3; focused Legacy6159, upgrade75 and World UI20 PASS. Protected functions byte-identical; actual-buffer scenes visually inspected. Native unrun.
+- Acceptance: approved swatch membership and material/role distinctions; actual texture buffer/classification/paint, unchanged door/gate goldens and existing object/state cases, no save/tick/geometry changes; inspect real renderer-buffer/overlay scene sheets for readability. Sequential unified runner plus focused upgrade/World UI as needed, then verified HTTPS publication. No native or survival acceptance claim.
 
 ## GRAPHICS-FACING-07 — user-selected facing and unselected consumer-box correction
 

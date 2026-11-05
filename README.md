@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: facing/walking sprites and cleaner selection.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1**, then Current Tests → Inspect Walking Sprites Paused. Run to see horizontal head turns and alternating feet; Pause holds them. Ordinary humans no longer have the default white box; worker identity colors and the selected-only yellow frame remain. WASD/arrows and zoom are preserved. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
+**Current testing snapshot: terrain-first reference palette.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1**. [Material mappings and actual-draw previews](OutbreakRebuild/Docs/TERRAIN_PALETTE.md). Inspect Supply Chain Visuals Paused and Neighborhood Streets Paused to compare buildings and streets. Existing NPC sprites, doors/storage, camera controls and UI identities are preserved. Source project, not a Windows EXE. Native Unity remains unverified; city survival/next-day work issues remain.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).

@@ -15,7 +15,7 @@ namespace Outbreak.UnityAdapter
         }
         private void DrawLaneMarkings(Rect bounds,int left,int top,float cell)
         {
-            GUI.color=new Color(0.78f,0.75f,0.57f);
+            GUI.color=TerrainPalette.Gold;
             foreach(int key in visibleLaneCells)
             {
                 int x=key%world.Width,y=key/world.Width,mask=world.RoadLaneMaskAt(x,y);
@@ -40,7 +40,7 @@ namespace Outbreak.UnityAdapter
         private bool CrosswalkAt(int x,int y){return x>=0 && y>=0 && x<world.Width && y<world.Height && world.TerrainAt(x,y)==Terrain.Crosswalk;}
         private void DrawCrosswalkMarkings(Rect bounds,int left,int top,float cell)
         {
-            GUI.color=new Color(0.90f,0.88f,0.75f);
+            GUI.color=TerrainPalette.Cream;
             foreach(int key in visibleCrosswalkCells)
             {
                 int x=key%world.Width,y=key/world.Width;

@@ -1,0 +1,23 @@
+{
+  "task": "GRAPHICS-PALETTE-08",
+  "baseline": "561a97c",
+  "coreCases": 711,
+  "coreAssertions": 743692,
+  "legacyUiAssertions": 6159,
+  "newOnlyUiAssertions": 3,
+  "runnerExitCode": 0,
+  "config": "PASS",
+  "windowsABI": "PASS hosted only",
+  "protectedDoorCurveAndIconFunctions": "Byte-identical to baseline",
+  "nativeUnity": "NOT RUN user-paused",
+  "windowsPlayer": "NOT BUILT",
+  "sourceSha256": {
+    "OutbreakRebuild/Assets/Outbreak/Unity/FoundationApp.cs": "ab4dcca9c595414d814587448337ed885a484296312e6e5bed4b0164eddf9af8",
+    "OutbreakRebuild/Assets/Outbreak/Unity/BuildingPresentation.cs": "a40a68d5374e44875ba88345c40a65f1d9b07567471e42d868326927e34b0f55",
+    "OutbreakRebuild/Assets/Outbreak/Unity/CrosswalkPresentation.cs": "5cb995f04bd1b3e17e582de9e5556ee34f09d715d764ed844a72a278d0a90745",
+    "OutbreakRebuild/Tests/UiHarness.cs": "25f2684b53692eae68ea407d98007e82895310615dbefddddb4264d8a0121fe6"
+  },
+  "preview": "Actual production terrain buffer/overlays; not Unity capture",
+  "upgradeUiAssertions": 75,
+  "worldUiAssertions": 20
+}

@@ -3,6 +3,14 @@ using Outbreak.Core;
 using UnityEngine;
 namespace Outbreak.UnityAdapter
 {
+    // Exact swatches from the approved pixel-scale sheet. This increment maps terrain, not every UI/object color.
+    public static class TerrainPalette
+    {
+        private static Color Rgb(int hex) { return new Color(((hex >> 16) & 255) / 255f, ((hex >> 8) & 255) / 255f, (hex & 255) / 255f); }
+        public static readonly Color Ink=Rgb(0x101820),Structure=Rgb(0x26333b),Charcoal=Rgb(0x454c50),Stone=Rgb(0x80877a),Cream=Rgb(0xc6c7ae),
+            Grass=Rgb(0x556b3c),Olive=Rgb(0x87944d),Sand=Rgb(0xba975f),Wood=Rgb(0x79583d),StoreBlue=Rgb(0x454f6b),WaterBlue=Rgb(0x7097ae),
+            Sage=Rgb(0x56715e),Aqua=Rgb(0x78b7b0),Ochre=Rgb(0xc5a04a),Red=Rgb(0xad5348),Gold=Rgb(0xe0c87a);
+    }
     public sealed partial class FoundationApp
     {
         private Dictionary<int,BuildingUse> buildingPalette=new Dictionary<int,BuildingUse>();
@@ -18,9 +26,9 @@ namespace Outbreak.UnityAdapter
         }
         private static Color BuildingFloorColor(BuildingUse use)
         {
-            if(use==BuildingUse.DistributionCenter)return new Color(0.34f,0.43f,0.37f);
-            if(use==BuildingUse.Store)return new Color(0.37f,0.43f,0.53f);
-            return new Color(0.59f,0.50f,0.39f);
+            if(use==BuildingUse.DistributionCenter)return TerrainPalette.Sage;
+            if(use==BuildingUse.Store)return TerrainPalette.StoreBlue;
+            return TerrainPalette.Sand;
         }
         private static void IconPart(Rect area,float x,float y,float width,float height,Color color)
         {

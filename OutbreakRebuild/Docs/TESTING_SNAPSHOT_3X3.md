@@ -1,5 +1,7 @@
 # 3x3 consolidated testing snapshot
 
+Current terrain palette increment: **Inspect Supply Chain Visuals Paused** for warm homes/slate-blue stores/sage centers, then **Inspect Neighborhood Streets Paused** for dark roads, gray-green sidewalks and cream/gold paint. Door/storage/phone icons and NPCs retain their prior appearance. Click/select/zoom and confirm unchanged identities and controls. See TERRAIN_PALETTE.md; this is a terrain-only reference-palette pass, not a full-frame16-color conversion.
+
 Current facing/selection increment: **Inspect Walking Sprites Paused** → Run. Watch the close-up heads turn with horizontal movement; vertical moves retain the last side. Pause and zoom out/back to inspect the preserved direction. Deselect the human: ordinary consumers should have no white box. Select it again: only the yellow selection frame should appear. Courier/clerk role colors intentionally remain in worker previews. Restart returns front-facing sprites.
 
 Current walking increment: **Inspect Walking Sprites Paused** → Run. Watch both species' feet alternate at close5x5 zoom, Pause mid-step, redraw/pan/zoom out and back, and confirm that the foot pose holds. Step1 tick while paused should return the inspected standing pose; Restart should restore the initial scene. Smaller3x3/1x1 sprites stay static. The fixture uses existing seeded non-encounter movement, not new AI or animation-driven routes.
