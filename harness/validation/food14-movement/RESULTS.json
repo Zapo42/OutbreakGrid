@@ -1,0 +1,142 @@
+{
+  "task": "NPC-FOOD-14B1",
+  "baseline": "3eb6f558ad953d664287d269b7a272477578ecde",
+  "nativeUnity": "NOT RUN \u2014 paused",
+  "workload": "Synthetic synchronized hungry load; no renderer; 3 passes of 250 ticks; 100 tick warmup",
+  "cases": {
+    "6-5-2": {
+      "before": {
+        "scenario": "6-5-2",
+        "count": 54,
+        "kind": "Synchronized hungry generated-city load; carried food transferred to owned pantry, total finite meals unchanged",
+        "rules": "encounter-prototype-111",
+        "ticks": 250,
+        "runs": [
+          {
+            "totalMs": 1160.6175099999998,
+            "meanMs": 4.642470039999999,
+            "p95Ms": 13.942201,
+            "maxMs": 42.532594,
+            "allocatedBytes": 34702624
+          },
+          {
+            "totalMs": 414.5208509999999,
+            "meanMs": 1.6580834039999994,
+            "p95Ms": 5.733553,
+            "maxMs": 7.928706,
+            "allocatedBytes": 37201312
+          },
+          {
+            "totalMs": 409.997131,
+            "meanMs": 1.639988524,
+            "p95Ms": 5.910653,
+            "maxMs": 9.488297,
+            "allocatedBytes": 37201312
+          }
+        ],
+        "finalSha256": "5C503794F0E1910BF477B61DEAEEC9FCDF1F4E41C638BDE047822B1950F21FB1",
+        "nativeRendering": "excluded"
+      },
+      "after": {
+        "scenario": "6-5-2",
+        "count": 54,
+        "kind": "Synchronized hungry generated-city load; carried food transferred to owned pantry, total finite meals unchanged",
+        "rules": "encounter-prototype-111",
+        "ticks": 250,
+        "runs": [
+          {
+            "totalMs": 709.9190300000001,
+            "meanMs": 2.8396761200000005,
+            "p95Ms": 7.690189,
+            "maxMs": 28.330749,
+            "allocatedBytes": 11542592
+          },
+          {
+            "totalMs": 597.1550480000001,
+            "meanMs": 2.3886201920000003,
+            "p95Ms": 9.614744,
+            "maxMs": 12.024267,
+            "allocatedBytes": 5345432
+          },
+          {
+            "totalMs": 542.703534,
+            "meanMs": 2.170814136,
+            "p95Ms": 8.804381,
+            "maxMs": 16.889321,
+            "allocatedBytes": 5287496
+          }
+        ],
+        "finalSha256": "5C503794F0E1910BF477B61DEAEEC9FCDF1F4E41C638BDE047822B1950F21FB1",
+        "nativeRendering": "excluded"
+      },
+      "inputSha256": "00a75b10353b277ed6e0f7977d4ef3d7eb7bb1544f65f9ed84f88d29149d1573"
+    },
+    "8-8-4": {
+      "before": {
+        "scenario": "8-8-4",
+        "count": 244,
+        "kind": "Synchronized hungry generated-city load; carried food transferred to owned pantry, total finite meals unchanged",
+        "rules": "encounter-prototype-111",
+        "ticks": 250,
+        "runs": [
+          {
+            "totalMs": 1591.7397539999997,
+            "meanMs": 6.366959015999999,
+            "p95Ms": 13.91932,
+            "maxMs": 15.979497,
+            "allocatedBytes": 166016288
+          },
+          {
+            "totalMs": 1558.4418419999997,
+            "meanMs": 6.233767367999999,
+            "p95Ms": 12.302595,
+            "maxMs": 17.341949,
+            "allocatedBytes": 166016288
+          },
+          {
+            "totalMs": 1541.9211599999999,
+            "meanMs": 6.167684639999999,
+            "p95Ms": 12.184979,
+            "maxMs": 16.044195,
+            "allocatedBytes": 166016288
+          }
+        ],
+        "finalSha256": "7F210836C25DB4EC91C9F4A3A50470896DCE8C3FAD171940CDACE2BCE42864EE",
+        "nativeRendering": "excluded"
+      },
+      "after": {
+        "scenario": "8-8-4",
+        "count": 244,
+        "kind": "Synchronized hungry generated-city load; carried food transferred to owned pantry, total finite meals unchanged",
+        "rules": "encounter-prototype-111",
+        "ticks": 250,
+        "runs": [
+          {
+            "totalMs": 1345.439553,
+            "meanMs": 5.381758211999999,
+            "p95Ms": 10.854372,
+            "maxMs": 13.872318,
+            "allocatedBytes": 75726528
+          },
+          {
+            "totalMs": 1328.0950420000006,
+            "meanMs": 5.3123801680000025,
+            "p95Ms": 10.445373,
+            "maxMs": 16.882416,
+            "allocatedBytes": 75726528
+          },
+          {
+            "totalMs": 1360.2913840000003,
+            "meanMs": 5.4411655360000015,
+            "p95Ms": 10.93755,
+            "maxMs": 18.650237,
+            "allocatedBytes": 75726528
+          }
+        ],
+        "finalSha256": "7F210836C25DB4EC91C9F4A3A50470896DCE8C3FAD171940CDACE2BCE42864EE",
+        "nativeRendering": "excluded"
+      },
+      "inputSha256": "e32477b50425dc02135d570eb52cd6a0d7ba50dc4220f74e1a4cb2e1d7d68c4d"
+    }
+  }
+}

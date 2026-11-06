@@ -12,6 +12,13 @@ Status: NPC-FOOD-14 consumer access fix hosted-validated (rules111); synchronize
 - PhaseC queued by user: shift/activity staggering after food finding is stable; productive work/eat/rest activity across the day. Do not force pointless walking to simulate activity or silently move shifts ahead of food/performance.
 - Risks: overlapping household shopping changes finite-stock competition. Only personal walking tasks may share a home target; validate after vehicles are restored. No input-stock/rate tuning to hide starvation. Performance fixes require measured hot paths and exact continuation where behavior is unchanged.
 
+## NPC-FOOD-14B1 — measured movement workload, behavior-preserving storage enumeration
+
+- Baseline3eb6f55. Synthetic synchronized244resident generated-city load measures ~6.2ms/tick and166016288allocated bytes/250ticks in warmed hosted Core runs. Freeze rules111 inputs before edits. Native renderer excluded.
+- Exact files: Core/StorageBoxes.cs and WorldMap.cs internal canonical storage-record array cache, invalidated on every add/replace/remove; no public detached-copy changes. Tests/StorageChecks.cs verifies replacement/removal, detached caller copies and food/restore continuation. Diagnostic harness/diagnostics/shopping14/MovementLoad.cs and MovementLoad.csproj reproduce three250tick timings with frozen saves; validation evidence, BUILD_VALIDATION/build-log/PLANS records.
+- Dependencies: map storage topology/inventory mutators, canonical sorted iteration and exact save/replay. No behavior/rule/save-field changes. Cache is disposable derived membership only, references always invalidated when replaced; no cached stock or actor decisions.
+- Acceptance: identical final save hashes to frozen111 workload for54/244residents, lower allocations and measured timing comparison; unified hosted checks sequentially. Risks: stale reference after SetStorageBox or terrain deletion; direct regression coverage required. Further seeded initialization/routine-demand staggering remains separate next increment before shifts.
+
 ## NPC-SHOPPING-13 — complete empty pedestrian returns at home
 
 - User selected the hungry-at-home retained-return fix. Baseline6a19cd9, clean checkout; single agent. Native Unity paused; validated increments automatically publish.

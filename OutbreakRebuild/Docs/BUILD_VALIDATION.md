@@ -1,5 +1,13 @@
 # Build validation and rollback checkpoint
 
+## NPC-FOOD-14B1 — reduce moving-population storage traversal allocation
+
+Baseline3eb6f55. Internal storage enumeration now reuses a canonical sorted array of live box references, invalidated on every add/replacement/terrain removal. Public reads/capture remain detached. No rule, behavior, inventory, RNG or save-field changes. New storage regression covers replacement stock, insertion order, public-copy isolation, terrain removal and exact restore. Files: Core/StorageBoxes.cs and WorldMap.cs, Tests/StorageChecks.cs; portable shopping14 MovementLoad project, frozen pre-change inputs ZIP and evidence.
+
+Frozen rules111 synchronized load:244 residents, three250tick passes,100tick warmup. Allocation166016288→75726528bytes/250ticks (~54% reduction). Mean tick time6.17–6.37→5.31–5.44ms (~14% lower); p95 12.19–13.92→10.45–10.94ms. Timing is host/JIT dependent.54resident allocation also fell; warmed timing varied and did not establish an improvement at that size. Both scenarios have byte-identical final saves before/after. Serialization excluded from timer; this is synthetic synchronized hunger, not a survival test. Native FPS/rendering/GC behavior remain unmeasured. Reproduce with archived inputs and benchmark README.
+
+Sequential unified hosted runner PASS737cases/744676assertions, configuration/Windows ABI and UI7222Legacy/3NewOnly. Unity6000.6.3f1/dependencies/GUIDs/protected tags unchanged; native compile/render/input/dialogs/player NOT RUN under pause, no EXE. Evidence harness/validation/food14-movement. Automatic verified HTTPS publication follows. Next authorized work: seeded initial needs and routine demand staggering, then shifts after food stability.
+
 ## NPC-FOOD-14A — hungry household members can seek their own meal (rules111)
 
 Baseline ffa1723. Consumer5 was blocked from shopping by another pedestrian's claim on the shared empty home pantry, despite personal observations and known stores. Hungry empty-handed foot residents who personally know home empty may now share a household shopping destination. Fed routine restocking, delivery/order and vehicle claims remain exclusive; duplicate vehicle claims are checked after vehicles restore. No food, stock knowledge, geometry, schedule, save field, dependency or editor changes.

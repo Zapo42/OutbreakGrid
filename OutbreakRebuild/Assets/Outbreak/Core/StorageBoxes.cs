@@ -34,7 +34,13 @@ namespace Outbreak.Core
         public bool HasBlockedDonations { get { foreach(StorageBoxDocument box in storageBoxes.Values)if(box.blockDonations)return true;return false; } }
         public bool HasStorageReserveTargets { get { foreach(StorageBoxDocument box in storageBoxes.Values)if(box.foodReserve.HasValue)return true;return false; } }
         public bool HasStorageBoxes { get { return storageBoxes.Count>0; } }
-        internal IEnumerable<StorageBoxDocument> StorageRecords { get { return storageBoxes.Values; } }
+        // Canonical live references avoid a tree traversal/enumerator allocation for every resident query.
+        // Rebuild only after membership or a box reference changes; public reads still return detached copies.
+        private StorageBoxDocument[] storageRecords;
+        internal StorageBoxDocument[] StorageRecords
+        {
+            get { if(storageRecords==null){storageRecords=new StorageBoxDocument[storageBoxes.Count];storageBoxes.Values.CopyTo(storageRecords,0);}return storageRecords; }
+        }
         public StorageBoxDocument StorageBoxAt(int x,int y)
         {
             StorageBoxDocument box;return Contains(x,y) && storageBoxes.TryGetValue(y*Width+x,out box)?StorageRules.Copy(box):null;
@@ -43,7 +49,7 @@ namespace Outbreak.Core
         {
             if(box==null || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || PhoneAt(box.x,box.y) || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || (box.foodReserve.HasValue && (box.foodReserve.Value<0 || box.foodReserve.Value>box.capacity)) || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
             int used=0;foreach(ItemStackDocument stack in box.items){if(stack==null || stack.item!=InventoryItem.Food || stack.quantity<1 || stack.quantity>StorageRules.MaxCapacity)throw new ArgumentException("Invalid storage item stack.");used+=stack.quantity;}
-            if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);if(storageCells.Add(box.y*Width+box.x))DistrictSurfaceChanged(box.x,box.y);
+            if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);storageRecords=null;if(storageCells.Add(box.y*Width+box.x))DistrictSurfaceChanged(box.x,box.y);
         }
         internal StorageBoxDocument[] CaptureStorageBoxes()
         {

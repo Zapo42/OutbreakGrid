@@ -34,7 +34,7 @@ namespace Outbreak.Core // Keep the grid independent of textures, cameras, and s
             if(!TerrainRules.RoadSurface(terrain))roadLanes.Remove(y*Width+x);
             if(terrain!=Terrain.Floor && phoneCells.Remove(y*Width+x))phones.Remove(y*Width+x);
             if(terrain!=Terrain.Floor){restSpots.Remove(y*Width+x);areaRestSpots.Remove(y*Width+x);}
-            if((!TerrainRules.Walkable(terrain) || terrain==Terrain.DoorOpen) && storageCells.Remove(y*Width+x))storageBoxes.Remove(y*Width+x);
+            if((!TerrainRules.Walkable(terrain) || terrain==Terrain.DoorOpen) && storageCells.Remove(y*Width+x)){storageBoxes.Remove(y*Width+x);storageRecords=null;}
             if (!TerrainRules.Walkable(terrain) || terrain == Terrain.DoorOpen) shelves.Remove(y * Width + x); if(!TerrainRules.Walkable(terrain) && terrain!=Terrain.DoorClosed) {weapons.Remove(y*Width+x);weaponWear.Remove(y*Width+x);} int key = (y / Rules.ChunkSize) * columns + x / Rules.ChunkSize; ushort[] cells; // Locate the owning chunk once.
             if (!chunks.TryGetValue(key, out cells)) { if (terrain == Terrain.Grass) return; cells = new ushort[Rules.ChunkSize * Rules.ChunkSize]; chunks.Add(key, cells); } // Avoid allocating an unchanged default cell.
             cells[(y % Rules.ChunkSize) * Rules.ChunkSize + x % Rules.ChunkSize] = (ushort)terrain; // Replace only the requested logical cell.

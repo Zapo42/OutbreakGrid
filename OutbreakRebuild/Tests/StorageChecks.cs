@@ -16,6 +16,17 @@ public static partial class Program
     }
     private static void CheckStorageCases()
     {
+        Check("Internal storage traversal refreshes replaced added and removed boxes without exposing mutable public copies",()=>{
+            var map=new WorldMap(12,12,"Storage traversal","storage-traversal");
+            Func<int,int,StorageBoxDocument> box=(x,food)=>new StorageBoxDocument{x=x,y=3,capacity=12,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=food}}};
+            map.SetStorageBox(box(7,2));map.SetStorageBox(box(2,3));
+            var records=map.StorageRecords;Require(records.Length==2 && records[0].x==2 && records[1].x==7,"Internal order is not canonical.");
+            map.SetStorageBox(box(2,6));Require(StorageRules.Count(map.StorageRecords[0],InventoryItem.Food)==6,"Replacement left stale stock in internal traversal.");
+            var copy=map.StorageBoxAt(2,3);copy.items[0].quantity=1;Require(StorageRules.Count(map.StorageRecords[0],InventoryItem.Food)==6,"Public read mutated live stock.");
+            map.SetStorageBox(box(5,4));Require(map.StorageRecords.Length==3 && map.StorageRecords[1].x==5,"Insertion left stale membership.");
+            map.Set(5,3,Terrain.Wall);Require(map.StorageRecords.Length==2 && map.StorageRecords[1].x==7,"Terrain removal left a ghost box.");
+            Require(Documents.Encode(map.Capture())==Documents.Encode(WorldMap.Restore(map.Capture()).Capture()),"Storage traversal changed canonical restore.");
+        });
         Check("Box reports share one dated observation and guide hungry allies to real food",()=>{
             World world=EncounterScenarios.BoxReportTest();ActorState speaker=world.ActorAt(0);world.Step();StorageMemoryRecord note=world.ActorAt(1).storageMemory[0];Require(note.x==2 && note.y==3 && note.food==6 && note.space==24 && note.reportedBy==1 && note.observedTick==1 && world.ActorAt(0).x==speaker.x && world.ActorAt(0).y==speaker.y && world.ActorAt(1).carriedFood==0,"Conversation changed source age, transferred food or failed its ordinary action.");World copy=Documents.ParseSave(State(world));Run(world,100);Run(copy,100);Require(State(world)==State(copy) && world.ActorAt(1).hunger<40 && world.ActorAt(1).carriedFood==2 && StorageRules.Count(world.StorageBoxAt(2,3),InventoryItem.Food)==3,"Reported location failed to guide a hungry ally to finite food with exact save continuation.");Require(world.ActorAt(1).storageMemory[0].reportedBy==0,"Personal sight/withdrawal failed to replace hearsay provenance.");
         });
