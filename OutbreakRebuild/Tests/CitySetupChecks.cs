@@ -7,6 +7,15 @@ public static partial class Program
 {
     private static void CheckCitySetupCases()
     {
+        Check("Fresh generated residents have seeded diverse needs with the original finite household budgets",()=>{
+            foreach(uint seed in new[]{1u,214u,uint.MaxValue}){
+                var w=CitySetup.Create(seed,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters);var hunger=new HashSet<int>();var food=new HashSet<int>();int totalHunger=0,totalCarried=0;
+                for(int i=0;i<w.Count;i++){var a=w.ActorAt(i);hunger.Add(a.hunger);food.Add(a.carriedFood);totalHunger+=a.hunger;totalCarried+=a.carriedFood;int pantry=0;foreach(var b in w.StorageBoxSites())if(w.HouseAt(b.x,b.y)==a.assignedHouseId)pantry+=StorageRules.Count(b,InventoryItem.Food);Require(a.hunger>=0 && a.hunger<=20 && a.carriedFood>=0 && a.carriedFood<=2 && pantry+a.carriedFood==3,"Fresh household gained food or invalid needs.");}
+                Require(hunger.Count>=10 && food.Count==3 && totalHunger==w.Count*10 && totalCarried==w.Count,"Population remained uniform or changed its mean needs/budget.");
+                var control=EncounterScenarios.GeneratedBuildingTrial(seed,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters,false);Require(w.FoodSupplies().RemainingMeals==control.FoodSupplies().RemainingMeals && w.Capture().randomState==control.Capture().randomState,"Setup consumed simulation RNG or changed total meals.");
+                Require(State(w)==State(CitySetup.Create(seed,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters)),"Fresh-city needs were not deterministic.");
+            }
+        });
         Check("City setup rejects unsupported dimensions and seeds before constructing a city",()=>{
             foreach(int columns in new[]{-1,0,1,11,int.MaxValue}){Require(CitySetup.ValidationError(214,columns,2)!=null,"Invalid width accepted.");Reject(()=>CitySetup.Create(214,columns,2));}
             foreach(int rows in new[]{-1,0,1,11,int.MaxValue}){Require(CitySetup.ValidationError(214,2,rows)!=null,"Invalid height accepted.");Reject(()=>CitySetup.Describe(214,2,rows));}

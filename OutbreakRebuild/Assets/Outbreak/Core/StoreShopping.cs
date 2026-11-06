@@ -4,6 +4,7 @@ namespace Outbreak.Core
 {
     public static class StoreShoppingRules
     {
+        public const int RoutineReviewTicks=300; // Thirty game minutes; urgent food-seeking never waits.
         public static int TriggerMeals(int target,int intelligence){return Math.Max(0,Math.Min(target-1,target*(intelligence+2)/12));}
     }
     public sealed partial class World
@@ -22,6 +23,9 @@ namespace Outbreak.Core
             if((StoreDiscoveryEnabled && actor.shoppingRetryTick>Tick) || !SafeRestock(actor,threat) || (EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy && !CanSeekFoodForEmptyHome(actor)) || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
             Room home=FindRoom(actor.assignedHouseId);if(!home.Contains(Key(actor.x,actor.y)) || actor.shelterState!=ShelterState.Inside)return false;
             HomeSupplyKnowledge knowledge=HomeSuppliesKnownBy(index);if(knowledge.Boxes==0 || knowledge.KnownBoxes!=knowledge.Boxes)return false;
+            // Spread consumer maintenance errands over existing action slots; workers retain food preparation around shifts.
+            int slots=StoreShoppingRules.RoutineReviewTicks/5;
+            if(DemandStaggeringEnabled && OccupationOf(actor)==HumanOccupation.Consumer && actor.health==100 && actor.hunger<HungerRules.SeekAt && knowledge.KnownMeals>0 && (Tick/5)%slots!=(actor.id%slots)*13%slots)return false;
             StorageBoxDocument target=null;int deficit=0;int sharedHome=PersonalFoodAccessEnabled && actor.hunger>=HungerRules.SeekAt && actor.carriedFood==0 && AssignedVehicle(index)<0 && CanSeekFoodForEmptyHome(actor)?home.id:0;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {

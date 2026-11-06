@@ -36,11 +36,28 @@ namespace Outbreak.Core
         // A* uses a bounded sparse frontier rather than allocating the full map.
         // Recompute from live geometry: saves need no stale route cache or random draws.
         private static int CityEstimate(int x,int y){x=Math.Abs(x);y=Math.Abs(y);return 10*Math.Max(x,y)+4*Math.Min(x,y);}
+        // An enclosed room can only be entered through a door and a cardinal interior cell.
+        // If every such entry is physically blocked, probing each remote floor cannot find a route.
+        private bool RoomEntryBlocked(ActorState actor,int goalX,int goalY)
+        {
+            Room room=FindRoom(HouseAt(goalX,goalY));int start=Key(actor.x,actor.y);
+            if(room==null || room.Contains(start))return false;
+            foreach(int door in room.doors){int x=door%Width,y=door/Width;
+                // A resident already standing on a full doorway may still leave that cell.
+                if(start!=door && (!ShelterWalkable(x,y) || !occupancy.Allows(door,Species.Human) || ZombieAt(x,y)))continue;
+                for(int d=0;d<8;d+=2){int nx=x+dx[d],ny=y+dy[d],key=Key(nx,ny);
+                    if(room.Contains(key) && ShelterWalkable(nx,ny) && occupancy.Allows(key,Species.Human) && !ZombieAt(nx,ny))return false;
+                }
+            }
+            return true;
+        }
         private int LongRoute(ActorState actor,int goalX,int goalY,bool walkOnly,out int distance,int radius=CityRouteRules.Radius)
         {
             distance=0;
             if(!map.Contains(goalX,goalY) || Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>radius || !ShelterWalkable(goalX,goalY))return -1;
             cityFrontier.Clear();cityBest.Clear();var best=cityBest;
+            // These goals fail under the same live admissions used by every search step; avoid exhausting the frontier.
+            if((actor.x!=goalX || actor.y!=goalY) && (!occupancy.Allows(Key(goalX,goalY),Species.Human) || ZombieAt(goalX,goalY) || RoomEntryBlocked(actor,goalX,goalY)))return -1;
             int start=Key(actor.x,actor.y),goal=Key(goalX,goalY);
             PushCityFrontier(new CityFrontier{key=start,first=8,estimate=CityEstimate(goalX-actor.x,goalY-actor.y)});best[start]=0;
             while(cityFrontier.Count>0)

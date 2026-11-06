@@ -35,8 +35,29 @@ public static partial class Program
     {
         World w=EncounterScenarios.StoreDiscoveryTest();int id;Require(w.TrySpawn(Species.Human,3,10,out id) && w.TryAssignHouse(1,3,9),"Shared pantry resident failed.");var save=w.Capture();int box=7*w.Width+4+1,store=w.HouseAt(18,13);var owner=save.actors[0];owner.shoppingMeals=1;owner.shoppingStoreId=store;owner.restockBox=box;owner.restockHomeId=owner.assignedHouseId;owner.restockPhase=RestockPhase.Collecting;owner.restockUntilTick=CourierRules.TaskTicks;owner.storageMemory=new[]{new StorageMemoryRecord{x=4,y=7,food=0,space=6,observedTick=0}};save.actors[0]=owner;var a=save.actors[1];a.hunger=hungry?80:10;a.carriedFood=0;a.intelligence=8;a.shelterId=a.assignedHouseId;a.shelterX=3;a.shelterY=10;a.shelterState=ShelterState.Inside;a.storageMemory=new[]{new StorageMemoryRecord{x=4,y=7,food=0,space=6,observedTick=0}};a.familiarStoreId=store;a.shelfMemory=new[]{new ShelfMemoryRecord{x=18,y=14,food=6,observedTick=0}};save.actors[1]=a;return World.Restore(save);
     }
+    private static World RoutineShoppingFixture(int food=1,int health=100)
+    {
+        var save=SharedPantryFoodFixture(false).Capture();save.actors=new[]{save.actors[1]};var a=save.actors[0];a.health=health;a.carriedFood=1;a.storageMemory[0].food=food;a.storageMemory[0].space=6-food;save.actors[0]=a;
+        foreach(var box in save.map.storageBoxes)if(box.x==4 && box.y==7)box.items=food==0?new ItemStackDocument[0]:new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=food}};
+        return World.Restore(save);
+    }
+    private static bool BeginRoutineShopping(World world)
+    {
+        // Invoke the authoritative decision to isolate review timing from unrelated doorway/eating actions.
+        object[] args={0,world.ActorAt(0),-1};return (bool)typeof(World).GetMethod("StartStoreShopping",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(world,args);
+    }
     private static void CheckCityShoppingContinuityCases()
     {
+        Check("Healthy pantry maintenance waits for a bounded resident review slot and resumes exactly",()=>{
+            World w=RoutineShoppingFixture();Require(!BeginRoutineShopping(w),"Routine shopping joined the initial demand wave.");var old=w.Capture();old.rulesVersion=EncounterRules.PersonalFoodAccessVersion;Require(BeginRoutineShopping(World.Restore(old)),"The control could not start ordinary shopping.");
+            World copy=Documents.ParseSave(State(w));bool began=false;for(int t=0;t<StoreShoppingRules.RoutineReviewTicks;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Review timing changed after restore.");if(w.ActorAt(0).shoppingMeals>0){began=true;break;}}Require(began,"Routine review never permitted a real errand within thirty game minutes.");
+        });
+        Check("Known empty homes and injured residents bypass routine review windows",()=>{
+            Require(BeginRoutineShopping(RoutineShoppingFixture(0)),"Empty home was forced to wait for routine review.");Require(BeginRoutineShopping(RoutineShoppingFixture(1,99)),"Injured resident was forced to wait for routine review.");
+        });
+        Check("Rules111 keeps independently frozen full shopping continuation",()=>{
+            string raw=System.IO.File.ReadAllText(System.IO.Path.Combine(AppContext.BaseDirectory,"Fixtures","shopping111-initial.json"));World w=Documents.ParseSave(raw);Require(!w.DemandStaggeringEnabled && w.PersonalFoodAccessEnabled,"Old save silently enabled staggered demand.");Run(w,1000);string digest=Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(State(w))));Require(digest=="5363802D5B2F792FC187BD2303A092524E516ACEC3ACBDE4A4730D1088A03ED2","Independent rules111 continuation changed.");
+        });
         Check("Hungry household members can seek real food despite another pedestrian pantry claim",()=>{
             World w=SharedPantryFoodFixture();Run(w,3);var a=w.ActorAt(1);Require(a.shoppingMeals>0 && a.restockBox==w.ActorAt(0).restockBox,"Pantry coordination stranded the hungry resident.");Require(State(w)==State(Documents.ParseSave(State(w))),"Shared household walking claims failed save validation.");int initial=w.FoodSupplies().RemainingMeals,meals=0;bool fed=false;for(int t=0;t<650;t++){var before=w.Capture().actors;w.Step();for(int i=0;i<w.Count;i++)if(w.ActorAt(i).hunger<before[i].hunger)meals++;fed|=w.ActorAt(1).hunger<40;Require(w.FoodSupplies().RemainingMeals+meals==initial,"Shared food seeking fabricated or lost meals.");if(fed)break;}Require(fed,"Hungry resident failed physical pickup/eating.");
         });

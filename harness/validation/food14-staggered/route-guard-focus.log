@@ -1,0 +1,45 @@
+BASELINE110 DA37B9C117036E40B342E9496B4B63822B4E73E576140296E543AE5DEA124CFD
+PASS Healthy pantry maintenance waits for a bounded resident review slot and resumes exactly
+PASS Known empty homes and injured residents bypass routine review windows
+PASS Rules111 keeps independently frozen full shopping continuation
+PASS Hungry household members can seek real food despite another pedestrian pantry claim
+PASS Shared personal pantry plans never permit a duplicate ordinary restock claim
+PASS Published110 pantry coordination and independent continuation remain unchanged
+PASS Fed proactive residents still respect another household shopping claim
+PASS A hungry empty shopper completes its return at home before the hunger guard
+PASS Completed hungry returns can inspect a distant pantry and eat only its real food
+PASS Surplus shopping food still reaches the pantry physically before completion
+PASS Empty home completion leaves safe recovery paid and danger unrecovered
+PASS Hungry home inspection remains possible below the routine energy threshold
+PASS Urgent failed-shop waiting permits energy recovery from fresh empty-home knowledge without healing
+PASS Urgent empty-home workers can reach and eat actual workplace supplies without a delivery claim
+PASS Danger cannot authorize the urgent work-food commute
+PASS Published109 preserves the hungry home claim and independent continuation
+PASS A failed store remains excluded throughout one long walking search
+PASS An expired empty shopping task releases its claim and retains a paid home return
+PASS Timeout at home adds no food-seeking cooldown
+PASS Shopping timeout preserves a real carried load without recreating a task
+PASS Consumer vehicle timeout retains the published108 cart lifecycle
+PASS Danger still owns the action after a shopping task expires
+PASS Infection prevents the shopping-timeout recovery override
+PASS Hungry proactive shoppers still return rather than search indefinitely
+PASS A hungry empty-handed shopping return takes a paid safe off-road break
+PASS Published108 shopping retains its independent pre-fix continuation
+PASS Published rules107 preserve independent pre-fix shopping continuation
+PASS Danger still interrupts an active hungry shopping trip
+PASS Larger city shopping reproduces old empty departures and completes a real shelf-to-home trip
+PASS Familiar shops reveal locations without revealing hidden shelf stock
+PASS Shopping rest saves retain their destination and danger interrupts the break
+PASS Existing saves can explicitly gain location familiarity without gaining food knowledge
+PASS Hungry shoppers with empty homes try a farther familiar store after the nearest is depleted
+PASS Shopping continuity validates unfamiliar ids rest state and older rules
+PASS Home shopping makes finite shelf pickups and home deposits while the clerk refills shelves
+PASS Intelligence plans earlier while empty supplies still trigger less intelligent residents
+PASS Store shopping requires fresh personal home knowledge and a known consumer shelf
+PASS Empty stale store shelves cause a safe empty return and full home boxes retain carried food
+PASS Shopping keeps a personal meal when the resident starts without a ration
+PASS A household does not send two shoppers to fill the same home box
+PASS Hunger danger infection expiry and invalid shopping saves do not fabricate deliveries
+PASS Full or zombie route targets reject without a frontier search while the current cell remains valid
+PASS A sealed room entrance rejects remote floor searches and reopening one entry restores routing
+PASS An actor already on a full doorway can enter a free room and route probes preserve saved state

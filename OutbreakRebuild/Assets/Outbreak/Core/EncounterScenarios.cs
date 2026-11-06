@@ -324,7 +324,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         }
         public static World LargeCityShoppingTest()
         {
-            World world=CitySetup.Create(214,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters);SaveDocument saved=world.Capture();int chosen=3,best=int.MaxValue;
+            World world=GeneratedBuildingTrial(214,8,8,4,CityStreetLayout.Staggered,CityZoning.NeighborhoodCenters,false);SaveDocument saved=world.Capture();int chosen=3,best=int.MaxValue;
             for(int i=3;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];foreach(var shop in world.StoreSupplies())if(shop.StoreId==actor.familiarStoreId){int key=shop.SupplyBox-1,distance=System.Math.Abs(actor.x-key%world.Width)+System.Math.Abs(actor.y-key/world.Width),score=System.Math.Abs(distance-45);if(score<best){best=score;chosen=i;}}}
             ActorState resident=saved.actors[chosen];saved.actors=new[]{resident};foreach(var box in saved.map.storageBoxes)if(world.HouseAt(box.x,box.y)==resident.assignedHouseId)box.items=new ItemStackDocument[0];return World.Restore(saved);
         }
@@ -377,7 +377,7 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
         {
             SaveDocument saved=StoreShoppingTest().Capture();WorldMap map=WorldMap.Restore(saved.map);map.Set(11,5,Terrain.Wall);map.Set(15,5,Terrain.DoorClosed);saved.map=map.Capture();saved.map.name="Nearby store with a hidden entrance";saved.actors[0].shelfMemory=null;saved.actors[0].intelligence=10;return World.Restore(saved);
         }
-        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid,CityZoning zoning=CityZoning.Fixed)
+        public static World GeneratedBuildingTrial(uint seed=214,int columns=4,int rows=2,int homesPerBlock=1,CityStreetLayout layout=CityStreetLayout.Grid,CityZoning zoning=CityZoning.Fixed,bool variedNeeds=true)
         {
             string error=CitySetup.ValidationError(seed,columns,rows,homesPerBlock,layout,zoning);if(error!=null)throw new System.ArgumentException(error);
             GeneratedDistrict district=CityGenerator.BuildingLots(seed,columns,rows,homesPerBlock,layout,zoning);WorldMap map=district.Map;
@@ -399,7 +399,16 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
                 if(building.Use==BuildingUse.DistributionCenter){world.TryAssignDistributionCourier(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetCourierSchedule(index,7,12);}else{world.TryAssignClerk(index,world.HouseAt(building.BoxX,building.BoxY));world.TrySetClerkSchedule(index,7,12);}
             }
             for(int i=jobs.Count;i<homes.Count;i++){GeneratedBuilding home=homes[i];int index=world.Count;world.TrySpawn(Species.Human,home.Left+1,home.Top+2,out id);world.TryAssignHouse(index,home.Left+1,home.Top+1);}
-            SaveDocument saved=world.Capture();for(int i=0;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}World prepared=World.Restore(saved);prepared.TryFamiliarizeResidentsWithShops();return prepared;
+            SaveDocument saved=world.Capture();uint needs=seed^0x9E3779B9u;int pairHunger=10,pairFood=1;
+            // A separate seed stream spreads needs without changing simulation RNG or the finite starting budget.
+            for(int i=0;i<saved.actors.Length;i++){ActorState actor=saved.actors[i];actor.hunger=10;actor.carriedFood=1;
+                if(variedNeeds && (i%2==1 || i+1<saved.actors.Length)){
+                    if(i%2==0){needs=unchecked(needs*1664525u+1013904223u);pairHunger=(int)(needs%21);pairFood=(int)((needs>>16)%3);}
+                    actor.hunger=i%2==0?pairHunger:20-pairHunger;actor.carriedFood=i%2==0?pairFood:2-pairFood;
+                    // Every owned pantry plus carried food still totals exactly three meals.
+                    foreach(var box in saved.map.storageBoxes)if(world.HouseAt(box.x,box.y)==actor.assignedHouseId)box.items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=3-actor.carriedFood}};
+                }
+                actor.intelligence=8;actor.shelterId=world.HouseAt(actor.x,actor.y);actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;saved.actors[i]=actor;}World prepared=World.Restore(saved);prepared.TryFamiliarizeResidentsWithShops();return prepared;
         }
         public static World PedestrianCrossingTrial()
         {
