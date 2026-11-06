@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: shopping return recovery (rules108).** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Hungry, empty-handed shoppers can take their existing paid breaks while returning home; original hunger-triggered collection aborts remain. [Scope, remaining failures and manual checks](OutbreakRebuild/Docs/SHOPPING_RETURN_RECOVERY.md). This fixes a recovery defect, not the city's food supply: the delivery diagnostic still has two deaths. [Courier/clerk uniforms](OutbreakRebuild/Docs/WORKER_UNIFORMS.md), sprite tiers and controls remain. Source project for Unity **6000.6.3f1**, not a Windows EXE. Native testing remains paused.
+**Current testing snapshot: bounded shopping searches (rules109).** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Pedestrians remember failed shops during one bounded search; timed-out shopping releases its claim and retains a safe, paid return home. [Scope, validation and manual checks](OutbreakRebuild/Docs/SHOPPING_RETURN_RECOVERY.md). City supply, needs recovery and next-day work remain experimental. [Courier/clerk uniforms](OutbreakRebuild/Docs/WORKER_UNIFORMS.md), sprite tiers and controls remain. Source project for Unity **6000.6.3f1**, not a Windows EXE. Native testing remains paused.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).

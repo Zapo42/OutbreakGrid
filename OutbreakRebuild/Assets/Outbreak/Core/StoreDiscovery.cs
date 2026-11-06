@@ -54,12 +54,13 @@ namespace Outbreak.Core
         }
         private void AdvanceStoreMemory(ref ActorState actor)
         {
-            if(!StoreDiscoveryEnabled)return;PruneStoreNotes(ref actor.storeMemory,StoreDiscoveryRules.MemoryTicks);PruneStoreNotes(ref actor.storeFailures,StoreDiscoveryRules.RetryTicks);
+            // Keep this trip's failures across long walks; ordinary cooldown resumes when collection ends.
+            if(!StoreDiscoveryEnabled)return;PruneStoreNotes(ref actor.storeMemory,StoreDiscoveryRules.MemoryTicks);PruneStoreNotes(ref actor.storeFailures,BoundedShoppingEnabled && WalkingShoppingTask(actor) && actor.restockPhase==RestockPhase.Collecting?CourierRules.TaskTicks:StoreDiscoveryRules.RetryTicks);
         }
         private bool FailedStore(ActorState actor,int store,long newerObservation=-1)
         {
             if(!StoreDiscoveryEnabled || actor.storeFailures==null)return false;
-            foreach(FoodRoomVisit note in actor.storeFailures)if(note.roomId==store && newerObservation<=note.observedTick)return true;return false;
+            foreach(FoodRoomVisit note in actor.storeFailures)if(note.roomId==store && newerObservation<=note.observedTick && (!BoundedShoppingEnabled || Tick-note.observedTick<StoreDiscoveryRules.RetryTicks || (WalkingShoppingTask(actor) && actor.restockPhase==RestockPhase.Collecting && note.observedTick>=actor.restockUntilTick-CourierRules.TaskTicks)))return true;return false;
         }
         private ShelfMemoryRecord? KnownShoppingShelf(ActorState actor,int room=0)
         {
@@ -140,7 +141,8 @@ namespace Outbreak.Core
             {
                 ActorState actor=actors[i];bool any=actor.storeMemory!=null || actor.storeFailures!=null || actor.shoppingStoreId!=0 || actor.shoppingSearchCell!=0 || actor.shoppingRetryTick!=0;
                 if(any && (!StoreDiscoveryEnabled || actor.species!=Species.Human || actor.health<=0))throw new ArgumentException("Unsupported store discovery state.");
-                ValidateStoreNotes(actor.storeMemory,StoreDiscoveryRules.MemoryTicks);ValidateStoreNotes(actor.storeFailures,StoreDiscoveryRules.RetryTicks);
+                ValidateStoreNotes(actor.storeMemory,StoreDiscoveryRules.MemoryTicks);// A just-finished search may still carry its genuine observations until the next pruning tick.
+                ValidateStoreNotes(actor.storeFailures,BoundedShoppingEnabled?CourierRules.TaskTicks:StoreDiscoveryRules.RetryTicks);
                 if(actor.shoppingRetryTick!=0 && (actor.shoppingRetryTick<=Tick || actor.shoppingRetryTick-Tick>StoreDiscoveryRules.RetryTicks))throw new ArgumentException("Invalid shopping retry.");
                 Room store=FindRoom(actor.shoppingStoreId);
                 if(actor.shoppingStoreId!=0 && (!IsShopping(actor) || !stores.ContainsKey(actor.shoppingStoreId) || store==null))throw new ArgumentException("Invalid shopping store.");

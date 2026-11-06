@@ -1,0 +1,6 @@
+Selected meaningful pre-fix108 failures (not a claim that the initial probe suite passed):
+BASELINE108 823C1576FF9206A051D5A625426402BB2343B901B19990F2B104677C10E8F826
+FAIL A failed store remains excluded throughout one long walking search: A within-trip failure expired before the farther-shop journey could finish.
+FAIL An expired empty shopping task releases its claim and retains a paid home return: Timeout stranded the hungry empty shopper without paid return recovery.
+
+Rejected cooldown control must fail only the new home-expiry check; see rejected-control.log. Final production checks are in focus-final.log and unified-complete.log.

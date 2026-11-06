@@ -1,6 +1,18 @@
 # Development Plan — Existing Roadmap Only
 
-Status: NPC-SHOPPING-11 complete under hosted checks. City survival/next-day work remain incomplete. Native testing paused.
+Status: NPC-SHOPPING-12 complete under hosted checks. City supply/home recovery and next-day work remain incomplete; long-trip health regressions documented. Native testing paused.
+
+## NPC-SHOPPING-12 — bounded empty-store searches and expiry handoff
+
+- User authorized the next depleted-store retry/task-expiry increment. Baseline07b63b1, initially clean. One agent; no delegation. Native testing paused; validated increments automatically publish.
+- Reproducer target: storeFailures expire300ticks while a farther-shop walk exceeds300, allowing the same failed store to be revisited within one3600tick task. Expiry clears the task and can strand a hungry pedestrian without paid return intent.
+- Files: Core/StoreDiscovery.cs, ShoppingContinuity.cs, Hunger.cs, StorageRestocking.cs, CourierAssignments.cs for observation retention and existing return routing; Core/Encounter.cs, World.cs for explicit109 with108/107 compatibility. Unity/FoundationApp.cs upgrade/restart/build-label only. Tests/CityShoppingContinuityChecks.cs, StoreDiscoveryChecks.cs (explicit108 vs109 memory-validation boundaries) and NpcRuleUpgradeUiChecks.cs. harness/diagnostics/shopping11/StoreAudit.cs explicit108/109 selection (preserves historical108 tool), new harness/diagnostics/shopping12 observer-project/README and harness/validation/shopping12 evidence; README, Docs/SHOPPING_RETURN_RECOVERY.md, Docs/BUILD_VALIDATION.md, harness/build-log.md and PLANS.md. No new save fields, map/stock/schedule/rate/editor/dependency/GUID changes.
+- Policy: retain genuine failed-store observations for a bounded active walking search, keeping observation timestamps and fresh positive sightings meaningful. No remote inventory peeking. After completion, ordinary retry expiry resumes. Task timeout releases claims on time, preserves every physical meal and hands a pedestrian to the existing safe home-return path/recovery; no renewed shopping deadline or fabricated delivery. Consumer vehicles retain their current lifecycle.
+- Acceptance: failing-before/passing-after long-trip failure-memory and timeout-return tests; finite food, paid movement/rest, safe staged exits, danger interruptions and exact mid-search/expired-return replay. Independent108 and107 continuation unchanged. Run sequential unified checks, upgrade/restart checks and unchanged four26hour city trials; compare individual deaths/timing, deliveries and needs before publication. Document unresolved supply/next-day work rather than claiming global survival.
+- Review correction: first candidate added300tick timeout cooldown; delivery consumer5 died after this blocked food-seeking at home. Reject that new delay. Timeout must leave original home food-seeking eligibility intact; add a home-expiry regression.
+- Risks: travel/competition timing changes; extended observation retention must validate across saves, completion and older readers. No broad hungry collection override (previously rejected). Investigate measured regressions before publishing.
+
+- Final evidence: 723cases/743792assertions; config/ABI and UI7222+3; upgrade98;4unchanged city trials/28replay groups/840exact steps, zero unexplained food.108delivery full final byte-identical. Repeated destination loop fixed;2delivery deaths and long-trip worker regressions remain.
 
 ## NPC-SHOPPING-11 — shopping return recovery
 

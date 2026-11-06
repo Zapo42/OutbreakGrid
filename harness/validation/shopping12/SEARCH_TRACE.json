@@ -1,0 +1,50 @@
+{
+  "before108": {
+    "sampledStoreChoices": [
+      {
+        "tick": 6450,
+        "store": 910
+      },
+      {
+        "tick": 7125,
+        "store": 978
+      },
+      {
+        "tick": 8100,
+        "store": 910
+      },
+      {
+        "tick": 9075,
+        "store": 978
+      }
+    ],
+    "sampledPhaseChanges": [
+      {
+        "tick": 6450,
+        "phase": "Collecting"
+      }
+    ]
+  },
+  "final109": {
+    "sampledStoreChoices": [
+      {
+        "tick": 6450,
+        "store": 910
+      },
+      {
+        "tick": 7125,
+        "store": 978
+      }
+    ],
+    "sampledPhaseChanges": [
+      {
+        "tick": 6450,
+        "phase": "Collecting"
+      },
+      {
+        "tick": 8100,
+        "phase": "Returning"
+      }
+    ]
+  }
+}

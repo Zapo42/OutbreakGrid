@@ -73,6 +73,7 @@ namespace Outbreak.Core
         {
             direction=8;if(!SafeRestock(actor,threat))return false;Room home=FindRoom(actor.assignedHouseId);if(home==null)return false;
             if(home.Contains(Key(actor.x,actor.y))){actor.courierReturningHome=false;actors[index]=actor;return false;}
+            if(SafeExpiredShoppingReturn(actor,threat) && TryHomeReturnRest(index,ref actor))return true;
             if(!actor.courierReturningHome){ClearShelterDeparture(ref actor);actor.courierReturningHome=true;}
             Room current=FindRoom(actor.shelterId);
             if(current!=null && current.id!=home.id && (current.Contains(Key(actor.x,actor.y)) || actor.shelterExitPhase!=ShelterExitPhase.None)){actors[index]=actor;return TryShelter(index,ref actor,threat,out direction);}

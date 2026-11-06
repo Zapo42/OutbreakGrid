@@ -13,6 +13,26 @@ namespace Outbreak.Core
                 if(nearest!=0){if(actor.familiarStoreId==0)actor.familiarStoreId=nearest;if(ConsumerVehiclesEnabled){var other=new System.Collections.Generic.List<int>();foreach(int id in stores.Keys)if(id!=actor.familiarStoreId && other.Count<StoreDiscoveryRules.MemoryLimit-1)other.Add(id);actor.additionalFamiliarStores=other.Count==0?null:other.ToArray();}actors[i]=actor;updated++;}
             }return updated;
         }
+        private bool WalkingShoppingTask(ActorState actor)
+        {
+            if(!IsShopping(actor))return false;
+            // Assigned consumer vehicles own their cart, cargo and timeout lifecycle.
+            foreach(var car in vehicles)if(car.driverId==actor.id && car.consumerDriver)return false;
+            return true;
+        }
+        private bool SafeExpiredShoppingReturn(ActorState actor,int threat)
+        {
+            return BoundedShoppingEnabled && actor.restockPhase==RestockPhase.None && actor.shoppingEndReason==ShoppingEndReason.Expired && actor.courierReturningHome && actor.assignedHouseId!=0 && actor.homeShelterId==actor.assignedHouseId && SafeNeedsAction(actor,threat);
+        }
+        private void ExpireRestocking(ref ActorState actor)
+        {
+            bool walkingReturn=BoundedShoppingEnabled && WalkingShoppingTask(actor) && actor.turnAtTick==0 && actor.restockUntilTick<=Tick && actor.assignedHouseId!=0;
+            if(ShoppingContinuityEnabled && IsShopping(actor) && actor.restockUntilTick<=Tick)actor.shoppingEndReason=ShoppingEndReason.Expired;
+            ClearRestocking(ref actor);
+            if(!walkingReturn)return;
+            // Release the claim on time. Reuse saved ordinary return intent, never renew the shopping deadline.
+            actor.courierReturningHome=HouseAt(actor.x,actor.y)!=actor.assignedHouseId;actor.homeShelterId=actor.assignedHouseId;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);
+        }
         // A failed/consumed shopping load still needs a safe, paid return home.
         // Hunger/injury or stale pantry notes must not disable recovery on that existing return.
         private bool SafeShoppingReturn(ActorState actor,int threat)
@@ -34,7 +54,7 @@ namespace Outbreak.Core
         }
         public string ShoppingStatus(int index)
         {
-            var actor=ActorAt(index);if(IsShopping(actor)){if(actor.shoppingResting)return "Resting during shopping trip; destination retained";if(actor.restockPhase==RestockPhase.Returning)return actor.shoppingEndReason==ShoppingEndReason.None?"Returning supplies home":"Returning home: "+ShoppingReason(actor.shoppingEndReason);return actor.shoppingShelf!=0?"Collecting from store shelf":actor.shoppingStoreId!=0?"Travelling to known store #"+actor.shoppingStoreId:"Looking for a known store";}
+            var actor=ActorAt(index);if(BoundedShoppingEnabled && actor.courierReturningHome && actor.shoppingEndReason==ShoppingEndReason.Expired)return "Returning home after shopping timeout";if(IsShopping(actor)){if(actor.shoppingResting)return "Resting during shopping trip; destination retained";if(actor.restockPhase==RestockPhase.Returning)return actor.shoppingEndReason==ShoppingEndReason.None?"Returning supplies home":"Returning home: "+ShoppingReason(actor.shoppingEndReason);return actor.shoppingShelf!=0?"Collecting from store shelf":actor.shoppingStoreId!=0?"Travelling to known store #"+actor.shoppingStoreId:"Looking for a known store";}
             return actor.shoppingEndReason==ShoppingEndReason.None?"No active shopping trip":ShoppingReason(actor.shoppingEndReason);
         }
         private static string ShoppingReason(ShoppingEndReason reason){switch(reason){case ShoppingEndReason.NoKnownStore:return "No reachable known store";case ShoppingEndReason.NoRoute:return "Route blocked or unavailable";case ShoppingEndReason.EmptyStores:return "Known stores empty or unavailable";case ShoppingEndReason.Danger:return "Interrupted by danger or unsafe condition";case ShoppingEndReason.Hunger:return "Interrupted by hunger without a personal meal";case ShoppingEndReason.TargetSatisfied:return "Home reserve already satisfied";case ShoppingEndReason.Expired:return "Shopping task timed out";default:return "Shopping";}}

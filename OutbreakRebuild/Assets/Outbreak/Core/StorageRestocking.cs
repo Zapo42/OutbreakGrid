@@ -14,11 +14,11 @@ namespace Outbreak.Core
         }
         private bool SafeRestock(ActorState actor,int threat)
         {
-            return SafeShoppingReturn(actor,threat) || (actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth || CanSeekFoodForEmptyHome(actor)) && actor.turnAtTick==0 && (actor.hunger<HungerRules.SeekAt || CanSeekFoodForEmptyHome(actor)) && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
+            return SafeExpiredShoppingReturn(actor,threat) || SafeShoppingReturn(actor,threat) || (actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth || CanSeekFoodForEmptyHome(actor)) && actor.turnAtTick==0 && (actor.hunger<HungerRules.SeekAt || CanSeekFoodForEmptyHome(actor)) && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
         }
         private bool RestockDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return WorkerDepartureAllowed(actor,room,threat) || ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && (EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy || CanSeekFoodForEmptyHome(actor));
+            return (room.id!=actor.assignedHouseId && SafeExpiredShoppingReturn(actor,threat)) || WorkerDepartureAllowed(actor,room,threat) || ShoppingDepartureAllowed(actor,room,threat) || AssignedCourierDepartureAllowed(actor,room,threat) || DeliverySourceDepartureAllowed(actor,room,threat) || RestockingEnabled && actor.restockPhase==RestockPhase.Collecting && actor.restockHomeId==room.id && SafeRestock(actor,threat) && (EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy || CanSeekFoodForEmptyHome(actor));
         }
         private ShelfDocument ChooseRestockShelf(ActorState actor,Room home)
         {
