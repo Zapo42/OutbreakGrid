@@ -49,6 +49,16 @@ namespace Outbreak.Core
             // Nearby unloading/arrival wins over a break. Reassess this lower-bound route cost after each paid step.
             return remaining<distance && TryHomeReturnRest(index,ref actor);
         }
+        private bool SafeNeedsWorkFoodReturn(ActorState actor,int threat)
+        {
+            if(!HomeShoppingCompletionEnabled || OccupationOf(actor)==HumanOccupation.Consumer || !WorkerClockOn(actor) || actor.carriedFood!=0 || actor.hunger<HungerRules.SeekAt || FinishingWorkerLoad(actor) || !SafeNeedsAction(actor,threat))return false;
+            foreach(var car in vehicles)if(car.driverId==actor.id)return false; // Vehicle/cargo routines retain ownership.
+            int work=Workplace(actor);if(work==0)return false;if(actor.workerCommuteId==work)return true;
+            if(actor.hunger<FoodRestRules.UrgentHunger(actor) || actor.assignedHouseId==0 || HouseAt(actor.x,actor.y)!=actor.assignedHouseId)return false;
+            Room home=FindRoom(actor.assignedHouseId);if(KnownRoomSupplies(actor,home))return false;int boxes=0;
+            foreach(var box in map.StorageRecords){if(!home.Contains(Key(box.x,box.y)) || IsRestrictedSupplyBox(box))continue;boxes++;var note=HomeNote(actor,box);if(!HomeBoxChecked(actor,box) || !note.HasValue || note.Value.food!=0)return false;}
+            return boxes>0; // Own workplace is known; its actual food is still discovered and transferred there.
+        }
         private bool SafeNeedsHomeReturn(ActorState actor,int threat)
         {
             // Home is authored location knowledge. Neither home stock nor a food report is consulted to return after work.

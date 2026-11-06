@@ -56,7 +56,8 @@ namespace Outbreak.Core
         private bool TryInspectHomeSupplies(int index,ref ActorState actor,int threat,out int direction)
         {
             direction=8;
-            if(!HomeSuppliesEnabled || actor.assignedHouseId==0 || actor.restockPhase!=RestockPhase.None || actor.turnAtTick!=0 || threat>=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy || (actor.hunger>=HungerRules.SeekAt && actor.carriedFood>0))return false;
+            // Urgent empty-handed residents can pay to inspect home food; moderate hunger retains ordinary recovery first.
+            if(!HomeSuppliesEnabled || actor.assignedHouseId==0 || actor.restockPhase!=RestockPhase.None || actor.turnAtTick!=0 || threat>=0 || actor.stress!=0 || actor.freezeUntilTick>Tick || HasRecentWarning(actor) || HasRecentDoorNoise(actor) || (EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy && !(HomeShoppingCompletionEnabled && actor.hunger>=FoodRestRules.UrgentHunger(actor) && actor.carriedFood==0)) || (actor.hunger>=HungerRules.SeekAt && actor.carriedFood>0))return false;
             Room home=FindRoom(actor.assignedHouseId);bool inside=home.Contains(Key(actor.x,actor.y));
             // Workers keep their current occupation; their off-duty home routines are a later increment.
             if(!inside)return false;

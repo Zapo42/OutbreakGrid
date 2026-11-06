@@ -13,6 +13,13 @@ namespace Outbreak.Core
                 if(nearest!=0){if(actor.familiarStoreId==0)actor.familiarStoreId=nearest;if(ConsumerVehiclesEnabled){var other=new System.Collections.Generic.List<int>();foreach(int id in stores.Keys)if(id!=actor.familiarStoreId && other.Count<StoreDiscoveryRules.MemoryLimit-1)other.Add(id);actor.additionalFamiliarStores=other.Count==0?null:other.ToArray();}actors[i]=actor;updated++;}
             }return updated;
         }
+        private void CompleteHomeShoppingReturn(int index,ref ActorState actor)
+        {
+            if(!HomeShoppingCompletionEnabled || !WalkingShoppingTask(actor) || actor.restockPhase!=RestockPhase.Returning || actor.carriedFood>FoodReserve(actor))return;
+            Room home=FindRoom(actor.restockHomeId);if(home==null || !home.Contains(Key(actor.x,actor.y)))return;
+            // Finish physical arrival before work/home planning, so stale shopping/exploration cannot steal the pantry action.
+            ClearRestocking(ref actor);ClearFoodMemory(ref actor);ClearFoodExploration(ref actor);ClearShelterDeparture(ref actor);actor.homeShelterId=0;actors[index]=actor;
+        }
         private bool WalkingShoppingTask(ActorState actor)
         {
             if(!IsShopping(actor))return false;

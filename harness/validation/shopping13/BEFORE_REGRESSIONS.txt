@@ -1,0 +1,5 @@
+Selected published109 failures before implementation:
+BASELINE109 529302EB57267B960F473543A901057BF1C7EA64511EAD30D45792CB890AE408
+FAIL A hungry empty shopper completes its return at home before the hunger guard: Hungry home arrival retained the completed pantry claim.
+FAIL Empty home completion leaves safe recovery paid and danger unrecovered: Completed home return blocked paid recovery or created food.
+Final evidence uses the fully integrated source; earlier candidates are not release validation.

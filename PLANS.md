@@ -1,6 +1,19 @@
 # Development Plan — Existing Roadmap Only
 
-Status: NPC-SHOPPING-12 complete under hosted checks. City supply/home recovery and next-day work remain incomplete; long-trip health regressions documented. Native testing paused.
+Status: NPC-SHOPPING-13 complete under hosted checks. Remaining consumer food access/critical health documented. Native testing paused.
+
+## NPC-SHOPPING-13 — complete empty pedestrian returns at home
+
+- User selected the hungry-at-home retained-return fix. Baseline6a19cd9, clean checkout; single agent. Native Unity paused; validated increments automatically publish.
+- Scope/files: Core/ShoppingContinuity.cs and HumanReactions.cs cleanup before normal work/home planning; Core/NeedsPriority.cs and WorkerShifts.cs for an urgent on-foot return to an authored workplace food site when home supplies are personally known empty (no stock promise/claim; vehicle/load ownership retained); Core/HomeSupplies.cs, FoodRest.cs and ShelterRecovery.cs for low-energy urgently hungry pantry inspection and a fresh-personal-empty-home failed-shop wait that restores energy at existing hunger cost without healing; Core/Encounter.cs and World.cs explicit110 gate preserving109/108/107. Unity/FoundationApp.cs only upgrade/restart/build-label compatibility. Tests/CityShoppingContinuityChecks.cs and NpcRuleUpgradeUiChecks.cs. Shared harness/diagnostics/shopping11/StoreAudit.cs accepts explicit110; shopping13 observer project/README and validation evidence; README, Docs/SHOPPING_RETURN_RECOVERY.md / BUILD_VALIDATION.md, harness/build-log.md and PLANS.md.
+- Acceptance: before/after hungry empty return releases its claim on physical home arrival, before hunger can retain it; unknown pantry inspection/actual eating and paid recovery can resume. No new cooldown, stock knowledge, food, claim renewal or deadline. A surplus load remains physically handled before completion. Consumer vehicles retain their lifecycle; danger/infection priorities remain. Exact save/reload and independently pinned109/108/107 continuation. Sequential unified runner, upgrade checks, unchanged four-city trials and109 control; review individual health/attendance regressions.
+- Review: first placement inside the later restocking stage let generic exploration take the action before inspection; delivery/long-trip survival regressed. Move cleanup before work/home planning and clear stale exploration intent without fabricating observations. Add an action-order regression; retain the rejected candidate evidence.
+- Review: cleanup alone exposed low-energy inspection denial and urgent-hunger denial of rest during an existing failed-shop wait. Add only the home-specific inspection/energy-recovery exceptions; fresh personally checked empty boxes required, known food/danger/infection still win, and the new urgent wait never heals health.
+- Final handoff: a fresh personally empty home with no known usable food waits in place during the existing failed-shop cooldown, rather than restarting empty-home exploration; energy may recover at the existing hunger rate, health cannot heal. Work/home inspection and safety checks retain priority.
+- Worker regression review: releasing a finished task exposed the on-duty hunger commute guard; an urgent empty-handed worker at a personally checked empty home can travel/recover on its normal known workplace route, then must observe/pick up real staff food. No dispatch/cargo/vehicle overrides.
+- Risks: earlier claim release changes inspection/food-search timing and competition. Retain existing failed-shop cooldown; avoid broad foraging/needs-policy changes or fixture/rate tuning. No new save fields, editor/dependency/version pins, geometry, sprites, GUIDs or .meta changes.
+
+- Final: 732cases/744525assertions; config/ABI, UI7222+3, upgrades108;4city trials/28replay groups/840steps;109full control byte-identical. Delivery deaths2→1, credits15→17, all workers attend next day in difficult trials; critical hunger/consumer risks remain.
 
 ## NPC-SHOPPING-12 — bounded empty-store searches and expiry handoff
 

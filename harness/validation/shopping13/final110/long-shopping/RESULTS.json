@@ -1,0 +1,179 @@
+{
+  "name": "long-shopping",
+  "source": "NPC-SHOPPING-11 fixed-input observation; rules110",
+  "start": 0,
+  "end": 15600,
+  "finalHour": 9,
+  "internalDoorCoordinates": [
+    {
+      "k": 1210,
+      "x": 10,
+      "y": 12
+    },
+    {
+      "k": 1278,
+      "x": 78,
+      "y": 12
+    }
+  ],
+  "actors": [
+    {
+      "Id": 1,
+      "Home": 3745,
+      "Work": 842,
+      "InternalEntries": 15,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 3,
+      "HomeDeposited": 0,
+      "ShoppingDeposited": 0,
+      "Moves": 2470,
+      "Meals": 16,
+      "OffHome": 7846,
+      "NextWork": 14636,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        978,
+        910
+      ],
+      "finalHealth": 100,
+      "hunger": 8,
+      "energy": 28
+    },
+    {
+      "Id": 2,
+      "Home": 3710,
+      "Work": 910,
+      "InternalEntries": 13,
+      "Withdrawn": 9,
+      "ShelfDeposits": 2,
+      "DistinctStockedShelves": [
+        1413
+      ],
+      "ShelfBought": 0,
+      "HomeDeposited": 0,
+      "ShoppingDeposited": 0,
+      "Moves": 1311,
+      "Meals": 11,
+      "OffHome": 7467,
+      "NextWork": 14587,
+      "FirstDamage": 6510,
+      "Death": -1,
+      "ShopChoices": [
+        910,
+        978
+      ],
+      "finalHealth": 84,
+      "hunger": 47,
+      "energy": 71
+    },
+    {
+      "Id": 3,
+      "Home": 3778,
+      "Work": 978,
+      "InternalEntries": 28,
+      "Withdrawn": 8,
+      "ShelfDeposits": 7,
+      "DistinctStockedShelves": [
+        1481
+      ],
+      "ShelfBought": 8,
+      "HomeDeposited": 4,
+      "ShoppingDeposited": 2,
+      "Moves": 1258,
+      "Meals": 12,
+      "OffHome": 7453,
+      "NextWork": 15393,
+      "FirstDamage": -1,
+      "Death": -1,
+      "ShopChoices": [
+        978,
+        910
+      ],
+      "finalHealth": 100,
+      "hunger": 100,
+      "energy": 5
+    },
+    {
+      "Id": 4,
+      "Home": 3710,
+      "Work": 0,
+      "InternalEntries": 13,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 16,
+      "HomeDeposited": 4,
+      "ShoppingDeposited": 4,
+      "Moves": 2189,
+      "Meals": 14,
+      "OffHome": 7719,
+      "NextWork": -1,
+      "FirstDamage": 12150,
+      "Death": -1,
+      "ShopChoices": [
+        910,
+        978
+      ],
+      "finalHealth": 95,
+      "hunger": 100,
+      "energy": 51
+    },
+    {
+      "Id": 5,
+      "Home": 3778,
+      "Work": 0,
+      "InternalEntries": 1,
+      "Withdrawn": 0,
+      "ShelfDeposits": 0,
+      "DistinctStockedShelves": [],
+      "ShelfBought": 12,
+      "HomeDeposited": 13,
+      "ShoppingDeposited": 10,
+      "Moves": 1066,
+      "Meals": 11,
+      "OffHome": 7200,
+      "NextWork": -1,
+      "FirstDamage": 13080,
+      "Death": -1,
+      "ShopChoices": [
+        978
+      ],
+      "finalHealth": 26,
+      "hunger": 100,
+      "energy": 58
+    }
+  ],
+  "initialFood": 203,
+  "remainingFood": 139,
+  "meals": 64,
+  "discarded": 0,
+  "unattributed": 0,
+  "credited": 17,
+  "sourceOut": 29,
+  "sourceIn": 0,
+  "sourceFinal": 139,
+  "sourceFirstDelivery": 516,
+  "sourceFirstStore": 910,
+  "replayStages": [
+    "shopping",
+    "internal-door",
+    "courier-travel",
+    "periodic-300",
+    "clerk-stock-handling",
+    "periodic-7200",
+    "periodic-14400"
+  ],
+  "omittedEventCounts": {
+    "events": 1702,
+    "stocked": 7,
+    "withdrawals": 31,
+    "shopPickups": 17,
+    "homeDeposits": 15,
+    "creditEvents": 10
+  },
+  "fullReportSha256": "2c434e24b15b8cacd20158b24e2fe9111cf0d7fd2f491c0c69ae1d2d89b0a351",
+  "recordFormat": "Compact audit summary; regenerate full arrays using harness/diagnostics/shopping13."
+}

@@ -68,7 +68,7 @@ namespace Outbreak.Core
         }
         private bool WorkerDepartureAllowed(ActorState actor,Room room,int threat)
         {
-            return WorkerShiftsEnabled && actor.workerCommuteId!=0 && actor.workerCommuteId!=room.id && (SafeNeedsHomeReturn(actor,threat) || SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy);
+            return WorkerShiftsEnabled && actor.workerCommuteId!=0 && actor.workerCommuteId!=room.id && (SafeNeedsHomeReturn(actor,threat) || SafeNeedsWorkFoodReturn(actor,threat) || SafeRestock(actor,threat) && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy);
         }
         private bool TryWorkerRoutine(int index,ref ActorState actor,int threat,out int direction)
         {
@@ -103,11 +103,11 @@ namespace Outbreak.Core
                 if(working && actor.clerkStoreId==0 && actor.carriedFood>FoodReserve(actor) && SafeRestock(actor,threat))return TryUseStorage(index,ref actor,threat,destination,true,out direction,actor.courierSourceBox);
                 return false;
             }
-            bool needsHomeReturn=SafeNeedsHomeReturn(actor,threat);
-            if(!needsHomeReturn && (!SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy))return false;
-            if(needsHomeReturn && actor.foodExploreRoomId!=0)CancelFoodExploration(index,ref actor); // Release the old foraging goal atomically before taking ownership of the home route.
+            bool needsHomeReturn=SafeNeedsHomeReturn(actor,threat),needsWorkFoodReturn=SafeNeedsWorkFoodReturn(actor,threat);
+            if(!needsHomeReturn && !needsWorkFoodReturn && (!SafeRestock(actor,threat) || EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy))return false;
+            if((needsHomeReturn || needsWorkFoodReturn) && actor.foodExploreRoomId!=0)CancelFoodExploration(index,ref actor); // Release the old foraging goal atomically before taking ownership of the home route.
             if(actor.workerCommuteId!=desired){actor.workerCommuteId=desired;actor.courierReturningHome=false;actor.homeShelterId=0;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);}
-            if(needsHomeReturn && TryHomeReturnRest(index,ref actor))return true;
+            if((needsHomeReturn || needsWorkFoodReturn) && TryHomeReturnRest(index,ref actor))return true;
             if(working && TryCourierRouteRest(index,ref actor,threat))return true;
             Room current=FindRoom(actor.shelterId);
             if(actual!=null && actual!=destination && (current==null || current.id!=actual.id)){actor.shelterId=actual.id;actor.shelterX=actor.x;actor.shelterY=actor.y;actor.shelterState=ShelterState.Inside;current=actual;}

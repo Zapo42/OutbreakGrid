@@ -1,8 +1,12 @@
-# Bounded shopping searches and return recovery — NPC-SHOPPING-12
+# Shopping home completion and return recovery — NPC-SHOPPING-13
 
-Rules109 address the later empty-store retry/task-expiry loop after the published rules108 return-recovery increment. No new food, staff, schedules, geometry, colors, speeds or needs rates are introduced. Native Unity testing remains paused.
+Rules110 address an arrived pedestrian return retaining its pantry claim while hungry. Earlier109 bounded searches and108 return recovery remain. No new food, staff, schedules, geometry, colors, speeds or needs rates are introduced. Native Unity testing remains paused.
 
 ## Current behavior
+
+On physical home arrival, a pedestrian with no food above its personal reserve completes the shopping task before the hunger guard. Its pantry claim/deadline and stale departure/food goal are cleared, so normal home inspection, food-seeking and paid recovery can resume. Existing failed-store cooldown is retained; no new cooldown is added. Urgently hungry empty-handed residents can pay for a home pantry inspection even below the usual energy threshold. During an existing failed-shop wait, fresh personal observations that every home box is empty allow waiting in place and energy recovery; known usable food, unsearched home shelves and danger prevent that wait. This urgent wait cannot heal health. Rest/hunger rates and existing hunger caps remain, so alive is not the same as fed.
+
+If an urgently hungry on-duty pedestrian worker personally knows home supplies are empty, its ordinary commute to its assigned workplace may proceed with paid rest. The workplace location is authored knowledge; food is neither promised nor granted. Normal staff food access must observe and withdraw it physically on arrival. Work loads, delivery claims and assigned vehicle routines retain ownership. Surplus food still needs a real pantry deposit, and assigned consumer vehicles retain their cart lifecycle. No inventory or stock knowledge is granted.
 
 A failed-shop observation normally expires after300ticks. Walking to the farther shop can take longer, so the same trip could select the already-empty shop again and repeat until its3600tick task expired. Rules109 retain genuine failed-shop observations during that bounded pedestrian search, preserving their observation times. A newer positive shelf observation can still win; storefront location alone reveals no inventory. Normal failed-visit cooldown resumes once collection ends. The existing eight-note memory limit remains.
 
@@ -10,18 +14,18 @@ A timed-out walking task releases its pantry claim and shopping deadline immedia
 
 ## Saves and controls
 
-New scenarios use109. Loading108 or earlier retains the saved rules; rendering never upgrades a run. The inspector offers **Enable bounded shopping searches** for108. Older saves show their next missing-feature button, which explicitly upgrades the detached run to the current rules while paused. Save separately to preserve the original. Restart keeps enabled rules and checkpoint facts, including modern energy, vehicle clocks and uninfected deprivation corpses. No new save fields or schema changes. Unity remains6000.6.3f1.
+New scenarios use110. Loading109 or earlier retains the saved rules; rendering never upgrades a run. The inspector offers **Enable home shopping completion** for109. Older saves show their next missing-feature button, which explicitly upgrades the detached run to the current rules while paused. Save separately to preserve the original. Restart keeps enabled rules and checkpoint facts, including modern energy, vehicle clocks and uninfected deprivation corpses. No new save fields or schema changes. Unity remains6000.6.3f1.
 
 ## Validation and limits
 
-Hosted checks pass723core cases/743792assertions plus UI/upgrade checks. The unchanged delivery trial still has2deaths and15credited meals; consumer5health improves33→100, with severe hunger remaining. Long-shopping worker2health worsens68→39 and worker3health61→44; next-day attendance is incomplete. These are documented regressions, not healthy-city acceptance.
+Hosted checks pass 732 core cases/744525 assertions plus UI/upgrade checks. The delivery trial improves from2deaths/15credited meals to1death/17credits; all three workers attend next-day workplaces. Long-shopping has0deaths and all workers attend. Individual risks remain: delivery consumer5now dies while IDs3/4survive, consumer4has only1health, and long-shopping consumer5health falls82→26. Some survivors remain at100hunger. Full individual results and rejected candidates are recorded below; this is not healthy-city acceptance.
 
-Final hosted/city/control results are recorded in BUILD_VALIDATION.md and harness/validation/shopping12. Reproduction commands: harness/diagnostics/shopping12; unchanged source fixtures/input hashes: harness/diagnostics/shopping11. Trial exit0 proves physical-food accounting and exact replay, not healthy daily routines. Hosted UI API doubles/Windows ABI checks do not establish actual Unity rendering/input, dialogs or Windows player execution. No EXE is supplied.
+Latest hosted/city/control results are recorded in BUILD_VALIDATION.md and harness/validation/shopping13. Reproduction commands: harness/diagnostics/shopping13; unchanged source fixtures/input hashes: harness/diagnostics/shopping11. Trial exit0 proves physical-food accounting and exact replay, not healthy daily routines. Hosted UI API doubles/Windows ABI checks do not establish actual Unity rendering/input, dialogs or Windows player execution. No EXE is supplied.
 
 When native testing is explicitly resumed:
 
-1. Current Tests → **Inspect Large City Shopping Paused**. Follow task destination, food and energy. Confirmed empty shops should stay excluded during that search unless newer shelf knowledge changes the choice; pause, speed and Restart should work.
-2. Load your rules108 save. Verify **Enable bounded shopping searches** upgrades only after the queued action, keeps the run paused and preserves tick/inventory. Save separately. An older supplied107 fixture uses its offered upgrade button.
+1. Current Tests → **Inspect Large City Shopping Paused**. Follow the selected shopper home. When no deliverable surplus remains, the return claim should end even while hungry; food-seeking/inspection and recovery can resume normally. Confirmed-empty-shop search exclusions remain. Pause, speed and Restart should work.
+2. Load your rules109 save. Verify **Enable home shopping completion** upgrades only after the queued action, keeps the run paused and preserves tick/inventory. Save separately. An older supplied107 fixture uses its offered upgrade button.
 3. Save during a shopping search or a return after timeout, reload, then step. Search observations/return intent must persist; an expired task must have no renewed pantry claim or shopping deadline. Ordinary travel/rest costs still apply.
 
 ## Historical rules108 background

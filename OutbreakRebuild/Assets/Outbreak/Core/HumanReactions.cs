@@ -97,8 +97,10 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             if (ShelfMemoryEnabled) { ObserveShelves(ref actor); actors[index] = actor; } // Observe even while fed; retain personal knowledge for later trips.
             if(BoxMemoryEnabled){ObserveStorageBoxes(ref actor);actors[index]=actor;}
             if(StoreDiscoveryEnabled){ObserveStoreEntrances(ref actor);actors[index]=actor;}
+            CompleteHomeShoppingReturn(index,ref actor);
             int workerDirection;if(TryWorkerRoutine(index,ref actor,threatIndex,out workerDirection))return workerDirection;
             int homeDirection;if(TryInspectHomeSupplies(index,ref actor,threatIndex,out homeDirection))return homeDirection;
+            if(TryHomeFoodWait(index,ref actor,threatIndex))return 8;
             int clerkDirection;if(StoresEnabled && TryClerkWork(index,ref actor,threatIndex,out clerkDirection))return clerkDirection;
             int restockDirection;if(RestockingEnabled && TryRestock(index,ref actor,threatIndex,out restockDirection))return restockDirection;
             if (FoodSharing && TryShareFood(index, ref actor, threatIndex)) return 8; // A transfer consumes the donor action; the recipient eats on its own opportunity.
