@@ -1,5 +1,29 @@
 # Build validation and rollback checkpoint
 
+## NPC-SHOPPING-11 — paid recovery on empty shopping returns (rules108)
+
+Completed hosted validation November6UTC (started November5), baselinef6a8bb4. Single-agent review; no independent-team or native acceptance claim. Fixed hunger/injury/stale-pantry guards suppressing the existing paid break on an active, unexpired personal-shopping return. A failed search with shoppingStoreId0 can also recover while returning. Normal hungry collection aborts, initial departure rules, finite food, real movement/rest costs, danger/infection/warning/grapple/freeze guards and task deadlines are preserved. Accurate danger end-reason is gated108. No new save fields, geometry, food, rates, jobs, dependencies, editor/settings or GUID changes.
+
+Core changes: ShoppingContinuity.cs/StorageRestocking.cs; explicit108 gate in Encounter.cs/World.cs preserves107 and earlier. FoundationApp.cs only build label and explicit upgrade/restart compatibility, including107 energy/vehicle clocks/uninfected deprivation corpses. Tests: CityShoppingContinuityChecks.cs and NpcRuleUpgradeUiChecks.cs. New source guide: SHOPPING_RETURN_RECOVERY.md. Portable supplied-observer adaptation and unchanged107 inputs: harness/diagnostics/shopping11 (input hashes included).
+
+Final sequential command: `DOTNET_CLI_HOME=/workspace/toolchains/dotnet-home python3 OutbreakRebuild/Tools/run_checks.py --dotnet /workspace/toolchains/dotnet/dotnet --output /workspace/review/shopping-recovery/unified-complete`. PASS 715cases/743767assertions, configuration/hosted Windows ABI, UI Legacy7222/NewOnly3. Separate NpcRuleUpgradeUiChecks PASS88: rules100–107 upgrades/restarts stay paused and preserve facts;107 corpse remains uninfected. Focused10cases PASS; the paid-recovery case covers known/cleared store destinations against an explicit107 copy and exact continuation. Independent pre-fix1071000tick digest remains B5972893867842E453B2E4F9D04BCCD86043B34802787940D644765A74FC5530; existing106 digest unchanged.
+
+The initial broader hungry-collection candidate was rejected before publication: delivery deaths remained2 but changed from IDs3/4 to IDs4/5, introducing a death for a previous survivor. Final implementation changes returning recovery only and retains old collection hunger guards. Final source was fully revalidated after covering failed-search returns; superseded intermediate runs are not final evidence.
+
+Final read-only observer compiled Release with0warnings/errors, then ran all four unchanged seed214/100x56/5actor/203meal fixtures for15600ticks each. Inputs differ only by explicitly selecting108 on detached copies. Every tick verifies physical meals/food, and credits require matching active orders plus adjacent carried-food-to-stockroom transfer. All28checkpoint groups/840complete encoded continuation steps PASS,0unexplained food creation/loss. Full107 delivery rerun is byte-identical to the previously recorded final (SHA256 3aa4469dd41b76a8a70d0055e4c0a2aa86cb2e9ebc72c5609a798899661bbbbf).
+
+| Fixture | Deaths107 →108 | Credited meals107 →108 | Food remaining107 →108 |
+| --- | ---: | ---: | ---: |
+| restocking | 0 → 0 | 9 → 9 | 124 → 124 |
+| shopping | 0 → 0 | 17 → 17 | 125 → 125 |
+| delivery | 2 → 2 | 15 → 15 | 158 → 158 |
+| long-shopping | 0 → 0 | 15 → 15 | 144 → 144 |
+
+Important individual outcomes: delivery consumer4 now completes its first empty return at5949 with44energy, then eats finite home food. Later trips still buy only1shelf meal and make0shopping deposits. IDs3/4 still die at13290: clerk3was13260; consumer4was13740, so the consumer's later death occurs450ticks earlier even though initial damage is delayed. Survivors1/2/5 finish health100/100/33 versus69/43/19, with severe hunger still present. No delivery worker reaches next-day on-duty workplace by15600. Long-shopping remains hungry/injured despite0deaths. Do not claim food-chain/survival or full shift-system acceptance. The older64x36 R1 survival regression is not re-certified here. Next investigation: later depleted-store retry/timeout and home recovery, using the preserved physical-food fixtures.
+
+Evidence: harness/validation/shopping11/{SUMMARY.json,FOUNDATION_CHECKS.txt,SOURCE_HASHES.json,*-complete.log,final108,rejected-broad108}. Stored RESULTS.json files are compact audit summaries with raw-report hashes/event counts; the supplied observer regenerates full event arrays. No production-source changes after final checks. Unity6000.6.3f1, dependency versions, .meta files, RESTORE42 and Foundation82 checkpoints preserved. Native Unity compile/render/input/DPI/dialog/player NOT RUN under the existing pause; no Windows EXE. Publish under standing authorization; verify remote main and actual HTTPS archive bytes/CRC/editor pin before delivery.
+
+
 ## GRAPHICS-UNIFORMS-10 — existing courier/clerk uniforms
 
 Baselinef823527. User selected brown couriers and blue-shirt/pale-yellow-apron clerks and asked whether color coding was becoming too minute. Close5x5 living workers now use existing permanent AssignedOccupation: courier brown/tan reference cloth chosen by background contrast; clerk adaptive blue with gold/pale-yellow center bib/torso apron. Sixteen occupied cells, face/geometry, walking/facing/anchors remain; smaller tiers keep species inks. Off-duty employment stays uniformed; existing role bands show duty state. Zombies/corpses/flash preserve their state priority. No new role, behavior, saved uniform state or Core/schema change. LEO dark blue and medic green crosses documented as future conventions only.

@@ -1,12 +1,43 @@
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using Outbreak.Core;
 using Outbreak.Contracts;
 using Outbreak.Persistence;
 public static partial class Program
 {
     private static int ShopperHomeFood(World world){var actor=world.ActorAt(0);int total=0;foreach(var box in world.StorageBoxSites())if(world.HouseAt(box.x,box.y)==actor.assignedHouseId)total+=StorageRules.Count(box,InventoryItem.Food);return total;}
+    private static World InFlightHungryShopper(bool returning=false)
+    {
+        World w=EncounterScenarios.LargeCityShoppingTest();
+        for(int t=0;t<800;t++){
+            var a=w.ActorAt(0);Terrain ground=w.TerrainAt(a.x,a.y);
+            if(a.shoppingMeals>0 && a.restockPhase==RestockPhase.Collecting && w.HouseAt(a.x,a.y)!=a.assignedHouseId && a.shelterExitPhase==ShelterExitPhase.None && ground!=Terrain.DoorOpen && ground!=Terrain.DoorClosed && !TerrainRules.RoadSurface(ground)){
+                var save=w.Capture();a=save.actors[0];a.hunger=45;a.health=70;a.carriedFood=0;a.storageMemory=null;a.energySpent=returning?EnergyRules.Maximum:50;if(returning)a.restockPhase=RestockPhase.Returning;save.actors[0]=a;return World.Restore(save);
+            }
+            w.Step();
+        }
+        throw new Exception("No actual off-road shopping departure reached.");
+    }
     private static void CheckCityShoppingContinuityCases()
     {
+        Check("Hungry proactive shoppers still return rather than search indefinitely",()=>{
+            World w=InFlightHungryShopper();var before=w.ActorAt(0);int food=w.FoodSupplies().RemainingMeals;Run(w,5);var a=w.ActorAt(0);
+            Require(a.restockPhase==RestockPhase.Returning && a.shoppingEndReason==ShoppingEndReason.Hunger && a.shoppingStoreId==before.shoppingStoreId && a.restockBox==before.restockBox && a.restockUntilTick==before.restockUntilTick,"Hungry collection did not retain the bounded home-return safety policy.");
+            if(a.x!=before.x || a.y!=before.y)Require(a.energySpent>before.energySpent,"Return movement did not cost energy.");Require(w.FoodSupplies().RemainingMeals==food && a.carriedFood==0,"Starting a return fabricated food.");
+            World copy=Documents.ParseSave(State(w));Run(w,30);Run(copy,30);Require(State(w)==State(copy),"Hungry return changed across save/reload.");
+        });
+        Check("A hungry empty-handed shopping return takes a paid safe off-road break",()=>{
+            foreach(bool exhaustedStores in new[]{false,true}){World w=InFlightHungryShopper(true);if(exhaustedStores){var saved=w.Capture();saved.actors[0].shoppingStoreId=0;saved.actors[0].shoppingShelf=0;saved.actors[0].shoppingSearchCell=0;w=World.Restore(saved);}var legacySave=w.Capture();legacySave.rulesVersion=EncounterRules.NeedsPriorityVersion;World legacy=World.Restore(legacySave);var before=w.ActorAt(0);int food=w.FoodSupplies().RemainingMeals;Run(w,10);var a=w.ActorAt(0);
+            Run(legacy,10);Require(!legacy.ActorAt(0).shoppingResting,"Rules107 unexpectedly gained paid hungry return recovery.");Require(a.shoppingResting && a.energySpent<before.energySpent && a.hunger>before.hunger,"Hunger suppressed paid recovery on an empty shopping return.");Require(a.x==before.x && a.y==before.y && a.restockBox==before.restockBox && a.restockUntilTick==before.restockUntilTick && a.restockPhase==RestockPhase.Returning,"Rest moved the actor, replaced the return or extended its deadline.");Require(w.FoodSupplies().RemainingMeals==food && a.carriedFood==0,"Rest created or disposed of food.");
+            World copy=Documents.ParseSave(State(w));Run(w,25);Run(copy,25);Require(State(w)==State(copy),"Hungry return rest changed across save/reload.");}
+        });
+        Check("Published rules107 preserve independent pre-fix shopping continuation",()=>{
+            var saved=EncounterScenarios.LargeCityShoppingTest().Capture();saved.rulesVersion=EncounterRules.NeedsPriorityVersion;World w=World.Restore(saved);Run(w,1000);string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(State(w)))).Replace("-","");Require(w.NeedsPriorityEnabled && !w.ShoppingRecoveryEnabled && w.Capture().rulesVersion==EncounterRules.NeedsPriorityVersion && hash=="B5972893867842E453B2E4F9D04BCCD86043B34802787940D644765A74FC5530","Published107 shopping or save continuation silently changed.");
+        });
+        Check("Danger still interrupts an active hungry shopping trip",()=>{
+            var saved=InFlightHungryShopper().Capture();saved.actors[0].stress=40;saved.actors[0].reaction=HumanReaction.Aware;World w=World.Restore(saved);Run(w,5);Require(w.ActorAt(0).restockPhase==RestockPhase.Returning && !w.ActorAt(0).shoppingResting && w.ActorAt(0).shoppingEndReason==ShoppingEndReason.Danger,"Unsafe active shopper continued shopping or resting.");
+        });
         Check("Larger city shopping reproduces old empty departures and completes a real shelf-to-home trip",()=>{
             var original=EncounterScenarios.LargeCityShoppingTest().Capture();var old=EncounterScenarios.LargeCityShoppingTest().Capture();old.rulesVersion=EncounterRules.ParkingTrafficVersion;old.actors[0].familiarStoreId=0;old.actors[0].additionalFamiliarStores=null;World legacy=World.Restore(old);bool left=false,returned=false;
             for(int t=0;t<250;t++){legacy.Step();var actor=legacy.ActorAt(0);left|=legacy.HouseAt(actor.x,actor.y)!=actor.assignedHouseId;returned|=left && actor.restockPhase==RestockPhase.Returning && actor.carriedFood==1;}

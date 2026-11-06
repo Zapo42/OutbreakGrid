@@ -45,9 +45,9 @@ public static class NpcRuleUpgradeUiChecks
         string mapJson = File.ReadAllText(path);
         string[] versions = { EncounterRules.LeisureVersion, EncounterRules.HappinessVersion, EncounterRules.OffDutyConsumersVersion,
             EncounterRules.ParkVisitsVersion, EncounterRules.SocialInteractionsVersion, EncounterRules.ParkPreferencesVersion,
-            EncounterRules.SocialFamiliarityVersion };
+            EncounterRules.SocialFamiliarityVersion, EncounterRules.NeedsPriorityVersion };
         string[] labels = { "Enable happiness", "Enable off-duty consumer routines", "Enable known park visits",
-            "Enable social greetings", "Enable park preferences", "Enable familiar greetings", "Enable needs priority" };
+            "Enable social greetings", "Enable park preferences", "Enable familiar greetings", "Enable needs priority", "Enable shopping return recovery" };
         for (int n = 0; n < versions.Length; n++)
         {
             WorldMap map = Documents.ParseMap(mapJson);
@@ -67,7 +67,7 @@ public static class NpcRuleUpgradeUiChecks
             {
                 typeof(FoundationApp).GetMethod("UseWorld", Instance).Invoke(app, new object[] { legacy });
                 Render(app);
-                Require(State(Current(app)) == initialState && !Current(app).NeedsPriorityEnabled, "Loading/rendering silently upgraded old rules.");
+                Require(State(Current(app)) == initialState && !Current(app).ShoppingRecoveryEnabled, "Loading/rendering silently upgraded old rules.");
                 Require(UnityEngine.GUILayout.controls.ContainsKey(labels[n]), "Missing explicit upgrade for " + versions[n]);
                 Press(app, "Step 1 tick");
                 Press(app, "Restart scenario");
@@ -80,17 +80,26 @@ public static class NpcRuleUpgradeUiChecks
                 Render(app, labels[n]);
                 Require(State(Current(app)) == before, "Upgrade mutated simulation during GUI traversal.");
                 Call(app, "Update");
-                Require(Current(app).NeedsPriorityEnabled && Paused(app), "Queued upgrade did not enable rules107 while paused.");
+                Require(Current(app).ShoppingRecoveryEnabled && Paused(app), "Queued upgrade did not enable current shopping rules while paused.");
                 Require(State(Current(app)) == Documents.Encode(World.Restore(expected).Capture()), "Upgrade changed inventory, energy, map, clock or RNG.");
                 Press(app, "Step 1 tick");
                 Press(app, "Restart scenario");
                 initial.rulesVersion = EncounterRules.Version;
                 Require(State(Current(app)) == Documents.Encode(World.Restore(initial).Capture()) && Paused(app), "Upgraded restart converted modern energy or lost original house state.");
                 Render(app);
-                Require(!UnityEngine.GUILayout.controls.ContainsKey("Enable needs priority"), "Current rules still offer needs upgrade.");
+                Require(!UnityEngine.GUILayout.controls.ContainsKey("Enable shopping return recovery"), "Current rules still offer needs upgrade.");
             }
             finally { Call(app, "OnDestroy"); }
         }
+        // A107 deprivation corpse has no infection clock; restarting after upgrade must retain that fact.
+        WorldMap deathMap=new WorldMap(3,3);for(int y=0;y<3;y++)for(int x=0;x<3;x++)deathMap.Set(x,y,Terrain.Wall);deathMap.Set(1,1,Terrain.Grass);
+        World deathWorld=new World(deathMap,214,encounter:true,hunger:true);int deathId;Require(deathWorld.TrySpawn(Species.Human,1,1,out deathId),"Death checkpoint spawn failed.");
+        var deathSave=deathWorld.Capture();deathSave.rulesVersion=EncounterRules.NeedsPriorityVersion;deathSave.actors[0].health=1;deathSave.actors[0].hunger=100;deathSave.actors[0].energySpent=100;deathWorld=World.Restore(deathSave);for(int t=0;t<30;t++)deathWorld.Step();
+        Require(deathWorld.ActorAt(0).health==0 && deathWorld.ActorAt(0).turnAtTick==0,"Expected real uninfected deprivation corpse.");deathSave=deathWorld.Capture();FoundationApp deathApp=new FoundationApp();Call(deathApp,"Awake");
+        try{
+            typeof(FoundationApp).GetMethod("UseWorld",Instance).Invoke(deathApp,new object[]{deathWorld});Press(deathApp,"Step 1 tick");Render(deathApp,"Enable shopping return recovery");Call(deathApp,"Update");Press(deathApp,"Restart scenario");deathSave.rulesVersion=EncounterRules.Version;
+            Require(Current(deathApp).ActorAt(0).turnAtTick==0 && State(Current(deathApp))==Documents.Encode(World.Restore(deathSave).Capture()),"Rules107 restart invented an infection deadline or changed checkpoint facts.");
+        }finally{Call(deathApp,"OnDestroy");}
         FoundationApp preview = new FoundationApp();
         Call(preview, "Awake");
         try
@@ -109,7 +118,7 @@ public static class NpcRuleUpgradeUiChecks
             Require(State(Current(preview)) == start && Paused(preview), "Needs preview restart lost its authored finite inventory.");
         }
         finally { Call(preview, "OnDestroy"); }
-        Console.WriteLine("PASS rules100-106 explicit upgrades/restarts with schema14 houses and needs preview: " + assertions + " assertions. UI API doubles; native Unity NOT RUN.");
+        Console.WriteLine("PASS rules100-107 explicit upgrades/restarts with schema14 houses, deprivation corpse and needs preview: " + assertions + " assertions. UI API doubles; native Unity NOT RUN.");
         return 0;
     }
 }

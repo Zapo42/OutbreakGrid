@@ -1,6 +1,6 @@
 # OutbreakGrid
 
-**Current testing snapshot: courier and clerk uniforms.** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Use Unity **6000.6.3f1** → Current Tests → Inspect Worker Uniforms Paused. Close-up couriers wear brown/tan; clerks wear blue with pale-yellow aprons. [Uniform sheet and scope](OutbreakRebuild/Docs/WORKER_UNIFORMS.md). Smaller tiers retain species colors; existing role bands and controls remain. Future LEO/medic colors are notes, not new roles. Source project, not a Windows EXE. Native Unity remains unverified; survival/next-day work issues remain.
+**Current testing snapshot: shopping return recovery (rules108).** [Download project ZIP](https://github.com/Zapo42/OutbreakGrid/archive/refs/heads/main.zip). Hungry, empty-handed shoppers can take their existing paid breaks while returning home; original hunger-triggered collection aborts remain. [Scope, remaining failures and manual checks](OutbreakRebuild/Docs/SHOPPING_RETURN_RECOVERY.md). This fixes a recovery defect, not the city's food supply: the delivery diagnostic still has two deaths. [Courier/clerk uniforms](OutbreakRebuild/Docs/WORKER_UNIFORMS.md), sprite tiers and controls remain. Source project for Unity **6000.6.3f1**, not a Windows EXE. Native testing remains paused.
 
 
 [Test guide and local Windows build instructions](OutbreakRebuild/Docs/TESTING_SNAPSHOT_3X3.md) · [Sprite tiers, camera controls and preview](OutbreakRebuild/Docs/NPC_3X3_SYMBOLS.md).

@@ -1,0 +1,10 @@
+PASS Hungry proactive shoppers still return rather than search indefinitely
+PASS A hungry empty-handed shopping return takes a paid safe off-road break
+PASS Published rules107 preserve independent pre-fix shopping continuation
+PASS Danger still interrupts an active hungry shopping trip
+PASS Larger city shopping reproduces old empty departures and completes a real shelf-to-home trip
+PASS Familiar shops reveal locations without revealing hidden shelf stock
+PASS Shopping rest saves retain their destination and danger interrupts the break
+PASS Existing saves can explicitly gain location familiarity without gaining food knowledge
+PASS Hungry shoppers with empty homes try a farther familiar store after the nearest is depleted
+PASS Shopping continuity validates unfamiliar ids rest state and older rules

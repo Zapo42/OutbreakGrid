@@ -14,7 +14,7 @@ namespace Outbreak.Core
         }
         private bool SafeRestock(ActorState actor,int threat)
         {
-            return (actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth || CanSeekFoodForEmptyHome(actor)) && actor.turnAtTick==0 && (actor.hunger<HungerRules.SeekAt || CanSeekFoodForEmptyHome(actor)) && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
+            return SafeShoppingReturn(actor,threat) || (actor.health>=ShelterRecoveryRules.ExtraReserveBelowHealth || CanSeekFoodForEmptyHome(actor)) && actor.turnAtTick==0 && (actor.hunger<HungerRules.SeekAt || CanSeekFoodForEmptyHome(actor)) && actor.stress==0 && threat<0 && actor.freezeUntilTick<=Tick && !HasRecentWarning(actor) && !HasRecentDoorNoise(actor);
         }
         private bool RestockDepartureAllowed(ActorState actor,Room room,int threat)
         {
@@ -40,7 +40,7 @@ namespace Outbreak.Core
         }
         private bool BeginRestockReturn(int index,ref ActorState actor,Room home,int threat)
         {
-            if(ShoppingContinuityEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Collecting && actor.shoppingEndReason==ShoppingEndReason.None)actor.shoppingEndReason=actor.hunger>=HungerRules.SeekAt?ShoppingEndReason.Hunger:!SafeRestock(actor,threat)?ShoppingEndReason.Danger:ShoppingEndReason.NoRoute;
+            if(ShoppingContinuityEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Collecting && actor.shoppingEndReason==ShoppingEndReason.None)actor.shoppingEndReason=ShoppingRecoveryEnabled && !SafeNeedsAction(actor,threat)?ShoppingEndReason.Danger:actor.hunger>=HungerRules.SeekAt?ShoppingEndReason.Hunger:!SafeRestock(actor,threat)?ShoppingEndReason.Danger:ShoppingEndReason.NoRoute;
             actor.shoppingResting=false;actor.restockPhase=RestockPhase.Returning;ClearFoodMemory(ref actor);ClearShelterDeparture(ref actor);
             int goal,length;if(home==null || !FoodReturnGoal(actor,home,KnownShelterThreats(actor,threat),out goal,out length)){ClearRestocking(ref actor);actor.homeShelterId=0;actors[index]=actor;return false;}
             actor.homeShelterId=home.id;actor.shelterId=home.id;actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=home.Contains(Key(actor.x,actor.y))?ShelterState.Inside:ShelterState.Seeking;actors[index]=actor;return false;

@@ -1,6 +1,18 @@
 # Development Plan — Existing Roadmap Only
 
-Status: GRAPHICS-UNIFORMS-10 complete under hosted checks and publishing. Further cosmetic/color expansion is not the default next task; recommend existing shopping/survival work. Native testing paused.
+Status: NPC-SHOPPING-11 complete under hosted checks. City survival/next-day work remain incomplete. Native testing paused.
+
+## NPC-SHOPPING-11 — shopping return recovery
+
+- Review update: first candidate allowed all safe active collection to continue through hunger. Full delivery trial retained2deaths but moved one death to previously surviving consumer5; rejected before publication. Narrow candidate to existing Returning phase only; preserve original hunger collection/initial-departure policy. Keep candidate evidence and rerun integrated/fixture checks. No claim all supply failures solved.
+
+- Authorized next gameplay increment after uniforms. Baselinef6a8bb4; single agent. Reproduced delivery fixture: consumer4 at5404 abandons its ongoing far-store search at hunger40 with no food, then returns with energy0; no claim this explains every death.
+- Scope/files: Core/ShoppingContinuity.cs and StorageRestocking.cs for safe returning-trip recovery; Core/Encounter.cs and World.cs for explicit rules108 while preserving107; Unity/FoundationApp.cs only existing upgrade/restart version handling and build label if required; Tests/CityShoppingContinuityChecks.cs, NpcRuleUpgradeUiChecks.cs only necessary behavioral/legacy/upgrade regressions. harness/diagnostics/shopping11/StoreAudit.cs and StoreAudit.csproj, README.md, INPUT_HASHES.json and inputs/*.obsave (portable read-only supplied observer and unchanged four107 starting saves), README and Docs/SHOPPING_RETURN_RECOVERY.md / BUILD_VALIDATION.md, harness/build-log.md and a focused diagnostic/evidence record. No geometry, inventory, schedules, rates, roles, asset or dependency changes.
+- Dependency: existing persisted shopping task/destination/expiry identifies an active trip; no new save fields. New worlds/explicit upgrades use108; older107 and106 continue exactly. Inspect hunger, safety, rest, physical transfer and UI upgrade contracts together before editing.
+- Acceptance: failing-before/passing-after reproducer of hunger suppressing recovery on an empty return; hunger/injury do not suppress paid off-road breaks on an existing return; retain original hungry collection aborts, and recover even after all stores fail and shoppingStoreId is0. Real pickup/deposit, finite food, movement/rest costs, danger interruption, depleted-store empty returns, save/reload and independent107 continuation remain covered. Run actual integrated sequential unified checks plus fixed-input diagnostics; report fixture outcomes without claiming universal survival/next-day work. Publish validated increment and verify HTTPS ZIP; native Unity remains paused.
+- Risk: recovery changes return timing and finite shelf competition. Do not fabricate stock, bypass danger, extend task deadlines, introduce hidden inventory knowledge, or tune fixtures to improve totals. Stop expansion after the demonstrated defect; record remaining needs/scheduling failures.
+
+- Final evidence:715cases/743767assertions; config/ABI and UI7222+3; upgrade88;4city trials/28replay groups/840exact steps with0unexplained food;107full delivery final byte-identical. Delivery still2deaths; individual timing/health tradeoffs documented.
 
 ## GRAPHICS-UNIFORMS-10 — user-selected existing-worker uniforms; stop expanding color coding
 

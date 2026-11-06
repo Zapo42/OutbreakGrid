@@ -13,6 +13,12 @@ namespace Outbreak.Core
                 if(nearest!=0){if(actor.familiarStoreId==0)actor.familiarStoreId=nearest;if(ConsumerVehiclesEnabled){var other=new System.Collections.Generic.List<int>();foreach(int id in stores.Keys)if(id!=actor.familiarStoreId && other.Count<StoreDiscoveryRules.MemoryLimit-1)other.Add(id);actor.additionalFamiliarStores=other.Count==0?null:other.ToArray();}actors[i]=actor;updated++;}
             }return updated;
         }
+        // A failed/consumed shopping load still needs a safe, paid return home.
+        // Hunger/injury or stale pantry notes must not disable recovery on that existing return.
+        private bool SafeShoppingReturn(ActorState actor,int threat)
+        {
+            return ShoppingRecoveryEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Returning && actor.restockUntilTick>Tick && SafeNeedsAction(actor,threat);
+        }
         private bool CanSeekFoodForEmptyHome(ActorState actor)
         {
             if(!ConsumerVehiclesEnabled || actor.hunger<HungerRules.SeekAt || actor.carriedFood!=0 || !IsStoreShopper(actor))return false;
@@ -20,7 +26,7 @@ namespace Outbreak.Core
         }
         private bool TryShoppingRest(int index,ref ActorState actor)
         {
-            if(actor.shoppingStoreId==0 || HouseAt(actor.x,actor.y)==actor.assignedHouseId || IsDoor(actor.x,actor.y) || TerrainRules.RoadSurface(map.Get(actor.x,actor.y)))return false;
+            if((actor.shoppingStoreId==0 && !(ShoppingRecoveryEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Returning)) || HouseAt(actor.x,actor.y)==actor.assignedHouseId || IsDoor(actor.x,actor.y) || TerrainRules.RoadSurface(map.Get(actor.x,actor.y)))return false;
             if(EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy)actor.shoppingResting=true;
             if(!actor.shoppingResting)return false;
             if(EnergyRules.Remaining(actor)>=RestockRules.DepartureEnergy){actor.shoppingResting=false;actors[index]=actor;return false;}

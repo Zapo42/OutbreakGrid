@@ -1,0 +1,9 @@
+{
+  "provenance": "Exact rules107 initial saves from supplied NPC-F143 after107-final; fixture inventories, geometry and schedules unchanged. Upgrade only detached copies to108.",
+  "sha256": {
+    "store-validation-214-delivery.obsave": "3d554dc4ed0074fdd501458b2add4dc22802233dcf79f21c3911c5762f064f62",
+    "store-validation-214-long-shopping.obsave": "64659623120ef1abe77eea46f6156dcf0eb8c553e2dfb3fbd1979e899ab6c9fd",
+    "store-validation-214-restocking.obsave": "1213e8f43aeb714b818e0e6e31846c3ec1495760ddb585519f2a19b802c62484",
+    "store-validation-214-shopping.obsave": "b08f48767c761a5dee4699c3876ac901f4b30d89c5bf14b53d08421fa427d8cd"
+  }
+}

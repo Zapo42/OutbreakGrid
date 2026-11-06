@@ -1,0 +1,805 @@
+{
+  "task": "NPC-SHOPPING-11",
+  "baseline": "f6a8bb4f169389ed8729c4787c2b61caa752d20a",
+  "rules": "encounter-prototype-108",
+  "coreCases": 715,
+  "coreAssertions": 743767,
+  "uiLegacyAssertions": 7222,
+  "uiNewOnlyAssertions": 3,
+  "upgradeAssertions": 88,
+  "nativeUnity": "NOT RUN \u2014 paused",
+  "windowsPlayer": "NOT RUN \u2014 no EXE",
+  "legacy107DeliveryByteIdentical": true,
+  "legacy107DeliverySha256": "3aa4469dd41b76a8a70d0055e4c0a2aa86cb2e9ebc72c5609a798899661bbbbf",
+  "cases": {
+    "restocking": {
+      "before107": {
+        "credits": 9,
+        "remainingFood": 124,
+        "consumed": 79,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 28,
+            "energy": 58,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15311,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 6
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 18,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14567,
+            "ShelfBought": 9,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14573,
+            "ShelfBought": 11,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 34,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 14,
+            "ShoppingDeposited": 13
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 21,
+            "energy": 88,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "final108": {
+        "credits": 9,
+        "remainingFood": 124,
+        "consumed": 79,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 28,
+            "energy": 58,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15311,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 6
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 18,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14567,
+            "ShelfBought": 9,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14573,
+            "ShelfBought": 11,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 34,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 14,
+            "ShoppingDeposited": 13
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 21,
+            "energy": 88,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "rejectedBroad108": {
+        "credits": 9,
+        "remainingFood": 125,
+        "consumed": 78,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 29,
+            "energy": 51,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15281,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 6
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 16,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14782,
+            "ShelfBought": 11,
+            "ShoppingDeposited": 2
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 41,
+            "energy": 92,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14563,
+            "ShelfBought": 9,
+            "ShoppingDeposited": 1
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 20,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 12,
+            "ShoppingDeposited": 12
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "sameFinalExceptRulesVersion": true,
+      "finalSaveSha256": "75bb7c9b5c4940844310925c9558cc26263ecf156417f024fc68de9246b30523",
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "shopping": {
+      "before107": {
+        "credits": 17,
+        "remainingFood": 125,
+        "consumed": 78,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 35,
+            "energy": 73,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15136,
+            "ShelfBought": 5,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 90,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14772,
+            "ShelfBought": 20,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 13,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14568,
+            "ShelfBought": 17,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 60,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 8
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 3,
+            "energy": 88,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 7,
+            "ShoppingDeposited": 6
+          }
+        ]
+      },
+      "final108": {
+        "credits": 17,
+        "remainingFood": 125,
+        "consumed": 78,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 35,
+            "energy": 73,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15136,
+            "ShelfBought": 5,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 90,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14772,
+            "ShelfBought": 20,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 13,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14568,
+            "ShelfBought": 17,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 60,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 8
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 3,
+            "energy": 88,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 7,
+            "ShoppingDeposited": 6
+          }
+        ]
+      },
+      "rejectedBroad108": {
+        "credits": 17,
+        "remainingFood": 125,
+        "consumed": 78,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 35,
+            "energy": 73,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 15136,
+            "ShelfBought": 5,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 90,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14567,
+            "ShelfBought": 19,
+            "ShoppingDeposited": 2
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 13,
+            "energy": 100,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14568,
+            "ShelfBought": 17,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 4,
+            "energy": 83,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 9,
+            "ShoppingDeposited": 8
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 3,
+            "energy": 88,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 7,
+            "ShoppingDeposited": 6
+          }
+        ]
+      },
+      "sameFinalExceptRulesVersion": true,
+      "finalSaveSha256": "e4bf83a03097df25cfe2d437ac044fc7d46541ee141991dcb728c0b260b1d131",
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "delivery": {
+      "before107": {
+        "credits": 15,
+        "remainingFood": 158,
+        "consumed": 45,
+        "deathIds": [
+          3,
+          4
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 69,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14700,
+            "NextWork": -1,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 2,
+            "finalHealth": 43,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 10080,
+            "NextWork": -1,
+            "ShelfBought": 5,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 13260,
+            "FirstDamage": 10290,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 4,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 13740,
+            "FirstDamage": 6090,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 5,
+            "finalHealth": 19,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 8100,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 1
+          }
+        ]
+      },
+      "final108": {
+        "credits": 15,
+        "remainingFood": 158,
+        "consumed": 45,
+        "deathIds": [
+          3,
+          4
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 27,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 29,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 13290,
+            "FirstDamage": 10320,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 4,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 13290,
+            "FirstDamage": 10320,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 5,
+            "finalHealth": 33,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 13620,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 1
+          }
+        ]
+      },
+      "rejectedBroad108": {
+        "credits": 17,
+        "remainingFood": 155,
+        "consumed": 48,
+        "deathIds": [
+          4,
+          5
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 18,
+            "energy": 38,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": 14781,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 45,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 40,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 4,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 13320,
+            "FirstDamage": 10350,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 5,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "Death": 12930,
+            "FirstDamage": 9960,
+            "NextWork": -1,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 1
+          }
+        ]
+      },
+      "sameFinalExceptRulesVersion": false,
+      "finalSaveSha256": "816a2a074e4046e723f669c98aea6f0da120e003beb1b451d5dc61efa67ee436",
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "long-shopping": {
+      "before107": {
+        "credits": 15,
+        "remainingFood": 144,
+        "consumed": 59,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 68,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14670,
+            "NextWork": -1,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 1
+          },
+          {
+            "Id": 2,
+            "finalHealth": 42,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 6510,
+            "NextWork": 15562,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 60,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14430,
+            "NextWork": -1,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 2
+          },
+          {
+            "Id": 4,
+            "finalHealth": 64,
+            "hunger": 100,
+            "energy": 50,
+            "Death": -1,
+            "FirstDamage": 12360,
+            "NextWork": -1,
+            "ShelfBought": 15,
+            "ShoppingDeposited": 3
+          },
+          {
+            "Id": 5,
+            "finalHealth": 82,
+            "hunger": 100,
+            "energy": 56,
+            "Death": -1,
+            "FirstDamage": 12990,
+            "NextWork": -1,
+            "ShelfBought": 12,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "final108": {
+        "credits": 15,
+        "remainingFood": 144,
+        "consumed": 59,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 68,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14670,
+            "NextWork": -1,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 1
+          },
+          {
+            "Id": 2,
+            "finalHealth": 68,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 6510,
+            "NextWork": 14400,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 61,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14460,
+            "NextWork": 14923,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 2
+          },
+          {
+            "Id": 4,
+            "finalHealth": 63,
+            "hunger": 100,
+            "energy": 55,
+            "Death": -1,
+            "FirstDamage": 12300,
+            "NextWork": -1,
+            "ShelfBought": 15,
+            "ShoppingDeposited": 3
+          },
+          {
+            "Id": 5,
+            "finalHealth": 83,
+            "hunger": 100,
+            "energy": 44,
+            "Death": -1,
+            "FirstDamage": 13080,
+            "NextWork": -1,
+            "ShelfBought": 12,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "rejectedBroad108": {
+        "credits": 15,
+        "remainingFood": 144,
+        "consumed": 59,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 43,
+            "Death": -1,
+            "FirstDamage": -1,
+            "NextWork": -1,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 1
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 43,
+            "Death": -1,
+            "FirstDamage": 6510,
+            "NextWork": -1,
+            "ShelfBought": 3,
+            "ShoppingDeposited": 1
+          },
+          {
+            "Id": 3,
+            "finalHealth": 53,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 14220,
+            "NextWork": -1,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 4,
+            "finalHealth": 22,
+            "hunger": 100,
+            "energy": 0,
+            "Death": -1,
+            "FirstDamage": 13290,
+            "NextWork": -1,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 5,
+            "finalHealth": 84,
+            "hunger": 100,
+            "energy": 58,
+            "Death": -1,
+            "FirstDamage": 12930,
+            "NextWork": -1,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 11
+          }
+        ]
+      },
+      "sameFinalExceptRulesVersion": false,
+      "finalSaveSha256": "0de64a404e7c8678c868c86aa3c5f44fd3a8295f4f962ed6660d2de437eecdf4",
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    }
+  }
+}
