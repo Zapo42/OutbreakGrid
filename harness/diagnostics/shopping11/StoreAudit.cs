@@ -38,7 +38,7 @@ public static class StoreAudit
     private static object Run(string name,string input,string output,string rules)
     {
         Directory.CreateDirectory(output);string raw=File.ReadAllText(input);World w=Documents.ParseSave(raw);Require(State(w)==raw,"Input is not exact roundtrip");
-        if(rules=="108" || rules=="109" || rules=="110"){var upgraded=w.Capture();upgraded.rulesVersion="encounter-prototype-"+rules;w=World.Restore(upgraded);Require(State(w)==raw.Replace("encounter-prototype-107",upgraded.rulesVersion),"Upgrade changed facts beyond selected rules");}
+        if(rules=="108" || rules=="109" || rules=="110" || rules=="111"){var upgraded=w.Capture();upgraded.rulesVersion="encounter-prototype-"+rules;w=World.Restore(upgraded);Require(State(w)==raw.Replace("encounter-prototype-107",upgraded.rulesVersion),"Upgrade changed facts beyond selected rules");}
         var initial=w.Capture();Require(initial.rulesVersion=="encounter-prototype-"+rules && initial.map.schemaVersion==14 && w.Count==5,"Wrong baseline/input");Require(w.Tick==0 && w.FoodSupplies().RemainingMeals==203,"Wrong fixture start");
         File.WriteAllText(Path.Combine(output,"initial.obsave"),State(w));
         var map=WorldMap.Restore(initial.map);var internalDoors=new HashSet<int>();var stockFloors=new Dictionary<int,HashSet<int>>();

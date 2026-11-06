@@ -31,8 +31,24 @@ public static partial class Program
     {
         var save=EncounterScenarios.WorkerShiftTest(true).Capture();save.tick=600;var a=save.actors[clerk?1:0];a.hunger=80;a.carriedFood=0;a.energySpent=80;a.storageMemory=new[]{new StorageMemoryRecord{x=4,y=7,food=0,space=30,observedTick=save.tick}};save.actors=new[]{a};Array.Find(save.map.storageBoxes,b=>b.x==4 && b.y==7).items=new ItemStackDocument[0];return World.Restore(save);
     }
+    private static World SharedPantryFoodFixture(bool hungry=true)
+    {
+        World w=EncounterScenarios.StoreDiscoveryTest();int id;Require(w.TrySpawn(Species.Human,3,10,out id) && w.TryAssignHouse(1,3,9),"Shared pantry resident failed.");var save=w.Capture();int box=7*w.Width+4+1,store=w.HouseAt(18,13);var owner=save.actors[0];owner.shoppingMeals=1;owner.shoppingStoreId=store;owner.restockBox=box;owner.restockHomeId=owner.assignedHouseId;owner.restockPhase=RestockPhase.Collecting;owner.restockUntilTick=CourierRules.TaskTicks;owner.storageMemory=new[]{new StorageMemoryRecord{x=4,y=7,food=0,space=6,observedTick=0}};save.actors[0]=owner;var a=save.actors[1];a.hunger=hungry?80:10;a.carriedFood=0;a.intelligence=8;a.shelterId=a.assignedHouseId;a.shelterX=3;a.shelterY=10;a.shelterState=ShelterState.Inside;a.storageMemory=new[]{new StorageMemoryRecord{x=4,y=7,food=0,space=6,observedTick=0}};a.familiarStoreId=store;a.shelfMemory=new[]{new ShelfMemoryRecord{x=18,y=14,food=6,observedTick=0}};save.actors[1]=a;return World.Restore(save);
+    }
     private static void CheckCityShoppingContinuityCases()
     {
+        Check("Hungry household members can seek real food despite another pedestrian pantry claim",()=>{
+            World w=SharedPantryFoodFixture();Run(w,3);var a=w.ActorAt(1);Require(a.shoppingMeals>0 && a.restockBox==w.ActorAt(0).restockBox,"Pantry coordination stranded the hungry resident.");Require(State(w)==State(Documents.ParseSave(State(w))),"Shared household walking claims failed save validation.");int initial=w.FoodSupplies().RemainingMeals,meals=0;bool fed=false;for(int t=0;t<650;t++){var before=w.Capture().actors;w.Step();for(int i=0;i<w.Count;i++)if(w.ActorAt(i).hunger<before[i].hunger)meals++;fed|=w.ActorAt(1).hunger<40;Require(w.FoodSupplies().RemainingMeals+meals==initial,"Shared food seeking fabricated or lost meals.");if(fed)break;}Require(fed,"Hungry resident failed physical pickup/eating.");
+        });
+        Check("Shared personal pantry plans never permit a duplicate ordinary restock claim",()=>{
+            World w=SharedPantryFoodFixture();Run(w,3);var save=w.Capture();save.actors[1].shoppingMeals=0;save.actors[1].shoppingShelf=0;save.actors[1].shoppingStoreId=0;save.actors[1].shoppingSearchCell=0;Reject(()=>World.Restore(save));
+        });
+        Check("Published110 pantry coordination and independent continuation remain unchanged",()=>{
+            var save=SharedPantryFoodFixture().Capture();save.rulesVersion=EncounterRules.HomeShoppingCompletionVersion;World old=World.Restore(save);Run(old,3);Require(old.ActorAt(1).shoppingMeals==0 && !old.PersonalFoodAccessEnabled,"Published110 gained shared pantry plans silently.");save=EncounterScenarios.LargeCityShoppingTest().Capture();save.rulesVersion=EncounterRules.HomeShoppingCompletionVersion;old=World.Restore(save);Run(old,1000);string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(State(old)))).Replace("-","");Require(hash=="DA37B9C117036E40B342E9496B4B63822B4E73E576140296E543AE5DEA124CFD","Independent110 continuation changed.");
+        });
+        Check("Fed proactive residents still respect another household shopping claim",()=>{
+            World w=SharedPantryFoodFixture(false);Run(w,3);Require(w.ActorAt(1).shoppingMeals==0,"Fed resident duplicated proactive pantry work.");
+        });
         Check("A hungry empty shopper completes its return at home before the hunger guard",()=>{
             World w=ArrivedHungryShopper();int food=w.FoodSupplies().RemainingMeals;w.Step();var a=w.ActorAt(0);Require(a.restockPhase==RestockPhase.None && a.restockBox==0 && a.shoppingMeals==0 && a.restockUntilTick==0,"Hungry home arrival retained the completed pantry claim.");Require(a.shoppingRetryTick==0 && a.carriedFood==0 && w.FoodSupplies().RemainingMeals==food,"Completion added a cooldown or changed food.");Require(a.foodExploreRoomId==0 && Math.Abs(a.shelterX-12)+Math.Abs(a.shelterY-12)==1,"Completion ran too late to give the known home pantry its inspection action.");World copy=Documents.ParseSave(State(w));Run(w,25);Run(copy,25);Require(State(w)==State(copy),"Completed home arrival failed exact continuation.");
         });

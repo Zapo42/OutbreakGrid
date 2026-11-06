@@ -1,5 +1,15 @@
 # Build validation and rollback checkpoint
 
+## NPC-FOOD-14A — hungry household members can seek their own meal (rules111)
+
+Baseline ffa1723. Consumer5 was blocked from shopping by another pedestrian's claim on the shared empty home pantry, despite personal observations and known stores. Hungry empty-handed foot residents who personally know home empty may now share a household shopping destination. Fed routine restocking, delivery/order and vehicle claims remain exclusive; duplicate vehicle claims are checked after vehicles restore. No food, stock knowledge, geometry, schedule, save field, dependency or editor changes.
+
+Changed Core: Encounter.cs, World.cs, StoreShopping.cs, StorageRestocking.cs; FoundationApp.cs upgrade/restart/build label; CityShoppingContinuityChecks.cs and NpcRuleUpgradeUiChecks.cs. Reproducible shared observer plus shopping14 project and compact evidence. Failing-before test now passes; actual pickup/eating, every-tick finite accounting, fed exclusivity, malformed ordinary duplicate rejection and exact replay covered. Sequential unified runner PASS736 cases/744670 assertions, configuration/hosted Windows ABI, UI7222 Legacy/3 NewOnly. Upgrade checks118 assertions PASS. Legacy110 1000tick continuation digest DA37B9C117036E40B342E9496B4B63822B4E73E576140296E543AE5DEA124CFD unchanged; full110 delivery rerun compared separately.
+
+Four unchanged203meal/15600tick city trials now have zero deaths: restocking124remaining/79eaten/9credits; shopping126/77/17; delivery151/52/17; long-shopping139/64/17. Delivery deaths110→111:1→0, credits17→17. All28 replay groups/840 exact continuation steps and finite food ledgers PASS. This does not establish adequate food access: some survivors still end at hunger100, and worker3 is exhausted with health96/97. Do not call the supply chain solved. See harness/validation/shopping14/SUMMARY.json and per-case individual outcomes.
+
+Native Unity compilation/rendering/input/dialogs/player NOT RUN under pause; no EXE. Unity6000.6.3f1, dependencies, GUIDs and protected checkpoints preserved. Next authorized increment: seeded starting needs, stagger routine demand and measured movement cost; then shift/activity coverage after food is stable. Automatic publication and verified HTTPS project archive follow validation.
+
 ## NPC-SHOPPING-13 — arrived home task completion and needs handoff (rules110)
 
 Baseline6a19cd9, single-agent integration. Completed hungry pedestrian returns now release the pantry claim/deadline before normal work/home planning, clearing stale departure/food-exploration intent while retaining observations and existing failed-shop cooldown. Surplus loads still require physical deposit; consumer vehicles retain ownership. No new shopping deadline, cooldown, food grant, saved field, geometry, schedule, rate, dependency/editor pin or GUID change.

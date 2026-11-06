@@ -32,11 +32,16 @@ namespace Outbreak.Core
             }
             return rank<0?null:new ShelfDocument{x=best.x,y=best.y}; // Read only remembered supplies, never hidden current shelf stock.
         }
-        private bool RestockClaimed(int box,int exceptId)
+        private bool RestockClaimed(int box,int exceptId,int sharedPersonalHome=0)
         {
             foreach(var car in vehicles)if(car.driverId!=exceptId && !car.consumerDriver && car.targetBox==box && car.orderId==0 && HealthyVehicleDriver(car) && (car.deliveryPhase==VehicleDeliveryPhase.Collecting || car.deliveryPhase==VehicleDeliveryPhase.BoardingForDelivery || car.deliveryPhase==VehicleDeliveryPhase.DrivingToDelivery || car.deliveryPhase==VehicleDeliveryPhase.Unloading))return true;
             foreach(var car in vehicles)if(car.consumerDriver && car.driverId!=exceptId && car.sourceBox==box && car.consumerPhase!=ConsumerVehiclePhase.None && HealthyVehicleDriver(car))return true;
-            for(int i=0;i<count;i++)if(actors[i].id!=exceptId && actors[i].health>0 && actors[i].species==Species.Human && actors[i].restockBox==box && actors[i].restockUntilTick>Tick)return true;return false;
+            for(int i=0;i<count;i++)if(actors[i].id!=exceptId && actors[i].health>0 && actors[i].species==Species.Human && actors[i].restockBox==box && actors[i].restockUntilTick>Tick)
+            {
+                // Coordination of a shared pantry must not prevent a hungry pedestrian getting its own meal.
+                if(sharedPersonalHome!=0 && actors[i].assignedHouseId==sharedPersonalHome && WalkingShoppingTask(actors[i]) && AssignedVehicle(i)<0)continue;
+                return true;
+            }return false;
         }
         private bool BeginRestockReturn(int index,ref ActorState actor,Room home,int threat)
         {
@@ -141,6 +146,12 @@ namespace Outbreak.Core
             }
             return BeginRestockReturn(index,ref actor,home,threat);
         }
+        private void ValidatePersonalPantrySharing()
+        {
+            if(!PersonalFoodAccessEnabled)return;
+            // Vehicles restore after actor task validation; keep every vehicle reservation exclusive.
+            for(int i=0;i<count;i++)for(int j=0;j<i;j++)if(actors[i].restockBox!=0 && actors[i].restockBox==actors[j].restockBox && (AssignedVehicle(i)>=0 || AssignedVehicle(j)>=0))throw new ArgumentException("Vehicle pantry claim cannot be shared.");
+        }
         private void ValidateRestocking()
         {
             for(int i=0;i<count;i++)
@@ -154,7 +165,7 @@ namespace Outbreak.Core
                     Room sourceRoom=DeliverySourceRoom(actor);int sourceKey=actor.restockSourceBox-1;
                     if(!SupplyDeliveriesEnabled || actor.restockSourceBox<1 || actor.restockSourceBox==actor.restockBox || sourceRoom==null || (sourceRoom.id==home.id && !(CourierAssignmentsEnabled && (actor.courierBoxes!=null || actor.courierOrderId!=0))) || map.StorageBoxAt(sourceKey%Width,sourceKey/Width)==null)throw new ArgumentException("Invalid supply delivery source.");
                 }
-                for(int j=0;j<i;j++)if(actors[j].restockBox==actor.restockBox)throw new ArgumentException("Duplicate storage restock claim.");
+                for(int j=0;j<i;j++)if(actors[j].restockBox==actor.restockBox && !(PersonalFoodAccessEnabled && IsShopping(actor) && IsShopping(actors[j]) && actor.assignedHouseId==actors[j].assignedHouseId))throw new ArgumentException("Duplicate storage restock claim.");
             }
         }
     }

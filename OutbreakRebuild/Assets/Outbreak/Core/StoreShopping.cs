@@ -22,10 +22,10 @@ namespace Outbreak.Core
             if((StoreDiscoveryEnabled && actor.shoppingRetryTick>Tick) || !SafeRestock(actor,threat) || (EnergyRules.Remaining(actor)<RestockRules.DepartureEnergy && !CanSeekFoodForEmptyHome(actor)) || actor.carriedFood>FoodReserve(actor) || actor.foodExploreRoomId!=0)return false;
             Room home=FindRoom(actor.assignedHouseId);if(!home.Contains(Key(actor.x,actor.y)) || actor.shelterState!=ShelterState.Inside)return false;
             HomeSupplyKnowledge knowledge=HomeSuppliesKnownBy(index);if(knowledge.Boxes==0 || knowledge.KnownBoxes!=knowledge.Boxes)return false;
-            StorageBoxDocument target=null;int deficit=0;
+            StorageBoxDocument target=null;int deficit=0;int sharedHome=PersonalFoodAccessEnabled && actor.hunger>=HungerRules.SeekAt && actor.carriedFood==0 && AssignedVehicle(index)<0 && CanSeekFoodForEmptyHome(actor)?home.id:0;
             foreach(StorageBoxDocument box in map.StorageRecords)
             {
-                if(!home.Contains(Key(box.x,box.y)) || IsRestrictedSupplyBox(box) || RestockClaimed(Key(box.x,box.y)+1,actor.id))continue;
+                if(!home.Contains(Key(box.x,box.y)) || IsRestrictedSupplyBox(box) || RestockClaimed(Key(box.x,box.y)+1,actor.id,sharedHome))continue;
                 StorageMemoryRecord? note=HomeNote(actor,box);int reserve=EffectiveFoodReserve(box);
                 if(note.HasValue && note.Value.space>0 && reserve>0 && note.Value.food<=StoreShoppingRules.TriggerMeals(reserve,actor.intelligence)){target=box;deficit=reserve-note.Value.food;break;}
             }

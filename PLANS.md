@@ -1,6 +1,16 @@
 # Development Plan — Existing Roadmap Only
 
-Status: NPC-SHOPPING-13 complete under hosted checks. Remaining consumer food access/critical health documented. Native testing paused.
+Status: NPC-FOOD-14 consumer access fix hosted-validated (rules111); synchronized-demand/performance follows, shifts queued. Native testing paused.
+
+## NPC-FOOD-14 — consumer access first; synchronized demand/performance next
+
+- User authorizes Consumer5 food-finding investigation/fix, then addressing identical starting needs and movement lag; shifts follow reliable food access. Baselineffa1723, clean. One agent; native Unity paused. No replacement team, editor/dependency/GUID changes.
+- Confirmed Consumer5 blocker: empty personal home, all supply notes personally known, safe shopping and known stores, but household pantry4278 claimed by pedestrian shopper3. Restock coordination prevents personal food-seeking. Consumer4 similarly waits on shopper2's pantry4210.
+- PhaseA files: Core/StoreShopping.cs and StorageRestocking.cs household pedestrian meal-access exception plus exclusive courier/vehicle validation; Core/Encounter.cs, World.cs explicit111 gate and post-vehicle sharing validation; Unity/FoundationApp.cs upgrade/restart/build label. Tests/CityShoppingContinuityChecks.cs, NpcRuleUpgradeUiChecks.cs; shared shopping11 observer explicit111, shopping14 project/README and validation evidence; README, food guide/build records/plan.
+- Acceptance: hungry empty-handed residents with personally known empty home can shop alongside an existing pedestrian same-household shopper. No duplicate courier/order/vehicle claims, no stock knowledge or food grants. Physical shelf pickup/eating/deposit, reserve/capacity and save/replay remain. Fed proactive shoppers retain exclusive coordination. Independent110 continuation and four unchanged city trials with finite accounting before publication.
+- PhaseB authorized next: profile generated-city movement/food demand; inspect seeded initial hunger/carried-food uniformity and stagger needs without inventing food, using reproducible seeds. Record exact files/benchmarks before edits. Hosted timings/allocations distinguish Core from native rendering. User reproduction size requested asynchronously; default8x8/four homes/244residents.
+- PhaseC queued by user: shift/activity staggering after food finding is stable; productive work/eat/rest activity across the day. Do not force pointless walking to simulate activity or silently move shifts ahead of food/performance.
+- Risks: overlapping household shopping changes finite-stock competition. Only personal walking tasks may share a home target; validate after vehicles are restored. No input-stock/rate tuning to hide starvation. Performance fixes require measured hot paths and exact continuation where behavior is unchanged.
 
 ## NPC-SHOPPING-13 — complete empty pedestrian returns at home
 

@@ -1,0 +1,985 @@
+{
+  "task": "NPC-FOOD-14A",
+  "baseline": "ffa1723ab1ae533900a0d05d8b4994e372d9bc33",
+  "rules": "encounter-prototype-111",
+  "coreCases": 736,
+  "coreAssertions": 744670,
+  "uiLegacy": 7222,
+  "uiNewOnly": 3,
+  "upgradeAssertions": 118,
+  "nativeUnity": "NOT RUN \u2014 paused",
+  "windowsPlayer": "NOT RUN \u2014 no EXE",
+  "cases": {
+    "restocking": {
+      "before110": {
+        "credits": 9,
+        "remainingFood": 124,
+        "meals": 79,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 28,
+            "energy": 58,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 15311,
+            "Meals": 17,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 6
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 18,
+            "energy": 100,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14567,
+            "Meals": 16,
+            "ShelfBought": 9,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 100,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14573,
+            "Meals": 16,
+            "ShelfBought": 11,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 34,
+            "energy": 100,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 15,
+            "ShelfBought": 14,
+            "ShoppingDeposited": 13
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 21,
+            "energy": 88,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 15,
+            "ShelfBought": 13,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "after111": {
+        "name": "restocking",
+        "source": "NPC-SHOPPING-11 fixed-input observation; rules111",
+        "start": 0,
+        "end": 15600,
+        "finalHour": 9,
+        "internalDoorCoordinates": [
+          {
+            "k": 1210,
+            "x": 10,
+            "y": 12
+          },
+          {
+            "k": 1278,
+            "x": 78,
+            "y": 12
+          }
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "Home": 3745,
+            "Work": 842,
+            "InternalEntries": 3,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 6,
+            "HomeDeposited": 10,
+            "ShoppingDeposited": 6,
+            "Moves": 1457,
+            "Meals": 17,
+            "OffHome": 7736,
+            "NextWork": 15311,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 28,
+            "energy": 58
+          },
+          {
+            "Id": 2,
+            "Home": 3710,
+            "Work": 910,
+            "InternalEntries": 40,
+            "Withdrawn": 35,
+            "ShelfDeposits": 31,
+            "DistinctStockedShelves": [
+              1419,
+              1413,
+              1613,
+              1416,
+              1616
+            ],
+            "ShelfBought": 9,
+            "HomeDeposited": 5,
+            "ShoppingDeposited": 5,
+            "Moves": 1049,
+            "Meals": 16,
+            "OffHome": 7492,
+            "NextWork": 14567,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 18,
+            "energy": 100
+          },
+          {
+            "Id": 3,
+            "Home": 3778,
+            "Work": 978,
+            "InternalEntries": 38,
+            "Withdrawn": 34,
+            "ShelfDeposits": 30,
+            "DistinctStockedShelves": [
+              1487,
+              1481,
+              1681,
+              1484,
+              1684
+            ],
+            "ShelfBought": 11,
+            "HomeDeposited": 6,
+            "ShoppingDeposited": 5,
+            "Moves": 994,
+            "Meals": 16,
+            "OffHome": 7458,
+            "NextWork": 14573,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 100
+          },
+          {
+            "Id": 4,
+            "Home": 3710,
+            "Work": 0,
+            "InternalEntries": 1,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 14,
+            "HomeDeposited": 20,
+            "ShoppingDeposited": 13,
+            "Moves": 829,
+            "Meals": 15,
+            "OffHome": 7200,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 34,
+            "energy": 100
+          },
+          {
+            "Id": 5,
+            "Home": 3778,
+            "Work": 0,
+            "InternalEntries": 0,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 13,
+            "HomeDeposited": 16,
+            "ShoppingDeposited": 10,
+            "Moves": 739,
+            "Meals": 15,
+            "OffHome": 7200,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 21,
+            "energy": 88
+          }
+        ],
+        "initialFood": 203,
+        "remainingFood": 124,
+        "meals": 79,
+        "discarded": 0,
+        "unattributed": 0,
+        "credited": 9,
+        "sourceOut": 21,
+        "sourceIn": 1,
+        "sourceFinal": 100,
+        "sourceFirstDelivery": 2926,
+        "sourceFirstStore": 910,
+        "replayStages": [
+          "internal-door",
+          "clerk-stock-handling",
+          "periodic-300",
+          "courier-travel",
+          "shopping",
+          "periodic-7200",
+          "periodic-14400"
+        ]
+      },
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "shopping": {
+      "before110": {
+        "credits": 17,
+        "remainingFood": 126,
+        "meals": 77,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 32,
+            "energy": 33,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 15156,
+            "Meals": 18,
+            "ShelfBought": 6,
+            "ShoppingDeposited": 6
+          },
+          {
+            "Id": 2,
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 96,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14772,
+            "Meals": 15,
+            "ShelfBought": 20,
+            "ShoppingDeposited": 5
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 37,
+            "energy": 100,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14488,
+            "Meals": 14,
+            "ShelfBought": 11,
+            "ShoppingDeposited": 4
+          },
+          {
+            "Id": 4,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 60,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 15,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 8
+          },
+          {
+            "Id": 5,
+            "finalHealth": 100,
+            "hunger": 36,
+            "energy": 100,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 15,
+            "ShelfBought": 14,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "after111": {
+        "name": "shopping",
+        "source": "NPC-SHOPPING-11 fixed-input observation; rules111",
+        "start": 0,
+        "end": 15600,
+        "finalHour": 9,
+        "internalDoorCoordinates": [
+          {
+            "k": 1210,
+            "x": 10,
+            "y": 12
+          },
+          {
+            "k": 1278,
+            "x": 78,
+            "y": 12
+          }
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "Home": 3745,
+            "Work": 842,
+            "InternalEntries": 5,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 6,
+            "HomeDeposited": 10,
+            "ShoppingDeposited": 6,
+            "Moves": 1875,
+            "Meals": 18,
+            "OffHome": 7846,
+            "NextWork": 15156,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 32,
+            "energy": 33
+          },
+          {
+            "Id": 2,
+            "Home": 3710,
+            "Work": 910,
+            "InternalEntries": 18,
+            "Withdrawn": 9,
+            "ShelfDeposits": 10,
+            "DistinctStockedShelves": [
+              1413,
+              1613
+            ],
+            "ShelfBought": 20,
+            "HomeDeposited": 5,
+            "ShoppingDeposited": 5,
+            "Moves": 714,
+            "Meals": 15,
+            "OffHome": 7457,
+            "NextWork": 14772,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 12,
+            "energy": 96
+          },
+          {
+            "Id": 3,
+            "Home": 3778,
+            "Work": 978,
+            "InternalEntries": 18,
+            "Withdrawn": 8,
+            "ShelfDeposits": 9,
+            "DistinctStockedShelves": [
+              1481
+            ],
+            "ShelfBought": 11,
+            "HomeDeposited": 7,
+            "ShoppingDeposited": 4,
+            "Moves": 557,
+            "Meals": 14,
+            "OffHome": 7453,
+            "NextWork": 14488,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 37,
+            "energy": 100
+          },
+          {
+            "Id": 4,
+            "Home": 3710,
+            "Work": 0,
+            "InternalEntries": 0,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 8,
+            "HomeDeposited": 15,
+            "ShoppingDeposited": 8,
+            "Moves": 687,
+            "Meals": 15,
+            "OffHome": 7200,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 60
+          },
+          {
+            "Id": 5,
+            "Home": 3778,
+            "Work": 0,
+            "InternalEntries": 1,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 14,
+            "HomeDeposited": 13,
+            "ShoppingDeposited": 10,
+            "Moves": 861,
+            "Meals": 15,
+            "OffHome": 7200,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 36,
+            "energy": 100
+          }
+        ],
+        "initialFood": 203,
+        "remainingFood": 126,
+        "meals": 77,
+        "discarded": 0,
+        "unattributed": 0,
+        "credited": 17,
+        "sourceOut": 27,
+        "sourceIn": 0,
+        "sourceFinal": 93,
+        "sourceFirstDelivery": 516,
+        "sourceFirstStore": 910,
+        "replayStages": [
+          "internal-door",
+          "courier-travel",
+          "periodic-300",
+          "clerk-stock-handling",
+          "shopping",
+          "periodic-7200",
+          "periodic-14400"
+        ]
+      },
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "delivery": {
+      "before110": {
+        "credits": 17,
+        "remainingFood": 151,
+        "meals": 52,
+        "deathIds": [
+          5
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 3,
+            "energy": 59,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14791,
+            "Meals": 19,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 2,
+            "finalHealth": 68,
+            "hunger": 43,
+            "energy": 93,
+            "FirstDamage": 11670,
+            "Death": -1,
+            "NextWork": 14772,
+            "Meals": 9,
+            "ShelfBought": 4,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 26,
+            "hunger": 100,
+            "energy": 0,
+            "FirstDamage": 11040,
+            "Death": -1,
+            "NextWork": 15248,
+            "Meals": 9,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 4,
+            "finalHealth": 1,
+            "hunger": 100,
+            "energy": 58,
+            "FirstDamage": 9090,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 8,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 5,
+            "finalHealth": 0,
+            "hunger": 0,
+            "energy": 100,
+            "FirstDamage": 8370,
+            "Death": 14100,
+            "NextWork": -1,
+            "Meals": 7,
+            "ShelfBought": 1,
+            "ShoppingDeposited": 1
+          }
+        ]
+      },
+      "after111": {
+        "name": "delivery",
+        "source": "NPC-SHOPPING-11 fixed-input observation; rules111",
+        "start": 0,
+        "end": 15600,
+        "finalHour": 9,
+        "internalDoorCoordinates": [
+          {
+            "k": 1210,
+            "x": 10,
+            "y": 12
+          },
+          {
+            "k": 1278,
+            "x": 78,
+            "y": 12
+          }
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "Home": 3745,
+            "Work": 842,
+            "InternalEntries": 12,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 0,
+            "HomeDeposited": 2,
+            "ShoppingDeposited": 0,
+            "Moves": 2120,
+            "Meals": 19,
+            "OffHome": 7831,
+            "NextWork": 14791,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 3,
+            "energy": 59
+          },
+          {
+            "Id": 2,
+            "Home": 3710,
+            "Work": 910,
+            "InternalEntries": 27,
+            "Withdrawn": 9,
+            "ShelfDeposits": 5,
+            "DistinctStockedShelves": [
+              1413
+            ],
+            "ShelfBought": 4,
+            "HomeDeposited": 0,
+            "ShoppingDeposited": 0,
+            "Moves": 1365,
+            "Meals": 9,
+            "OffHome": 7452,
+            "NextWork": 14852,
+            "FirstDamage": 15090,
+            "Death": -1,
+            "ShopChoices": [
+              910,
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 21,
+            "energy": 100
+          },
+          {
+            "Id": 3,
+            "Home": 3778,
+            "Work": 978,
+            "InternalEntries": 24,
+            "Withdrawn": 8,
+            "ShelfDeposits": 2,
+            "DistinctStockedShelves": [
+              1481
+            ],
+            "ShelfBought": 1,
+            "HomeDeposited": 0,
+            "ShoppingDeposited": 0,
+            "Moves": 1428,
+            "Meals": 9,
+            "OffHome": 7468,
+            "NextWork": 15283,
+            "FirstDamage": 15510,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 96,
+            "hunger": 100,
+            "energy": 0
+          },
+          {
+            "Id": 4,
+            "Home": 3710,
+            "Work": 0,
+            "InternalEntries": 22,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 1,
+            "HomeDeposited": 2,
+            "ShoppingDeposited": 0,
+            "Moves": 1938,
+            "Meals": 8,
+            "OffHome": 8829,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910,
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 50
+          },
+          {
+            "Id": 5,
+            "Home": 3778,
+            "Work": 0,
+            "InternalEntries": 17,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 1,
+            "HomeDeposited": 4,
+            "ShoppingDeposited": 1,
+            "Moves": 1694,
+            "Meals": 7,
+            "OffHome": 8080,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 44
+          }
+        ],
+        "initialFood": 203,
+        "remainingFood": 151,
+        "meals": 52,
+        "discarded": 0,
+        "unattributed": 0,
+        "credited": 17,
+        "sourceOut": 29,
+        "sourceIn": 0,
+        "sourceFinal": 151,
+        "sourceFirstDelivery": 516,
+        "sourceFirstStore": 910,
+        "replayStages": [
+          "internal-door",
+          "courier-travel",
+          "periodic-300",
+          "clerk-stock-handling",
+          "shopping",
+          "periodic-7200",
+          "periodic-14400"
+        ]
+      },
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    },
+    "long-shopping": {
+      "before110": {
+        "credits": 17,
+        "remainingFood": 139,
+        "meals": 64,
+        "deathIds": [],
+        "actors": [
+          {
+            "Id": 1,
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 28,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 14636,
+            "Meals": 16,
+            "ShelfBought": 3,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 2,
+            "finalHealth": 84,
+            "hunger": 47,
+            "energy": 71,
+            "FirstDamage": 6510,
+            "Death": -1,
+            "NextWork": 14587,
+            "Meals": 11,
+            "ShelfBought": 0,
+            "ShoppingDeposited": 0
+          },
+          {
+            "Id": 3,
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 5,
+            "FirstDamage": -1,
+            "Death": -1,
+            "NextWork": 15393,
+            "Meals": 12,
+            "ShelfBought": 8,
+            "ShoppingDeposited": 2
+          },
+          {
+            "Id": 4,
+            "finalHealth": 95,
+            "hunger": 100,
+            "energy": 51,
+            "FirstDamage": 12150,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 14,
+            "ShelfBought": 16,
+            "ShoppingDeposited": 4
+          },
+          {
+            "Id": 5,
+            "finalHealth": 26,
+            "hunger": 100,
+            "energy": 58,
+            "FirstDamage": 13080,
+            "Death": -1,
+            "NextWork": -1,
+            "Meals": 11,
+            "ShelfBought": 12,
+            "ShoppingDeposited": 10
+          }
+        ]
+      },
+      "after111": {
+        "name": "long-shopping",
+        "source": "NPC-SHOPPING-11 fixed-input observation; rules111",
+        "start": 0,
+        "end": 15600,
+        "finalHour": 9,
+        "internalDoorCoordinates": [
+          {
+            "k": 1210,
+            "x": 10,
+            "y": 12
+          },
+          {
+            "k": 1278,
+            "x": 78,
+            "y": 12
+          }
+        ],
+        "actors": [
+          {
+            "Id": 1,
+            "Home": 3745,
+            "Work": 842,
+            "InternalEntries": 15,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 3,
+            "HomeDeposited": 0,
+            "ShoppingDeposited": 0,
+            "Moves": 2470,
+            "Meals": 16,
+            "OffHome": 7846,
+            "NextWork": 14636,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 8,
+            "energy": 28
+          },
+          {
+            "Id": 2,
+            "Home": 3710,
+            "Work": 910,
+            "InternalEntries": 18,
+            "Withdrawn": 9,
+            "ShelfDeposits": 2,
+            "DistinctStockedShelves": [
+              1413
+            ],
+            "ShelfBought": 0,
+            "HomeDeposited": 0,
+            "ShoppingDeposited": 0,
+            "Moves": 1530,
+            "Meals": 10,
+            "OffHome": 7467,
+            "NextWork": 14612,
+            "FirstDamage": 6510,
+            "Death": -1,
+            "ShopChoices": [
+              910,
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 27,
+            "energy": 100
+          },
+          {
+            "Id": 3,
+            "Home": 3778,
+            "Work": 978,
+            "InternalEntries": 28,
+            "Withdrawn": 8,
+            "ShelfDeposits": 7,
+            "DistinctStockedShelves": [
+              1481
+            ],
+            "ShelfBought": 8,
+            "HomeDeposited": 4,
+            "ShoppingDeposited": 2,
+            "Moves": 1258,
+            "Meals": 12,
+            "OffHome": 7453,
+            "NextWork": 15298,
+            "FirstDamage": 15540,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 97,
+            "hunger": 100,
+            "energy": 0
+          },
+          {
+            "Id": 4,
+            "Home": 3710,
+            "Work": 0,
+            "InternalEntries": 14,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 16,
+            "HomeDeposited": 4,
+            "ShoppingDeposited": 4,
+            "Moves": 2133,
+            "Meals": 15,
+            "OffHome": 7719,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              910,
+              978
+            ],
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 56
+          },
+          {
+            "Id": 5,
+            "Home": 3778,
+            "Work": 0,
+            "InternalEntries": 7,
+            "Withdrawn": 0,
+            "ShelfDeposits": 0,
+            "DistinctStockedShelves": [],
+            "ShelfBought": 12,
+            "HomeDeposited": 13,
+            "ShoppingDeposited": 10,
+            "Moves": 1266,
+            "Meals": 11,
+            "OffHome": 7200,
+            "NextWork": -1,
+            "FirstDamage": -1,
+            "Death": -1,
+            "ShopChoices": [
+              978,
+              910
+            ],
+            "finalHealth": 100,
+            "hunger": 100,
+            "energy": 41
+          }
+        ],
+        "initialFood": 203,
+        "remainingFood": 139,
+        "meals": 64,
+        "discarded": 0,
+        "unattributed": 0,
+        "credited": 17,
+        "sourceOut": 29,
+        "sourceIn": 0,
+        "sourceFinal": 139,
+        "sourceFirstDelivery": 516,
+        "sourceFirstStore": 910,
+        "replayStages": [
+          "shopping",
+          "internal-door",
+          "courier-travel",
+          "periodic-300",
+          "clerk-stock-handling",
+          "periodic-7200",
+          "periodic-14400"
+        ]
+      },
+      "replayGroups": 7,
+      "exactContinuationSteps": 210
+    }
+  },
+  "legacy110DeliveryByteIdentical": true,
+  "legacy110DeliverySha256": "03899cd2b4c4c42cc025d0959d8d50d4714cc90742fc30685f571f4d84702197"
+}
