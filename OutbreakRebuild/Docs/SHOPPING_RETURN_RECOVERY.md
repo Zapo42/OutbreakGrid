@@ -49,3 +49,5 @@ Four unchanged203meal/15600tick city trials now have zero deaths: restocking124r
 Native Unity compilation/rendering/input/dialogs/player NOT RUN under pause; no EXE. Unity6000.6.3f1, dependencies, GUIDs and protected checkpoints preserved. Next authorized increment: seeded starting needs, stagger routine demand and measured movement cost; then shift/activity coverage after food is stable. Automatic publication and verified HTTPS project archive follow validation.
 
 Current rules112 adds seeded fresh-city needs, consumer-only routine review slots and equivalent blocked-room route pruning. [Details and checks](CITY_NEEDS_AND_SHOPPING_TIMING.md). Food-trial deaths remain zero; delivery clerk3health96→90 and consumer hunger100 persist. No claim of complete food access or native performance acceptance.
+
+Rules113 adds [store entrance flow](STORE_ENTRANCE_FLOW.md): paid pedestrian shopping-rest clearance, observed crowd waits and door courtesy. Four fixed-input trials retain zero deaths and delivery totals. Critical hunger/supply limits remain; shifts are unchanged.

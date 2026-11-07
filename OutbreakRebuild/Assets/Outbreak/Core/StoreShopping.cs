@@ -9,6 +9,47 @@ namespace Outbreak.Core
     }
     public sealed partial class World
     {
+        private bool StoreEntryCell(Room room,int key)
+        {
+            if(!room.Contains(key))return false;foreach(int door in room.doors)if(Math.Abs(key%Width-door%Width)+Math.Abs(key/Width-door/Width)==1)return true;return false;
+        }
+        private bool TryClearStoreEntry(int index,ref ActorState actor,int threat,out int direction)
+        {
+            direction=8;if(!StoreEntryFlowEnabled || !WalkingShoppingTask(actor) || !SafeNeedsAction(actor,threat) || AssignedVehicle(index)>=0 || actor.shelterExitPhase!=ShelterExitPhase.None || (!actor.shoppingResting && EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy))return false;
+            Room room=FindRoom(HouseAt(actor.x,actor.y));if(room==null || !stores.ContainsKey(room.id) || !StoreEntryCell(room,Key(actor.x,actor.y)))return false;
+            // Rest inside, away from the door's entry square. The normal move commit pays every step; plans and cargo stay intact.
+            int best=int.MaxValue;for(int d=0;d<8;d+=2){int x=actor.x+dx[d],y=actor.y+dy[d],key=Key(x,y);if(!room.Contains(key) || StoreEntryCell(room,key) || IsDoor(x,y) || !MayMove(actor,d) || ZombieAt(x,y))continue;if(key<best){best=key;direction=d;}}
+            return direction!=8;
+        }
+        private bool VisibleStoreEntryCrowd(ActorState observer,Room room)
+        {
+            if(room==null)return false;for(int i=0;i<count;i++){var other=actors[i];int key=Key(other.x,other.y);if(other.id==observer.id || other.species!=Species.Human || other.health<=0 || occupancy.Allows(key,Species.Human) || (!StoreEntryCell(room,key) && Array.BinarySearch(room.doors,key)<0))continue;
+                if(DistanceSquared(observer,other)<=EncounterRules.SightRadius*EncounterRules.SightRadius && Visible(observer,other))return true;}
+            return false; // Physical crowd observations reveal no shelf or stockroom inventory.
+        }
+        private bool StoreDoorHasVisibleArrival(ActorState observer,Room room,int door)
+        {
+            if(!StoreEntryFlowEnabled || !stores.ContainsKey(room.id) || NearestVisible(observer,Species.Zombie)>=0)return false;
+            for(int i=0;i<count;i++){var other=actors[i];if(other.id!=observer.id && other.species==Species.Human && other.health>0 && !room.Contains(Key(other.x,other.y)) && Math.Abs(other.x-door%Width)+Math.Abs(other.y-door/Width)==1 && Visible(observer,other))return true;}
+            return false; // Hold an already open store door for a visible arrival, without changing home-door policy.
+        }
+        private bool TryInspectBlockedStoreEntry(int index,ref ActorState actor,Room store,out int direction)
+        {
+            direction=8;if(!StoreEntryFlowEnabled || AssignedVehicle(index)>=0 || !SafeNeedsAction(actor,-1))return false;
+            if(VisibleStoreEntryCrowd(actor,store)){
+                // A waiting arrival steps off a road/doorway if possible; the existing shopping deadline still bounds the wait.
+                if(IsDoor(actor.x,actor.y) || TerrainRules.RoadSurface(map.Get(actor.x,actor.y)))for(int d=0;d<8;d+=2){int x=actor.x+dx[d],y=actor.y+dy[d];if(map.CanWalk(x,y) && HouseAt(x,y)==0 && !IsDoor(x,y) && !TerrainRules.RoadSurface(map.Get(x,y)) && MayMove(actor,d)){direction=d;break;}}
+                return true;
+            }
+            int best=int.MaxValue;foreach(int door in store.doors){int x=door%Width,y=door/Width;if(map.Get(x,y)!=Terrain.DoorClosed)continue;
+                for(int d=0;d<8;d+=2){int nx=x+dx[d],ny=y+dy[d],length;if(!map.CanWalk(nx,ny) || HouseAt(nx,ny)!=0 || IsDoor(nx,ny) || TerrainRules.RoadSurface(map.Get(nx,ny)))continue;
+                    // Inspect the actual closed entrance before treating an unreachable interior as a failed visit.
+                    if(actor.x==nx && actor.y==ny){SetDoor(x,y,true);return true;}
+                    int route=ShelterRoute(actor,nx,ny,0,out length,foodRoute:true);if(route>=0 && length<best){best=length;direction=route;}
+                }
+            }
+            if(best==int.MaxValue)return false;if(direction<8 && map.Get(actor.x+dx[direction],actor.y+dy[direction])==Terrain.DoorClosed){SetDoor(actor.x+dx[direction],actor.y+dy[direction],true);direction=8;}return true;
+        }
         private static bool IsShopping(ActorState actor){return actor.shoppingMeals>0;}
         private bool IsStoreShopper(ActorState actor)
         {

@@ -1,0 +1,17 @@
+# Store entrance flow — rules113
+
+Resting pedestrian shoppers step away from the interior square beside a store door when an ordinary adjacent interior step is available. Movement commits normally and costs energy, or hunger when exhausted. The shopping destination, cargo, claim and deadline stay intact. Active courier/clerk work, assigned vehicle routines, healthy travel, danger, infection and freezing retain ownership. This is not a general command to move idle residents.
+
+A shopper blocked by a visible entry crowd retains the store destination and waits for physical capacity. A closed entrance can be approached and opened for inspection before rejecting a route to its hidden interior. Neither action promises food or reveals stock through a wall. A waiting shopper steps off a road/doorway when possible. Existing task expiry still releases the trip; no queue timer or renewed deadline is saved.
+
+An already open store door stays open for an immediately adjacent, physically visible human arrival. An observed zombie still permits normal closing. Home-door policy and door artwork are unchanged. The door cannot be held open on behalf of a remote or hidden resident.
+
+The first candidate also cleared generic low-energy residents. It diverted worker recovery and failed an existing order-completion check. Final clearance is restricted to an existing walking shopping task. The original check remains intact, including parallel service, all-store delivery, all-home groceries and completed orders.
+
+New worlds use113. Existing saves keep their recorded needs, inventories and rule generation until explicitly upgraded while paused. Rules112 offers **Enable store entrance flow**. Upgrading never refills shelves, resets hunger, rerolls needs or changes shifts. Older112 continuation is independently checked. No serialized queue state, new role, stock source, cargo capacity, hunger rate, geometry or artwork is added.
+
+To inspect this in the source project, use **Inspect Expanded City Paused** or create the same seed214/8×8/four-home/staggered/neighborhood-centers city. Watch a busy store entrance at1×, then5×. Follow a tired pedestrian shopper stepping aside and a real arrival entering/picking up food. Restart should reproduce the seeded setup. Native Unity execution remains paused for the development agent; hosted checks do not establish native rendering/input or frame rate.
+
+This fixes a demonstrated access failure, not every supply shortage. Empty shelves still require physical replenishment, and finite source stock can run out. Final outcomes and limitations are recorded in BUILD_VALIDATION.md and harness/validation/shopping15. Shifts remain queued. The user requested a smaller task after this increment.
+
+Final hosted validation:752core cases/745895assertions, UI7222Legacy/3NewOnly and upgrade138assertions PASS. Four unchanged26hour food trials retain zero deaths and delivery totals,28replay groups/840exact steps. The112full delivery control is byte-identical. In the matched244resident six-hour run critical hunger15→11, with780finite starting meals and zero deaths; eaten735→733, remaining45→47. Store entries132→127 and store meals36→35 do not establish a throughput increase. Hosted timings are similar, not a new speedup. Harder fixed trials still have hunger100 and an exhausted clerk at health90. Source hashes, individual outcomes and limitations are in the public validation record.

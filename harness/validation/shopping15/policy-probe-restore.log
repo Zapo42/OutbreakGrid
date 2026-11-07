@@ -1,0 +1,60 @@
+MODE=0 concurrent=True supplied=3 homes=3 completed=2 pending=2,4,2 food=85
+ id=1 pos=5,16 E=100 hunger=9 phase=Returning shop=0 rest=False cargo=3
+ id=2 pos=36,12 E=59 hunger=13 phase=None shop=0 rest=False cargo=1
+ id=3 pos=17,5 E=100 hunger=16 phase=None shop=0 rest=False cargo=1
+ id=4 pos=19,24 E=72 hunger=33 phase=Returning shop=272 rest=False cargo=3
+ id=5 pos=15,27 E=100 hunger=17 phase=None shop=0 rest=False cargo=1
+ id=6 pos=37,11 E=100 hunger=16 phase=None shop=0 rest=False cargo=3
+ id=7 pos=35,26 E=100 hunger=28 phase=None shop=0 rest=False cargo=0
+ id=8 pos=35,27 E=100 hunger=20 phase=None shop=0 rest=False cargo=0
+ id=9 pos=57,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=0
+ id=10 pos=53,7 E=95 hunger=19 phase=Returning shop=312 rest=False cargo=3
+ id=11 pos=55,26 E=100 hunger=37 phase=None shop=0 rest=False cargo=0
+MODE=1 concurrent=True supplied=3 homes=3 completed=0 pending=4,5,5 food=84
+ id=1 pos=55,6 E=10 hunger=26 phase=None shop=0 rest=False cargo=1
+ id=2 pos=55,7 E=0 hunger=12 phase=None shop=0 rest=False cargo=0
+ id=3 pos=17,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=0
+ id=4 pos=19,24 E=72 hunger=33 phase=Returning shop=272 rest=False cargo=3
+ id=5 pos=15,27 E=100 hunger=17 phase=None shop=0 rest=False cargo=1
+ id=6 pos=37,11 E=100 hunger=16 phase=None shop=0 rest=False cargo=0
+ id=7 pos=35,26 E=100 hunger=28 phase=None shop=0 rest=False cargo=0
+ id=8 pos=35,27 E=100 hunger=20 phase=None shop=0 rest=False cargo=0
+ id=9 pos=57,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=1
+ id=10 pos=57,24 E=87 hunger=16 phase=None shop=0 rest=False cargo=1
+ id=11 pos=55,26 E=100 hunger=37 phase=None shop=0 rest=False cargo=0
+MODE=2 concurrent=True supplied=3 homes=3 completed=2 pending=2,4,2 food=85
+ id=1 pos=5,16 E=100 hunger=9 phase=Returning shop=0 rest=False cargo=3
+ id=2 pos=36,12 E=59 hunger=13 phase=None shop=0 rest=False cargo=1
+ id=3 pos=17,5 E=100 hunger=16 phase=None shop=0 rest=False cargo=1
+ id=4 pos=19,24 E=72 hunger=33 phase=Returning shop=272 rest=False cargo=3
+ id=5 pos=15,27 E=100 hunger=17 phase=None shop=0 rest=False cargo=1
+ id=6 pos=37,11 E=100 hunger=16 phase=None shop=0 rest=False cargo=3
+ id=7 pos=35,26 E=100 hunger=28 phase=None shop=0 rest=False cargo=0
+ id=8 pos=35,27 E=100 hunger=20 phase=None shop=0 rest=False cargo=0
+ id=9 pos=57,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=0
+ id=10 pos=53,7 E=95 hunger=19 phase=Returning shop=312 rest=False cargo=3
+ id=11 pos=55,26 E=100 hunger=37 phase=None shop=0 rest=False cargo=0
+MODE=3 concurrent=True supplied=3 homes=3 completed=0 pending=4,5,5 food=84
+ id=1 pos=55,6 E=10 hunger=26 phase=None shop=0 rest=False cargo=1
+ id=2 pos=55,7 E=0 hunger=12 phase=None shop=0 rest=False cargo=0
+ id=3 pos=17,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=0
+ id=4 pos=19,24 E=72 hunger=33 phase=Returning shop=272 rest=False cargo=3
+ id=5 pos=15,27 E=100 hunger=17 phase=None shop=0 rest=False cargo=1
+ id=6 pos=37,11 E=100 hunger=16 phase=None shop=0 rest=False cargo=0
+ id=7 pos=35,26 E=100 hunger=28 phase=None shop=0 rest=False cargo=0
+ id=8 pos=35,27 E=100 hunger=20 phase=None shop=0 rest=False cargo=0
+ id=9 pos=57,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=1
+ id=10 pos=57,24 E=87 hunger=16 phase=None shop=0 rest=False cargo=1
+ id=11 pos=55,26 E=100 hunger=37 phase=None shop=0 rest=False cargo=0
+MODE=4 concurrent=True supplied=3 homes=3 completed=0 pending=4,5,5 food=84
+ id=1 pos=55,6 E=10 hunger=26 phase=None shop=0 rest=False cargo=1
+ id=2 pos=55,7 E=0 hunger=12 phase=None shop=0 rest=False cargo=0
+ id=3 pos=17,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=0
+ id=4 pos=19,24 E=72 hunger=33 phase=Returning shop=272 rest=False cargo=3
+ id=5 pos=15,27 E=100 hunger=17 phase=None shop=0 rest=False cargo=1
+ id=6 pos=37,11 E=100 hunger=16 phase=None shop=0 rest=False cargo=0
+ id=7 pos=35,26 E=100 hunger=28 phase=None shop=0 rest=False cargo=0
+ id=8 pos=35,27 E=100 hunger=20 phase=None shop=0 rest=False cargo=0
+ id=9 pos=57,5 E=100 hunger=14 phase=None shop=0 rest=False cargo=1
+ id=10 pos=57,24 E=87 hunger=16 phase=None shop=0 rest=False cargo=1
+ id=11 pos=55,26 E=100 hunger=37 phase=None shop=0 rest=False cargo=0

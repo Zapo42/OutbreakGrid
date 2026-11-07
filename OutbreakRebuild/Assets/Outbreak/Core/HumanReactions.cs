@@ -98,6 +98,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             if(BoxMemoryEnabled){ObserveStorageBoxes(ref actor);actors[index]=actor;}
             if(StoreDiscoveryEnabled){ObserveStoreEntrances(ref actor);actors[index]=actor;}
             CompleteHomeShoppingReturn(index,ref actor);
+            int entryDirection;if(TryClearStoreEntry(index,ref actor,threatIndex,out entryDirection))return entryDirection; // Clear resting traffic before routine work/rest owns the action.
             int workerDirection;if(TryWorkerRoutine(index,ref actor,threatIndex,out workerDirection))return workerDirection;
             int homeDirection;if(TryInspectHomeSupplies(index,ref actor,threatIndex,out homeDirection))return homeDirection;
             if(TryHomeFoodWait(index,ref actor,threatIndex))return 8;

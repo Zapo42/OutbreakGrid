@@ -46,8 +46,40 @@ public static partial class Program
         // Invoke the authoritative decision to isolate review timing from unrelated doorway/eating actions.
         object[] args={0,world.ActorAt(0),-1};return (bool)typeof(World).GetMethod("StartStoreShopping",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(world,args);
     }
+    private static World CrowdedStoreFixture(bool closed=false)
+    {
+        var original=EncounterScenarios.StoreShoppingTest();var save=original.Capture();var map=WorldMap.Restore(save.map);map.Set(11,5,closed?Terrain.DoorClosed:Terrain.DoorOpen);map.SetShelf(13,7,30,true);save.map=map.Capture();var template=save.actors[0];save.actors=new ActorState[5];save.nextId=6;int store=original.HouseAt(12,5);
+        for(int i=0;i<5;i++){var a=template;a.id=i+1;a.x=i==0?10:12;a.y=5;a.hunger=i==0?80:50;a.carriedFood=0;a.energySpent=i==0?0:100;a.shelterId=i==0?0:store;a.shelterX=i==0?0:12;a.shelterY=i==0?0:5;a.shelterState=i==0?ShelterState.None:ShelterState.Inside;a.restockBox=3*original.Width+4+1;a.restockHomeId=a.assignedHouseId;a.restockPhase=RestockPhase.Collecting;a.restockUntilTick=3600;a.shoppingStoreId=store;a.shoppingShelf=0;a.shoppingMeals=1;a.shoppingResting=i!=0;a.storageMemory=new[]{new StorageMemoryRecord{x=4,y=3,food=0,space=6,observedTick=0}};a.shelfMemory=new[]{new ShelfMemoryRecord{x=13,y=7,food=30,observedTick=0}};save.actors[i]=a;}
+        return World.Restore(save);
+    }
     private static void CheckCityShoppingContinuityCases()
     {
+        Check("Crowded store arrivals retain their task and exhausted entry residents make a paid clearance step",()=>{
+            World w=CrowdedStoreFixture();int food=w.FoodSupplies().RemainingMeals;w.Step();var queued=w.ActorAt(0);Require(queued.shoppingStoreId!=0 && queued.storeFailures==null && queued.restockUntilTick==3600,"A temporary visible crowd discarded the store or changed the deadline.");var before=w.ActorAt(1);w.Step();var after=w.ActorAt(1);Require((after.x!=before.x || after.y!=before.y) && after.hunger==before.hunger+EnergyRules.MoveCost && after.energySpent==before.energySpent,"Exhausted entry resident did not pay for an ordinary clearance step.");Require(after.shoppingStoreId==before.shoppingStoreId && after.restockBox==before.restockBox && after.restockUntilTick==before.restockUntilTick && after.carriedFood==before.carriedFood && w.FoodSupplies().RemainingMeals==food,"Clearance changed the plan or invented/transferred food.");
+            World copy=Documents.ParseSave(State(w));int eaten=0;var previous=w.Capture().actors;bool incomingMeal=false;for(int t=0;t<650;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Queued entry diverged after restore.");for(int i=0;i<w.Count;i++){var a=w.ActorAt(i);if(a.hunger<previous[i].hunger && a.carriedFood<previous[i].carriedFood){eaten++;if(i==0)incomingMeal=true;}previous[i]=a;}Require(w.FoodSupplies().RemainingMeals+eaten==food,"Crowded-store access lost or manufactured meals.");if(incomingMeal)break;}Require(incomingMeal,"The waiting resident never physically obtained and ate shelf food.");
+        });
+        Check("A blocked closed-door approach inspects the real entrance before rejecting its hidden crowd",()=>{
+            World w=CrowdedStoreFixture(true);w.Step();Require(w.TerrainAt(11,5)==Terrain.DoorOpen && w.ActorAt(0).shoppingStoreId!=0 && w.ActorAt(0).storeFailures==null,"An inaccessible inner cell prevented ordinary door inspection.");
+        });
+        Check("A real carried meal retains priority over store entry clearance",()=>{
+            var saved=CrowdedStoreFixture().Capture();saved.actors[1].carriedFood=1;saved.actors[1].hunger=80;World w=World.Restore(saved);Run(w,2);var a=w.ActorAt(1);Require(a.x==12 && a.y==5 && a.carriedFood==0 && a.hunger==30,"Clearance displaced the carried-meal action.");
+        });
+        Check("Store door courtesy admits a visible arrival but still closes against visible danger",()=>{
+            World w=CrowdedStoreFixture();var flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;var room=typeof(World).GetMethod("FindRoom",flags).Invoke(w,new object[]{w.ActorAt(1).shelterId});var close=typeof(World).GetMethod("CloseNearbyDoors",flags);close.Invoke(w,new object[]{w.ActorAt(1),room});Require(w.TerrainAt(11,5)==Terrain.DoorOpen,"Store door closed on a visible queued arrival.");int id;Require(w.TrySpawn(Species.Zombie,13,5,out id),"Could not arrange visible danger.");close.Invoke(w,new object[]{w.ActorAt(1),room});Require(w.TerrainAt(11,5)==Terrain.DoorClosed,"Door courtesy suppressed closing against a visible zombie.");
+        });
+        Check("A queued shopper clears the doorway with an ordinary paid outside step",()=>{
+            var saved=CrowdedStoreFixture().Capture();saved.actors[0].x=11;World w=World.Restore(saved);w.Step();var a=w.ActorAt(0);Require(a.x==10 && a.y==5 && a.energySpent==EnergyRules.MoveCost && a.shoppingStoreId!=0,"Queue waiting blocked the doorway or granted free movement.");
+        });
+        Check("Entry clearance never overrides freezing or active healthy movement",()=>{
+            var flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;var method=typeof(World).GetMethod("TryClearStoreEntry",flags);
+            for(int mode=0;mode<3;mode++){var saved=CrowdedStoreFixture().Capture();if(mode==0){saved.actors[1].reaction=HumanReaction.Freeze;saved.actors[1].freezeUntilTick=10;saved.actors[1].freezeResolved=false;}if(mode==1){saved.actors[1].energySpent=0;saved.actors[1].shoppingResting=false;}World w=World.Restore(saved);string before=State(w);object[] args={1,w.ActorAt(1),mode==2?0:-1,8};Require(!(bool)method.Invoke(w,args) && State(w)==before,"Clearance took an unsafe or healthy active action.");}
+        });
+        Check("Low energy alone never diverts an active clerk into shopper entry clearance",()=>{
+            var saved=EncounterScenarios.StoreShoppingTest().Capture();saved.actors[1].energySpent=EnergyRules.Maximum;World w=World.Restore(saved);string before=State(w);object[] args={1,w.ActorAt(1),-1,8};var method=typeof(World).GetMethod("TryClearStoreEntry",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance);Require(!(bool)method.Invoke(w,args) && State(w)==before,"Generic low energy displaced a worker action.");
+        });
+        Check("Published112 retains its recorded crowd failure and independent full continuation",()=>{
+            var saved=CrowdedStoreFixture().Capture();saved.rulesVersion="encounter-prototype-112";World old=World.Restore(saved);old.Step();Require(old.ActorAt(0).storeFailures!=null && old.ActorAt(0).shoppingStoreId==0,"Old112 crowd behavior silently changed.");string raw=System.IO.File.ReadAllText(System.IO.Path.Combine(AppContext.BaseDirectory,"Fixtures","shopping111-initial.json")).Replace("encounter-prototype-111","encounter-prototype-112");World legacy=Documents.ParseSave(raw);Run(legacy,1000);Require(Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(State(legacy))))=="BBB0B7087BEE4AAEC3D7C1A21B0A34A4AC2E4C8CB6E877A8E607B0AF075C55AF","Independent112 continuation changed.");
+        });
         Check("Healthy pantry maintenance waits for a bounded resident review slot and resumes exactly",()=>{
             World w=RoutineShoppingFixture();Require(!BeginRoutineShopping(w),"Routine shopping joined the initial demand wave.");var old=w.Capture();old.rulesVersion=EncounterRules.PersonalFoodAccessVersion;Require(BeginRoutineShopping(World.Restore(old)),"The control could not start ordinary shopping.");
             World copy=Documents.ParseSave(State(w));bool began=false;for(int t=0;t<StoreShoppingRules.RoutineReviewTicks;t++){w.Step();copy.Step();Require(State(w)==State(copy),"Review timing changed after restore.");if(w.ActorAt(0).shoppingMeals>0){began=true;break;}}Require(began,"Routine review never permitted a real errand within thirty game minutes.");

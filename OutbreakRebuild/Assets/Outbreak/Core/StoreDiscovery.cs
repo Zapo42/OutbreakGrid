@@ -118,6 +118,7 @@ namespace Outbreak.Core
                     int x=door%Width+dx[d],y=door/Width+dy[d],length;if(!map.CanWalk(x,y) || !store.Contains(Key(x,y)))continue;
                     int candidate=ShelterRoute(actor,x,y,0,out length,foodRoute:true);if(candidate>=0 && length<best){best=length;goal=Key(x,y);route=candidate;}
                 }
+                if(goal<0 && TryInspectBlockedStoreEntry(index,ref actor,store,out direction))return true;
                 if(goal<0){RememberStore(ref actor.storeFailures,store.id,Tick);actor.shoppingStoreId=0;actor.shoppingSearchCell=0;actors[index]=actor;return true;}
                 actor.shelterId=store.id;actor.shelterX=goal%Width;actor.shelterY=goal/Width;actor.shelterState=ShelterState.Seeking;
                 direction=route;int nx=actor.x+dx[route],ny=actor.y+dy[route];if(map.Get(nx,ny)==Terrain.DoorClosed){SetDoor(nx,ny,true);direction=8;}actors[index]=actor;return true;

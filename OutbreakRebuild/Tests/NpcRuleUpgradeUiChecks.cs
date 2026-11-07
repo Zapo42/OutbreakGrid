@@ -45,9 +45,9 @@ public static class NpcRuleUpgradeUiChecks
         string mapJson = File.ReadAllText(path);
         string[] versions = { EncounterRules.LeisureVersion, EncounterRules.HappinessVersion, EncounterRules.OffDutyConsumersVersion,
             EncounterRules.ParkVisitsVersion, EncounterRules.SocialInteractionsVersion, EncounterRules.ParkPreferencesVersion,
-            EncounterRules.SocialFamiliarityVersion, EncounterRules.NeedsPriorityVersion, EncounterRules.ShoppingRecoveryVersion, EncounterRules.BoundedShoppingVersion, EncounterRules.HomeShoppingCompletionVersion, EncounterRules.PersonalFoodAccessVersion };
+            EncounterRules.SocialFamiliarityVersion, EncounterRules.NeedsPriorityVersion, EncounterRules.ShoppingRecoveryVersion, EncounterRules.BoundedShoppingVersion, EncounterRules.HomeShoppingCompletionVersion, EncounterRules.PersonalFoodAccessVersion, EncounterRules.DemandStaggeringVersion };
         string[] labels = { "Enable happiness", "Enable off-duty consumer routines", "Enable known park visits",
-            "Enable social greetings", "Enable park preferences", "Enable familiar greetings", "Enable needs priority", "Enable shopping return recovery", "Enable bounded shopping searches", "Enable home shopping completion", "Enable personal food access", "Enable staggered routine shopping" };
+            "Enable social greetings", "Enable park preferences", "Enable familiar greetings", "Enable needs priority", "Enable shopping return recovery", "Enable bounded shopping searches", "Enable home shopping completion", "Enable personal food access", "Enable staggered routine shopping", "Enable store entrance flow" };
         for (int n = 0; n < versions.Length; n++)
         {
             WorldMap map = Documents.ParseMap(mapJson);
@@ -67,7 +67,7 @@ public static class NpcRuleUpgradeUiChecks
             {
                 typeof(FoundationApp).GetMethod("UseWorld", Instance).Invoke(app, new object[] { legacy });
                 Render(app);
-                Require(State(Current(app)) == initialState && !Current(app).DemandStaggeringEnabled, "Loading/rendering silently upgraded old rules.");
+                Require(State(Current(app)) == initialState && !Current(app).StoreEntryFlowEnabled, "Loading/rendering silently upgraded old rules.");
                 Require(UnityEngine.GUILayout.controls.ContainsKey(labels[n]), "Missing explicit upgrade for " + versions[n]);
                 Press(app, "Step 1 tick");
                 Press(app, "Restart scenario");
@@ -80,7 +80,7 @@ public static class NpcRuleUpgradeUiChecks
                 Render(app, labels[n]);
                 Require(State(Current(app)) == before, "Upgrade mutated simulation during GUI traversal.");
                 Call(app, "Update");
-                Require(Current(app).DemandStaggeringEnabled && Paused(app), "Queued upgrade did not enable current shopping rules while paused.");
+                Require(Current(app).StoreEntryFlowEnabled && Paused(app), "Queued upgrade did not enable current shopping rules while paused.");
                 Require(State(Current(app)) == Documents.Encode(World.Restore(expected).Capture()), "Upgrade changed inventory, energy, map, clock or RNG.");
                 Press(app, "Step 1 tick");
                 Press(app, "Restart scenario");
@@ -118,7 +118,7 @@ public static class NpcRuleUpgradeUiChecks
             Require(State(Current(preview)) == start && Paused(preview), "Needs preview restart lost its authored finite inventory.");
         }
         finally { Call(preview, "OnDestroy"); }
-        Console.WriteLine("PASS rules100-111 explicit upgrades/restarts with schema14 houses, deprivation corpse and needs preview: " + assertions + " assertions. UI API doubles; native Unity NOT RUN.");
+        Console.WriteLine("PASS rules100-112 explicit upgrades/restarts with schema14 houses, deprivation corpse and needs preview: " + assertions + " assertions. UI API doubles; native Unity NOT RUN.");
         return 0;
     }
 }
