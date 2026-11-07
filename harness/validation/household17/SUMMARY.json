@@ -1,0 +1,22 @@
+{
+  "task": "HOUSEHOLD-17",
+  "baseline": "d53d4ca780f8b6cb7ec1e4cd7cf25b88d57aae37",
+  "rules": "encounter-prototype-114",
+  "newObjectMapSchema": 16,
+  "coreCases": 767,
+  "coreAssertions": 745988,
+  "uiLegacyAssertions": 8195,
+  "uiNewOnlyAssertions": 3,
+  "upgradeAssertions": 148,
+  "focusedHouseholdCases": 15,
+  "sourceHashesVerified": 185,
+  "existingMetasEditorDependenciesUnchanged": true,
+  "legacy114FinalSha256": "839d946afddf53319b82ba305358803b50ad9b4ddbbf1c5dec2b2545679d93d1",
+  "legacy114SingleSeatContinuation": "PASS \u2014 prior tick100 fixture to tick1200, no footprint expansion",
+  "couchSeats": 2,
+  "comfyChairEnergyRecovery": 6,
+  "spriteGeometry": "7 rows, 7 columns per cell; couch14 columns across2 cells; integer shared drawing edges",
+  "visualSheet": "Renderer-call SVG rasterized and inspected; not native rendering",
+  "nativeUnity": "NOT RUN \u2014 paused",
+  "windowsPlayer": "NOT RUN \u2014 no EXE"
+}

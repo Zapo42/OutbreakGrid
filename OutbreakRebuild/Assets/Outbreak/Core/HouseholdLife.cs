@@ -5,7 +5,7 @@ namespace Outbreak.Core
     public static class HouseholdRules
     {
         public static int SnackRelief(int endurance){return 1+4*Math.Max(0,Math.Min(10,endurance))/10;}
-        public static int RestGain(HouseholdFurnitureKind kind){return kind==HouseholdFurnitureKind.Bed?12:kind==HouseholdFurnitureKind.Couch?6:kind==HouseholdFurnitureKind.Chair?3:0;}
+        public static int RestGain(HouseholdFurnitureKind kind){return kind==HouseholdFurnitureKind.Bed?12:(kind==HouseholdFurnitureKind.Couch || kind==HouseholdFurnitureKind.ComfyChair)?6:kind==HouseholdFurnitureKind.Chair?3:0;}
     }
     public sealed partial class World
     {
@@ -20,19 +20,19 @@ namespace Outbreak.Core
         {
             var seat=map.FurnitureRecord(x,y);if(seat==null || seat.kind!=HouseholdFurnitureKind.Chair)return false;for(int d=0;d<8;d+=2){var table=map.FurnitureRecord(x+dx[d],y+dy[d]);if(table!=null && table.kind==HouseholdFurnitureKind.KitchenTable)return true;}return false;
         }
-        private bool FurnitureVisibleFrom(int x,int y,HouseholdFurnitureDocument f)
+        private bool FurnitureVisibleFrom(int x,int y,int fx,int fy)
         {
             // A solid object's visible surface is the ray endpoint, not a square the observer must walk through.
-            int ax=Math.Abs(f.x-x),ay=Math.Abs(f.y-y),sx=Math.Sign(f.x-x),sy=Math.Sign(f.y-y),error=ax-ay;
-            while(x!=f.x || y!=f.y){int twice=2*error,nx=x,ny=y;if(twice>-ay){error-=ay;nx+=sx;}if(twice<ax){error+=ax;ny+=sy;}
-                if(nx==f.x && ny==f.y)return nx==x || ny==y || (map.CanWalk(nx,y) && map.CanWalk(x,ny) && !VehicleAt(nx,y) && !VehicleAt(x,ny));
+            int ax=Math.Abs(fx-x),ay=Math.Abs(fy-y),sx=Math.Sign(fx-x),sy=Math.Sign(fy-y),error=ax-ay;
+            while(x!=fx || y!=fy){int twice=2*error,nx=x,ny=y;if(twice>-ay){error-=ay;nx+=sx;}if(twice<ax){error+=ax;ny+=sy;}
+                if(nx==fx && ny==fy)return nx==x || ny==y || (map.CanWalk(nx,y) && map.CanWalk(x,ny) && !VehicleAt(nx,y) && !VehicleAt(x,ny));
                 if(!ClearStep(x,y,nx,ny))return false;x=nx;y=ny;
             }return true;
         }
-        private bool FixtureVisible(ActorState actor,HouseholdFurnitureDocument f){int x=actor.x-f.x,y=actor.y-f.y;return x*x+y*y<=EncounterRules.SightRadius*EncounterRules.SightRadius && FurnitureVisibleFrom(actor.x,actor.y,f);}
+        private bool FixtureVisible(ActorState actor,int fx,int fy){int x=actor.x-fx,y=actor.y-fy;return x*x+y*y<=EncounterRules.SightRadius*EncounterRules.SightRadius && FurnitureVisibleFrom(actor.x,actor.y,fx,fy);}
         private bool TelevisionFromSeat(ActorState observer,int x,int y)
         {
-            foreach(var f in map.HouseholdRecords){int ax=f.x-x,ay=f.y-y;if(f.kind==HouseholdFurnitureKind.Television && f.working && ax*ax+ay*ay<=36 && FixtureVisible(observer,f) && FurnitureVisibleFrom(x,y,f))return true;}return false;
+            foreach(var f in map.HouseholdRecords){int ax=f.x-x,ay=f.y-y;if(f.kind==HouseholdFurnitureKind.Television && f.working && ax*ax+ay*ay<=36 && FixtureVisible(observer,f.x,f.y) && FurnitureVisibleFrom(x,y,f.x,f.y))return true;}return false;
         }
         private bool FurnitureResting(ActorState a){return HouseholdActivitiesAvailable && a.householdActivity==HouseholdActivity.Resting && Tick-a.householdActivityTick<=10 && HouseholdSeatAt(a.x,a.y);}
         public bool RestingAtFurniture(int index){return FurnitureResting(ActorAt(index));}
@@ -69,17 +69,19 @@ namespace Outbreak.Core
             bool recoverHealth=actor.health<100 && !hungry;
             bool rest=!meal && (!hungry || !KnownRoomSupplies(actor,room)) && (EnergyRules.Remaining(actor)<=EnergyRules.SeekRestAt || seated && actor.energySpent>0 || recoverHealth || !hungry && seated && actor.happiness<0 && TelevisionFromSeat(actor,actor.x,actor.y));
             if(!meal && !rest)return false;
-            HouseholdFurnitureDocument chosen=null;int chosenRoute=-1,best=int.MinValue;
-            foreach(var f in map.HouseholdRecords){if(!room.Contains(Key(f.x,f.y)) || !WorldMap.IsSeat(f.kind) || meal && !DiningSeat(f.x,f.y) || !FixtureVisible(actor,f) || !SeatFreeFor(actor.id,f.x,f.y))continue;
-                int length,route=ShelterRoute(actor,f.x,f.y,0,out length,confinedRoom:room);if(route<0)continue;
-                // Compare approximate recovery time including travel, so tiny fatigue does not cause a needless trip to bed.
+            HouseholdFurnitureDocument chosen=null;int chosenRoute=-1,best=int.MinValue,chosenX=0,chosenY=0;
+            foreach(var f in map.HouseholdRecords)for(int offset=0;offset<WorldMap.FurnitureWidth(f);offset++){
+                int seatX=f.x+offset,seatY=f.y;
+                if(!room.Contains(Key(seatX,seatY)) || !WorldMap.IsSeat(f.kind) || meal && !DiningSeat(seatX,seatY) || !FixtureVisible(actor,seatX,seatY) || !SeatFreeFor(actor.id,seatX,seatY))continue;
+                int length,route=ShelterRoute(actor,seatX,seatY,0,out length,confinedRoom:room);if(route<0)continue;
+                // Each couch cushion is a real reachable seat; compare recovery including paid travel as before.
                 int gain=HouseholdRules.RestGain(f.kind),recovery=(actor.energySpent+length+gain-1)/gain;
-                int score=meal?-length:-(length+recovery)+(actor.happiness<0 && EnergyRules.Remaining(actor)>20 && TelevisionFromSeat(actor,f.x,f.y)?20:0);
-                if(score>best){best=score;chosen=f;chosenRoute=route;}
+                int score=meal?-length:-(length+recovery)+(actor.happiness<0 && EnergyRules.Remaining(actor)>20 && TelevisionFromSeat(actor,seatX,seatY)?20:0);
+                if(score>best){best=score;chosen=f;chosenX=seatX;chosenY=seatY;chosenRoute=route;}
             }
             if(chosen==null)return false;
-            actor.shelterId=room.id;actor.shelterX=chosen.x;actor.shelterY=chosen.y;actor.shelterState=ShelterState.Inside;
-            if(actor.x!=chosen.x || actor.y!=chosen.y){direction=chosenRoute;RecordHouseholdActivity(ref actor,meal?HouseholdActivity.GoingToMeal:HouseholdActivity.GoingToRest);actors[index]=actor;return true;}
+            actor.shelterId=room.id;actor.shelterX=chosenX;actor.shelterY=chosenY;actor.shelterState=ShelterState.Inside;
+            if(actor.x!=chosenX || actor.y!=chosenY){direction=chosenRoute;RecordHouseholdActivity(ref actor,meal?HouseholdActivity.GoingToMeal:HouseholdActivity.GoingToRest);actors[index]=actor;return true;}
             if(meal)return false;
             // Only actual use of a typed seat restores energy. A full-energy TV rest adds no extra hunger cost.
             bool recoveringNow=actor.energySpent>0 || recoverHealth;

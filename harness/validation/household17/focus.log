@@ -1,0 +1,15 @@
+PASS Typed household furniture roundtrips canonically and table composites are atomic
+PASS Two-cell couches validate their whole footprint and remove it atomically
+PASS Two residents rest simultaneously on distinct couch cushions without sharing a seat
+PASS Couch visitors approach the second cushion when the first is occupied or reserved
+PASS Comfy chairs give couch-level recovery and old single-seat114 furniture replays unchanged
+PASS Snacks consume a whole food item anywhere with endurance-bounded one-to-five relief
+PASS A visible table chair receives a paid approach and one real full meal
+PASS Chairs couches and beds give distinct energy recovery without intrinsic media happiness
+PASS A small chair break stays local while exhaustion justifies a nearby faster bed
+PASS Furniture healing pays the existing hunger cost and hungry empty residents can recover without healing
+PASS Personally visible food prevents a hungry resident replacing food seeking with furniture recovery
+PASS Standing idle never regains or spends energy in household mode
+PASS Media requires working devices and television requires actual seated rest and visibility
+PASS Household preferences restore social outdoor park mood and introvert indoor solitude mood
+PASS Household seat occupancy and activity clocks reject corrupt saves and keep old113 continuation
