@@ -1,0 +1,28 @@
+{
+  "task": "HOUSEHOLD-16",
+  "baseline": "21e46d8d2652cf774d2e119789b7445a8cb9c903",
+  "rules": "encounter-prototype-114",
+  "coreCases": 763,
+  "coreAssertions": 745960,
+  "uiLegacy": 7358,
+  "uiNewOnly": 3,
+  "upgradeAssertions": 148,
+  "focusedCases": 11,
+  "legacy113DeliveryByteIdentical": true,
+  "legacy113DeliverySha256": "ad54eadb4da93e212524f2a0a34ddf15d22010a337f4734b3eeba07a4ff04b4e",
+  "sourceHashesVerified": 181,
+  "existingMetasAndEditorDependenciesUnchanged": true,
+  "uniqueAssetGuids": 7,
+  "nativeUnity": "NOT RUN \u2014 paused",
+  "windowsPlayer": "NOT RUN \u2014 no EXE",
+  "pending": [
+    "Relationship quality and liked-company compounding",
+    "Consensual home/out invitations",
+    "Multi-house and longer-distance rollout"
+  ],
+  "rejectedControls": [
+    "Solid-TV endpoint originally blocked TV visibility; fixed with wall-aware furniture sight.",
+    "Old-map seat lookup allocated in route hot path; fast inactive-mode return restores zero warmed query allocations.",
+    "Rest-choice check now measures actual diagonal/cardinal movement costs without changing route tie rules."
+  ]
+}

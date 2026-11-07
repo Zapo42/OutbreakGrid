@@ -34,6 +34,7 @@ namespace Outbreak.UnityAdapter
             if(selected>=0 && selected<world.Count)
             {
                 if(Section("Vitals & needs",true))DrawSelectedVitals();
+                if(world.HouseholdActivitiesAvailable && Section("Household activities",true))DrawHouseholdPanel();
                 if(Section("Combat & contact"))DrawSelectedCombat();
                 if(Section("Assignments & actions"))DrawSelectedAssignments();
                 if(Section("Memories & traits"))DrawSelectedMemory();

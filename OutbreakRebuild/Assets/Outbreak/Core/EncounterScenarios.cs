@@ -291,6 +291,14 @@ namespace Outbreak.Core // Share the exact obstacle fixture between the shell an
             if(!world.TrySpawn(Species.Human,4,5,out id) || !world.TrySpawn(Species.Human,14,5,out id) || !world.TrySpawn(Species.Human,22,4,out id) || !world.TrySpawn(Species.Human,23,5,out id))throw new System.InvalidOperationException("Happiness comparison needs four residents.");
             SaveDocument saved=world.Capture();for(int i=0;i<4;i++){ActorState actor=saved.actors[i];actor.charisma=(i==0 || i==2)?2:8;actor.hunger=0;actor.carriedFood=1;saved.actors[i]=actor;}return World.Restore(saved);
         }
+        public static World HouseholdLifeTest()
+        {
+            WorldMap map=new WorldMap(30,22,"Household furniture and needs","household-life-1");for(int y=2;y<=14;y++)for(int x=2;x<=20;x++)map.Set(x,y,x==2 || x==20 || y==2 || y==14?Terrain.Wall:Terrain.Floor);map.Set(11,14,Terrain.DoorClosed);
+            map.SetStorageBox(new StorageBoxDocument{x=4,y=11,capacity=60,foodReserve=0,items=new[]{new ItemStackDocument{item=InventoryItem.Food,quantity=40}}});
+            map.SetKitchenTableWithChairs(7,7);foreach(var f in new[]{new HouseholdFurnitureDocument{x=14,y=8,kind=HouseholdFurnitureKind.Couch},new HouseholdFurnitureDocument{x=14,y=5,kind=HouseholdFurnitureKind.Chair},new HouseholdFurnitureDocument{x=18,y=11,kind=HouseholdFurnitureKind.Bed},new HouseholdFurnitureDocument{x=14,y=3,kind=HouseholdFurnitureKind.Television,working=true},new HouseholdFurnitureDocument{x=4,y=4,kind=HouseholdFurnitureKind.Radio,working=true}})map.SetFurniture(f);
+            for(int y=15;y<=17;y++)map.Set(11,y,Terrain.Sidewalk);for(int x=11;x<=24;x++)map.Set(x,17,Terrain.Sidewalk);
+            World world=new World(map,214,encounter:true,hunger:true);int id;world.TrySpawn(Species.Human,6,7,out id);world.TrySpawn(Species.Human,14,8,out id);world.TryAssignHouse(0,6,7);world.TryAssignHouse(1,14,8);var saved=world.Capture();for(int i=0;i<2;i++){var a=saved.actors[i];a.carriedFood=3;a.hunger=i==0?65:10;a.energySpent=70;a.charisma=i==0?2:8;a.endurance=i==0?5:10;a.happiness=-10;a.shelterId=a.assignedHouseId;a.shelterX=a.x;a.shelterY=a.y;a.shelterState=ShelterState.Inside;saved.actors[i]=a;}world=World.Restore(saved);world.TryRememberPark(0,24,17);world.TryRememberPark(1,24,17);return world;
+        }
         public static World HumanLeisureTest()
         {
             // A stocked home and unrelated shop make the complete outing visible without urgent errands.

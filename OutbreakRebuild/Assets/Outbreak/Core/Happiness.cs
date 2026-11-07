@@ -12,11 +12,11 @@ namespace Outbreak.Core
     {
         // Detached observations describe current contributors; requesting this snapshot never advances a pulse.
         public readonly bool Available,Paused,Indoors,Danger;
-        public readonly int Value,NearbyPeople,SocialContribution,EnvironmentContribution,Change;
+        public readonly int Value,NearbyPeople,SocialContribution,EnvironmentContribution,Change,MediaContribution;
         private readonly int preference;
-        internal HappinessSnapshot(bool available,bool paused,int value,int nearby,bool indoors,bool danger,int social,int environment,int change,int preference)
+        internal HappinessSnapshot(bool available,bool paused,int value,int nearby,bool indoors,bool danger,int social,int environment,int change,int preference,int media=0)
         {
-            Available=available;Paused=paused;Value=value;NearbyPeople=nearby;Indoors=indoors;Danger=danger;SocialContribution=social;EnvironmentContribution=environment;Change=change;this.preference=preference;
+            Available=available;Paused=paused;Value=value;NearbyPeople=nearby;Indoors=indoors;Danger=danger;SocialContribution=social;EnvironmentContribution=environment;Change=change;MediaContribution=media;this.preference=preference;
         }
         public string SocialPreference { get { return preference<0?"Prefers solitude":preference>0?"Prefers company":"Socially neutral"; } }
         public string EnvironmentPreference { get { return preference<0?"Prefers indoors":preference>0?"Prefers outdoors":"Environment neutral"; } }
@@ -27,7 +27,7 @@ namespace Outbreak.Core
                 if(!Available)return "Happiness unavailable";
                 if(Paused)return "Riding: happiness changes paused";
                 // Formatting belongs only to an explicitly requested presentation; authoritative pulses allocate no strings.
-                return "Visible nearby people: "+NearbyPeople+"; social "+SocialContribution.ToString("+0;-0;0")+"; "+(Indoors?"indoors":"outdoors")+" "+EnvironmentContribution.ToString("+0;-0;0")+"; change per pulse "+Change.ToString("+0;-0;0")+(Danger?" (danger suspends positive gains)":"");
+                return "Visible nearby people: "+NearbyPeople+"; social "+SocialContribution.ToString("+0;-0;0")+"; "+(Indoors?"indoors":"outdoors")+" "+EnvironmentContribution.ToString("+0;-0;0")+"; change per pulse "+Change.ToString("+0;-0;0")+(MediaContribution!=0?"; media/park +"+MediaContribution:"")+(Danger?" (danger suspends positive gains)":"");
             }
         }
     }
@@ -60,9 +60,11 @@ namespace Outbreak.Core
                 if(nearby==HappinessRules.MaximumNearbyPeople && !lookForDanger)break; // Saturated company needs no further scan once danger is already resolved.
             }
             // Charisma affects two transparent preferences, not hidden knowledge, needs or movement efficiency.
-            int social=preference*(nearby>0?1:-1),environment=preference*(indoors?-1:1),change=social+environment;
+            int social=preference*(nearby>0?1:-1),environment=preference*(indoors?-1:1),media=0;
+            if(HouseholdActivitiesAvailable){social=preference<0?(nearby==0?1:0):preference>0 && nearby>0?1:0;environment=preference<0?(indoors?1:0):preference>0 && !indoors?1:0;media=HouseholdMedia(observer)+HouseholdParkBonus(observer);}
+            int change=social+environment+media;
             if(danger)change=Math.Min(0,change);
-            return new HappinessSnapshot(true,false,observer.happiness,nearby,indoors,danger,social,environment,change,preference);
+            return new HappinessSnapshot(true,false,observer.happiness,nearby,indoors,danger,social,environment,change,preference,media);
         }
         public HappinessSnapshot HappinessKnownBy(int index)
         {

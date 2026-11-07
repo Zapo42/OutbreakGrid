@@ -47,7 +47,7 @@ namespace Outbreak.Core
         }
         public void SetStorageBox(StorageBoxDocument box)
         {
-            if(box==null || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || PhoneAt(box.x,box.y) || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || (box.foodReserve.HasValue && (box.foodReserve.Value<0 || box.foodReserve.Value>box.capacity)) || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
+            if(box==null || HasFurnitureAt(box.x,box.y) || !Contains(box.x,box.y) || !TerrainRules.Walkable(Get(box.x,box.y)) || Get(box.x,box.y)==Terrain.DoorOpen || PhoneAt(box.x,box.y) || shelves.ContainsKey(box.y*Width+box.x) || RestSpotAt(box.x,box.y) || WeaponAt(box.x,box.y)!=null || box.capacity<1 || box.capacity>StorageRules.MaxCapacity || (box.foodReserve.HasValue && (box.foodReserve.Value<0 || box.foodReserve.Value>box.capacity)) || box.items==null || box.items.Length>1 || (!storageBoxes.ContainsKey(box.y*Width+box.x) && storageBoxes.Count>=StorageRules.MaxBoxes))throw new ArgumentException("Invalid storage box placement, capacity or inventory.");
             int used=0;foreach(ItemStackDocument stack in box.items){if(stack==null || stack.item!=InventoryItem.Food || stack.quantity<1 || stack.quantity>StorageRules.MaxCapacity)throw new ArgumentException("Invalid storage item stack.");used+=stack.quantity;}
             if(used>box.capacity)throw new ArgumentException("Storage inventory exceeds capacity.");storageBoxes[box.y*Width+box.x]=StorageRules.Copy(box);storageRecords=null;if(storageCells.Add(box.y*Width+box.x))DistrictSurfaceChanged(box.x,box.y);
         }
@@ -67,7 +67,7 @@ namespace Outbreak.Core
         public StorageBoxDocument StorageBoxAt(int x,int y){return map.StorageBoxAt(x,y);}
         public bool TryPlaceStorageBox(int x,int y)
         {
-            if(map.ParkingExitAt(x,y)>=0 || VehicleAt(x,y) || !StorageEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || StorageBoxSites().Length>=StorageRules.MaxBoxes)return false;
+            if(map.HasFurnitureAt(x,y) || map.ParkingExitAt(x,y)>=0 || VehicleAt(x,y) || !StorageEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || IsDoor(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || StorageBoxSites().Length>=StorageRules.MaxBoxes)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             map.SetStorageBox(new StorageBoxDocument{x=x,y=y,capacity=StorageRules.DefaultCapacity,items=new ItemStackDocument[0]});TerrainRevision++;return true;
         }

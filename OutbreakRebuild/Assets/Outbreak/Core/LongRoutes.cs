@@ -57,7 +57,7 @@ namespace Outbreak.Core
             if(!map.Contains(goalX,goalY) || Math.Max(Math.Abs(goalX-actor.x),Math.Abs(goalY-actor.y))>radius || !ShelterWalkable(goalX,goalY))return -1;
             cityFrontier.Clear();cityBest.Clear();var best=cityBest;
             // These goals fail under the same live admissions used by every search step; avoid exhausting the frontier.
-            if((actor.x!=goalX || actor.y!=goalY) && (!occupancy.Allows(Key(goalX,goalY),Species.Human) || ZombieAt(goalX,goalY) || RoomEntryBlocked(actor,goalX,goalY)))return -1;
+            if((actor.x!=goalX || actor.y!=goalY) && (!SeatPassableFor(actor.id,goalX,goalY) || !occupancy.Allows(Key(goalX,goalY),Species.Human) || ZombieAt(goalX,goalY) || RoomEntryBlocked(actor,goalX,goalY)))return -1;
             int start=Key(actor.x,actor.y),goal=Key(goalX,goalY);
             PushCityFrontier(new CityFrontier{key=start,first=8,estimate=CityEstimate(goalX-actor.x,goalY-actor.y)});best[start]=0;
             while(cityFrontier.Count>0)
@@ -70,7 +70,7 @@ namespace Outbreak.Core
                 {
                     int nx=x+dx[d],ny=y+dy[d];
                     if(Math.Max(Math.Abs(nx-actor.x),Math.Abs(ny-actor.y))>radius || !ShelterWalkable(nx,ny) || (walkOnly && !map.CanWalk(nx,ny)) || !RoutineDistributionStepAllowed(actor,nx,ny))continue;
-                    int key=Key(nx,ny);if(!occupancy.Allows(key,Species.Human) || ZombieAt(nx,ny))continue;
+                    int key=Key(nx,ny);if(!SeatPassableFor(actor.id,nx,ny) || !occupancy.Allows(key,Species.Human) || ZombieAt(nx,ny))continue;
                     if(nx!=x && ny!=y && (IsDoor(x,y) || IsDoor(nx,ny) || VehicleAt(nx,y) || VehicleAt(x,ny) || !map.CanWalk(nx,y) || !map.CanWalk(x,ny)))continue;
                     bool diagonal=nx!=x && ny!=y;
                     Terrain tile=map.Get(nx,ny),from=map.Get(x,y);

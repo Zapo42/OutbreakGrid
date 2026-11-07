@@ -68,6 +68,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
         [DataMember(EmitDefaultValue=false)] public WeaponPickupDocument[] weapons;
         [DataMember(EmitDefaultValue=false)] public StorageBoxDocument[] storageBoxes;
         [DataMember(EmitDefaultValue=false)] public RestSpotDocument[] restSpots;
+        [DataMember(EmitDefaultValue=false)] public bool householdLife;
+        [DataMember(EmitDefaultValue=false)] public HouseholdFurnitureDocument[] householdFurniture;
         [DataMember(EmitDefaultValue=false)] public PhoneBlockDocument[] phoneBlocks;
         [DataMember(EmitDefaultValue=false)] public RoadLaneDocument[] roadLanes;
         [DataMember(EmitDefaultValue=false)] public ParkingBayDocument[] parkingBays;
@@ -105,6 +107,8 @@ namespace Outbreak.Contracts // Keep file contracts independent of Unity and sim
     }
     [DataContract] public struct ActorState // Return value copies so a renderer cannot mutate simulation state.
     { // Begin a stable actor record.
+        [DataMember(EmitDefaultValue=false)] public HouseholdActivity householdActivity;
+        [DataMember(EmitDefaultValue=false)] public long householdActivityTick;
         [DataMember(IsRequired = true)] public int id, x, y; // Keep identity stable through movement and future conversion.
         [DataMember(IsRequired = true)] public Species species; // Store the actual biological state rather than a visual tint.
         [DataMember(IsRequired = true)] public int strength, perception, endurance, charisma, intelligence, agility, luck; // Reserve all seven agreed SPECIAL statistics.

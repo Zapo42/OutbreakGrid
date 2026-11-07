@@ -53,6 +53,7 @@ namespace Outbreak.Core
         }
         private bool TryShoppingRest(int index,ref ActorState actor)
         {
+            if(HouseholdActivitiesAvailable)return false;
             if((actor.shoppingStoreId==0 && !(ShoppingRecoveryEnabled && IsShopping(actor) && actor.restockPhase==RestockPhase.Returning)) || HouseAt(actor.x,actor.y)==actor.assignedHouseId || IsDoor(actor.x,actor.y) || TerrainRules.RoadSurface(map.Get(actor.x,actor.y)))return false;
             if(EnergyRules.Remaining(actor)<=RestockRules.ReturnEnergy)actor.shoppingResting=true;
             if(!actor.shoppingResting)return false;

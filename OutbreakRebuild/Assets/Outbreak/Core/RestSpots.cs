@@ -12,7 +12,7 @@ namespace Outbreak.Core
         public bool RestSpotAt(int x,int y){return Contains(x,y) && restSpots.Contains(y*Width+x);}
         public void SetRestSpot(int x,int y,bool area=false)
         {
-            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || (restSpots.Count>=4096 && !RestSpotAt(x,y)))throw new ArgumentException("Rest spots need free floor cells.");restSpots.Add(y*Width+x);if(area)areaRestSpots.Add(y*Width+x);else areaRestSpots.Remove(y*Width+x);
+            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || HasFurnitureAt(x,y) || (restSpots.Count>=4096 && !RestSpotAt(x,y)))throw new ArgumentException("Rest spots need free floor cells.");restSpots.Add(y*Width+x);if(area)areaRestSpots.Add(y*Width+x);else areaRestSpots.Remove(y*Width+x);
         }
         internal RestSpotDocument[] CaptureRestSpots()
         {
@@ -31,13 +31,14 @@ namespace Outbreak.Core
         public bool RestSpotAt(int x,int y){return map.RestSpotAt(x,y);}
         public bool TryPlaceRestSpot(int x,int y)
         {
-            if(!RestSpotsEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || map.Get(x,y)!=Terrain.Floor || map.RestSpotAt(x,y) || RestSpotSites().Length>=4096)return false;
+            if(!RestSpotsEnabled || !map.Contains(x,y) || !map.CanWalk(x,y) || map.HasFurnitureAt(x,y) || map.Get(x,y)!=Terrain.Floor || map.RestSpotAt(x,y) || RestSpotSites().Length>=4096)return false;
             bool inside=false;foreach(Room room in rooms)if(room.Contains(Key(x,y))){inside=true;break;}if(!inside)return false;
             map.SetRestSpot(x,y);TerrainRevision++;return true;
         }
         public bool TryRemoveRestSpot(int x,int y){if(!RestSpotsEnabled || !map.RemoveRestSpot(x,y))return false;TerrainRevision++;return true;}
         private void PreferRestSpot(ref ActorState actor,Room room,int threat)
         {
+            if(HouseholdActivitiesAvailable)return;
             bool preparingFood=ShouldRestBeforeFood(actor,threat);
             if(!RestSpotsEnabled || actor.turnAtTick!=0 || (actor.hunger>=HungerRules.SeekAt && !preparingFood) || threat>=0 || HasRecentWarning(actor) || HasRecentDoorNoise(actor))return;
             bool assigned=map.RestSpotAt(actor.shelterX,actor.shelterY);

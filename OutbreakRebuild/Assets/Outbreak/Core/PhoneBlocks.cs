@@ -11,7 +11,7 @@ namespace Outbreak.Core
         public bool PhoneAt(int x,int y){return Contains(x,y) && phoneCells.Contains(y*Width+x);}
         public void SetPhone(int x,int y)
         {
-            if(!Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || RestSpotAt(x,y) || WeaponAt(x,y)!=null || phones.Count>=4096)throw new ArgumentException("Phone needs a free indoor floor cell.");phones.Add(y*Width+x,new PhoneBlockDocument{x=x,y=y});phoneCells.Add(y*Width+x);
+            if(HasFurnitureAt(x,y) || !Contains(x,y) || Get(x,y)!=Terrain.Floor || !CanWalk(x,y) || RestSpotAt(x,y) || WeaponAt(x,y)!=null || phones.Count>=4096)throw new ArgumentException("Phone needs a free indoor floor cell.");phones.Add(y*Width+x,new PhoneBlockDocument{x=x,y=y});phoneCells.Add(y*Width+x);
         }
         internal PhoneBlockDocument[] CapturePhones()
         {
@@ -27,7 +27,7 @@ namespace Outbreak.Core
         public PhoneBlockDocument[] PhoneBlocks(){return map.CapturePhones()??new PhoneBlockDocument[0];}
         public bool TryPlacePhone(int x,int y)
         {
-            if(!SupplyRequestsEnabled || HouseAt(x,y)==0 || !map.CanWalk(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || map.HasPhones && PhoneBlocks().Length>=4096)return false;
+            if(map.HasFurnitureAt(x,y) || !SupplyRequestsEnabled || HouseAt(x,y)==0 || !map.CanWalk(x,y) || map.RestSpotAt(x,y) || map.WeaponAt(x,y)!=null || map.HasPhones && PhoneBlocks().Length>=4096)return false;
             for(int i=0;i<count;i++)if((actors[i].x==x && actors[i].y==y) || (actors[i].shelterId!=0 && actors[i].shelterX==x && actors[i].shelterY==y))return false;
             map.SetPhone(x,y);TerrainRevision++;return true;
         }

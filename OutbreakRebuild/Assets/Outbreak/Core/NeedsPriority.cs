@@ -12,7 +12,7 @@ namespace Outbreak.Core
         {
             if(!NeedsPriorityEnabled || !SafeNeedsAction(actor,threat) || ActorRiding(actor.id) || actor.hunger<HungerRules.SeekAt || actor.carriedFood<=0)return false;
             if(FoodExploration && actor.foodExploreRoomId!=0)CancelFoodExploration(index,ref actor);
-            actor.carriedFood--;actor.hunger=System.Math.Max(0,actor.hunger-HungerRules.MealRelief);ClearFoodMemory(ref actor);actors[index]=actor;
+            EatCarriedFood(index,ref actor);
             return true; // Keep shipment claims, quantities, destinations and all remaining physical cargo intact.
         }
         private bool ReleaseUnusableCourierClaim(int index,ref ActorState actor,int threat)
@@ -66,6 +66,7 @@ namespace Outbreak.Core
         }
         private bool TryHomeReturnRest(int index,ref ActorState actor)
         {
+            if(HouseholdActivitiesAvailable)return false;
             if(EnergyRules.Remaining(actor)>RestockRules.ReturnEnergy || IsDoor(actor.x,actor.y) || TerrainRules.RoadSurface(map.Get(actor.x,actor.y)))return false;
             // Short breaks use the existing shopping-break exchange rate, at a safe floor/sidewalk location; no free travel energy.
             actor.energySpent=System.Math.Max(0,actor.energySpent-EnergyRules.RestGain/2);actor.hunger=System.Math.Min(100,actor.hunger+1);actors[index]=actor;return true;

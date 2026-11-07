@@ -91,6 +91,7 @@ namespace Outbreak.Core // Keep human decisions on the simulation clock.
             {
                 actor.stress=Math.Min(100,actor.stress+HumanRules.CloseStressGain);actor.threatPressure=ObservePressure(actor,actors[threatIndex]);actor.reaction=HumanReaction.Flight;actors[index]=actor;return FleeOrShove(index,actor,threatIndex);
             }
+            int householdDirection;if(TryHouseholdRoutine(index,ref actor,threatIndex,out householdDirection))return householdDirection;
             if(TryPriorityMeal(index,ref actor,threatIndex))return 8; // A real carried meal owns one safe action before routine work or return travel.
             int vehicleDirection;if(CourierVehiclesEnabled && TryCourierVehicleRoutine(index,ref actor,threatIndex,out vehicleDirection))return vehicleDirection;
             if(MeleeCombat && TryPickupBat(index,ref actor,threatIndex))return 8;

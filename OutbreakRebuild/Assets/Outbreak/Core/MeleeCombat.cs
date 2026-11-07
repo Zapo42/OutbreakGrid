@@ -28,7 +28,7 @@ namespace Outbreak.Core
         public WeaponPickupDocument WeaponAt(int x,int y){int quantity;return Contains(x,y) && weapons.TryGetValue(y*Width+x,out quantity)?new WeaponPickupDocument{x=x,y=y,weapon=MeleeWeapon.Bat,extraBats=quantity-1,wear=CaptureWear(y*Width+x)}:null;}
         public void SetWeapon(int x,int y,MeleeWeapon weapon)
         {
-            if(weapon!=MeleeWeapon.Bat || !CanWalk(x,y) || Get(x,y)==Terrain.DoorOpen || Get(x,y)==Terrain.DoorClosed || (!weapons.ContainsKey(y*Width+x) && weapons.Count>=MeleeRules.MaxPickups))throw new ArgumentException("A bat needs a walkable, non-door cell and room in the pickup limit.");
+            if(HasFurnitureAt(x,y) || weapon!=MeleeWeapon.Bat || !CanWalk(x,y) || Get(x,y)==Terrain.DoorOpen || Get(x,y)==Terrain.DoorClosed || (!weapons.ContainsKey(y*Width+x) && weapons.Count>=MeleeRules.MaxPickups))throw new ArgumentException("A bat needs a walkable, non-door cell and room in the pickup limit.");
             weapons[y*Width+x]=1;weaponWear.Remove(y*Width+x);
         }
         internal int TakeWeapon(int x,int y)
@@ -74,7 +74,7 @@ namespace Outbreak.Core
         public WeaponPickupDocument[] WeaponSites(){return map.CaptureWeapons()??new WeaponPickupDocument[0];}
         public bool TryPlaceBat(int x,int y)
         {
-            if(!MeleeCombat || !map.CanWalk(x,y) || IsDoor(x,y) || map.WeaponAt(x,y)!=null || WeaponSites().Length>=MeleeRules.MaxPickups || TotalBatCount()>=MeleeRules.MaxBats)return false;
+            if(map.HasFurnitureAt(x,y) || !MeleeCombat || !map.CanWalk(x,y) || IsDoor(x,y) || map.WeaponAt(x,y)!=null || WeaponSites().Length>=MeleeRules.MaxPickups || TotalBatCount()>=MeleeRules.MaxBats)return false;
             map.SetWeapon(x,y,MeleeWeapon.Bat);return true;
         }
         private bool TryPickupBat(int index,ref ActorState actor,int threat)

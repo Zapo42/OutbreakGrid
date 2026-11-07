@@ -32,6 +32,7 @@ namespace Outbreak.Core // Advance recovery and inspection only through authorit
         } // Finish recovery validation.
         private bool TryRestInShelter(int index,ref ActorState actor,Room room,int threatIndex)
         {
+            if(HouseholdActivitiesAvailable)return false; // Typed furniture owns recovery in the household prototype.
             bool recoverEnergy=EnergyEnabled && actor.energySpent>0 && actor.nextShoveTick==0 && actor.nextMeleeTick==0;
             if(actor.health<=0 || (actor.health>=100 && !recoverEnergy) || actor.turnAtTick!=0 || actor.stress!=0 || (actor.hunger>=HungerRules.SeekAt && !ShouldRestBeforeFood(actor,threatIndex)) || threatIndex>=0 || HasRecentDoorNoise(actor) || HasRecentWarning(actor) || actor.shelterState!=ShelterState.Inside || actor.x!=actor.shelterX || actor.y!=actor.shelterY || !room.Contains(Key(actor.x,actor.y)))return false;
             // Waiting on an empty pantry may restore energy at the normal hunger cost, but must not heal health.
