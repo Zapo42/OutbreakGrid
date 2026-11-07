@@ -2,6 +2,10 @@
 
 Open **index.html** after extracting the pack. It contains nine district types at two seeds each, and two connected mixed-city examples: **20 generated maps** in total. Use **Load Map** for the `.obmap2` files in `maps/`. Complete recipes and parcel metadata accompany every map.
 
+## In-game seeded generation
+
+**Set Up Generated City** now defaults to City packs. Mixed and all nine district themes seed native generation using the catalogue calibration and the actual compact/spacious house/store/DC room templates. Choose a seed and dimensions, then start paused. Classic remains selectable; existing maps and Python recipe replay are unchanged. This is a versioned native adaptation with existing Home/Store/DC gameplay, not a byte-identical Python generator port or playable upper floors. [Runtime sources, attribution, controls and limits](../../Docs/CITY_PACK_GENERATION.md).
+
 ## New real-world survey references
 
 Five bounded OpenStreetMap surveys were retrieved through the official Overpass API. Their geometry, bounding boxes, projections, raw-response SHA256, processing time, OSM base timestamp and attribution are saved in `../atlas/`. These are sample windows, not official administrative district boundaries or complete cities.

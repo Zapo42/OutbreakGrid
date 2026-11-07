@@ -1,0 +1,18 @@
+{
+  "theme": "SuburbanGrid",
+  "seed": 214,
+  "ticks": 2400,
+  "initialFood": 56,
+  "remainingFood": 46,
+  "eaten": 10,
+  "minHealth": 100,
+  "movementSteps": 799,
+  "publicDoorOpenAtEnd": true,
+  "internalDoorOpenAtEnd": true,
+  "creditedMeals": 2,
+  "completedOrders": 0,
+  "exactReplaySteps": 2400,
+  "sourceSha256": "d119bea4e2c002eb7d21c1f4693095cc79c609dd394dcd9f63169c36fe2de043",
+  "finalSha256": "6C84B870F5AA0565C39B887715564755CEF61688733DD9961EA4E2A3E72AB471",
+  "nativeUnity": "NOT RUN \u2014 paused"
+}

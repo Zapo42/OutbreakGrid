@@ -1,0 +1,18 @@
+{
+  "theme": "BusinessCore",
+  "seed": 214,
+  "ticks": 2400,
+  "initialFood": 56,
+  "remainingFood": 46,
+  "eaten": 10,
+  "minHealth": 100,
+  "movementSteps": 830,
+  "publicDoorOpenAtEnd": false,
+  "internalDoorOpenAtEnd": true,
+  "creditedMeals": 3,
+  "completedOrders": 0,
+  "exactReplaySteps": 2400,
+  "sourceSha256": "d119bea4e2c002eb7d21c1f4693095cc79c609dd394dcd9f63169c36fe2de043",
+  "finalSha256": "A01E0038A092619472F4492E78E44B2B1CF038064D6D0E02339DD414BF7BB6E6",
+  "nativeUnity": "NOT RUN \u2014 paused"
+}

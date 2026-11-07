@@ -1,0 +1,9 @@
+# CITY-PACK-18 evidence
+
+Baseline c7a9915. Source/template provenance is in OutbreakRebuild/CityReferences/runtime/manifest.json. Final checks use the documented sequential unified runner plus export_runtime_city_packs.py --check, the portable harness/diagnostics/citypack18 observer and the existing upgrade UI harness. No original Python recipe/generator logic or snapshots changed.
+
+The six new acceptance cases include90geometry configurations (10themes including Mixed ×3seeds ×3densities),30populated configuration/replay checks and an expanded city against existing room/floor bounds. Tests retain all Classic assertions and frozen older continuations; legacy UI cases explicitly select Classic. Same seed/settings/source repeats exact initial worlds and source metadata; different seeds vary terrain. Public/service door paths, graph connectivity, parcel gaps/setbacks, template walls/doors, room access, stocks, jobs and real summaries are checked.
+
+SUMMARY.json records final counts, source hashes, fixed pre-final failures and exact trial results. The three examples contain actual generated initial.obsave files usable with Load Run, plus geometry SVGs and trial results. SVGs were produced from production terrain, not native Unity rendering; the Mixed sheet was rasterized and visually inspected. Source calibration attribution: © OpenStreetMap contributors, ODbL1.0; see OutbreakRebuild/CityReferences/NOTICE.md.
+
+Four-hour trials retain100minimum health, exactly account for56initial food as46remaining+10consumed and replay2400ticks each. Credited deliveries are3/2/3, with zero completed orders. End-of-trial door flags describe final door state, not whether a door was ever used. These observations establish physical integration, not solved supply throughput or future survival. Native Unity compilation/render/input/dialogs/player remain NOT RUN; no EXE.

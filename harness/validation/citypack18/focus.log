@@ -1,0 +1,6 @@
+PASS Runtime city packs retain nine calibrated themes and all24 validated building template rotations
+PASS City-pack setups reject invalid inputs and physical-room overflow before generation
+PASS Pack lots keep exact room templates physical spacing and connected sidewalks across themes seeds and densities
+PASS Pack generation repeats exact seeds varies geometry and preserves source metadata after saving
+PASS All city-pack themes create separately housed staff with finite seeded food and exact summaries
+PASS Expanded packed cities fit the existing256-room and finite-floor contracts
