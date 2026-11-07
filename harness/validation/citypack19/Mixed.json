@@ -1,0 +1,18 @@
+{
+  "theme": "Mixed",
+  "seed": 214,
+  "ticks": 2400,
+  "initialFood": 56,
+  "remainingFood": 46,
+  "eaten": 10,
+  "minHealth": 100,
+  "movementSteps": 750,
+  "publicDoorOpenAtEnd": false,
+  "internalDoorOpenAtEnd": true,
+  "creditedMeals": 2,
+  "completedOrders": 0,
+  "exactReplaySteps": 2400,
+  "sourceSha256": "5542120f32c1275360b9bc057ff767d4b2f9fbb6bcf43e887f71d287ba7c5da7",
+  "finalSha256": "04E3C3055D585FFBB80164CA33CF5B5385570E5FDC4755E664D79AE1D4325686",
+  "nativeUnity": "NOT RUN \u2014 paused"
+}

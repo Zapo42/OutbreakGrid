@@ -1,6 +1,6 @@
 {
-  "runtime_version": "city-pack-runtime-1",
-  "source_sha256": "d119bea4e2c002eb7d21c1f4693095cc79c609dd394dcd9f63169c36fe2de043",
+  "runtime_version": "city-pack-runtime-2",
+  "source_sha256": "5542120f32c1275360b9bc057ff767d4b2f9fbb6bcf43e887f71d287ba7c5da7",
   "sources": {
     "CityReferences/atlas/chicago-loop.profile.json": "1ffdc8db703eefd0efb2373903336f67c2dc7462187012567a229b0eb5527d66",
     "CityReferences/atlas/midtown-manhattan.profile.json": "09658ed3416d02ccb49de566bfd63a501e3d92f84defa9aa9fc3870cd92e2f6d",
@@ -9,13 +9,13 @@
     "CityReferences/atlas/prague-bubenec.profile.json": "7c1982ff6feee68e61742cc409e5c15b276d25e3d5936d127eba8cec930c0336",
     "CityReferences/atlas/woodbridge-suburb.profile.json": "3390346f13c43ec24afca3782c698109bfe64aefafeb6c17b31dbe7b4f1f1905",
     "CityReferences/district_catalogue.json": "d1eea7be50ef3a635e3ba6c113126a2dbaa863bbb565548431dcba0f8ec41deb",
-    "Tools/export_runtime_city_packs.py": "642115258a7a58e171d750c31a2a81c86365582cdc9faf10e0408edfda26ec30",
+    "Tools/export_runtime_city_packs.py": "62016ab41828bdc65ec3d82b60a1667540b12fe672f011baa5a0664a609480eb",
     "Tools/generate_district_city.py": "3bd6df74d20a241480e9996aef067448a3cd6cc75a7c04d219523a209a10d5b0",
     "Tools/generate_reference_city.py": "84b26e99a62d0266224e29799ee78b5a3a11c1cf13d60a1fd067e75008a048ae",
     "Tools/generate_seeded_city.py": "a62c0b50cd12b3bbf2d41a6ad19104cc31d42aed454ec469a9b8b07e28b443b4"
   },
   "output": "Assets/Outbreak/Core/CityPackData.cs",
-  "output_sha256": "e93034d2140f7683384db98a9e2fdb037e498ed25e5b70081ecd2a2048a7a4dd",
+  "output_sha256": "552cde9fd9b97e8148211198b9c1dd4662eac2b20118b102c641747205036fbb",
   "districts": [
     "dense-urban",
     "urban-apartments",

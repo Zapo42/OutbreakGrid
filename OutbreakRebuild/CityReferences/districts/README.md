@@ -4,7 +4,7 @@ Open **index.html** after extracting the pack. It contains nine district types a
 
 ## In-game seeded generation
 
-**Set Up Generated City** now defaults to City packs. Mixed and all nine district themes seed native generation using the catalogue calibration and the actual compact/spacious house/store/DC room templates. Choose a seed and dimensions, then start paused. Classic remains selectable; existing maps and Python recipe replay are unchanged. This is a versioned native adaptation with existing Home/Store/DC gameplay, not a byte-identical Python generator port or playable upper floors. [Runtime sources, attribution, controls and limits](../../Docs/CITY_PACK_GENERATION.md).
+**Set Up Generated City** now defaults to City packs. Mixed and all nine district themes seed native generation using the catalogue calibration and the actual compact/spacious house/store/DC room templates. Choose an explicit named theme (including Mixed), a seed and dimensions, then start paused. Runtime2 uses a connected staggered branching network and visible bed rest markers, with food/rest station focus controls. Classic remains selectable; existing maps and Python recipe replay are unchanged. This is a versioned native adaptation with existing Home/Store/DC gameplay, not a byte-identical Python generator port or playable upper floors. [Runtime sources, attribution, controls and limits](../../Docs/CITY_PACK_GENERATION.md).
 
 ## New real-world survey references
 

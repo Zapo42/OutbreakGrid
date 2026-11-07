@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using Outbreak.Core;
+using Outbreak.Contracts;
 using UnityEngine;
 namespace Outbreak.UnityAdapter
 {
@@ -13,6 +14,19 @@ namespace Outbreak.UnityAdapter
         private CityPackTheme cityPackTheme=CityPackTheme.Mixed;
         private bool showCitySetup,cityStartPaused=true;
         private string citySeedInput="214",cityColumnsInput="4",cityRowsInput="2";
+        private int packFoodCursor,packRestCursor;
+        private void DrawCityPackStations()
+        {
+            var boxes=world.StorageBoxSites();var shelves=world.ShelfSites();var rest=Array.FindAll(world.RestSpotSites(),s=>!s.area);
+            GUILayout.Label("Food stations: "+boxes.Length+" storage, "+shelves.Length+" shelves | Rest stations: "+rest.Length);
+            if(boxes.Length+shelves.Length>0 && GUILayout.Button("Find food station"))Queue(()=>{
+                int pick=packFoodCursor++%(boxes.Length+shelves.Length);
+                if(pick<boxes.Length){var box=boxes[pick];FocusSupplyBox(box.y*world.Width+box.x+1);}
+                else{var shelf=shelves[pick-boxes.Length];SetPaused(true);selected=-1;selectedStorageBox=0;selectedPhone=0;selectedBatCell=-1;selectedShelf=shelf.y*world.Width+shelf.x+1;centerX=shelf.x+0.5f;centerY=shelf.y+0.5f;span=16;textureX=-1;sections["Selected item"]=true;}
+            });
+            if(rest.Length>0 && GUILayout.Button("Find rest station"))Queue(()=>{var spot=rest[packRestCursor++%rest.Length];SetPaused(true);centerX=spot.x+0.5f;centerY=spot.y+0.5f;span=16;textureX=-1;status="Rest station at "+spot.x+", "+spot.y+". Bed markers identify usable recovery places.";});
+            if(GUILayout.Button("City overview"))Queue(()=>{centerX=world.Width/2f;centerY=world.Height/2f;span=Math.Max(world.Width,world.Height*Math.Max(64,Screen.width-300)/(float)Math.Max(64,Screen.height-184))+2;textureX=-1;});
+        }
         private void DrawCitySetup()
         {
             GUI.color=new Color(0.07f,0.08f,0.1f);GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),Texture2D.whiteTexture);GUI.color=Color.white;
@@ -20,7 +34,11 @@ namespace Outbreak.UnityAdapter
             GUILayout.BeginArea(new Rect((Screen.width-width)/2,(Screen.height-height)/2,width,height),GUI.skin.box);menuScroll=GUILayout.BeginScrollView(menuScroll);
             GUILayout.Label("SET UP GENERATED CITY");GUILayout.Label(BuildLabel);
             if(GUILayout.Button("City source: "+(cityUsePacks?"City packs":"Classic")))Queue(()=>{cityUsePacks=!cityUsePacks;cityHomesPerBlock=cityUsePacks?2:1;});
-            if(cityUsePacks && GUILayout.Button("City pack: "+CityPackSetup.ThemeName(cityPackTheme)))Queue(()=>{cityPackTheme=cityPackTheme==CityPackTheme.RetailCorridor?CityPackTheme.Mixed:cityPackTheme+1;});
+            if(cityUsePacks){
+                GUILayout.Label("City pack: "+CityPackSetup.ThemeName(cityPackTheme));
+                string[] names={"Mixed","Dense urban","Urban apartments","Terrace residential","Garden suburb","Cul-de-sac suburb","Suburban grid","Business core","Business campus","Retail corridor"};
+                for(int row=0;row<4;row++){GUILayout.BeginHorizontal();for(int col=0;col<3;col++){int index=row*3+col;if(index>=names.Length)break;CityPackTheme choice=(CityPackTheme)index;if(GUILayout.Button(names[index]))Queue(()=>cityPackTheme=choice);}GUILayout.EndHorizontal();}
+            }
             if(GUILayout.Button("Small city (2 x 2 blocks)"))Queue(()=>{cityColumnsInput="2";cityRowsInput="2";});
             if(GUILayout.Button("Standard city (4 x 2 blocks)"))Queue(()=>{cityColumnsInput="4";cityRowsInput="2";});
             int largeRows=cityHomesPerBlock>=3?3:cityHomesPerBlock==2?5:6;
@@ -53,7 +71,8 @@ namespace Outbreak.UnityAdapter
             if(GUILayout.Button("Start generated city"))
             {
                 bool paused=cityStartPaused,usePacks=cityUsePacks;CityPackTheme theme=cityPackTheme;int density=cityHomesPerBlock;CityStreetLayout layout=cityStreetLayout;CityZoning zoning=cityZoning;
-                Queue(()=>StartScenario(()=>{World candidate=usePacks?CityPackSetup.Create(seed,columns,rows,density,theme):CitySetup.Create(seed,columns,rows,density,layout,zoning);UseWorld(candidate);span=Math.Max(candidate.Width,candidate.Height);selected=0;showStores=true;showCenters=true;SetPaused(paused);status="Generated city ("+(usePacks?CityPackSetup.ThemeName(theme):layout.ToString())+"): seed "+seed+", "+columns+" x "+rows+" blocks. "+(paused?"Paused: Run or step to begin.":"Running.");}));
+                Queue(()=>StartScenario(()=>{World candidate=usePacks?CityPackSetup.Create(seed,columns,rows,density,theme):CitySetup.Create(seed,columns,rows,density,layout,zoning);UseWorld(candidate);span=Math.Max(candidate.Width,candidate.Height);selected=0;
+                    if(usePacks){for(int i=0;i<world.Count;i++)if(world.Occupation(i)==HumanOccupation.Consumer){selected=i;break;}span=32;centerX=world.ActorAt(selected).x+0.5f;centerY=world.ActorAt(selected).y+0.5f;sections["Generated city stations"]=true;packFoodCursor=0;packRestCursor=0;}showStores=true;showCenters=true;SetPaused(paused);status="Generated city ("+(usePacks?CityPackSetup.ThemeName(theme):layout.ToString())+"): seed "+seed+", "+columns+" x "+rows+" blocks. "+(paused?"Paused: Run or step to begin.":"Running.");}));
             }
             GUI.enabled=true;
             if(GUILayout.Button("Back to Main Menu"))Queue(()=>{showCitySetup=false;menuScroll=new Vector2();});

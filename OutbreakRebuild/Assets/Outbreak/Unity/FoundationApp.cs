@@ -9,7 +9,7 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
 { // Begin the temporary foundation inspection shell.
     public sealed partial class FoundationApp : MonoBehaviour // Render a minimal movement test before rebuilding the full product interface.
     { // Begin application presentation state.
-        public const string BuildLabel = "Household furniture and needs / rules 114"; // Identify the actual source revision in native screenshots and diagnostics.
+        public const string BuildLabel = "City packs 19 / rules 114"; // Identify the actual source revision in native screenshots and diagnostics.
         private World world; private TickClock clock; private ActorState[] previous; private Texture2D terrain; private Color[] terrainPixels; // Own presentation caches independently from the simulation.
         private WeaponPresentation[] weaponMotion;
         private int[] pausedWalkFrames; // Freeze only the foot pose on pause; never serialize presentation state.
@@ -759,7 +759,9 @@ namespace Outbreak.UnityAdapter // Keep screen and platform behavior out of auth
             DrawDoorCrossings(bounds,left,top,width,height,cell);
             DrawHouseholdFurniture(bounds,left,top,width,height,cell);
             foreach(RestSpotDocument spot in world.RestSpotSites()){if(spot.area)continue; // Recovery areas use room space rather than bed furniture.
-                if(spot.x<left || spot.y<top || spot.x>=left+width || spot.y>=top+height)continue;float bedX=bounds.x+(spot.x-left)*cell,bedY=bounds.y+(spot.y-top)*cell;GUI.color=new Color(0.38f,0.30f,0.23f);GUI.DrawTexture(new Rect(bedX+cell*0.1f,bedY+cell*0.08f,cell*0.8f,cell*0.84f),Texture2D.whiteTexture);GUI.color=new Color(0.28f,0.58f,0.62f);GUI.DrawTexture(new Rect(bedX+cell*0.16f,bedY+cell*0.16f,cell*0.68f,cell*0.68f),Texture2D.whiteTexture);GUI.color=new Color(0.86f,0.87f,0.82f);GUI.DrawTexture(new Rect(bedX+cell*0.22f,bedY+cell*0.19f,cell*0.56f,cell*0.2f),Texture2D.whiteTexture);}
+                if(spot.x<left || spot.y<top || spot.x>=left+width || spot.y>=top+height)continue;
+                if(world.Name.StartsWith("City pack:",StringComparison.Ordinal)){HouseholdFurniturePresentation.Draw(new Rect(bounds.x+(spot.x-left)*cell,bounds.y+(spot.y-top)*cell,cell,cell),new HouseholdFurnitureDocument{kind=HouseholdFurnitureKind.Bed});continue;}
+                float bedX=bounds.x+(spot.x-left)*cell,bedY=bounds.y+(spot.y-top)*cell;GUI.color=new Color(0.38f,0.30f,0.23f);GUI.DrawTexture(new Rect(bedX+cell*0.1f,bedY+cell*0.08f,cell*0.8f,cell*0.84f),Texture2D.whiteTexture);GUI.color=new Color(0.28f,0.58f,0.62f);GUI.DrawTexture(new Rect(bedX+cell*0.16f,bedY+cell*0.16f,cell*0.68f,cell*0.68f),Texture2D.whiteTexture);GUI.color=new Color(0.86f,0.87f,0.82f);GUI.DrawTexture(new Rect(bedX+cell*0.22f,bedY+cell*0.19f,cell*0.56f,cell*0.2f),Texture2D.whiteTexture);}
             foreach(StorageBoxDocument box in world.StorageBoxSites())
             {
                 if(box.x<left || box.y<top || box.x>=left+width || box.y>=top+height)continue;

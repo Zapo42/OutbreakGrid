@@ -5,7 +5,7 @@ internal sealed class PackProfile { internal string Id,Name; internal int Width,
 internal sealed class PackFixture { internal string Role; internal int[] Cells; internal PackFixture(string role,int[] cells){Role=role;Cells=cells;} }
 internal sealed class PackBlueprint { internal BuildingUse Use; internal string Id; internal int Width,Height; internal int[] Walls,Doors,External,Anchors,Phone; internal string[] RoomIds,Roles; internal PackFixture[] Fixtures; internal PackBlueprint(BuildingUse use,string id,int w,int h,int[] walls,int[] doors,int[] external,int[] anchors,string[] roomIds,string[] roles,int[] phone,PackFixture[] fixtures){Use=use;Id=id;Width=w;Height=h;Walls=walls;Doors=doors;External=external;Anchors=anchors;RoomIds=roomIds;Roles=roles;Phone=phone;Fixtures=fixtures;} }
 internal static class CityPackData {
-internal const string SourceHash="d119bea4e2c002eb7d21c1f4693095cc79c609dd394dcd9f63169c36fe2de043", Version="city-pack-runtime-1", LayoutVersion="building-layouts-draft-1";
+internal const string SourceHash="5542120f32c1275360b9bc057ff767d4b2f9fbb6bcf43e887f71d287ba7c5da7", Version="city-pack-runtime-2", LayoutVersion="building-layouts-draft-1";
 internal static readonly PackProfile[] Profiles=new PackProfile[]{
 new PackProfile("dense-urban","Dense urban core",48,24,2,0,100,1000,0,30,2,1,51),
 new PackProfile("urban-apartments","Urban apartment district",26,24,2,0,120,1000,0,80,2,1,76),

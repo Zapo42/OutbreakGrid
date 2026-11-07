@@ -31,6 +31,7 @@ namespace Outbreak.UnityAdapter
             string identity=selected>=0 && selected<world.Count?"actor:"+world.ActorAt(selected).id:selectedStorageBox>0?"box:"+selectedStorageBox:selectedShelf>0?"shelf:"+selectedShelf:selectedPhone>0?"phone:"+selectedPhone:selectedBatCell>=0?"weapon:"+selectedBatCell:VehicleSelected?"vehicle:"+world.VehicleAtIndex(selectedVehicle).id:"none";
             if(identity!=inspectorIdentity){inspectorIdentity=identity;sections["Selected item"]=true;sections["Vitals & needs"]=true;inspectorScroll=new Vector2();}
             if(Section("Selected item",true))DrawClickedItem();
+            if(world.Name.StartsWith("City pack:",StringComparison.Ordinal) && Section("Generated city stations",true))DrawCityPackStations();
             if(selected>=0 && selected<world.Count)
             {
                 if(Section("Vitals & needs",true))DrawSelectedVitals();
